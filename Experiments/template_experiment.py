@@ -1,5 +1,5 @@
 """READ ME: All experiments must start with a few sentence readme giving a summation of what the experiment is."""
-from Instruments.network_manager import NetworkManager
+from network_manager import NetworkManager
 from Instruments.oscilloscope_rigol import Oscilloscope
 from Instruments.oscilloscope_helper import OscilloscopeHelper
 from Instruments.spectrum_analyzer_signal_hound import SignalHound
