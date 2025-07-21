@@ -5,8 +5,8 @@ from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
 from EInstrument import EInstrument
 
 class NetworkManager:
-    def __init__(self):
-        pass
+    def __init__(self, rm = pyvisa.ResourceManager()):
+        self.rm = rm
 
 
     def create_instrument(self, name, instrument):
@@ -31,8 +31,7 @@ class NetworkManager:
         params: instrument_list: list - list of instrument Enum names to connect to.
         Returns: list of instrument objects"""
 
-        rm = pyvisa.ResourceManager()
-        resources = rm.list_resources()
+        resources = self.rm.list_resources()
         
         with open('noninstrumentPorts.json', 'r') as f:
             data = json.load(f) 
@@ -45,21 +44,25 @@ class NetworkManager:
         with open('instrumentPorts.json', 'r') as f:
             instrumentPorts = json.load(f) 
         for port in unknown_resources:
-            print("Port: "+str(port))
-            
-            inst = rm.open_resource(port, read_termination = '\n')
+            #print("Port: "+str(port))
+            inst = self.rm.open_resource(port, read_termination = '\n')
             id = inst.query('*IDN?')
             
-            if id in instrumentPorts.keys() and EInstrument(instrumentPorts[id]).name in instrument_list:
+            if id in instrumentPorts.keys() and (instrument_list == [] or EInstrument(instrumentPorts[id]) in instrument_list):
                 print("To create instrument: "+ str(instrumentPorts[id]))
                 instruments.append(self.create_instrument(instrumentPorts[id],inst))
         return instruments
 
     def connect_oscilloscope(self) -> Oscilloscope:
-        return self.connect_instruments([EInstrument.OSCILLOSCOPE])
+        return self.connect_instruments([EInstrument.OSCILLOSCOPE])[0]
             
     def connect_spectrum_analyzer(self) -> SpectrumAnalyzer:
-        return self.connect_instruments([EInstrument.SPECTRUM_ANALYZER])
+        insts = self.connect_instruments([EInstrument.SPECTRUM_ANALYZER])
+        if insts == []:
+            print("Spectrum Analyzer not found on network. Please troubleshoot the connection.")
+            return None
+        else:
+            return insts[0]
             
            
     def disconnect(self, instruments):
@@ -71,4 +74,5 @@ class NetworkManager:
         
         #cleans up all instrument objects from memory
         del instruments
+        self.rm.close()
             

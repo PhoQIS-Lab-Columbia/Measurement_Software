@@ -5,15 +5,13 @@ from EFileType import EFileType
 from Instruments import Instrument
 import pyvisa
 from EInstrument import EInstrument
-class Oscilloscope(Instrument.Mandatory):
+from PIL import Image
+class Oscilloscope(Instrument.Instrument):
 
     def __init__(self, instru):
+        super().__init__(instru)
         self.name = EInstrument.OSCILLOSCOPE
-        self.instrument = instru
         
-    #Mandatory Commands
-    #TODO Add nonimplemented 
-    #General
     def autoscale(self):
         """Enable the waveform auto setting function. The oscilloscope will automatically adjust the
 vertical scale, horizontal timebase, and trigger mode according to the input signal to
@@ -25,7 +23,12 @@ realize optimum waveform display"""
 will still be displayed."""
         self.instrument.write(":CLE")
         #instrument.clear_display_window_graphics()
-
+    def run(self):
+        """Start collecting measurements."""
+        self.instrument.write(":RUN")
+    def stop(self):
+        """Stop collecting measurements."""
+        self.instrument.write(":STOP")
  #Acquisition Commands
     def set_acquistion_mode(self, mode):
         """Set acquisition mode. Normal:  Samples the signal at equal time interval to
@@ -1873,7 +1876,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
             # self.instrument.timeout = 5000 # Example: 5 seconds timeout
             data = self.instrument.query(command)
             self.instrument.timeout = 2000 # Reset to default if needed
-            return self.data_handler.bytes_to_image(data, self.default_save_path+"/"+filename,fmt, "TMC")  # Convert bytes to image format
+            return self.data_handler.bytes_to_image(data, self.default_save_path+"/"+filename,fmt, "TMC"), data  # Convert bytes to image format
         except pyvisa.errors.VisaIOError as e:
             print(f"VISA IO Error while getting display data: {e}")
             print("Consider increasing the instrument's timeout.")
@@ -7176,7 +7179,6 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
     def set_waveform_format(self, fmt):
         """
         Set the return format of the waveform data.
-
         Parameters:
         fmt (str): The format, one of {"WORD", "BYTE", "ASCII"}.
                    WORD: 16 bits per point (lower 8 valid, higher 8 are 0).

@@ -1,11 +1,14 @@
 from data_handler import DataHandler
-class Mandatory():
+from EFileType import EFileType
+from PIL import Image
+
+class Instrument():
     def __init__(self, instrument):
         self.instrument = instrument
         self.default_save_path = "~/Measurement_Software/Experiments/Outputs"        
         self.save_path = self.default_save_path
         self.auto_save = False
-        self.name = "Mandatory"
+        self.name = "GenericInstrument"
         self.data_handler = DataHandler(format='csv')  # Default format set to JSON
 
     def disconnect(self):
@@ -56,7 +59,7 @@ class Mandatory():
         self.auto_save = False
         print("Auto-saving disabled.")
 
-    def save_data(self, data, filename, format ='json'):
+    def save_data(self, data, filepath, format ='json'):
         """
         Save data to a file in the specified save path.
         
@@ -64,8 +67,7 @@ class Mandatory():
         data (dict): The data to be saved.
         filename (str): The name of the file to save the data in.
         """
-        #TODO: Check data formatting assumptions
-        x = 0
+        self.data_handler.write_to_file(filepath, response, EFileType.CSV, header)
 
     def clear_event_registers(self):
         """

@@ -1,7 +1,7 @@
 from Instruments import Instrument
 import time
 from EInstrument import EInstrument
-class SpectrumAnalyzer(Instrument.Mandatory):
+class SpectrumAnalyzer(Instrument.Instrument):
     def __init__(self, device):
        #TODO Add in 
        self.instrument = device
