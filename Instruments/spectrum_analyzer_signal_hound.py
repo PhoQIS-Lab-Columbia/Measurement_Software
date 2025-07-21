@@ -1,4 +1,4 @@
-from Instruments.SCPICommandTree import Instrument
+from Instruments import Instrument
 import time
 from EInstrument import EInstrument
 class SpectrumAnalyzer(Instrument.Mandatory):

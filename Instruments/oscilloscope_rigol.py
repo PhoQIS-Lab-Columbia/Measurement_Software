@@ -2,7 +2,7 @@
 from time import sleep
 from time import sleep
 from EFileType import EFileType
-from Instruments.SCPICommandTree import Instrument
+from Instruments import Instrument
 import pyvisa
 from EInstrument import EInstrument
 class Oscilloscope(Instrument.Mandatory):

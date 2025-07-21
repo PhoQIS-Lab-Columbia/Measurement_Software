@@ -1,4 +1,4 @@
-from Instruments.SCPICommandTree import Instrument
+from Instruments import Instrument
 import pyvisa
 
 class Instrument(Instrument.Mandatory):
