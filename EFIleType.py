@@ -4,3 +4,4 @@ class EFileType(Enum):
     CSV = ".csv"
     TXT = ".txt"
     JSON = ".json"
+    BIN = ".bin"
