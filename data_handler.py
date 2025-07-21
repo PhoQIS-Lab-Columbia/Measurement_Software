@@ -1,12 +1,14 @@
 import json
 import csv
 import os
+import PIL
 from EFIleType import EFileType
 class DataHandler():
     def __init__(self, format):
         self.writer = None
         self.reader = None
         self.format = EFileType.CSV
+    def bytes_to_image(self, bytes, format):
 
     def set_default_file_type(self, format):
         """"Sets default file type for reading and writing files."""

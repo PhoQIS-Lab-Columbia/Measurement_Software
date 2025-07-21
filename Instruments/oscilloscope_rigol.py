@@ -1857,7 +1857,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
                 print(f"Invalid format: {fmt}. Using default.")
                 command_parts = [] # Reset to use default if format is invalid
 
-        command = ":DATA?"
+        command = ":DISPlay:DATA?"
         if command_parts:
             command += " " + ",".join(command_parts)
 
