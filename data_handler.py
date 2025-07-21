@@ -1,15 +1,31 @@
 import json
 import csv
 import os
-import PIL
-from EFIleType import EFileType
+import io
+from PIL import Image
+from EFileType import EFileType
 class DataHandler():
     def __init__(self, format):
         self.writer = None
         self.reader = None
         self.format = EFileType.CSV
-    def bytes_to_image(self, bytes, format):
+    def remove_tmc_header(self, bytes):
+        """Removes TMC header from image bytes"""
+        #First byte is #, ignore
+        size_count = int.from_bytes(bytes[1])
+        return bytes[2+size_count:]
 
+    def bytes_to_image(self, bytes, image_name = "Image", format="PNG", header = None):
+        """Converts bytes to image object"""
+        if header is not None:
+            if header == "TMC":
+                #Remove TMC header if present
+                bytes = self.remove_image_tmc_header(bytes)
+
+        image = Image.open(io.BytesIO(bytes))
+        im = image.save(f"{image_name}.{format.lower()}")
+        return im, bytes
+    
     def set_default_file_type(self, format):
         """"Sets default file type for reading and writing files."""
         if type(format) is str:
@@ -17,16 +33,24 @@ class DataHandler():
         self.format = format
         #TODO Change readers and writers
     
-    def read_file(self, file_path):
+    def read_file(self, file_path, format = None):
         """Reads file and returns data"""
-        if self.format == EFileType.CSV:
+        fmt = self.format
+        if format is not None:  
+            fmt = format
+        if fmt == EFileType.CSV:
             with open(file_path, mode='r', newline='') as csvfile:
                 self.reader = csv.reader(csvfile)
                 return list(self.reader)
-        elif self.format == EFileType.JSON:
+        elif fmt == EFileType.JSON:
             with open(file_path, 'r') as jsonfile:
                 return json.load(jsonfile)
-        
+        elif fmt == EFileType.TXT:
+            with open(file_path, 'r') as txtfile:
+                return txtfile.readlines()
+        elif fmt == EFileType.BIN:  
+            with open(file_path, 'rb') as binfile:
+                return binfile.read()
         else:
             raise ValueError(f"Unsupported file format: {self.format}")
         
@@ -79,5 +103,13 @@ class DataHandler():
                         txtfile.write(f"{key}: {value}\n")
                 else:
                     raise ValueError("Data must be a list or dictionary for TXT format.")
+        elif format == EFileType.BIN:   
+            with open(file_path, 'wb') as binfile:
+                if isinstance(data, bytes):
+                    binfile.write(data)
+                elif isinstance(data, bytearray):
+                    binfile.write(bytes(data))
+                else:
+                    raise ValueError("Data must be bytes or bytearray for BIN format.")
         else:
             raise ValueError(f"Unsupported file format: {self.format}")

@@ -1,3 +1,4 @@
+from data_handler import DataHandler
 class Mandatory():
     def __init__(self, instrument):
         self.instrument = instrument
@@ -5,6 +6,7 @@ class Mandatory():
         self.save_path = self.default_save_path
         self.auto_save = False
         self.name = "Mandatory"
+        self.data_handler = DataHandler(format='csv')  # Default format set to JSON
 
     def disconnect(self):
         """Disconnect from instrument and shut down all data reading and controls."""

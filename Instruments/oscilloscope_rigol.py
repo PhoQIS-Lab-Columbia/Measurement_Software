@@ -1,7 +1,8 @@
 
 from time import sleep
 from time import sleep
-from Instruments.SCPICommandTree import Instrument
+from EFileType import EFileType
+from Instruments import Instrument
 import pyvisa
 from EInstrument import EInstrument
 class Oscilloscope(Instrument.Mandatory):
@@ -1830,7 +1831,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(":DISPlay:CLEar")
 
-    def get_display_data(self, color=None, invert=None, fmt=None):
+    def get_display_data(self, filename = "osc_display_data",color=None, invert=None, fmt=None):
         """
         Read the data stream of the image currently displayed on the screen.
         Optionally set the color, invert display, and format of the image acquired.
@@ -1841,6 +1842,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         fmt (str, optional): Image format, one of {"BMP24", "BMP8", "PNG", "JPEG", "TIFF"}. Default is BMP24.
 
         Returns:
+        Image: An image object containing the display data.
         bytes: The raw image data stream, including the TMC Blockheader.
                The user needs to handle parsing this data (remove TMC header).
         """
@@ -1869,9 +1871,9 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         try:
             # It's crucial to set a proper timeout for large binary transfers
             # self.instrument.timeout = 5000 # Example: 5 seconds timeout
-            data = self.instrument.query_binary_values(command, datatype='B', container=bytes)
-            # self.instrument.timeout = 2000 # Reset to default if needed
-            return data
+            data = self.instrument.query(command)
+            self.instrument.timeout = 2000 # Reset to default if needed
+            return self.data_handler.bytes_to_image(data, self.default_save_path+"/"+filename,fmt, "TMC")  # Convert bytes to image format
         except pyvisa.errors.VisaIOError as e:
             print(f"VISA IO Error while getting display data: {e}")
             print("Consider increasing the instrument's timeout.")
@@ -2223,12 +2225,12 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
 
         Returns:
         bytes: The raw event table data, including the TMC data description header.
-               The user needs to handle parsing this data (remove TMC header).
+               
         """
         if n in [1, 2]:
             try:
                 # Use query_binary_values to read the event table data
-                data = self.instrument.query_binary_values(f":ETABle{n}:DATA?", datatype='B', container=bytes)
+                data = self.instrument.query(f":ETABle{n}:DATA?")
                 return data
             except pyvisa.errors.VisaIOError as e:
                 print(f"VISA IO Error while getting event table data: {e}")
@@ -4591,12 +4593,13 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":SYSTem:RAM?")
         return int(response.strip())
 
-    def set_system_setup(self, setup_stream):
+    def set_system_setup(self, setup_stream, use_file = False):
         """
         Import the setting parameters of the oscilloscope to restore the oscilloscope to the specified setting.
-        The `setup_stream` must be a value previously acquired from `get_system_setup()`.
+        The `setup_stream` must be a value previously acquired from `get_system_setup()`. Or the path to a file contianing the set up.
 
         Parameters:
+        use_file: True if reading setup bytes from file
         setup_stream (bytes): The binary setup data stream, including the TMC header.
         """
         if isinstance(setup_stream, bytes):
@@ -4608,26 +4611,33 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
             # This is a complex command, and direct string conversion might not work for binary data.
             # A more robust solution might involve sending raw bytes.
             try:
-                self.instrument.write_binary_values(":SYSTem:SETup ", setup_stream, datatype='B', is_big_endian=True)
+                if use_file:
+                    self.data_handler.read_file(setup_stream, EFileType.BIN)
+                self.instrument.write(":SYSTem:SETup "+str(setup_stream))
             except Exception as e:
                 print(f"Error setting system setup: {e}")
                 print("This command often requires specific binary write methods depending on PyVISA.")
         else:
             print("Invalid setup_stream. Must be bytes object obtained from get_system_setup().")
 
-    def get_system_setup(self):
+    def get_system_setup(self, filename = "oscilloscope_setup", save_to_file = False):
         """
         Query the setting of the oscilloscope.
-
+        params: filename: The name of the file to save the setup data.
+        save_to_file: If True, the setup data will be saved to a file even if auto save is not on.
         Returns:
         bytes: The setting data stream, including the TMC data description header.
                The user needs to handle parsing this data (remove TMC header).
         """
         try:
             # It's crucial to set a proper timeout for large binary transfers
-            # self.instrument.timeout = 5000 # Example: 5 seconds timeout
-            data = self.instrument.query_binary_values(":SYSTem:SETup?", datatype='B', container=bytes)
+            self.instrument.timeout = 5000 # Example: 5 seconds timeout
+            data = self.instrument.query(":SYSTem:SETup?")
             # self.instrument.timeout = 2000 # Reset to default if needed
+            #TODO: CHeck if remove header
+            data = self.data_handler.remove_tmc_header(data)    
+            if self.auto_save or save_to_file:
+                self.data_handler.write_to_file(self.default_save_path+"/"+filename, data, EFileType.BIN)
             return data
         except pyvisa.errors.VisaIOError as e:
             print(f"VISA IO Error while getting system setup data: {e}")
@@ -7190,7 +7200,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":WAVeform:FORMat?")
         return response.strip().upper()
 
-    def get_waveform_data(self):
+    def get_waveform_data(self, filename="waveform_data"):
         """
         Read the waveform data. The format depends on the current waveform format setting.
 
@@ -7200,11 +7210,14 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
                       If format is ASCII, returns a comma-separated string of float values.
         """
         current_format = self.get_waveform_format()
+        response = ""
+        header = None
         if current_format in ["BYTE", "WORD"]:
+            header = "TMC"
             try:
                 # Use query_binary_values for BYTE and WORD formats
-                data = self.instrument.query_binary_values(":WAVeform:DATA?", datatype='B', container=bytes)
-                return data
+                response = self.instrument.query(":WAVeform:DATA?")
+        
             except pyvisa.errors.VisaIOError as e:
                 print(f"VISA IO Error while getting waveform data: {e}")
                 print("Consider increasing the instrument's timeout.")
@@ -7214,11 +7227,12 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
                 return b""
         elif current_format == "ASC":
             response = self.instrument.query(":WAVeform:DATA?")
-            return response.strip()
+            
         else:
             print(f"Unsupported waveform format: {current_format}")
             return None
-
+        self.data_handler.write_to_file(self.default_save_path+"/waveform", response, EFileType.CSV, header)
+        return response
     def get_waveform_x_increment(self):
         """
         Query the time difference between two neighboring points of the specified channel source in the X direction.
