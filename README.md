@@ -18,7 +18,11 @@ Measurement Software is a Python package for controlling and automating a variet
 - Spectrum Analyzer (Signal Hound)
 - Additional instruments can be added using provided jupyter notebook AddANewInstrument.ipynb
 
-Each instrument contains two components: helper and secondary. Helper consists of user made automated functions.
+Each instrument contains two components: helper and secondary. Helper consists of user made automated functions while secondary contains all the less commonly used commands (like display cursor toggles and lan configurations) while the most commonly used commands are kept in the main class. Within the main and secondary classes, functions are categorized by what primary function
+
+'''py
+>>> import
+'''
 
 ## Getting Started
 
