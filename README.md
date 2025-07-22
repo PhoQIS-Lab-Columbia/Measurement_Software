@@ -7,20 +7,18 @@ Measurement Software is a Python package for controlling and automating a variet
 ## Features
 
 - Modular instrument control via SCPI commands
-- Easy integration of new instruments with automation scripts
-- Experiment templates for rapid prototyping
+- Easy integration of new instruments with guided automated coding pipeline
+- Reuseable experiments
 - Data auto-saving and management
-- Helper utilities for common measurement tasks
 - Network manager for multi-instrument setups
 
 ## Instruments Supported
-
-- Signal Generator
-- Tracking Generator
-- Vector Network Analyzer (VNA)
+- Vector Network Analyzer (Copper Mountain)
 - Oscilloscope (Rigol)
 - Spectrum Analyzer (Signal Hound)
-- Additional instruments can be added using provided templates
+- Additional instruments can be added using provided jupyter notebook AddANewInstrument.ipynb
+
+Each instrument contains two components: helper and secondary. Helper consists of user made automated functions.
 
 ## Getting Started
 
@@ -31,7 +29,7 @@ Measurement Software is a Python package for controlling and automating a variet
   See `requirements.txt` for required Python packages.
 
 3. **Run an experiment**  
-  Use the provided experiment templates in the `Experiments/` directory to get started.
+  Use the provided experiment template in the `Experiments/` directory to get started and view coding examples.
 
 4. **Add a new instrument**  
   Follow the instructions in `Instruments/AddANewInstrument.ipynb` to integrate new hardware.
@@ -39,6 +37,7 @@ Measurement Software is a Python package for controlling and automating a variet
 ## Folder Structure
 
 - `Instruments/` — Instrument drivers and helpers
+  - 'SCPICommandTree
 - `Experiments/` — Example and template experiments
 - `Reference/` — Simulation notebooks and documentation
 - `README.md` — Project overview and instructions
@@ -46,11 +45,5 @@ Measurement Software is a Python package for controlling and automating a variet
 ## Contributing
 
 Contributions are welcome! Please submit pull requests or open issues for bugs and feature requests.
-
-## TODO
-
-- Add automation script for new instrument creation
-- Improve documentation for instrument integration
-- Review and clarify overlap vs sequential command handling
 
 
