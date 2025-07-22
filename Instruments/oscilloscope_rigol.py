@@ -2753,7 +2753,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         self.instrument.write(":LAN:APPLY")
 
     # MATH Commands
-    def set_math_display(self, state):
+    def enable_math_display(self, state):
         """
         Enable or disable the math operation function.
 
@@ -2762,7 +2762,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MATH:DISPlay {'ON' if state else 'OFF'}")
 
-    def get_math_display(self):
+    def is_math_display_enabled(self):
         """
         Query the math operation status.
 
@@ -2950,7 +2950,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":MATH:OFFSet?")
         return float(response.strip())
 
-    def set_math_invert_display(self, state):
+    def enable_math_invert_display(self, state):
         """
         Enable or disable the inverted display mode of the operation result.
         This command is invalid for the FFT operation.
@@ -2960,7 +2960,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MATH:INVert {'ON' if state else 'OFF'}")
 
-    def get_math_invert_display(self):
+    def is_math_invert_display_enabled(self):
         """
         Query the inverted display mode status of the operation result.
 
@@ -3027,7 +3027,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":MATH:FFT:WINDow?")
         return response.strip().upper()
 
-    def set_math_fft_split_display(self, state):
+    def enabled_math_fft_split_display(self, state):
         """
         Enable or disable the half-screen display mode of the FFT operation.
         When enabled, source channel and FFT results are displayed separately.
@@ -3037,7 +3037,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MATH:FFT:SPLit {'ON' if state else 'OFF'}")
 
-    def get_math_fft_split_display(self):
+    def is_math_fft_split_display_enabled(self):
         """
         Query the status of the half display mode of the FFT operation.
 
@@ -3259,7 +3259,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":MATH:OPTion:END?")
         return int(response.strip())
 
-    def set_math_option_invert_display(self, state):
+    def enabled_math_option_invert_display(self, state):
         """
         Enable or disable the inverted display mode of the operation result.
         This command is invalid for the FFT operation.
@@ -3269,7 +3269,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MATH:OPTion:INVert {'ON' if state else 'OFF'}")
 
-    def get_math_option_invert_display(self):
+    def is_math_option_invert_display_enabled(self):
         """
         Query the inverted display mode status of the operation result.
 
@@ -3326,7 +3326,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":MATH:OPTion:DIStance?")
         return int(response.strip())
 
-    def set_math_option_auto_scale(self, state):
+    def enabled_math_option_auto_scale(self, state):
         """
         Enable or disable the auto scale setting of the operation result.
 
@@ -3335,7 +3335,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MATH:OPTion:ASCale {'ON' if state else 'OFF'}")
 
-    def get_math_option_auto_scale(self):
+    def is_math_option_auto_scale_enabled(self):
         """
         Query the status of the auto scale setting.
 
@@ -3470,7 +3470,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         return response.strip().upper()
 
     # MASK Commands
-    def set_mask_enable(self, state):
+    def enable_mask(self, state):
         """
         Enable or disable the pass/fail test.
 
@@ -3479,7 +3479,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MASK:ENABle {'ON' if state else 'OFF'}")
 
-    def get_mask_enable(self):
+    def is_mask_enabled(self):
         """
         Query the status of the pass/fail test.
 
@@ -3537,7 +3537,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":MASK:OPERate?")
         return response.strip().upper()
 
-    def set_mask_display_statistics(self, state):
+    def enable_mask_display_statistics(self, state):
         """
         Enable or disable the statistic information when the pass/fail test is enabled.
 
@@ -3546,7 +3546,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MASK:MDISplay {'ON' if state else 'OFF'}")
 
-    def get_mask_display_statistics(self):
+    def is_mask_display_statistics_enabled(self):
         """
         Query the status of the statistic information.
 
@@ -3576,7 +3576,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":MASK:SOOutput?")
         return bool(int(response.strip()))
 
-    def set_mask_sound_output(self, state):
+    def enable_mask_sound_output(self, state):
         """
         Enable or disable the sound prompt when failed waveforms are detected.
 
@@ -3585,7 +3585,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MASK:OUTPut {'ON' if state else 'OFF'}")
 
-    def get_mask_sound_output(self):
+    def is_mask_sound_output_enabled(self):
         """
         Query the status of the sound prompt.
 
@@ -3771,7 +3771,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         else:
             print(f"Invalid item ({item}). Choose from {valid_items}.")
 
-    def set_all_measure_display(self, state):
+    def enable_all_measure_display(self, state):
         """
         Enable or disable the all measurement function.
 
@@ -3780,7 +3780,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MEASure:ADISplay {'ON' if state else 'OFF'}")
 
-    def get_all_measure_display(self):
+    def is_all_measure_display_enabled(self):
         """
         Query the status of the all measurement function.
 
@@ -3991,7 +3991,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":MEASure:SETup:DSB?")
         return response.strip().upper()
 
-    def set_measure_statistic_display(self, state):
+    def enable_measure_statistic_display(self, state):
         """
         Enable or disable the statistic function.
 
@@ -4000,7 +4000,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":MEASure:STATistic:DISPlay {'ON' if state else 'OFF'}")
 
-    def get_measure_statistic_display(self):
+    def is_measure_statistic_display_enabled(self):
         """
         Query the status of the statistic function.
 
@@ -4205,7 +4205,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
 
     # Reference Commands - For controlling 
     # llhand set a reference waveform to compare the measured waveform against
-    def set_reference_display(self, state):
+    def enable_reference_display(self, state):
         """
         Enable or disable the REF function.
 
@@ -4214,7 +4214,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":REFerence:DISPlay {'ON' if state else 'OFF'}")
 
-    def get_reference_display(self):
+    def is_reference_display_enabled(self):
         """
         Query the status of the REF function.
 
@@ -4224,7 +4224,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":REFerence:DISPlay?")
         return bool(int(response.strip()))
 
-    def set_reference_channel_enable(self, n, state):
+    def enable_reference_channel_enable(self, n, state):
         """
         Enable or disable the specified reference channel.
 
@@ -4238,7 +4238,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         else:
             print(f"Invalid reference channel ({n}). Choose from {valid_channels}.")
 
-    def get_reference_channel_enable(self, n):
+    def is_reference_channel_enabled(self, n):
         """
         Query the status of the specified reference channel.
 
@@ -4491,7 +4491,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         return response.strip().upper()
 
     # SYSTem Commands
-    def set_system_autoscale_key_enable(self, state):
+    def enable_system_autoscale_key_enable(self, state):
         """
         Enable or disable the AUTO key on the front panel.
 
@@ -4500,7 +4500,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":SYSTem:AUToscale {'ON' if state else 'OFF'}")
 
-    def get_system_autoscale_key_enable(self):
+    def is_system_autoscale_key_enabled(self):
         """
         Query the status of the AUTO key.
 
@@ -4523,7 +4523,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
 
   
 
-    def set_system_keyboard_lock(self, state):
+    def enable_system_keyboard_lock(self, state):
         """
         Enable or disable the keyboard lock function.
 
@@ -4532,7 +4532,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":SYSTem:LOCKed {'ON' if state else 'OFF'}")
 
-    def get_system_keyboard_lock(self):
+    def is_system_keyboard_lock_enabled(self):
         """
         Query the status of the keyboard lock function.
 
@@ -4651,7 +4651,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
             return b""
 
     # TIMebase Commands
-    def set_timebase_delay_enable(self, state):
+    def enable_timebase_delaye(self, state):
         """
         Enable or disable the delayed sweep.
 
@@ -4660,7 +4660,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":TIMebase:DELay:ENABle {'ON' if state else 'OFF'}")
 
-    def get_timebase_delay_enable(self):
+    def is_timebase_delay_enabled(self):
         """
         Query the status of the delayed sweep.
 
@@ -4850,7 +4850,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         return response.strip().upper()
 
 
-    def set_trigger_noise_reject(self, state):
+    def enable_trigger_noise_reject(self, state):
         """
         Enable or disable noise rejection.
 
@@ -4859,7 +4859,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         """
         self.instrument.write(f":TRIGger:NREJect {'ON' if state else 'OFF'}")
 
-    def get_trigger_noise_reject(self):
+    def is_trigger_noise_reject_enabled(self):
         """
         Query the status of noise rejection.
 
