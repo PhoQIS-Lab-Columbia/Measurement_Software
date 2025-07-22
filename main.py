@@ -2,16 +2,31 @@ from Instruments import oscilloscope_rigol
 import pyvisa
 
 from network_manager import NetworkManager
+from EInstrument import EInstrument
+import time
+from PIL import Image
 
-rm = pyvisa.ResourceManager()
 insturment_list = [] #types the name of the instruments you want to query 
-print(rm.list_resources())
-print(rm)
-#inst = rm.open_resource("TCPIP0::128.59.65.98::INSTR")
+
 nm = NetworkManager()
-#nm.add_new_instrument("fake", rm.list_resources(),rm)
-#Add auto connection
-#r = rm.open_resource('USB0::0x1AB1::0x0517::DS1ZE264M00036::INSTR')
-#ro = oscilloscope_rigol.Oscilloscope(r)
-#inst = rm.open_resource('TCPIP0::128.59.65.98::INSTR')
-#id = inst.ask('*IDN')
+#Can connect to all instruments with empty list
+instruments = nm.connect_instruments([])
+instruments = nm.connect_instruments([EInstrument.OSCILLOSCOPE,EInstrument.SPECTRUM_ANALYZER])
+#Or can connect to each instrument seperately
+osc = nm.connect_oscilloscope()
+
+#Put your instrument settings here
+osc.set_waveform_format(fmt="ASCII")
+print(osc.get_waveform_format())
+osc.run()
+time.sleep(3)
+osc.stop()
+
+#Read out any data
+#If you want to save the data to a file everytime the function is run, leave 
+#The default path for saved data is "~/Measurement_Software/Experiments/Outputs"
+osc.enable_auto_saving_data()
+img = osc.get_display_data()
+
+#Disconnect all instruments 
+#nm.disconnect(instruments)
