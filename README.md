@@ -21,7 +21,8 @@ Measurement Software is a Python package for controlling and automating a variet
 Each instrument contains two components: helper and secondary. Helper consists of user made automated functions while secondary contains all the less commonly used commands (like display cursor toggles and lan configurations) while the most commonly used commands are kept in the main class. Within the main and secondary classes, functions are categorized by what primary function
 
 '''py
->>> import
+>>> from helper_oscilloscope import Helper
+>>
 '''
 
 ## Getting Started
