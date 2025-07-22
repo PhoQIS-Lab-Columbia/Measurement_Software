@@ -2151,13 +2151,13 @@ class Sense():
         except ValueError:
             raise ValueError(f"Unexpected response for function off count (not integer): '{response}'")
 
-    def set_sense_function_on(self, sensor_functions: str):
+    def turn_sense_function_on(self, sensor_functions: str):
         """Selects the <sensor_function>(s) to be SENSed by the instrument.
         Parameters:
         sensor_functions: A comma-separated string of sensor functions (e.g., '"VOLT:AC"'). If CONCurrent is OFF, only one function is allowed."""
         self.instrument.write(f":SENS:FUNC:ON {sensor_functions}")
 
-    def get_sense_function_on(self) -> list[str]:
+    def which_sense_function_on(self) -> list[str]:
         """Returns a comma-separated list of functions which are on.
         Returns: A list of sensor function short form mnemonics."""
         response = self.instrument.query(":SENS:FUNC:ON?").strip()
@@ -3209,7 +3209,7 @@ class Sense():
         self.instrument.write(f":SENS:RES:OCOM {scpi_value}")
 
     def get_sense_resistance_ocompensated(self) -> bool:
-        """Returns True if offset compensation is enabled for Resistance, False if disabled."""
+        """Returns: True if offset compensation is enabled for Resistance, False if disabled."""
         response = self.instrument.query(":SENS:RES:OCOM?").strip()
         if response == 1 or response.upper() == "ON":
             return True

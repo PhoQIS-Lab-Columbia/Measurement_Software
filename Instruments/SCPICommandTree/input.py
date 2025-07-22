@@ -1,4 +1,4 @@
-class InstrumentCommands():
+class Input():
     def __init__(self,instrument):
         self.instrument = instrument
     
@@ -161,10 +161,11 @@ class InstrumentCommands():
         except ValueError:
             raise ValueError(f"Unexpected response for input bias DC voltage (not numeric): '{response}'")
 
-    def set_input_coupling(self, coupling_type: str):
+    def set_input_coupling(self, coupling_type: str, input_num = None):
         """Selects AC or DC coupling for the specified signal, or GROund coupling.
         Parameters:
-        coupling_type: AC|DC|GROund"""
+        coupling_type: AC|DC|GROund
+        input_num: Optional. The input channel number (if applicable)."""
         valid_types = {"AC", "DC", "GROUND", "GRO"}
         type_upper = coupling_type.upper()
         if type_upper not in valid_types:
@@ -172,11 +173,19 @@ class InstrumentCommands():
 
         if type_upper == "GROUND": scpi_value = "GRO"
         else: scpi_value = type_upper
+        command = ":INP"
+        if input_num is not None:
+            command += f":{input_num}"
+        command += f":COUP {scpi_value}"
+        self.instrument.write(command)
 
-        self.instrument.write(f":INP:COUP {scpi_value}")
-
-    def get_input_coupling(self) -> str:
-        """Returns the coupling type for the input signal ('AC', 'DC', or 'GROUND')."""
+    def get_input_coupling(self, input_num = None) -> str:
+        """Returns the coupling type for the input signal ('AC', 'DC', or 'GROUND').
+        input_num: Optional. The input channel number (if applicable)."""
+        command = ":INP"
+        if input_num is not None:
+            command += f":{input_num}"
+        command += ":COUP?"
         response = self.instrument.query(":INP:COUP?").strip().upper()
         if response.startswith("GRO"):
             return "GROUND"

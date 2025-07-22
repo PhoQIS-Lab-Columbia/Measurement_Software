@@ -3,3 +3,4 @@ from enum import Enum
 class EInstrument(Enum):
     OSCILLOSCOPE = "oscilloscope"
     SPECTRUM_ANALYZER = "spectrum analyzer"
+    OHM_METER = "ohm meter"

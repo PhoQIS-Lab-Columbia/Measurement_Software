@@ -3,12 +3,12 @@ from EFileType import EFileType
 from PIL import Image
 
 class Instrument():
-    def __init__(self, instrument):
+    def __init__(self, instrument, name = None):
         self.instrument = instrument
         self.default_save_path = "~/Measurement_Software/Experiments/Outputs"        
         self.save_path = self.default_save_path
         self.auto_save = False
-        self.name = "GenericInstrument"
+        self.name = name
         self.data_handler = DataHandler(format='csv')  # Default format set to JSON
 
     def disconnect(self):

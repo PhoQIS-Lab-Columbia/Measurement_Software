@@ -40,6 +40,95 @@ class Calibration():
             return "OFF"
         else:
             return response.upper() # Return ONCE as is if that's what the instrument sends
+    # LINearize command tree SCPI wrappers
+
+    def linearize_accept(self):
+        """Accepts the current linearization data."""
+        self.calibration_obj.instrument.write(":LIN:ACC")
+
+    def linearize_acquire(self):
+        """Acquires linearization data."""
+        self.calibration_obj.instrument.write(":LIN:ACQ")
+
+    def linearize_auto(self, state: str):
+        """Sets or queries the linearization auto mode ('ON', 'OFF', or 'ONCE')."""
+        state = state.upper()
+        if state not in {"ON", "OFF", "ONCE"}:
+            raise ValueError("State must be 'ON', 'OFF', or 'ONCE'.")
+        self.calibration_obj.instrument.write(f":LIN:AUTO {state}")
+
+    def get_linearize_auto(self) -> str:
+        """Returns the linearization auto mode ('ON', 'OFF', or 'ONCE')."""
+        response = self.calibration_obj.instrument.query(":LIN:AUTO?").strip().upper()
+        return response
+
+    def linearize_calculate(self, mode: str, n: int = None):
+        """Calculates the linearization curve.
+        mode: 'AUTO', 'POLYNOMIAL', or 'SRATIONAL'
+        n: Optional, degree/order for polynomial or srational
+        """
+        mode = mode.upper()
+        if mode == "AUTO":
+            self.calibration_obj.instrument.write(":LIN:CALC AUTO")
+        elif mode in {"POLYNOMIAL", "SRATIONAL"}:
+            if n is None:
+                raise ValueError("n must be specified for POLYNOMIAL or SRATIONAL mode.")
+            scpi_mode = "POLY" if mode == "POLYNOMIAL" else "SRAT"
+            self.calibration_obj.instrument.write(f":LIN:CALC {scpi_mode}{n}")
+        else:
+            raise ValueError("Mode must be 'AUTO', 'POLYNOMIAL', or 'SRATIONAL'.")
+
+    def linearize_curve(self, curve_type: str, n: int = None, values: list = None):
+        """Sets the linearization curve type and values.
+        curve_type: 'POLYNOMIAL' or 'SRATIONAL'
+        n: degree/order
+        values: list of numeric values for SRATIONAL
+        """
+        curve_type = curve_type.upper()
+        if curve_type == "POLYNOMIAL":
+            if n is None:
+                raise ValueError("n must be specified for POLYNOMIAL curve.")
+            self.calibration_obj.instrument.write(f":LIN:CURV:TYPE POLY{n}")
+        elif curve_type == "SRATIONAL":
+            if n is None or values is None or not isinstance(values, list):
+                raise ValueError("n and values list must be specified for SRATIONAL curve.")
+            values_str = ",".join(map(str, values))
+            self.calibration_obj.instrument.write(f":LIN:CURV:TYPE SRAT{n},{values_str}")
+        else:
+            raise ValueError("curve_type must be 'POLYNOMIAL' or 'SRATIONAL'.")
+
+    def linearize_curve_zforce(self, enable: bool):
+        """Enables or disables ZFORce for linearization curve."""
+        scpi_value = "ON" if enable else "OFF"
+        self.calibration_obj.instrument.write(f":LIN:CURV:ZFOR {scpi_value}")
+
+    def linearize_verify(self):
+        """Starts the linearization verification procedure."""
+        self.calibration_obj.instrument.write(":LIN:VER")
+
+    def linearize_verify_acquire(self):
+        """Acquires verification data for linearization."""
+        self.calibration_obj.instrument.write(":LIN:VER:ACQ")
+
+    def linearize_verify_tolerance(self, value: float):
+        """Sets the tolerance for linearization verification."""
+        self.calibration_obj.instrument.write(f":LIN:VER:TOL {value}")
+
+    def get_linearize_verify_tolerance(self) -> float:
+        """Returns the tolerance for linearization verification."""
+        response = self.calibration_obj.instrument.query(":LIN:VER:TOL?").strip()
+        try:
+            return float(response)
+        except ValueError:
+            raise ValueError(f"Unexpected response for linearization verify tolerance: '{response}'")
+
+    def linearize_verify_type(self, verify_type: str):
+        """Sets the verification type: 'CCURVE' or 'NCURVE'."""
+        verify_type = verify_type.upper()
+        if verify_type not in {"CCURVE", "NCURVE"}:
+            raise ValueError("verify_type must be 'CCURVE' or 'NCURVE'.")
+        scpi_value = "CCUR" if verify_type == "CCURVE" else "NCUR"
+        self.calibration_obj.instrument.write(f":LIN:VER:TYPE {scpi_value}")
 
     def get_binertia_average(self) -> float:
         """Returns the running average of all base inertia values acquired since the last :CALibration:BINertia:INITiate was invoked."""
