@@ -40,7 +40,7 @@ on the input signal and generate much smoother waveforms """
         comm_mode = ":ACQuire:TYPE "+mode
         self.instrument.write(comm_mode)
 
-    def get_acquistion_mode(self, mode):
+    def get_acquistion_mode(self):
         """Get acquisition mode. Normal:  Samples the signal at equal time interval to
 rebuild the waveform. Averages:  Averages the waveforms from multiple
 samples to reduce the random noise of the input signal. Peak: Acquires the maximum and
@@ -48,7 +48,7 @@ minimum values of the signal within the sample interval to get the envelope of t
 signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise
 on the input signal and generate much smoother waveforms """
         comm_mode = ":ACQuire:TYPE?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
 
     def set_number_of_averages(self, avg):
         """In the average acquisition mode, greater number of averages can lower the noise
@@ -60,11 +60,11 @@ on the input signal and generate much smoother waveforms """
             comm_mode = ":ACQuire:AVERages "+avg
             self.instrument.write(comm_mode)
 
-    def get_number_of_averages(self, avg):
+    def get_number_of_averages(self):
         """In the average acquisition mode, greater number of averages can lower the noise
         and increase the vertical resolution."""
         comm_mode = ":ACQuire:AVERages?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
     
     def set_memory_depth(self, mdpth):
         """ Set memory depth of the oscilloscope (namely the number of waveform
@@ -84,13 +84,13 @@ points that can be stored in a single trigger sample). Single Channel: AUTO|1200
         """ Get memory depth of the oscilloscope (namely the number of waveform
 points that can be stored in a single trigger sample)."""
         comm_mode = ":ACQuire:MDEPth?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
 
    
     def get_sample_rate(self):
         """ Query the current sample rate. The default unit is Sa/s."""
         comm_mode = ":ACQuire:SRATe?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
 
 #Channel Commands
     def set_channel_bandwidth_limit(self, channel, bw):
@@ -110,7 +110,7 @@ under test that exceed 20 MHz are attenuated. """
     def get_channel_bandwidth_limit(self, channel):
         """ Query the bandwidth limit parameter of the specified channel."""
         comm_mode = ":CHANnel"+str(channel)+":BWLimit?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
 
     def set_channel_coupling_mode(self, channel, coupling_mode):
         """ Set the coupling mode of the specified channel."""
@@ -126,7 +126,7 @@ under test that exceed 20 MHz are attenuated. """
     def get_channel_coupling_mode(self, channel):
         """ Query the coupling mode of the specified channel."""
         comm_mode = ":CHANnel"+str(channel)+":COUPling?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
     
     def channel_invert_waveform(self, channel, param1):
         """ Set the coupling mode of the specified channel."""
@@ -142,7 +142,7 @@ under test that exceed 20 MHz are attenuated. """
     def channel_is_inverted(self, channel):
         """ Query the coupling mode of the specified channel."""
         comm_mode = ":CHANnel"+str(channel)+":INVert?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
     
     def set_channel_offset(self, channel, param1):
         """ Set the vertical offset of the specified channel. The default unit is V."""
@@ -158,7 +158,7 @@ under test that exceed 20 MHz are attenuated. """
     def get_channel_offset(self, channel):
         """ Query the vertical offset of the specified channel. The default unit is V."""
         comm_mode = ":CHANnel"+str(channel)+":OFFSet?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
     
     def set_channel_range(self, channel, param1):
         """ Set the vertical offset of the specified channel. The default unit is V."""
@@ -174,7 +174,7 @@ under test that exceed 20 MHz are attenuated. """
     def get_channel_range(self, channel):
         """ Query the vertical offset of the specified channel. The default unit is V."""
         comm_mode = ":CHANnel"+str(channel)+":OFFSet?"
-        self.instrument.query(comm_mode)
+        return self.instrument.query(comm_mode)
     
     def set_channel_tcal(self, channel, val):
         """
@@ -1876,7 +1876,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
             # self.instrument.timeout = 5000 # Example: 5 seconds timeout
             data = self.instrument.query(command)
             self.instrument.timeout = 2000 # Reset to default if needed
-            return self.data_handler.bytes_to_image(data, self.default_save_path+"/"+filename,fmt, "TMC"), data  # Convert bytes to image format
+            return data #self.data_handler.bytes_to_image(data, self.default_save_path+"/"+filename,fmt, "TMC"), data  # Convert bytes to image format
         except pyvisa.errors.VisaIOError as e:
             print(f"VISA IO Error while getting display data: {e}")
             print("Consider increasing the instrument's timeout.")
@@ -4491,7 +4491,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         return response.strip().upper()
 
     # SYSTem Commands
-    def enable_system_autoscale_key_enable(self, state):
+    def enable_system_autoscale_key(self, state):
         """
         Enable or disable the AUTO key on the front panel.
 
@@ -4596,7 +4596,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         response = self.instrument.query(":SYSTem:RAM?")
         return int(response.strip())
 
-    def set_system_setup(self, setup_stream, use_file = False):
+    def set_system_parameters(self, setup_stream, use_file = False):
         """
         Import the setting parameters of the oscilloscope to restore the oscilloscope to the specified setting.
         The `setup_stream` must be a value previously acquired from `get_system_setup()`. Or the path to a file contianing the set up.
@@ -4623,7 +4623,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         else:
             print("Invalid setup_stream. Must be bytes object obtained from get_system_setup().")
 
-    def get_system_setup(self, filename = "oscilloscope_setup", save_to_file = False):
+    def get_system_parameters(self, filename = "oscilloscope_setup", save_to_file = False):
         """
         Query the setting of the oscilloscope.
         params: filename: The name of the file to save the setup data.
@@ -4635,12 +4635,15 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         try:
             # It's crucial to set a proper timeout for large binary transfers
             self.instrument.timeout = 5000 # Example: 5 seconds timeout
-            data = self.instrument.query(":SYSTem:SETup?")
+            self.instrument.write(":SYSTem:SETup?")
+            data = self.instrument.read_raw()
             # self.instrument.timeout = 2000 # Reset to default if needed
             #TODO: CHeck if remove header
-            data = self.data_handler.remove_tmc_header(data)    
+            #print("Data "+str(data))
+            #data = self.data_handler.remove_tmc_header(data)
+            #print(data)    
             if self.auto_save or save_to_file:
-                self.data_handler.write_to_file(self.default_save_path+"/"+filename, data, EFileType.BIN)
+                self.data_handler.write_to_file(self.default_save_path+"/"+filename, data, EFileType.TXT)
             return data
         except pyvisa.errors.VisaIOError as e:
             print(f"VISA IO Error while getting system setup data: {e}")
@@ -7233,7 +7236,7 @@ amplitude of the waveform to view the signal details. State: {{1|ON}|{0|OFF}}"""
         else:
             print(f"Unsupported waveform format: {current_format}")
             return None
-        self.data_handler.write_to_file(self.default_save_path+"/waveform", response, EFileType.CSV, header)
+        #self.data_handler.write_to_file(self.default_save_path+"/waveform", response, EFileType.CSV, header)
         return response
     def get_waveform_x_increment(self):
         """

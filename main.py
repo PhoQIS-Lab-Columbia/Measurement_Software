@@ -26,7 +26,7 @@ osc.stop()
 #If you want to save the data to a file everytime the function is run, leave 
 #The default path for saved data is "~/Measurement_Software/Experiments/Outputs"
 osc.enable_auto_saving_data()
-img = osc.get_display_data()
+#img = osc.get_display_data()
 
 #Disconnect all instruments 
 #nm.disconnect(instruments)

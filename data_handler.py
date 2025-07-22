@@ -12,7 +12,9 @@ class DataHandler():
     def remove_tmc_header(self, bytes):
         """Removes TMC header from image bytes"""
         #First byte is #, ignore
-        size_count = int.from_bytes(bytes[1])
+        size_count = 0 
+        print(bytes[1])
+        #size_count = int.from_bytes(bytes[1]
         return bytes[2+size_count:]
 
     def bytes_to_image(self, bytes, image_name = "Image", format="PNG", header = None):
@@ -32,7 +34,7 @@ class DataHandler():
             format = EFileType(format).name
         self.format = format
         #TODO Change readers and writers
-    
+    #TODO Add update_file
     def read_file(self, file_path, format = None):
         """Reads file and returns data"""
         fmt = self.format
