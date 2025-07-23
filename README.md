@@ -53,6 +53,10 @@ See template_python.py in the Experiments folder for an coding example.
 2. **Install dependencies**  
   See `requirements.txt` for required Python packages.
 
+  If you are setting this up on a new computer, You will also need to install a VISA driver for the program to talk to. Download the appropriate visa for your system on the National Instrument website: [NI-VISA Download](https://www.ni.com/en/support/downloads/drivers/download.ni-visa.html?srsltid=AfmBOorVfmnA2doyRSh73r9AQEBtnI1TnYyEls5m_Z0yTSMRIdfTDlDy#570633)
+
+  If you plan to use the Signal Hound Specturm Analyzer you will also need to download the [Spike visualization Software](https://signalhound.com/spike/?srsltid=AfmBOoozG63C7yQ_YqGvtIc8od2RNExMac8wMt943VV0tb1fW7MqZ3x4)
+
 3. **Run an experiment**  
   Use the provided experiment template in the `Experiments/` directory to get started and view coding examples.
 

@@ -4,6 +4,7 @@ import os
 import io
 from PIL import Image
 from EFileType import EFileType
+
 class DataHandler():
     def __init__(self, format):
         self.writer = None
@@ -86,10 +87,14 @@ class DataHandler():
                 self.writer.writerows(data)
 
         elif format == EFileType.JSON:
+            if(type(data) is list):
+                data_dict = {}
+                for d in range(0,len(data)):
+                    data_dict[headers[d]] = data[d]
             if file_exists:
                 with open(file_path, 'r') as jsonfile:
                     already_in_file = json.load(jsonfile)
-
+            
             with open(file_path, 'w') as jsonfile:
                 json.dump(data, jsonfile)
 
