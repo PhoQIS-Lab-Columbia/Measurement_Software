@@ -48,7 +48,7 @@ See template_python.py in the Experiments folder for an coding example.
 ## Getting Started
 
 1. **Clone the repository**  
-  `git clone <repo-url>`
+  `git clone <https://github.com/phoqis-lab/Measurement_Software>`
 
 2. **Install dependencies**  
   See `requirements.txt` for required Python packages.
@@ -58,7 +58,7 @@ See template_python.py in the Experiments folder for an coding example.
   If you plan to use the Signal Hound Specturm Analyzer you will also need to download the [Spike visualization Software](https://signalhound.com/spike/?srsltid=AfmBOoozG63C7yQ_YqGvtIc8od2RNExMac8wMt943VV0tb1fW7MqZ3x4)
 
 3. **Run an experiment**  
-  Use the provided experiment template in the `Experiments/` directory to get started and view coding examples.
+  Use the provided experiment template in the `Experiments/` directory to get started and view coding examples. Keep all custom experiments in this folder.
 
 4. **Add a new instrument**  
   Follow the instructions in `Instruments/AddANewInstrument.ipynb` to integrate new hardware.

@@ -433,6 +433,246 @@ class SpectrumAnalyzer(Instrument.Instrument):
         """
         def __init__(self, instrument):
             self.instrument = instrument
+        class PNoise:
+            """
+            The PNoise commands control phase noise marker and jitter configuration.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            class Marker:
+                """
+                The Marker commands control the phase noise markers.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def select(self, marker_num):
+                    """
+                    Parameter:
+                    marker_num (int): Marker index [1-6].
+                    Return:
+                    None
+                    """
+                    if not isinstance(marker_num, int) or not (1 <= marker_num <= 6):
+                        raise ValueError("marker_num must be an integer between 1 and 6")
+                    self.instrument.write(f":CALCulate:PNoise:MARKer:SELect {marker_num}")
+
+                def get_selected(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    int: The currently selected marker index.
+                    """
+                    return int(self.instrument.query(":CALCulate:PNoise:MARKer:SELect?"))
+
+                def set_state(self, state):
+                    """
+                    Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable the marker.
+                    Return:
+                    None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":CALCulate:PNoise:MARKer:STATe {state}")
+
+                def is_enabled(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    bool: True if marker is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":CALCulate:PNoise:MARKer:STATe?")
+                    return int(resp.strip()) == 1
+
+                def set_trace(self, trace_num):
+                    """
+                    Parameter:
+                    trace_num (int): Trace index [1-3].
+                    Return:
+                    None
+                    """
+                    if not isinstance(trace_num, int) or not (1 <= trace_num <= 3):
+                        raise ValueError("trace_num must be an integer between 1 and 3")
+                    self.instrument.write(f":CALCulate:PNoise:MARKer:TRACe {trace_num}")
+
+                def get_trace(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    int: The trace index the marker is placed on.
+                    """
+                    return int(self.instrument.query(":CALCulate:PNoise:MARKer:TRACe?"))
+
+                def set_delta(self, state):
+                    """
+                    Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable delta marker.
+                    Return:
+                    None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":CALCulate:PNoise:MARKer:DELTa {state}")
+
+                def is_delta_enabled(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    bool: True if delta marker is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":CALCulate:PNoise:MARKer:DELTa?")
+                    return int(resp.strip()) == 1
+
+                def set_x(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Marker frequency offset from carrier (Hz).
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":CALCulate:PNoise:MARKer:X {freq}")
+
+                def get_x(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The marker frequency offset from carrier (Hz).
+                    """
+                    return float(self.instrument.query(":CALCulate:PNoise:MARKer:X?"))
+
+                def get_y(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The marker amplitude as dBc/Hz.
+                    """
+                    return float(self.instrument.query(":CALCulate:PNoise:MARKer:Y?"))
+
+            class Jitter:
+                """
+                The Jitter commands control the jitter measurement configuration.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_state(self, state):
+                    """
+                    Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable jitter measurement.
+                    Return:
+                    None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":CALCulate:PNoise:JITTer:STATe {state}")
+
+                def is_enabled(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    bool: True if jitter measurement is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":CALCulate:PNoise:JITTer:STATe?")
+                    return int(resp.strip()) == 1
+
+                def set_trace(self, trace_num):
+                    """
+                    Parameter:
+                    trace_num (int): Trace index [1-3].
+                    Return:
+                    None
+                    """
+                    if not isinstance(trace_num, int) or not (1 <= trace_num <= 3):
+                        raise ValueError("trace_num must be an integer between 1 and 3")
+                    self.instrument.write(f":CALCulate:PNoise:JITTer:TRACe {trace_num}")
+
+                def get_trace(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    int: The trace index used for jitter measurement.
+                    """
+                    return int(self.instrument.query(":CALCulate:PNoise:JITTer:TRACe?"))
+
+                def set_start(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Start frequency offset from carrier (Hz).
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":CALCulate:PNoise:JITTer:STARt {freq}")
+
+                def get_start(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: Start frequency offset from carrier (Hz).
+                    """
+                    return float(self.instrument.query(":CALCulate:PNoise:JITTer:STARt?"))
+
+                def set_stop(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Stop frequency offset from carrier (Hz).
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":CALCulate:PNoise:JITTer:STOP {freq}")
+
+                def get_stop(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: Stop frequency offset from carrier (Hz).
+                    """
+                    return float(self.instrument.query(":CALCulate:PNoise:JITTer:STOP?"))
+
+                def get_rms(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: RMS jitter in seconds.
+                    """
+                    return float(self.instrument.query(":CALCulate:PNoise:JITTer:RMS?"))
+
+                def get_phase(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: Phase jitter in radians.
+                    """
+                    return float(self.instrument.query(":CALCulate:PNoise:JITTer:PHASe?"))
+
         class Marker:
             """
             The Marker commands control the sweep markers.
@@ -1277,79 +1517,1278 @@ class SpectrumAnalyzer(Instrument.Instrument):
     class Sense:
         def __init__(self, instrument):
             self.instrument = instrument
-        class Sweep_Configuration:
-                    """
-        The Sweep Configuration commands control the sweep configuration in scalar network analysis mode.
-        """
-        def __init__(self, instrument):
-            self.instrument = instrument
 
-        def set_points(self, num_points):
+        class Harmonics:
             """
-            Parameter:
-                num_points (int): Suggested sweep size.
-            Return:
-                None
+            The Sense:Harmonics commands configure harmonic measurements.
             """
-            if not isinstance(num_points, int):
-                raise ValueError("num_points must be an integer")
-            self.instrument.write(f":SENSe:NA:SWEep:POINts {num_points}")
+            def __init__(self, instrument):
+                self.instrument = instrument
 
-        def get_points(self):
-            """
-            Parameter:
-                None
-            Return:
-                int: The suggested sweep size.
-            """
-            return int(self.instrument.query(":SENSe:NA:SWEep:POINts?"))
+            def set_number(self, num):
+                """
+                Parameter:
+                    num (int): Number of harmonics to measure and display.
+                Return:
+                    None
+                """
+                if not isinstance(num, int):
+                    raise ValueError("num must be an integer")
+                self.instrument.write(f":SENSe:HARMonics:NUMBer {num}")
 
-        def set_type(self, typ):
-            """
-            Parameter:
-                typ (str): 'PASSive' or 'ACTive'.
-            Return:
-                None
-            """
-            allowed = {"PASSive", "ACTive"}
-            if not isinstance(typ, str) or typ.upper() not in allowed:
-                raise ValueError("typ must be 'PASSive' or 'ACTive'")
-            self.instrument.write(f":SENSe:NA:SWEep:TYPE {typ.upper()}")
+            def get_number(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    int: Number of harmonics measured and displayed.
+                """
+                return int(self.instrument.query(":SENSe:HARMonics:NUMBer?"))
 
-        def get_type(self):
-            """
-            Parameter:
-                None
-            Return:
-                str: The sweep type.
-            """
-            return self.instrument.query(":SENSe:NA:SWEep:TYPE?")
-
-        def set_hrange(self, state):
-            """
-            Parameter:
-                state (int or str): 1/0 or 'ON'/'OFF' to enable/disable high range.
-            Return:
-                None
-            """
-            if isinstance(state, str):
-                state = state.upper()
-                if state not in {"ON", "OFF"}:
+            def set_tracking_state(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable fundamental tracking.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
                     raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-                state = 1 if state == "ON" else 0
-            elif state not in [0, 1]:
-                raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-            self.instrument.write(f":SENSe:NA:SWEep:HRANge {state}")
+                self.instrument.write(f":SENSe:HARMonics:TRACKing:STATe {state}")
 
-        def is_hrange_enabled(self):
+            def is_tracking_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if fundamental tracking is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":SENSe:HARMonics:TRACKing:STATe?")
+                return int(resp.strip()) == 1
+
+            def set_mode(self, mode):
+                """
+                Parameter:
+                    mode (str): 'PEAK' or 'CHPOWER'.
+                Return:
+                    None
+                """
+                allowed = {"PEAK", "CHPOWER"}
+                if not isinstance(mode, str) or mode.upper() not in allowed:
+                    raise ValueError("mode must be 'PEAK' or 'CHPOWER'")
+                self.instrument.write(f":SENSe:HARMonics:MODE {mode.upper()}")
+
+            def get_mode(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The current harmonic measurement mode.
+                """
+                return self.instrument.query(":SENSe:HARMonics:MODE?")
+
+            def set_fundamental(self, freq):
+                """
+                Parameter:
+                    freq (float or str): Center frequency of the 1st harmonic (Hz), or 'UP', or 'DOWN'.
+                Return:
+                    None
+                """
+                if isinstance(freq, str):
+                    if freq.upper() not in {"UP", "DOWN"}:
+                        raise ValueError("freq must be a float or one of 'UP', 'DOWN'")
+                    freq_str = freq.upper()
+                else:
+                    freq_str = str(freq)
+                self.instrument.write(f":SENSe:HARMonics:FREQuency:FUNDamental {freq_str}")
+
+            def get_fundamental(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: Center frequency of the 1st harmonic (Hz).
+                """
+                return float(self.instrument.query(":SENSe:HARMonics:FREQuency:FUNDamental?"))
+
+            def set_step_increment(self, freq):
+                """
+                Parameter:
+                    freq (float): Step frequency for fundamental (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:HARMonics:FREQuency:STEP:INCRement {freq}")
+
+            def get_step_increment(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: Step frequency for fundamental (Hz).
+                """
+                return float(self.instrument.query(":SENSe:HARMonics:FREQuency:STEP:INCRement?"))
+
+            def set_span(self, freq):
+                """
+                Parameter:
+                    freq (float): Span of each measurement window at each harmonic (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:HARMonics:FREQuency:SPAN {freq}")
+
+            def get_span(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: Span of each measurement window at each harmonic (Hz).
+                """
+                return float(self.instrument.query(":SENSe:HARMonics:FREQuency:SPAN?"))
+
+            def set_bandwidth_resolution(self, freq):
+                """
+                Parameter:
+                    freq (float): RBW at each harmonic (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:HARMonics:BANDwidth:RESolution {freq}")
+
+            def get_bandwidth_resolution(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: RBW at each harmonic (Hz).
+                """
+                return float(self.instrument.query(":SENSe:HARMonics:BANDwidth:RESolution?"))
+
+            def set_bandwidth_video(self, freq):
+                """
+                Parameter:
+                    freq (float): VBW at each harmonic (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:HARMonics:BANDwidth:VIDeo {freq}")
+
+            def get_bandwidth_video(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: VBW at each harmonic (Hz).
+                """
+                return float(self.instrument.query(":SENSe:HARMonics:BANDwidth:VIDeo?"))
+
+            def set_power_rf_rlevel(self, value):
+                """
+                Parameter:
+                    value (float): Measurement reference level as dBm.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:HARMonics:POWer:RF:RLEVel {value}")
+
+            def get_power_rf_rlevel(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: Measurement reference level as dBm.
+                """
+                return float(self.instrument.query(":SENSe:HARMonics:POWer:RF:RLEVel?"))
+
+            def set_view_rlevel(self, value):
+                """
+                Parameter:
+                    value (float): Plot reference level as dBm.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:HARMonics:VIEW:RLEVel {value}")
+
+            def get_view_rlevel(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: Plot reference level as dBm.
+                """
+                return float(self.instrument.query(":SENSe:HARMonics:VIEW:RLEVel?"))
+
+            def set_view_pdivision(self, value):
+                """
+                Parameter:
+                    value (float): Plot division height in dB.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:HARMonics:VIEW:PDIVision {value}")
+
+            def get_view_pdivision(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: Plot division height in dB.
+                """
+                return float(self.instrument.query(":SENSe:HARMonics:VIEW:PDIVision?"))
+
+            def set_trace_type(self, typ):
+                """
+                Parameter:
+                    typ (str): 'WRITE' or 'MAXHOLD'.
+                Return:
+                    None
+                """
+                allowed = {"WRITE", "MAXHOLD"}
+                if not isinstance(typ, str) or typ.upper() not in allowed:
+                    raise ValueError("typ must be 'WRITE' or 'MAXHOLD'")
+                self.instrument.write(f":SENSe:HARMonics:TRACe:TYPE {typ.upper()}")
+
+            def get_trace_type(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The trace behavior type.
+                """
+                return self.instrument.query(":SENSe:HARMonics:TRACe:TYPE?")
+            def fetch_frequency(self, harmonic_num):
+                """
+                Parameter:
+                    harmonic_num (int): The harmonic number to fetch frequency for.
+                Return:
+                    float: The specified harmonic's peak frequency in Hz.
+                """
+                if not isinstance(harmonic_num, int) or harmonic_num < 1:
+                    raise ValueError("harmonic_num must be a positive integer")
+                return float(self.instrument.query(f":SENSe:FETCh:HARMonics:FREQuency? {harmonic_num}"))
+
+            def fetch_amplitude(self, harmonic_num):
+                """
+                Parameter:
+                    harmonic_num (int): The harmonic number to fetch amplitude for.
+                Return:
+                    float: The specified harmonic's amplitude in dBm.
+                """
+                if not isinstance(harmonic_num, int) or harmonic_num < 1:
+                    raise ValueError("harmonic_num must be a positive integer")
+                return float(self.instrument.query(f":SENSe:FETCh:HARMonics:AMPLitude? {harmonic_num}"))
+
+            def fetch_distortion(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The measured total harmonic distortion in percent.
+                """
+                return float(self.instrument.query(":SENSe:FETCh:HARMonics:DISTortion?"))
+        class ADEMod:
             """
-            Parameter:
-                None
-            Return:
-                bool: True if high range is enabled, False otherwise.
+            The Sense:ADEMod commands configure analog demodulation measurements.
             """
-            resp = self.instrument.query(":SENSe:NA:SWEep:HRANge?")
-            return int(resp.strip()) == 1
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def set_center_frequency(self, freq):
+                """
+                Parameter:
+                    freq (float or str): Center frequency in Hz, or 'UP', or 'DOWN'.
+                Return:
+                    None
+                """
+                if isinstance(freq, str):
+                    if freq.upper() not in {"UP", "DOWN"}:
+                        raise ValueError("freq must be a float or one of 'UP', 'DOWN'")
+                    freq_str = freq.upper()
+                else:
+                    freq_str = str(freq)
+                self.instrument.write(f":SENSe:ADEMod:FREQuency:CENTer {freq_str}")
+
+            def get_center_frequency(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The measurement center frequency in Hz.
+                """
+                return float(self.instrument.query(":SENSe:ADEMod:FREQuency:CENTer?"))
+
+            def set_center_step(self, freq):
+                """
+                Parameter:
+                    freq (float): Step amount for center frequency changes in Hz.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:ADEMod:FREQuency:CENTer:STEP {freq}")
+
+            def get_center_step(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The center frequency step size in Hz.
+                """
+                return float(self.instrument.query(":SENSe:ADEMod:FREQuency:CENTer:STEP?"))
+
+            def set_reference_level(self, amplitude):
+                """
+                Parameter:
+                    amplitude (float): Reference level in dBm.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:ADEMod:POWer:RF:RLEVel {amplitude}")
+
+            def get_reference_level(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The measurement reference level in dBm.
+                """
+                return float(self.instrument.query(":SENSe:ADEMod:POWer:RF:RLEVel?"))
+
+            def set_lpfilter(self, freq):
+                """
+                Parameter:
+                    freq (float): Analog low pass filter cutoff frequency in Hz.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:ADEMod:LPFilter {freq}")
+
+            def get_lpfilter(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The analog low pass filter cutoff frequency in Hz.
+                """
+                return float(self.instrument.query(":SENSe:ADEMod:LPFilter?"))
+
+            class Fetch:
+                """
+                The Fetch commands retrieve analog demodulation measurement results.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def fetch_am(self, metrics):
+                    """
+                    Parameter:
+                    metrics (int or list of int): Metric(s) to retrieve for AM demodulation.
+                    Return:
+                    str: Comma separated list of metric values in order requested.
+                    """
+                    if isinstance(metrics, int):
+                        metrics_str = str(metrics)
+                    elif isinstance(metrics, (list, tuple)) and all(isinstance(m, int) for m in metrics):
+                        metrics_str = ",".join(str(m) for m in metrics)
+                    else:
+                        raise ValueError("metrics must be an int or list/tuple of ints")
+                    return self.instrument.query(f":FETCh:ADEMod:AM? {metrics_str}")
+
+                def fetch_fm(self, metrics):
+                    """
+                    Parameter:
+                    metrics (int or list of int): Metric(s) to retrieve for FM demodulation.
+                    Return:
+                    str: Comma separated list of metric values in order requested.
+                    """
+                    if isinstance(metrics, int):
+                        metrics_str = str(metrics)
+                    elif isinstance(metrics, (list, tuple)) and all(isinstance(m, int) for m in metrics):
+                        metrics_str = ",".join(str(m) for m in metrics)
+                    else:
+                        raise ValueError("metrics must be an int or list/tuple of ints")
+                    return self.instrument.query(f":FETCh:ADEMod:FM? {metrics_str}")
+        class DDEMod:
+            """
+            The Sense:DDEMod commands configure digital demodulation measurements.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def set_center_frequency(self, freq):
+                """
+                Parameter:
+                    freq (float or str): Center frequency in Hz, or 'UP', or 'DOWN'.
+                Return:
+                    None
+                """
+                if isinstance(freq, str):
+                    if freq.upper() not in {"UP", "DOWN"}:
+                        raise ValueError("freq must be a float or one of 'UP', 'DOWN'")
+                    freq_str = freq.upper()
+                else:
+                    freq_str = str(freq)
+                self.instrument.write(f":SENSe:DDEMod:FREQuency:CENTer {freq_str}")
+
+            def get_center_frequency(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The measurement center frequency in Hz.
+                """
+                return float(self.instrument.query(":SENSe:DDEMod:FREQuency:CENTer?"))
+
+            def set_center_step(self, freq):
+                """
+                Parameter:
+                    freq (float): Step amount for center frequency changes in Hz.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:DDEMod:FREQuency:CENTer:STEP {freq}")
+
+            def get_center_step(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The center frequency step size in Hz.
+                """
+                return float(self.instrument.query(":SENSe:DDEMod:FREQuency:CENTer:STEP?"))
+
+            def set_reference_level(self, amplitude):
+                """
+                Parameter:
+                    amplitude (float): Reference level in dBm.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:DDEMod:POWer:RF:RLEVel {amplitude}")
+
+            def get_reference_level(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The measurement reference level in dBm.
+                """
+                return float(self.instrument.query(":SENSe:DDEMod:POWer:RF:RLEVel?"))
+
+            def set_srate(self, freq):
+                """
+                Parameter:
+                    freq (float): Symbol rate in Hz.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:DDEMod:SRATe {freq}")
+
+            def get_srate(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The symbol rate in Hz.
+                """
+                return float(self.instrument.query(":SENSe:DDEMod:SRATe?"))
+
+            def set_modulation(self, mod):
+                """
+                Parameter:
+                    mod (str): Modulation type.
+                Return:
+                    None
+                """
+                allowed = {
+                    "BPSK", "DBPSK", "QPSK", "DQPSK", "OQPSK", "PI4QPSK", "8PSK", "D8PSK",
+                    "QAM16", "QAM32", "QAM64", "QAM256", "QAM1024", "FSK2", "FSK4", "FSK8",
+                    "FSK16", "ASK2", "CUSTOM"
+                }
+                if not isinstance(mod, str) or mod.upper() not in allowed:
+                    raise ValueError("mod must be a valid modulation type")
+                self.instrument.write(f":SENSe:DDEMod:MODulation {mod.upper()}")
+
+            def get_modulation(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The current modulation type.
+                """
+                return self.instrument.query(":SENSe:DDEMod:MODulation?")
+
+            def set_rlength(self, value):
+                """
+                Parameter:
+                    value (int): Result length.
+                Return:
+                    None
+                """
+                if not isinstance(value, int):
+                    raise ValueError("value must be an integer")
+                self.instrument.write(f":SENSe:DDEMod:RLENgth {value}")
+
+            def get_rlength(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    int: The result length.
+                """
+                return int(self.instrument.query(":SENSe:DDEMod:RLENgth?"))
+
+            def set_filter(self, filt):
+                """
+                Parameter:
+                    filt (str): Filter type ('NYQUIST', 'RNYQUIST', 'GAUSSIAN', 'RECTANGLE').
+                Return:
+                    None
+                """
+                allowed = {"NYQUIST", "RNYQUIST", "GAUSSIAN", "RECTANGLE"}
+                if not isinstance(filt, str) or filt.upper() not in allowed:
+                    raise ValueError("filt must be one of 'NYQUIST', 'RNYQUIST', 'GAUSSIAN', or 'RECTANGLE'")
+                self.instrument.write(f":SENSe:DDEMod:FILTer {filt.upper()}")
+
+            def get_filter(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The current filter type.
+                """
+                return self.instrument.query(":SENSe:DDEMod:FILTer?")
+
+            def set_filter_abt(self, value):
+                """
+                Parameter:
+                    value (float): Filter alpha/beta/BT value.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:DDEMod:FILTer:ABT {value}")
+
+            def get_filter_abt(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The filter alpha/beta/BT value.
+                """
+                return float(self.instrument.query(":SENSe:DDEMod:FILTer:ABT?"))
+            def set_ifbwidth_auto(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable automatic IF bandwidth selection.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":SENSe:DDEMod:IFBWidth:AUTO {state}")
+
+            def is_ifbwidth_auto(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if automatic IF bandwidth is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":SENSe:DDEMod:IFBWidth:AUTO?")
+                return int(resp.strip()) == 1
+
+            def set_ifbwidth(self, freq):
+                """
+                Parameter:
+                    freq (float): IF bandwidth in Hz.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:DDEMod:IFBWidth {freq}")
+
+            def get_ifbwidth(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The IF bandwidth in Hz.
+                """
+                return float(self.instrument.query(":SENSe:DDEMod:IFBWidth?"))
+
+            def set_average_state(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable measurement averaging.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":SENSe:DDEMod:AVERage:STATe {state}")
+
+            def is_average_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if measurement averaging is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":SENSe:DDEMod:AVERage:STATe?")
+                return int(resp.strip()) == 1
+
+            def set_average_count(self, count):
+                """
+                Parameter:
+                    count (int): Number of averages.
+                Return:
+                    None
+                """
+                if not isinstance(count, int):
+                    raise ValueError("count must be an integer")
+                self.instrument.write(f":SENSe:DDEMod:AVERage:COUNt {count}")
+
+            def get_average_count(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    int: The number of averages.
+                """
+                return int(self.instrument.query(":SENSe:DDEMod:AVERage:COUNt?"))
+
+            def set_wce_state(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable wide carrier estimation.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":SENSe:DDEMod:WCE:STATe {state}")
+
+            def is_wce_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if wide carrier estimation is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":SENSe:DDEMod:WCE:STATe?")
+                return int(resp.strip()) == 1
+
+            def set_wce_range(self, freq):
+                """
+                Parameter:
+                    freq (float): Wide carrier estimation range in Hz.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:DDEMod:WCE:RANge {freq}")
+
+            def get_wce_range(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The wide carrier estimation range in Hz.
+                """
+                return float(self.instrument.query(":SENSe:DDEMod:WCE:RANge?"))
+            class Custom:
+                """
+                The Custom commands configure custom IQ constellations for digital demodulation.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                class IQ:
+                    """
+                    The IQ commands configure and query custom IQ constellation data.
+                    """
+                    def __init__(self, instrument):
+                        self.instrument = instrument
+
+                    def is_valid(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            bool: True if the custom constellation is valid, False otherwise.
+                        """
+                        resp = self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:VALid?")
+                        return int(resp.strip()) == 1
+
+                    def get_length(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            int: The number of symbols in the custom constellation.
+                        """
+                        return int(self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:LENGth?"))
+
+                    def set_data(self, iq_values):
+                        """
+                        Parameter:
+                            iq_values (list or tuple): List of real numbers, alternating I/Q values.
+                        Return:
+                            None
+                        """
+                        if not isinstance(iq_values, (list, tuple)) or not all(isinstance(x, (int, float)) for x in iq_values):
+                            raise ValueError("iq_values must be a list or tuple of real numbers")
+                        data_str = ",".join(str(x) for x in iq_values)
+                        self.instrument.write(f":SENSe:DDEMod:CUSTom:IQ:DATA {data_str}")
+
+                    def get_data(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            str: The constellation symbols as a comma separated list of alternating IQ values.
+                        """
+                        return self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:DATA?")
+
+            class Trigger:
+                """
+                The DDEMod:Trigger commands configure triggering for digital demodulation.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_source(self, source):
+                    """
+                    Parameter:
+                        source (str): 'IMMEDIATE', 'IF', or 'EXTERNAL'
+                    Return:
+                        None
+                    """
+                    allowed = {"IMMEDIATE", "IF", "EXTERNAL"}
+                    if not isinstance(source, str) or source.upper() not in allowed:
+                        raise ValueError("source must be one of 'IMMEDIATE', 'IF', or 'EXTERNAL'")
+                    self.instrument.write(f":TRIGger:DDEMod:SOURce {source.upper()}")
+
+                def get_source(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The trigger type.
+                    """
+                    return self.instrument.query(":TRIGger:DDEMod:SOURce?")
+
+                def set_if_level(self, amplitude):
+                    """
+                    Parameter:
+                        amplitude (float): Trigger level of the IF trigger.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":TRIGger:DDEMod:IF:LEVel {amplitude}")
+
+                def get_if_level(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The trigger level of the IF trigger.
+                    """
+                    return float(self.instrument.query(":TRIGger:DDEMod:IF:LEVel?"))
+
+                def set_delay(self, value):
+                    """
+                    Parameter:
+                        value (int): Trigger delay (number of symbols after trigger to start measurement).
+                    Return:
+                        None
+                    """
+                    if not isinstance(value, int):
+                        raise ValueError("value must be an integer")
+                    self.instrument.write(f":TRIGger:DDEMod:DELay {value}")
+
+                def get_delay(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: The trigger delay (number of symbols after trigger).
+                    """
+                    return int(self.instrument.query(":TRIGger:DDEMod:DELay?"))
+
+            class Sync:
+                """
+                The DDEMod:Sync commands configure sync pattern search for digital demodulation.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable sync search.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:DDEMod:SYNC:STATe {state}")
+
+                def is_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if sync search is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:DDEMod:SYNC:STATe?")
+                    return int(resp.strip()) == 1
+
+                class Sword:
+                    """
+                    The DDEMod:Sync:SWord commands configure the sync pattern and length.
+                    """
+                    def __init__(self, instrument):
+                        self.instrument = instrument
+
+                    def set_pattern(self, hex_string):
+                        """
+                        Parameter:
+                            hex_string (str): The pattern to trigger on (hex string).
+                        Return:
+                            None
+                        """
+                        if not isinstance(hex_string, str):
+                            raise ValueError("hex_string must be a string")
+                        self.instrument.write(f":SENSe:DDEMod:SYNC:SWORd:PATTern {hex_string}")
+
+                    def get_pattern(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            str: The current sync pattern (hex string).
+                        """
+                        return self.instrument.query(":SENSe:DDEMod:SYNC:SWORd:PATTern?")
+
+                    def set_length(self, value):
+                        """
+                        Parameter:
+                            value (int): The length in symbols of the pattern trigger.
+                        Return:
+                            None
+                        """
+                        if not isinstance(value, int):
+                            raise ValueError("value must be an integer")
+                        self.instrument.write(f":SENSe:DDEMod:SYNC:SWORd:LENGth {value}")
+
+                    def get_length(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            int: The length in symbols of the pattern trigger.
+                        """
+                        return int(self.instrument.query(":SENSe:DDEMod:SYNC:SWORd:LENGth?"))
+
+                def set_slength(self, value):
+                    """
+                    Parameter:
+                        value (int): Search length for the pattern trigger.
+                    Return:
+                        None
+                    """
+                    if not isinstance(value, int):
+                        raise ValueError("value must be an integer")
+                    self.instrument.write(f":SENSe:DDEMod:SYNC:SLENgth {value}")
+
+                def get_slength(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: Search length for the pattern trigger.
+                    """
+                    return int(self.instrument.query(":SENSe:DDEMod:SYNC:SLENgth?"))
+
+                def set_offset(self, value):
+                    """
+                    Parameter:
+                        value (int): Offset from the beginning of a successful sync search (can be negative).
+                    Return:
+                        None
+                    """
+                    if not isinstance(value, int):
+                        raise ValueError("value must be an integer")
+                    self.instrument.write(f":SENSe:DDEMod:SYNC:OFFSet {value}")
+
+                def get_offset(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: Offset from the beginning of a successful sync search.
+                    """
+                    return int(self.instrument.query(":SENSe:DDEMod:SYNC:OFFSet?"))
+
+            class Compensate:
+                """
+                The DDEMod:Compensate commands configure compensation settings for digital demodulation.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_iqinversion_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable IQ swap.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:DDEMod:COMPensate:IQINVersion:STATe {state}")
+
+                def is_iqinversion_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if IQ swap is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:DDEMod:COMPensate:IQINVersion:STATe?")
+                    return int(resp.strip()) == 1
+
+                def set_iqoffset_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable IQ offset removal.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:DDEMod:COMPensate:IQOFFset:STATe {state}")
+
+                def is_iqoffset_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if IQ offset removal is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:DDEMod:COMPensate:IQOFFset:STATe?")
+                    return int(resp.strip()) == 1
+
+                def set_adroop_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable amplitude droop compensation.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:DDEMod:COMPensate:ADRoop:STATe {state}")
+
+                def is_adroop_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if amplitude droop compensation is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:DDEMod:COMPensate:ADRoop:STATe?")
+                    return int(resp.strip()) == 1
+
+            class Equalization:
+                """
+                The DDEMod:Equalization commands configure adaptive equalizer settings.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable equalization.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:DDEMod:EQUalization:STATe {state}")
+
+                def is_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if equalization is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:DDEMod:EQUalization:STATe?")
+                    return int(resp.strip()) == 1
+
+                def set_length(self, value):
+                    """
+                    Parameter:
+                        value (int): Length of the equalization filter in symbols (must be odd).
+                    Return:
+                        None
+                    """
+                    if not isinstance(value, int) or value % 2 != 1:
+                        raise ValueError("value must be an odd integer")
+                    self.instrument.write(f":SENSe:DDEMod:EQUalization:LENGth {value}")
+
+                def get_length(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: Length of the equalization filter in symbols.
+                    """
+                    return int(self.instrument.query(":SENSe:DDEMod:EQUalization:LENGth?"))
+
+                def set_convergence(self, value):
+                    """
+                    Parameter:
+                        value (float): Adaptive rate (convergence).
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:DDEMod:EQUalization:CONVergence {value}")
+
+                def get_convergence(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Adaptive rate (convergence).
+                    """
+                    return float(self.instrument.query(":SENSe:DDEMod:EQUalization:CONVergence?"))
+
+                def set_hold_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable hold (bypass adaptation).
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:DDEMod:EQUalization:HOLD:STATe {state}")
+
+                def is_hold_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if hold is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:DDEMod:EQUalization:HOLD:STATe?")
+                    return int(resp.strip()) == 1
+
+                def reset(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        None
+                    """
+                    self.instrument.write(":SENSe:DDEMod:EQUalization:RESet")
+
+            class Trace:
+                """
+                The DDEMod:Trace commands retrieve spectrum data from digital demodulation measurement mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                class Sweep:
+                    """
+                    The DDEMod:Trace:Sweep commands retrieve sweep data.
+                    """
+                    def __init__(self, instrument):
+                        self.instrument = instrument
+
+                    def get_xstart(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            float: Frequency value associated with the first sample in the returned data.
+                        """
+                        return float(self.instrument.query(":SENSe:DDEMod:TRACe:SWEep:XSTARt?"))
+
+                    def get_xincrement(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            float: Frequency spacing for the samples in the returned data.
+                        """
+                        return float(self.instrument.query(":SENSe:DDEMod:TRACe:SWEep:XINCrement?"))
+
+                    def get_points(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            int: Number of points returned by the DATA function.
+                        """
+                        return int(self.instrument.query(":SENSe:DDEMod:TRACe:SWEep:POINts?"))
+
+                    def get_data(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            str: The spectrum trace as a comma separated list.
+                        """
+                        return self.instrument.query(":SENSe:DDEMod:TRACe:SWEep:DATA?")
+
+            class Fetch:
+                """
+                The DDEMod:Fetch commands retrieve measurement results for digital demodulation.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def fetch(self, metrics):
+                    """
+                    Parameter:
+                        metrics (int or list/tuple of int): Metric(s) to retrieve.
+                    Return:
+                        str: Comma separated list of metric values in order requested.
+                    """
+                    if isinstance(metrics, int):
+                        metrics_str = str(metrics)
+                    elif isinstance(metrics, (list, tuple)) and all(isinstance(m, int) for m in metrics):
+                        metrics_str = ",".join(str(m) for m in metrics)
+                    else:
+                        raise ValueError("metrics must be an int or list/tuple of ints")
+                    return self.instrument.query(f":FETCh:DDEMod? {metrics_str}")
+        class Sweep_Configuration:
+            """
+            The Sweep Configuration commands control the sweep configuration in scalar network analysis mode.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def set_points(self, num_points):
+                """
+                Parameter:
+                    num_points (int): Suggested sweep size.
+                Return:
+                    None
+                """
+                if not isinstance(num_points, int):
+                    raise ValueError("num_points must be an integer")
+                self.instrument.write(f":SENSe:NA:SWEep:POINts {num_points}")
+
+            def get_points(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    int: The suggested sweep size.
+                """
+                return int(self.instrument.query(":SENSe:NA:SWEep:POINts?"))
+
+            def set_type(self, typ):
+                """
+                Parameter:
+                    typ (str): 'PASSive' or 'ACTive'.
+                Return:
+                    None
+                """
+                allowed = {"PASSive", "ACTive"}
+                if not isinstance(typ, str) or typ.upper() not in allowed:
+                    raise ValueError("typ must be 'PASSive' or 'ACTive'")
+                self.instrument.write(f":SENSe:NA:SWEep:TYPE {typ.upper()}")
+
+            def get_type(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The sweep type.
+                """
+                return self.instrument.query(":SENSe:NA:SWEep:TYPE?")
+
+            def set_hrange(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable high range.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":SENSe:NA:SWEep:HRANge {state}")
+
+            def is_hrange_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if high range is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":SENSe:NA:SWEep:HRANge?")
+                return int(resp.strip()) == 1
         class NA:
             """
             The Scalar Network and Analysis Mode commands
@@ -1449,7 +2888,476 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     """
                     resp = self.instrument.query(":SENSe:CORRection:NA:STORe:THRU:ACTive?")
                     return resp.strip() == '1'
-        
+        class VCO:
+            """
+            The VCO commands control the configuration of the measurement in VCO Characterization mode.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            class Sweep:
+                """
+                The Sweep commands control the sweep configuration in VCO Characterization mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def get_source(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The sweep source.
+                    """
+                    return self.instrument.query(":SENSe:VCO:SWEep:SOURce?")
+
+                def set_start(self, value):
+                    """
+                    Parameter:
+                        value (float): Starting voltage for the sweep in volts.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SWEep:STARt {value}")
+
+                def get_start(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Starting voltage for the sweep in volts.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SWEep:STARt?"))
+
+                def set_stop(self, value):
+                    """
+                    Parameter:
+                        value (float): Stopping voltage for the sweep in volts.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SWEep:STOP {value}")
+
+                def get_stop(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Stopping voltage for the sweep in volts.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SWEep:STOP?"))
+
+                def set_points(self, num_points):
+                    """
+                    Parameter:
+                        num_points (int): Number of points to measure.
+                    Return:
+                        None
+                    """
+                    if not isinstance(num_points, int):
+                        raise ValueError("num_points must be an integer")
+                    self.instrument.write(f":SENSe:VCO:SWEep:POINts {num_points}")
+
+                def get_points(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: Number of points to measure.
+                    """
+                    return int(self.instrument.query(":SENSe:VCO:SWEep:POINts?"))
+
+                def set_rf_rlevel(self, value):
+                    """
+                    Parameter:
+                        value (float): Reference level as dBm.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SWEep:RF:RLEVel {value}")
+
+                def get_rf_rlevel(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Reference level as dBm.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SWEep:RF:RLEVel?"))
+
+                def set_band_auto(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable automatic frequency band search.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:VCO:SWEep:FREQuency:BAND:AUTO {state}")
+
+                def is_band_auto(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if automatic frequency band search is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:VCO:SWEep:FREQuency:BAND:AUTO?")
+                    return int(resp.strip()) == 1
+
+                def set_band_start(self, freq):
+                    """
+                    Parameter:
+                        freq (float): Start frequency of the search range.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SWEep:FREQuency:BAND:STARt {freq}")
+
+                def get_band_start(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Start frequency of the search range.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SWEep:FREQuency:BAND:STARt?"))
+
+                def set_band_stop(self, freq):
+                    """
+                    Parameter:
+                        freq (float): Stop frequency of the search range.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SWEep:FREQuency:BAND:STOP {freq}")
+
+                def get_band_stop(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Stop frequency of the search range.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SWEep:FREQuency:BAND:STOP?"))
+
+                def set_fcounter_resolution(self, freq):
+                    """
+                    Parameter:
+                        freq (float): Frequency resolution of each measurement (RBW).
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SWEep:FCOunter:RESolution {freq}")
+
+                def get_fcounter_resolution(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Frequency resolution of each measurement (RBW).
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SWEep:FCOunter:RESolution?"))
+
+                def set_chpower_width(self, freq):
+                    """
+                    Parameter:
+                        freq (float): Width of the channel for power and harmonics measurements.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SWEep:CHPower:WIDth {freq}")
+
+                def get_chpower_width(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Width of the channel for power and harmonics measurements.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SWEep:CHPower:WIDth?"))
+
+                def set_delay(self, value):
+                    """
+                    Parameter:
+                        value (float): Dwell time for each measurement (pause between setting voltage and measuring).
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SWEep:DELay {value}")
+
+                def get_delay(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Dwell time for each measurement.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SWEep:DELay?"))
+
+            class Source:
+                """
+                The Source commands control the DC source configuration in VCO Characterization mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_voltage_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable overall DC power.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:VCO:SOURce:VOLTage:STATe {state}")
+
+                def is_voltage_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if DC power is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:VCO:SOURce:VOLTage:STATe?")
+                    return int(resp.strip()) == 1
+
+                def set_fixed_level(self, value):
+                    """
+                    Parameter:
+                        value (float): Output level of the fixed power source in volts.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SOURce:VOLTage:FIXed:LEVel {value}")
+
+                def get_fixed_level(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Output level of the fixed power source in volts.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SOURce:VOLTage:FIXed:LEVel?"))
+
+                def set_vtune_limit_low(self, value):
+                    """
+                    Parameter:
+                        value (float): Minimum output level of the V Tune port in volts.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SOURce:VOLTage:VTUNe:LEVel:LIMit:LOW {value}")
+
+                def get_vtune_limit_low(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Minimum output level of the V Tune port in volts.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SOURce:VOLTage:VTUNe:LEVel:LIMit:LOW?"))
+
+                def set_vtune_limit_high(self, value):
+                    """
+                    Parameter:
+                        value (float): Maximum output level of the V Tune port in volts.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SOURce:VOLTage:VTUNe:LEVel:LIMit:HIGH {value}")
+
+                def get_vtune_limit_high(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Maximum output level of the V Tune port in volts.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SOURce:VOLTage:VTUNe:LEVel:LIMit:HIGH?"))
+
+                def set_vsup_limit_low(self, value):
+                    """
+                    Parameter:
+                        value (float): Minimum output level of the V Supply port in volts.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SOURce:VOLTage:VSUPply:LEVel:LIMit:LOW {value}")
+
+                def get_vsup_limit_low(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Minimum output level of the V Supply port in volts.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SOURce:VOLTage:VSUPply:LEVel:LIMit:LOW?"))
+
+                def set_vsup_limit_high(self, value):
+                    """
+                    Parameter:
+                        value (float): Maximum output level of the V Supply port in volts.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:VCO:SOURce:VOLTage:VSUPply:LEVel:LIMit:HIGH {value}")
+
+                def get_vsup_limit_high(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Maximum output level of the V Supply port in volts.
+                    """
+                    return float(self.instrument.query(":SENSe:VCO:SOURce:VOLTage:VSUPply:LEVel:LIMit:HIGH?"))
+        class Audio:
+            """
+            The Audio commands control the audio player utility in Spike.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def start(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    None
+                """
+                self.instrument.write(":SENSe:AUDio:STARt")
+
+            def stop(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    None
+                """
+                self.instrument.write(":SENSe:AUDio:STOP")
+
+            def set_center_frequency(self, freq):
+                """
+                Parameter:
+                    freq (float): Center frequency of the audio player (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:AUDio:FREQuency:CENTer {freq}")
+
+            def get_center_frequency(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The center frequency of the audio player (Hz).
+                """
+                return float(self.instrument.query(":SENSe:AUDio:FREQuency:CENTer?"))
+
+            def set_modulation(self, mod):
+                """
+                Parameter:
+                    mod (str): 'AM', 'FM', 'LSB', 'USB', or 'CW'.
+                Return:
+                    None
+                """
+                allowed = {"AM", "FM", "LSB", "USB", "CW"}
+                if not isinstance(mod, str) or mod.upper() not in allowed:
+                    raise ValueError("mod must be one of 'AM', 'FM', 'LSB', 'USB', or 'CW'")
+                self.instrument.write(f":SENSe:AUDio:MOD {mod.upper()}")
+
+            def get_modulation(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The audio demodulation type.
+                """
+                return self.instrument.query(":SENSe:AUDio:MOD?")
+
+            def set_if_bandwidth(self, freq):
+                """
+                Parameter:
+                    freq (float): IF bandwidth of the audio player (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:AUDio:BANDwidth:IF {freq}")
+
+            def get_if_bandwidth(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The IF bandwidth of the audio player (Hz).
+                """
+                return float(self.instrument.query(":SENSe:AUDio:BANDwidth:IF?"))
+
+            def set_lowpass_bandwidth(self, freq):
+                """
+                Parameter:
+                    freq (float): Audio low pass filter cutoff (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:AUDio:BANDwidth:LOW {freq}")
+
+            def get_lowpass_bandwidth(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The audio low pass filter cutoff (Hz).
+                """
+                return float(self.instrument.query(":SENSe:AUDio:BANDwidth:LOW?"))
+
+            def set_highpass_bandwidth(self, freq):
+                """
+                Parameter:
+                    freq (float): Audio high pass filter cutoff (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:AUDio:BANDwidth:HIGH {freq}")
+
+            def get_highpass_bandwidth(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The audio high pass filter cutoff (Hz).
+                """
+                return float(self.instrument.query(":SENSe:AUDio:BANDwidth:HIGH?"))
+
+            def set_fm_deemphasis(self, value):
+                """
+                Parameter:
+                    value (float): FM deemphasis in microseconds.
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENSe:AUDio:FM:DEEMphasis {value}")
+
+            def get_fm_deemphasis(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The FM deemphasis in microseconds.
+                """
+                return float(self.instrument.query(":SENSe:AUDio:FM:DEEMphasis?"))
         class PNoise:
             """
             The PNoise commands control the phase noise measurement mode.
@@ -1854,6 +3762,264 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     """
                     resp = self.instrument.query(":SENSe:PNoise:XCORr:STATe?")
                     return int(resp.strip()) == 1
+                
+            class XCORr:
+                """
+                The PNoiseXCORr commands control the cross correlation settings in phase noise measurement mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                class Device:
+                    """
+                    The Device commands control the cross correlation device settings in phase noise measurement mode.
+                    """
+                    def __init__(self, instrument):
+                        self.instrument = instrument
+
+                    def is_active(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        bool: True if a device is currently connected and active, False otherwise.
+                        """
+                        resp = self.instrument.query(":SENSe:PNoise:XCORr:DEVice:ACTive?")
+                        return resp.strip() == '1'
+
+                    def get_count(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        int: The number of devices connected to the PC.
+                        """
+                        return int(self.instrument.query(":SENSe:PNoise:XCORr:DEVice:COUNt?"))
+
+                    def get_list(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        str: The list of connected devices.
+                        """
+                        return self.instrument.query(":SENSe:PNoise:XCORr:DEVice:LIST?")
+
+                    def get_current(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        str: The currently active device.
+                        """
+                        return self.instrument.query(":SENSe:PNoise:XCORr:DEVice:CURRent?")
+
+                    def connect(self, device_index):
+                        """
+                        Parameter:
+                        device_index (int): The index of the device to connect.
+                        Return:
+                        None
+                        """
+                        if not isinstance(device_index, int) or device_index < 0:
+                            raise ValueError("device_index must be a non-negative integer")
+                        self.instrument.write(f":SENSe:PNoise:XCORr:DEVice:CONnect? {device_index}")
+
+                    def disconnect(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        None
+                        """
+                        self.instrument.write(":SENSe:PNoise:XCORr:DEVice:DISConnect?")
+
+                def set_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable cross correlation.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:PNoise:XCORr:STATe {state}")
+
+                def is_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if cross correlation is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:PNoise:XCORr:STATe?")
+                    return int(resp.strip()) == 1
+            class VCO:
+                """
+                The VCO commands control the VCO settings in phase noise measurement mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                
+                def is_active(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if the PN400 is connected in the software, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:PNoise:VCO:ACTive?")
+                    return resp.strip() == '1'
+
+                def connect(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if PN400 is connected successfully, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:PNoise:VCO:CONnect?")
+                    return resp.strip() == '1'
+
+                def set_voltage_state(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable the supply and tune output voltages.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:PNoise:VCO:VOLTage:STATe {state}")
+
+                def is_voltage_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if supply and tune output voltages are enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:PNoise:VCO:VOLTage:STATe?")
+                    return int(resp.strip()) == 1
+
+                def set_supply_min(self, value):
+                    """
+                    Parameter:
+                        value (float): Minimum supply voltage.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:PNoise:VCO:VOLTage:SUPply:MIN {value}")
+
+                def get_supply_min(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Minimum supply voltage.
+                    """
+                    return float(self.instrument.query(":SENSe:PNoise:VCO:VOLTage:SUPply:MIN?"))
+
+                def set_supply_max(self, value):
+                    """
+                    Parameter:
+                        value (float): Maximum supply voltage.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:PNoise:VCO:VOLTage:SUPply:MAX {value}")
+
+                def get_supply_max(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Maximum supply voltage.
+                    """
+                    return float(self.instrument.query(":SENSe:PNoise:VCO:VOLTage:SUPply:MAX?"))
+
+                def set_supply(self, value):
+                    """
+                    Parameter:
+                        value (float): Supply voltage.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:PNoise:VCO:VOLTage:SUPply {value}")
+
+                def get_supply(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Supply voltage.
+                    """
+                    return float(self.instrument.query(":SENSe:PNoise:VCO:VOLTage:SUPply?"))
+
+                def set_tune_min(self, value):
+                    """
+                    Parameter:
+                        value (float): Minimum tune voltage.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:PNoise:VCO:VOLTage:TUNE:MIN {value}")
+
+                def get_tune_min(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Minimum tune voltage.
+                    """
+                    return float(self.instrument.query(":SENSe:PNoise:VCO:VOLTage:TUNE:MIN?"))
+
+                def set_tune_max(self, value):
+                    """
+                    Parameter:
+                        value (float): Maximum tune voltage.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:PNoise:VCO:VOLTage:TUNE:MAX {value}")
+
+                def get_tune_max(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Maximum tune voltage.
+                    """
+                    return float(self.instrument.query(":SENSe:PNoise:VCO:VOLTage:TUNE:MAX?"))
+
+                def set_tune(self, value):
+                    """
+                    Parameter:
+                        value (float): Tune voltage.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:PNoise:VCO:VOLTage:TUNE {value}")
+
+                def get_tune(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Tune voltage.
+                    """
+                    return float(self.instrument.query(":SENSe:PNoise:VCO:VOLTage:TUNE?"))
         class PeakTable:
                 """
                 The PeakTable commands control the Peak Table display panel in Swept Analysis mode.
@@ -2690,6 +4856,32 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 resp = self.instrument.query(":SENSe:POWer:RF:SPURReject?")
                 return resp.strip() == 1
+            def set_rf_division(self, division):
+                """
+                Parameter:
+                division (float): Plot vertical division (1/10th of the plot height) as dB.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:POWer:RF:PDIVision {division}")
+
+            def get_rf_division(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The plot vertical division as dB.
+                """
+                return float(self.instrument.query(":SENSe:POWer:RF:PDIVision?"))
+
+            def get_rlevel(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The current reference level as dBm.
+                """
+                return float(self.instrument.query(":SENSe:POWer:RF:RLEVel?"))
         class Bandwidth:
             """
             The Bandwidth commands control the FFT processing for the receivers.
@@ -2890,12 +5082,2348 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         str: The current detector units.
                     """
                     return self.instrument.query(":SENSe:SWEep:DETector:UNITs?")
+        class SEMask:
+            """
+            The SEMask commands control the spectrum emission mask mode.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            class Frequency:
+                """
+                The SEMask:Frequency commands control the frequency range of the sweeps in spectrum emission mask mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_center(self, value):
+                    """
+                    Parameter:
+                        value (float or str): Center frequency in Hz, or 'UP', or 'DOWN'.
+                    Return:
+                        None
+                    """
+                    if isinstance(value, str):
+                        if value.upper() not in {"UP", "DOWN"}:
+                            raise ValueError("value must be a float or one of 'UP', 'DOWN'")
+                        val_str = value.upper()
+                    else:
+                        val_str = str(value)
+                    self.instrument.write(f":SENSe:SEMask:FREQuency:CENTer {val_str}")
+
+                def get_center(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The center frequency in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:SEMask:FREQuency:CENTer?"))
+
+                def set_center_step(self, value):
+                    """
+                    Parameter:
+                        value (float): Step amount for center frequency changes in Hz.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:SEMask:FREQuency:CENTer:STEP {value}")
+
+                def get_center_step(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The center frequency step size in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:SEMask:FREQuency:CENTer:STEP?"))
+
+                def set_span(self, value):
+                    """
+                    Parameter:
+                        value (float): Span in Hz.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:SEMask:FREQuency:SPAN {value}")
+
+                def get_span(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The span in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:SEMask:FREQuency:SPAN?"))
+
+            class Bandwidth:
+                """
+                The SEMask:Bandwidth commands control the FFT processing for the receivers in SEM mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_resolution(self, value):
+                    """
+                    Parameter:
+                        value (float or str): RBW in Hz, or 'UP', or 'DOWN'.
+                    Return:
+                        None
+                    """
+                    if isinstance(value, str):
+                        if value.upper() not in {"UP", "DOWN"}:
+                            raise ValueError("value must be a float or one of 'UP', 'DOWN'")
+                        val_str = value.upper()
+                    else:
+                        val_str = str(value)
+                    self.instrument.write(f":SENSe:SEMask:BANDwidth:RESolution {val_str}")
+
+                def get_resolution(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The current RBW in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:SEMask:BANDwidth:RESolution?"))
+
+                def set_resolution_auto(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable auto RBW.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:SEMask:BANDwidth:RESolution:AUTO {state}")
+
+                def is_resolution_auto(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if auto RBW is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:SEMask:BANDwidth:RESolution:AUTO?")
+                    return int(resp.strip()) == 1
+
+                def set_video(self, value):
+                    """
+                    Parameter:
+                        value (float or str): VBW in Hz, or 'UP', or 'DOWN'.
+                    Return:
+                        None
+                    """
+                    if isinstance(value, str):
+                        if value.upper() not in {"UP", "DOWN"}:
+                            raise ValueError("value must be a float or one of 'UP', 'DOWN'")
+                        val_str = value.upper()
+                    else:
+                        val_str = str(value)
+                    self.instrument.write(f":SENSe:SEMask:BANDwidth:VIDeo {val_str}")
+
+                def get_video(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The current VBW in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:SEMask:BANDwidth:VIDeo?"))
+
+                def set_video_auto(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable auto VBW.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:SEMask:BANDwidth:VIDeo:AUTO {state}")
+
+                def is_video_auto(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if auto VBW is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:SEMask:BANDwidth:VIDeo:AUTO?")
+                    return int(resp.strip()) == 1
+            class Sweep:
+                """
+                The Sweep commands control the detector and trace settings of the receiver in SEM mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                class Detector:
+                    """
+                    The Detector commands control the detector function and units in SEM mode.
+                    """
+                    def __init__(self, instrument):
+                        self.instrument = instrument
+
+                    def set_function(self, func):
+                        """
+                        Parameter:
+                            func (str): 'AVERAGE' or 'MINMAX'
+                        Return:
+                            None
+                        """
+                        allowed = {"AVERAGE", "MINMAX"}
+                        if not isinstance(func, str) or func.upper() not in allowed:
+                            raise ValueError("func must be 'AVERAGE' or 'MINMAX'")
+                        self.instrument.write(f":SENSe:SEMask:SWEep:DETector:FUNCtion {func.upper()}")
+
+                    def get_function(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            str: The current detector function.
+                        """
+                        return self.instrument.query(":SENSe:SEMask:SWEep:DETector:FUNCtion?")
+
+                    def set_units(self, units):
+                        """
+                        Parameter:
+                            units (str): 'POWER', 'SAMPLE', 'VOLTAGE', or 'LOG'
+                        Return:
+                            None
+                        """
+                        allowed = {"POWER", "SAMPLE", "VOLTAGE", "LOG"}
+                        if not isinstance(units, str) or units.upper() not in allowed:
+                            raise ValueError("units must be one of 'POWER', 'SAMPLE', 'VOLTAGE', or 'LOG'")
+                        self.instrument.write(f":SENSe:SEMask:SWEep:DETector:UNITs {units.upper()}")
+
+                    def get_units(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            str: The current detector units.
+                        """
+                        return self.instrument.query(":SENSe:SEMask:SWEep:DETector:UNITs?")
+            class Reference():
+                """The Reference commands control the reference measurement settings in SEM mode."""
+                def __init__(self, instrument):
+                    self.instrument = instrument
+                def set_trace_type(self, typ):
+                    """
+                    Parameter:
+                        typ (str): 'WRITE' or 'MAXHOLD'
+                    Return:
+                        None
+                    """
+                    allowed = {"WRITE", "MAXHOLD"}
+                    if not isinstance(typ, str) or typ.upper() not in allowed:
+                        raise ValueError("typ must be 'WRITE' or 'MAXHOLD'")
+                    self.instrument.write(f":TRACe:SEMask:REF:TYPE {typ.upper()}")
+
+                def get_trace_type(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current trace type.
+                    """
+                    return self.instrument.query(":TRACe:SEMask:REF:TYPE?")
+               
+                def get_type(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current reference measurement type.
+                    """
+                    return self.instrument.query(":SENSe:SEMask:REF:TYPE?")
+
+                def set_bandwidth_mode(self, mode):
+                    """
+                    Parameter:
+                        mode (str): 'AUTO' or 'MANUAL'
+                    Return:
+                        None
+                    """
+                    allowed = {"AUTO", "MANUAL"}
+                    if not isinstance(mode, str) or mode.upper() not in allowed:
+                        raise ValueError("mode must be 'AUTO' or 'MANUAL'")
+                    self.instrument.write(f":SENSe:SEMask:REF:BANDwidth:MODE {mode.upper()}")
+
+                def get_bandwidth_mode(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current bandwidth mode.
+                    """
+                    return self.instrument.query(":SENSe:SEMask:REF:BANDwidth:MODE?")
+
+                def set_bandwidth(self, freq):
+                    """
+                    Parameter:
+                        freq (float): The width of the measurement band in Hz.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:SEMask:REF:BANDwidth {freq}")
+
+                def get_bandwidth(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The width of the measurement band in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:SEMask:REF:BANDwidth?"))
+
+                def set_level(self, amplitude):
+                    """
+                    Parameter:
+                        amplitude (float): Reference amplitude level in dBm.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:SEMask:REF:LEVEL {amplitude}")
+
+                def get_level(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The reference amplitude level in dBm.
+                    """
+                    return float(self.instrument.query(":SENSe:SEMask:REF:LEVEL?"))
+            class Offset:
+                """
+                The Offset commands control the offset settings for the spectrum emission mask."""
+                def __init__(self, instrument):
+                    self.instrument = instrument
+                def set_offset_parameters(self, offsets):
+                    """
+                    Parameter:
+                        offsets (list of tuple): List of tuples, each containing (enabled, startFreq, stopFreq, startLimit, stopLimit, mode).
+                            enabled: 'ON', 'OFF', 1, or 0
+                            startFreq: float (Hz)
+                            stopFreq: float (Hz)
+                            startLimit: float
+                            stopLimit: float
+                            mode: 'RELATIVE' or 'ABSOLUTE'
+                    Return:
+                        None
+                    """
+                    allowed_enabled = {"ON", "OFF", 1, 0}
+                    allowed_mode = {"RELATIVE", "ABSOLUTE"}
+                    if not isinstance(offsets, list) or not all(isinstance(o, tuple) and len(o) == 6 for o in offsets):
+                        raise ValueError("offsets must be a list of 6-element tuples")
+                    parts = []
+                    for enabled, startFreq, stopFreq, startLimit, stopLimit, mode in offsets:
+                        if isinstance(enabled, str):
+                            enabled_val = enabled.upper()
+                            if enabled_val not in allowed_enabled:
+                                raise ValueError("enabled must be 'ON', 'OFF', 1, or 0")
+                        elif enabled in [1, 0]:
+                            enabled_val = enabled
+                        else:
+                            raise ValueError("enabled must be 'ON', 'OFF', 1, or 0")
+                        if not isinstance(mode, str) or mode.upper() not in allowed_mode:
+                            raise ValueError("mode must be 'RELATIVE' or 'ABSOLUTE'")
+                        parts.append(f"{enabled_val},{startFreq},{stopFreq},{startLimit},{stopLimit},{mode.upper()}")
+                    data_str = ", ".join(parts)
+                    self.instrument.write(f":SENSe:SEMask:OFFSet:DATA {data_str}")
+
+                def get_offset_parameters(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current offset table as a comma separated list.
+                    """
+                    return self.instrument.query(":SENSe:SEMask:OFFSet:DATA?")
+
+                def is_fail(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if mask fails, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:SEMask:OFFSet:FAIL?")
+                    return int(resp.strip()) == 1
+
+                def is_offset_fail(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        bool: True if specified offset fails, False otherwise.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    resp = self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:FAIL?")
+                    return int(resp.strip()) == 1
+
+                def is_lower_fail(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        bool: True if lower range of specified offset fails, False otherwise.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    resp = self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:LOWer:FAIL?")
+                    return int(resp.strip()) == 1
+
+                def is_upper_fail(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        bool: True if upper range of specified offset fails, False otherwise.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    resp = self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:UPper:FAIL?")
+                    return int(resp.strip()) == 1
+
+                def get_margin(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        float: Worst margin (limit - peak) of specified offset.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    return float(self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:MARgin?"))
+
+                def get_margin_lower(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        float: Margin (limit - peak) of lower range of specified offset.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    return float(self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:MARgin:LOWer?"))
+
+                def get_margin_upper(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        float: Margin (limit - peak) of upper range of specified offset.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    return float(self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:MARgin:UPper?"))
+
+                def get_peak_level_lower(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        float: Peak level of lower range of specified offset.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    return float(self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:PEAK:LEVel:LOWer?"))
+
+                def get_peak_level_upper(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        float: Peak level of upper range of specified offset.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    return float(self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:PEAK:LEVel:UPper?"))
+
+                def get_peak_frequency_lower(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        float: Frequency at peak of lower range of specified offset.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    return float(self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:PEAK:FREQuency:LOWer?"))
+
+                def get_peak_frequency_upper(self, offset_num):
+                    """
+                    Parameter:
+                        offset_num (int): Offset index [1-16].
+                    Return:
+                        float: Frequency at peak of upper range of specified offset.
+                    """
+                    if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
+                        raise ValueError("offset_num must be an integer between 1 and 16")
+                    return float(self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:PEAK:FREQuency:UPper?"))
+
+        class Marker:
+            """
+            The Marker commands control the marker in spectrum emission mask mode.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def enable(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable the marker.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":CALCulate:SEMask:MARKer:STATe {state}")
+
+            def is_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if marker is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":CALCulate:SEMask:MARKer:STATe?")
+                return int(resp.strip()) == 1
+
+            def set_delta(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable delta marker.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":CALCulate:SEMask:MARKer:DELTa {state}")
+
+            def is_delta_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if delta marker is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":CALCulate:SEMask:MARKer:DELTa?")
+                return int(resp.strip()) == 1
+
+            def set_x(self, freq):
+                """
+                Parameter:
+                    freq (float): Frequency to move marker to (Hz).
+                Return:
+                    None
+                """
+                self.instrument.write(f":CALCulate:SEMask:MARKer:X {freq}")
+
+            def get_x(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The marker position frequency (Hz).
+                """
+                return float(self.instrument.query(":CALCulate:SEMask:MARKer:X?"))
+
+            def get_y(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The marker position amplitude.
+                """
+                return float(self.instrument.query(":CALCulate:SEMask:MARKer:Y?"))
+
+            def maximum(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    None
+                """
+                self.instrument.write(":CALCulate:SEMask:MARKer:MAXimum")
+
+            def minimum(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    None
+                """
+                self.instrument.write(":CALCulate:SEMask:MARKer:MINimum")
+
+            def next(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    None
+                """
+                self.instrument.write(":CALCulate:SEMask:MARKer:NEXT")
+
+            def previous(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    None
+                """
+                self.instrument.write(":CALCulate:SEMask:MARKer:PREVious")
+        class NFIGure:
+            """
+            The NFIGure commands control the Noise Figure measurement mode.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            class Frequency:
+                """
+                The NFIGure:Frequency commands control the list of frequency points for noise figure measurements.
+                """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def set_mode(self, mode):
+                """
+                Parameter:
+                mode (str): 'SWEPt' or 'FIXed'
+                Return:
+                None
+                """
+                allowed = {"SWEPT", "FIXED"}
+                if not isinstance(mode, str) or mode.upper() not in allowed:
+                    raise ValueError("mode must be 'SWEPt' or 'FIXed'")
+                self.instrument.write(f":SENSe:NFIGure:FREQuency:MODE {mode.upper()}")
+
+            def get_mode(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The current frequency list mode.
+                """
+                return self.instrument.query(":SENSe:NFIGure:FREQuency:MODE?")
+
+            def set_start(self, freq):
+                """
+                Parameter:
+                freq (float): Start frequency in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:NFIGure:FREQuency:STARt {freq}")
+
+            def get_start(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The current start frequency in Hz.
+                """
+                return float(self.instrument.query(":SENSe:NFIGure:FREQuency:STARt?"))
+
+            def set_stop(self, freq):
+                """
+                Parameter:
+                freq (float): Stop frequency in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:NFIGure:FREQuency:STOP {freq}")
+
+            def get_stop(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The current stop frequency in Hz.
+                """
+                return float(self.instrument.query(":SENSe:NFIGure:FREQuency:STOP?"))
+
+            def set_center(self, freq):
+                """
+                Parameter:
+                freq (float): Center frequency in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:NFIGure:FREQuency:CENTer {freq}")
+
+            def get_center(self, bound=None):
+                """
+                Parameter:
+                bound (str, optional): 'MIN' or 'MAX' to query frequency limits, or None for current center.
+                Return:
+                float: The center frequency in Hz, or the min/max limit.
+                """
+                if bound is not None:
+                    bound = bound.upper()
+                if bound not in {"MIN", "MAX"}:
+                    #raise ValueError("bound must be 'MIN' or 'MAX'")
+                    resp = self.instrument.query(f":SENSe:NFIGure:FREQuency:CENTer? {bound}")
+                else:
+                    resp = self.instrument.query(":SENSe:NFIGure:FREQuency:CENTer?")
+                return float(resp)
+
+            def set_span(self, span):
+                """
+                Parameter:
+                span (float): Span in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:NFIGure:FREQuency:SPAN {span}")
+
+            def get_span(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The span in Hz.
+                """
+                return float(self.instrument.query(":SENSe:NFIGure:FREQuency:SPAN?"))
+
+            def set_points(self, num_points):
+                """
+                Parameter:
+                num_points (int): Number of measurement points.
+                Return:
+                None
+                """
+                if not isinstance(num_points, int):
+                    raise ValueError("num_points must be an integer")
+                self.instrument.write(f":SENSe:NFIGure:FREQuency:POINts {num_points}")
+
+            def get_points(self):
+                """
+                Parameter:
+                None
+                Return:
+                int: The number of measurement points.
+                """
+                return int(self.instrument.query(":SENSe:NFIGure:FREQuency:POINts?"))
+
+            def set_fixed(self, freq):
+                """
+                Parameter:
+                freq (float): Fixed frequency in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:NFIGure:FREQuency:FIXed {freq}")
+
+            def get_fixed(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The fixed frequency in Hz.
+                """
+                return float(self.instrument.query(":SENSe:NFIGure:FREQuency:FIXed?"))
+
+            def get_list_data(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The list of measurement frequencies in Hz (comma separated).
+                """
+                return self.instrument.query(":SENSe:NFIGure:FREQuency:LIST:DATA?")
+            class Bandwidth:
+                """
+                The NFIGure:Bandwidth commands control the bandwidth settings for noise figure measurements.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_resolution(self, value):
+                    """
+                    Parameter:
+                        value (float or str): RBW in Hz, or 'UP', or 'DOWN'.
+                    Return:
+                        None
+                    """
+                    if isinstance(value, str):
+                        if value.upper() not in {"UP", "DOWN"}:
+                            raise ValueError("value must be a float or one of 'UP', 'DOWN'")
+                        val_str = value.upper()
+                    else:
+                        val_str = str(value)
+                    self.instrument.write(f":SENSe:NFIGure:BANDwidth:RESolution {val_str}")
+
+                def get_resolution(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The current RBW in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:BANDwidth:RESolution?"))
+
+                def set_resolution_auto(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable auto RBW.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:NFIGure:BANDwidth:RESolution:AUTO {state}")
+
+                def is_resolution_auto(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if auto RBW is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:NFIGure:BANDwidth:RESolution:AUTO?")
+                    return int(resp.strip()) == 1
+
+                def set_video(self, value):
+                    """
+                    Parameter:
+                        value (float or str): VBW in Hz, or 'UP', or 'DOWN'.
+                    Return:
+                        None
+                    """
+                    if isinstance(value, str):
+                        if value.upper() not in {"UP", "DOWN"}:
+                            raise ValueError("value must be a float or one of 'UP', 'DOWN'")
+                        val_str = value.upper()
+                    else:
+                        val_str = str(value)
+                    self.instrument.write(f":SENSe:NFIGure:BANDwidth:VIDeo {val_str}")
+
+                def get_video(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The current VBW in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:BANDwidth:VIDeo?"))
+
+                def set_video_auto(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable auto VBW.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:NFIGure:BANDwidth:VIDeo:AUTO {state}")
+
+                def is_video_auto(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if auto VBW is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:NFIGure:BANDwidth:VIDeo:AUTO?")
+                    return int(resp.strip()) == 1
+
+                def set_power_rf_rlevel(self, value):
+                    """
+                    Parameter:
+                    value (float): Reference level of the measurement in dBm.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:NFIGure:POWer:RF:RLEVel {value}")
+
+                def get_power_rf_rlevel(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The reference level of the measurement in dBm.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:POWer:RF:RLEVel?"))
+
+                def set_meas_span(self, value):
+                    """
+                    Parameter:
+                    value (float): Span of each sweep in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:NFIGure:MEAS:SPAN {value}")
+
+                def get_meas_span(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The span of each sweep in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:MEAS:SPAN?"))
+
+                def set_average_state(self, state):
+                    """
+                    Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable averaging.
+                    Return:
+                    None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:NFIGure:AVERage:STATe {state}")
+
+                def is_average_enabled(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    bool: True if averaging is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:NFIGure:AVERage:STATe?")
+                    return int(resp.strip()) == 1
+
+                def set_average_count(self, count):
+                    """
+                    Parameter:
+                    count (int): Number of sweeps to average together.
+                    Return:
+                    None
+                    """
+                    if not isinstance(count, int):
+                        raise ValueError("count must be an integer")
+                    self.instrument.write(f":SENSe:NFIGure:AVERage:COUNt {count}")
+
+                def get_average_count(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    int: The number of sweeps averaged together.
+                    """
+                    return int(self.instrument.query(":SENSe:NFIGure:AVERage:COUNt?"))
+
+                def set_tcold_value(self, value):
+                    """
+                    Parameter:
+                    value (float): Room temperature in Kelvin.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:NFIGure:CORRection:TCOLd:VALue {value}")
+
+                def get_tcold_value(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: Room temperature in Kelvin.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:CORRection:TCOLd:VALue?"))
+
+                def set_alert_state(self, state):
+                    """
+                    Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable alert on sweep completion.
+                    Return:
+                    None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:NFIGure:ALERt:STATe {state}")
+
+                def is_alert_enabled(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    bool: True if alert is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:NFIGure:ALERt:STATe?")
+                    return int(resp.strip()) == 1
+                
+
+            class Correction:
+                """
+                The NFIGure:Correction commands control ENR tables and calibration settings for noise figure measurements.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                class ENRTable:
+                    """
+                    The ENRTable commands manage ENR tables for noise sources.
+                    """
+                    def __init__(self, instrument):
+                        self.instrument = instrument
+
+                    def get_count(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        int: The count of ENR tables.
+                        """
+                        return int(self.instrument.query(":SENSe:NFIGure:CORRection:ENR:TABLe:COUNt?"))
+
+                    def new(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        None
+                        """
+                        self.instrument.write(":SENSe:NFIGure:CORRection:ENR:TABLe:NEW")
+
+                    def load(self, table_id):
+                        """
+                        Parameter:
+                        table_id (int): ENR table ID to load.
+                        Return:
+                        None
+                        """
+                        if not isinstance(table_id, int):
+                            raise ValueError("table_id must be an integer")
+                        self.instrument.write(f":SENSe:NFIGure:CORRection:ENR:TABLe:LOAD {table_id}")
+
+                    def get_current(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        str: The ID of the currently loaded ENR table.
+                        """
+                        return self.instrument.query(":SENSe:NFIGure:CORRection:ENR:TABLe?")
+
+                    def set_title(self, title):
+                        """
+                        Parameter:
+                        title (str): Title of the ENR table.
+                        Return:
+                        None
+                        """
+                        self.instrument.write(f':SENSe:NFIGure:CORRection:ENR:TABLe:TITLe "{title}"')
+
+                    def get_title(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        str: The title of the loaded ENR table.
+                        """
+                        return self.instrument.query(":SENSe:NFIGure:CORRection:ENR:TABLe:TITLe?")
+
+                    def get_points_count(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        int: Number of points in the loaded ENR table.
+                        """
+                        return int(self.instrument.query(":SENSe:NFIGure:CORRection:ENR:TABLe:POINts?"))
+
+                    def set_data(self, points):
+                        """
+                        Parameter:
+                        points (list of tuple): List of (freq, enr) pairs.
+                        Return:
+                        None
+                        """
+                        if not isinstance(points, list) or not all(isinstance(p, tuple) and len(p) == 2 for p in points):
+                            raise ValueError("points must be a list of (freq, enr) tuples")
+                        data_str = ", ".join(f"{freq},{enr}" for freq, enr in points)
+                        self.instrument.write(f":SENSe:NFIGure:CORRection:ENR:TABLe:DATA {data_str}")
+
+                    def get_data(self):
+                        """
+                        Parameter:
+                        None
+                        Return:
+                        str: The list of points in the loaded ENR table.
+                        """
+                        return self.instrument.query(":SENSe:NFIGure:CORRection:ENR:TABLe:DATA?")
+
+                    def set_calibration_table(self, table_id):
+                        """
+                        Parameter:
+                            table_id (int): ENR table ID to use for calibration.
+                        Return:
+                            None
+                        """
+                        if not isinstance(table_id, int):
+                            raise ValueError("table_id must be an integer")
+                        self.instrument.write(f":SENSe:NFIGure:CORRection:ENR:CALibration:TABLe {table_id}")
+
+                    def get_calibration_table(self):
+                        """
+                        Parameter:
+                            None
+                        Return:
+                            str: The calibration ENR table.
+                        """
+                        return self.instrument.query(":SENSe:NFIGure:CORRection:ENR:CALibration:TABLe?")
+
+                    def set_measurement_table(self, table_id):
+                        """
+                        Parameter:
+                            table_id (int): ENR table ID to use for measurement.
+                        Return:
+                            None
+                        """
+                        if not isinstance(table_id, int):
+                            raise ValueError("table_id must be an integer")
+                        self.instrument.write(f":SENSe:NFIGure:CORRection:ENR:MEASurement:TABLe {table_id}")
+
+                def get_measurement_table(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The measurement ENR table.
+                    """
+                    return self.instrument.query(":SENSe:NFIGure:CORRection:ENR:MEASurement:TABLe?")
+
+            def get_calibration_state(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The current calibration state ('uncal', 'semical', or 'cal').
+                """
+                return self.instrument.query(":SENSe:NFIGure:CALibration:STATe?")
+
+            def initiate_calibration(self):
+                """
+                Parameter:
+                None
+                Return:
+                None
+                """
+                self.instrument.write(":SENSe:NFIGure:CALibration:INITiate")
+
+            def initiate_measurement(self):
+                """
+                Parameter:
+                None
+                Return:
+                None
+                """
+                self.instrument.write(":SENSe:NFIGure:MEASurement:INITiate")
+
+            def continue_process(self):
+                """
+                Parameter:
+                None
+                Return:
+                None
+                """
+                self.instrument.write(":SENSe:NFIGure:CONTinue")
+
+            def abort(self):
+                """
+                Parameter:
+                None
+                Return:
+                None
+                """
+                self.instrument.write(":SENSe:NFIGure:ABORt")
+
+            def get_next_action(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The next action user needs to take before continuing measurement.
+                """
+                return self.instrument.query(":STATus:NFIGure:NEXT?")
+
+            def get_progress(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The percentage progress of the current sweep.
+                """
+                return float(self.instrument.query(":STATus:NFIGure:PROGress?"))
+
+            class Fetch:
+                """
+                The Fetch commands retrieve noise figure and gain measurement results.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def get_nfigure(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: List of noise figure measurements for each point in the frequency list.
+                    """
+                    return self.instrument.query(":FETCh:NFIGure?")
+
+                def get_gain(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: List of gain measurements for each point in the frequency list.
+                    """
+                    return self.instrument.query(":FETCh:NFIGure:GAIN?")
+        class Bluetooth:
+            """
+            The Bluetooth commands control the Bluetooth Low Energy measurement mode.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            class Measurement:
+                """
+                The Measurement commands configure Bluetooth measurement mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+            def set_meas(self, meas_type):
+                """
+                Parameter:
+                meas_type (str): 'DEMOD' or 'IBE'
+                Return:
+                None
+                """
+                allowed = {"DEMOD", "IBE"}
+                if not isinstance(meas_type, str) or meas_type.upper() not in allowed:
+                    raise ValueError("meas_type must be 'DEMOD' or 'IBE'")
+                self.instrument.write(f":SENSe:BLE:MEAS {meas_type.upper()}")
+
+            def get_meas(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The current Bluetooth measurement type.
+                """
+                return self.instrument.query(":SENSe:BLE:MEAS?")
+
+            def set_center_frequency(self, freq):
+                """
+                Parameter:
+                freq (float): Center frequency in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:BLE:FREQuency:CENTer {freq}")
+
+            def get_center_frequency(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The center frequency in Hz.
+                """
+                return float(self.instrument.query(":SENSe:BLE:FREQuency:CENTer?"))
+
+            def set_center_step(self, freq):
+                """
+                Parameter:
+                freq (float): Center frequency step size in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:BLE:FREQuency:CENTer:STEP {freq}")
+
+            def get_center_step(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The center frequency step size in Hz.
+                """
+                return float(self.instrument.query(":SENSe:BLE:FREQuency:CENTer:STEP?"))
+
+            def set_ifbw(self, freq):
+                """
+                Parameter:
+                freq (float): Measurement bandwidth for demodulation in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:BLE:IFBW {freq}")
+
+            def get_ifbw(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The measurement bandwidth for demodulation in Hz.
+                """
+                return float(self.instrument.query(":SENSe:BLE:IFBW?"))
+
+            def set_channel_index(self, index):
+                """
+                Parameter:
+                index (int): Channel index.
+                Return:
+                None
+                """
+                if not isinstance(index, int):
+                    raise ValueError("index must be an integer")
+                self.instrument.write(f":SENSe:BLE:CHANnel:INDex {index}")
+
+            def get_channel_index(self):
+                """
+                Parameter:
+                None
+                Return:
+                int: The channel index.
+                """
+                return int(self.instrument.query(":SENSe:BLE:CHANnel:INDex?"))
+
+            def set_channel_auto(self, state):
+                """
+                Parameter:
+                state (int or str): 1/0 or 'ON'/'OFF' to enable/disable auto channel index.
+                Return:
+                None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                if state not in {"ON", "OFF"}:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":SENSe:BLE:CHANnel:AUTO {state}")
+
+            def is_channel_auto(self):
+                """
+                Parameter:
+                None
+                Return:
+                bool: True if auto channel index is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":SENSe:BLE:CHANnel:AUTO?")
+                return int(resp.strip()) == 1
+
+            def set_reference_level(self, value):
+                """
+                Parameter:
+                value (float): Reference level in dBm.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:BLE:POWer:RF:RLEVel {value}")
+
+            def get_reference_level(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The reference level in dBm.
+                """
+                return float(self.instrument.query(":SENSe:BLE:POWer:RF:RLEVel?"))
+
+            class Trigger:
+                """
+                The Trigger commands control the Bluetooth Low Energy trigger settings.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_slength(self, value):
+                    """
+                    Parameter:
+                    value (float): Measurement capture length in seconds.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":TRIGger:BLE:SLENgth {value}")
+
+                def get_slength(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The measurement capture length in seconds.
+                    """
+                    return float(self.instrument.query(":TRIGger:BLE:SLENgth?"))
+
+                class Fetch:
+                    """
+                    The Fetch commands retrieve Bluetooth Low Energy demodulation metrics.
+                    """
+                    def __init__(self, instrument):
+                        self.instrument = instrument
+
+                    def fetch(self, metrics):
+                        """
+                        Parameter:
+                        metrics (int or list/tuple of int): Metric(s) to retrieve.
+                        Return:
+                        str: Comma separated list of metric values in order requested.
+                        """
+                        if isinstance(metrics, int):
+                            metrics_str = str(metrics)
+                        elif isinstance(metrics, (list, tuple)) and all(isinstance(m, int) for m in metrics):
+                            metrics_str = ",".join(str(m) for m in metrics)
+                        else:
+                            raise ValueError("metrics must be an int or list/tuple of ints")
+                        return self.instrument.query(f":FETCh:BLE? {metrics_str}")
+        class LTE:
+            """
+            The LTE commands control the receiver and measurement configuration in the LTE measurement mode.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            class Measurement:
+                """
+                The Measurement commands configure LTE measurement mode.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_standard(self, standard):
+                    """
+                    Parameter:
+                        standard (str): 'FDD', 'TDD', or 'NB'
+                    Return:
+                        None
+                    """
+                    allowed = {"FDD", "TDD", "NB"}
+                    if not isinstance(standard, str) or standard.upper() not in allowed:
+                        raise ValueError("standard must be one of 'FDD', 'TDD', or 'NB'")
+                    self.instrument.write(f":SENSe:LTE:STANdard {standard.upper()}")
+
+                def get_standard(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current LTE standard.
+                    """
+                    return self.instrument.query(":SENSe:LTE:STANdard?")
+
+                def set_bandwidth(self, bw):
+                    """
+                    Parameter:
+                        bw (str): '1.4', '3', '5', '10', '15', or '20' (MHz as string)
+                    Return:
+                        None
+                    """
+                    allowed = {"1.4", "3", "5", "10", "15", "20"}
+                    if not isinstance(bw, str) or bw not in allowed:
+                        raise ValueError("bw must be one of '1.4', '3', '5', '10', '15', or '20'")
+                    self.instrument.write(f":SENSe:LTE:BANDwidth {bw}")
+
+                def get_bandwidth(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current LTE bandwidth in MHz.
+                    """
+                    return self.instrument.query(":SENSe:LTE:BANDwidth?")
+
+                def set_center_frequency(self, freq):
+                    """
+                    Parameter:
+                        freq (float): Center frequency in Hz.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:LTE:FREQuency:CENTer {freq}")
+
+                def get_center_frequency(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Center frequency in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:LTE:FREQuency:CENTer?"))
+
+                def set_reference_level(self, value):
+                    """
+                    Parameter:
+                        value (float): Reference level in dBm.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENSe:LTE:POWer:RF:RLEVel {value}")
+
+                def get_reference_level(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Reference level in dBm.
+                    """
+                    return float(self.instrument.query(":SENSe:LTE:POWer:RF:RLEVel?"))
+            
+                def set_include(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to include single frequency measurements in cell search results.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:LTE:MEAS:INClude {state}")
+
+                def is_include_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if single frequency measurements are included in cell search results, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:LTE:MEAS:INClude?")
+                    return int(resp.strip()) == 1
+
+            class Scan:
+                """
+                The Scan commands control LTE cell search and scan results.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_type(self, scan_type):
+                    """
+                    Parameter:
+                        scan_type (str): 'SINGLE' or 'CONTINUOUS'
+                    Return:
+                        None
+                    """
+                    allowed = {"SINGLE", "CONTINUOUS"}
+                    if not isinstance(scan_type, str) or scan_type.upper() not in allowed:
+                        raise ValueError("scan_type must be 'SINGLE' or 'CONTINUOUS'")
+                    self.instrument.write(f":SENSe:LTE:SCAN:TYPE {scan_type.upper()}")
+
+                def get_type(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current scan type.
+                    """
+                    return self.instrument.query(":SENSe:LTE:SCAN:TYPE?")
+
+                def set_results_sort(self, sort):
+                    """
+                    Parameter:
+                        sort (str): 'RSSI', 'FREQUENCY', or 'TIME'
+                    Return:
+                        None
+                    """
+                    allowed = {"RSSI", "FREQUENCY", "TIME"}
+                    if not isinstance(sort, str) or sort.upper() not in allowed:
+                        raise ValueError("sort must be 'RSSI', 'FREQUENCY', or 'TIME'")
+                    self.instrument.write(f":SENSe:LTE:SCAN:RESults:SORT {sort.upper()}")
+
+                def get_results_sort(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current sort order for scan results.
+                    """
+                    return self.instrument.query(":SENSe:LTE:SCAN:RESults:SORT?")
+
+                def set_results_keep(self, keep):
+                    """
+                    Parameter:
+                        keep (str): 'LAST' or 'PEAK'
+                    Return:
+                        None
+                    """
+                    allowed = {"LAST", "PEAK"}
+                    if not isinstance(keep, str) or keep.upper() not in allowed:
+                        raise ValueError("keep must be 'LAST' or 'PEAK'")
+                    self.instrument.write(f":SENSe:LTE:SCAN:RESults:KEEP {keep.upper()}")
+
+                def get_results_keep(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The current keep setting for grouped scan results.
+                    """
+                    return self.instrument.query(":SENSe:LTE:SCAN:RESults:KEEP?")
+
+                def set_results_group(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable grouping of scan results.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    self.instrument.write(f":SENSe:LTE:SCAN:RESults:GROUP {state}")
+
+                def is_results_group_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if grouping of scan results is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:LTE:SCAN:RESults:GROUP?")
+                    return int(resp.strip()) == 1
+
+                def set_results_max(self, value):
+                    """
+                    Parameter:
+                        value (int): Maximum number of entries in scan results.
+                    Return:
+                        None
+                    """
+                    if not isinstance(value, int):
+                        raise ValueError("value must be an integer")
+                    self.instrument.write(f":SENSe:LTE:SCAN:RESults:MAX {value}")
+
+                def get_results_max(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: Maximum number of entries in scan results.
+                    """
+                    return int(self.instrument.query(":SENSe:LTE:SCAN:RESults:MAX?"))
+
+                def start(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: 1 if scan started.
+                    """
+                    return int(self.instrument.query(":SENSe:LTE:SCAN:STARt?"))
+
+                def is_active(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if scan is active, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:LTE:SCAN:ACTive?")
+                    return int(resp.strip()) == 1
+
+                def stop(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: 1 when scan is stopped.
+                    """
+                    return int(self.instrument.query(":SENSe:LTE:SCAN:STOP?"))
+
+                def get_results_count(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: Number of rows in the cell scan results table.
+                    """
+                    return int(self.instrument.query(":SENSe:LTE:SCAN:RESults:COUNt?"))
+
+                def set_results_index(self, index):
+                    """
+                    Parameter:
+                        index (int): Index into the cell scan results table.
+                    Return:
+                        None
+                    """
+                    if not isinstance(index, int):
+                        raise ValueError("index must be an integer")
+                    self.instrument.write(f":SENSe:LTE:SCAN:RESults:INDEX {index}")
+
+                def get_results_index(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        int: The current index into the cell scan results table.
+                    """
+                    return int(self.instrument.query(":SENSe:LTE:SCAN:RESults:INDEX?"))
+
+                def clear_results(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        None
+                    """
+                    self.instrument.write(":SENSe:LTE:SCAN:RESults:CLEar")
+
+            class Fetch:
+                """
+                The Fetch commands retrieve LTE measurement results.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def fetch(self, metrics):
+                    """
+                    Parameter:
+                        metrics (int or list/tuple of int): Metric(s) to retrieve. See documentation for valid values.
+                    Return:
+                        str: Comma separated list of metric values in order requested.
+                    """
+                    if isinstance(metrics, int):
+                        metrics_str = str(metrics)
+                    elif isinstance(metrics, (list, tuple)) and all(isinstance(m, int) for m in metrics):
+                        metrics_str = ",".join(str(m) for m in metrics)
+                    else:
+                        raise ValueError("metrics must be an int or list/tuple of ints")
+                    return self.instrument.query(f":FETCh:LTE? {metrics_str}")
+
+            class Trigger:
+                """
+                The Trigger commands control the LTE trigger settings.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def set_slength(self, value):
+                    """
+                    Parameter:
+                        value (float): Measurement capture length in seconds.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":TRIGger:LTE:SLENgth {value}")
+
+                def get_slength(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Measurement capture length in seconds.
+                    """
+                    return float(self.instrument.query(":TRIGger:LTE:SLENgth?"))
+
+                def set_if_level(self, value):
+                    """
+                    Parameter:
+                        value (float): Trigger level in dBm.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":TRIGger:LTE:IF:LEVel {value}")
+
+                def get_if_level(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: Trigger level in dBm.
+                    """
+                    return float(self.instrument.query(":TRIGger:LTE:IF:LEVel?"))
+
+            class Fetch:
+                """
+                The Fetch commands retrieve LTE demodulation metrics.
+                """
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                def fetch(self, metrics):
+                    """
+                    Parameter:
+                        metrics (int or list/tuple of int): Metric(s) to retrieve.
+                    Return:
+                        str: Comma separated list of metric values in order requested.
+                    """
+                    if isinstance(metrics, int):
+                        metrics_str = str(metrics)
+                    elif isinstance(metrics, (list, tuple)) and all(isinstance(m, int) for m in metrics):
+                        metrics_str = ",".join(str(m) for m in metrics)
+                    else:
+                        raise ValueError("metrics must be an int or list/tuple of ints")
+                    return self.instrument.query(f":FETCh:LTE? {metrics_str}")
+    class WLAN:
+        """
+        The WLAN commands control the receiver and measurement configuration in the WLAN measurement mode.
+        """
+        def __init__(self, instrument):
+            self.instrument = instrument
+
+        class Measurement:
+            """
+            The Measurement commands configure WLAN measurement mode.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def set_standard(self, standard):
+                """
+                Parameter:
+                standard (str): 'BG', 'AG', 'N20', 'N40', 'AC20', 'AC40', or 'AH'
+                Return:
+                None
+                """
+                allowed = {"BG", "AG", "N20", "N40", "AC20", "AC40", "AH"}
+                if not isinstance(standard, str) or standard.upper() not in allowed:
+                    raise ValueError("standard must be one of 'BG', 'AG', 'N20', 'N40', 'AC20', 'AC40', or 'AH'")
+                self.instrument.write(f":SENSe:WLAN:STANdard {standard.upper()}")
+
+            def get_standard(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The current WLAN modulation standard.
+                """
+                return self.instrument.query(":SENSe:WLAN:STANdard?")
+
+            def set_dsss_symbols(self, num):
+                """
+                Parameter:
+                num (int): Number of DSSS symbols to demodulate/decode.
+                Return:
+                None
+                """
+                if not isinstance(num, int):
+                    raise ValueError("num must be an integer")
+                self.instrument.write(f":SENSe:WLAN:SYMbols:DSSS {num}")
+
+            def get_dsss_symbols(self):
+                """
+                Parameter:
+                None
+                Return:
+                int: Number of DSSS symbols to demodulate/decode.
+                """
+                return int(self.instrument.query(":SENSe:WLAN:SYMbols:DSSS?"))
+
+            def set_psdu_decode(self, state):
+                """
+                Parameter:
+                state (int or str): 1/0 or 'ON'/'OFF' to enable/disable OFDM PSDU decoding.
+                Return:
+                None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                if state not in {"ON", "OFF"}:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":SENSe:WLAN:PSDU:DECode {state}")
+
+            def is_psdu_decode_enabled(self):
+                """
+                Parameter:
+                None
+                Return:
+                bool: True if OFDM PSDU decoding is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":SENSe:WLAN:PSDU:DECode?")
+                return int(resp.strip()) == 1
+
+            def set_symbol_offset(self, value):
+                """
+                Parameter:
+                value (float): GI timing offset between -100 and 0 (%)
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:WLAN:SYMBol:OFFSet {value}")
+
+            def get_symbol_offset(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: GI timing offset between -100 and 0 (%)
+                """
+                return float(self.instrument.query(":SENSe:WLAN:SYMBol:OFFSet?"))
+
+            def set_center_frequency(self, freq):
+                """
+                Parameter:
+                freq (float): Center frequency in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:WLAN:FREQuency:CENTer {freq}")
+
+            def get_center_frequency(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: Center frequency in Hz.
+                """
+                return float(self.instrument.query(":SENSe:WLAN:FREQuency:CENTer?"))
+
+            def set_center_step(self, freq):
+                """
+                Parameter:
+                freq (float): Center frequency step size in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:WLAN:FREQuency:CENTer:STEP {freq}")
+
+            def get_center_step(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: Center frequency step size in Hz.
+                """
+                return float(self.instrument.query(":SENSe:WLAN:FREQuency:CENTer:STEP?"))
+
+            def set_ifbw(self, freq):
+                """
+                Parameter:
+                freq (float): IF bandwidth in Hz.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:WLAN:IFBW {freq}")
+
+            def get_ifbw(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: IF bandwidth in Hz.
+                """
+                return float(self.instrument.query(":SENSe:WLAN:IFBW?"))
+
+            def set_reference_level(self, value):
+                """
+                Parameter:
+                value (float): Reference level in dBm.
+                Return:
+                None
+                """
+                self.instrument.write(f":SENSe:WLAN:POWer:RF:RLEVel {value}")
+
+            def get_reference_level(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: Reference level in dBm.
+                """
+                return float(self.instrument.query(":SENSe:WLAN:POWer:RF:RLEVel?"))
+
+        class Trigger:
+            """
+            The Trigger commands control the WLAN trigger settings.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def set_slength(self, value):
+                """
+                Parameter:
+                value (float): Measurement capture length in seconds.
+                Return:
+                None
+                """
+                self.instrument.write(f":TRIGger:WLAN:SLENgth {value}")
+
+            def get_slength(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: Measurement capture length in seconds.
+                """
+                return float(self.instrument.query(":TRIGger:WLAN:SLENgth?"))
+
+            def set_if_threshold(self, value):
+                """
+                Parameter:
+                value (float): OFDM trigger threshold in dB.
+                Return:
+                None
+                """
+                self.instrument.write(f":TRIGger:WLAN:IF:THRESHold {value}")
+
+            def get_if_threshold(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: OFDM trigger threshold in dB.
+                """
+                return float(self.instrument.query(":TRIGger:WLAN:IF:THRESHold?"))
+
+            def set_if_level(self, value):
+                """
+                Parameter:
+                value (float): DSSS video trigger level in dBm.
+                Return:
+                None
+                """
+                self.instrument.write(f":TRIGger:WLAN:IF:LEVel {value}")
+
+            def get_if_level(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: DSSS video trigger level in dBm.
+                """
+                return float(self.instrument.query(":TRIGger:WLAN:IF:LEVel?"))
+
+        class Fetch:
+            """
+            The Fetch commands retrieve WLAN demodulation metrics.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def fetch(self, metrics):
+                """
+                Parameter:
+                metrics (int or list/tuple of int): Metric(s) to retrieve.
+                Return:
+                str: Comma separated list of metric values in order requested.
+                """
+                if isinstance(metrics, int):
+                    metrics_str = str(metrics)
+                elif isinstance(metrics, (list, tuple)) and all(isinstance(m, int) for m in metrics):
+                    metrics_str = ",".join(str(m) for m in metrics)
+                else:
+                    raise ValueError("metrics must be an int or list/tuple of ints")
+                return self.instrument.query(f":FETCh:WLAN? {metrics_str}")
     class Trace:
         """
         The Trace commands control the user configurable traces for sweep mode.
         """
         def __init__(self, instrument):
             self.instrument = instrument
+        class PNoise:
+            """
+            The PNoise commands control the user configurable traces for phase noise measurements.
+            """
+            def __init__(self, instrument):
+                self.instrument = instrument
+
+            def select(self, trace_num):
+                """
+                Parameter:
+                    trace_num (int): Trace index [1,6].
+                Return:
+                    None
+                """
+                if not isinstance(trace_num, int) or not (1 <= trace_num <= 6):
+                    raise ValueError("trace_num must be an integer between 1 and 6")
+                self.instrument.write(f":TRACe:PNoise:SELect {trace_num}")
+
+            def get_selected(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    int: The currently selected trace index.
+                """
+                return int(self.instrument.query(":TRACe:PNoise:SELect?"))
+
+            def set_type(self, typ):
+                """
+                Parameter:
+                    typ (str): 'OFF', 'NORMal', 'AVERage', 'REFerence', 'MINHold', or 'MAXHold'.
+                Return:
+                    None
+                """
+                allowed = {"OFF", "NORMal", "AVERage", "REFerence", "MINHold", "MAXHold"}
+                if not isinstance(typ, str) or typ.upper() not in allowed:
+                    raise ValueError("typ must be one of 'OFF', 'NORMal', 'AVERage', 'REFerence', 'MINHold', or 'MAXHold'")
+                self.instrument.write(f":TRACe:PNoise:TYPE {typ.upper()}")
+
+            def get_type(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The current trace type.
+                """
+                return self.instrument.query(":TRACe:PNoise:TYPE?")
+
+            def set_average_count(self, count):
+                """
+                Parameter:
+                    count (int): Number of traces to average together.
+                Return:
+                    None
+                """
+                if not isinstance(count, int) or count < 1:
+                    raise ValueError("count must be a positive integer")
+                self.instrument.write(f":TRACe:PNoise:AVERage:COUNt {count}")
+
+            def get_average_count(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    int: The number of traces averaged together.
+                """
+                return int(self.instrument.query(":TRACe:PNoise:AVERage:COUNt?"))
+
+            def set_update_state(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable trace update.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":TRACe:PNoise:UPDate:STATe {state}")
+
+            def is_update_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if trace update is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":TRACe:PNoise:UPDate:STATe?")
+                return int(resp.strip()) == 1
+
+            def set_hide_state(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to show/hide the trace.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":TRACe:PNoise:HIDE:STATe {state}")
+
+            def is_hidden(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if trace is hidden, False otherwise.
+                """
+                resp = self.instrument.query(":TRACe:PNoise:HIDE:STATe?")
+                return int(resp.strip()) == 1
+            
+            def set_smoothing_state(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable trace smoothing.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":TRACe:PNoise:SMOothing:STATe {state}")
+
+            def is_smoothing_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if trace smoothing is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":TRACe:PNoise:SMOothing:STATe?")
+                return int(resp.strip()) == 1
+
+            def set_smoothing_aperture(self, aperture):
+                """
+                Parameter:
+                    aperture (float): Smoothing aperture value.
+                Return:
+                    None
+                """
+                self.instrument.write(f":TRACe:PNoise:SMOothing:APERture {aperture}")
+
+            def get_smoothing_aperture(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The smoothing aperture value.
+                """
+                return float(self.instrument.query(":TRACe:PNoise:SMOothing:APERture?"))
+
+            def set_spur_reject_state(self, state):
+                """
+                Parameter:
+                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable spur reject.
+                Return:
+                    None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                    if state not in {"ON", "OFF"}:
+                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":TRACe:PNoise:SPURReject:STATe {state}")
+
+            def is_spur_reject_enabled(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    bool: True if spur reject is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":TRACe:PNoise:SPURReject:STATe?")
+                return int(resp.strip()) == 1
+            def set_spur_reject_threshold(self, value):
+                """
+                Parameter:
+                    value (float): Spur reject threshold in dB.
+                Return:
+                    None
+                """
+                self.instrument.write(f":TRACe:PNoise:SPURReject:THRESHold {value}")
+
+            def get_spur_reject_threshold(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The current spur reject threshold in dB.
+                """
+                return float(self.instrument.query(":TRACe:PNoise:SPURReject:THRESHold?"))
+            def set_offset(self, value):
+                """
+                Parameter:
+                    value (float): Offset in dB to immediately apply to the trace.
+                Return:
+                    None
+                """
+                self.instrument.write(f":TRACe:PNoise:OFFSet {value}")
+
+            def get_offset(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    float: The current offset in dB applied to the trace.
+                """
+                return float(self.instrument.query(":TRACe:PNoise:OFFSet?"))
+
+            def to(self, trace_num):
+                """
+                Parameter:
+                    trace_num (int): Trace index [1,6] to move the current trace to.
+                Return:
+                    None
+                """
+                if not isinstance(trace_num, int) or not (1 <= trace_num <= 6):
+                    raise ValueError("trace_num must be an integer between 1 and 6")
+                self.instrument.write(f":TRACe:PNoise:TO {trace_num}")
+
+            def clear(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    None
+                """
+                self.instrument.write(":TRACe:PNoise:CLEar")
+
+            def get_data_y(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The trace data amplitudes as comma separated values.
+                """
+                return self.instrument.query(":TRACe:PNoise:DATA:Y?")
+
+            def get_data_x(self):
+                """
+                Parameter:
+                    None
+                Return:
+                    str: The trace data frequencies as comma separated values.
+                """
+                return self.instrument.query(":TRACe:PNoise:DATA:X?")
 
         def select(self, trace_num):
             """
@@ -3515,110 +8043,112 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         """
                         return float(self.instrument.query(":SENSe:ZS:CAPture:SWEep:TIME?"))
 
-                class Trigger:
+        class Trigger:
+            def __init__(self, instrument):
+                self.instrument = instrument
+            class ZS:
+                """The ZS commands control the trigger configuration in zero-span mode."""
+                def __init__(self, instrument):
+                    self.instrument = instrument
+                def set_source(self, source):
+                    """
+                    Parameter:
+                        source (str): 'IMMEDIATE', 'IF', 'EXTERNAL', or 'FMT'.
+                    Return:
+                        None
+                    """
+                    allowed = {"IMMEDIATE", "IF", "EXTERNAL", "FMT"}
+                    if not isinstance(source, str) or source.upper() not in allowed:
+                        raise ValueError("source must be one of 'IMMEDIATE', 'IF', 'EXTERNAL', or 'FMT'")
+                    self.instrument.write(f":TRIGger:ZS:SOURce {source.upper()}")
+
+                def get_source(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The trigger type.
+                    """
+                    return self.instrument.query(":TRIGger:ZS:SOURce?")
+
+                def set_slope(self, slope):
+                    """
+                    Parameter:
+                        slope (str): 'POSITIVE' or 'NEGATIVE'.
+                    Return:
+                        None
+                    """
+                    allowed = {"POSITIVE", "NEGATIVE"}
+                    if not isinstance(slope, str) or slope.upper() not in allowed:
+                        raise ValueError("slope must be 'POSITIVE' or 'NEGATIVE'")
+                    self.instrument.write(f":TRIGger:ZS:SLOPe {slope.upper()}")
+
+                def get_slope(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        str: The trigger edge.
+                    """
+                    return self.instrument.query(":TRIGger:ZS:SLOPe?")
+
+                def set_if_level(self, amplitude):
+                    """
+                    Parameter:
+                        amplitude (float): Trigger level of the IF trigger.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":TRIGger:ZS:IF:LEVel {amplitude}")
+
+                def get_if_level(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The trigger level of the IF trigger.
+                    """
+                    return float(self.instrument.query(":TRIGger:ZS:IF:LEVel?"))
+
+                def set_position(self, value):
+                    """
+                    Parameter:
+                        value (float): Trigger delay as percent of samples before trigger.
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":TRIGger:ZS:POSition {value}")
+
+                def get_position(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The trigger delay as percent of samples before trigger.
+                    """
+                    return float(self.instrument.query(":TRIGger:ZS:POSition?"))
+
+                class Fetch:
+                    """
+                    The Fetch commands are used to retrieve measurement results in zero-span mode.
+                    """
                     def __init__(self, instrument):
                         self.instrument = instrument
 
-                    def set_source(self, source):
+                    def get_zs(self, param):
                         """
                         Parameter:
-                            source (str): 'IMMEDIATE', 'IF', 'EXTERNAL', or 'FMT'.
+                            param (int): 1 for I/Q data, 2 for length, 10 for average power.
                         Return:
-                            None
+                            str or float: I/Q data (str), length (int), or average power (float).
                         """
-                        allowed = {"IMMEDIATE", "IF", "EXTERNAL", "FMT"}
-                        if not isinstance(source, str) or source.upper() not in allowed:
-                            raise ValueError("source must be one of 'IMMEDIATE', 'IF', 'EXTERNAL', or 'FMT'")
-                        self.instrument.write(f":TRIGger:ZS:SOURce {source.upper()}")
-
-                    def get_source(self):
-                        """
-                        Parameter:
-                            None
-                        Return:
-                            str: The trigger type.
-                        """
-                        return self.instrument.query(":TRIGger:ZS:SOURce?")
-
-                    def set_slope(self, slope):
-                        """
-                        Parameter:
-                            slope (str): 'POSITIVE' or 'NEGATIVE'.
-                        Return:
-                            None
-                        """
-                        allowed = {"POSITIVE", "NEGATIVE"}
-                        if not isinstance(slope, str) or slope.upper() not in allowed:
-                            raise ValueError("slope must be 'POSITIVE' or 'NEGATIVE'")
-                        self.instrument.write(f":TRIGger:ZS:SLOPe {slope.upper()}")
-
-                    def get_slope(self):
-                        """
-                        Parameter:
-                            None
-                        Return:
-                            str: The trigger edge.
-                        """
-                        return self.instrument.query(":TRIGger:ZS:SLOPe?")
-
-                    def set_if_level(self, amplitude):
-                        """
-                        Parameter:
-                            amplitude (float): Trigger level of the IF trigger.
-                        Return:
-                            None
-                        """
-                        self.instrument.write(f":TRIGger:ZS:IF:LEVel {amplitude}")
-
-                    def get_if_level(self):
-                        """
-                        Parameter:
-                            None
-                        Return:
-                            float: The trigger level of the IF trigger.
-                        """
-                        return float(self.instrument.query(":TRIGger:ZS:IF:LEVel?"))
-
-                    def set_position(self, value):
-                        """
-                        Parameter:
-                            value (float): Trigger delay as percent of samples before trigger.
-                        Return:
-                            None
-                        """
-                        self.instrument.write(f":TRIGger:ZS:POSition {value}")
-
-                    def get_position(self):
-                        """
-                        Parameter:
-                            None
-                        Return:
-                            float: The trigger delay as percent of samples before trigger.
-                        """
-                        return float(self.instrument.query(":TRIGger:ZS:POSition?"))
-
-            class Fetch:
-                """
-                The Fetch commands are used to retrieve measurement results in zero-span mode.
-                """
-                def __init__(self, instrument):
-                    self.instrument = instrument
-
-                def get_zs(self, param):
-                    """
-                    Parameter:
-                        param (int): 1 for I/Q data, 2 for length, 10 for average power.
-                    Return:
-                        str or float: I/Q data (str), length (int), or average power (float).
-                    """
-                    if param == 1:
-                        return self.instrument.query(":FETCh:ZS? 1")
-                    elif param == 2:
-                        return int(self.instrument.query(":FETCh:ZS? 2"))
-                    elif param == 10:
-                        return float(self.instrument.query(":FETCh:ZS? 10"))
-                    else:
-                        raise ValueError("param must be 1 (I/Q data), 2 (length), or 10 (average power)")
-                    
-                    
-           
+                        if param == 1:
+                            return self.instrument.query(":FETCh:ZS? 1")
+                        elif param == 2:
+                            return int(self.instrument.query(":FETCh:ZS? 2"))
+                        elif param == 10:
+                            return float(self.instrument.query(":FETCh:ZS? 10"))
+                        else:
+                            raise ValueError("param must be 1 (I/Q data), 2 (length), or 10 (average power)")
+                            
+                            
