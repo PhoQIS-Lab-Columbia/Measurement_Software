@@ -1,12 +1,12 @@
 import json
 import csv
-import os
+import os as os
 import io
 from PIL import Image
 from EFileType import EFileType
 
 class DataHandler():
-    def __init__(self, format):
+    def __init__(self):
         self.writer = None
         self.reader = None
         self.format = EFileType.CSV
@@ -41,10 +41,13 @@ class DataHandler():
         fmt = self.format
         if format is not None:  
             fmt = format
+        file_path = file_path + format.value if not file_path.endswith(format.value) else file_path
         if fmt == EFileType.CSV:
-            with open(file_path, mode='r', newline='') as csvfile:
-                self.reader = csv.reader(csvfile)
-                return list(self.reader)
+            with open(file_path, mode='r') as csvfile:
+                data = list(csv.reader(csvfile))
+                for i in range(1, len(data)):
+                    data[i] = [float(x) for x in data[i]]
+                return data
         elif fmt == EFileType.JSON:
             with open(file_path, 'r') as jsonfile:
                 return json.load(jsonfile)
@@ -54,6 +57,9 @@ class DataHandler():
         elif fmt == EFileType.BIN:  
             with open(file_path, 'rb') as binfile:
                 return binfile.read()
+        elif fmt == EFileType.PNG:
+            return Image.open(file_path)
+
         else:
             raise ValueError(f"Unsupported file format: {self.format}")
         
@@ -69,7 +75,7 @@ class DataHandler():
         if file_type is not None:
             format = file_type
         file_path = file_path + format.value if not file_path.endswith(format.value) else file_path
-        file_exists = os.path(file_path).isfile()
+        file_exists = os.path.isfile(file_path)
         if file_exists:
             m = 'a'  
         else: 
@@ -80,21 +86,29 @@ class DataHandler():
         #TODO Check data formatting possibilities
 
         if format == EFileType.CSV:
-            with open(file_path, mode=m, newline='') as csvfile:
+            with open(file_path, mode=m) as csvfile:
+                if data is dict:
+                    headers = list(data.keys())
+                    data = list(data.values())
+                elif data[0] is not list:
+                    data = [data]
                 self.writer = csv.writer(csvfile)
                 if not file_exists:
                     self.writer.writerow(headers)
                 self.writer.writerows(data)
 
         elif format == EFileType.JSON:
+            already_in_file = {}
+            data_dict = {}
             if(type(data) is list):
-                data_dict = {}
                 for d in range(0,len(data)):
                     data_dict[headers[d]] = data[d]
+            else:
+                data_dict = data
             if file_exists:
                 with open(file_path, 'r') as jsonfile:
                     already_in_file = json.load(jsonfile)
-            
+            data = {**already_in_file, **data_dict}
             with open(file_path, 'w') as jsonfile:
                 json.dump(data, jsonfile)
 
@@ -118,5 +132,13 @@ class DataHandler():
                     binfile.write(bytes(data))
                 else:
                     raise ValueError("Data must be bytes or bytearray for BIN format.")
+        elif format == EFileType.PNG:
+            if isinstance(data, Image.Image):
+                data.save(file_path)
+            elif isinstance(data, bytes):
+                image = Image.open(io.BytesIO(data))
+                image.save(file_path)
+            else:
+                raise ValueError("Data must be an Image object or bytes for PNG format.")
         else:
             raise ValueError(f"Unsupported file format: {self.format}")

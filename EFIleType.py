@@ -5,3 +5,4 @@ class EFileType(Enum):
     TXT = ".txt"
     JSON = ".json"
     BIN = ".bin"
+    PNG = ".png"

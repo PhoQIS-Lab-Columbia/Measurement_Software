@@ -9,6 +9,7 @@ class Instrument(Instrument.Mandatory):
         self.name = None #EInstrument
         self.instrument = instrument
         self.helper = Helper()
-        self.secondary = Secondary()
+
+        #Class objects
     
     #TODO: Add SCPI functions below

@@ -54,6 +54,7 @@ class NetworkManager:
         return instruments
 
     def connect_oscilloscope(self) -> Oscilloscope:
+        '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         return self.connect_instruments([EInstrument.OSCILLOSCOPE])[0]
             
     def connect_spectrum_analyzer(self) -> SpectrumAnalyzer:

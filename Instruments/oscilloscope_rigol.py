@@ -5,21 +5,15 @@ import pyvisa
 from EFileType import EFileType
 from Instruments import Instrument
 from EInstrument import EInstrument
-
+from oscilloscope_helper import Helper
 from PIL import Image
-# Add subclass instances to Oscilloscope's __init__ and each direct subclass __init__
-# Functions that return byte streams (raw binary data) or may return bytes in this class:
-# - Oscilloscope.Display.get_data
-# - Oscilloscope.ETable.get_data
-# - Oscilloscope.System.get_setup
-# - Oscilloscope.Waveform.get_data (returns bytes if format is not ASCII)
 
 class Oscilloscope(Instrument.Instrument):
 
     def __init__(self, instru):
         super().__init__(instru)
         self.name = EInstrument.OSCILLOSCOPE
-
+        self.helper
         self.acquisition = Oscilloscope.Acquisition(self.instrument)
         self.calibrate = Oscilloscope.Calibrate(self.instrument)
         self.channel = Oscilloscope.Channel(self.instrument)
@@ -1701,11 +1695,12 @@ averages as well as query the current sample rate of the oscilloscope."""
 
         def get_data(self, color=None, invert=None, fmt=None):
             """
-            Read the data stream of the image currently displayed on the screen.
+            Read the data stream of the image currently displayed on the screen. If autosave is on, then also saves them to a png file.
             Parameter:
                 color (str or None): "ON" or "OFF" (default ON)
                 invert (int/str or None): 1/"ON" or 0/"OFF" (default 0)
                 fmt (str or None): "BMP24", "BMP8", "PNG", "JPEG", "TIFF" (default BMP24)
+                
             Return:
                 bytes: Raw image data (TMC header included)
             """
@@ -1733,8 +1728,13 @@ averages as well as query the current sample rate of the oscilloscope."""
                 args.append(fmt)
             if args:
                 cmd += " " + ",".join(args)
-            return self.instrument.query_binary_values(cmd, datatype='B', container=bytes)
-
+            data = self.instrument.query_binary_values(cmd, datatype='B', container=bytes)
+            if data and data[0] == ord('#'):  # Check for TMC header
+                data = self.instrument.data_handler.remove_tmc_header(data)
+            if self.instrument.auto_save:
+                file_path = self.instrument.default_file_path + "Display_Data"
+                self.instrument.data_handler.write_to_file(file_path, data, EFileType.PNG, header=None)  # Assuming PNG as default, adjust if needed
+            return data
         def set_type(self, disp_type):
             """
             Set the waveform display mode.
@@ -2031,13 +2031,19 @@ averages as well as query the current sample rate of the oscilloscope."""
 
         def get_data(self):
             """
-            Read the current event table data.
+            Read the current event table data. If autosave is on, then also saves them to a csv file.
             Parameter:
                 None
             Return:
                 bytes: Raw event table data (TMC header included)
             """
-            return self.instrument.query_binary_values(f":ETABle{self.n}:DATA?", datatype='B', container=bytes)
+            data = self.instrument.query_binary_values(f":ETABle{self.n}:DATA?", datatype='B', container=bytes)
+            if data and data[0] == ord('#'):  # Check for TMC header
+                data = self.instrument.data_handler.remove_tmc_header(data)
+            if self.instrument.auto_save:
+                file_path = self.instrument.default_file_path + f"ETable{self.n}_Data"
+                self.instrument.data_handler.write_to_file(file_path, data, EFileType.CSV, header=None)  # Assuming CSV, adjust if needed
+            return data
 
     class Function:
         """
@@ -4653,13 +4659,19 @@ averages as well as query the current sample rate of the oscilloscope."""
 
         def get_setup(self):
             """
-            Query the setting of the oscilloscope (returns binary data with TMC header).
+            Query the setting of the oscilloscope (returns binary data with TMC header). If autosave is on, then also saves them to a bin file.
             Parameter:
                 None
             Return:
                 bytes: Setup data
             """
-            return self.instrument.query_binary_values(":SYST:SETup?", datatype='B', container=bytes)
+            data = self.instrument.query_binary_values(":SYST:SETup?", datatype='B', container=bytes)
+            if data and data[0] == ord('#'):  # Check for TMC header
+                data = self.instrument.data_handler.remove_tmc_header(data)
+            if self.instrument.auto_save:
+                file_path = self.instrument.default_file_path + "System_Setup"
+                self.instrument.data_handler.write_to_file(file_path, data, EFileType.BIN, header=None) 
+            return data
 
         def set_setup(self, setup_stream):
             """
@@ -7363,7 +7375,7 @@ averages as well as query the current sample rate of the oscilloscope."""
 
         def get_data(self):
             """
-            Read the waveform data.
+            Read the waveform data. If autosave is on, then also saves them to a csv file.
             Parameter:
                 None
             Return:
@@ -7371,9 +7383,15 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             fmt = self.get_format()
             if fmt == "ASC":
-                return self.instrument.query(":WAVeform:DATA?")
+                data = self.instrument.query(":WAVeform:DATA?")
             else:
-                return self.instrument.query_binary_values(":WAVeform:DATA?", datatype='B', container=bytes)
+                data = self.instrument.query_binary_values(":WAVeform:DATA?", datatype='B', container=bytes)
+                if data and data[0] == ord('#'):  # Check for TMC header
+                    data = self.instrument.data_handler.remove_tmc_header(data)
+
+            if self.instrument.auto_save:
+                file_path = self.instrument.default_file_path + "Waveform_Data"
+                self.instrument.data_handler.write_to_file(file_path, data, EFileType.CSV, header=None)  
 
         def set_start(self, sta):
             """
