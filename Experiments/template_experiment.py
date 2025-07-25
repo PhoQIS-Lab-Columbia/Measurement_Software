@@ -32,12 +32,12 @@ def __main__():
 
     osc_helper.set_timebase()
 
-    spec.save_user_preset
+    #spec.save_user_preset
     #If you have 
     #Circuit code
     #....
     #Can iteratively collect data - probably best to put code like this in helper class for easy call
-    data = []
+    """data = []
     for i in range(10):
         #Collect data
         #
@@ -46,10 +46,11 @@ def __main__():
     dh.write_to_file("Experiments/Outputs/osc_data", data, EFileType.CSV)
 
     #OR if data auto saving is mentioned in a description, then you can just call that function
+    osc.data_handler.enable_auto_saving_data()
     byteArray = osc.system.set_setup()
     #And read the results into a different experiment or visualization library
 
     #Visualization with matplotlib etc.
 
-    #After done, disconnect instruments
+    #After done, disconnect instruments"""
     nm.disconnect(instruments)
