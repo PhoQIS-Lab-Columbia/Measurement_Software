@@ -1,11 +1,20 @@
 from Instruments import Instrument
 import time
+from EFileType import EFileType
 from EInstrument import EInstrument
 class SpectrumAnalyzer(Instrument.Instrument):
     def __init__(self, device):
-       #TODO Add in 
+       
        self.instrument = device
        self.name = EInstrument.SPECTRUM_ANALYZER
+       self.display = SpectrumAnalyzer.Display(self.instrument)
+       self.format = SpectrumAnalyzer.Format(self.instrument)
+       self.system = SpectrumAnalyzer.System(self.instrument)
+       self.sense = SpectrumAnalyzer.Sense(self.instrument)
+       self.initiate = SpectrumAnalyzer.Initiate(self.instrument)
+       self.calculate = SpectrumAnalyzer.Calculate(self.instrument)
+       self.trace = SpectrumAnalyzer.Trace(self.instrument)
+       self.wlan = SpectrumAnalyzer.WLAN(self.instrument)
        
 
     #Helper Functions
@@ -22,8 +31,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
         """
         The Display commands are used to control display-related settings.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def hide(self, state):
             """
@@ -77,8 +87,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
         """
         The Format commands are used to set/query trace and IQ data formats.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_trace_data_format(self, fmt):
             """
@@ -126,8 +137,12 @@ class SpectrumAnalyzer(Instrument.Instrument):
         """
         The System commands are used to perform system level software actions and query information about the system.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
+            self.device = SpectrumAnalyzer.System.Device(self.instrument)
+            self.error = SpectrumAnalyzer.System.Error(self.instrument)
+            self.instrumentmode = SpectrumAnalyzer.System.InstrumentMode(self.instrument)
 
         def close(self):
             """
@@ -254,8 +269,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Device commands allow you to remotely manage the active device in the Spike software.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def is_active(self):
                 """
@@ -313,85 +329,88 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 None
                 """
                 self.instrument.write(":SYSTem:DEVice:DISConnect?")
-    class Error:
-        """
-        The Error commands allow you to query and clear system errors.
-        """
-        def __init__(self, instrument):
-            self.instrument = instrument
+        class Error:
+            """
+            The Error commands allow you to query and clear system errors.
+            """
+            def __init__(self, instrument,data_handler):
+                self.instrument = instrument
+                self.data_handler = data_handler
 
-        def get_count(self):
-            """
-            Parameter:
-            None
-            Return:
-            int: The number of errors in the error queue.
-            """
-            return int(self.instrument.query(":SYSTem:ERRor:COUNt?"))
+            def get_count(self):
+                """
+                Parameter:
+                None
+                Return:
+                int: The number of errors in the error queue.
+                """
+                return int(self.instrument.query(":SYSTem:ERRor:COUNt?"))
 
-        def get_next(self):
-            """
-            Parameter:
-            None
-            Return:
-            str: The next error in the queue, removing it from the queue.
-            """
-            return self.instrument.query(":SYSTem:ERRor:NEXT?")
+            def get_next(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The next error in the queue, removing it from the queue.
+                """
+                return self.instrument.query(":SYSTem:ERRor:NEXT?")
 
-        def clear(self):
-            """
-            Parameter:
-            None
-            Return:
-            None
-            """
-            self.instrument.write(":SYSTem:ERRor:CLEar")
+            def clear(self):
+                """
+                Parameter:
+                None
+                Return:
+                None
+                """
+                self.instrument.write(":SYSTem:ERRor:CLEar")
 
-    class InstrumentMode:
-        """
-        The InstrumentMode commands control the measurement mode of the Spike software.
-        """
-        def __init__(self, instrument):
-            self.instrument = instrument
+        class InstrumentMode:
+            """
+            The InstrumentMode commands control the measurement mode of the Spike software.
+            """
+            def __init__(self, instrument,data_handler):
+                self.instrument = instrument
+                self.data_handler = data_handler
 
-        def select(self, mode):
-            """
-            Parameter:
-            mode (str): One of 'SA', 'RTSA', 'ZS', 'HARMONICS', 'NA', 'PNOISE', 'DDEMOD', 'EMI', 'ADEMOD', 'IH', 'SEMASK', 'NFIGURE', 'WLAN', 'BLE', 'LTE'.
-            Return:
-            None
-            """
-            allowed = {
-                "SA", "RTSA", "ZS", "HARMONICS", "NA", "PNOISE", "DDEMOD",
-                "EMI", "ADEMOD", "IH", "SEMASK", "NFIGURE", "WLAN", "BLE", "LTE"
-            }
-            if mode.upper() not in allowed:
-                raise ValueError("mode must be one of: " + ", ".join(allowed))
-            self.instrument.write(f":INSTrument:SELect {mode.upper()}")
+            def select(self, mode):
+                """
+                Parameter:
+                mode (str): One of 'SA', 'RTSA', 'ZS', 'HARMONICS', 'NA', 'PNOISE', 'DDEMOD', 'EMI', 'ADEMOD', 'IH', 'SEMASK', 'NFIGURE', 'WLAN', 'BLE', 'LTE'.
+                Return:
+                None
+                """
+                allowed = {
+                    "SA", "RTSA", "ZS", "HARMONICS", "NA", "PNOISE", "DDEMOD",
+                    "EMI", "ADEMOD", "IH", "SEMASK", "NFIGURE", "WLAN", "BLE", "LTE"
+                }
+                if mode.upper() not in allowed:
+                    raise ValueError("mode must be one of: " + ", ".join(allowed))
+                self.instrument.write(f":INSTrument:SELect {mode.upper()}")
 
-        def get_selected(self):
-            """
-            Parameter:
-            None
-            Return:
-            str: The current measurement mode.
-            """
-            return self.instrument.query(":INSTrument:SELect?")
+            def get_selected(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The current measurement mode.
+                """
+                return self.instrument.query(":INSTrument:SELect?")
 
-        def recalibrate(self):
-            """
-            Parameter:
-            None
-            Return:
-            None
-            """
-            self.instrument.write(":INSTrument:RECALibrate")
+            def recalibrate(self):
+                """
+                Parameter:
+                None
+                Return:
+                None
+                """
+                self.instrument.write(":INSTrument:RECALibrate")
     class Initiate:
         """
         The Initiate commands control when measurements are performed in the application.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_continuous(self, state):
             """
@@ -431,21 +450,35 @@ class SpectrumAnalyzer(Instrument.Instrument):
         """
         The Calculate commands control the limit lines in measurement modes.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
+            self.pnoise = SpectrumAnalyzer.Calculate.PNoise(self.instrument)
+            self.marker = SpectrumAnalyzer.Calculate.Marker(self.instrument)
+            self.math = SpectrumAnalyzer.Calculate.Math(self.instrument)
+            self.limitline1 = SpectrumAnalyzer.Calculate.LimitLine(self.instrument,1)
+            self.limitline2 = SpectrumAnalyzer.Calculate.LimitLine(self.instrument,2)
+            self.limitline3 = SpectrumAnalyzer.Calculate.LimitLine(self.instrument,3)
+            self.limitline4 = SpectrumAnalyzer.Calculate.LimitLine(self.instrument,4)
+            self.limitline5 = SpectrumAnalyzer.Calculate.LimitLine(self.instrument,5)
+            self.limitline6 = SpectrumAnalyzer.Calculate.LimitLine(self.instrument,6)
         class PNoise:
             """
             The PNoise commands control phase noise marker and jitter configuration.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
+                self.marker = SpectrumAnalyzer.Calculate.PNoise.Marker(self.instrument)
+                self.jitter = SpectrumAnalyzer.Calculate.PNoise.Jitter(self.instrument)
 
             class Marker:
                 """
                 The Marker commands control the phase noise markers.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def select(self, marker_num):
                     """
@@ -570,8 +603,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Jitter commands control the jitter measurement configuration.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_state(self, state):
                     """
@@ -677,8 +711,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Marker commands control the sweep markers.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def select(self, marker_num):
                 """
@@ -1043,139 +1078,141 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The CalculateMath commands control trace math functions.
             """
-        def __init__(self, instrument):
-            self.instrument = instrument
+            def __init__(self, instrument,data_handler):
+                self.instrument = instrument
+                self.data_handler = data_handler
 
-        def set_state(self, state):
-            """
-            Parameter:
-            state (int or str): 1/0 or 'ON'/'OFF' to enable/disable trace math.
-            Return:
-            None
-            """
-            if isinstance(state, str):
-                state = state.upper()
-            if state not in {"ON", "OFF"}:
-                raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-                state = 1 if state == "ON" else 0
-            elif state not in [0, 1]:
-                raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-            self.instrument.write(f":CALCulate:MATH:STATe {state}")
+            def set_state(self, state):
+                """
+                Parameter:
+                state (int or str): 1/0 or 'ON'/'OFF' to enable/disable trace math.
+                Return:
+                None
+                """
+                if isinstance(state, str):
+                    state = state.upper()
+                if state not in {"ON", "OFF"}:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                    state = 1 if state == "ON" else 0
+                elif state not in [0, 1]:
+                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                self.instrument.write(f":CALCulate:MATH:STATe {state}")
 
-        def is_enabled(self):
-            """
-            Parameter:
-            None
-            Return:
-            bool: True if trace math is enabled, False otherwise.
-            """
-            resp = self.instrument.query(":CALCulate:MATH:STATe?")
-            return int(resp.strip()) == 1
+            def is_enabled(self):
+                """
+                Parameter:
+                None
+                Return:
+                bool: True if trace math is enabled, False otherwise.
+                """
+                resp = self.instrument.query(":CALCulate:MATH:STATe?")
+                return int(resp.strip()) == 1
 
-        def set_first(self, trace_num):
-            """
-            Parameter:
-            trace_num (int): First operand trace [1,6].
-            Return:
-            None
-            """
-            if not isinstance(trace_num, int) or not (1 <= trace_num <= 6):
-                raise ValueError("trace_num must be an integer between 1 and 6")
-            self.instrument.write(f":CALCulate:MATH:FIRST {trace_num}")
+            def set_first(self, trace_num):
+                """
+                Parameter:
+                trace_num (int): First operand trace [1,6].
+                Return:
+                None
+                """
+                if not isinstance(trace_num, int) or not (1 <= trace_num <= 6):
+                    raise ValueError("trace_num must be an integer between 1 and 6")
+                self.instrument.write(f":CALCulate:MATH:FIRST {trace_num}")
 
-        def get_first(self):
-            """
-            Parameter:
-            None
-            Return:
-            int: The first operand trace.
-            """
-            return int(self.instrument.query(":CALCulate:MATH:FIRST?"))
+            def get_first(self):
+                """
+                Parameter:
+                None
+                Return:
+                int: The first operand trace.
+                """
+                return int(self.instrument.query(":CALCulate:MATH:FIRST?"))
 
-        def set_second(self, trace_num):
-            """
-            Parameter:
-            trace_num (int): Second operand trace [1,6].
-            Return:
-            None
-            """
-            if not isinstance(trace_num, int) or not (1 <= trace_num <= 6):
-                raise ValueError("trace_num must be an integer between 1 and 6")
-            self.instrument.write(f":CALCulate:MATH:SECond {trace_num}")
+            def set_second(self, trace_num):
+                """
+                Parameter:
+                trace_num (int): Second operand trace [1,6].
+                Return:
+                None
+                """
+                if not isinstance(trace_num, int) or not (1 <= trace_num <= 6):
+                    raise ValueError("trace_num must be an integer between 1 and 6")
+                self.instrument.write(f":CALCulate:MATH:SECond {trace_num}")
 
-        def get_second(self):
-            """
-            Parameter:
-            None
-            Return:
-            int: The second operand trace.
-            """
-            return int(self.instrument.query(":CALCulate:MATH:SECond?"))
+            def get_second(self):
+                """
+                Parameter:
+                None
+                Return:
+                int: The second operand trace.
+                """
+                return int(self.instrument.query(":CALCulate:MATH:SECond?"))
 
-        def set_result(self, trace_num):
-            """
-            Parameter:
-            trace_num (int): Result trace [1,6].
-            Return:
-            None
-            """
-            if not isinstance(trace_num, int) or not (1 <= trace_num <= 6):
-                raise ValueError("trace_num must be an integer between 1 and 6")
-            self.instrument.write(f":CALCulate:MATH:RESult {trace_num}")
+            def set_result(self, trace_num):
+                """
+                Parameter:
+                trace_num (int): Result trace [1,6].
+                Return:
+                None
+                """
+                if not isinstance(trace_num, int) or not (1 <= trace_num <= 6):
+                    raise ValueError("trace_num must be an integer between 1 and 6")
+                self.instrument.write(f":CALCulate:MATH:RESult {trace_num}")
 
-        def get_result(self):
-            """
-            Parameter:
-            None
-            Return:
-            int: The result trace.
-            """
-            return int(self.instrument.query(":CALCulate:MATH:RESult?"))
+            def get_result(self):
+                """
+                Parameter:
+                None
+                Return:
+                int: The result trace.
+                """
+                return int(self.instrument.query(":CALCulate:MATH:RESult?"))
 
-        def set_operation(self, op):
-            """
-            Parameter:
-            op (str): 'PDIFF', 'PSUM', 'LOFFSET', or 'LDIFF'.
-            Return:
-            None
-            """
-            allowed = {"PDIFF", "PSUM", "LOFFSET", "LDIFF"}
-            if not isinstance(op, str) or op.upper() not in allowed:
-                raise ValueError("op must be one of 'PDIFF', 'PSUM', 'LOFFSET', or 'LDIFF'")
-            self.instrument.write(f":CALCulate:MATH:OP {op.upper()}")
+            def set_operation(self, op):
+                """
+                Parameter:
+                op (str): 'PDIFF', 'PSUM', 'LOFFSET', or 'LDIFF'.
+                Return:
+                None
+                """
+                allowed = {"PDIFF", "PSUM", "LOFFSET", "LDIFF"}
+                if not isinstance(op, str) or op.upper() not in allowed:
+                    raise ValueError("op must be one of 'PDIFF', 'PSUM', 'LOFFSET', or 'LDIFF'")
+                self.instrument.write(f":CALCulate:MATH:OP {op.upper()}")
 
-        def get_operation(self):
-            """
-            Parameter:
-            None
-            Return:
-            str: The current trace math operation.
-            """
-            return self.instrument.query(":CALCulate:MATH:OP?")
+            def get_operation(self):
+                """
+                Parameter:
+                None
+                Return:
+                str: The current trace math operation.
+                """
+                return self.instrument.query(":CALCulate:MATH:OP?")
 
-        def set_offset(self, value):
-            """
-            Parameter:
-            value (float): Offset for logarithm trace math functions.
-            Return:
-            None
-            """
-            self.instrument.write(f":CALCulate:MATH:OFFSet {value}")
+            def set_offset(self, value):
+                """
+                Parameter:
+                value (float): Offset for logarithm trace math functions.
+                Return:
+                None
+                """
+                self.instrument.write(f":CALCulate:MATH:OFFSet {value}")
 
-        def get_offset(self):
-            """
-            Parameter:
-            None
-            Return:
-            float: The current offset for logarithm trace math functions.
-            """
-            return float(self.instrument.query(":CALCulate:MATH:OFFSet?"))
+            def get_offset(self):
+                """
+                Parameter:
+                None
+                Return:
+                float: The current offset for logarithm trace math functions.
+                """
+                return float(self.instrument.query(":CALCulate:MATH:OFFSet?"))
         class LimitLine:
             """
             LimitLine commands for a specific limit line number (1-6).
             """
-            def __init__(self, instrument, line_num):
+            def __init__(self, instrument,data_handler, line_num):
                 self.instrument = instrument
+                self.data_handler = data_handler
                 if not 1 <= line_num <= 6:
                     raise ValueError("Limit line number must be between 1 and 6.")
                 self.line_num = line_num
@@ -1515,15 +1552,42 @@ class SpectrumAnalyzer(Instrument.Instrument):
         """
         return self.instrument.query(":SENSe:ROSCillator:SOURce?")
     class Sense:
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
-
+            self.data_handler = data_handler
+            self.harmonics = SpectrumAnalyzer.Sense.Harmonics(self.instrument)
+            self.ademod = SpectrumAnalyzer.Sense.ADEMod(self.instrument)
+            self.ddemod = SpectrumAnalyzer.Sense.DDEMod(self.instrument)
+            self.sweep_configuration = SpectrumAnalyzer.Sense.Sweep_Configuration(self.instrument)
+            self.na = SpectrumAnalyzer.Sense.NA(self.instrument)
+            self.vco = SpectrumAnalyzer.Sense.VCO(self.instrument)
+            self.audio = SpectrumAnalyzer.Sense.Audio(self.instrument)
+            self.pnoise = SpectrumAnalyzer.Sense.PNoise(self.instrument)
+            self.peaktable = SpectrumAnalyzer.Sense.PeakTable(self.instrument)
+            self.chpower = SpectrumAnalyzer.Sense.ChPower(self.instrument)
+            self.pathloss1 = SpectrumAnalyzer.Sense.Pathloss(self.instrument, 1)
+            self.pathloss2 = SpectrumAnalyzer.Sense.Pathloss(self.instrument, 2)
+            self.pathloss3 = SpectrumAnalyzer.Sense.Pathloss(self.instrument, 3)
+            self.pathloss4 = SpectrumAnalyzer.Sense.Pathloss(self.instrument, 4)
+            self.pathloss5 = SpectrumAnalyzer.Sense.Pathloss(self.instrument, 5)
+            self.pathloss6 = SpectrumAnalyzer.Sense.Pathloss(self.instrument, 6)
+            self.pathloss7 = SpectrumAnalyzer.Sense.Pathloss(self.instrument, 7)
+            self.pathloss8 = SpectrumAnalyzer.Sense.Pathloss(self.instrument, 8)
+            self.frequency = SpectrumAnalyzer.Sense.Frequency(self.instrument)
+            self.power = SpectrumAnalyzer.Sense.Power(self.instrument)
+            self.bandwidth = SpectrumAnalyzer.Sense.Bandwidth(self.instrument)
+            self.sweep = SpectrumAnalyzer.Sense.Sweep(self.instrument)
+            self.semask = SpectrumAnalyzer.Sense.SEMask(self.instrument)
+            self.nfigure = SpectrumAnalyzer.Sense.NFIGure(self.instrument)
+            self.bluetooth = SpectrumAnalyzer.Sense.Bluetooth(self.instrument)
+            self.lte = SpectrumAnalyzer.Sense.LTE(self.instrument)
         class Harmonics:
             """
             The Sense:Harmonics commands configure harmonic measurements.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_number(self, num):
                 """
@@ -1796,9 +1860,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Sense:ADEMod commands configure analog demodulation measurements.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.fetch = SpectrumAnalyzer.Sense.ADEMod.Fetch(self.instrument)
             def set_center_frequency(self, freq):
                 """
                 Parameter:
@@ -1881,8 +1946,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Fetch commands retrieve analog demodulation measurement results.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def fetch_am(self, metrics):
                     """
@@ -1897,7 +1963,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         metrics_str = ",".join(str(m) for m in metrics)
                     else:
                         raise ValueError("metrics must be an int or list/tuple of ints")
-                    return self.instrument.query(f":FETCh:ADEMod:AM? {metrics_str}")
+                    response = self.instrument.query(f":FETCh:ADEMod:AM? {metrics_str}")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, "ADEMod_AM", response, file_type = EFileType.CSV, headers = metrics_str)
+                    return response
 
                 def fetch_fm(self, metrics):
                     """
@@ -1912,14 +1981,24 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         metrics_str = ",".join(str(m) for m in metrics)
                     else:
                         raise ValueError("metrics must be an int or list/tuple of ints")
-                    return self.instrument.query(f":FETCh:ADEMod:FM? {metrics_str}")
+                    response = self.instrument.query(f":FETCh:ADEMod:FM? {metrics_str}")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, "ADEMod_FM", response, file_type = EFileType.CSV, headers = metrics_str)
+                    return response
         class DDEMod:
             """
             The Sense:DDEMod commands configure digital demodulation measurements.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.custom = SpectrumAnalyzer.Sense.DDEMod.Custom(self.instrument)
+                self.trigger = SpectrumAnalyzer.Sense.DDEMod.Trigger(self.instrument)
+                self.sync = SpectrumAnalyzer.Sense.DDEMod.Sync(self.instrument)
+                self.compensate = SpectrumAnalyzer.Sense.DDEMod.Compensate(self.instrument)
+                self.equalization = SpectrumAnalyzer.Sense.DDEMod.Equalization(self.instrument)
+                self.trace = SpectrumAnalyzer.Sense.DDEMod.Trace(self.instrument)
+                self.fetch = SpectrumAnalyzer.Sense.DDEMod.Fetch(self.instrument)
             def set_center_frequency(self, freq):
                 """
                 Parameter:
@@ -2218,15 +2297,18 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Custom commands configure custom IQ constellations for digital demodulation.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.iq = SpectrumAnalyzer.Sense.DDEMod.Custom.IQ(self.instrument)
 
                 class IQ:
                     """
                     The IQ commands configure and query custom IQ constellation data.
                     """
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def is_valid(self):
                         """
@@ -2266,14 +2348,17 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         Return:
                             str: The constellation symbols as a comma separated list of alternating IQ values.
                         """
-                        return self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:DATA?")
-
+                        response = self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:DATA?")
+                        if self.data_handler.is_auto_saving_data_enabled():
+                            self.data_handler.write_to_file(self, "DDEMOD_IQ", response, file_type = EFileType.CSV, headers = None)
+                        return response
             class Trigger:
                 """
                 The DDEMod:Trigger commands configure triggering for digital demodulation.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_source(self, source):
                     """
@@ -2338,9 +2423,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The DDEMod:Sync commands configure sync pattern search for digital demodulation.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
-
+                    self.data_handler = data_handler
+                    self.sword = SpectrumAnalyzer.Sense.DDEMod.Sync.Sword(self.instrument)
                 def set_state(self, state):
                     """
                     Parameter:
@@ -2369,10 +2455,11 @@ class SpectrumAnalyzer(Instrument.Instrument):
 
                 class Sword:
                     """
-                    The DDEMod:Sync:SWord commands configure the sync pattern and length.
+                    The SWord commands configure the sync pattern and length.
                     """
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def set_pattern(self, hex_string):
                         """
@@ -2458,8 +2545,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The DDEMod:Compensate commands configure compensation settings for digital demodulation.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_iqinversion_state(self, state):
                     """
@@ -2543,8 +2631,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The DDEMod:Equalization commands configure adaptive equalizer settings.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_state(self, state):
                     """
@@ -2649,15 +2738,17 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The DDEMod:Trace commands retrieve spectrum data from digital demodulation measurement mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
-
+                    self.data_handler = data_handler
+                    self.sweep = SpectrumAnalyzer.Sense.DDEMod.Trace.Sweep(self.instrument)
                 class Sweep:
                     """
                     The DDEMod:Trace:Sweep commands retrieve sweep data.
                     """
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def get_xstart(self):
                         """
@@ -2693,14 +2784,18 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         Return:
                             str: The spectrum trace as a comma separated list.
                         """
-                        return self.instrument.query(":SENSe:DDEMod:TRACe:SWEep:DATA?")
+                        response = self.instrument.query(":SENSe:DDEMod:TRACe:SWEep:DATA?")
+                        if self.data_handler.is_auto_saving_data_enabled():
+                            self.data_handler.write_to_file(self, "TRACE_SWEEP", response, file_type = EFileType.CSV, headers = None)
+                        return response
 
             class Fetch:
                 """
                 The DDEMod:Fetch commands retrieve measurement results for digital demodulation.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def fetch(self, metrics):
                     """
@@ -2715,13 +2810,17 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         metrics_str = ",".join(str(m) for m in metrics)
                     else:
                         raise ValueError("metrics must be an int or list/tuple of ints")
-                    return self.instrument.query(f":FETCh:DDEMod? {metrics_str}")
+                    response = self.instrument.query(f":FETCh:DDEMod? {metrics_str}")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, "DDEMOD_METRICS", response, file_type = EFileType.CSV, headers = None)
+                    return response
         class Sweep_Configuration:
             """
             The Sweep Configuration commands control the sweep configuration in scalar network analysis mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_points(self, num_points):
                 """
@@ -2793,10 +2892,17 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Scalar Network and Analysis Mode commands
             """
+            def __init__(self, instrument,data_handler):
+                self.instrument = instrument
+                self.data_handler = data_handler
+                self.view = SpectrumAnalyzer.Sense.NA.View(self.instrument)
+                self.correction = SpectrumAnalyzer.Sense.NA.Correction(self.instrument)
+            
             class View():
-                """NAView commands control the view settings in scalar network analysis mode."""
-                def __init__(self, instrument):
+                """View commands control the view settings in scalar network analysis mode."""
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_scale(self, scale):
                     """
@@ -2856,10 +2962,11 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     return float(self.instrument.query(":SENSe:NA:VIEW:DIV?"))
             class Correction:
                 """
-                The NACorrection commands control the correction settings in scalar network analysis mode.
+                The Correction commands control the correction settings in scalar network analysis mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def store_thru(self):
                     """
@@ -2892,15 +2999,18 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The VCO commands control the configuration of the measurement in VCO Characterization mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.sweep = SpectrumAnalyzer.Sense.VCO.Sweep(self.instrument)
+                self.source = SpectrumAnalyzer.Sense.VCO.Source(self.instrument)
             class Sweep:
                 """
                 The Sweep commands control the sweep configuration in VCO Characterization mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def get_source(self):
                     """
@@ -3105,8 +3215,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Source commands control the DC source configuration in VCO Characterization mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_voltage_state(self, state):
                     """
@@ -3227,8 +3338,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Audio commands control the audio player utility in Spike.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def start(self):
                 """
@@ -3362,8 +3474,14 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The PNoise commands control the phase noise measurement mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
+                self.carrier = SpectrumAnalyzer.Sense.PNoise.Carrier(self.instrument)
+                self.view = SpectrumAnalyzer.Sense.PNoise.View(self.instrument)
+                self.frequency = SpectrumAnalyzer.Sense.PNoise.Frequency(self.instrument)
+                self.xcorr = SpectrumAnalyzer.Sense.PNoise.XCORr(self.instrument)
+                self.vco = SpectrumAnalyzer.Sense.PNoise.VCO(self.instrument)
 
             def set_peak_track(self, state):
                 """
@@ -3415,8 +3533,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Carrier commands control the carrier search settings in phase noise measurement mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_search_state(self, state):
                     """
@@ -3547,8 +3666,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The View commands control the plot view settings in phase noise measurement mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_rlevel(self, amplitude):
                     """
@@ -3610,8 +3730,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The PNoiseFrequency commands control the frequency settings in phase noise measurement mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_center(self, freq):
                     """
@@ -3670,15 +3791,18 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The PNoiseXCORr commands control the cross correlation settings in phase noise measurement mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.device = SpectrumAnalyzer.Sense.PNoise.XCORr.Device(self.instrument)
 
                 class Device:
                     """
                     The Device commands control the cross correlation device settings in phase noise measurement mode.
                     """
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def is_active(self):
                         """
@@ -3763,108 +3887,13 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     resp = self.instrument.query(":SENSe:PNoise:XCORr:STATe?")
                     return int(resp.strip()) == 1
                 
-            class XCORr:
-                """
-                The PNoiseXCORr commands control the cross correlation settings in phase noise measurement mode.
-                """
-                def __init__(self, instrument):
-                    self.instrument = instrument
-
-                class Device:
-                    """
-                    The Device commands control the cross correlation device settings in phase noise measurement mode.
-                    """
-                    def __init__(self, instrument):
-                        self.instrument = instrument
-
-                    def is_active(self):
-                        """
-                        Parameter:
-                        None
-                        Return:
-                        bool: True if a device is currently connected and active, False otherwise.
-                        """
-                        resp = self.instrument.query(":SENSe:PNoise:XCORr:DEVice:ACTive?")
-                        return resp.strip() == '1'
-
-                    def get_count(self):
-                        """
-                        Parameter:
-                        None
-                        Return:
-                        int: The number of devices connected to the PC.
-                        """
-                        return int(self.instrument.query(":SENSe:PNoise:XCORr:DEVice:COUNt?"))
-
-                    def get_list(self):
-                        """
-                        Parameter:
-                        None
-                        Return:
-                        str: The list of connected devices.
-                        """
-                        return self.instrument.query(":SENSe:PNoise:XCORr:DEVice:LIST?")
-
-                    def get_current(self):
-                        """
-                        Parameter:
-                        None
-                        Return:
-                        str: The currently active device.
-                        """
-                        return self.instrument.query(":SENSe:PNoise:XCORr:DEVice:CURRent?")
-
-                    def connect(self, device_index):
-                        """
-                        Parameter:
-                        device_index (int): The index of the device to connect.
-                        Return:
-                        None
-                        """
-                        if not isinstance(device_index, int) or device_index < 0:
-                            raise ValueError("device_index must be a non-negative integer")
-                        self.instrument.write(f":SENSe:PNoise:XCORr:DEVice:CONnect? {device_index}")
-
-                    def disconnect(self):
-                        """
-                        Parameter:
-                        None
-                        Return:
-                        None
-                        """
-                        self.instrument.write(":SENSe:PNoise:XCORr:DEVice:DISConnect?")
-
-                def set_state(self, state):
-                    """
-                    Parameter:
-                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable cross correlation.
-                    Return:
-                        None
-                    """
-                    if isinstance(state, str):
-                        state = state.upper()
-                        if state not in {"ON", "OFF"}:
-                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-                        state = 1 if state == "ON" else 0
-                    elif state not in [0, 1]:
-                        raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-                    self.instrument.write(f":SENSe:PNoise:XCORr:STATe {state}")
-
-                def is_enabled(self):
-                    """
-                    Parameter:
-                        None
-                    Return:
-                        bool: True if cross correlation is enabled, False otherwise.
-                    """
-                    resp = self.instrument.query(":SENSe:PNoise:XCORr:STATe?")
-                    return int(resp.strip()) == 1
             class VCO:
                 """
                 The VCO commands control the VCO settings in phase noise measurement mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 
                 def is_active(self):
@@ -4024,8 +4053,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The PeakTable commands control the Peak Table display panel in Swept Analysis mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_state(self, state):
                     """
@@ -4197,8 +4227,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The SenseChPower commands control the channel power measurement.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_state(self, state):
                 """
@@ -4375,8 +4406,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Pathloss commands control the path loss tables.
             """
-            def __init__(self, instrument, table_num=1):
+            def __init__(self, instrument,data_handler, table_num):
                 self.instrument = instrument
+                self.data_handler = data_handler
                 if not 1 <= table_num <= 8:
                     raise ValueError("Path loss table number must be between 1 and 8.")
                 self.table_num = table_num
@@ -4453,7 +4485,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 Return:
                     str: The points in the path loss table as freq/offset pairs.
                 """
-                return self.instrument.query(f":SENSe:CORRection:PATHloss{self.table_num}:DATA?")
+                response = self.instrument.query(f":SENSe:CORRection:PATHloss{self.table_num}:DATA?")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, "CORR_PATHLOSS", response, file_type = EFileType.CSV, headers = None)
+                return response
 
             def clear(self):
                 """
@@ -4478,8 +4513,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Frequency commands control the frequency range and step of the sweep in swept analysis mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_center(self, freq):
                 """
@@ -4595,8 +4631,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Power commands affect the RF front end of the device.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_reference_level(self, amplitude):
                 """
@@ -4886,8 +4923,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Bandwidth commands control the FFT processing for the receivers.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_resolution(self, freq):
                 """
@@ -5013,9 +5051,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Sweep commands control additional FFT settings of the receiver.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.detector = SpectrumAnalyzer.Sense.Sweep.Detector(self.instrument)
             def set_time(self, value):
                 """
                 Parameter:
@@ -5038,8 +5077,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Detector commands control how the VBW processing is performed.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_function(self, func):
                     """
@@ -5086,15 +5126,22 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The SEMask commands control the spectrum emission mask mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.frequency = SpectrumAnalyzer.Sense.SEMask.Frequency(self.instrument)
+                self.bandwidth = SpectrumAnalyzer.Sense.SEMask.Bandwidth(self.instrument)
+                self.sweep = SpectrumAnalyzer.Sense.SEMask.Sweep(self.instrument)
+                self.reference = SpectrumAnalyzer.Sense.SEMask.Reference(self.instrument)
+                self.offset = SpectrumAnalyzer.Sense.SEMask.Offset(self.instrument)
+                self.marker = SpectrumAnalyzer.Sense.SEMask.Marker(self.instrument)
             class Frequency:
                 """
                 The SEMask:Frequency commands control the frequency range of the sweeps in spectrum emission mask mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_center(self, value):
                     """
@@ -5160,8 +5207,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The SEMask:Bandwidth commands control the FFT processing for the receivers in SEM mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_resolution(self, value):
                     """
@@ -5266,15 +5314,17 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Sweep commands control the detector and trace settings of the receiver in SEM mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
-
+                    self.data_handler = data_handler
+                    self.detector = SpectrumAnalyzer.Sense.SEMask.Sweep.Detector(self.instrument)
                 class Detector:
                     """
                     The Detector commands control the detector function and units in SEM mode.
                     """
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def set_function(self, func):
                         """
@@ -5319,8 +5369,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         return self.instrument.query(":SENSe:SEMask:SWEep:DETector:UNITs?")
             class Reference():
                 """The Reference commands control the reference measurement settings in SEM mode."""
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
                 def set_trace_type(self, typ):
                     """
                     Parameter:
@@ -5410,8 +5461,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             class Offset:
                 """
                 The Offset commands control the offset settings for the spectrum emission mask."""
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
                 def set_offset_parameters(self, offsets):
                     """
                     Parameter:
@@ -5452,7 +5504,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     Return:
                         str: The current offset table as a comma separated list.
                     """
-                    return self.instrument.query(":SENSe:SEMask:OFFSet:DATA?")
+                    response = self.instrument.query(":SENSe:SEMask:OFFSet:DATA?")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, "SEMASK_OFFSET", response, file_type = EFileType.CSV, headers = None)
+                    return response
 
                 def is_fail(self):
                     """
@@ -5577,293 +5632,300 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         raise ValueError("offset_num must be an integer between 1 and 16")
                     return float(self.instrument.query(f":SENSe:SEMask:OFFSet{offset_num}:PEAK:FREQuency:UPper?"))
 
-        class Marker:
-            """
-            The Marker commands control the marker in spectrum emission mask mode.
-            """
-            def __init__(self, instrument):
-                self.instrument = instrument
+            class Marker:
+                """
+                The Marker commands control the marker in spectrum emission mask mode.
+                """
+                def __init__(self, instrument,data_handler):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
 
-            def enable(self, state):
-                """
-                Parameter:
-                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable the marker.
-                Return:
-                    None
-                """
-                if isinstance(state, str):
-                    state = state.upper()
-                    if state not in {"ON", "OFF"}:
+                def enable(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable the marker.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
                         raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-                    state = 1 if state == "ON" else 0
-                elif state not in [0, 1]:
-                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-                self.instrument.write(f":CALCulate:SEMask:MARKer:STATe {state}")
+                    self.instrument.write(f":CALCulate:SEMask:MARKer:STATe {state}")
 
-            def is_enabled(self):
-                """
-                Parameter:
-                    None
-                Return:
-                    bool: True if marker is enabled, False otherwise.
-                """
-                resp = self.instrument.query(":CALCulate:SEMask:MARKer:STATe?")
-                return int(resp.strip()) == 1
+                def is_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if marker is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":CALCulate:SEMask:MARKer:STATe?")
+                    return int(resp.strip()) == 1
 
-            def set_delta(self, state):
-                """
-                Parameter:
-                    state (int or str): 1/0 or 'ON'/'OFF' to enable/disable delta marker.
-                Return:
-                    None
-                """
-                if isinstance(state, str):
-                    state = state.upper()
-                    if state not in {"ON", "OFF"}:
+                def set_delta(self, state):
+                    """
+                    Parameter:
+                        state (int or str): 1/0 or 'ON'/'OFF' to enable/disable delta marker.
+                    Return:
+                        None
+                    """
+                    if isinstance(state, str):
+                        state = state.upper()
+                        if state not in {"ON", "OFF"}:
+                            raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
+                        state = 1 if state == "ON" else 0
+                    elif state not in [0, 1]:
                         raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-                    state = 1 if state == "ON" else 0
-                elif state not in [0, 1]:
-                    raise ValueError("state must be 1, 0, 'ON', or 'OFF'")
-                self.instrument.write(f":CALCulate:SEMask:MARKer:DELTa {state}")
+                    self.instrument.write(f":CALCulate:SEMask:MARKer:DELTa {state}")
 
-            def is_delta_enabled(self):
-                """
-                Parameter:
-                    None
-                Return:
-                    bool: True if delta marker is enabled, False otherwise.
-                """
-                resp = self.instrument.query(":CALCulate:SEMask:MARKer:DELTa?")
-                return int(resp.strip()) == 1
+                def is_delta_enabled(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        bool: True if delta marker is enabled, False otherwise.
+                    """
+                    resp = self.instrument.query(":CALCulate:SEMask:MARKer:DELTa?")
+                    return int(resp.strip()) == 1
 
-            def set_x(self, freq):
-                """
-                Parameter:
-                    freq (float): Frequency to move marker to (Hz).
-                Return:
-                    None
-                """
-                self.instrument.write(f":CALCulate:SEMask:MARKer:X {freq}")
+                def set_x(self, freq):
+                    """
+                    Parameter:
+                        freq (float): Frequency to move marker to (Hz).
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":CALCulate:SEMask:MARKer:X {freq}")
 
-            def get_x(self):
-                """
-                Parameter:
-                    None
-                Return:
-                    float: The marker position frequency (Hz).
-                """
-                return float(self.instrument.query(":CALCulate:SEMask:MARKer:X?"))
+                def get_x(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The marker position frequency (Hz).
+                    """
+                    return float(self.instrument.query(":CALCulate:SEMask:MARKer:X?"))
 
-            def get_y(self):
-                """
-                Parameter:
-                    None
-                Return:
-                    float: The marker position amplitude.
-                """
-                return float(self.instrument.query(":CALCulate:SEMask:MARKer:Y?"))
+                def get_y(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        float: The marker position amplitude.
+                    """
+                    return float(self.instrument.query(":CALCulate:SEMask:MARKer:Y?"))
 
-            def maximum(self):
-                """
-                Parameter:
-                    None
-                Return:
-                    None
-                """
-                self.instrument.write(":CALCulate:SEMask:MARKer:MAXimum")
+                def maximum(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        None
+                    """
+                    self.instrument.write(":CALCulate:SEMask:MARKer:MAXimum")
 
-            def minimum(self):
-                """
-                Parameter:
-                    None
-                Return:
-                    None
-                """
-                self.instrument.write(":CALCulate:SEMask:MARKer:MINimum")
+                def minimum(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        None
+                    """
+                    self.instrument.write(":CALCulate:SEMask:MARKer:MINimum")
 
-            def next(self):
-                """
-                Parameter:
-                    None
-                Return:
-                    None
-                """
-                self.instrument.write(":CALCulate:SEMask:MARKer:NEXT")
+                def next(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        None
+                    """
+                    self.instrument.write(":CALCulate:SEMask:MARKer:NEXT")
 
-            def previous(self):
-                """
-                Parameter:
-                    None
-                Return:
-                    None
-                """
-                self.instrument.write(":CALCulate:SEMask:MARKer:PREVious")
+                def previous(self):
+                    """
+                    Parameter:
+                        None
+                    Return:
+                        None
+                    """
+                    self.instrument.write(":CALCulate:SEMask:MARKer:PREVious")
         class NFIGure:
             """
             The NFIGure commands control the Noise Figure measurement mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.frequency = SpectrumAnalyzer.Sense.NFIGure.Frequency(self.instrument)
+                self.bandwidth = SpectrumAnalyzer.Sense.NFIGure.Bandwidth(self.instrument)
+                self.correction = SpectrumAnalyzer.Sense.NFIGure.Correction(self.instrument)
+                self.fetch = SpectrumAnalyzer.Sense.NFIGure.Fetch(self.instrument)
             class Frequency:
                 """
                 The NFIGure:Frequency commands control the list of frequency points for noise figure measurements.
                 """
-            def __init__(self, instrument):
-                self.instrument = instrument
+                def __init__(self, instrument,data_handler):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
 
-            def set_mode(self, mode):
-                """
-                Parameter:
-                mode (str): 'SWEPt' or 'FIXed'
-                Return:
-                None
-                """
-                allowed = {"SWEPT", "FIXED"}
-                if not isinstance(mode, str) or mode.upper() not in allowed:
-                    raise ValueError("mode must be 'SWEPt' or 'FIXed'")
-                self.instrument.write(f":SENSe:NFIGure:FREQuency:MODE {mode.upper()}")
+                def set_mode(self, mode):
+                    """
+                    Parameter:
+                    mode (str): 'SWEPt' or 'FIXed'
+                    Return:
+                    None
+                    """
+                    allowed = {"SWEPT", "FIXED"}
+                    if not isinstance(mode, str) or mode.upper() not in allowed:
+                        raise ValueError("mode must be 'SWEPt' or 'FIXed'")
+                    self.instrument.write(f":SENSe:NFIGure:FREQuency:MODE {mode.upper()}")
 
-            def get_mode(self):
-                """
-                Parameter:
-                None
-                Return:
-                str: The current frequency list mode.
-                """
-                return self.instrument.query(":SENSe:NFIGure:FREQuency:MODE?")
+                def get_mode(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    str: The current frequency list mode.
+                    """
+                    return self.instrument.query(":SENSe:NFIGure:FREQuency:MODE?")
 
-            def set_start(self, freq):
-                """
-                Parameter:
-                freq (float): Start frequency in Hz.
-                Return:
-                None
-                """
-                self.instrument.write(f":SENSe:NFIGure:FREQuency:STARt {freq}")
+                def set_start(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Start frequency in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:NFIGure:FREQuency:STARt {freq}")
 
-            def get_start(self):
-                """
-                Parameter:
-                None
-                Return:
-                float: The current start frequency in Hz.
-                """
-                return float(self.instrument.query(":SENSe:NFIGure:FREQuency:STARt?"))
+                def get_start(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The current start frequency in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:FREQuency:STARt?"))
 
-            def set_stop(self, freq):
-                """
-                Parameter:
-                freq (float): Stop frequency in Hz.
-                Return:
-                None
-                """
-                self.instrument.write(f":SENSe:NFIGure:FREQuency:STOP {freq}")
+                def set_stop(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Stop frequency in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:NFIGure:FREQuency:STOP {freq}")
 
-            def get_stop(self):
-                """
-                Parameter:
-                None
-                Return:
-                float: The current stop frequency in Hz.
-                """
-                return float(self.instrument.query(":SENSe:NFIGure:FREQuency:STOP?"))
+                def get_stop(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The current stop frequency in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:FREQuency:STOP?"))
 
-            def set_center(self, freq):
-                """
-                Parameter:
-                freq (float): Center frequency in Hz.
-                Return:
-                None
-                """
-                self.instrument.write(f":SENSe:NFIGure:FREQuency:CENTer {freq}")
+                def set_center(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Center frequency in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:NFIGure:FREQuency:CENTer {freq}")
 
-            def get_center(self, bound=None):
-                """
-                Parameter:
-                bound (str, optional): 'MIN' or 'MAX' to query frequency limits, or None for current center.
-                Return:
-                float: The center frequency in Hz, or the min/max limit.
-                """
-                if bound is not None:
-                    bound = bound.upper()
-                if bound not in {"MIN", "MAX"}:
-                    #raise ValueError("bound must be 'MIN' or 'MAX'")
-                    resp = self.instrument.query(f":SENSe:NFIGure:FREQuency:CENTer? {bound}")
-                else:
-                    resp = self.instrument.query(":SENSe:NFIGure:FREQuency:CENTer?")
-                return float(resp)
+                def get_center(self, bound=None):
+                    """
+                    Parameter:
+                    bound (str, optional): 'MIN' or 'MAX' to query frequency limits, or None for current center.
+                    Return:
+                    float: The center frequency in Hz, or the min/max limit.
+                    """
+                    if bound is not None:
+                        bound = bound.upper()
+                    if bound not in {"MIN", "MAX"}:
+                        #raise ValueError("bound must be 'MIN' or 'MAX'")
+                        resp = self.instrument.query(f":SENSe:NFIGure:FREQuency:CENTer? {bound}")
+                    else:
+                        resp = self.instrument.query(":SENSe:NFIGure:FREQuency:CENTer?")
+                    return float(resp)
 
-            def set_span(self, span):
-                """
-                Parameter:
-                span (float): Span in Hz.
-                Return:
-                None
-                """
-                self.instrument.write(f":SENSe:NFIGure:FREQuency:SPAN {span}")
+                def set_span(self, span):
+                    """
+                    Parameter:
+                    span (float): Span in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:NFIGure:FREQuency:SPAN {span}")
 
-            def get_span(self):
-                """
-                Parameter:
-                None
-                Return:
-                float: The span in Hz.
-                """
-                return float(self.instrument.query(":SENSe:NFIGure:FREQuency:SPAN?"))
+                def get_span(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The span in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:FREQuency:SPAN?"))
 
-            def set_points(self, num_points):
-                """
-                Parameter:
-                num_points (int): Number of measurement points.
-                Return:
-                None
-                """
-                if not isinstance(num_points, int):
-                    raise ValueError("num_points must be an integer")
-                self.instrument.write(f":SENSe:NFIGure:FREQuency:POINts {num_points}")
+                def set_points(self, num_points):
+                    """
+                    Parameter:
+                    num_points (int): Number of measurement points.
+                    Return:
+                    None
+                    """
+                    if not isinstance(num_points, int):
+                        raise ValueError("num_points must be an integer")
+                    self.instrument.write(f":SENSe:NFIGure:FREQuency:POINts {num_points}")
 
-            def get_points(self):
-                """
-                Parameter:
-                None
-                Return:
-                int: The number of measurement points.
-                """
-                return int(self.instrument.query(":SENSe:NFIGure:FREQuency:POINts?"))
+                def get_points(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    int: The number of measurement points.
+                    """
+                    return int(self.instrument.query(":SENSe:NFIGure:FREQuency:POINts?"))
 
-            def set_fixed(self, freq):
-                """
-                Parameter:
-                freq (float): Fixed frequency in Hz.
-                Return:
-                None
-                """
-                self.instrument.write(f":SENSe:NFIGure:FREQuency:FIXed {freq}")
+                def set_fixed(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Fixed frequency in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:NFIGure:FREQuency:FIXed {freq}")
 
-            def get_fixed(self):
-                """
-                Parameter:
-                None
-                Return:
-                float: The fixed frequency in Hz.
-                """
-                return float(self.instrument.query(":SENSe:NFIGure:FREQuency:FIXed?"))
+                def get_fixed(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The fixed frequency in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:NFIGure:FREQuency:FIXed?"))
 
-            def get_list_data(self):
-                """
-                Parameter:
-                None
-                Return:
-                str: The list of measurement frequencies in Hz (comma separated).
-                """
-                return self.instrument.query(":SENSe:NFIGure:FREQuency:LIST:DATA?")
+                def get_list_data(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    str: The list of measurement frequencies in Hz (comma separated).
+                    """
+                    return self.instrument.query(":SENSe:NFIGure:FREQuency:LIST:DATA?")
             class Bandwidth:
                 """
                 The NFIGure:Bandwidth commands control the bandwidth settings for noise figure measurements.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_resolution(self, value):
                     """
@@ -6096,15 +6158,17 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The NFIGure:Correction commands control ENR tables and calibration settings for noise figure measurements.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
-
+                    self.data_handler = data_handler
+                    self.enr_table = SpectrumAnalyzer.Sense.NFIGure.Correction.ENRTable(self.instrument)
                 class ENRTable:
                     """
                     The ENRTable commands manage ENR tables for noise sources.
                     """
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def get_count(self):
                         """
@@ -6190,7 +6254,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         Return:
                         str: The list of points in the loaded ENR table.
                         """
-                        return self.instrument.query(":SENSe:NFIGure:CORRection:ENR:TABLe:DATA?")
+                        response = self.instrument.query(":SENSe:NFIGure:CORRection:ENR:TABLe:DATA?")
+                        if self.data_handler.is_auto_saving_data_enabled():
+                            self.data_handler.write_to_file(self, "CORR_ENR", response, file_type = EFileType.CSV, headers = None)
+                        return response
 
                     def set_calibration_table(self, table_id):
                         """
@@ -6202,7 +6269,7 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         if not isinstance(table_id, int):
                             raise ValueError("table_id must be an integer")
                         self.instrument.write(f":SENSe:NFIGure:CORRection:ENR:CALibration:TABLe {table_id}")
-
+                        
                     def get_calibration_table(self):
                         """
                         Parameter:
@@ -6299,8 +6366,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Fetch commands retrieve noise figure and gain measurement results.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def get_nfigure(self):
                     """
@@ -6309,7 +6377,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     Return:
                         str: List of noise figure measurements for each point in the frequency list.
                     """
-                    return self.instrument.query(":FETCh:NFIGure?")
+                    response = self.instrument.query(":FETCh:NFIGure?")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, "NFIGURE_FETCH", response, file_type = EFileType.CSV, headers = None)
+                    return response
 
                 def get_gain(self):
                     """
@@ -6318,95 +6389,101 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     Return:
                         str: List of gain measurements for each point in the frequency list.
                     """
-                    return self.instrument.query(":FETCh:NFIGure:GAIN?")
+                    response = self.instrument.query(":FETCh:NFIGure:GAIN?")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, "NFIG_FETCH", response, file_type = EFileType.CSV, headers = None)
+                    return response
         class Bluetooth:
             """
             The Bluetooth commands control the Bluetooth Low Energy measurement mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.measurement = SpectrumAnalyzer.Sense.Bluetooth.Measurement(self.instrument)
+                self.trigger = SpectrumAnalyzer.Sense.Bluetooth.Trigger(self.instrument)
             class Measurement:
                 """
                 The Measurement commands configure Bluetooth measurement mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
-            def set_meas(self, meas_type):
-                """
-                Parameter:
-                meas_type (str): 'DEMOD' or 'IBE'
-                Return:
-                None
-                """
-                allowed = {"DEMOD", "IBE"}
-                if not isinstance(meas_type, str) or meas_type.upper() not in allowed:
-                    raise ValueError("meas_type must be 'DEMOD' or 'IBE'")
-                self.instrument.write(f":SENSe:BLE:MEAS {meas_type.upper()}")
+                def set_meas(self, meas_type):
+                    """
+                    Parameter:
+                    meas_type (str): 'DEMOD' or 'IBE'
+                    Return:
+                    None
+                    """
+                    allowed = {"DEMOD", "IBE"}
+                    if not isinstance(meas_type, str) or meas_type.upper() not in allowed:
+                        raise ValueError("meas_type must be 'DEMOD' or 'IBE'")
+                    self.instrument.write(f":SENSe:BLE:MEAS {meas_type.upper()}")
 
-            def get_meas(self):
-                """
-                Parameter:
-                None
-                Return:
-                str: The current Bluetooth measurement type.
-                """
-                return self.instrument.query(":SENSe:BLE:MEAS?")
+                def get_meas(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    str: The current Bluetooth measurement type.
+                    """
+                    return self.instrument.query(":SENSe:BLE:MEAS?")
 
-            def set_center_frequency(self, freq):
-                """
-                Parameter:
-                freq (float): Center frequency in Hz.
-                Return:
-                None
-                """
-                self.instrument.write(f":SENSe:BLE:FREQuency:CENTer {freq}")
+                def set_center_frequency(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Center frequency in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:BLE:FREQuency:CENTer {freq}")
 
-            def get_center_frequency(self):
-                """
-                Parameter:
-                None
-                Return:
-                float: The center frequency in Hz.
-                """
-                return float(self.instrument.query(":SENSe:BLE:FREQuency:CENTer?"))
+                def get_center_frequency(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The center frequency in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:BLE:FREQuency:CENTer?"))
 
-            def set_center_step(self, freq):
-                """
-                Parameter:
-                freq (float): Center frequency step size in Hz.
-                Return:
-                None
-                """
-                self.instrument.write(f":SENSe:BLE:FREQuency:CENTer:STEP {freq}")
+                def set_center_step(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Center frequency step size in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:BLE:FREQuency:CENTer:STEP {freq}")
 
-            def get_center_step(self):
-                """
-                Parameter:
-                None
-                Return:
-                float: The center frequency step size in Hz.
-                """
-                return float(self.instrument.query(":SENSe:BLE:FREQuency:CENTer:STEP?"))
+                def get_center_step(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The center frequency step size in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:BLE:FREQuency:CENTer:STEP?"))
 
-            def set_ifbw(self, freq):
-                """
-                Parameter:
-                freq (float): Measurement bandwidth for demodulation in Hz.
-                Return:
-                None
-                """
-                self.instrument.write(f":SENSe:BLE:IFBW {freq}")
+                def set_ifbw(self, freq):
+                    """
+                    Parameter:
+                    freq (float): Measurement bandwidth for demodulation in Hz.
+                    Return:
+                    None
+                    """
+                    self.instrument.write(f":SENSe:BLE:IFBW {freq}")
 
-            def get_ifbw(self):
-                """
-                Parameter:
-                None
-                Return:
-                float: The measurement bandwidth for demodulation in Hz.
-                """
-                return float(self.instrument.query(":SENSe:BLE:IFBW?"))
+                def get_ifbw(self):
+                    """
+                    Parameter:
+                    None
+                    Return:
+                    float: The measurement bandwidth for demodulation in Hz.
+                    """
+                    return float(self.instrument.query(":SENSe:BLE:IFBW?"))
 
             def set_channel_index(self, index):
                 """
@@ -6476,8 +6553,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Trigger commands control the Bluetooth Low Energy trigger settings.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_slength(self, value):
                     """
@@ -6501,8 +6579,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     """
                     The Fetch commands retrieve Bluetooth Low Energy demodulation metrics.
                     """
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def fetch(self, metrics):
                         """
@@ -6517,20 +6596,28 @@ class SpectrumAnalyzer(Instrument.Instrument):
                             metrics_str = ",".join(str(m) for m in metrics)
                         else:
                             raise ValueError("metrics must be an int or list/tuple of ints")
-                        return self.instrument.query(f":FETCh:BLE? {metrics_str}")
+                        response = self.instrument.query(f":FETCh:BLE? {metrics_str}")
+                        if self.data_handler.is_auto_saving_data_enabled():
+                            self.data_handler.write_to_file(self, "BLUETOOTH_FETCH", response, file_type = EFileType.CSV, headers = None)
+                        return response
         class LTE:
             """
             The LTE commands control the receiver and measurement configuration in the LTE measurement mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.measurement = SpectrumAnalyzer.Sense.LTE.Measurement(self.instrument)
+                self.scan = SpectrumAnalyzer.Sense.LTE.Scan(self.instrument)
+                self.fetch = SpectrumAnalyzer.Sense.LTE.Fetch(self.instrument)
+                self.trigger = SpectrumAnalyzer.Sense.LTE.Trigger(self.instrument)
             class Measurement:
                 """
                 The Measurement commands configure LTE measurement mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_standard(self, standard):
                     """
@@ -6640,8 +6727,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Scan commands control LTE cell search and scan results.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_type(self, scan_type):
                     """
@@ -6822,8 +6910,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Fetch commands retrieve LTE measurement results.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def fetch(self, metrics):
                     """
@@ -6844,8 +6933,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Trigger commands control the LTE trigger settings.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_slength(self, value):
                     """
@@ -6887,8 +6977,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The Fetch commands retrieve LTE demodulation metrics.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def fetch(self, metrics):
                     """
@@ -6903,20 +6994,28 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         metrics_str = ",".join(str(m) for m in metrics)
                     else:
                         raise ValueError("metrics must be an int or list/tuple of ints")
-                    return self.instrument.query(f":FETCh:LTE? {metrics_str}")
+                    response = self.instrument.query(f":FETCh:LTE? {metrics_str}")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, "FETCH_LTE", response, file_type = EFileType.CSV, headers = None)
+                    return response
     class WLAN:
         """
         The WLAN commands control the receiver and measurement configuration in the WLAN measurement mode.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
-
+            self.data_handler = data_handler
+            self.measurement = SpectrumAnalyzer.WLAN.Measurement(self.instrument)
+            self.trigger = SpectrumAnalyzer.WLAN.Trigger(self.instrument)
+            self.fetch = SpectrumAnalyzer.WLAN.Fetch(self.instrument)
+                
         class Measurement:
             """
             The Measurement commands configure WLAN measurement mode.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_standard(self, standard):
                 """
@@ -7079,8 +7178,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Trigger commands control the WLAN trigger settings.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_slength(self, value):
                 """
@@ -7140,8 +7240,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
             """
             The Fetch commands retrieve WLAN demodulation metrics.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def fetch(self, metrics):
                 """
@@ -7161,14 +7262,17 @@ class SpectrumAnalyzer(Instrument.Instrument):
         """
         The Trace commands control the user configurable traces for sweep mode.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
+            self.pnoise = SpectrumAnalyzer.Trace.PNoise(self.instrument)
         class PNoise:
             """
             The PNoise commands control the user configurable traces for phase noise measurements.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def select(self, trace_num):
                 """
@@ -7414,7 +7518,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 Return:
                     str: The trace data amplitudes as comma separated values.
                 """
-                return self.instrument.query(":TRACe:PNoise:DATA:Y?")
+                response = self.instrument.query(":TRACe:PNoise:DATA:Y?")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, "PNOISE_Y", response, file_type = EFileType.CSV, headers = None)
+                return response
 
             def get_data_x(self):
                 """
@@ -7423,7 +7530,10 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 Return:
                     str: The trace data frequencies as comma separated values.
                 """
-                return self.instrument.query(":TRACe:PNoise:DATA:X?")
+                response = self.instrument.query(":TRACe:PNoise:DATA:X?")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, "PNOISE_X", response, file_type = EFileType.CSV, headers = None)
+                return response
 
         def select(self, trace_num):
             """
@@ -7610,22 +7720,30 @@ class SpectrumAnalyzer(Instrument.Instrument):
             Return:
                 str: The trace data as comma separated ascii floating point values.
             """
-            return self.instrument.query(":TRACe:DATA?")
+            response = self.instrument.query(":TRACe:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "TRACE_DATA", response, file_type = EFileType.CSV, headers = None)
+            return response
             
     class Record:
         """
         The Record commands control the Sweep Recording control panel in Swept Analysis mode.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
-
+            self.data_handler = data_handler
+            self.sweep = SpectrumAnalyzer.Record.Sweep(self.instrument)
+            self.trigger = SpectrumAnalyzer.Record.Trigger(self.instrument)
         class Sweep:
             def __init__(self, instrument):
                 self.instrument = instrument
-
+                self.decimate = SpectrumAnalyzer.Record.Sweep.Decimate(self.instrument)
+                self.channelizer = SpectrumAnalyzer.Record.Sweep.Channelizer(self.instrument)
+                self.zero_span = SpectrumAnalyzer.Record.Sweep.ZeroSpan(self.instrument)
             class Decimate:
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_type(self, typ):
                     """
@@ -7708,8 +7826,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     return self.instrument.query(":RECord:SWEep:DECimate:DETector?")
 
             class Channelizer:
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
 
                 def set_state(self, state):
                     """
@@ -7889,12 +8008,14 @@ class SpectrumAnalyzer(Instrument.Instrument):
                 """
                 The ZeroSpan commands control the receiver configuration in zero-span mode.
                 """
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
-
+                    self.data_handler = data_handler
+                    self.capture = SpectrumAnalyzer.Record.Sweep.ZeroSpan.Capture(self.instrument)
                 class Capture:
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def set_rlevel(self, amplitude):
                         """
@@ -8044,12 +8165,16 @@ class SpectrumAnalyzer(Instrument.Instrument):
                         return float(self.instrument.query(":SENSe:ZS:CAPture:SWEep:TIME?"))
 
         class Trigger:
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
+                self.zerospan = SpectrumAnalyzer.Record.Trigger.ZS(self.instrument)
             class ZS:
                 """The ZS commands control the trigger configuration in zero-span mode."""
-                def __init__(self, instrument):
+                def __init__(self, instrument,data_handler):
                     self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.fetch = SpectrumAnalyzer.Record.Trigger.ZS.Fetch(self.instrument)
                 def set_source(self, source):
                     """
                     Parameter:
@@ -8132,8 +8257,9 @@ class SpectrumAnalyzer(Instrument.Instrument):
                     """
                     The Fetch commands are used to retrieve measurement results in zero-span mode.
                     """
-                    def __init__(self, instrument):
+                    def __init__(self, instrument,data_handler):
                         self.instrument = instrument
+                        self.data_handler = data_handler
 
                     def get_zs(self, param):
                         """

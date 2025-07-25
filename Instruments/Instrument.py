@@ -5,59 +5,15 @@ from PIL import Image
 class Instrument():
     def __init__(self, instrument, name = None):
         self.instrument = instrument
-        self.default_save_path = "~/Measurement_Software/Experiments/Outputs"        
-        self.save_path = self.default_save_path
-        self.auto_save = False
+        
         self.name = name
         self.data_handler = DataHandler(format='csv')  # Default format set to JSON
-
+        self.subtrees = []
     def disconnect(self):
         """Disconnect from instrument and shut down all data reading and controls."""
         self.instrument.close()
         print("Disconnected from "+str(self.name))
 
-    def get_save_path(self):
-        """
-        Get the current folder where data is saved.
-        
-        Returns:
-        str: The current save path.
-        """
-        return self.save_path
-    def is_auto_saving_data_enabled(self):
-        """
-        Check if auto-saving of data is enabled.
-        
-        Returns:
-        bool: True if auto-saving is enabled, False otherwise.
-        """
-        return self.auto_save
-    
-    def enable_auto_saving_data(self, save_path=None):
-        """
-        Enable the automatic saving of data to a specified path.
-        
-        Parameters:
-        save_path (str): The path where data will be saved. If None, auto-saving is disabled.
-        """
-        self.auto_save = True
-        
-        if save_path is not None:
-            self.save_path = save_path
-        else:
-            self.save_path = self.default_save_path
-
-        print(f"Auto-saving enabled. Data will be saved to {self.save_path}")
-            
-    def disable_auto_saving_data(self):
-        """
-        Disable the automatic saving of data to a specified path.
-        
-        Parameters:
-        save_path (str): The path where data will be saved.
-        """
-        self.auto_save = False
-        print("Auto-saving disabled.")
 
     def save_data(self, data, filepath, format ='json'):
         """

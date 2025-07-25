@@ -13,26 +13,25 @@ class Oscilloscope(Instrument.Instrument):
     def __init__(self, instru):
         super().__init__(instru)
         self.name = EInstrument.OSCILLOSCOPE
-        self.helper
-        self.acquisition = Oscilloscope.Acquisition(self.instrument)
-        self.calibrate = Oscilloscope.Calibrate(self.instrument)
-        self.channel = Oscilloscope.Channel(self.instrument)
-        self.cursor = Oscilloscope.Cursor(self.instrument)
-        self.decoder1 = Oscilloscope.Decoder(self.instrument, 1)
-        self.decoder2 = Oscilloscope.Decoder(self.instrument, 2)
-        self.display = Oscilloscope.Display(self.instrument)
-        self.etable1 = Oscilloscope.ETable(self.instrument, 1)
-        self.etable2 = Oscilloscope.ETable(self.instrument, 2)
-        self.function = Oscilloscope.Function(self.instrument)
-        self.lan = Oscilloscope.LAN(self.instrument)
-        self.math = Oscilloscope.Math(self.instrument)
-        self.mask = Oscilloscope.Mask(self.instrument)
-        self.measure = Oscilloscope.Measure(self.instrument)
-        self.reference = Oscilloscope.Reference(self.instrument)
-        self.storage = Oscilloscope.Storage(self.instrument)
-        self.system = Oscilloscope.System(self.instrument)
-        self.timebase = Oscilloscope.Timebase(self.instrument)
-        self.trigger = Oscilloscope.Trigger(self.instrument)
+        self.acquisition = Oscilloscope.Acquisition(self.instrument,self.data_handler)
+        self.calibrate = Oscilloscope.Calibrate(self.instrument,self.data_handler)
+        self.channel = Oscilloscope.Channel(self.instrument,self.data_handler)
+        self.cursor = Oscilloscope.Cursor(self.instrument,self.data_handler)
+        self.decoder1 = Oscilloscope.Decoder(self.instrument,self.data_handler, 1)
+        self.decoder2 = Oscilloscope.Decoder(self.instrument,self.data_handler, 2)
+        self.display = Oscilloscope.Display(self.instrument,self.data_handler)
+        self.etable1 = Oscilloscope.ETable(self.instrument,self.data_handler, 1)
+        self.etable2 = Oscilloscope.ETable(self.instrument,self.data_handler, 2)
+        self.function = Oscilloscope.Function(self.instrument,self.data_handler)
+        self.lan = Oscilloscope.LAN(self.instrument,self.data_handler)
+        self.math = Oscilloscope.Math(self.instrument,self.data_handler)
+        self.mask = Oscilloscope.Mask(self.instrument,self.data_handler)
+        self.measure = Oscilloscope.Measure(self.instrument,self.data_handler)
+        self.reference = Oscilloscope.Reference(self.instrument,self.data_handler)
+        self.storage = Oscilloscope.Storage(self.instrument,self.data_handler)
+        self.system = Oscilloscope.System(self.instrument,self.data_handler)
+        self.timebase = Oscilloscope.Timebase(self.instrument,self.data_handler)
+        self.trigger = Oscilloscope.Trigger(self.instrument,self.data_handler)
 
     def autoscale(self):
         """Enable the waveform auto setting function. The oscilloscope will automatically adjust the
@@ -55,8 +54,9 @@ will still be displayed."""
     class Acquisition:
         """The Aquire commands are used to set and query the memory depth, acquisition mode and the number of
 averages as well as query the current sample rate of the oscilloscope."""
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
         def set_mode(self, mode):
             """Set acquisition mode. 
             Mode Options - Normal:  Samples the signal at equal time interval to
@@ -124,9 +124,10 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Calibrate commands are used to control the oscilloscope's self-calibration process.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
-
+            self.data_handler = data_handler
+      
         def start(self):
             """
             Start the oscilloscope self-calibration process.
@@ -141,8 +142,9 @@ averages as well as query the current sample rate of the oscilloscope."""
 
     class Channel:
         """The Channel commands are used to control and query channel-specific settings."""
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_bandwidth_limit(self, channel, bw):
             """Set or query the bandwidth limit parameter of the specified channel.
@@ -285,9 +287,10 @@ averages as well as query the current sample rate of the oscilloscope."""
                         
     class Cursor:
         """The Cursor commands are used to control and query cursor-specific settings."""
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
-
+            self.data_handler = data_handler
+        
         def set_mode(self, mode):
             """
             Set cursor measurement mode.
@@ -497,8 +500,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Decoder commands are used to execute decoding settings and operations.
         """
-        def __init__(self, instrument, n):
+        def __init__(self, instrument,data_handler,n):
             self.instrument = instrument
+            self.data_handler = data_handler
             if n not in [1, 2]:
                 raise ValueError("Parameter n must be 1 or 2.")
             self.n = n
@@ -817,8 +821,9 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             The UART commands are used to set the RS232 decoding parameters.
             """
-            def __init__(self, instrument, n):
+            def __init__(self, instrument,data_handler,n):
                 self.instrument = instrument
+                self.data_handler = data_handler
                 if n not in [1, 2]:
                     raise ValueError("Parameter n must be 1 or 2.")
                 self.n = n
@@ -1025,8 +1030,9 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             The IIC commands are used to set the I2C decoding parameters.
             """
-            def __init__(self, instrument, n):
+            def __init__(self, instrument,data_handler,n):
                 self.instrument = instrument
+                self.data_handler = data_handler
                 if n not in [1, 2]:
                     raise ValueError("Parameter n must be 1 or 2.")
                 self.n = n
@@ -1110,8 +1116,9 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             The SPI commands are used to set the SPI decoding parameters.
             """
-            def __init__(self, instrument, n):
+            def __init__(self, instrument,data_handler,n):
                 self.instrument = instrument
+                self.data_handler = data_handler
                 if n not in [1, 2]:
                     raise ValueError("Parameter n must be 1 or 2.")
                 self.n = n
@@ -1397,8 +1404,9 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             The Parallel commands are used to set the parallel decoding parameters.
             """
-            def __init__(self, instrument, n):
+            def __init__(self, instrument,data_handler,n):
                 self.instrument = instrument
+                self.data_handler = data_handler
                 if n not in [1, 2]:
                     raise ValueError("Parameter n must be 1 or 2.")
                 self.n = n
@@ -1680,8 +1688,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Display commands are used to set the waveform display mode, persistence time, waveform intensity, screen grid type and grid brightness.
         """
-        def __init__(self, instrument):
-            self.instrument = instrument
+        def __init__(self, instrument,data_handler):
+                self.instrument = instrument
+                self.data_handler = data_handler
 
         def clear(self):
             """
@@ -1730,10 +1739,10 @@ averages as well as query the current sample rate of the oscilloscope."""
                 cmd += " " + ",".join(args)
             data = self.instrument.query_binary_values(cmd, datatype='B', container=bytes)
             if data and data[0] == ord('#'):  # Check for TMC header
-                data = self.instrument.data_handler.remove_tmc_header(data)
-            if self.instrument.auto_save:
-                file_path = self.instrument.default_file_path + "Display_Data"
-                self.instrument.data_handler.write_to_file(file_path, data, EFileType.PNG, header=None)  # Assuming PNG as default, adjust if needed
+                data = self.data_handler.remove_tmc_header(data)
+            if self.data_handler.autosave:
+                file_path = self.data_handler.default_file_path + "Display_Data"
+                self.data_handler.write_to_file(file_path, data, EFileType.PNG, header=None)  # Assuming PNG as default, adjust if needed
             return data
         def set_type(self, disp_type):
             """
@@ -1869,8 +1878,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The ETable commands are used to set the parameters related to the decoding event table.
         """
-        def __init__(self, instrument, n):
+        def __init__(self, instrument,data_handler,n):
             self.instrument = instrument
+            self.data_handler = data_handler
             if n not in [1, 2]:
                 raise ValueError("Parameter n must be 1 or 2.")
             self.n = n
@@ -2039,24 +2049,26 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             data = self.instrument.query_binary_values(f":ETABle{self.n}:DATA?", datatype='B', container=bytes)
             if data and data[0] == ord('#'):  # Check for TMC header
-                data = self.instrument.data_handler.remove_tmc_header(data)
-            if self.instrument.auto_save:
-                file_path = self.instrument.default_file_path + f"ETable{self.n}_Data"
-                self.instrument.data_handler.write_to_file(file_path, data, EFileType.CSV, header=None)  # Assuming CSV, adjust if needed
+                data = self.data_handler.remove_tmc_header(data)
+            if self.data_handler.auto_save:
+                file_path = self.data_handler.default_file_path + f"ETable{self.n}_Data"
+                self.data_handler.write_to_file(file_path, data, EFileType.CSV, header=None)  # Assuming CSV, adjust if needed
             return data
 
     class Function:
         """
         The Function commands are used to set the waveform recording and playback parameters.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
             self.WRecord = Oscilloscope.Function.WRecord(instrument)
             self.WReplay = Oscilloscope.Function.WReplay(instrument)
 
         class WRecord:
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
             def set_wrecord_fend(self, frame):
                 """
                 Set the end frame of waveform recording.
@@ -2213,8 +2225,9 @@ averages as well as query the current sample rate of the oscilloscope."""
                     return resp
 
         class WReplay:
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
             def set_wreplay_fstart(self, frame):
                 """
                 Set the start frame of waveform playback.
@@ -2416,8 +2429,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The LAN commands are used to set/query network parameters.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_dhcp(self, state):
             """
@@ -2646,8 +2660,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Math commands are used to set the operations between the waveforms of multiple channels.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_display(self, state):
             """
@@ -3385,8 +3400,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Mask commands are used to set and query the pass/fail test parameters.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def enable(self, state):
             """
@@ -3682,8 +3698,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Measure commands are used to set and query measurement parameters and statistics.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_source(self, source):
             """
@@ -4122,8 +4139,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Reference commands are used to set the reference waveform parameters.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_display(self, state):
             """
@@ -4364,8 +4382,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Storage commands are used to set the related parameters when storing images.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_image_type(self, img_type):
             """
@@ -4450,8 +4469,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The System commands are used to set system-related parameters.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_autoscale(self, state):
             """
@@ -4667,10 +4687,10 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             data = self.instrument.query_binary_values(":SYST:SETup?", datatype='B', container=bytes)
             if data and data[0] == ord('#'):  # Check for TMC header
-                data = self.instrument.data_handler.remove_tmc_header(data)
-            if self.instrument.auto_save:
-                file_path = self.instrument.default_file_path + "System_Setup"
-                self.instrument.data_handler.write_to_file(file_path, data, EFileType.BIN, header=None) 
+                data = self.data_handler.remove_tmc_header(data)
+            if self.data_handler.auto_save:
+                file_path = self.data_handler.default_file_path + "System_Setup"
+                self.data_handler.write_to_file(file_path, data, EFileType.BIN, header=None) 
             return data
 
         def set_setup(self, setup_stream):
@@ -4687,8 +4707,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Timebase commands are used to set the horizontal parameters.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_delay_enable(self, state):
             """
@@ -4845,8 +4866,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Trigger commands are used to set the trigger system of the oscilloscope.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
             self.rs232 = Oscilloscope.Trigger.RS232(instrument)
             self.iic = Oscilloscope.Trigger.IIC(instrument)
             self.spi = Oscilloscope.Trigger.SPI(instrument)
@@ -6639,8 +6661,9 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             The RS232 trigger commands for the oscilloscope.
             """
-            def __init__(self, instrument):
-                self.instrument = instrument
+        def __init__(self, instrument,data_handler):
+            self.instrument = instrument
+            self.data_handler = data_handler
 
             def set_source(self, source):
                 """
@@ -6846,8 +6869,9 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             The IIC trigger commands for the oscilloscope.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_scl(self, source):
                 """
@@ -7040,8 +7064,9 @@ averages as well as query the current sample rate of the oscilloscope."""
             """
             The SPI trigger commands for the oscilloscope.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument,data_handler):
                 self.instrument = instrument
+                self.data_handler = data_handler
 
             def set_scl(self, source):
                 """
@@ -7282,8 +7307,9 @@ averages as well as query the current sample rate of the oscilloscope."""
         """
         The Waveform commands are used to read the waveform data and its related settings.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument,data_handler):
             self.instrument = instrument
+            self.data_handler = data_handler
 
         def set_source(self, source):
             """
@@ -7387,11 +7413,11 @@ averages as well as query the current sample rate of the oscilloscope."""
             else:
                 data = self.instrument.query_binary_values(":WAVeform:DATA?", datatype='B', container=bytes)
                 if data and data[0] == ord('#'):  # Check for TMC header
-                    data = self.instrument.data_handler.remove_tmc_header(data)
+                    data = self.data_handler.remove_tmc_header(data)
 
-            if self.instrument.auto_save:
-                file_path = self.instrument.default_file_path + "Waveform_Data"
-                self.instrument.data_handler.write_to_file(file_path, data, EFileType.CSV, header=None)  
+            if self.data_handler.auto_save:
+                file_path = self.data_handler.default_file_path + "Waveform_Data"
+                self.data_handler.write_to_file(file_path, data, EFileType.CSV, header=None)  
 
         def set_start(self, sta):
             """

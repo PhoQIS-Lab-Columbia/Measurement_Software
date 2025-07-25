@@ -66,9 +66,26 @@ class TestDataHandler(unittest.TestCase):
         print(data)
         self.assertEqual(len(data), 10, "Data length does not match expected length of 2 rows.")
         #self.assertEqual(data, {"p1":1,"p2":2,"p3":3,"p4":4,"p5":5,"p6":6,"p7":2,"p8":3,"p9":4,"p10":5}, "Data does not match written data.")
+"""
+SpectrumAnalyzer.Sense.ADEMod.Fetch.fetch_am(self, metrics)
+SpectrumAnalyzer.Sense.ADEMod.Fetch.fetch_fm(self, metrics)
+SpectrumAnalyzer.Sense.DDEMod.Custom.IQ.get_data(self)
+SpectrumAnalyzer.Sense.DDEMod.Trace.Sweep.get_data(self)
+SpectrumAnalyzer.Sense.DDEMod.Fetch.fetch(self, metrics)
+SpectrumAnalyzer.Sense.LTE.Fetch.fetch(self, metrics)
+SpectrumAnalyzer.Sense.NFIGure.Fetch.get_nfigure(self)
+SpectrumAnalyzer.Sense.NFIGure.Fetch.get_gain(self)
+SpectrumAnalyzer.Sense.Bluetooth.Fetch.fetch(self, metrics)
+SpectrumAnalyzer.Calculate.LimitLine.get_data(self)
+SpectrumAnalyzer.Sense.Pathloss.get_data(self)
+SpectrumAnalyzer.Sense.SEMask.Offset.get_offset_parameters(self)
+SpectrumAnalyzer.Sense.NFIGure.Correction.ENRTable.get_data(self)
+SpectrumAnalyzer.Sense.LTE.Fetch.fetch(self, metrics)
+* SpectrumAnalyzer.Sense.ADEMod.Fetch.fetch_am(self, metrics)
+* SpectrumAnalyzer.Sense.ADEMod.Fetch.fetch_fm(self, metrics)
+* SpectrumAnalyzer.Sense.DDEMod.Custom.IQ.get_data(self)"""
 
-
-    """def test_system_parameters_byte_values_change_with_parms(self):
+"""def test_system_parameters_byte_values_change_with_parms(self):
         osc = self.setup()
         osc.auto_save = False
         data1 = osc.get_system_parameters()

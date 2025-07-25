@@ -7,9 +7,54 @@ from EFileType import EFileType
 
 class DataHandler():
     def __init__(self):
-        self.writer = None
-        self.reader = None
         self.format = EFileType.CSV
+        self.default_save_path = "~/Measurement_Software/Experiments/Outputs/"        
+        self.save_path = self.default_save_path
+        self.auto_save = False
+    def get_save_path(self):
+        """
+        Get the current folder where data is saved.
+        
+        Returns:
+        str: The current save path.
+        """
+        return self.save_path
+    
+    def is_auto_saving_data_enabled(self):
+        """
+        Check if auto-saving of data is enabled.
+        
+        Returns:
+        bool: True if auto-saving is enabled, False otherwise.
+        """
+        return self.auto_save
+    
+    def enable_auto_saving_data(self, save_path=None):
+        """
+        Enable the automatic saving of data to a specified path.
+        
+        Parameters:
+        save_path (str): The path where data will be saved. If None, auto-saving is disabled.
+        """
+        self.auto_save = True
+        
+        if save_path is not None:
+            self.save_path = save_path
+        else:
+            self.save_path = self.default_save_path
+        
+        print(f"Auto-saving enabled. Data will be saved to {self.save_path}")
+            
+    def disable_auto_saving_data(self):
+        """
+        Disable the automatic saving of data to a specified path.
+        
+        Parameters:
+        save_path (str): The path where data will be saved.
+        """
+        self.auto_save = False
+        print("Auto-saving disabled.")
+
     def remove_tmc_header(self, bytes):
         """Removes TMC header from image bytes"""
         #First byte is #, ignore
@@ -36,6 +81,7 @@ class DataHandler():
         self.format = format
         #TODO Change readers and writers
     #TODO Add update_file
+
     def read_file(self, file_path, format = None):
         """Reads file and returns data"""
         fmt = self.format
@@ -70,7 +116,7 @@ class DataHandler():
                 file_type: EFileType - type of file to write to, if None then uses default format
                 headers: list - headers for file, if None then numerical headers are used. Only used if data is not a dictionary.
                 If file already exists, headers are not written again."""
-        
+        file_path = self.default_save_path+file_path
         format = self.format
         if file_type is not None:
             format = file_type

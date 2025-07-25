@@ -4,3 +4,4 @@ class EInstrument(Enum):
     OSCILLOSCOPE = "oscilloscope"
     SPECTRUM_ANALYZER = "spectrum analyzer"
     OHM_METER = "ohm meter"
+    VECTOR_NETWORK_ANALYZER = "vector network analyzer"
