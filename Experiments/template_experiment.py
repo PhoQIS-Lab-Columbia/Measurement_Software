@@ -31,6 +31,8 @@ def __main__():
     osc.channel.get_bandwidth_limit(1)
 
     osc_helper.set_timebase()
+
+    spec.save_user_preset
     #If you have 
     #Circuit code
     #....

@@ -3,22 +3,78 @@ import pyvisa
 from EInstrument import EInstrument
 class VNA(Instrument.Mandatory):
 
-    def __init__(self, instrument):
-        
+    def __init__(self, instrument, data_handler=None, num_channels=16):
         self.name = EInstrument.V
         self.instrument = instrument
-        self.calculate_channel1 = self.Calculate(self.instrument,self.data_handler, channel=1)
-        self.calculate_channel2 = self.Calculate(self.instrument,self.data_handler, channel=2)
-        self.calculate_channel3 = self.Calculate(self.instrument,self.data_handler, channel=3)
-        self.calculate_channel4 = self.Calculate(self.instrument,self.data_handler, channel=4)
-        self.calculate_channel5 = self.Calculate(self.instrument,self.data_handler, channel=5)
-        self.calculate_channel6 = self.Calculate(self.instrument,self.data_handler, channel=6)
-        self.calculate_channel7 = self.Calculate(self.instrument,self.data_handler, channel=7)
-        self.calculate_channel8 = self.Calculate(self.instrument,self.data_handler, channel=8)
-        self.calculate_channel9 = self.Calculate(self.instrument,self.data_handler, channel=9)
-        self.calculate_channel10 = self.Calculate(self.instrument,self.data_handler, channel=10)
-        self.calculate_channel11 = self.Calculate(self.instrument,self.data_handler, channel=11)
+        self.data_handler = data_handler
+        # Add instance variables for each direct subclass under VNA
+
+        # Instances for each channel (1-based index)
+        self.calculate_channel1 = self.Calculate(self.instrument, self.data_handler, channel=1)
+        self.calculate_channel2 = self.Calculate(self.instrument, self.data_handler, channel=2)
+        self.calculate_channel3 = self.Calculate(self.instrument, self.data_handler, channel=3)
+        self.calculate_channel4 = self.Calculate(self.instrument, self.data_handler, channel=4)  
+        self.calculate_channel5 = self.Calculate(self.instrument, self.data_handler, channel=5)
+        self.calculate_channel6 = self.Calculate(self.instrument, self.data_handler, channel=6)
+        self.calculate_channel7 = self.Calculate(self.instrument, self.data_handler, channel=7)
+        self.calculate_channel8 = self.Calculate(self.instrument, self.data_handler, channel=8)
+        self.calculate_channel9 = self.Calculate(self.instrument, self.data_handler, channel=9)
+        self.calculate_channel10 = self.Calculate(self.instrument, self.data_handler, channel=10)
+        self.calculate_channel11 = self.Calculate(self.instrument, self.data_handler, channel=11)
+        self.calculate_channel12 = self.Calculate(self.instrument, self.data_handler, channel=12)  
+        self.calculate_channel13 = self.Calculate(self.instrument, self.data_handler, channel=13)
+        self.calculate_channel14 = self.Calculate(self.instrument, self.data_handler, channel=14)
+        self.calculate_channel15 = self.Calculate(self.instrument, self.data_handler, channel=15)
+        self.calculate_channel6 = self.Calculate(self.instrument, self.data_handler, channel=16)  
+
+        self.display_channel1 = self.Display(self.instrument, self.data_handler)
         
+        self.initate_channel1 = self.Initate(self.instrument, self.data_handler, channel=1)
+        self.initate_channel2 = self.Initate(self.instrument, self.data_handler, channel=2)
+        self.initate_channel3 = self.Initate(self.instrument, self.data_handler, channel=3)
+        self.initate_channel4 = self.Initate(self.instrument, self.data_handler, channel=4)
+        self.initate_channel5 = self.Initate(self.instrument, self.data_handler, channel=5)
+        self.initate_channel6 = self.Initate(self.instrument, self.data_handler, channel=6)
+        self.initate_channel7 = self.Initate(self.instrument, self.data_handler, channel=7)
+        self.initate_channel8 = self.Initate(self.instrument, self.data_handler, channel=8)
+        self.initate_channel9 = self.Initate(self.instrument, self.data_handler, channel=9)
+        self.initate_channel10 = self.Initate(self.instrument, self.data_handler, channel=10)
+        self.initate_channel11 = self.Initate(self.instrument, self.data_handler, channel=11)
+        self.initate_channel12 = self.Initate(self.instrument, self.data_handler, channel=12)
+        self.initate_channel13 = self.Initate(self.instrument, self.data_handler, channel=13)
+        self.initate_channel14 = self.Initate(self.instrument, self.data_handler, channel=14)
+        self.initate_channel15= self.Initate(self.instrument, self.data_handler, channel=15)
+        self.initate_channel16 = self.Initate(self.instrument, self.data_handler, channel=16)
+
+        self.mmemory = self.MMemory(self.instrument, self.data_handler)
+        
+        self.sense_channel1 = self.Sense(self.instrument, self.data_handler, channel=1)
+        self.sense_channel2 = self.Sense(self.instrument, self.data_handler, channel=2)
+        self.sense_channel3 = self.Sense(self.instrument, self.data_handler, channel=3)
+        self.sense_channel4 = self.Sense(self.instrument, self.data_handler, channel=4)
+        self.sense_channel5 = self.Sense(self.instrument, self.data_handler, channel=5)
+        self.sense_channel6 = self.Sense(self.instrument, self.data_handler, channel=6)
+        self.sense_channel7 = self.Sense(self.instrument, self.data_handler, channel=7)
+        self.sense_channel8 = self.Sense(self.instrument, self.data_handler, channel=8)
+        self.sense_channel9 = self.Sense(self.instrument, self.data_handler, channel=9)
+        self.sense_channel10 = self.Sense(self.instrument, self.data_handler, channel=10)
+        self.sense_channel11 = self.Sense(self.instrument, self.data_handler, channel=11)
+        self.sense_channel12 = self.Sense(self.instrument, self.data_handler, channel=12)
+        self.sense_channel13 = self.Sense(self.instrument, self.data_handler, channel=13)
+        self.sense_channel14 = self.Sense(self.instrument, self.data_handler, channel=14)
+        self.sense_channel15 = self.Sense(self.instrument, self.data_handler, channel=15)
+        self.sense_channel16 = self.Sense(self.instrument, self.data_handler, channel=16)
+
+        self.status = self.Status(self.instrument, self.data_handler)
+        self.source = self.Source(self.instrument, self.data_handler)
+        self.system = self.System(self.instrument, self.data_handler)
+        self.trigger = self.Trigger(self.instrument, self.data_handler)
+        # Single instance subclasses (not channel-dependent)
+        self.format = self.Format(self.instrument, self.data_handler)
+        self.hcopy = self.HCopy(self.instrument, self.data_handler)
+        self.output = self.Output(self.instrument, self.data_handler)
+        self.service = self.Service(self.instrument)
+
     class Calculate:
         """
         Data processing (conversion, electrical delay, phase offset,
@@ -30,7 +86,12 @@ trace data transfer.
             self.instrument = instrument
             self.data_handler = data_handler
             self.n  = channel
-            self.fsim = self.FSim(self.instrument, self.data_handler,channel)
+            self.marker = self.Marker(self.instrument, self.data_handler, channel)
+            self.math = self.Math(self.instrument, self.data_handler, channel)
+            self.mst = self.MST(self.instrument, self.data_handler, channel)
+            self.rlim = self.RLIM(self.instrument, self.data_handler, channel)
+            self.smo = self.SMO(self.instrument, self.data_handler, channel)
+            self.tran = self.TRAN(self.instrument, self.data_handler, channel)
             self.electrical_delay = self.ElectricalDelay(self.instrument, self.data_handler,channel)
             self.filter = self.Filter(self.instrument, self.data_handler,channel)
             self.trace_analysis = self.TraceAnalysis(self.instrument, self.data_handler,channel)
@@ -2740,18 +2801,20 @@ trace data transfer.
         """
             Command display settings.
         """
-        def __init__(self, instrument, data_handler, channel):
+        def __init__(self, instrument, data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
             
+            self.color = self.Color(self.instrument,self.data_handler)
+            self.interface = self.Interface(self.instrument,self.data_handler)
+            self.marker = self.Marker(self.instrument,self.data_handler)
         class Color:
             """
             Display color settings.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # DISP:COL:BACK - Background color
             def set_background(self, r: int, g: int, b: int):
                 """
@@ -2895,9 +2958,9 @@ trace data transfer.
             """
             Display interface settings.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # DISP:FONT:SIZE - Font size for all elements
             def set_font_size(self, size: int):
                 """
@@ -3018,9 +3081,9 @@ trace data transfer.
             """
             Display marker annotation settings.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # DISP:MARK:TABL - Marker table ON/OFF
             def enable_table(self, enable: bool):
                 """
@@ -4413,25 +4476,24 @@ trace data transfer.
         """
             File operations. commands.
         """
-        def __init__(self, instrument, data_handler, channel):
+        def __init__(self, instrument, data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
-            self.catalog = self.Catalog(self.instrument)
-            self.copy = self.Copy(self.instrument)
-            self.delete = self.Delete(self.instrument)
-            self.directory = self.Directory(self.instrument)
-            self.load = self.Load(self.instrument)
-            self.store = self.Store(self.instrument)
-            self.store_fdat = self.StoreFdat(self.instrument)
-            self.store_snp = self.StoreSnp(self.instrument)
+            
+            self.catalog = self.Catalog(self.instrument, data_handler)
+            self.copy = self.Copy(self.instrument, data_handler)
+            self.delete = self.Delete(self.instrument, data_handler)
+            self.directory = self.Directory(self.instrument, data_handler)
+            self.load = self.Load(self.instrument, data_handler)
+            self.store = self.Store(self.instrument, data_handler)
+           
         class Catalog:
             """
             File catalog operations.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # MMEMory:CATalog? <string>
             def get_catalog(self, directory: str = "\\."):
                 """
@@ -4449,9 +4511,9 @@ trace data transfer.
             """
             File copy operations.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # MMEMory:COPY <string1>,<string2>
             def copy_file(self, src: str, dst: str):
                 """
@@ -4470,9 +4532,9 @@ trace data transfer.
             """
             File delete operations.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # MMEMory:DELete <string>
             def delete_file(self, filename: str):
                 """
@@ -4490,9 +4552,9 @@ trace data transfer.
             """
             Directory operations.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # MMEMory:MDIRectory <string>
             def create_directory(self, path: str):
                 """
@@ -4510,9 +4572,9 @@ trace data transfer.
             """
             File load operations.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # MMEMory:LOAD[:STATe] <string>
             def load_state(self, filename: str):
                 """
@@ -4687,9 +4749,11 @@ trace data transfer.
             """
             File store operations.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
+                self.fdat = self.Fdat(self.instrument, self.data_handler)
+                self.snp = self.Snp(self.instrument)
             # MMEMory:STORe[:STATe] <string>
             def store_state(self, filename: str):
                 """
@@ -4858,413 +4922,413 @@ trace data transfer.
                 """
                 self.instrument.write(f":MMEMory:STORe:SNP:DATA \"{filename}\"")
 
-        class StoreFdat:
-            """
-            Store trace data CSV options.
-            """
-            def __init__(self, instrument):
-                self.instrument = instrument
-
-            # MMEMory:STORe:FDAT:SCOPe {ACTive|ALL}
-            def set_scope(self, scope: str):
+            class Fdat:
                 """
-                Set whether the active trace or all traces of the active channel will be saved.
-
-                Parameter:
-                    scope (str): 'ACTive' or 'ALL'
-
-                Return:
-                    None
+                Store trace data CSV options.
                 """
-                allowed = ['ACTive', 'ALL']
-                if scope not in allowed:
-                    raise ValueError(f"scope must be one of {allowed}")
-                self.instrument.write(f":MMEMory:STORe:FDAT:SCOPe {scope}")
+                def __init__(self, instrument, data_handler):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                # MMEMory:STORe:FDAT:SCOPe {ACTive|ALL}
+                def set_scope(self, scope: str):
+                    """
+                    Set whether the active trace or all traces of the active channel will be saved.
 
-            def get_scope(self) -> str:
+                    Parameter:
+                        scope (str): 'ACTive' or 'ALL'
+
+                    Return:
+                        None
+                    """
+                    allowed = ['ACTive', 'ALL']
+                    if scope not in allowed:
+                        raise ValueError(f"scope must be one of {allowed}")
+                    self.instrument.write(f":MMEMory:STORe:FDAT:SCOPe {scope}")
+
+                def get_scope(self) -> str:
+                    """
+                    Get the scope for saving trace data.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: 'ACT' or 'ALL'
+                    """
+                    return self.instrument.query(":MMEMory:STORe:FDAT:SCOPe?").strip()
+
+                # MMEMory:STORe:FDAT:FORMat {DB|RI|DISPlayed}
+                def set_format(self, fmt: str):
+                    """
+                    Set the data format when the CSV file is saved.
+
+                    Parameter:
+                        fmt (str): 'DB', 'RI', or 'DISPlayed'
+
+                    Return:
+                        None
+                    """
+                    allowed = ['DB', 'RI', 'DISPlayed']
+                    if fmt not in allowed:
+                        raise ValueError(f"fmt must be one of {allowed}")
+                    self.instrument.write(f":MMEMory:STORe:FDAT:FORMat {fmt}")
+
+                def get_format(self) -> str:
+                    """
+                    Get the data format for saving CSV.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: 'DB', 'RI', or 'DISP'
+                    """
+                    return self.instrument.query(":MMEMory:STORe:FDAT:FORMat?").strip()
+
+                # MMEMory:STORe:FDAT:COMMent[:STATe] {OFF|ON|0|1}
+                def enable_comment(self, enable: bool):
+                    """
+                    Enable or disable comment strings at the beginning of the CSV file.
+
+                    Parameter:
+                        enable (bool): True to enable, False to disable
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":MMEMory:STORe:FDAT:COMMent:STATe {1 if enable else 0}")
+
+                def is_comment_enabled(self) -> bool:
+                    """
+                    Query if comment strings are enabled in the CSV file.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(":MMEMory:STORe:FDAT:COMMent:STATe?")))
+
+                # MMEMory:STORe:FDAT:STIMulus[:STATe] {OFF|ON|0|1}
+                def enable_stimulus_column(self, enable: bool):
+                    """
+                    Enable or disable the stimulus column in the CSV file.
+
+                    Parameter:
+                        enable (bool): True to enable, False to disable
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":MMEMory:STORe:FDAT:STIMulus:STATe {1 if enable else 0}")
+
+                def is_stimulus_column_enabled(self) -> bool:
+                    """
+                    Query if the stimulus column is enabled in the CSV file.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(":MMEMory:STORe:FDAT:STIMulus:STATe?")))
+
+                # MMEMory:STORe:FDAT:SEParator {POINt|LOCal}
+                def set_separator(self, sep: str):
+                    """
+                    Set the separators used when the CSV file is saved.
+
+                    Parameter:
+                        sep (str): 'POINt' or 'LOCal'
+
+                    Return:
+                        None
+                    """
+                    allowed = ['POINt', 'LOCal']
+                    if sep not in allowed:
+                        raise ValueError(f"sep must be one of {allowed}")
+                    self.instrument.write(f":MMEMory:STORe:FDAT:SEParator {sep}")
+
+                def get_separator(self) -> str:
+                    """
+                    Get the separator used for saving CSV.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: 'POIN' or 'LOC'
+                    """
+                    return self.instrument.query(":MMEMory:STORe:FDAT:SEParator?").strip()
+
+            class Snp:
                 """
-                Get the scope for saving trace data.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: 'ACT' or 'ALL'
+                Store Touchstone file options.
                 """
-                return self.instrument.query(":MMEMory:STORe:FDAT:SCOPe?").strip()
-
-            # MMEMory:STORe:FDAT:FORMat {DB|RI|DISPlayed}
-            def set_format(self, fmt: str):
-                """
-                Set the data format when the CSV file is saved.
-
-                Parameter:
-                    fmt (str): 'DB', 'RI', or 'DISPlayed'
-
-                Return:
-                    None
-                """
-                allowed = ['DB', 'RI', 'DISPlayed']
-                if fmt not in allowed:
-                    raise ValueError(f"fmt must be one of {allowed}")
-                self.instrument.write(f":MMEMory:STORe:FDAT:FORMat {fmt}")
-
-            def get_format(self) -> str:
-                """
-                Get the data format for saving CSV.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: 'DB', 'RI', or 'DISP'
-                """
-                return self.instrument.query(":MMEMory:STORe:FDAT:FORMat?").strip()
-
-            # MMEMory:STORe:FDAT:COMMent[:STATe] {OFF|ON|0|1}
-            def enable_comment(self, enable: bool):
-                """
-                Enable or disable comment strings at the beginning of the CSV file.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":MMEMory:STORe:FDAT:COMMent:STATe {1 if enable else 0}")
-
-            def is_comment_enabled(self) -> bool:
-                """
-                Query if comment strings are enabled in the CSV file.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(":MMEMory:STORe:FDAT:COMMent:STATe?")))
-
-            # MMEMory:STORe:FDAT:STIMulus[:STATe] {OFF|ON|0|1}
-            def enable_stimulus_column(self, enable: bool):
-                """
-                Enable or disable the stimulus column in the CSV file.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":MMEMory:STORe:FDAT:STIMulus:STATe {1 if enable else 0}")
-
-            def is_stimulus_column_enabled(self) -> bool:
-                """
-                Query if the stimulus column is enabled in the CSV file.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(":MMEMory:STORe:FDAT:STIMulus:STATe?")))
-
-            # MMEMory:STORe:FDAT:SEParator {POINt|LOCal}
-            def set_separator(self, sep: str):
-                """
-                Set the separators used when the CSV file is saved.
-
-                Parameter:
-                    sep (str): 'POINt' or 'LOCal'
-
-                Return:
-                    None
-                """
-                allowed = ['POINt', 'LOCal']
-                if sep not in allowed:
-                    raise ValueError(f"sep must be one of {allowed}")
-                self.instrument.write(f":MMEMory:STORe:FDAT:SEParator {sep}")
-
-            def get_separator(self) -> str:
-                """
-                Get the separator used for saving CSV.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: 'POIN' or 'LOC'
-                """
-                return self.instrument.query(":MMEMory:STORe:FDAT:SEParator?").strip()
-
-        class StoreSnp:
-            """
-            Store Touchstone file options.
-            """
-            def __init__(self, instrument):
-                self.instrument = instrument
-
-            # MMEMory:STORe:SNP:FORMat <char>
-            def set_format(self, fmt: str):
-                """
-                Set the data format for the S-parameter saved.
-
-                Parameter:
-                    fmt (str): 'DB', 'MA', or 'RI'
-
-                Return:
-                    None
-                """
-                allowed = ['DB', 'MA', 'RI']
-                if fmt not in allowed:
-                    raise ValueError(f"fmt must be one of {allowed}")
-                self.instrument.write(f":MMEMory:STORe:SNP:FORMat {fmt}")
-
-            def get_format(self) -> str:
-                """
-                Get the data format for the S-parameter saved.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: 'RI', 'DB', or 'MA'
-                """
-                return self.instrument.query(":MMEMory:STORe:SNP:FORMat?").strip()
-
-            # MMEMory:STORe:SNP:SEParator <char>
-            def set_separator(self, sep: str):
-                """
-                Set the Touchstone file separator symbol.
-
-                Parameter:
-                    sep (str): 'TAB' or 'SPACe'
-
-                Return:
-                    None
-                """
-                allowed = ['TAB', 'SPACe']
-                if sep not in allowed:
-                    raise ValueError(f"sep must be one of {allowed}")
-                self.instrument.write(f":MMEMory:STORe:SNP:SEParator {sep}")
-
-            def get_separator(self) -> str:
-                """
-                Get the Touchstone file separator symbol.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: 'TAB' or 'SPAC'
-                """
-                return self.instrument.query(":MMEMory:STORe:SNP:SEParator?").strip()
-
-            # MMEMory:STORe:SNP:TRACe:TRANsform[:STATe] {OFF|ON|0|1}
-            def enable_trace_transform(self, enable: bool):
-                """
-                Enable or disable including trace transform in the Touchstone file.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":MMEMory:STORe:SNP:TRACe:TRANsform:STATe {1 if enable else 0}")
-
-            def is_trace_transform_enabled(self) -> bool:
-                """
-                Query if including trace transform is enabled in the Touchstone file.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(":MMEMory:STORe:SNP:TRACe:TRANsform:STATe?")))
-            # MMEMory:STORe:SNP:TYPE?
-            def get_touchstone_file_type(self):
-                """
-                Reads out the type of Touchstone file (S1P, S2P, S3P or S4P) to be used when saving S–parameters.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Touchstone file type ('S1P', 'S2P', 'S3P', or 'S4P')
-                """
-                return self.instrument.query(":MMEMory:STORe:SNP:TYPE?").strip()
-
-            # MMEMory:STORe:SNP:TYPE:S1P <port>
-            # MMEMory:STORe:SNP:TYPE:S1P?
-            def set_touchstone_type_s1p(self, port: int):
-                """
-                Sets the 1-port Touchstone file type (*.S1P) and the port number.
-
-                Parameter:
-                    port (int): Port number from 1 to 4
-
-                Return:
-                    None
-                """
-                if not (1 <= port <= 4):
-                    raise ValueError("port must be 1-4")
-                self.instrument.write(f":MMEMory:STORe:SNP:TYPE:S1P {port}")
-
-            def get_touchstone_type_s1p(self) -> int:
-                """
-                Reads out the port number for the 1-port Touchstone file type.
-
-                Parameter:
-                    None
-
-                Return:
-                    int: Port number
-                """
-                return int(self.instrument.query(":MMEMory:STORe:SNP:TYPE:S1P?"))
-
-            # MMEMory:STORe:SNP:TYPE:S2P <port1>,<port2>
-            # MMEMory:STORe:SNP:TYPE:S2P?
-            def set_touchstone_type_s2p(self, port1: int, port2: int):
-                """
-                Sets the 2-port Touchstone file type (*.S2P) and the port numbers.
-
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                    raise ValueError("port1 and port2 must be 1-4")
-                self.instrument.write(f":MMEMory:STORe:SNP:TYPE:S2P {port1},{port2}")
-
-            def get_touchstone_type_s2p(self):
-                """
-                Reads out the port numbers for the 2-port Touchstone file type.
-
-                Parameter:
-                    None
-
-                Return:
-                    tuple: (port1, port2)
-                """
-                resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S2P?").strip()
-                return tuple(map(int, resp.split(',')))
-
-            # MMEMory:STORe:SNP:TYPE:S3P <port1>,<port2>,<port3>
-            # MMEMory:STORe:SNP:TYPE:S3P?
-            def set_touchstone_type_s3p(self, port1: int, port2: int, port3: int):
-                """
-                Sets the 3-port Touchstone file type (*.S3P) and the port numbers.
-
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= port1 <= 4 and 1 <= port2 <= 4 and 1 <= port3 <= 4):
-                    raise ValueError("port1, port2, and port3 must be 1-4")
-                self.instrument.write(f":MMEMory:STORe:SNP:TYPE:S3P {port1},{port2},{port3}")
-
-            def get_touchstone_type_s3p(self):
-                """
-                Reads out the port numbers for the 3-port Touchstone file type.
-
-                Parameter:
-                    None
-
-                Return:
-                    tuple: (port1, port2, port3)
-                """
-                resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S3P?").strip()
-                return tuple(map(int, resp.split(',')))
-
-            # MMEMory:STORe:SNP:TYPE:S4P <port1>,<port2>,<port3>,<port4>
-            # MMEMory:STORe:SNP:TYPE:S4P?
-            def set_touchstone_type_s4p(self, port1: int, port2: int, port3: int, port4: int):
-                """
-                Sets the 4-port Touchstone file type (*.S4P) and the port numbers.
-
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
-                    port4 (int): Fourth port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= port1 <= 4 and 1 <= port2 <= 4 and 1 <= port3 <= 4 and 1 <= port4 <= 4):
-                    raise ValueError("port1, port2, port3, and port4 must be 1-4")
-                self.instrument.write(f":MMEMory:STORe:SNP:TYPE:S4P {port1},{port2},{port3},{port4}")
-
-            def get_touchstone_type_s4p(self):
-                """
-                Reads out the port numbers for the 4-port Touchstone file type.
-
-                Parameter:
-                    None
-
-                Return:
-                    tuple: (port1, port2, port3, port4)
-                """
-                resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S4P?").strip()
-                return tuple(map(int, resp.split(',')))
-
-            # MMEMory:STORe:STYPe <char>
-            # MMEMory:STORe:STYPe?
-            def set_save_type(self, save_type: str):
-                """
-                Selects the type of the Analyzer or channel state saving.
-
-                Parameter:
-                    save_type (str): One of ['STATe', 'CSTate', 'DSTate', 'CDSTate', 'CMSTate']
-
-                Return:
-                    None
-                """
-                allowed = ['STATe', 'CSTate', 'DSTate', 'CDSTate', 'CMSTate']
-                if save_type not in allowed:
-                    raise ValueError(f"save_type must be one of {allowed}")
-                self.instrument.write(f":MMEMory:STORe:STYPe {save_type}")
-
-            def get_save_type(self) -> str:
-                """
-                Reads out the type of the Analyzer or channel state saving.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Save type ('STAT', 'CST', 'DST', 'CDST', 'CMST')
-                """
-                return self.instrument.query(":MMEMory:STORe:STYPe?").strip()
-            # MMEMory:TRANsfer? <string>
-            def transfer_file_from_analyzer(self, filename: str) -> bytes:
-                """
-                Transfer the contents of a specified file from the Analyzer to the external PC.
-
-                Parameter:
-                filename (str): The file name with the full path
-
-                Return:
-                bytes: The file contents as bytes
-                """
-                response = self.instrument.query_binary_values(
-                f":MMEMory:TRANsfer? \"{filename}\"", datatype='B', is_big_endian=True
-                )
-                return bytes(response)
-
-     
+                def __init__(self, instrument):
+                    self.instrument = instrument
+
+                # MMEMory:STORe:SNP:FORMat <char>
+                def set_format(self, fmt: str):
+                    """
+                    Set the data format for the S-parameter saved.
+
+                    Parameter:
+                        fmt (str): 'DB', 'MA', or 'RI'
+
+                    Return:
+                        None
+                    """
+                    allowed = ['DB', 'MA', 'RI']
+                    if fmt not in allowed:
+                        raise ValueError(f"fmt must be one of {allowed}")
+                    self.instrument.write(f":MMEMory:STORe:SNP:FORMat {fmt}")
+
+                def get_format(self) -> str:
+                    """
+                    Get the data format for the S-parameter saved.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: 'RI', 'DB', or 'MA'
+                    """
+                    return self.instrument.query(":MMEMory:STORe:SNP:FORMat?").strip()
+
+                # MMEMory:STORe:SNP:SEParator <char>
+                def set_separator(self, sep: str):
+                    """
+                    Set the Touchstone file separator symbol.
+
+                    Parameter:
+                        sep (str): 'TAB' or 'SPACe'
+
+                    Return:
+                        None
+                    """
+                    allowed = ['TAB', 'SPACe']
+                    if sep not in allowed:
+                        raise ValueError(f"sep must be one of {allowed}")
+                    self.instrument.write(f":MMEMory:STORe:SNP:SEParator {sep}")
+
+                def get_separator(self) -> str:
+                    """
+                    Get the Touchstone file separator symbol.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: 'TAB' or 'SPAC'
+                    """
+                    return self.instrument.query(":MMEMory:STORe:SNP:SEParator?").strip()
+
+                # MMEMory:STORe:SNP:TRACe:TRANsform[:STATe] {OFF|ON|0|1}
+                def enable_trace_transform(self, enable: bool):
+                    """
+                    Enable or disable including trace transform in the Touchstone file.
+
+                    Parameter:
+                        enable (bool): True to enable, False to disable
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":MMEMory:STORe:SNP:TRACe:TRANsform:STATe {1 if enable else 0}")
+
+                def is_trace_transform_enabled(self) -> bool:
+                    """
+                    Query if including trace transform is enabled in the Touchstone file.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(":MMEMory:STORe:SNP:TRACe:TRANsform:STATe?")))
+                # MMEMory:STORe:SNP:TYPE?
+                def get_touchstone_file_type(self):
+                    """
+                    Reads out the type of Touchstone file (S1P, S2P, S3P or S4P) to be used when saving S–parameters.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Touchstone file type ('S1P', 'S2P', 'S3P', or 'S4P')
+                    """
+                    return self.instrument.query(":MMEMory:STORe:SNP:TYPE?").strip()
+
+                # MMEMory:STORe:SNP:TYPE:S1P <port>
+                # MMEMory:STORe:SNP:TYPE:S1P?
+                def set_touchstone_type_s1p(self, port: int):
+                    """
+                    Sets the 1-port Touchstone file type (*.S1P) and the port number.
+
+                    Parameter:
+                        port (int): Port number from 1 to 4
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port <= 4):
+                        raise ValueError("port must be 1-4")
+                    self.instrument.write(f":MMEMory:STORe:SNP:TYPE:S1P {port}")
+
+                def get_touchstone_type_s1p(self) -> int:
+                    """
+                    Reads out the port number for the 1-port Touchstone file type.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        int: Port number
+                    """
+                    return int(self.instrument.query(":MMEMory:STORe:SNP:TYPE:S1P?"))
+
+                # MMEMory:STORe:SNP:TYPE:S2P <port1>,<port2>
+                # MMEMory:STORe:SNP:TYPE:S2P?
+                def set_touchstone_type_s2p(self, port1: int, port2: int):
+                    """
+                    Sets the 2-port Touchstone file type (*.S2P) and the port numbers.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                        raise ValueError("port1 and port2 must be 1-4")
+                    self.instrument.write(f":MMEMory:STORe:SNP:TYPE:S2P {port1},{port2}")
+
+                def get_touchstone_type_s2p(self):
+                    """
+                    Reads out the port numbers for the 2-port Touchstone file type.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        tuple: (port1, port2)
+                    """
+                    resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S2P?").strip()
+                    return tuple(map(int, resp.split(',')))
+
+                # MMEMory:STORe:SNP:TYPE:S3P <port1>,<port2>,<port3>
+                # MMEMory:STORe:SNP:TYPE:S3P?
+                def set_touchstone_type_s3p(self, port1: int, port2: int, port3: int):
+                    """
+                    Sets the 3-port Touchstone file type (*.S3P) and the port numbers.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+                        port3 (int): Third port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4 and 1 <= port3 <= 4):
+                        raise ValueError("port1, port2, and port3 must be 1-4")
+                    self.instrument.write(f":MMEMory:STORe:SNP:TYPE:S3P {port1},{port2},{port3}")
+
+                def get_touchstone_type_s3p(self):
+                    """
+                    Reads out the port numbers for the 3-port Touchstone file type.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        tuple: (port1, port2, port3)
+                    """
+                    resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S3P?").strip()
+                    return tuple(map(int, resp.split(',')))
+
+                # MMEMory:STORe:SNP:TYPE:S4P <port1>,<port2>,<port3>,<port4>
+                # MMEMory:STORe:SNP:TYPE:S4P?
+                def set_touchstone_type_s4p(self, port1: int, port2: int, port3: int, port4: int):
+                    """
+                    Sets the 4-port Touchstone file type (*.S4P) and the port numbers.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+                        port3 (int): Third port number (1-4)
+                        port4 (int): Fourth port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4 and 1 <= port3 <= 4 and 1 <= port4 <= 4):
+                        raise ValueError("port1, port2, port3, and port4 must be 1-4")
+                    self.instrument.write(f":MMEMory:STORe:SNP:TYPE:S4P {port1},{port2},{port3},{port4}")
+
+                def get_touchstone_type_s4p(self):
+                    """
+                    Reads out the port numbers for the 4-port Touchstone file type.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        tuple: (port1, port2, port3, port4)
+                    """
+                    resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S4P?").strip()
+                    return tuple(map(int, resp.split(',')))
+
+                # MMEMory:STORe:STYPe <char>
+                # MMEMory:STORe:STYPe?
+                def set_save_type(self, save_type: str):
+                    """
+                    Selects the type of the Analyzer or channel state saving.
+
+                    Parameter:
+                        save_type (str): One of ['STATe', 'CSTate', 'DSTate', 'CDSTate', 'CMSTate']
+
+                    Return:
+                        None
+                    """
+                    allowed = ['STATe', 'CSTate', 'DSTate', 'CDSTate', 'CMSTate']
+                    if save_type not in allowed:
+                        raise ValueError(f"save_type must be one of {allowed}")
+                    self.instrument.write(f":MMEMory:STORe:STYPe {save_type}")
+
+                def get_save_type(self) -> str:
+                    """
+                    Reads out the type of the Analyzer or channel state saving.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Save type ('STAT', 'CST', 'DST', 'CDST', 'CMST')
+                    """
+                    return self.instrument.query(":MMEMory:STORe:STYPe?").strip()
+                # MMEMory:TRANsfer? <string>
+                def transfer_file_from_analyzer(self, filename: str) -> bytes:
+                    """
+                    Transfer the contents of a specified file from the Analyzer to the external PC.
+
+                    Parameter:
+                    filename (str): The file name with the full path
+
+                    Return:
+                    bytes: The file contents as bytes
+                    """
+                    response = self.instrument.query_binary_values(
+                    f":MMEMory:TRANsfer? \"{filename}\"", datatype='B', is_big_endian=True
+                    )
+                    return bytes(response)
+
+        
     class Output:
         """
             Commands output settings.
@@ -5305,6 +5369,26 @@ frequency offset, channel data transfer."""
             self.instrument = instrument
             self.data_handler = data_handler
             self.n = channel
+            # Add instance variables for each direct subclass under Sense
+            self.average = self.Average(instrument, data_handler, channel)
+            self.bandwidth = self.Bandwidth(instrument, data_handler, channel)
+           
+            self.impedance = self.Impedance(instrument, data_handler, channel)
+            self.offset = self.Offset(instrument, data_handler, channel)
+            self.receiver = self.Receiver(instrument, data_handler, channel)
+            self.data = self.Data(instrument, data_handler, channel)
+            self.segment = self.Segment(instrument, data_handler, channel)
+            self.sweep = self.Sweep(instrument, data_handler, channel)
+            self.reference_source = self.ReferenceSource(instrument, data_handler, channel)
+            self.voltage = self.Voltage(instrument, data_handler, channel)
+            
+            
+            
+            self.adapter = self.Adapter(instrument, data_handler, channel)
+            self.calibration = self.Calibration(instrument, data_handler, channel)
+            self.frequency = self.Frequency(instrument, data_handler, channel)
+            self.reference_oscillator = self.ReferenceOscillator(instrument, data_handler, channel)
+            
         class Average:
             """
             Averaging related commands.
@@ -5385,7 +5469,75 @@ frequency offset, channel data transfer."""
                 self.instrument = instrument
                 self.data_handler = data_handler
                 self.n = channel
+                self.width_resolution = self.WidthResolution(instrument, data_handler, channel)
+                self.resolution = self.Resolution(instrument, data_handler, channel)
+            class WidthResolution:
+                """
+                IF bandwidth width resolution related commands (alias).
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
 
+                # SENSe<Ch>:BWIDth[:RESolution] <frequency>
+                def set_bandwidth_width_resolution(self, value: float):
+                    """
+                    Set the IF bandwidth width resolution (alias command).
+
+                    Parameter:
+                        value (float): IF bandwidth value in Hz
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:BWID:RES {value}")
+
+                def get_bandwidth_width_resolution(self) -> float:
+                    """
+                    Get the IF bandwidth width resolution (alias command).
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: IF bandwidth value in Hz
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:BWID:RES?"))
+
+            class Resolution:
+                """
+                IF bandwidth resolution related commands.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENSe<Ch>:BANDwidth[:RESolution] <frequency>
+                def set_bandwidth_resolution(self, value: float):
+                    """
+                    Set the IF bandwidth resolution.
+
+                    Parameter:
+                        value (float): IF bandwidth value in Hz
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:BAND:RES {value}")
+
+                def get_bandwidth_resolution(self) -> float:
+                    """
+                    Get the IF bandwidth resolution.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: IF bandwidth value in Hz
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:BAND:RES?"))
             # SENS:BAND - IF bandwidth
             def set_if_bandwidth(self, value: float):
                 """
@@ -5436,437 +5588,9 @@ frequency offset, channel data transfer."""
                 """
                 return float(self.instrument.query(f":SENS{self.n}:BWID?"))
 
-        class Correction:
-            """
-            Calibration and correction related commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENS:CORR:CLE - Clears the table of calibration factors
-            def clear_calibration_factors(self):
-                """
-                Clear the table of calibration factors.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:CLE")
-
-            # SENS:CORR:COLL:CLE - Clears data of calibration standards
-            def clear_calibration_standards(self):
-                """
-                Clear data of calibration standards.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CLE")
-
-            # SENS:CORR:INF? - Information string of calibration
-            def get_calibration_info(self) -> str:
-                """
-                Get information string of calibration.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Calibration information
-                """
-                return self.instrument.query(f":SENS{self.n}:CORR:INF?").strip()
-
-            # SENS:CORR:STAT - S-parameter error correction state
-            def set_error_correction_state(self, enable: bool):
-                """
-                Set S-parameter error correction state.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:STAT {1 if enable else 0}")
-
-            def is_error_correction_enabled(self) -> bool:
-                """
-                Query if S-parameter error correction is enabled.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:STAT?")))
-
-            # SENS:CORR:TRIG:FREE - Calibration trigger source
-            def set_calibration_trigger_source(self, source: str):
-                """
-                Set calibration trigger source.
-
-                Parameter:
-                    source (str): Trigger source, one of ['FREE', 'EXT']
-
-                Return:
-                    None
-                """
-                allowed = ['FREE', 'EXT']
-                if source not in allowed:
-                    raise ValueError(f"source must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:TRIG:FREE {source}")
-
-            def get_calibration_trigger_source(self) -> str:
-                """
-                Get calibration trigger source.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Trigger source
-                """
-                return self.instrument.query(f":SENS{self.n}:CORR:TRIG:FREE?").strip()
-
-            # SENS:CORR:TYPE? - Information about trace (calibration type, number of ports)
-            def get_calibration_type_info(self) -> str:
-                """
-                Get information about trace (calibration type, number of ports).
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Calibration type info
-                """
-                return self.instrument.query(f":SENS{self.n}:CORR:TYPE?").strip()
-
-        class CalibrationKit:
-            """
-            Calibration kit management commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENS:CORR:COLL:CKIT - Calibration kit selection
-            def select_calibration_kit(self, kit: int):
-                """
-                Select calibration kit.
-
-                Parameter:
-                    kit (int): Calibration kit number
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT {kit}")
-
-            # SENS:CORR:COLL:CKIT:LAB - Calibration kit label
-            def set_calibration_kit_label(self, label: str):
-                """
-                Set calibration kit label.
-
-                Parameter:
-                    label (str): Calibration kit label
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:LAB \"{label}\"")
-
-            def get_calibration_kit_label(self) -> str:
-                """
-                Get calibration kit label.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Calibration kit label
-                """
-                return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:LAB?").strip()
-
-            # SENS:CORR:COLL:CKIT:RES - Remove or restore a calibration kit
-            def remove_calibration_kit(self):
-                """
-                Remove a calibration kit.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:RES")
-
-        class CalibrationStandard:
-            """
-            Calibration standard definition commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENS:CORR:COLL:CKIT:STAN:LAB - Standard label
-            def set_standard_label(self, label: str):
-                """
-                Set standard label.
-
-                Parameter:
-                    label (str): Standard label
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LAB \"{label}\"")
-
-            def get_standard_label(self) -> str:
-                """
-                Get standard label.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Standard label
-                """
-                return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LAB?").strip()
-
-            # SENS:CORR:COLL:CKIT:STAN:LOSS - Offset loss
-            def set_standard_offset_loss(self, value: float):
-                """
-                Set offset loss for standard.
-
-                Parameter:
-                    value (float): Offset loss
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LOSS {value}")
-
-            def get_standard_offset_loss(self) -> float:
-                """
-                Get offset loss for standard.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Offset loss
-                """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LOSS?"))
-
-            # SENS:CORR:COLL:CKIT:STAN:TYPE - Standard type
-            def set_standard_type(self, std_type: str):
-                """
-                Set standard type.
-
-                Parameter:
-                    std_type (str): Standard type, e.g., 'LOAD', 'OPEN', 'SHORT', 'THRU', etc.
-
-                Return:
-                    None
-                """
-                allowed = ['LOAD', 'OPEN', 'SHORT', 'THRU', 'ARB', 'C0', 'C1', 'C2', 'C3', 'L0', 'L1', 'L2', 'L3']
-                if std_type not in allowed:
-                    raise ValueError(f"std_type must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:TYPE {std_type}")
-
-            def get_standard_type(self) -> str:
-                """
-                Get standard type.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Standard type
-                """
-                return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:TYPE?").strip()
-
-            # SENS:CORR:COLL:CKIT:STAN:Z0 - Offset Z0
-            def set_standard_offset_z0(self, value: float):
-                """
-                Set offset Z0 for standard.
-
-                Parameter:
-                    value (float): Offset Z0
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:Z0 {value}")
-
-            def get_standard_offset_z0(self) -> float:
-                """
-                Get offset Z0 for standard.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Offset Z0
-                """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:Z0?"))
-
-        class CorrectionExtension:
-            """
-            Port extension related commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENS:CORR:EXT - Port extension ON/OFF
-            def enable_port_extension(self, enable: bool):
-                """
-                Enable or disable port extension.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable"""
-                self.instrument.write(f":SENS{self.n}:CORR:EXT {1 if enable else 0}")
-            def is_port_extension_enabled(self) -> bool:
-                """
-                Query if port extension is enabled.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT?")))
-
-            # SENS:CORR:EXT:PORT:FREQ - Values of "Frequency1" and "Frequency2"
-            def get_port_extension_frequencies(self):
-                """
-                Get the values of Frequency1 and Frequency2 for port extension.
-
-                Parameter:
-                    None
-
-                Return:
-                    tuple: (Frequency1, Frequency2)
-                """
-                data = self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:FREQ?").strip()
-                return tuple(map(float, data.split(',')))
-
-            # SENS:CORR:EXT:PORT:INCL - Loss compensation ON/OFF
-            def enable_loss_compensation(self, enable: bool):
-                """
-                Enable or disable loss compensation for port extension.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:INCL {1 if enable else 0}")
-
-            def is_loss_compensation_enabled(self) -> bool:
-                """
-                Query if loss compensation for port extension is enabled.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:INCL?")))
-
-            # SENS:CORR:EXT:PORT:LDC - Value "Loss at DC"
-            def set_loss_at_dc(self, value: float):
-                """
-                Set the value of "Loss at DC" for port extension.
-
-                Parameter:
-                    value (float): Loss at DC
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:LDC {value}")
-
-            def get_loss_at_dc(self) -> float:
-                """
-                Get the value of "Loss at DC" for port extension.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Loss at DC
-                """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:LDC?"))
-
-            # SENS:CORR:EXT:PORT:LOSS - Values of "Loss 1" and "Loss 2"
-            def set_loss_values(self, loss1: float, loss2: float):
-                """
-                Set the values of "Loss 1" and "Loss 2" for port extension.
-
-                Parameter:
-                    loss1 (float): Loss 1
-                    loss2 (float): Loss 2
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:LOSS {loss1},{loss2}")
-
-            def get_loss_values(self):
-                """
-                Get the values of "Loss 1" and "Loss 2" for port extension.
-
-                Parameter:
-                    None
-
-                Return:
-                    tuple: (Loss 1, Loss 2)
-                """
-                data = self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:LOSS?").strip()
-                return tuple(map(float, data.split(',')))
-
-            # SENS:CORR:EXT:PORT:TIME - Extension Port n
-            def set_extension_time(self, value: float):
-                """
-                Set the extension time for port extension.
-
-                Parameter:
-                    value (float): Extension time
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:TIME {value}")
-
-            def get_extension_time(self) -> float:
-                """
-                Get the extension time for port extension.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Extension time
-                """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:TIME?"))
-
+        
+            
+        
         class Impedance:
             """
             System impedance related commands.
@@ -5875,6 +5599,8 @@ frequency offset, channel data transfer."""
                 self.instrument = instrument
                 self.data_handler = data_handler
                 self.n = channel
+                self.port = self.Port(instrument, data_handler, channel)
+
 
             # SENS:CORR:IMP - System Z0
             def set_system_impedance(self, value: float):
@@ -5926,220 +5652,42 @@ frequency offset, channel data transfer."""
                 """
                 return bool(int(self.instrument.query(f":SENS{self.n}:CORR:IMP:SEL:AUTO?")))
 
-        class PortImpedance:
-            """
-            System Z0 for the specified port.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENS:CORR:PORT:IMP - System Z0 for the specified port
-            def set_port_impedance(self, port: int, value: float):
+            class Port:
                 """
-                Set the system Z0 for the specified port.
-
-                Parameter:
-                    port (int): Port number
-                    value (float): Impedance value
-
-                Return:
-                    None
+                System Z0 for the specified port.
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:PORT{port}:IMP {value}")
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
 
-            def get_port_impedance(self, port: int) -> float:
-                """
-                Get the system Z0 for the specified port.
+                # SENS:CORR:PORT:IMP - System Z0 for the specified port
+                def set_port_impedance(self, port: int, value: float):
+                    """
+                    Set the system Z0 for the specified port.
 
-                Parameter:
-                    port (int): Port number
+                    Parameter:
+                        port (int): Port number
+                        value (float): Impedance value
 
-                Return:
-                    float: Impedance value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:PORT{port}:IMP?"))
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:CORR:PORT{port}:IMP {value}")
 
-        class Offset:
-            """
-            Scalar mixer calibration and offset correction commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
+                def get_port_impedance(self, port: int) -> float:
+                    """
+                    Get the system Z0 for the specified port.
 
-            # SENS:CORR:OFFS:CLE - Clears calibration coefficient table
-            def clear_calibration_coefficient_table(self):
-                """
-                Clear the calibration coefficient table.
+                    Parameter:
+                        port (int): Port number
 
-                Parameter:
-                    None
+                    Return:
+                        float: Impedance value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:CORR:PORT{port}:IMP?"))
 
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:CLE")
-
-            # SENS:CORR:OFFS:COLL:CLE - Clears calibration data
-            def clear_offset_calibration_data(self):
-                """
-                Clear the calibration data for offset correction.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:CLE")
-
-            # SENS:CORR:OFFS:COLL:DIR - Calibration direction
-            def set_calibration_direction(self, direction: str):
-                """
-                Set the calibration direction for offset correction.
-
-                Parameter:
-                    direction (str): Calibration direction, one of ['FORW', 'REV']
-
-                Return:
-                    None
-                """
-                allowed = ['FORW', 'REV']
-                if direction not in allowed:
-                    raise ValueError(f"direction must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:DIR {direction}")
-
-            def get_calibration_direction(self) -> str:
-                """
-                Get the calibration direction for offset correction.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Calibration direction
-                """
-                return self.instrument.query(f":SENS{self.n}:CORR:OFFS:COLL:DIR?").strip()
-
-            # SENS:CORR:OFFS:COLL:ECAL - Measure all standards using ACM
-            def measure_all_standards_acm(self):
-                """
-                Measure all standards using the Automatic Calibration Module (ACM).
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:ECAL")
-
-            # SENS:CORR:OFFS:COLL:LOAD - Measure the Load standard
-            def measure_load_standard(self):
-                """
-                Measure the Load standard for offset correction.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:LOAD")
-
-            # SENS:CORR:OFFS:COLL:METH:SMIX2 - Calibration port
-            def set_scalar_mixer_calibration_port(self, port: int):
-                """
-                Set the calibration port for scalar mixer calibration.
-
-                Parameter:
-                    port (int): Port number
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:METH:SMIX2 {port}")
-
-            def get_scalar_mixer_calibration_port(self) -> int:
-                """
-                Get the calibration port for scalar mixer calibration.
-
-                Parameter:
-                    None
-
-                Return:
-                    int: Port number
-                """
-                return int(self.instrument.query(f":SENS{self.n}:CORR:OFFS:COLL:METH:SMIX2?"))
-
-            # SENS:CORR:OFFS:COLL:OPEN - Measure the Open standard
-            def measure_open_standard(self):
-                """
-                Measure the Open standard for offset correction.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:OPEN")
-
-            # SENS:CORR:OFFS:COLL:PMET - Measure power
-            def measure_power(self):
-                """
-                Measure power for offset correction.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:PMET")
-
-            # SENS:CORR:OFFS:COLL:SHOR - Measure the Short standard
-            def measure_short_standard(self):
-                """
-                Measure the Short standard for offset correction.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:SHOR")
-
-            # SENS:CORR:OFFS:COLL:THRU - Measure the Thru standard
-            def measure_thru_standard(self):
-                """
-                Measure the Thru standard for offset correction.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:THRU")
-
-            # SENS:CORR:OFFS:COLL:SAVE - Completes calibration
-            def complete_offset_calibration(self):
-                """
-                Complete the offset calibration.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:SAVE")
-
+        
         class Receiver:
             """
             Receiver calibration commands.
@@ -6224,799 +5772,639 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.n}:FREQ:DATA?")
                 return self.data_handler.parse_array(data)
 
-       
-        class Segment:
-            """
-            Segment sweep table commands.
-            """
+
+
+            
+        class Offset:
+            "Generic offset setting commands"
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
                 self.n = channel
-
-            # SENS:SEGM:DATA - Segment sweep table
-            def set_segment_sweep_table(self, table: str):
-                """
-                Set the segment sweep table.
-
-                Parameter:
-                    table (str): Segment sweep table string
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:SEGM:DATA {table}")
-
-            def get_segment_sweep_table(self) -> str:
-                """
-                Get the segment sweep table.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Segment sweep table string
-                """
-                return self.instrument.query(f":SENS{self.n}:SEGM:DATA?").strip()
-
-        class Sweep:
-            """
-            Sweep settings commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENS:SWE:CW:TIME - Sweep time
-            def set_sweep_time(self, value: float):
-                """
-                Set sweep time.
-
-                Parameter:
-                    value (float): Sweep time in seconds
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:SWE:CW:TIME {value}")
-
-            def get_sweep_time(self) -> float:
-                """
-                Get sweep time.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Sweep time in seconds
-                """
-                return float(self.instrument.query(f":SENS{self.n}:SWE:CW:TIME?"))
-
-            # SENS:SWE:POIN - Number of points
-            def set_number_of_points(self, value: int):
-                """
-                Set number of points.
-
-                Parameter:
-                    value (int): Number of points
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:SWE:POIN {value}")
-
-            def get_number_of_points(self) -> int:
-                """
-                Get number of points.
-
-                Parameter:
-                    None
-
-                Return:
-                    int: Number of points
-                """
-                return int(self.instrument.query(f":SENS{self.n}:SWE:POIN?"))
-
-            # SENS:SWE:POIN:TIME - Point delay
-            def set_point_delay(self, value: float):
-                """
-                Set point delay.
-
-                Parameter:
-                    value (float): Point delay in seconds
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:SWE:POIN:TIME {value}")
-
-            def get_point_delay(self) -> float:
-                """
-                Get point delay.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Point delay in seconds
-                """
-                return float(self.instrument.query(f":SENS{self.n}:SWE:POIN:TIME?"))
-
-            # SENS:SWE:REV - Reverse sweep ON/OFF
-            def enable_reverse_sweep(self, enable: bool):
-                """
-                Enable or disable reverse sweep.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:SWE:REV {1 if enable else 0}")
-
-            def is_reverse_sweep_enabled(self) -> bool:
-                """
-                Query if reverse sweep is enabled.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(f":SENS{self.n}:SWE:REV?")))
-
-            # SENS:SWE:TYPE - Sweep type
-            def set_sweep_type(self, sweep_type: str):
-                """
-                Set sweep type.
-
-                Parameter:
-                    sweep_type (str): Sweep type, one of ['LIN', 'LOG', 'POW', 'CW']
-
-                Return:
-                    None
-                """
-                allowed = ['LIN', 'LOG', 'POW', 'CW']
-                if sweep_type not in allowed:
-                    raise ValueError(f"sweep_type must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:SWE:TYPE {sweep_type}")
-
-            def get_sweep_type(self) -> str:
-                """
-                Get sweep type.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Sweep type
-                """
-                return self.instrument.query(f":SENS{self.n}:SWE:TYPE?").strip()
-        class OffsetAdjustment:
-            """
-            Mixer Measurements: Frequency offset adjust commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENS:OFFS:ADJ - Frequency offset adjust ON/OFF
-            def enable_offset_adjust(self, enable: bool):
-                """
-                Enable or disable frequency offset adjust.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ {1 if enable else 0}")
-
-            def is_offset_adjust_enabled(self) -> bool:
-                """
-                Query if frequency offset adjust is enabled.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(f":SENS{self.n}:OFFS:ADJ?")))
-
-            # SENS:OFFS:ADJ:CONT:PER - Adjust period
-            def set_adjust_period(self, value: float):
-                """
-                Set the period for frequency offset adjustment.
-
-                Parameter:
-                    value (float): Period value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:CONT:PER {value}")
-
-            def get_adjust_period(self) -> float:
-                """
-                Get the period for frequency offset adjustment.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Period value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:ADJ:CONT:PER?"))
-
-            # SENS:OFFS:ADJ:EXEC - Executes adjustment once
-            def execute_adjustment_once(self):
-                """
-                Execute frequency offset adjustment once.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:EXEC")
-
-            # SENS:OFFS:ADJ:PATH - Adjustment path
-            def set_adjustment_path(self, path: str):
-                """
-                Set the adjustment path.
-
-                Parameter:
-                    path (str): Adjustment path string
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:PATH {path}")
-
-            def get_adjustment_path(self) -> str:
-                """
-                Get the adjustment path.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Adjustment path
-                """
-                return self.instrument.query(f":SENS{self.n}:OFFS:ADJ:PATH?").strip()
-
-            # SENS:OFFS:ADJ:PORT - Adjusted Ports
-            def set_adjusted_ports(self, ports: str):
-                """
-                Set the adjusted ports.
-
-                Parameter:
-                    ports (str): Adjusted ports string
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:PORT {ports}")
-
-            def get_adjusted_ports(self) -> str:
-                """
-                Get the adjusted ports.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Adjusted ports
-                """
-                return self.instrument.query(f":SENS{self.n}:OFFS:ADJ:PORT?").strip()
-
-            # SENS:OFFS:ADJ:VAL - Adjust Value
-            def set_adjust_value(self, value: float):
-                """
-                Set the adjust value.
-
-                Parameter:
-                    value (float): Adjust value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:VAL {value}")
-
-            def get_adjust_value(self) -> float:
-                """
-                Get the adjust value.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Adjust value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:ADJ:VAL?"))
-
-        class OffsetSettings:
-            """
-            Frequency offset and port/source/receiver offset settings.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENS:OFFS - Frequency offset ON/OFF
-            def enable_frequency_offset(self, enable: bool):
-                """
-                Enable or disable frequency offset.
-
-                Parameter:
-                    enable (bool): True to enable, False to disable
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS {1 if enable else 0}")
-
-            def is_frequency_offset_enabled(self) -> bool:
-                """
-                Query if frequency offset is enabled.
-
-                Parameter:
-                    None
-
-                Return:
-                    bool: True if enabled, False otherwise
-                """
-                return bool(int(self.instrument.query(f":SENS{self.n}:OFFS?")))
-
-            # SENS:OFFS:PORT:DATA? - Port offset data
-            def get_port_offset_data(self):
-                """
-                Get port offset data.
-
-                Parameter:
-                    None
-
-                Return:
-                    list: Port offset data array
-                """
-                data = self.instrument.query(f":SENS{self.n}:OFFS:PORT:DATA?")
-                return self.data_handler.parse_array(data)
-
-            # SENS:OFFS:PORT:DIV - Port offset divisor
-            def set_port_offset_divisor(self, value: float):
-                """
-                Set port offset divisor.
-
-                Parameter:
-                    value (float): Divisor value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:DIV {value}")
-
-            def get_port_offset_divisor(self) -> float:
-                """
-                Get port offset divisor.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Divisor value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:DIV?"))
-
-            # SENS:OFFS:PORT:MULT - Port offset multiplier
-            def set_port_offset_multiplier(self, value: float):
-                """
-                Set port offset multiplier.
-
-                Parameter:
-                    value (float): Multiplier value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:MULT {value}")
-
-            def get_port_offset_multiplier(self) -> float:
-                """
-                Get port offset multiplier.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Multiplier value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:MULT?"))
-
-            # SENS:OFFS:PORT:OFFS - Port offset
-            def set_port_offset(self, value: float):
-                """
-                Set port offset.
-
-                Parameter:
-                    value (float): Offset value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:OFFS {value}")
-
-            def get_port_offset(self) -> float:
-                """
-                Get port offset.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Offset value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:OFFS?"))
-
-            # SENS:OFFS:PORT:STAR - Port offset start
-            def set_port_offset_start(self, value: float):
-                """
-                Set port offset start.
-
-                Parameter:
-                    value (float): Start value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:STAR {value}")
-
-            def get_port_offset_start(self) -> float:
-                """
-                Get port offset start.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Start value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:STAR?"))
-
-            # SENS:OFFS:PORT:STOP - Port offset stop
-            def set_port_offset_stop(self, value: float):
-                """
-                Set port offset stop.
-
-                Parameter:
-                    value (float): Stop value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:STOP {value}")
-
-            def get_port_offset_stop(self) -> float:
-                """
-                Get port offset stop.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Stop value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:STOP?"))
-
-            # SENS:OFFS:REC:DATA? - Receiver offset data
-            def get_receiver_offset_data(self):
-                """
-                Get receiver offset data.
-
-                Parameter:
-                    None
-
-                Return:
-                    list: Receiver offset data array
-                """
-                data = self.instrument.query(f":SENS{self.n}:OFFS:REC:DATA?")
-                return self.data_handler.parse_array(data)
-
-            # SENS:OFFS:REC:DIV - Receiver offset divisor
-            def set_receiver_offset_divisor(self, value: float):
-                """
-                Set receiver offset divisor.
-
-                Parameter:
-                    value (float): Divisor value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:DIV {value}")
-
-            def get_receiver_offset_divisor(self) -> float:
-                """
-                Get receiver offset divisor.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Divisor value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:DIV?"))
-
-            # SENS:OFFS:REC:MULT - Receiver offset multiplier
-            def set_receiver_offset_multiplier(self, value: float):
-                """
-                Set receiver offset multiplier.
-
-                Parameter:
-                    value (float): Multiplier value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:MULT {value}")
-
-            def get_receiver_offset_multiplier(self) -> float:
-                """
-                Get receiver offset multiplier.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Multiplier value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:MULT?"))
-
-            # SENS:OFFS:REC:OFFS - Receiver offset
-            def set_receiver_offset(self, value: float):
-                """
-                Set receiver offset.
-
-                Parameter:
-                    value (float): Offset value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:OFFS {value}")
-
-            def get_receiver_offset(self) -> float:
-                """
-                Get receiver offset.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Offset value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:OFFS?"))
-
-            # SENS:OFFS:REC:STAR - Receiver offset start
-            def set_receiver_offset_start(self, value: float):
-                """
-                Set receiver offset start.
-
-                Parameter:
-                    value (float): Start value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:STAR {value}")
-
-            def get_receiver_offset_start(self) -> float:
-                """
-                Get receiver offset start.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Start value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:STAR?"))
-
-            # SENS:OFFS:REC:STOP - Receiver offset stop
-            def set_receiver_offset_stop(self, value: float):
-                """
-                Set receiver offset stop.
-
-                Parameter:
-                    value (float): Stop value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:STOP {value}")
-
-            def get_receiver_offset_stop(self) -> float:
-                """
-                Get receiver offset stop.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Stop value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:STOP?"))
-
-            # SENS:OFFS:SOUR:DATA? - Source offset data
-            def get_source_offset_data(self):
-                """
-                Get source offset data.
-
-                Parameter:
-                    None
-
-                Return:
-                    list: Source offset data array
-                """
-                data = self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DATA?")
-                return self.data_handler.parse_array(data)
-
-            # SENS:OFFS:SOUR:DIV - Source offset divisor
-            def set_source_offset_divisor(self, value: float):
-                """
-                Set source offset divisor.
-
-                Parameter:
-                    value (float): Divisor value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:DIV {value}")
-
-            def get_source_offset_divisor(self) -> float:
-                """
-                Get source offset divisor.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Divisor value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DIV?"))
-
-            # SENS:OFFS:SOUR:MULT - Source offset multiplier
-            def set_source_offset_multiplier(self, value: float):
-                """
-                Set source offset multiplier.
-
-                Parameter:
-                    value (float): Multiplier value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:MULT {value}")
-
-            def get_source_offset_multiplier(self) -> float:
-                """
-                Get source offset multiplier.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Multiplier value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:MULT?"))
-
-            # SENS:OFFS:SOUR:OFFS - Source offset
-            def set_source_offset(self, value: float):
-                """
-                Set source offset.
-
-                Parameter:
-                    value (float): Offset value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:OFFS {value}")
-
-            def get_source_offset(self) -> float:
-                """
-                Get source offset.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Offset value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:OFFS?"))
-
-            # SENS:OFFS:SOUR:STAR - Source offset start
-            def set_source_offset_start(self, value: float):
-                """
-                Set source offset start.
-
-                Parameter:
-                    value (float): Start value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:STAR {value}")
-
-            def get_source_offset_start(self) -> float:
-                """
-                Get source offset start.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Start value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:STAR?"))
-
-            # SENS:OFFS:SOUR:STOP - Source offset stop
-            def set_source_offset_stop(self, value: float):
-                """
-                Set source offset stop.
-
-                Parameter:
-                    value (float): Stop value
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:STOP {value}")
-
-            def get_source_offset_stop(self) -> float:
-                """
-                Get source offset stop.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: Stop value
-                """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:STOP?"))
-
-            # SENS:OFFS:TYPE - Offset type
-            def set_offset_type(self, offset_type: str):
-                """
-                Set the offset type.
-
-                Parameter:
-                    offset_type (str): Offset type string
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:OFFS:TYPE {offset_type}")
-
-            def get_offset_type(self) -> str:
-                """
-                Get the offset type.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Offset type
-                """
-                return self.instrument.query(f":SENS{self.n}:OFFS:TYPE?").strip()
+                self.adjustment = self.Adjustment(instrument, data_handler, channel)
+                self.settings = self.Settings(instrument, data_handler, channel)
+            class Adjustment:
+                """
+                Mixer Measurements: Frequency offset adjust commands.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:OFFS:ADJ - Frequency offset adjust ON/OFF
+                def enable_offset_adjust(self, enable: bool):
+                    """
+                    Enable or disable frequency offset adjust.
+
+                    Parameter:
+                        enable (bool): True to enable, False to disable
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:ADJ {1 if enable else 0}")
+
+                def is_offset_adjust_enabled(self) -> bool:
+                    """
+                    Query if frequency offset adjust is enabled.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(f":SENS{self.n}:OFFS:ADJ?")))
+
+                # SENS:OFFS:ADJ:CONT:PER - Adjust period
+                def set_adjust_period(self, value: float):
+                    """
+                    Set the period for frequency offset adjustment.
+
+                    Parameter:
+                        value (float): Period value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:ADJ:CONT:PER {value}")
+
+                def get_adjust_period(self) -> float:
+                    """
+                    Get the period for frequency offset adjustment.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Period value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:ADJ:CONT:PER?"))
+
+                # SENS:OFFS:ADJ:EXEC - Executes adjustment once
+                def execute_adjustment_once(self):
+                    """
+                    Execute frequency offset adjustment once.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:ADJ:EXEC")
+
+                # SENS:OFFS:ADJ:PATH - Adjustment path
+                def set_adjustment_path(self, path: str):
+                    """
+                    Set the adjustment path.
+
+                    Parameter:
+                        path (str): Adjustment path string
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:ADJ:PATH {path}")
+
+                def get_adjustment_path(self) -> str:
+                    """
+                    Get the adjustment path.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Adjustment path
+                    """
+                    return self.instrument.query(f":SENS{self.n}:OFFS:ADJ:PATH?").strip()
+
+                # SENS:OFFS:ADJ:PORT - Adjusted Ports
+                def set_adjusted_ports(self, ports: str):
+                    """
+                    Set the adjusted ports.
+
+                    Parameter:
+                        ports (str): Adjusted ports string
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:ADJ:PORT {ports}")
+
+                def get_adjusted_ports(self) -> str:
+                    """
+                    Get the adjusted ports.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Adjusted ports
+                    """
+                    return self.instrument.query(f":SENS{self.n}:OFFS:ADJ:PORT?").strip()
+
+                # SENS:OFFS:ADJ:VAL - Adjust Value
+                def set_adjust_value(self, value: float):
+                    """
+                    Set the adjust value.
+
+                    Parameter:
+                        value (float): Adjust value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:ADJ:VAL {value}")
+
+                def get_adjust_value(self) -> float:
+                    """
+                    Get the adjust value.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Adjust value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:ADJ:VAL?"))
+
+            class Settings:
+                """
+                Frequency offset and port/source/receiver offset settings.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:OFFS - Frequency offset ON/OFF
+                def enable_frequency_offset(self, enable: bool):
+                    """
+                    Enable or disable frequency offset.
+
+                    Parameter:
+                        enable (bool): True to enable, False to disable
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS {1 if enable else 0}")
+
+                def is_frequency_offset_enabled(self) -> bool:
+                    """
+                    Query if frequency offset is enabled.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(f":SENS{self.n}:OFFS?")))
+
+                # SENS:OFFS:PORT:DATA? - Port offset data
+                def get_port_offset_data(self):
+                    """
+                    Get port offset data.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        list: Port offset data array
+                    """
+                    data = self.instrument.query(f":SENS{self.n}:OFFS:PORT:DATA?")
+                    return self.data_handler.parse_array(data)
+
+                # SENS:OFFS:PORT:DIV - Port offset divisor
+                def set_port_offset_divisor(self, value: float):
+                    """
+                    Set port offset divisor.
+
+                    Parameter:
+                        value (float): Divisor value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:PORT:DIV {value}")
+
+                def get_port_offset_divisor(self) -> float:
+                    """
+                    Get port offset divisor.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Divisor value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:DIV?"))
+
+                # SENS:OFFS:PORT:MULT - Port offset multiplier
+                def set_port_offset_multiplier(self, value: float):
+                    """
+                    Set port offset multiplier.
+
+                    Parameter:
+                        value (float): Multiplier value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:PORT:MULT {value}")
+
+                def get_port_offset_multiplier(self) -> float:
+                    """
+                    Get port offset multiplier.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Multiplier value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:MULT?"))
+
+                # SENS:OFFS:PORT:OFFS - Port offset
+                def set_port_offset(self, value: float):
+                    """
+                    Set port offset.
+
+                    Parameter:
+                        value (float): Offset value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:PORT:OFFS {value}")
+
+                def get_port_offset(self) -> float:
+                    """
+                    Get port offset.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Offset value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:OFFS?"))
+
+                # SENS:OFFS:PORT:STAR - Port offset start
+                def set_port_offset_start(self, value: float):
+                    """
+                    Set port offset start.
+
+                    Parameter:
+                        value (float): Start value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:PORT:STAR {value}")
+
+                def get_port_offset_start(self) -> float:
+                    """
+                    Get port offset start.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Start value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:STAR?"))
+
+                # SENS:OFFS:PORT:STOP - Port offset stop
+                def set_port_offset_stop(self, value: float):
+                    """
+                    Set port offset stop.
+
+                    Parameter:
+                        value (float): Stop value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:PORT:STOP {value}")
+
+                def get_port_offset_stop(self) -> float:
+                    """
+                    Get port offset stop.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Stop value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:STOP?"))
+
+                # SENS:OFFS:REC:DATA? - Receiver offset data
+                def get_receiver_offset_data(self):
+                    """
+                    Get receiver offset data.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        list: Receiver offset data array
+                    """
+                    data = self.instrument.query(f":SENS{self.n}:OFFS:REC:DATA?")
+                    return self.data_handler.parse_array(data)
+
+                # SENS:OFFS:REC:DIV - Receiver offset divisor
+                def set_receiver_offset_divisor(self, value: float):
+                    """
+                    Set receiver offset divisor.
+
+                    Parameter:
+                        value (float): Divisor value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:REC:DIV {value}")
+
+                def get_receiver_offset_divisor(self) -> float:
+                    """
+                    Get receiver offset divisor.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Divisor value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:DIV?"))
+
+                # SENS:OFFS:REC:MULT - Receiver offset multiplier
+                def set_receiver_offset_multiplier(self, value: float):
+                    """
+                    Set receiver offset multiplier.
+
+                    Parameter:
+                        value (float): Multiplier value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:REC:MULT {value}")
+
+                def get_receiver_offset_multiplier(self) -> float:
+                    """
+                    Get receiver offset multiplier.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Multiplier value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:MULT?"))
+
+                # SENS:OFFS:REC:OFFS - Receiver offset
+                def set_receiver_offset(self, value: float):
+                    """
+                    Set receiver offset.
+
+                    Parameter:
+                        value (float): Offset value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:REC:OFFS {value}")
+
+                def get_receiver_offset(self) -> float:
+                    """
+                    Get receiver offset.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Offset value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:OFFS?"))
+
+                # SENS:OFFS:REC:STAR - Receiver offset start
+                def set_receiver_offset_start(self, value: float):
+                    """
+                    Set receiver offset start.
+
+                    Parameter:
+                        value (float): Start value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:REC:STAR {value}")
+
+                def get_receiver_offset_start(self) -> float:
+                    """
+                    Get receiver offset start.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Start value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:STAR?"))
+
+                # SENS:OFFS:REC:STOP - Receiver offset stop
+                def set_receiver_offset_stop(self, value: float):
+                    """
+                    Set receiver offset stop.
+
+                    Parameter:
+                        value (float): Stop value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:REC:STOP {value}")
+
+                def get_receiver_offset_stop(self) -> float:
+                    """
+                    Get receiver offset stop.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Stop value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:STOP?"))
+
+                # SENS:OFFS:SOUR:DATA? - Source offset data
+                def get_source_offset_data(self):
+                    """
+                    Get source offset data.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        list: Source offset data array
+                    """
+                    data = self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DATA?")
+                    return self.data_handler.parse_array(data)
+
+                # SENS:OFFS:SOUR:DIV - Source offset divisor
+                def set_source_offset_divisor(self, value: float):
+                    """
+                    Set source offset divisor.
+
+                    Parameter:
+                        value (float): Divisor value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:SOUR:DIV {value}")
+
+                def get_source_offset_divisor(self) -> float:
+                    """
+                    Get source offset divisor.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Divisor value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DIV?"))
+
+                # SENS:OFFS:SOUR:MULT - Source offset multiplier
+                def set_source_offset_multiplier(self, value: float):
+                    """
+                    Set source offset multiplier.
+
+                    Parameter:
+                        value (float): Multiplier value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:SOUR:MULT {value}")
+
+                def get_source_offset_multiplier(self) -> float:
+                    """
+                    Get source offset multiplier.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Multiplier value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:MULT?"))
+
+                # SENS:OFFS:SOUR:OFFS - Source offset
+                def set_source_offset(self, value: float):
+                    """
+                    Set source offset.
+
+                    Parameter:
+                        value (float): Offset value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:SOUR:OFFS {value}")
+
+                def get_source_offset(self) -> float:
+                    """
+                    Get source offset.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Offset value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:OFFS?"))
+
+                # SENS:OFFS:SOUR:STAR - Source offset start
+                def set_source_offset_start(self, value: float):
+                    """
+                    Set source offset start.
+
+                    Parameter:
+                        value (float): Start value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:SOUR:STAR {value}")
+
+                def get_source_offset_start(self) -> float:
+                    """
+                    Get source offset start.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Start value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:STAR?"))
+
+                # SENS:OFFS:SOUR:STOP - Source offset stop
+                def set_source_offset_stop(self, value: float):
+                    """
+                    Set source offset stop.
+
+                    Parameter:
+                        value (float): Stop value
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:SOUR:STOP {value}")
+
+                def get_source_offset_stop(self) -> float:
+                    """
+                    Get source offset stop.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        float: Stop value
+                    """
+                    return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:STOP?"))
+
+                # SENS:OFFS:TYPE - Offset type
+                def set_offset_type(self, offset_type: str):
+                    """
+                    Set the offset type.
+
+                    Parameter:
+                        offset_type (str): Offset type string
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:OFFS:TYPE {offset_type}")
+
+                def get_offset_type(self) -> str:
+                    """
+                    Get the offset type.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Offset type
+                    """
+                    return self.instrument.query(f":SENS{self.n}:OFFS:TYPE?").strip()
 
         class ReferenceSource:
             """
@@ -7060,7 +6448,9 @@ frequency offset, channel data transfer."""
                 self.instrument = instrument
                 self.data_handler = data_handler
                 self.n = channel
-
+                self.average_state = self.AverageState(instrument, data_handler, channel)
+                self.average_clear = self.AverageClear(instrument, data_handler, channel)
+                self.average_count = self.AverageCount(instrument, data_handler, channel)
             # SENS:VOLT:DC:RANG:UPP - DC voltage range
             def set_dc_voltage_range(self, value: float):
                 """
@@ -7175,39 +6565,7 @@ frequency offset, channel data transfer."""
                         int: Averaging factor
                     """
                     return int(self.instrument.query(f":SENS{self.n}:AVER:COUN?"))
-        class BandwidthResolution:
-            """
-            IF bandwidth resolution related commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENSe<Ch>:BANDwidth[:RESolution] <frequency>
-            def set_bandwidth_resolution(self, value: float):
-                """
-                Set the IF bandwidth resolution.
-
-                Parameter:
-                    value (float): IF bandwidth value in Hz
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:BAND:RES {value}")
-
-            def get_bandwidth_resolution(self) -> float:
-                """
-                Get the IF bandwidth resolution.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: IF bandwidth value in Hz
-                """
-                return float(self.instrument.query(f":SENS{self.n}:BAND:RES?"))
+        
 
         class BandwidthWidthResolution:
             """
@@ -7243,249 +6601,8 @@ frequency offset, channel data transfer."""
                 """
                 return float(self.instrument.query(f":SENS{self.n}:BWID:RES?"))
 
-        class CorrectionCoefficient:
-            """
-            Calibration coefficient table and data commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENSe<Ch>:CORRection:CLEar
-            def clear_correction_table(self):
-                """
-                Clear the calibration coefficient table.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:CLE")
-
-            # SENSe<Ch>:CORRection:COEFficient[:DATA] <char>,<rcvport>,<srcport>,<numeric list>
-            def set_correction_coefficient_data(self, term: str, rcvport: int, srcport: int, coeffs):
-                """
-                Write the calibration coefficient data array.
-
-                Parameter:
-                    term (str): Error term, one of ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
-                    coeffs (list): Calibration coefficient array (2N values)
-
-                Return:
-                    None
-                """
-                allowed_terms = ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
-                if term not in allowed_terms:
-                    raise ValueError(f"term must be one of {allowed_terms}")
-                if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                    raise ValueError("rcvport and srcport must be 1-4")
-                coeffs_str = ",".join(str(float(x)) for x in coeffs)
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:DATA {term},{rcvport},{srcport},{coeffs_str}")
-
-            # SENSe<Ch>:CORRection:COEFficient[:DATA]? <char>,<rcvport>,<srcport>
-            def get_correction_coefficient_data(self, term: str, rcvport: int, srcport: int):
-                """
-                Read out the calibration coefficient data array.
-
-                Parameter:
-                    term (str): Error term, one of ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
-
-                Return:
-                    list: Calibration coefficient array (2N values)
-                """
-                allowed_terms = ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
-                if term not in allowed_terms:
-                    raise ValueError(f"term must be one of {allowed_terms}")
-                if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                    raise ValueError("rcvport and srcport must be 1-4")
-                data = self.instrument.query(f":SENS{self.n}:CORR:COEF:DATA? {term},{rcvport},{srcport}")
-                return self.data_handler.parse_array(data)
-
-            # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse <rcvport>,<srcport>
-            def set_coefficient_method_eresponse(self, rcvport: int, srcport: int):
-                """
-                Set the 1-path 2-port calibration type for written calibration coefficients.
-
-                Parameter:
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                    raise ValueError("rcvport and srcport must be 1-4")
-                if rcvport == srcport:
-                    raise ValueError("rcvport and srcport must be different for ERESponse")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:ERES {rcvport},{srcport}")
-        class CoefficientMethod:
-            """
-            Calibration coefficient method commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse = Ports
-            def set_eresponse(self, rcvport: int, srcport: int):
-                """
-                Set the response calibration (ERESponse) type for written calibration coefficients.
-
-                Parameter:
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                    raise ValueError("rcvport and srcport must be 1-4")
-                if rcvport == srcport:
-                    raise ValueError("rcvport and srcport must be different for ERESponse")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:ERES {rcvport},{srcport}")
-
-            # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:OPEN <port>
-            def set_response_open(self, port: int):
-                """
-                Set the response calibration (Open) type for written calibration coefficients.
-
-                Parameter:
-                    port (int): Port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= port <= 4):
-                    raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:OPEN {port}")
-
-            # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:SHORt <port>
-            def set_response_short(self, port: int):
-                """
-                Set the response calibration (Short) type for written calibration coefficients.
-
-                Parameter:
-                    port (int): Port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= port <= 4):
-                    raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:SHOR {port}")
-
-            # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT1 <port>
-            def set_solt1(self, port: int):
-                """
-                Set the full one-port calibration type for written calibration coefficients.
-
-                Parameter:
-                    port (int): Port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= port <= 4):
-                    raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT1 {port}")
-
-            # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT2 <port1>,<port2>
-            def set_solt2(self, port1: int, port2: int):
-                """
-                Set the full two-port calibration type for written calibration coefficients.
-
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                    raise ValueError("port1 and port2 must be 1-4")
-                if port1 == port2:
-                    raise ValueError("port1 and port2 must be different for SOLT2")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT2 {port1},{port2}")
-
-            # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT3 <port1>,<port2>,<port3>
-            def set_solt3(self, port1: int, port2: int, port3: int):
-                """
-                Set the full three-port calibration type for written calibration coefficients.
-
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
-
-                Return:
-                    None
-                """
-                ports = [port1, port2, port3]
-                if any(not (1 <= p <= 4) for p in ports):
-                    raise ValueError("All ports must be 1-4")
-                if len(set(ports)) != 3:
-                    raise ValueError("All ports must be different for SOLT3")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT3 {port1},{port2},{port3}")
-                # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT4 <port1>,<port2>,<port3>,<port4>
-            def set_solt4(self, port1: int, port2: int, port3: int, port4: int):
-                """
-                Set the full four-port calibration type for written calibration coefficients.
-
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
-                    port4 (int): Fourth port number (1-4)
-
-                Return:
-                    None
-                """
-                ports = [port1, port2, port3, port4]
-                if any(not (1 <= p <= 4) for p in ports):
-                    raise ValueError("All ports must be 1-4")
-                if len(set(ports)) != 4:
-                    raise ValueError("All ports must be different for SOLT4")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT4 {port1},{port2},{port3},{port4}")
-
-            # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:THRU <rcvport>,<srcport>
-            def set_response_thru(self, rcvport: int, srcport: int):
-                """
-                Set the response calibration (Thru) type for written calibration coefficients.
-
-                Parameter:
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
-
-                Return:
-                    None
-                """
-                if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                    raise ValueError("rcvport and srcport must be 1-4")
-                if rcvport == srcport:
-                    raise ValueError("rcvport and srcport must be different for THRU")
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:THRU {rcvport},{srcport}")
-
-            # SENSe<Ch>:CORRection:COEFficient:SAVE
-            def save_coefficients(self):
-                """
-                Enable the written calibration coefficients depending on the selected calibration type.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:CORR:COEF:SAVE")
-
+        
+        
         class Adapter:
             """
             Adapter removal/insertion related commands.
@@ -7494,6 +6611,7 @@ frequency offset, channel data transfer."""
                 self.instrument = instrument
                 self.data_handler = data_handler
                 self.n = channel
+                self.removal_insertion = self.RemovalInsertion(instrument, data_handler, channel)
 
             # SENSe<Ch>:CORRection:COLLect:ADAPter:DELay <numeric>
             def set_adapter_delay(self, value: float):
@@ -7681,343 +6799,429 @@ frequency offset, channel data transfer."""
                     self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:ADAP:REM {port}")
 
         class Calibration:
-            """ Calibration Kit commands for the instrument. """
-            class Select:
+            """ Calibration commands for the instrument. """
+            def __init__(self, instrument, data_handler, channel):
+                self.instrument = instrument
+                self.data_handler = data_handler
+                self.n = channel
+                self.coefficient = self.CoefficientMethod(instrument, data_handler, channel)
+                self.correction = self.Correction(instrument, data_handler, channel)
+                self.collect_data = self.CollectData(instrument, data_handler, channel)
+                self.collect_method = self.CollectMethod(instrument, data_handler, channel)
+                self.collect_subclass = self.CollectSubClass(instrument, data_handler, channel)
+                self.collect_method_solt3 = self.CollectMethodSOLT3(instrument, data_handler, channel)
+                self.collect_method_trl = self.CollectMethodTRL(instrument, data_handler, channel)
+                self.collect_save = self.CollectSave(instrument, data_handler, channel)
+                self.collect_simplified_save = self.CollectSimplifiedSave(instrument, data_handler, channel)
+                self.thru_addition = self.ThruAddition(instrument, data_handler, channel)
+                self.extension = self.Extension(instrument, data_handler, channel)
+                self.auto_impedance = self.AutoImpedance(instrument, data_handler, channel)
+                self.offset = self.Offset(instrument, data_handler, channel)
+                self.port_impedance = self.PortImpedance(instrument, data_handler, channel)
+                self.receiver = self.Receiver(instrument, data_handler, channel)
+                self.cable_in_time_domain = self.CableInTimeDomain(instrument, data_handler, channel)
+                self.trigger = self.Trigger(instrument, data_handler, channel)
+                self.type = self.Type(instrument, data_handler, channel)
+                self.vmc_collect = self.VmcCollect(instrument, data_handler, channel)
+                self.data = self.Data(instrument, data_handler, channel)
+                self.kit = self.Kit(instrument, data_handler, channel)
+                self.standard = self.Standard(instrument, data_handler, channel)
+                self.select = self.Select(instrument, data_handler, channel)
+                self.arbitrary = self.Arbitrary(instrument, data_handler, channel)
+                self.open_capacitance = self.OpenCapacitance(instrument, data_handler, channel)
+                self.standard_count = self.StandardCount(instrument, data_handler, channel)
+                self.standard_data = self.StandardData(instrument, data_handler, channel)
+                self.standard_delay = self.StandardDelay(instrument, data_handler, channel)
+                self.standard_fmax = self.StandardFmax(instrument, data_handler, channel)
+                self.standard_fmin = self.StandardFmin(instrument, data_handler, channel)
+                self.standard_insert = self.StandardInsert(instrument, data_handler, channel)
+                self.standard_l0 = self.StandardL0(instrument, data_handler, channel)
+                self.standard_l1 = self.StandardL1(instrument, data_handler, channel)
+                self.standard_l2 = self.StandardL2(instrument, data_handler, channel)
+                self.standard_l3 = self.StandardL3(instrument, data_handler, channel)
+                self.standard_label = self.StandardLabel(instrument, data_handler, channel)
+                self.standard_management = self.Standard(instrument, data_handler, channel)
+                self.collection = self.Collection(instrument, data_handler, channel)
+                self.auto_cal = self.AutoCal(instrument, data_handler, channel)
+                self.auto_cal2 = self.AutoCal2(instrument, data_handler, channel)
+                self.auto_cal_unknown_thru = self.AutoCalUnknownThru(instrument, data_handler, channel)
+                self.isolation = self.Isolation(instrument, data_handler, channel)
+                self.load = self.Load(instrument, data_handler, channel)
+                self.open = self.Open(instrument, data_handler, channel)
+                self.short = self.Short(instrument, data_handler, channel)
+                self.thru = self.Thru(instrument, data_handler, channel)
+                self.trl_line = self.TRLLine(instrument, data_handler, channel)
+                self.trl_thru = self.TRLThru(instrument, data_handler, channel)
+                self.trl_reflect = self.TRLReflect(instrument, data_handler, channel)
+                self.subclass = self.SubClass(instrument, data_handler, channel)
+                
+              
+            class CoefficientMethod:
                 """
-                Calibration kit selection commands.
+                Calibration coefficient method commands.
                 """
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
                     self.n = channel
 
-                # SENSe:CORRection:COLLect:CKIT[:SELect] <numeric>
-                def select_cal_kit(self, kit: int):
+                # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse = Ports
+                def set_eresponse(self, rcvport: int, srcport: int):
                     """
-                    Set the number of the selected calibration kit in the table of calibration kits.
+                    Set the response calibration (ERESponse) type for written calibration coefficients.
 
                     Parameter:
-                        kit (int): Calibration kit number (1-64)
+                        rcvport (int): Receiver port number (1-4)
+                        srcport (int): Source port number (1-4)
 
                     Return:
                         None
                     """
-                    if not (1 <= kit <= 64):
-                        raise ValueError("kit must be 1-64")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:SEL {kit}")
+                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                        raise ValueError("rcvport and srcport must be 1-4")
+                    if rcvport == srcport:
+                        raise ValueError("rcvport and srcport must be different for ERESponse")
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:ERES {rcvport},{srcport}")
 
-                # SENSe:CORRection:COLLect:CKIT[:SELect]?
-                def get_selected_cal_kit(self) -> int:
+                # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:OPEN <port>
+                def set_response_open(self, port: int):
                     """
-                    Get the number of the selected calibration kit in the table of calibration kits.
+                    Set the response calibration (Open) type for written calibration coefficients.
+
+                    Parameter:
+                        port (int): Port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port <= 4):
+                        raise ValueError("port must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:OPEN {port}")
+
+                # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:SHORt <port>
+                def set_response_short(self, port: int):
+                    """
+                    Set the response calibration (Short) type for written calibration coefficients.
+
+                    Parameter:
+                        port (int): Port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port <= 4):
+                        raise ValueError("port must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:SHOR {port}")
+
+                # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT1 <port>
+                def set_solt1(self, port: int):
+                    """
+                    Set the full one-port calibration type for written calibration coefficients.
+
+                    Parameter:
+                        port (int): Port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port <= 4):
+                        raise ValueError("port must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT1 {port}")
+
+                # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT2 <port1>,<port2>
+                def set_solt2(self, port1: int, port2: int):
+                    """
+                    Set the full two-port calibration type for written calibration coefficients.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                        raise ValueError("port1 and port2 must be 1-4")
+                    if port1 == port2:
+                        raise ValueError("port1 and port2 must be different for SOLT2")
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT2 {port1},{port2}")
+
+                # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT3 <port1>,<port2>,<port3>
+                def set_solt3(self, port1: int, port2: int, port3: int):
+                    """
+                    Set the full three-port calibration type for written calibration coefficients.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+                        port3 (int): Third port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    ports = [port1, port2, port3]
+                    if any(not (1 <= p <= 4) for p in ports):
+                        raise ValueError("All ports must be 1-4")
+                    if len(set(ports)) != 3:
+                        raise ValueError("All ports must be different for SOLT3")
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT3 {port1},{port2},{port3}")
+                    # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT4 <port1>,<port2>,<port3>,<port4>
+                def set_solt4(self, port1: int, port2: int, port3: int, port4: int):
+                    """
+                    Set the full four-port calibration type for written calibration coefficients.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+                        port3 (int): Third port number (1-4)
+                        port4 (int): Fourth port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    ports = [port1, port2, port3, port4]
+                    if any(not (1 <= p <= 4) for p in ports):
+                        raise ValueError("All ports must be 1-4")
+                    if len(set(ports)) != 4:
+                        raise ValueError("All ports must be different for SOLT4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT4 {port1},{port2},{port3},{port4}")
+
+                # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:THRU <rcvport>,<srcport>
+                def set_response_thru(self, rcvport: int, srcport: int):
+                    """
+                    Set the response calibration (Thru) type for written calibration coefficients.
+
+                    Parameter:
+                        rcvport (int): Receiver port number (1-4)
+                        srcport (int): Source port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                        raise ValueError("rcvport and srcport must be 1-4")
+                    if rcvport == srcport:
+                        raise ValueError("rcvport and srcport must be different for THRU")
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:THRU {rcvport},{srcport}")
+
+                # SENSe<Ch>:CORRection:COEFficient:SAVE
+                def save_coefficients(self):
+                    """
+                    Enable the written calibration coefficients depending on the selected calibration type.
 
                     Parameter:
                         None
 
                     Return:
-                        int: Calibration kit number
+                        None
                     """
-                    return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:SEL?"))
-                class Description:
+                    self.instrument.write(f":SENS{self.n}:CORR:COEF:SAVE")
+
+            class Correction:
+                """
+                Correction related commands.
+                """
+            
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+                    self.offset = self.Offset(instrument, data_handler, channel)
+                    self.coefficient = self.Coefficient(instrument, data_handler, channel)
+                    self.extension = self.Extension(instrument, data_handler, channel)
+                    self.error = self.Error(instrument, data_handler, channel)
+                class Offset:
                     """
-                    Calibration kit description string commands.
+                    Scalar mixer calibration and offset correction commands.
                     """
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
                         self.n = channel
 
-                    # SENSe:CORRection:COLLect:CKIT:DESCription <string>
-                    def set_description(self, description: str):
+                    # SENS:CORR:OFFS:CLE - Clears calibration coefficient table
+                    def clear_calibration_coefficient_table(self):
                         """
-                        Set the calibration kit description string.
-
-                        Parameter:
-                            description (str): Description string (up to 254 characters)
-
-                        Return:
-                            None
-                        """
-                        if len(description) > 254:
-                            raise ValueError("description must be up to 254 characters")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:DESC \"{description}\"")
-
-                    # SENSe:CORRection:COLLect:CKIT:DESCription?
-                    def get_description(self) -> str:
-                        """
-                        Get the calibration kit description string.
+                        Clear the calibration coefficient table.
 
                         Parameter:
                             None
 
                         Return:
-                            str: Description string
+                            None
                         """
-                        return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:DESC?").strip()
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:CLE")
 
-                class Order:
+                    # SENS:CORR:OFFS:COLL:CLE - Clears calibration data
+                    def clear_offset_calibration_data(self):
+                        """
+                        Clear the calibration data for offset correction.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:CLE")
+
+                    # SENS:CORR:OFFS:COLL:DIR - Calibration direction
+                    def set_calibration_direction(self, direction: str):
+                        """
+                        Set the calibration direction for offset correction.
+
+                        Parameter:
+                            direction (str): Calibration direction, one of ['FORW', 'REV']
+
+                        Return:
+                            None
+                        """
+                        allowed = ['FORW', 'REV']
+                        if direction not in allowed:
+                            raise ValueError(f"direction must be one of {allowed}")
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:DIR {direction}")
+
+                    def get_calibration_direction(self) -> str:
+                        """
+                        Get the calibration direction for offset correction.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            str: Calibration direction
+                        """
+                        return self.instrument.query(f":SENS{self.n}:CORR:OFFS:COLL:DIR?").strip()
+
+                    # SENS:CORR:OFFS:COLL:ECAL - Measure all standards using ACM
+                    def measure_all_standards_acm(self):
+                        """
+                        Measure all standards using the Automatic Calibration Module (ACM).
+
+                        Parameter:
+                            None
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:ECAL")
+
+                    # SENS:CORR:OFFS:COLL:LOAD - Measure the Load standard
+                    def measure_load_standard(self):
+                        """
+                        Measure the Load standard for offset correction.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:LOAD")
+
+                    # SENS:CORR:OFFS:COLL:METH:SMIX2 - Calibration port
+                    def set_scalar_mixer_calibration_port(self, port: int):
+                        """
+                        Set the calibration port for scalar mixer calibration.
+
+                        Parameter:
+                            port (int): Port number
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:METH:SMIX2 {port}")
+
+                    def get_scalar_mixer_calibration_port(self) -> int:
+                        """
+                        Get the calibration port for scalar mixer calibration.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            int: Port number
+                        """
+                        return int(self.instrument.query(f":SENS{self.n}:CORR:OFFS:COLL:METH:SMIX2?"))
+
+                    # SENS:CORR:OFFS:COLL:OPEN - Measure the Open standard
+                    def measure_open_standard(self):
+                        """
+                        Measure the Open standard for offset correction.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:OPEN")
+
+                    # SENS:CORR:OFFS:COLL:PMET - Measure power
+                    def measure_power(self):
+                        """
+                        Measure power for offset correction.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:PMET")
+
+                    # SENS:CORR:OFFS:COLL:SHOR - Measure the Short standard
+                    def measure_short_standard(self):
+                        """
+                        Measure the Short standard for offset correction.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:SHOR")
+
+                    # SENS:CORR:OFFS:COLL:THRU - Measure the Thru standard
+                    def measure_thru_standard(self):
+                        """
+                        Measure the Thru standard for offset correction.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:THRU")
+
+                    # SENS:CORR:OFFS:COLL:SAVE - Completes calibration
+                    def complete_offset_calibration(self):
+                        """
+                        Complete the offset calibration.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:SAVE")
+
+                class Coefficient:
                     """
-                    Calibration kit order assignment commands.
+                    Calibration and correction coefficient table and data commands.
                     """
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
                         self.n = channel
 
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:LOAD <port>,<numeric>
-                    def set_load_standard(self, port: int, standard_num: int):
+                    # SENSe<Ch>:CORRection:CLEar
+                    def clear_correction_table(self):
                         """
-                        Set the number of the calibration standard assigned to the LOAD class for the specified port.
-
-                        Parameter:
-                            port (int): Port number (1-4)
-                            standard_num (int): Standard number
-
-                        Return:
-                            None
-                        """
-                        if not (1 <= port <= 4):
-                            raise ValueError("port must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:LOAD {port},{standard_num}")
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:LOAD? <port>
-                    def get_load_standard(self, port: int) -> int:
-                        """
-                        Get the number of the calibration standard assigned to the LOAD class for the specified port.
-
-                        Parameter:
-                            port (int): Port number (1-4)
-
-                        Return:
-                            int: Standard number
-                        """
-                        if not (1 <= port <= 4):
-                            raise ValueError("port must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:LOAD? {port}"))
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:OPEN <port>,<numeric>
-                    def set_open_standard(self, port: int, standard_num: int):
-                        """
-                        Set the number of the calibration standard assigned to the OPEN class for the specified port.
-
-                        Parameter:
-                            port (int): Port number (1-4)
-                            standard_num (int): Standard number
-
-                        Return:
-                            None
-                        """
-                        if not (1 <= port <= 4):
-                            raise ValueError("port must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:OPEN {port},{standard_num}")
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:OPEN? <port>
-                    def get_open_standard(self, port: int) -> int:
-                        """
-                        Get the number of the calibration standard assigned to the OPEN class for the specified port.
-
-                        Parameter:
-                            port (int): Port number (1-4)
-
-                        Return:
-                            int: Standard number
-                        """
-                        if not (1 <= port <= 4):
-                            raise ValueError("port must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:OPEN? {port}"))
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:SELect <numeric>
-                    def set_subclass(self, subclass_num: int):
-                        """
-                        Set the subclass number for calibration standard class assignment.
-
-                        Parameter:
-                            subclass_num (int): Subclass number (1-8)
-
-                        Return:
-                            None
-                        """
-                        if not (1 <= subclass_num <= 8):
-                            raise ValueError("subclass_num must be 1-8")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SEL {subclass_num}")
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:SELect?
-                    def get_subclass(self) -> int:
-                        """
-                        Get the subclass number for calibration standard class assignment.
-
-                        Parameter:
-                            None
-
-                        Return:
-                            int: Subclass number
-                        """
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SEL?"))
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:SHORt <port>,<numeric>
-                    def set_short_standard(self, port: int, standard_num: int):
-                        """
-                        Set the number of the calibration standard assigned to the SHORT class for the specified port.
-
-                        Parameter:
-                            port (int): Port number (1-4)
-                            standard_num (int): Standard number
-
-                        Return:
-                            None
-                        """
-                        if not (1 <= port <= 4):
-                            raise ValueError("port must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SHOR {port},{standard_num}")
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:SHORt? <port>
-                    def get_short_standard(self, port: int) -> int:
-                        """
-                        Get the number of the calibration standard assigned to the SHORT class for the specified port.
-
-                        Parameter:
-                            port (int): Port number (1-4)
-
-                        Return:
-                            int: Standard number
-                        """
-                        if not (1 <= port <= 4):
-                            raise ValueError("port must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SHOR? {port}"))
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:THRU <port1>,<port2>,<numeric>
-                    def set_thru_standard(self, port1: int, port2: int, standard_num: int):
-                        """
-                        Set the number of the calibration standard assigned to the THRU class for the measurement between the specified ports.
-
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-                            standard_num (int): Standard number
-
-                        Return:
-                            None
-                        """
-                        if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                            raise ValueError("port1 and port2 must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:THRU {port1},{port2},{standard_num}")
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:THRU? <port1>,<port2>
-                    def get_thru_standard(self, port1: int, port2: int) -> int:
-                        """
-                        Get the number of the calibration standard assigned to the THRU class for the measurement between the specified ports.
-
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-
-                        Return:
-                            int: Standard number
-                        """
-                        if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                            raise ValueError("port1 and port2 must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:THRU? {port1},{port2}"))
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:TRLLine <port1>,<port2>,<numeric>
-                    def set_trl_line_standard(self, port1: int, port2: int, standard_num: int):
-                        """
-                        Set the number of the calibration standard assigned to the TRL LINE class for the measurement between the specified ports.
-
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-                            standard_num (int): Standard number
-
-                        Return:
-                            None
-                        """
-                        if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                            raise ValueError("port1 and port2 must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLL {port1},{port2},{standard_num}")
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:TRLLine? <port1>,<port2>
-                    def get_trl_line_standard(self, port1: int, port2: int) -> int:
-                        """
-                        Get the number of the calibration standard assigned to the TRL LINE class for the measurement between the specified ports.
-
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-
-                        Return:
-                            int: Standard number
-                        """
-                        if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                            raise ValueError("port1 and port2 must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLL? {port1},{port2}"))
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:TRLThru <port1>,<port2>,<numeric>
-                    def set_trl_thru_standard(self, port1: int, port2: int, standard_num: int):
-                        """
-                        Set the number of the calibration standard assigned to the TRL THRU class for the measurement between the specified ports.
-
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-                            standard_num (int): Standard number
-
-                        Return:
-                            None
-                        """
-                        if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                            raise ValueError("port1 and port2 must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLT {port1},{port2},{standard_num}")
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:TRLThru? <port1>,<port2>
-                    def get_trl_thru_standard(self, port1: int, port2: int) -> int:
-                        """
-                        Get the number of the calibration standard assigned to the TRL THRU class for the measurement between the specified ports.
-
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-
-                        Return:
-                            int: Standard number
-                        """
-                        if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                            raise ValueError("port1 and port2 must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLT? {port1},{port2}"))
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:TRLReflect <port>,<numeric>
-                    def set_trl_reflect_standard(self, port: int, standard_num: int):
-                        """
-                        Set the number of the calibration standard assigned to the TRL REFLECT class for the specified port.
-
-                        Parameter:
-                            port (int): Port number (1-4)
-                            standard_num (int): Standard number
-
-                        Return:
-                            None
-                        """
-                        if not (1 <= port <= 4):
-                            raise ValueError("port must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLR {port},{standard_num}")
-
-                    # SENSe:CORRection:COLLect:CKIT:ORDer:TRLReflect? <port>
-                    def get_trl_reflect_standard(self, port: int) -> int:
-                        """
-                        Get the number of the calibration standard assigned to the TRL REFLECT class for the specified port.
-
-                        Parameter:
-                            port (int): Port number (1-4)
-
-                        Return:
-                            int: Standard number
-                        """
-                        if not (1 <= port <= 4):
-                            raise ValueError("port must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLR? {port}"))
-
-                    # SENSe:CORRection:COLLect:CKIT:RESet
-                    def reset_calibration_kit(self):
-                        """
-                        Reset the calibration kit to the factory settings.
+                        Clear the calibration coefficient table.
 
                         Parameter:
                             None
@@ -8025,646 +7229,265 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:RES")
-            class Arbitrary:
-                """
-                Calibration kit arbitrary impedance commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
+                        self.instrument.write(f":SENS{self.n}:CORR:CLE")
 
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:ARBitrary <numeric>
-                def set_arbitrary_impedance(self, std: int, value: float):
+                    # SENSe<Ch>:CORRection:COEFficient[:DATA] <char>,<rcvport>,<srcport>,<numeric list>
+                    def set_correction_coefficient_data(self, term: str, rcvport: int, srcport: int, coeffs):
+                        """
+                        Write the calibration coefficient data array.
+
+                        Parameter:
+                            term (str): Error term, one of ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
+                            rcvport (int): Receiver port number (1-4)
+                            srcport (int): Source port number (1-4)
+                            coeffs (list): Calibration coefficient array (2N values)
+
+                        Return:
+                            None
+                        """
+                        allowed_terms = ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
+                        if term not in allowed_terms:
+                            raise ValueError(f"term must be one of {allowed_terms}")
+                        if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                            raise ValueError("rcvport and srcport must be 1-4")
+                        coeffs_str = ",".join(str(float(x)) for x in coeffs)
+                        self.instrument.write(f":SENS{self.n}:CORR:COEF:DATA {term},{rcvport},{srcport},{coeffs_str}")
+
+                    # SENSe<Ch>:CORRection:COEFficient[:DATA]? <char>,<rcvport>,<srcport>
+                    def get_correction_coefficient_data(self, term: str, rcvport: int, srcport: int):
+                        """
+                        Read out the calibration coefficient data array.
+
+                        Parameter:
+                            term (str): Error term, one of ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
+                            rcvport (int): Receiver port number (1-4)
+                            srcport (int): Source port number (1-4)
+
+                        Return:
+                            list: Calibration coefficient array (2N values)
+                        """
+                        allowed_terms = ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
+                        if term not in allowed_terms:
+                            raise ValueError(f"term must be one of {allowed_terms}")
+                        if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                            raise ValueError("rcvport and srcport must be 1-4")
+                        data = self.instrument.query(f":SENS{self.n}:CORR:COEF:DATA? {term},{rcvport},{srcport}")
+                        return self.data_handler.parse_array(data)
+
+                    # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse <rcvport>,<srcport>
+                    def set_coefficient_method_eresponse(self, rcvport: int, srcport: int):
+                        """
+                        Set the 1-path 2-port calibration type for written calibration coefficients.
+
+                        Parameter:
+                            rcvport (int): Receiver port number (1-4)
+                            srcport (int): Source port number (1-4)
+
+                        Return:
+                            None
+                        """
+                        if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                            raise ValueError("rcvport and srcport must be 1-4")
+                        if rcvport == srcport:
+                            raise ValueError("rcvport and srcport must be different for ERESponse")
+                        self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:ERES {rcvport},{srcport}")
+                class Extension:
                     """
-                    Set the arbitrary impedance value for the load standard.
+                    Port extension correction related commands.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENS:CORR:EXT - Port extension ON/OFF
+                    def enable_port_extension(self, enable: bool):
+                        """
+                        Enable or disable port extension.
+
+                        Parameter:
+                            enable (bool): True to enable, False to disable"""
+                        self.instrument.write(f":SENS{self.n}:CORR:EXT {1 if enable else 0}")
+                    def is_port_extension_enabled(self) -> bool:
+                        """
+                        Query if port extension is enabled.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            bool: True if enabled, False otherwise
+                        """
+                        return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT?")))
+
+                    # SENS:CORR:EXT:PORT:FREQ - Values of "Frequency1" and "Frequency2"
+                    def get_port_extension_frequencies(self):
+                        """
+                        Get the values of Frequency1 and Frequency2 for port extension.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            tuple: (Frequency1, Frequency2)
+                        """
+                        data = self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:FREQ?").strip()
+                        return tuple(map(float, data.split(',')))
+
+                    # SENS:CORR:EXT:PORT:INCL - Loss compensation ON/OFF
+                    def enable_loss_compensation(self, enable: bool):
+                        """
+                        Enable or disable loss compensation for port extension.
+
+                        Parameter:
+                            enable (bool): True to enable, False to disable
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:INCL {1 if enable else 0}")
+
+                    def is_loss_compensation_enabled(self) -> bool:
+                        """
+                        Query if loss compensation for port extension is enabled.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            bool: True if enabled, False otherwise
+                        """
+                        return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:INCL?")))
+
+                    # SENS:CORR:EXT:PORT:LDC - Value "Loss at DC"
+                    def set_loss_at_dc(self, value: float):
+                        """
+                        Set the value of "Loss at DC" for port extension.
+
+                        Parameter:
+                            value (float): Loss at DC
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:LDC {value}")
+
+                    def get_loss_at_dc(self) -> float:
+                        """
+                        Get the value of "Loss at DC" for port extension.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            float: Loss at DC
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:LDC?"))
+
+                    # SENS:CORR:EXT:PORT:LOSS - Values of "Loss 1" and "Loss 2"
+                    def set_loss_values(self, loss1: float, loss2: float):
+                        """
+                        Set the values of "Loss 1" and "Loss 2" for port extension.
+
+                        Parameter:
+                            loss1 (float): Loss 1
+                            loss2 (float): Loss 2
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:LOSS {loss1},{loss2}")
+
+                    def get_loss_values(self):
+                        """
+                        Get the values of "Loss 1" and "Loss 2" for port extension.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            tuple: (Loss 1, Loss 2)
+                        """
+                        data = self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:LOSS?").strip()
+                        return tuple(map(float, data.split(',')))
+
+                    # SENS:CORR:EXT:PORT:TIME - Extension Port n
+                    def set_extension_time(self, value: float):
+                        """
+                        Set the extension time for port extension.
+
+                        Parameter:
+                            value (float): Extension time
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:TIME {value}")
+
+                    def get_extension_time(self) -> float:
+                        """
+                        Get the extension time for port extension.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            float: Extension time
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:TIME?"))
+
+                class Error:
+                    """
+                    S-parameter error correction ON/OFF.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENSe<Ch>:CORRection:STATe {OFF|ON|0|1}
+                    def set_error_correction_state(self, enable: bool):
+                        """
+                        Turn S-parameter error correction ON/OFF.
+
+                        Parameter:
+                            enable (bool): True to enable, False to disable
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:STAT {1 if enable else 0}")
+
+                    # SENSe<Ch>:CORRection:STATe?
+                    def is_error_correction_enabled(self) -> bool:
+                        """
+                        Query if S-parameter error correction is enabled.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            bool: True if enabled, False otherwise
+                        """
+                        return bool(int(self.instrument.query(f":SENS{self.n}:CORR:STAT?")))
+
+                # SENS:CORR:CLE - Clears the table of calibration factors
+                def clear_calibration_factors(self):
+                    """
+                    Clear the table of calibration factors.
 
                     Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Impedance value (-1E18 to 1E18)
+                        None
 
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:ARB {value}")
+                    self.instrument.write(f":SENS{self.n}:CORR:CLE")
 
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:ARBitrary?
-                def get_arbitrary_impedance(self, std: int) -> float:
+                # SENS:CORR:COLL:CLE - Clears data of calibration standards
+                def clear_calibration_standards(self):
                     """
-                    Get the arbitrary impedance value for the load standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: Impedance value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:ARB?"))
-
-            class OpenCapacitance:
-                """
-                Calibration kit open standard capacitance commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C0 <numeric>
-                def set_c0(self, std: int, value: float):
-                    """
-                    Set the C0 value for the open calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): C0 value (-1E18 to 1E18), units 1E-15 F
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C0 {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C0?
-                def get_c0(self, std: int) -> float:
-                    """
-                    Get the C0 value for the open calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: C0 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C0?"))
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C1 <numeric>
-                def set_c1(self, std: int, value: float):
-                    """
-                    Set the C1 value for the open calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): C1 value (-1E18 to 1E18), units 1E-27 F/Hz
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C1 {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C1?
-                def get_c1(self, std: int) -> float:
-                    """
-                    Get the C1 value for the open calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: C1 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C1?"))
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C2 <numeric>
-                def set_c2(self, std: int, value: float):
-                    """
-                    Set the C2 value for the open calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): C2 value (-1E18 to 1E18), units 1E-36 F/Hz^2
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C2 {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C2?
-                def get_c2(self, std: int) -> float:
-                    """
-                    Get the C2 value for the open calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: C2 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C2?"))
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C3 <numeric>
-                def set_c3(self, std: int, value: float):
-                    """
-                    Set the C3 value for the open calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): C3 value (-1E18 to 1E18), units 1E-45 F/Hz^3
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C3 {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C3?
-                def get_c3(self, std: int) -> float:
-                    """
-                    Get the C3 value for the open calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: C3 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C3?"))
-            class StandardCount:
-                """
-                Calibration kit standard count commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STANdard:COUNt?
-                def get_standard_count(self) -> int:
-                    """
-                    Reads out the count of standards in the selected calibration kit.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        int: Number of standards in the calibration kit
-                    """
-                    return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:COUN?"))
-
-            class StandardData:
-                """
-                Calibration kit standard data array commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DATA <numeric list>
-                def set_standard_data(self, std: int, data_list):
-                    """
-                    Writes the data array of the data-based calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        data_list (list): Data array as per documentation
-
-                    Return:
-                        None
-                    """
-                    data_str = ",".join(str(float(x)) for x in data_list)
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DATA {data_str}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DATA?
-                def get_standard_data(self, std: int):
-                    """
-                    Reads out the data array of the data-based calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        list: Data array
-                    """
-                    data = self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DATA?")
-                    return self.data_handler.parse_array(data)
-
-            class StandardDelay:
-                """
-                Calibration kit standard offset delay commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DELay <numeric>
-                def set_standard_delay(self, std: int, value: float):
-                    """
-                    Sets the offset delay value for the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Offset delay value (–1E18 to 1E18), in seconds
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DEL {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:Delay?
-                def get_standard_delay(self, std: int) -> float:
-                    """
-                    Reads out the offset delay value for the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: Offset delay value in seconds
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DEL?"))
-
-            class StandardFmax:
-                """
-                Calibration kit standard maximum frequency commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMAXimum <numeric>
-                def set_standard_fmax(self, std: int, value: float):
-                    """
-                    Sets the maximum frequency limit of the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Maximum frequency limit (0 to 1E14), in Hz
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMAX {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMAXimum?
-                def get_standard_fmax(self, std: int) -> float:
-                    """
-                    Reads out the maximum frequency limit of the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: Maximum frequency limit in Hz
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMAX?"))
-
-            class StandardFmin:
-                """
-                Calibration kit standard minimum frequency commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMINimum <numeric>
-                def set_standard_fmin(self, std: int, value: float):
-                    """
-                    Sets the minimum frequency limit of the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Minimum frequency limit (0 to 1E14), in Hz
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMIN {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMINimum?
-                def get_standard_fmin(self, std: int) -> float:
-                    """
-                    Reads out the minimum frequency limit of the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: Minimum frequency limit in Hz
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMIN?"))
-
-            class StandardInsert:
-                """
-                Calibration kit standard insert commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:INSert
-                def insert_standard(self, std: int):
-                    """
-                    Inserts the calibration standard into the selected calibration kit.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:INS")
-
-            class StandardL0:
-                """
-                Calibration kit short standard L0 commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L0 <numeric>
-                def set_l0(self, std: int, value: float):
-                    """
-                    Set the L0 value for the short calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): L0 value (–1E18 to 1E18), units 1E–12 H
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L0 {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L0?
-                def get_l0(self, std: int) -> float:
-                    """
-                    Get the L0 value for the short calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: L0 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L0?"))
-
-            class StandardL1:
-                """
-                Calibration kit short standard L1 commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L1 <numeric>
-                def set_l1(self, std: int, value: float):
-                    """
-                    Set the L1 value for the short calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): L1 value (–1E18 to 1E18), units 1E–24 H/Hz
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L1 {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L1?
-                def get_l1(self, std: int) -> float:
-                    """
-                    Get the L1 value for the short calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: L1 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L1?"))
-
-            class StandardL2:
-                """
-                Calibration kit short standard L2 commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L2 <numeric>
-                def set_l2(self, std: int, value: float):
-                    """
-                    Set the L2 value for the short calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): L2 value (–1E18 to 1E18), units 1E–33 H/Hz^2
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L2 {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L2?
-                def get_l2(self, std: int) -> float:
-                    """
-                    Get the L2 value for the short calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: L2 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L2?"))
-
-            class StandardL3:
-                """
-                Calibration kit short standard L3 commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L3 <numeric>
-                def set_l3(self, std: int, value: float):
-                    """
-                    Set the L3 value for the short calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): L3 value (–1E18 to 1E18), units 1E–42 H/Hz^3
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L3 {value}")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L3?
-                def get_l3(self, std: int) -> float:
-                    """
-                    Get the L3 value for the short calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: L3 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L3?"))
-
-            class StandardLabel:
-                """
-                Calibration kit standard label commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:LABel <string>
-                def set_label(self, std: int, label: str):
-                    """
-                    Set the label for the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        label (str): Label string (up to 254 characters)
-
-                    Return:
-                        None
-                    """
-                    if len(label) > 254:
-                        raise ValueError("label must be up to 254 characters")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LAB \"{label}\"")
-
-                # SENSe:CORRection:COLLect:CKIT:STAN<Std>:LABel?
-                def get_label(self, std: int) -> str:
-                    """
-                    Get the label for the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        str: Label string
-                    """
-                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LAB?").strip()
-            class Standard:
-                """
-                Calibration kit standard management commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:CKIT:STAN<Std>:LOSS - Offset loss value for calibration standard
-                def set_standard_offset_loss(self, std: int, value: float):
-                    """
-                    Set the offset loss value for the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Offset loss value (-1E18 to 1E18)
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LOSS {value}")
-
-                def get_standard_offset_loss(self, std: int) -> float:
-                    """
-                    Get the offset loss value for the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: Offset loss value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LOSS?"))
-
-                # SENS:CORR:COLL:CKIT:STAN<Std>:REM - Delete calibration standard
-                def remove_standard(self, std: int):
-                    """
-                    Delete the calibration standard from the selected calibration kit.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:REM")
-
-                # SENS:CORR:COLL:CKIT:STAN<Std>:TYPE - Type of calibration standard
-                def set_standard_type(self, std: int, std_type: str):
-                    """
-                    Set the type of calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        std_type (str): Type, one of ['OPEN', 'SHOR', 'LOAD', 'THRU', 'UTHR', 'SLID', 'DATA', 'NONE']
-
-                    Return:
-                        None
-                    """
-                    allowed = ['OPEN', 'SHOR', 'LOAD', 'THRU', 'UTHR', 'SLID', 'DATA', 'NONE']
-                    if std_type not in allowed:
-                        raise ValueError(f"std_type must be one of {allowed}")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:TYPE {std_type}")
-
-                def get_standard_type(self, std: int) -> str:
-                    """
-                    Get the type of calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        str: Standard type
-                    """
-                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:TYPE?").strip()
-
-                # SENS:CORR:COLL:CKIT:STAN<Std>:Z0 - Offset Z0 value for calibration standard
-                def set_standard_offset_z0(self, std: int, value: float):
-                    """
-                    Set the offset Z0 value for the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Offset Z0 value (-1E18 to 1E18)
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:Z0 {value}")
-
-                def get_standard_offset_z0(self, std: int) -> float:
-                    """
-                    Get the offset Z0 value for the calibration standard.
-
-                    Parameter:
-                        std (int): Standard number (1..N)
-
-                    Return:
-                        float: Offset Z0 value
-                    """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:Z0?"))
-
-            class Collection:
-                """
-                Calibration collection related commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:CLE - Clears measurement data of calibration standards
-                def clear_collection(self):
-                    """
-                    Clear the measurement data of the calibration standards.
+                    Clear data of calibration standards.
 
                     Parameter:
                         None
@@ -8674,51 +7497,86 @@ frequency offset, channel data transfer."""
                     """
                     self.instrument.write(f":SENS{self.n}:CORR:COLL:CLE")
 
-                class Data:
+                # SENS:CORR:INF? - Information string of calibration
+                def get_calibration_info(self) -> str:
                     """
-                    Calibration isolation data commands.
+                    Get information string of calibration.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Calibration information
                     """
-                    def __init__(self, instrument, data_handler, channel):
-                        self.instrument = instrument
-                        self.data_handler = data_handler
-                        self.n = channel
+                    return self.instrument.query(f":SENS{self.n}:CORR:INF?").strip()
 
-                    # SENS:CORR:COLL:DATA:ISOLation <rcvport>,<srcport>,<numeric list>
-                    def set_isolation_data(self, rcvport: int, srcport: int, data_list):
-                        """
-                        Write the array of the isolation calibration measurement.
+                # SENS:CORR:STAT - S-parameter error correction state
+                def set_error_correction_state(self, enable: bool):
+                    """
+                    Set S-parameter error correction state.
 
-                        Parameter:
-                            rcvport (int): Receiver port (1-4)
-                            srcport (int): Source port (1-4)
-                            data_list (list): Array of real/imaginary pairs
+                    Parameter:
+                        enable (bool): True to enable, False to disable
 
-                        Return:
-                            None
-                        """
-                        if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                            raise ValueError("rcvport and srcport must be 1-4")
-                        data_str = ",".join(str(float(x)) for x in data_list)
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:DATA:ISOL {rcvport},{srcport},{data_str}")
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:CORR:STAT {1 if enable else 0}")
 
-                    # SENS:CORR:COLL:DATA:ISOLation? <rcvport>,<srcport>
-                    def get_isolation_data(self, rcvport: int, srcport: int):
-                        """
-                        Read out the array of the isolation calibration measurement.
+                def is_error_correction_enabled(self) -> bool:
+                    """
+                    Query if S-parameter error correction is enabled.
 
-                        Parameter:
-                            rcvport (int): Receiver port (1-4)
-                            srcport (int): Source port (1-4)
+                    Parameter:
+                        None
 
-                        Return:
-                            list: Array of real/imaginary pairs
-                        """
-                        if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                            raise ValueError("rcvport and srcport must be 1-4")
-                        data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:ISOL? {rcvport},{srcport}")
-                        return self.data_handler.parse_array(data)
-    
-            class CorrectionCollectionData:
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:STAT?")))
+
+                # SENS:CORR:TRIG:FREE - Calibration trigger source
+                def set_calibration_trigger_source(self, source: str):
+                    """
+                    Set calibration trigger source.
+
+                    Parameter:
+                        source (str): Trigger source, one of ['FREE', 'EXT']
+
+                    Return:
+                        None
+                    """
+                    allowed = ['FREE', 'EXT']
+                    if source not in allowed:
+                        raise ValueError(f"source must be one of {allowed}")
+                    self.instrument.write(f":SENS{self.n}:CORR:TRIG:FREE {source}")
+
+                def get_calibration_trigger_source(self) -> str:
+                    """
+                    Get calibration trigger source.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Trigger source
+                    """
+                    return self.instrument.query(f":SENS{self.n}:CORR:TRIG:FREE?").strip()
+
+                # SENS:CORR:TYPE? - Information about trace (calibration type, number of ports)
+                def get_calibration_type_info(self) -> str:
+                    """
+                    Get information about trace (calibration type, number of ports).
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Calibration type info
+                    """
+                    return self.instrument.query(f":SENS{self.n}:CORR:TYPE?").strip()
+            
+            class CollectData:
                 """
                 Calibration standard measurement data commands.
                 """
@@ -8896,727 +7754,6 @@ frequency offset, channel data transfer."""
                     data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:THRU:TRAN? {rcvport},{srcport}")
                     return self.data_handler.parse_array(data)
                 
-            class AutoCal:
-                """
-                AutoCal module related commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:ECAL:CCH[:ACQuire] - Confidence check of calibration coefficients
-                def execute_confidence_check(self):
-                    """
-                    Executes the confidence check of the calibration coefficients using the AutoCal module.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:CCH:ACQuire")
-
-                # SENS:CORR:COLL:ECAL:ERESponse <rcvport>,<srcport>
-                def execute_one_path_two_port_cal(self, rcvport: int, srcport: int):
-                    """
-                    Executes one path two-port calibration between the specified ports using the AutoCal module.
-
-                    Parameter:
-                        rcvport (int): Receiver port number (1-4)
-                        srcport (int): Source port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                        raise ValueError("rcvport and srcport must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ERES {rcvport},{srcport}")
-
-                # SENS:CORR:COLL:ECAL:INFormation?
-                def get_autocal_information(self) -> str:
-                    """
-                    Gets information on the AutoCal Module connected to the Network Analyzer.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        str: Information string (comma separated fields)
-                    """
-                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:INFormation?").strip()
-
-                # SENS:CORR:COLL:ECAL:ORIentation:EXECute
-                def execute_auto_orientation(self):
-                    """
-                    Executes the Auto-Orientation procedure of the AutoCal Module.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:EXECute")
-
-                # SENS:CORR:COLL:ECAL:ORIentation:STATe {OFF|ON|0|1}
-                def enable_auto_orientation(self, enable: bool):
-                    """
-                    Turns the Auto-Orientation function ON/OFF for AutoCal calibration.
-
-                    Parameter:
-                        enable (bool): True to enable, False to disable
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:STATe {1 if enable else 0}")
-
-                def is_auto_orientation_enabled(self) -> bool:
-                    """
-                    Query if the Auto-Orientation function is enabled.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        bool: True if enabled, False otherwise
-                    """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:STATe?")))
-
-                # SENS:CORR:COLL:ECAL:PATH <numeric1>,<numeric2>
-                def set_autocal_path(self, analyzer_port: int, autocal_port: int):
-                    """
-                    Sets the AutoCal module port number connected to a specified port of the Network Analyzer.
-
-                    Parameter:
-                        analyzer_port (int): Network Analyzer Port Number (1-4)
-                        autocal_port (int): AutoCal Module Port Number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= analyzer_port <= 4):
-                        raise ValueError("analyzer_port must be 1-4")
-                    if not (1 <= autocal_port <= 4):
-                        raise ValueError("autocal_port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:PATH {analyzer_port},{autocal_port}")
-
-                # SENS:CORR:COLL:ECAL:PATH? <numeric1>
-                def get_autocal_path(self, analyzer_port: int) -> int:
-                    """
-                    Reads out the AutoCal module port number connected to a specified port of the Network Analyzer.
-
-                    Parameter:
-                        analyzer_port (int): Network Analyzer Port Number (1-4)
-
-                    Return:
-                        int: AutoCal Module Port Number (1-4)
-                    """
-                    if not (1 <= analyzer_port <= 4):
-                        raise ValueError("analyzer_port must be 1-4")
-                    return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:PATH? {analyzer_port}"))
-                # SENS:CORR:COLL:ECAL:SOLT1 <port>
-                def execute_solt1_calibration(self, port: int):
-                    """
-                    Executes one-port calibration of the specified port using the AutoCal module.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT1 {port}")
-
-                # SENS:CORR:COLL:ECAL:SOLT2 <port1>,<port2>
-                def execute_solt2_calibration(self, port1: int, port2: int):
-                    """
-                    Executes full two-port calibration between the specified ports using the AutoCal module.
-
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                        raise ValueError("port1 and port2 must be 1-4")
-                    if port1 == port2:
-                        raise ValueError("port1 and port2 must be different for SOLT2")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT2 {port1},{port2}")
-
-                # SENS:CORR:COLL:ECAL:SOLT3 <port1>,<port2>,<port3>
-                def execute_solt3_calibration(self, port1: int, port2: int, port3: int):
-                    """
-                    Executes full three-port calibration between the specified ports using the AutoCal module.
-
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-                        port3 (int): Third port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    ports = [port1, port2, port3]
-                    if any(not (1 <= p <= 4) for p in ports):
-                        raise ValueError("All ports must be 1-4")
-                    if len(set(ports)) != 3:
-                        raise ValueError("All ports must be different for SOLT3")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT3 {port1},{port2},{port3}")
-
-                # SENS:CORR:COLL:ECAL:SOLT4 <port1>,<port2>,<port3>,<port4>
-                def execute_solt4_calibration(self, port1: int, port2: int, port3: int, port4: int):
-                    """
-                    Executes full four-port calibration between the specified ports using the AutoCal module.
-
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-                        port3 (int): Third port number (1-4)
-                        port4 (int): Fourth port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    ports = [port1, port2, port3, port4]
-                    if any(not (1 <= p <= 4) for p in ports):
-                        raise ValueError("All ports must be 1-4")
-                    if len(set(ports)) != 4:
-                        raise ValueError("All ports must be different for SOLT4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT4 {port1},{port2},{port3},{port4}")
-
-                # SENS:CORR:COLL:ECAL:THERmo:COMPensation[:STATe] {OFF|ON|0|1}
-                def enable_thermo_compensation(self, enable: bool):
-                    """
-                    Turns the thermo compensation function ON/OFF for AutoCal calibration.
-
-                    Parameter:
-                        enable (bool): True to enable, False to disable
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:THERmo:COMPensation:STATe {1 if enable else 0}")
-
-                def is_thermo_compensation_enabled(self) -> bool:
-                    """
-                    Query if the thermo compensation function is enabled for AutoCal calibration.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        bool: True if enabled, False otherwise
-                    """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:THERmo:COMPensation:STATe?")))
-
-                # SENS:CORR:COLL:ECAL:UCHar <char>
-                def set_autocal_characterization(self, char: str):
-                    """
-                    Sets the characterization number used when executing AutoCal.
-
-                    Parameter:
-                        char (str): Characterization, one of ['CHAR0', 'CHAR1', 'CHAR2', 'CHAR3']
-
-                    Return:
-                        None
-                    """
-                    allowed = ['CHAR0', 'CHAR1', 'CHAR2', 'CHAR3']
-                    if char not in allowed:
-                        raise ValueError(f"char must be one of {allowed}")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:UCHar {char}")
-
-                def get_autocal_characterization(self) -> str:
-                    """
-                    Reads out the characterization number used when executing AutoCal.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        str: Characterization ('CHAR0', 'CHAR1', 'CHAR2', 'CHAR3')
-                    """
-                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:UCHar?").strip()
-            class AutoCal2:
-                """
-                AutoCal 2-port/3-port/4-port calibration commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:ECAL2 <port 1>,<port 2>
-                def execute_ecal2(self, port1: int, port2: int):
-                    """
-                    Executes a calibration step using a two-port ACM connecting port1 and port2.
-
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                        raise ValueError("port1 and port2 must be 1-4")
-                    if port1 == port2:
-                        raise ValueError("port1 and port2 must be different")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2 {port1},{port2}")
-
-                # SENS:CORR:COLL:ECAL2:METH:SOLT3 <port1>,<port2>,<port3>
-                def set_method_solt3(self, port1: int, port2: int, port3: int):
-                    """
-                    Selects ports and sets the type to full 3-port for calibration with the 2-port AutoCal module.
-
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-                        port3 (int): Third port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    ports = [port1, port2, port3]
-                    if any(not (1 <= p <= 4) for p in ports):
-                        raise ValueError("All ports must be 1-4")
-                    if len(set(ports)) != 3:
-                        raise ValueError("All ports must be different for SOLT3")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:METH:SOLT3 {port1},{port2},{port3}")
-
-                # SENS:CORR:COLL:ECAL2:METH:SOLT4 <port1>,<port2>,<port3>,<port4>
-                def set_method_solt4(self, port1: int, port2: int, port3: int, port4: int):
-                    """
-                    Selects ports and sets the type to full 4-port for calibration with the 2-port AutoCal module.
-
-                    Parameter:
-                        port1 (int): First port number (must be 1)
-                        port2 (int): Second port number (must be 2)
-                        port3 (int): Third port number (must be 3)
-                        port4 (int): Fourth port number (must be 4)
-
-                    Return:
-                        None
-                    """
-                    ports = [port1, port2, port3, port4]
-                    if ports != [1, 2, 3, 4]:
-                        raise ValueError("Ports must be 1, 2, 3, 4 for SOLT4")
-                    if len(set(ports)) != 4:
-                        raise ValueError("All ports must be different for SOLT4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:METH:SOLT4 {port1},{port2},{port3},{port4}")
-
-                # SENS:CORR:COLL:ECAL2:THRU <port 1>, <port 2>, {[UNKNown] | FLUSh}
-                def measure_thru(self, port1: int, port2: int, thru_type: str = "UNKNown"):
-                    """
-                    Measures a THRU between port1 and port2 for 3-port/4-port calibration with 2-port ACM.
-
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-                        thru_type (str): 'UNKNown' (default) or 'FLUSh'
-
-                    Return:
-                        None
-                    """
-                    allowed = ['UNKNown', 'FLUSh']
-                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                        raise ValueError("port1 and port2 must be 1-4")
-                    if port1 == port2:
-                        raise ValueError("port1 and port2 must be different")
-                    if thru_type not in allowed:
-                        raise ValueError(f"thru_type must be one of {allowed}")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:THRU {port1},{port2},{thru_type}")
-
-            class AutoCalUnknownThru:
-                """
-                AutoCal Unknown Thru feature commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:ECAL:UTHRu:STATe {OFF|ON|0|1}
-                def enable_unknown_thru(self, enable: bool):
-                    """
-                    Turns the Unknown Thru feature ON/OFF for AutoCal calibration.
-
-                    Parameter:
-                        enable (bool): True to enable, False to disable
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:UTHRu:STATe {1 if enable else 0}")
-
-                def is_unknown_thru_enabled(self) -> bool:
-                    """
-                    Query if the Unknown Thru feature is enabled for AutoCal calibration.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        bool: True if enabled, False otherwise
-                    """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:UTHRu:STATe?")))
-
-            class Isolation:
-                """
-                Isolation calibration data measurement.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:ISOLation <rcvport>,<srcport>
-                def measure_isolation(self, rcvport: int, srcport: int):
-                    """
-                    Measures the isolation calibration data between the receiver port and the source port.
-
-                    Parameter:
-                        rcvport (int): Receiver port number (1-4)
-                        srcport (int): Source port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                        raise ValueError("rcvport and srcport must be 1-4")
-                    if rcvport == srcport:
-                        raise ValueError("rcvport and srcport must be different")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ISOL {rcvport},{srcport}")
-
-            class Load:
-                """
-                Load standard calibration data measurement.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:LOAD <port>
-                def measure_load(self, port: int):
-                    """
-                    Measures the calibration data of the load standard for the specified port.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:LOAD {port}")
-
-            class Open:
-                """
-                Open standard calibration data measurement.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:OPEN <port>
-                def measure_open(self, port: int):
-                    """
-                    Measures the calibration data of the open standard for the specified port.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:OPEN {port}")
-
-            class Short:
-                """
-                Short standard calibration data measurement.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:SHORt <port>
-                def measure_short(self, port: int):
-                    """
-                    Measures the calibration data of the short standard for the specified port.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:SHOR {port}")
-            class Thru:
-                """
-                Thru standard calibration data measurement.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:THRU <rcvport>,<srcport>
-                def measure_thru(self, rcvport: int, srcport: int):
-                    """
-                    Measures the calibration data of the thru standard between the receiver port and the source port.
-
-                    Parameter:
-                        rcvport (int): Receiver port number (1-4)
-                        srcport (int): Source port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                        raise ValueError("rcvport and srcport must be 1-4")
-                    if rcvport == srcport:
-                        raise ValueError("rcvport and srcport must be different")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU {rcvport},{srcport}")
-
-            class TRLLine:
-                """
-                TRL line standard calibration data measurement.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:TRLLine <port1>,<port2>
-                def measure_trl_line(self, port1: int, port2: int):
-                    """
-                    Measures the calibration data of the TRL line standard between port1 and port2.
-
-                    Parameter:
-                        port1 (int): Port number (1-4)
-                        port2 (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                        raise ValueError("port1 and port2 must be 1-4")
-                    if port1 == port2:
-                        raise ValueError("port1 and port2 must be different")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLL {port1},{port2}")
-
-            class TRLThru:
-                """
-                TRL thru standard calibration data measurement.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:TRLThru <port1>,<port2>
-                def measure_trl_thru(self, port1: int, port2: int):
-                    """
-                    Measures the calibration data of the TRL thru standard between port1 and port2.
-
-                    Parameter:
-                        port1 (int): Port number (1-4)
-                        port2 (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                        raise ValueError("port1 and port2 must be 1-4")
-                    if port1 == port2:
-                        raise ValueError("port1 and port2 must be different")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLT {port1},{port2}")
-
-            class TRLReflect:
-                """
-                TRL reflect standard calibration data measurement.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:COLL:TRLReflect <port>
-                def measure_trl_reflect(self, port: int):
-                    """
-                    Measures the calibration data of the TRL reflect standard for the specified port.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLR {port}")
-
-          
-            class CollectMethod:
-                """
-                Calibration collection method commands.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe<Ch>:CORRection:COLLect:METHod:ERESponse <rcvport>,<srcport>
-                def set_eresponse(self, rcvport: int, srcport: int):
-                    """
-                    Selects the ports and sets the one path 2–port calibration type for the calculation of the calibration coefficients.
-
-                    Parameter:
-                        rcvport (int): Receiver port number (1-4)
-                        srcport (int): Source port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
-                        raise ValueError("rcvport and srcport must be 1-4")
-                    if rcvport == srcport:
-                        raise ValueError("rcvport and srcport must be different for ERESponse")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:ERES {rcvport},{srcport}")
-
-                # SENSe<Ch>:CORRection:COLLect:METHod[:RESPonse]:OPEN <port>
-                def set_response_open(self, port: int):
-                    """
-                    Selects the port and sets the response calibration (Open) type for the calculation of the calibration coefficients.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:RESP:OPEN {port}")
-
-                # SENSe<Ch>:CORRection:COLLect:METHod[:RESPonse]:SHORt <port>
-                def set_response_short(self, port: int):
-                    """
-                    Selects the port and sets the response calibration (Short) type for the calculation of the calibration coefficients.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:RESP:SHOR {port}")
-
-                # SENSe<Ch>:CORRection:COLLect:METHod:SOLT1 <port>
-                def set_solt1(self, port: int):
-                    """
-                    Selects the port and sets the full one-port (SOL) calibration type for the calculation of the calibration coefficients.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:SOLT1 {port}")
-
-                # SENSe<Ch>:CORRection:COLLect:METHod:SOLT2 <port1>,<port2>
-                def set_solt2(self, port1: int, port2: int):
-                    """
-                    Selects the ports and sets the full two-port (SOLT) calibration type for the calculation of the calibration coefficients.
-
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
-                        raise ValueError("port1 and port2 must be 1-4")
-                    if port1 == port2:
-                        raise ValueError("port1 and port2 must be different for SOLT2")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:SOLT2 {port1},{port2}")
-
-            class SubClass:
-                """
-                Calibration standard subclass selection.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-                # SENS:CORR:COLL:SUBClass <numeric>
-                def set_subclass(self, subclass_num: int):
-                    """
-                    Selects the subclass number of calibration standard used for measurement.
-
-                    Parameter:
-                        subclass_num (int): Subclass number (1-8)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= subclass_num <= 8):
-                        raise ValueError("subclass_num must be 1-8")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:SUBC {subclass_num}")
-
-                # SENS:CORR:COLL:SUBClass?
-                def get_subclass(self) -> int:
-                    """
-                    Gets the subclass number of calibration standard used for measurement.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        int: Subclass number
-                    """
-                    return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:SUBC?"))
-                # SENSe<Ch>:CORRection:COLLect:SUBClass = <numeric>
-                def set_subclass(self, subclass_num: int):
-                    """
-                    Selects the subclass number of calibration standard used for measurement.
-
-                    Parameter:
-                        subclass_num (int): Subclass number (1-8)
-
-                    Return:
-                        None
-                    """
-                    if not (1 <= subclass_num <= 8):
-                        raise ValueError("subclass_num must be 1-8")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:SUBC {subclass_num}")
-        class Correction:
-            """
-            Correction commands for calibration coefficient calculation."""
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
             class CollectMethod:
                 """
                 Calibration collection method commands for calibration coefficient calculation.
@@ -9986,6 +8123,10 @@ frequency offset, channel data transfer."""
                     self.instrument = instrument
                     self.data_handler = data_handler
                     self.n = channel
+                    self.waveguide = self.ThruAdditionWaveguide(instrument, data_handler, channel)
+                    self.full2port = self.ThruAdditionFull2Port(instrument, data_handler, channel)
+                    self.full3port = self.ThruAdditionFull3Port(instrument, data_handler, channel)
+                    self.full4port = self.ThruAdditionFull4Port(instrument, data_handler, channel)
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:DELay <numeric>
                 def set_thru_addition_delay(self, value: float):
@@ -10291,6 +8432,7 @@ frequency offset, channel data transfer."""
                         self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:FULL4:COMP")
 
             class Extension:
+                
                 """
                 Port extension related commands.
                 """
@@ -10298,6 +8440,8 @@ frequency offset, channel data transfer."""
                     self.instrument = instrument
                     self.data_handler = data_handler
                     self.n = channel
+                    self.auto = self.Auto(instrument, data_handler, channel)
+                    self.port = self.Port(instrument, data_handler, channel, port=1)  # Example: port=1, user should instantiate as needed
 
                 # SENSe<Ch>:CORRection:EXTension[:STATe] {OFF|ON|0|1}
                 def enable_port_extension(self, enable: bool):
@@ -10879,51 +9023,6 @@ frequency offset, channel data transfer."""
                         None
                     """
                     self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:METH:SMIX2 {port1},{port2}")
-   
-
-            class PortImpedance:
-                """
-                System Z0 for the specified port.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENS:CORR:PORT:IMP - System Z0 for the specified port
-                def set_port_impedance(self, port: int, value: float):
-                    """
-                    Set the system Z0 for the specified port.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-                        value (float): Impedance value (0.001 to 1000)
-
-                    Return:
-                        None
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    if not (0.001 <= value <= 1000):
-                        raise ValueError("value must be between 0.001 and 1000")
-                    self.instrument.write(f":SENS{self.n}:CORR:PORT{port}:IMP {value}")
-
-                        raise ValueError("value must be between 0.001 and 1000")
-                    self.instrument.write(f":SENS{self.n}:CORR:PORT{port}:IMP {value}")
-
-                def get_port_impedance(self, port: int) -> float:
-                
-                    Get the system Z0 for the specified port.
-
-                    Parameter:
-                        port (int): Port number (1-4)
-
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:PORT{port}:IMP?"))
-                """
-                    if not (1 <= port <= 4):
-                        raise ValueError("port must be 1-4")
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:PORT{port}:IMP?"))
 
             class Receiver:
                 """
@@ -10933,6 +9032,7 @@ frequency offset, channel data transfer."""
                     self.instrument = instrument
                     self.data_handler = data_handler
                     self.n = channel
+                    self.offset_amplitude = self.OffsetAmplitude(instrument, data_handler, channel)
 
                 # SENS:CORR:REC - Receiver correction ON/OFF
                 def enable_receiver_correction(self, port: int, enable: bool):
@@ -11057,41 +9157,7 @@ frequency offset, channel data transfer."""
                             raise ValueError("port must be 1-4")
                         return float(self.instrument.query(f":SENS{self.n}:CORR:REC:OFFS:AMPL? {port}"))
 
-            class ErrorCorrection:
-                """
-                S-parameter error correction ON/OFF.
-                """
-                def __init__(self, instrument, data_handler, channel):
-                    self.instrument = instrument
-                    self.data_handler = data_handler
-                    self.n = channel
-
-                # SENSe<Ch>:CORRection:STATe {OFF|ON|0|1}
-                def set_error_correction_state(self, enable: bool):
-                    """
-                    Turn S-parameter error correction ON/OFF.
-
-                    Parameter:
-                        enable (bool): True to enable, False to disable
-
-                    Return:
-                        None
-                    """
-                    self.instrument.write(f":SENS{self.n}:CORR:STAT {1 if enable else 0}")
-
-                # SENSe<Ch>:CORRection:STATe?
-                def is_error_correction_enabled(self) -> bool:
-                    """
-                    Query if S-parameter error correction is enabled.
-
-                    Parameter:
-                        None
-
-                    Return:
-                        bool: True if enabled, False otherwise
-                    """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:STAT?")))
-
+            
             class CableInTimeDomain:
                 """
                 Cable correction function for time domain transformation.
@@ -11288,7 +9354,7 @@ frequency offset, channel data transfer."""
                     parts = resp.split(',')
                     return (parts[0],) + tuple(map(int, parts[1:]))
 
-            class VmcCollect:
+            class VMC:
                 """
                 Vector mixer calibration commands.
                 """
@@ -11362,12 +9428,8 @@ frequency offset, channel data transfer."""
                         float: LO frequency in Hz
                     """
                     return float(self.instrument.query(f":SENS{self.n}:CORR:VMC:COLL:LO:FREQ?"))
-            
-    
-            class VmcCollect:
-                """
-                Vector Mixer Calibration related commands.
-                """
+        
+                
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
@@ -11490,6 +9552,7 @@ frequency offset, channel data transfer."""
                     self.data_handler = data_handler
                     self.n = channel
 
+
                 # SENS:DATA:CORR?
                 def get_corrected_data_array(self, param: str):
                     allowed_prefixes = ['S', 'T', 'R', 'A', 'B', 'C', 'D']
@@ -11497,6 +9560,7 @@ frequency offset, channel data transfer."""
                         raise ValueError(f"param must start with one of {allowed_prefixes}")
                     data = self.instrument.query(f":SENS{self.n}:DATA:CORR? {param}")
                     return self.data_handler.parse_array(data)
+                
                 def get_raw_data_array(self, param: str):
                     """param (str): S-parameter (e.g., 'S11', 'S21', ...) 
                     or receiver ('T11', 'R11', ...)
@@ -11509,32 +9573,1862 @@ frequency offset, channel data transfer."""
                         raise ValueError("param must start with S, T, R, A, B, C, or D")
                     data = self.instrument.query(f":SENS{self.n}:DATA:CORR? {param}")
                     return self.data_handler.parse_array(data)
- 
-   
-
-                    allowed_prefixes = ['S', 'T', 'R', 'A', 'B', 'C', 'D']
-                    if not any(param.startswith(p) for p in allowed_prefixes):
-                        raise ValueError(f"param must start with one of {allowed_prefixes}")
-                    data = self.instrument.query(f":SENS{self.n}:DATA:RAWD? {param}")
-                    return self.data_handler.parse_array(data)
-
-
-                    """
-                    Get raw data array for a given S-parameter or receiver.
-
-                    Parameters:
-                        param (str): S-parameter (e.g., 'S11', 'S21', ...) or receiver ('T11', 'R11', ...)
-
-                    Returns:
-                        list: Raw data array (real/imag pairs)
-                    """
-                    allowed_prefixes = ['S', 'T', 'R', 'A', 'B', 'C', 'D']
-                    if not any(param.startswith(p) for p in allowed_prefixes):
-                        raise ValueError("param must start with S, T, R, A, B, C, or D")
-                    data = self.instrument.query(f":SENS{self.n}:DATA:RAWD? {param}")
-                    return self.data_handler.parse_array(data)
 
                 
+            class Kit:
+                """
+                Calibration kit management commands.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+                    self.standard = self.Standard(instrument, data_handler, channel)
+                    self.count = self.Standard.Count(instrument, data_handler, channel)
+                    self.data = self.Standard.Data(instrument, data_handler, channel)
+                    self.delay = self.Standard.Delay(instrument, data_handler, channel)
+                    self.fmax = self.Standard.Fmax(instrument, data_handler, channel)
+                    self.fmin = self.Standard.StandardFmin(instrument, data_handler, channel)
+                    self.insert = self.Standard.Insert(instrument, data_handler, channel)
+                    self.l0 = self.Standard.StandardL0(instrument, data_handler, channel)
+                    self.l1 = self.Standard.L1(instrument, data_handler, channel)
+                    self.l2 = self.Standard.L2(instrument, data_handler, channel)
+                    self.l3 = self.Standard.L3(instrument, data_handler, channel)
+                    self.label = self.Standard.Label(instrument, data_handler, channel)
+                    self.select = self.Select(instrument, data_handler, channel)
+                    self.description = self.Select.Description(instrument, data_handler, channel)
+                    self.order = self.Select.Order(instrument, data_handler, channel)
+                    self.arbitrary = self.Arbitrary(instrument, data_handler, channel)
+                    self.open_capacitance = self.OpenCapacitance(instrument, data_handler, channel)
+                class Standard:
+                    """
+                    Calibration kit standard management commands.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENS:CORR:COLL:CKIT:STAN<Std>:LOSS - Offset loss value for calibration standard
+                    def set_standard_offset_loss(self, std: int, value: float):
+                        """
+                        Set the offset loss value for the calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+                            value (float): Offset loss value (-1E18 to 1E18)
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LOSS {value}")
+
+                    def get_standard_offset_loss(self, std: int) -> float:
+                        """
+                        Get the offset loss value for the calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            float: Offset loss value
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LOSS?"))
+
+                    # SENS:CORR:COLL:CKIT:STAN<Std>:REM - Delete calibration standard
+                    def remove_standard(self, std: int):
+                        """
+                        Delete the calibration standard from the selected calibration kit.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:REM")
+
+                    # SENS:CORR:COLL:CKIT:STAN<Std>:TYPE - Type of calibration standard
+                    def set_standard_type(self, std: int, std_type: str):
+                        """
+                        Set the type of calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+                            std_type (str): Type, one of ['OPEN', 'SHOR', 'LOAD', 'THRU', 'UTHR', 'SLID', 'DATA', 'NONE']
+
+                        Return:
+                            None
+                        """
+                        allowed = ['OPEN', 'SHOR', 'LOAD', 'THRU', 'UTHR', 'SLID', 'DATA', 'NONE']
+                        if std_type not in allowed:
+                            raise ValueError(f"std_type must be one of {allowed}")
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:TYPE {std_type}")
+
+                    def get_standard_type(self, std: int) -> str:
+                        """
+                        Get the type of calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            str: Standard type
+                        """
+                        return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:TYPE?").strip()
+
+                    # SENS:CORR:COLL:CKIT:STAN<Std>:Z0 - Offset Z0 value for calibration standard
+                    def set_standard_offset_z0(self, std: int, value: float):
+                        """
+                        Set the offset Z0 value for the calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+                            value (float): Offset Z0 value (-1E18 to 1E18)
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:Z0 {value}")
+
+                    def get_standard_offset_z0(self, std: int) -> float:
+                        """
+                        Get the offset Z0 value for the calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            float: Offset Z0 value
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:Z0?"))
+                    # SENS:CORR:COLL:CKIT:STAN:LAB - Standard label
+                    def set_standard_label(self, label: str):
+                        """
+                        Set standard label.
+
+                        Parameter:
+                            label (str): Standard label
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LAB \"{label}\"")
+
+                    def get_standard_label(self) -> str:
+                        """
+                        Get standard label.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            str: Standard label
+                        """
+                        return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LAB?").strip()
+
+                    # SENS:CORR:COLL:CKIT:STAN:LOSS - Offset loss
+                    def set_standard_offset_loss(self, value: float):
+                        """
+                        Set offset loss for standard.
+
+                        Parameter:
+                            value (float): Offset loss
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LOSS {value}")
+
+                    def get_standard_offset_loss(self) -> float:
+                        """
+                        Get offset loss for standard.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            float: Offset loss
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LOSS?"))
+
+                    # SENS:CORR:COLL:CKIT:STAN:TYPE - Standard type
+                    def set_standard_type(self, std_type: str):
+                        """
+                        Set standard type.
+
+                        Parameter:
+                            std_type (str): Standard type, e.g., 'LOAD', 'OPEN', 'SHORT', 'THRU', etc.
+
+                        Return:
+                            None
+                        """
+                        allowed = ['LOAD', 'OPEN', 'SHORT', 'THRU', 'ARB', 'C0', 'C1', 'C2', 'C3', 'L0', 'L1', 'L2', 'L3']
+                        if std_type not in allowed:
+                            raise ValueError(f"std_type must be one of {allowed}")
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:TYPE {std_type}")
+
+                    def get_standard_type(self) -> str:
+                        """
+                        Get standard type.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            str: Standard type
+                        """
+                        return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:TYPE?").strip()
+
+                    # SENS:CORR:COLL:CKIT:STAN:Z0 - Offset Z0
+                    def set_standard_offset_z0(self, value: float):
+                        """
+                        Set offset Z0 for standard.
+
+                        Parameter:
+                            value (float): Offset Z0
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:Z0 {value}")
+
+                    def get_standard_offset_z0(self) -> float:
+                        """
+                        Get offset Z0 for standard.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            float: Offset Z0
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:Z0?"))
+                    class Count:
+                        """
+                        Calibration kit standard count commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STANdard:COUNt?
+                        def get_standard_count(self) -> int:
+                            """
+                            Reads out the count of standards in the selected calibration kit.
+
+                            Parameter:
+                                None
+
+                            Return:
+                                int: Number of standards in the calibration kit
+                            """
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:COUN?"))
+
+                    class Data:
+                        """
+                        Calibration kit standard data array commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DATA <numeric list>
+                        def set_standard_data(self, std: int, data_list):
+                            """
+                            Writes the data array of the data-based calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                data_list (list): Data array as per documentation
+
+                            Return:
+                                None
+                            """
+                            data_str = ",".join(str(float(x)) for x in data_list)
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DATA {data_str}")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DATA?
+                        def get_standard_data(self, std: int):
+                            """
+                            Reads out the data array of the data-based calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                list: Data array
+                            """
+                            data = self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DATA?")
+                            return self.data_handler.parse_array(data)
+
+                    class Delay:
+                        """
+                        Calibration kit standard offset delay commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DELay <numeric>
+                        def set_standard_delay(self, std: int, value: float):
+                            """
+                            Sets the offset delay value for the calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                value (float): Offset delay value (–1E18 to 1E18), in seconds
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DEL {value}")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:Delay?
+                        def get_standard_delay(self, std: int) -> float:
+                            """
+                            Reads out the offset delay value for the calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                float: Offset delay value in seconds
+                            """
+                            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DEL?"))
+
+                    class Fmax:
+                        """
+                        Calibration kit standard maximum frequency commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMAXimum <numeric>
+                        def set_standard_fmax(self, std: int, value: float):
+                            """
+                            Sets the maximum frequency limit of the calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                value (float): Maximum frequency limit (0 to 1E14), in Hz
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMAX {value}")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMAXimum?
+                        def get_standard_fmax(self, std: int) -> float:
+                            """
+                            Reads out the maximum frequency limit of the calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                float: Maximum frequency limit in Hz
+                            """
+                            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMAX?"))
+
+                    class StandardFmin:
+                        """
+                        Calibration kit standard minimum frequency commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMINimum <numeric>
+                        def set_standard_fmin(self, std: int, value: float):
+                            """
+                            Sets the minimum frequency limit of the calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                value (float): Minimum frequency limit (0 to 1E14), in Hz
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMIN {value}")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMINimum?
+                        def get_standard_fmin(self, std: int) -> float:
+                            """
+                            Reads out the minimum frequency limit of the calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                float: Minimum frequency limit in Hz
+                            """
+                            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMIN?"))
+
+                    class Insert:
+                        """
+                        Calibration kit standard insert commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:INSert
+                        def insert_standard(self, std: int):
+                            """
+                            Inserts the calibration standard into the selected calibration kit.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:INS")
+
+                    class StandardL0:
+                        """
+                        Calibration kit short standard L0 commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L0 <numeric>
+                        def set_l0(self, std: int, value: float):
+                            """
+                            Set the L0 value for the short calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                value (float): L0 value (–1E18 to 1E18), units 1E–12 H
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L0 {value}")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L0?
+                        def get_l0(self, std: int) -> float:
+                            """
+                            Get the L0 value for the short calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                float: L0 value
+                            """
+                            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L0?"))
+
+                    class L1:
+                        """
+                        Calibration kit short standard L1 commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L1 <numeric>
+                        def set_l1(self, std: int, value: float):
+                            """
+                            Set the L1 value for the short calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                value (float): L1 value (–1E18 to 1E18), units 1E–24 H/Hz
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L1 {value}")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L1?
+                        def get_l1(self, std: int) -> float:
+                            """
+                            Get the L1 value for the short calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                float: L1 value
+                            """
+                            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L1?"))
+
+                    class L2:
+                        """
+                        Calibration kit short standard L2 commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L2 <numeric>
+                        def set_l2(self, std: int, value: float):
+                            """
+                            Set the L2 value for the short calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                value (float): L2 value (–1E18 to 1E18), units 1E–33 H/Hz^2
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L2 {value}")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L2?
+                        def get_l2(self, std: int) -> float:
+                            """
+                            Get the L2 value for the short calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                float: L2 value
+                            """
+                            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L2?"))
+
+                    class L3:
+                        """
+                        Calibration kit short standard L3 commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L3 <numeric>
+                        def set_l3(self, std: int, value: float):
+                            """
+                            Set the L3 value for the short calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                value (float): L3 value (–1E18 to 1E18), units 1E–42 H/Hz^3
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L3 {value}")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L3?
+                        def get_l3(self, std: int) -> float:
+                            """
+                            Get the L3 value for the short calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                float: L3 value
+                            """
+                            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L3?"))
+
+                    class Label:
+                        """
+                        Calibration kit standard label commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:LABel <string>
+                        def set_label(self, std: int, label: str):
+                            """
+                            Set the label for the calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+                                label (str): Label string (up to 254 characters)
+
+                            Return:
+                                None
+                            """
+                            if len(label) > 254:
+                                raise ValueError("label must be up to 254 characters")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LAB \"{label}\"")
+
+                        # SENSe:CORRection:COLLect:CKIT:STAN<Std>:LABel?
+                        def get_label(self, std: int) -> str:
+                            """
+                            Get the label for the calibration standard.
+
+                            Parameter:
+                                std (int): Standard number (1..N)
+
+                            Return:
+                                str: Label string
+                            """
+                            return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LAB?").strip()
+                    
+                        # SENS:CORR:COLL:CKIT - Calibration kit selection
+                        def select_calibration_kit(self, kit: int):
+                            """
+                            Select calibration kit.
+
+                            Parameter:
+                                kit (int): Calibration kit number
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT {kit}")
+
+                        # SENS:CORR:COLL:CKIT:LAB - Calibration kit label
+                        def set_calibration_kit_label(self, label: str):
+                            """
+                            Set calibration kit label.
+
+                            Parameter:
+                                label (str): Calibration kit label
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:LAB \"{label}\"")
+
+                        def get_calibration_kit_label(self) -> str:
+                            """
+                            Get calibration kit label.
+
+                            Parameter:
+                                None
+
+                            Return:
+                                str: Calibration kit label
+                            """
+                            return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:LAB?").strip()
+
+                        # SENS:CORR:COLL:CKIT:RES - Remove or restore a calibration kit
+                        def remove_calibration_kit(self):
+                            """
+                            Remove a calibration kit.
+
+                            Parameter:
+                                None
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:RES")
+
+
+                
+                class Select:
+                    """
+                    Calibration kit selection commands.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENSe:CORRection:COLLect:CKIT[:SELect] <numeric>
+                    def select_cal_kit(self, kit: int):
+                        """
+                        Set the number of the selected calibration kit in the table of calibration kits.
+
+                        Parameter:
+                            kit (int): Calibration kit number (1-64)
+
+                        Return:
+                            None
+                        """
+                        if not (1 <= kit <= 64):
+                            raise ValueError("kit must be 1-64")
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:SEL {kit}")
+
+                    # SENSe:CORRection:COLLect:CKIT[:SELect]?
+                    def get_selected_cal_kit(self) -> int:
+                        """
+                        Get the number of the selected calibration kit in the table of calibration kits.
+
+                        Parameter:
+                            None
+
+                        Return:
+                            int: Calibration kit number
+                        """
+                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:SEL?"))
+                    class Description:
+                        """
+                        Calibration kit description string commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:DESCription <string>
+                        def set_description(self, description: str):
+                            """
+                            Set the calibration kit description string.
+
+                            Parameter:
+                                description (str): Description string (up to 254 characters)
+
+                            Return:
+                                None
+                            """
+                            if len(description) > 254:
+                                raise ValueError("description must be up to 254 characters")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:DESC \"{description}\"")
+
+                        # SENSe:CORRection:COLLect:CKIT:DESCription?
+                        def get_description(self) -> str:
+                            """
+                            Get the calibration kit description string.
+
+                            Parameter:
+                                None
+
+                            Return:
+                                str: Description string
+                            """
+                            return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:DESC?").strip()
+
+                    class Order:
+                        """
+                        Calibration kit order assignment commands.
+                        """
+                        def __init__(self, instrument, data_handler, channel):
+                            self.instrument = instrument
+                            self.data_handler = data_handler
+                            self.n = channel
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:LOAD <port>,<numeric>
+                        def set_load_standard(self, port: int, standard_num: int):
+                            """
+                            Set the number of the calibration standard assigned to the LOAD class for the specified port.
+
+                            Parameter:
+                                port (int): Port number (1-4)
+                                standard_num (int): Standard number
+
+                            Return:
+                                None
+                            """
+                            if not (1 <= port <= 4):
+                                raise ValueError("port must be 1-4")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:LOAD {port},{standard_num}")
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:LOAD? <port>
+                        def get_load_standard(self, port: int) -> int:
+                            """
+                            Get the number of the calibration standard assigned to the LOAD class for the specified port.
+
+                            Parameter:
+                                port (int): Port number (1-4)
+
+                            Return:
+                                int: Standard number
+                            """
+                            if not (1 <= port <= 4):
+                                raise ValueError("port must be 1-4")
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:LOAD? {port}"))
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:OPEN <port>,<numeric>
+                        def set_open_standard(self, port: int, standard_num: int):
+                            """
+                            Set the number of the calibration standard assigned to the OPEN class for the specified port.
+
+                            Parameter:
+                                port (int): Port number (1-4)
+                                standard_num (int): Standard number
+
+                            Return:
+                                None
+                            """
+                            if not (1 <= port <= 4):
+                                raise ValueError("port must be 1-4")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:OPEN {port},{standard_num}")
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:OPEN? <port>
+                        def get_open_standard(self, port: int) -> int:
+                            """
+                            Get the number of the calibration standard assigned to the OPEN class for the specified port.
+
+                            Parameter:
+                                port (int): Port number (1-4)
+
+                            Return:
+                                int: Standard number
+                            """
+                            if not (1 <= port <= 4):
+                                raise ValueError("port must be 1-4")
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:OPEN? {port}"))
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:SELect <numeric>
+                        def set_subclass(self, subclass_num: int):
+                            """
+                            Set the subclass number for calibration standard class assignment.
+
+                            Parameter:
+                                subclass_num (int): Subclass number (1-8)
+
+                            Return:
+                                None
+                            """
+                            if not (1 <= subclass_num <= 8):
+                                raise ValueError("subclass_num must be 1-8")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SEL {subclass_num}")
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:SELect?
+                        def get_subclass(self) -> int:
+                            """
+                            Get the subclass number for calibration standard class assignment.
+
+                            Parameter:
+                                None
+
+                            Return:
+                                int: Subclass number
+                            """
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SEL?"))
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:SHORt <port>,<numeric>
+                        def set_short_standard(self, port: int, standard_num: int):
+                            """
+                            Set the number of the calibration standard assigned to the SHORT class for the specified port.
+
+                            Parameter:
+                                port (int): Port number (1-4)
+                                standard_num (int): Standard number
+
+                            Return:
+                                None
+                            """
+                            if not (1 <= port <= 4):
+                                raise ValueError("port must be 1-4")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SHOR {port},{standard_num}")
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:SHORt? <port>
+                        def get_short_standard(self, port: int) -> int:
+                            """
+                            Get the number of the calibration standard assigned to the SHORT class for the specified port.
+
+                            Parameter:
+                                port (int): Port number (1-4)
+
+                            Return:
+                                int: Standard number
+                            """
+                            if not (1 <= port <= 4):
+                                raise ValueError("port must be 1-4")
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SHOR? {port}"))
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:THRU <port1>,<port2>,<numeric>
+                        def set_thru_standard(self, port1: int, port2: int, standard_num: int):
+                            """
+                            Set the number of the calibration standard assigned to the THRU class for the measurement between the specified ports.
+
+                            Parameter:
+                                port1 (int): Receiver port number (1-4)
+                                port2 (int): Source port number (1-4)
+                                standard_num (int): Standard number
+
+                            Return:
+                                None
+                            """
+                            if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                                raise ValueError("port1 and port2 must be 1-4")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:THRU {port1},{port2},{standard_num}")
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:THRU? <port1>,<port2>
+                        def get_thru_standard(self, port1: int, port2: int) -> int:
+                            """
+                            Get the number of the calibration standard assigned to the THRU class for the measurement between the specified ports.
+
+                            Parameter:
+                                port1 (int): Receiver port number (1-4)
+                                port2 (int): Source port number (1-4)
+
+                            Return:
+                                int: Standard number
+                            """
+                            if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                                raise ValueError("port1 and port2 must be 1-4")
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:THRU? {port1},{port2}"))
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:TRLLine <port1>,<port2>,<numeric>
+                        def set_trl_line_standard(self, port1: int, port2: int, standard_num: int):
+                            """
+                            Set the number of the calibration standard assigned to the TRL LINE class for the measurement between the specified ports.
+
+                            Parameter:
+                                port1 (int): Receiver port number (1-4)
+                                port2 (int): Source port number (1-4)
+                                standard_num (int): Standard number
+
+                            Return:
+                                None
+                            """
+                            if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                                raise ValueError("port1 and port2 must be 1-4")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLL {port1},{port2},{standard_num}")
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:TRLLine? <port1>,<port2>
+                        def get_trl_line_standard(self, port1: int, port2: int) -> int:
+                            """
+                            Get the number of the calibration standard assigned to the TRL LINE class for the measurement between the specified ports.
+
+                            Parameter:
+                                port1 (int): Receiver port number (1-4)
+                                port2 (int): Source port number (1-4)
+
+                            Return:
+                                int: Standard number
+                            """
+                            if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                                raise ValueError("port1 and port2 must be 1-4")
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLL? {port1},{port2}"))
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:TRLThru <port1>,<port2>,<numeric>
+                        def set_trl_thru_standard(self, port1: int, port2: int, standard_num: int):
+                            """
+                            Set the number of the calibration standard assigned to the TRL THRU class for the measurement between the specified ports.
+
+                            Parameter:
+                                port1 (int): Receiver port number (1-4)
+                                port2 (int): Source port number (1-4)
+                                standard_num (int): Standard number
+
+                            Return:
+                                None
+                            """
+                            if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                                raise ValueError("port1 and port2 must be 1-4")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLT {port1},{port2},{standard_num}")
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:TRLThru? <port1>,<port2>
+                        def get_trl_thru_standard(self, port1: int, port2: int) -> int:
+                            """
+                            Get the number of the calibration standard assigned to the TRL THRU class for the measurement between the specified ports.
+
+                            Parameter:
+                                port1 (int): Receiver port number (1-4)
+                                port2 (int): Source port number (1-4)
+
+                            Return:
+                                int: Standard number
+                            """
+                            if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                                raise ValueError("port1 and port2 must be 1-4")
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLT? {port1},{port2}"))
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:TRLReflect <port>,<numeric>
+                        def set_trl_reflect_standard(self, port: int, standard_num: int):
+                            """
+                            Set the number of the calibration standard assigned to the TRL REFLECT class for the specified port.
+
+                            Parameter:
+                                port (int): Port number (1-4)
+                                standard_num (int): Standard number
+
+                            Return:
+                                None
+                            """
+                            if not (1 <= port <= 4):
+                                raise ValueError("port must be 1-4")
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLR {port},{standard_num}")
+
+                        # SENSe:CORRection:COLLect:CKIT:ORDer:TRLReflect? <port>
+                        def get_trl_reflect_standard(self, port: int) -> int:
+                            """
+                            Get the number of the calibration standard assigned to the TRL REFLECT class for the specified port.
+
+                            Parameter:
+                                port (int): Port number (1-4)
+
+                            Return:
+                                int: Standard number
+                            """
+                            if not (1 <= port <= 4):
+                                raise ValueError("port must be 1-4")
+                            return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLR? {port}"))
+
+                        # SENSe:CORRection:COLLect:CKIT:RESet
+                        def reset_calibration_kit(self):
+                            """
+                            Reset the calibration kit to the factory settings.
+
+                            Parameter:
+                                None
+
+                            Return:
+                                None
+                            """
+                            self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:RES")
+                class Arbitrary:
+                    """
+                    Calibration kit arbitrary impedance commands.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:ARBitrary <numeric>
+                    def set_arbitrary_impedance(self, std: int, value: float):
+                        """
+                        Set the arbitrary impedance value for the load standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+                            value (float): Impedance value (-1E18 to 1E18)
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:ARB {value}")
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:ARBitrary?
+                    def get_arbitrary_impedance(self, std: int) -> float:
+                        """
+                        Get the arbitrary impedance value for the load standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            float: Impedance value
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:ARB?"))
+
+                class OpenCapacitance:
+                    """
+                    Calibration kit open standard capacitance commands.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C0 <numeric>
+                    def set_c0(self, std: int, value: float):
+                        """
+                        Set the C0 value for the open calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+                            value (float): C0 value (-1E18 to 1E18), units 1E-15 F
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C0 {value}")
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C0?
+                    def get_c0(self, std: int) -> float:
+                        """
+                        Get the C0 value for the open calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            float: C0 value
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C0?"))
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C1 <numeric>
+                    def set_c1(self, std: int, value: float):
+                        """
+                        Set the C1 value for the open calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+                            value (float): C1 value (-1E18 to 1E18), units 1E-27 F/Hz
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C1 {value}")
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C1?
+                    def get_c1(self, std: int) -> float:
+                        """
+                        Get the C1 value for the open calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            float: C1 value
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C1?"))
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C2 <numeric>
+                    def set_c2(self, std: int, value: float):
+                        """
+                        Set the C2 value for the open calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+                            value (float): C2 value (-1E18 to 1E18), units 1E-36 F/Hz^2
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C2 {value}")
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C2?
+                    def get_c2(self, std: int) -> float:
+                        """
+                        Get the C2 value for the open calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            float: C2 value
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C2?"))
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C3 <numeric>
+                    def set_c3(self, std: int, value: float):
+                        """
+                        Set the C3 value for the open calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+                            value (float): C3 value (-1E18 to 1E18), units 1E-45 F/Hz^3
+
+                        Return:
+                            None
+                        """
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C3 {value}")
+
+                    # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C3?
+                    def get_c3(self, std: int) -> float:
+                        """
+                        Get the C3 value for the open calibration standard.
+
+                        Parameter:
+                            std (int): Standard number (1..N)
+
+                        Return:
+                            float: C3 value
+                        """
+                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C3?"))
+                
+            class Collection:
+                """
+                Calibration collection related commands.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+                    self.data = self.Data(instrument, data_handler, channel)
+              
+                # SENS:CORR:COLL:CLE - Clears measurement data of calibration standards
+                def clear_collection(self):
+                    """
+                    Clear the measurement data of the calibration standards.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CLE")
+
+                class Data:
+                    """
+                    Calibration isolation data commands.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENS:CORR:COLL:DATA:ISOLation <rcvport>,<srcport>,<numeric list>
+                    def set_isolation_data(self, rcvport: int, srcport: int, data_list):
+                        """
+                        Write the array of the isolation calibration measurement.
+
+                        Parameter:
+                            rcvport (int): Receiver port (1-4)
+                            srcport (int): Source port (1-4)
+                            data_list (list): Array of real/imaginary pairs
+
+                        Return:
+                            None
+                        """
+                        if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                            raise ValueError("rcvport and srcport must be 1-4")
+                        data_str = ",".join(str(float(x)) for x in data_list)
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:DATA:ISOL {rcvport},{srcport},{data_str}")
+
+                    # SENS:CORR:COLL:DATA:ISOLation? <rcvport>,<srcport>
+                    def get_isolation_data(self, rcvport: int, srcport: int):
+                        """
+                        Read out the array of the isolation calibration measurement.
+
+                        Parameter:
+                            rcvport (int): Receiver port (1-4)
+                            srcport (int): Source port (1-4)
+
+                        Return:
+                            list: Array of real/imaginary pairs
+                        """
+                        if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                            raise ValueError("rcvport and srcport must be 1-4")
+                        data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:ISOL? {rcvport},{srcport}")
+                        return self.data_handler.parse_array(data)
+    
+            
+            class AutoCal:
+                """
+                AutoCal module related commands.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:CORR:COLL:ECAL:CCH[:ACQuire] - Confidence check of calibration coefficients
+                def execute_confidence_check(self):
+                    """
+                    Executes the confidence check of the calibration coefficients using the AutoCal module.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:CCH:ACQuire")
+
+                # SENS:CORR:COLL:ECAL:ERESponse <rcvport>,<srcport>
+                def execute_one_path_two_port_cal(self, rcvport: int, srcport: int):
+                    """
+                    Executes one path two-port calibration between the specified ports using the AutoCal module.
+
+                    Parameter:
+                        rcvport (int): Receiver port number (1-4)
+                        srcport (int): Source port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                        raise ValueError("rcvport and srcport must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ERES {rcvport},{srcport}")
+
+                # SENS:CORR:COLL:ECAL:INFormation?
+                def get_autocal_information(self) -> str:
+                    """
+                    Gets information on the AutoCal Module connected to the Network Analyzer.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Information string (comma separated fields)
+                    """
+                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:INFormation?").strip()
+
+                # SENS:CORR:COLL:ECAL:ORIentation:EXECute
+                def execute_auto_orientation(self):
+                    """
+                    Executes the Auto-Orientation procedure of the AutoCal Module.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:EXECute")
+
+                # SENS:CORR:COLL:ECAL:ORIentation:STATe {OFF|ON|0|1}
+                def enable_auto_orientation(self, enable: bool):
+                    """
+                    Turns the Auto-Orientation function ON/OFF for AutoCal calibration.
+
+                    Parameter:
+                        enable (bool): True to enable, False to disable
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:STATe {1 if enable else 0}")
+
+                def is_auto_orientation_enabled(self) -> bool:
+                    """
+                    Query if the Auto-Orientation function is enabled.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:STATe?")))
+
+                # SENS:CORR:COLL:ECAL:PATH <numeric1>,<numeric2>
+                def set_autocal_path(self, analyzer_port: int, autocal_port: int):
+                    """
+                    Sets the AutoCal module port number connected to a specified port of the Network Analyzer.
+
+                    Parameter:
+                        analyzer_port (int): Network Analyzer Port Number (1-4)
+                        autocal_port (int): AutoCal Module Port Number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= analyzer_port <= 4):
+                        raise ValueError("analyzer_port must be 1-4")
+                    if not (1 <= autocal_port <= 4):
+                        raise ValueError("autocal_port must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:PATH {analyzer_port},{autocal_port}")
+
+                # SENS:CORR:COLL:ECAL:PATH? <numeric1>
+                def get_autocal_path(self, analyzer_port: int) -> int:
+                    """
+                    Reads out the AutoCal module port number connected to a specified port of the Network Analyzer.
+
+                    Parameter:
+                        analyzer_port (int): Network Analyzer Port Number (1-4)
+
+                    Return:
+                        int: AutoCal Module Port Number (1-4)
+                    """
+                    if not (1 <= analyzer_port <= 4):
+                        raise ValueError("analyzer_port must be 1-4")
+                    return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:PATH? {analyzer_port}"))
+                # SENS:CORR:COLL:ECAL:SOLT1 <port>
+                def execute_solt1_calibration(self, port: int):
+                    """
+                    Executes one-port calibration of the specified port using the AutoCal module.
+
+                    Parameter:
+                        port (int): Port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port <= 4):
+                        raise ValueError("port must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT1 {port}")
+
+                # SENS:CORR:COLL:ECAL:SOLT2 <port1>,<port2>
+                def execute_solt2_calibration(self, port1: int, port2: int):
+                    """
+                    Executes full two-port calibration between the specified ports using the AutoCal module.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                        raise ValueError("port1 and port2 must be 1-4")
+                    if port1 == port2:
+                        raise ValueError("port1 and port2 must be different for SOLT2")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT2 {port1},{port2}")
+
+                # SENS:CORR:COLL:ECAL:SOLT3 <port1>,<port2>,<port3>
+                def execute_solt3_calibration(self, port1: int, port2: int, port3: int):
+                    """
+                    Executes full three-port calibration between the specified ports using the AutoCal module.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+                        port3 (int): Third port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    ports = [port1, port2, port3]
+                    if any(not (1 <= p <= 4) for p in ports):
+                        raise ValueError("All ports must be 1-4")
+                    if len(set(ports)) != 3:
+                        raise ValueError("All ports must be different for SOLT3")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT3 {port1},{port2},{port3}")
+
+                # SENS:CORR:COLL:ECAL:SOLT4 <port1>,<port2>,<port3>,<port4>
+                def execute_solt4_calibration(self, port1: int, port2: int, port3: int, port4: int):
+                    """
+                    Executes full four-port calibration between the specified ports using the AutoCal module.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+                        port3 (int): Third port number (1-4)
+                        port4 (int): Fourth port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    ports = [port1, port2, port3, port4]
+                    if any(not (1 <= p <= 4) for p in ports):
+                        raise ValueError("All ports must be 1-4")
+                    if len(set(ports)) != 4:
+                        raise ValueError("All ports must be different for SOLT4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT4 {port1},{port2},{port3},{port4}")
+
+                # SENS:CORR:COLL:ECAL:THERmo:COMPensation[:STATe] {OFF|ON|0|1}
+                def enable_thermo_compensation(self, enable: bool):
+                    """
+                    Turns the thermo compensation function ON/OFF for AutoCal calibration.
+
+                    Parameter:
+                        enable (bool): True to enable, False to disable
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:THERmo:COMPensation:STATe {1 if enable else 0}")
+
+                def is_thermo_compensation_enabled(self) -> bool:
+                    """
+                    Query if the thermo compensation function is enabled for AutoCal calibration.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:THERmo:COMPensation:STATe?")))
+
+                # SENS:CORR:COLL:ECAL:UCHar <char>
+                def set_autocal_characterization(self, char: str):
+                    """
+                    Sets the characterization number used when executing AutoCal.
+
+                    Parameter:
+                        char (str): Characterization, one of ['CHAR0', 'CHAR1', 'CHAR2', 'CHAR3']
+
+                    Return:
+                        None
+                    """
+                    allowed = ['CHAR0', 'CHAR1', 'CHAR2', 'CHAR3']
+                    if char not in allowed:
+                        raise ValueError(f"char must be one of {allowed}")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:UCHar {char}")
+
+                def get_autocal_characterization(self) -> str:
+                    """
+                    Reads out the characterization number used when executing AutoCal.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        str: Characterization ('CHAR0', 'CHAR1', 'CHAR2', 'CHAR3')
+                    """
+                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:UCHar?").strip()
+            class AutoCal2:
+                """
+                AutoCal 2-port/3-port/4-port calibration commands.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:CORR:COLL:ECAL2 <port 1>,<port 2>
+                def execute_ecal2(self, port1: int, port2: int):
+                    """
+                    Executes a calibration step using a two-port ACM connecting port1 and port2.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                        raise ValueError("port1 and port2 must be 1-4")
+                    if port1 == port2:
+                        raise ValueError("port1 and port2 must be different")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2 {port1},{port2}")
+
+                # SENS:CORR:COLL:ECAL2:METH:SOLT3 <port1>,<port2>,<port3>
+                def set_method_solt3(self, port1: int, port2: int, port3: int):
+                    """
+                    Selects ports and sets the type to full 3-port for calibration with the 2-port AutoCal module.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+                        port3 (int): Third port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    ports = [port1, port2, port3]
+                    if any(not (1 <= p <= 4) for p in ports):
+                        raise ValueError("All ports must be 1-4")
+                    if len(set(ports)) != 3:
+                        raise ValueError("All ports must be different for SOLT3")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:METH:SOLT3 {port1},{port2},{port3}")
+
+                # SENS:CORR:COLL:ECAL2:METH:SOLT4 <port1>,<port2>,<port3>,<port4>
+                def set_method_solt4(self, port1: int, port2: int, port3: int, port4: int):
+                    """
+                    Selects ports and sets the type to full 4-port for calibration with the 2-port AutoCal module.
+
+                    Parameter:
+                        port1 (int): First port number (must be 1)
+                        port2 (int): Second port number (must be 2)
+                        port3 (int): Third port number (must be 3)
+                        port4 (int): Fourth port number (must be 4)
+
+                    Return:
+                        None
+                    """
+                    ports = [port1, port2, port3, port4]
+                    if ports != [1, 2, 3, 4]:
+                        raise ValueError("Ports must be 1, 2, 3, 4 for SOLT4")
+                    if len(set(ports)) != 4:
+                        raise ValueError("All ports must be different for SOLT4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:METH:SOLT4 {port1},{port2},{port3},{port4}")
+
+                # SENS:CORR:COLL:ECAL2:THRU <port 1>, <port 2>, {[UNKNown] | FLUSh}
+                def measure_thru(self, port1: int, port2: int, thru_type: str = "UNKNown"):
+                    """
+                    Measures a THRU between port1 and port2 for 3-port/4-port calibration with 2-port ACM.
+
+                    Parameter:
+                        port1 (int): First port number (1-4)
+                        port2 (int): Second port number (1-4)
+                        thru_type (str): 'UNKNown' (default) or 'FLUSh'
+
+                    Return:
+                        None
+                    """
+                    allowed = ['UNKNown', 'FLUSh']
+                    if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                        raise ValueError("port1 and port2 must be 1-4")
+                    if port1 == port2:
+                        raise ValueError("port1 and port2 must be different")
+                    if thru_type not in allowed:
+                        raise ValueError(f"thru_type must be one of {allowed}")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:THRU {port1},{port2},{thru_type}")
+
+            class AutoCalUnknownThru:
+                """
+                AutoCal Unknown Thru feature commands.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:CORR:COLL:ECAL:UTHRu:STATe {OFF|ON|0|1}
+                def enable_unknown_thru(self, enable: bool):
+                    """
+                    Turns the Unknown Thru feature ON/OFF for AutoCal calibration.
+
+                    Parameter:
+                        enable (bool): True to enable, False to disable
+
+                    Return:
+                        None
+                    """
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:UTHRu:STATe {1 if enable else 0}")
+
+                def is_unknown_thru_enabled(self) -> bool:
+                    """
+                    Query if the Unknown Thru feature is enabled for AutoCal calibration.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        bool: True if enabled, False otherwise
+                    """
+                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:UTHRu:STATe?")))
+
+            class Isolation:
+                """
+                Isolation calibration data measurement.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:CORR:COLL:ISOLation <rcvport>,<srcport>
+                def measure_isolation(self, rcvport: int, srcport: int):
+                    """
+                    Measures the isolation calibration data between the receiver port and the source port.
+
+                    Parameter:
+                        rcvport (int): Receiver port number (1-4)
+                        srcport (int): Source port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                        raise ValueError("rcvport and srcport must be 1-4")
+                    if rcvport == srcport:
+                        raise ValueError("rcvport and srcport must be different")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ISOL {rcvport},{srcport}")
+
+            class Load:
+                """
+                Load standard calibration data measurement.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:CORR:COLL:LOAD <port>
+                def measure_load(self, port: int):
+                    """
+                    Measures the calibration data of the load standard for the specified port.
+
+                    Parameter:
+                        port (int): Port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port <= 4):
+                        raise ValueError("port must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:LOAD {port}")
+
+            class Open:
+                """
+                Open standard calibration data measurement.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:CORR:COLL:OPEN <port>
+                def measure_open(self, port: int):
+                    """
+                    Measures the calibration data of the open standard for the specified port.
+
+                    Parameter:
+                        port (int): Port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port <= 4):
+                        raise ValueError("port must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:OPEN {port}")
+
+            class Short:
+                """
+                Short standard calibration data measurement.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:CORR:COLL:SHORt <port>
+                def measure_short(self, port: int):
+                    """
+                    Measures the calibration data of the short standard for the specified port.
+
+                    Parameter:
+                        port (int): Port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= port <= 4):
+                        raise ValueError("port must be 1-4")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:SHOR {port}")
+            class Thru:
+                """
+                Thru standard calibration data measurement.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENS:CORR:COLL:THRU <rcvport>,<srcport>
+                def measure_thru(self, rcvport: int, srcport: int):
+                    """
+                    Measures the calibration data of the thru standard between the receiver port and the source port.
+
+                    Parameter:
+                        rcvport (int): Receiver port number (1-4)
+                        srcport (int): Source port number (1-4)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
+                        raise ValueError("rcvport and srcport must be 1-4")
+                    if rcvport == srcport:
+                        raise ValueError("rcvport and srcport must be different")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU {rcvport},{srcport}")
+
+            class TRL:
+                """TODO Look at what TRL stands for in manual"""
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+                    self.line = self.Line(instrument, data_handler, channel)
+                    self.thru = self.Thru(instrument, data_handler, channel)
+                    self.reflect = self.Reflect(instrument, data_handler, channel)
+                class Line:
+                    """
+                    TRL line standard calibration data measurement.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENS:CORR:COLL:TRLLine <port1>,<port2>
+                    def measure_trl_line(self, port1: int, port2: int):
+                        """
+                        Measures the calibration data of the TRL line standard between port1 and port2.
+
+                        Parameter:
+                            port1 (int): Port number (1-4)
+                            port2 (int): Port number (1-4)
+
+                        Return:
+                            None
+                        """
+                        if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                            raise ValueError("port1 and port2 must be 1-4")
+                        if port1 == port2:
+                            raise ValueError("port1 and port2 must be different")
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLL {port1},{port2}")
+
+                class Thru:
+                    """
+                    TRL thru standard calibration data measurement.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENS:CORR:COLL:TRLThru <port1>,<port2>
+                    def measure_trl_thru(self, port1: int, port2: int):
+                        """
+                        Measures the calibration data of the TRL thru standard between port1 and port2.
+
+                        Parameter:
+                            port1 (int): Port number (1-4)
+                            port2 (int): Port number (1-4)
+
+                        Return:
+                            None
+                        """
+                        if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
+                            raise ValueError("port1 and port2 must be 1-4")
+                        if port1 == port2:
+                            raise ValueError("port1 and port2 must be different")
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLT {port1},{port2}")
+
+                class Reflect:
+                    """
+                    TRL reflect standard calibration data measurement.
+                    """
+                    def __init__(self, instrument, data_handler, channel):
+                        self.instrument = instrument
+                        self.data_handler = data_handler
+                        self.n = channel
+
+                    # SENS:CORR:COLL:TRLReflect <port>
+                    def measure_trl_reflect(self, port: int):
+                        """
+                        Measures the calibration data of the TRL reflect standard for the specified port.
+
+                        Parameter:
+                            port (int): Port number (1-4)
+
+                        Return:
+                            None
+                        """
+                        if not (1 <= port <= 4):
+                            raise ValueError("port must be 1-4")
+                        self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLR {port}")
+
+          
+            
+            class SubClass:
+                """
+                Calibration standard subclass selection.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+                # SENS:CORR:COLL:SUBClass <numeric>
+                def set_subclass(self, subclass_num: int):
+                    """
+                    Selects the subclass number of calibration standard used for measurement.
+
+                    Parameter:
+                        subclass_num (int): Subclass number (1-8)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= subclass_num <= 8):
+                        raise ValueError("subclass_num must be 1-8")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:SUBC {subclass_num}")
+
+                # SENS:CORR:COLL:SUBClass?
+                def get_subclass(self) -> int:
+                    """
+                    Gets the subclass number of calibration standard used for measurement.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        int: Subclass number
+                    """
+                    return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:SUBC?"))
+                # SENSe<Ch>:CORRection:COLLect:SUBClass = <numeric>
+                def set_subclass(self, subclass_num: int):
+                    """
+                    Selects the subclass number of calibration standard used for measurement.
+
+                    Parameter:
+                        subclass_num (int): Subclass number (1-8)
+
+                    Return:
+                        None
+                    """
+                    if not (1 <= subclass_num <= 8):
+                        raise ValueError("subclass_num must be 1-8")
+                    self.instrument.write(f":SENS{self.n}:CORR:COLL:SUBC {subclass_num}")
+        
 
         class Frequency:
             """
@@ -11544,6 +11438,9 @@ frequency offset, channel data transfer."""
                 self.instrument = instrument
                 self.data_handler = data_handler
                 self.n = channel
+                self.offset = self.Offset(instrument, data_handler, channel)
+                self.receiver = self.Receiver(instrument, data_handler, channel)
+                self.source = self.Source(instrument, data_handler, channel)
             # SENS:FREQ - Fixed frequency for a power sweep
             def set_fixed_frequency(self, value: float):
                 """
@@ -11601,14 +11498,6 @@ frequency offset, channel data transfer."""
                 """
                 self.instrument.write(f":SENS{self.n}:FREQ:SPAN {value}")
 
-            def get_span_frequency(self) -> float:
-                """
-                Get span frequency.
-
-                Returns:
-                    float: Span frequency in Hz
-                """
-                return float(self.instrument.query(f":SENS{self.n}:FREQ:SPAN?"))
 
             # SENS:FREQ:STAR - Start frequency
             def set_start_frequency(self, value: float):
@@ -11711,41 +11600,7 @@ frequency offset, channel data transfer."""
                 """
                 return float(self.instrument.query(f":SENS{self.n}:FREQ:FIX?"))
 
-            # SENS:FREQ:CENTer <frequency>
-            def set_center_frequency(self, value: float):
-                """
-                Set the stimulus center value of the sweep range.
-
-                Parameters:
-                    value (float): Center frequency in Hz
-
-                Returns:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:FREQ:CENT {value}")
-
-            # SENS:FREQ:CENTer?
-            def get_center_frequency(self) -> float:
-                """
-                Get the stimulus center value of the sweep range.
-
-                Returns:
-                    float: Center frequency in Hz
-                """
-                return float(self.instrument.query(f":SENS{self.n}:FREQ:CENT?"))
-
-            # SENS:FREQ:SPAN <frequency>
-            def set_span_frequency(self, value: float):
-                """
-                Set the stimulus span value of the sweep range.
-
-                Parameters:
-                    value (float): Span frequency in Hz
-
-                Returns:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:FREQ:SPAN {value}")
+            
 
             # SENS:FREQ:SPAN?
             def get_span_frequency(self) -> float:
@@ -11764,7 +11619,8 @@ frequency offset, channel data transfer."""
                     self.instrument = instrument
                     self.data_handler = data_handler
                     self.n = channel
-
+                    self.port = self.Port(instrument, data_handler, channel)
+                    self.receiver = self.Receiver(instrument, data_handler, channel) 
                 # SENSe<Ch>:OFFSet[:STATe] {OFF|ON|0|1}
                 def enable_frequency_offset(self, enable: bool):
                     """
@@ -12251,47 +12107,74 @@ frequency offset, channel data transfer."""
                 """
                 return self.instrument.query(f":SENS{self.n}:ROSC:SOUR?").strip()
             
-        class SegmentData:
-            """
-            Segment sweep table commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENSe<Ch>:SEGMent:DATA <numeric list>
-            def set_segment_data(self, data_list):
-                """
-                Set the array of the segment sweep table.
-
-                Parameter:
-                    data_list (list): Segment sweep table data as per documentation
-
-                Return:
-                    None
-                """
-                data_str = ",".join(str(float(x)) for x in data_list)
-                self.instrument.write(f":SENS{self.n}:SEGM:DATA {data_str}")
-
-            # SENSe<Ch>:SEGMent:DATA?
-            def get_segment_data(self):
-                """
-                Get the array of the segment sweep table.
-
-                Parameter:
-                    None
-
-                Return:
-                    list: Segment sweep table data
-                """
-                data = self.instrument.query(f":SENS{self.n}:SEGM:DATA?")
-                return self.data_handler.parse_array(data)
+        
         class Sweep:
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
                 self.n = channel
+                self.segment_table_data = self.SegmentTableData(instrument, data_handler, channel)
+                self.cw = self.CW(instrument, data_handler, channel)
+            class SegmentTableData:
+                """
+                Segment sweep table commands.
+                """
+                def __init__(self, instrument, data_handler, channel):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
+                    self.n = channel
+
+                # SENSe<Ch>:SEGMent:DATA <numeric list>
+                def set_segment_data(self, data_list):
+                    """
+                    Set the array of the segment sweep table.
+
+                    Parameter:
+                        data_list (list): Segment sweep table data as per documentation
+
+                    Return:
+                        None
+                    """
+                    data_str = ",".join(str(float(x)) for x in data_list)
+                    self.instrument.write(f":SENS{self.n}:SEGM:DATA {data_str}")
+
+                # SENSe<Ch>:SEGMent:DATA?
+                def get_segment_data(self):
+                    """
+                    Get the array of the segment sweep table.
+
+                    Parameter:
+                        None
+
+                    Return:
+                        list: Segment sweep table data
+                    """
+                    data = self.instrument.query(f":SENS{self.n}:SEGM:DATA?")
+                    return self.data_handler.parse_array(data)
+            # SENS:SWE:REV - Reverse sweep ON/OFF
+            def enable_reverse_sweep(self, enable: bool):
+                """
+                Enable or disable reverse sweep.
+
+                Parameter:
+                    enable (bool): True to enable, False to disable
+
+                Return:
+                    None
+                """
+                self.instrument.write(f":SENS{self.n}:SWE:REV {1 if enable else 0}")
+
+            def is_reverse_sweep_enabled(self) -> bool:
+                """
+                Query if reverse sweep is enabled.
+
+                Parameter:
+                    None
+
+                Return:
+                    bool: True if enabled, False otherwise
+                """
+                return bool(int(self.instrument.query(f":SENS{self.n}:SWE:REV?")))
             class CW:
                 """
                 Sweep time value commands for CW time mode.
@@ -12327,143 +12210,6 @@ frequency offset, channel data transfer."""
                     """
                     return float(self.instrument.query(f":SENS{self.n}:SWE:CW:TIME?"))
 
-                class Points:
-                    """
-                    Sweep points settings commands.
-                    """
-                    def __init__(self, instrument, data_handler, channel):
-                        self.instrument = instrument
-                        self.data_handler = data_handler
-                        self.n = channel
-
-                    # SENSe<Ch>:SWEep:POINts <numeric>
-                    def set_sweep_points(self, value: int):
-                        """
-                        Sets the number of measurement points.
-
-                        Parameter:
-                            value (int): Number of measurement points (2 to analyzer max)
-
-                        Return:
-                            None
-                        """
-                        self.instrument.write(f":SENS{self.n}:SWE:POIN {value}")
-
-                    # SENSe<Ch>:SWEep:POINts?
-                    def get_sweep_points(self) -> int:
-                        """
-                        Reads out the number of measurement points.
-
-                        Parameter:
-                            None
-
-                        Return:
-                            int: Number of measurement points
-                        """
-                        return int(self.instrument.query(f":SENS{self.n}:SWE:POIN?"))
-
-                    # SENSe<Ch>:SWEep:POINt:TIME <time>
-                    def set_sweep_point_delay(self, value: float):
-                        """
-                        Sets the delay before measurement in each measurement point.
-
-                        Parameter:
-                            value (float): Measurement delay value (0 to 0.3 sec)
-
-                        Return:
-                            None
-                        """
-                        self.instrument.write(f":SENS{self.n}:SWE:POIN:TIME {value}")
-
-                    # SENSe<Ch>:SWEep:POINt:TIME?
-                    def get_sweep_point_delay(self) -> float:
-                        """
-                        Reads out the delay before measurement in each measurement point.
-
-                        Parameter:
-                            None
-
-                        Return:
-                            float: Measurement delay value in seconds
-                        """
-                        return float(self.instrument.query(f":SENS{self.n}:SWE:POIN:TIME?"))
-
-                    # SENSe<Ch>:SWEep:REVerse[:STATe] {OFF|ON|0|1}
-                    def enable_reverse_sweep(self, enable: bool):
-                        """
-                        Sets the ON/OFF status of the reverse sweep function.
-
-                        Parameter:
-                            enable (bool): True to enable, False to disable
-
-                        Return:
-                            None
-                        """
-                        self.instrument.write(f":SENS{self.n}:SWE:REV:STAT {1 if enable else 0}")
-
-                    # SENSe<Ch>:SWEep:REVerse[:STATe]?
-                    def is_reverse_sweep_enabled(self) -> bool:
-                        """
-                        Reads out the ON/OFF status of the reverse sweep function.
-
-                        Parameter:
-                            None
-
-                        Return:
-                            bool: True if enabled, False otherwise
-                        """
-                        allowed = ['LINear', 'LOGarithmic', 'SEGMent', 'POWer']
-                        if sweep_type not in allowed:
-                            raise ValueError(f"sweep_type must be one of {allowed}")
-                        self.instrument.write(f":SENS{self.n}:SWE:TYPE {sweep_type}")
-
-                    # SENSe<Ch>:SWEep:TYPE?
-                    def get_sweep_type(self) -> str:
-                        """
-                        Reads out the sweep type.
-
-                        Parameter:
-                            None
-
-                        Return:
-                            str: Sweep type ('LIN', 'LOG', 'SEGM', 'POW')
-                        """
-                        return self.instrument.query(f":SENS{self.n}:SWE:TYPE?").strip()
-
-        class VoltageDC:
-            """
-            DC voltage measurement commands.
-            """
-            def __init__(self, instrument, data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-
-            # SENSe<Ch>:VOLTage{[1]|2}:DC:RANGe:UPPer <numeric>
-            def set_dc_voltage_range_upper(self, value: float):
-                """
-                Sets the DC voltage range at the connector AUX1 or AUX2.
-
-                Parameter:
-                    value (float): DC voltage range (10V or 1V)
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":SENS{self.n}:VOLT:DC:RANG:UPP {value}")
-
-            # SENSe<Ch>:VOLTage{[1]|2}:DC:RANGe:UPPer?
-            def get_dc_voltage_range_upper(self) -> float:
-                """
-                Reads out the DC voltage range at the connector AUX1 or AUX2.
-
-                Parameter:
-                    None
-
-                Return:
-                    float: DC voltage range (10V or 1V)
-                """
-                return float(self.instrument.query(f":SENS{self.n}:VOLT:DC:RANG:UPP?"))
             
     class Service:
         """
@@ -12473,6 +12219,9 @@ frequency offset, channel data transfer."""
             self.instrument = instrument
             self.data_handler = data_handler
             self.n = channel
+            self.channel = self.Channel(self.instrument)
+            self.port = self.Port(self.instrument)
+            self.sweep = self.Sweep(self.instrument)
 
         # SERV:CHAN:ACT? - Reads out the active channel number
         def get_active_channel(self) -> int:
@@ -12745,7 +12494,8 @@ frequency offset, channel data transfer."""
         """
         def __init__(self, instrument):
             self.instrument = instrument
-
+            self.auxiliary = self.Auxiliary(instrument)
+            self.power = self.Power(instrument)
         class Auxiliary:
             """
             Auxiliary RF source related commands.
@@ -13013,7 +12763,7 @@ frequency offset, channel data transfer."""
             """
             def __init__(self, instrument):
                 self.instrument = instrument
-
+                self.port = self.Port(instrument)
             # SOURce<Ch>:POWer[:LEVel][:IMMediate][:AMPLitude] <power>
             def set_power_level(self, channel: int, power: float):
                 """
@@ -13567,7 +13317,10 @@ frequency offset, channel data transfer."""
         """
         def __init__(self, instrument):
             self.instrument = instrument
-
+            self.operation = self.Operation(instrument)
+            self.preset = self.Preset(instrument)
+            self.questionable = self.Questionable(instrument)
+            
         # STATus:OPERation[:EVENt]?
         def get_operation_status_event(self) -> int:
             """
@@ -13720,7 +13473,8 @@ frequency offset, channel data transfer."""
             """
             def __init__(self, instrument):
                 self.instrument = instrument
-
+                self.limit = self.Limit(instrument)
+                self.ripple_limit = self.RippleLimit(instrument)
             # STATus:QUEStionable:CONDition?
             def get_condition(self) -> int:
                 """
@@ -14566,7 +14320,19 @@ frequency offset, channel data transfer."""
         """
         def __init__(self, instrument):
             self.instrument = instrument
-
+            self.display = self.Display(instrument, None)
+            self.datetime = self.DateTime(instrument)
+            self.beeper = self.Beeper(instrument)
+            self.capability = self.Capability(instrument)
+            self.communicate = self.Communicate(instrument)
+            self.connect = self.Connect(instrument)
+            self.correction = self.Correction(instrument)
+            self.cycle = self.Cycle(instrument)
+            self.date = self.Date(instrument)
+            self.dynamic_range_extension = self.DynamicRangeExtension(instrument)
+            self.frequency_extender = self.FrequencyExtender(instrument)
+            self.receiver = self.Receiver(instrument)
+            self.time = self.Time(instrument)
         # SYSTem:ERRor[:NEXT]?
         def get_error(self) -> str:
             """
@@ -14636,9 +14402,9 @@ frequency offset, channel data transfer."""
             """
             System display commands.
             """
-            def __init__(self, instrument):
+            def __init__(self, instrument, data_handler):
                 self.instrument = instrument
-
+                self.data_handler = data_handler
             # SYSTem:DISPlay:BRIGhtness <numeric>
             def set_brightness(self, value: int):
                 """
@@ -14847,7 +14613,8 @@ frequency offset, channel data transfer."""
             """
             def __init__(self, instrument):
                 self.instrument = instrument
-
+                self.ecal = self.ECAL(instrument)
+                self.psensor = self.PSensor(instrument)
             class ECAL:
                 """
                 AutoCal module communicate commands.
@@ -15174,7 +14941,7 @@ frequency offset, channel data transfer."""
             """
             def __init__(self, instrument):
                 self.instrument = instrument
-
+                self.time = self.Time(instrument)
             class Time:
                 """
                 Cycle time measurement commands.
@@ -15318,7 +15085,7 @@ frequency offset, channel data transfer."""
             """
             def __init__(self, instrument):
                 self.instrument = instrument
-
+                self.port = self.Port(instrument)
             # SYSTem:FREQuency:EXTender:RFPort:POWer <numeric>
             def set_rf_port_power(self, value: float):
                 """
@@ -15670,7 +15437,10 @@ frequency offset, channel data transfer."""
         """
         def __init__(self, instrument):
             self.instrument = instrument
-
+            self.average = self.Average(instrument)
+            self.external = self.External(instrument)
+            self.output = self.Output(instrument)
+            self.point = self.Point(instrument)
         # TRIGger[:SEQuence][:IMMediate]
         def sequence_immediate(self):
             """
