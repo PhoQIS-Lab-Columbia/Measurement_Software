@@ -2,6 +2,7 @@ import json
 import pyvisa
 from Instruments.oscilloscope_rigol import Oscilloscope
 from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
+from Instruments.vector_network_analyzer_copper_mountain import VNA
 from EInstrument import EInstrument
 
 class NetworkManager:
@@ -21,6 +22,8 @@ class NetworkManager:
         elif name== EInstrument.SPECTRUM_ANALYZER.value or name== EInstrument.SPECTRUM_ANALYZER:
             return SpectrumAnalyzer(instrument)
             '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
+        elif name== EInstrument.VECTOR_NETWORK_ANALYZER.value or name== EInstrument.VECTOR_NETWORK_ANALYZER:
+            return VNA(instrument)
         else:
             raise ValueError(f"Instrument {name} is not recognized.")
 
@@ -58,12 +61,10 @@ class NetworkManager:
         return self.connect_instruments([EInstrument.OSCILLOSCOPE])[0]
             
     def connect_spectrum_analyzer(self) -> SpectrumAnalyzer:
-        insts = self.connect_instruments([EInstrument.SPECTRUM_ANALYZER])
-        if insts == []:
-            print("Spectrum Analyzer not found on network. Please troubleshoot the connection.")
-            return None
-        else:
-            return insts[0]
+        return self.connect_instruments([EInstrument.SPECTRUM_ANALYZER])
+    
+    def connect_vector_network_analyzer(self) -> VNA:
+        return self.connect_instruments([EInstrument.VECTOR_NETWORK_ANALYZER])
             
            
     def disconnect(self, instruments):
