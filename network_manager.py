@@ -58,14 +58,21 @@ class NetworkManager:
 
     def connect_oscilloscope(self) -> Oscilloscope:
         '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
-        return self.connect_instruments([EInstrument.OSCILLOSCOPE])[0]
+        osc = self.connect_instruments([EInstrument.OSCILLOSCOPE])
+        if osc == None:
+            raise ValueError("Oscilloscope failed to connect.")
+        return osc[0]
             
     def connect_spectrum_analyzer(self) -> SpectrumAnalyzer:
-        return self.connect_instruments([EInstrument.SPECTRUM_ANALYZER])
-    
+        sa = self.connect_instruments([EInstrument.SPECTRUM_ANALYZER])
+        if sa == None:
+            raise ValueError("Spectrum Analyzer failed to connect.")
+        return sa[0]
     def connect_vector_network_analyzer(self) -> VNA:
-        return self.connect_instruments([EInstrument.VECTOR_NETWORK_ANALYZER])
-            
+        vna = self.connect_instruments([EInstrument.VECTOR_NETWORK_ANALYZER])
+        if vna == None:
+            raise ValueError("Vector Network Analyzer failed to connect.")
+        return vna[0]
            
     def disconnect(self, instruments):
         

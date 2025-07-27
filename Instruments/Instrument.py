@@ -1,13 +1,13 @@
 from data_handler import DataHandler
 from EFileType import EFileType
 from PIL import Image
-
+from EFileType import EFileType
 class Instrument():
     def __init__(self, instrument, name = None):
         self.instrument = instrument
         
         self.name = name
-        self.data_handler = DataHandler(format='csv')  # Default format set to JSON
+        self.data_handler = DataHandler()  # Default format set to JSON
         self.subtrees = []
     def disconnect(self):
         """Disconnect from instrument and shut down all data reading and controls."""

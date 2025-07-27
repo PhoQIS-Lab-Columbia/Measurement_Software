@@ -1,12 +1,12 @@
 from Instruments import Instrument
 import pyvisa
 from EInstrument import EInstrument
-class VNA(Instrument.Mandatory):
+class VNA(Instrument.Instrument):
 
-    def __init__(self, instrument, data_handler=None, num_channels=16):
-        self.name = EInstrument.V
+    def __init__(self, instrument):
+        self.name = EInstrument.VECTOR_NETWORK_ANALYZER
         self.instrument = instrument
-        self.data_handler = data_handler
+        
         # Add instance variables for each direct subclass under VNA
 
         # Instances for each channel (1-based index)

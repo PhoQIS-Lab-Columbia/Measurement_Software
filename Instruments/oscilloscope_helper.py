@@ -1,4 +1,4 @@
-from oscilloscope_rigol import Oscilloscope
+from Instruments.oscilloscope_rigol import Oscilloscope
 class Oscilloscope_Helper:
     def __init__(self,oscilloscope:Oscilloscope):
         self.oscilloscope = oscilloscope
@@ -8,4 +8,4 @@ class Oscilloscope_Helper:
         if self.oscilloscope.math.is_fft_split_enabled():
             self.oscilloscope.math.set_source1("CHAN1")
         
-        self.oscilloscope.set_timebase(timebase)
+        self.oscilloscope.timebase.set_main_offset(1)

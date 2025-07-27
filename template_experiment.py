@@ -1,10 +1,15 @@
 """READ ME: All experiments must start with a few sentence readme giving a summation of what the experiment is."""
-#You can install additional apis, just make sure to add them to the requirements.txt
+import sys
+from os import path
+
+parent_dir = path.dirname(path.dirname(path.abspath(__file__)))
+sys.path.append(path.dirname(parent_dir))
+
 from network_manager import NetworkManager
 from Instruments.oscilloscope_rigol import Oscilloscope
-from Instruments.oscilloscope_helper import OscilloscopeHelper
-from Instruments.spectrum_analyzer_signal_hound import SignalHound
-from Instruments.spectrum_analyzer_helper import SignalHoundHelper
+from Instruments.oscilloscope_helper import Oscilloscope_Helper
+from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
+from Instruments.spectrum_analyzer_helper import SpectrumAnalyzer
 from EInstrument import EInstrument
 from EFileType import EFileType
 from data_handler import DataHandler
@@ -16,28 +21,27 @@ def __main__():
     #Insert your instrument calls here
     for i in instruments:
         #if you want byte stream data to be automatically saved
-        i.enable_auto_saving_data()
+        i.data_handler.enable_auto_saving_data()
         inst_dict[i.name] = i
     #Create your automated helper objects
-    osc_helper = OscilloscopeHelper(inst_dict[EInstrument.OSCILLOSCOPE])
+    osc_helper = Oscilloscope_Helper(inst_dict[EInstrument.OSCILLOSCOPE])
     #You can access and talk to the instruments through a map
-    inst_dict[EInstrument.OSCILLOSCOPE].set_acquistion_mode("normal")
-    inst_dict[EInstrument.OSCILLOSCOPE].set_trigger_sweep_mode("auto")
+    inst_dict[EInstrument.OSCILLOSCOPE].stop()
+    inst_dict[EInstrument.OSCILLOSCOPE].trigger.set_mode("RS232")
 
     #OR you can individually cco the instrument
     osc = nm.connect_oscilloscope()
-    osc_helper = OscilloscopeHelper(osc)
-    osc.channel.set_coupling_mode("AC", 1)
-    osc.channel.get_bandwidth_limit(1)
-
-    osc_helper.set_timebase()
-
+    
+    osc.run()
+    print(osc)
+    osc_helper.set_timebase(2)
+    
     #spec.save_user_preset
     #If you have 
     #Circuit code
     #....
     #Can iteratively collect data - probably best to put code like this in helper class for easy call
-    """data = []
+    data = []
     for i in range(10):
         #Collect data
         #
@@ -54,3 +58,6 @@ def __main__():
 
     #After done, disconnect instruments"""
     nm.disconnect(instruments)
+
+if __name__ == "__main__":
+    __main__()

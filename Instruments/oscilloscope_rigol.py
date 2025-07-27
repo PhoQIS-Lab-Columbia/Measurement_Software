@@ -5,7 +5,6 @@ import pyvisa
 from EFileType import EFileType
 from Instruments import Instrument
 from EInstrument import EInstrument
-from oscilloscope_helper import Helper
 from PIL import Image
 
 class Oscilloscope(Instrument.Instrument):
@@ -506,10 +505,10 @@ averages as well as query the current sample rate of the oscilloscope."""
             if n not in [1, 2]:
                 raise ValueError("Parameter n must be 1 or 2.")
             self.n = n
-            self.uart = Oscilloscope.Decoder.UART(instrument, n)
-            self.iic = Oscilloscope.Decoder.IIC(instrument, n)
-            self.spi = Oscilloscope.Decoder.SPI(instrument, n)
-            self.parallel = Oscilloscope.Decoder.Parallel(instrument, n)
+            self.uart = Oscilloscope.Decoder.UART(instrument, data_handler, n)
+            self.iic = Oscilloscope.Decoder.IIC(instrument, data_handler, n)
+            self.spi = Oscilloscope.Decoder.SPI(instrument, data_handler, n)
+            self.parallel = Oscilloscope.Decoder.Parallel(instrument, data_handler, n)
 
         def get_current_decoder(self):
             """Query which decoder you are currently using.
@@ -2062,8 +2061,8 @@ averages as well as query the current sample rate of the oscilloscope."""
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.WRecord = Oscilloscope.Function.WRecord(instrument)
-            self.WReplay = Oscilloscope.Function.WReplay(instrument)
+            self.WRecord = Oscilloscope.Function.WRecord(instrument, data_handler)
+            self.WReplay = Oscilloscope.Function.WReplay(instrument, data_handler)
 
         class WRecord:
             def __init__(self, instrument,data_handler):
