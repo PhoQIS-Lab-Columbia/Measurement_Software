@@ -59,6 +59,7 @@ class NetworkManager:
     def connect_oscilloscope(self) -> Oscilloscope:
         '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         osc = self.connect_instruments([EInstrument.OSCILLOSCOPE])
+        print(osc)
         if osc == None:
             raise ValueError("Oscilloscope failed to connect.")
         return osc[0]

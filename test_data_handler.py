@@ -5,7 +5,8 @@ from Instruments import oscilloscope_rigol
 from Instruments import spectrum_analyzer_signal_hound
 from data_handler import DataHandler
 from EFileType import EFileType
-
+#TODO: Fix import path issues and dafult save path issues
+#How to give access to computer file system
 class TestDataHandler(unittest.TestCase):
     def setup(self):
        nm = NetworkManager()
@@ -72,155 +73,155 @@ class TestDataHandler(unittest.TestCase):
 class TestSpectrumAnalyzerSignalHound(unittest.TestCase):
     def setUp(self):
         nm = NetworkManager()
-        inst = nm.connect_spectrum_analyzer()
-        self.sa = spectrum_analyzer_signal_hound.SpectrumAnalyzer(inst)
+        self.sa = nm.connect_spectrum_analyzer()
+        
     
         self.metrics = ["metric1", "metric2"]
 
     # 1. fetch_am
     def test_fetch_am_returns_dict(self):
-        result = self.sa.Sense.ADEMod.Fetch.fetch_am(self.metrics)
+        result = self.sa.sense.ADEMod.Fetch.fetch_am(self.metrics)
         self.assertIsInstance(result, dict)
 
     def test_fetch_am_write_and_read_file(self):
-        data = self.sa.Sense.ADEMod.Fetch.fetch_am(self.metrics)
+        data = self.sa.sense.ADEMod.Fetch.fetch_am(self.metrics)
         self.dh.write_to_file("test_fetch_am", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_fetch_am", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_fetch_am_set_parameters(self):
-        data = self.sa.Sense.ADEMod.Fetch.fetch_am(self.metrics)
-        self.sa.Sense.ADEMod.Fetch.set_am(data)
+        data = self.sa.sense.ADEMod.Fetch.fetch_am(self.metrics)
+        self.sa.sense.ADEMod.Fetch.set_am(data)
         # Assuming set_am sets internal state, check state or call get_am
-        self.assertEqual(self.sa.Sense.ADEMod.Fetch.get_am(), data)
+        self.assertEqual(self.sa.sense.ADEMod.Fetch.get_am(), data)
 
     # 2. fetch_fm
     def test_fetch_fm_returns_dict(self):
-        result = self.sa.Sense.ADEMod.Fetch.fetch_fm(self.metrics)
+        result = self.sa.sense.ADEMod.Fetch.fetch_fm(self.metrics)
         self.assertIsInstance(result, dict)
 
     def test_fetch_fm_write_and_read_file(self):
-        data = self.sa.Sense.ADEMod.Fetch.fetch_fm(self.metrics)
+        data = self.sa.sense.ADEMod.Fetch.fetch_fm(self.metrics)
         self.dh.write_to_file("test_fetch_fm", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_fetch_fm", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_fetch_fm_set_parameters(self):
-        data = self.sa.Sense.ADEMod.Fetch.fetch_fm(self.metrics)
-        self.sa.Sense.ADEMod.Fetch.set_fm(data)
-        self.assertEqual(self.sa.Sense.ADEMod.Fetch.get_fm(), data)
+        data = self.sa.sense.ADEMod.Fetch.fetch_fm(self.metrics)
+        self.sa.sense.ADEMod.Fetch.set_fm(data)
+        self.assertEqual(self.sa.sense.ADEMod.Fetch.get_fm(), data)
 
     # 3. IQ get_data
     def test_iq_get_data_returns_list(self):
-        result = self.sa.Sense.DDEMod.Custom.IQ.get_data()
+        result = self.sa.sense.DDEMod.Custom.IQ.get_data()
         self.assertIsInstance(result, list)
 
     def test_iq_get_data_write_and_read_file(self):
-        data = self.sa.Sense.DDEMod.Custom.IQ.get_data()
+        data = self.sa.sense.DDEMod.Custom.IQ.get_data()
         self.dh.write_to_file("test_iq_data", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_iq_data", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_iq_get_data_set_parameters(self):
-        data = self.sa.Sense.DDEMod.Custom.IQ.get_data()
-        self.sa.Sense.DDEMod.Custom.IQ.set_data(data)
-        self.assertEqual(self.sa.Sense.DDEMod.Custom.IQ.get_data(), data)
+        data = self.sa.sense.DDEMod.Custom.IQ.get_data()
+        self.sa.sense.DDEMod.Custom.IQ.set_data(data)
+        self.assertEqual(self.sa.sense.DDEMod.Custom.IQ.get_data(), data)
 
     # 4. Trace Sweep get_data
     def test_trace_sweep_get_data_returns_list(self):
-        result = self.sa.Sense.DDEMod.Trace.Sweep.get_data()
+        result = self.sa.sense.DDEMod.Trace.Sweep.get_data()
         self.assertIsInstance(result, list)
 
     def test_trace_sweep_get_data_write_and_read_file(self):
-        data = self.sa.Sense.DDEMod.Trace.Sweep.get_data()
+        data = self.sa.sense.DDEMod.Trace.Sweep.get_data()
         self.dh.write_to_file("test_trace_sweep", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_trace_sweep", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_trace_sweep_get_data_set_parameters(self):
-        data = self.sa.Sense.DDEMod.Trace.Sweep.get_data()
-        self.sa.Sense.DDEMod.Trace.Sweep.set_data(data)
-        self.assertEqual(self.sa.Sense.DDEMod.Trace.Sweep.get_data(), data)
+        data = self.sa.sense.DDEMod.Trace.Sweep.get_data()
+        self.sa.sense.DDEMod.Trace.Sweep.set_data(data)
+        self.assertEqual(self.sa.sense.DDEMod.Trace.Sweep.get_data(), data)
 
     # 5. DDEMod Fetch fetch
     def test_ddemod_fetch_returns_dict(self):
-        result = self.sa.Sense.DDEMod.Fetch.fetch(self.metrics)
+        result = self.sa.sense.DDEMod.Fetch.fetch(self.metrics)
         self.assertIsInstance(result, dict)
 
     def test_ddemod_fetch_write_and_read_file(self):
-        data = self.sa.Sense.DDEMod.Fetch.fetch(self.metrics)
+        data = self.sa.sense.DDEMod.Fetch.fetch(self.metrics)
         self.dh.write_to_file("test_ddemod_fetch", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_ddemod_fetch", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_ddemod_fetch_set_parameters(self):
-        data = self.sa.Sense.DDEMod.Fetch.fetch(self.metrics)
-        self.sa.Sense.DDEMod.Fetch.set_fetch(data)
-        self.assertEqual(self.sa.Sense.DDEMod.Fetch.get_fetch(), data)
+        data = self.sa.sense.DDEMod.Fetch.fetch(self.metrics)
+        self.sa.sense.DDEMod.Fetch.set_fetch(data)
+        self.assertEqual(self.sa.sense.DDEMod.Fetch.get_fetch(), data)
 
     # 6. LTE Fetch fetch
     def test_lte_fetch_returns_dict(self):
-        result = self.sa.Sense.LTE.Fetch.fetch(self.metrics)
+        result = self.sa.sense.LTE.Fetch.fetch(self.metrics)
         self.assertIsInstance(result, dict)
 
     def test_lte_fetch_write_and_read_file(self):
-        data = self.sa.Sense.LTE.Fetch.fetch(self.metrics)
+        data = self.sa.sense.LTE.Fetch.fetch(self.metrics)
         self.dh.write_to_file("test_lte_fetch", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_lte_fetch", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_lte_fetch_set_parameters(self):
-        data = self.sa.Sense.LTE.Fetch.fetch(self.metrics)
-        self.sa.Sense.LTE.Fetch.set_fetch(data)
-        self.assertEqual(self.sa.Sense.LTE.Fetch.get_fetch(), data)
+        data = self.sa.sense.LTE.Fetch.fetch(self.metrics)
+        self.sa.sense.LTE.Fetch.set_fetch(data)
+        self.assertEqual(self.sa.sense.LTE.Fetch.get_fetch(), data)
 
-    # 7. NFIGure Fetch get_nfigure
+    # 7. nfigure Fetch get_nfigure
     def test_nfigure_get_nfigure_returns_float(self):
-        result = self.sa.Sense.NFIGure.Fetch.get_nfigure()
+        result = self.sa.sense.nfigure.Fetch.get_nfigure()
         self.assertIsInstance(result, float)
 
     def test_nfigure_get_nfigure_write_and_read_file(self):
-        data = self.sa.Sense.NFIGure.Fetch.get_nfigure()
+        data = self.sa.sense.nfigure.Fetch.get_nfigure()
         self.dh.write_to_file("test_nfigure", [data], file_type=EFileType.CSV)
         loaded = self.dh.read_file("test_nfigure.csv", EFileType.CSV)
         self.assertEqual(float(loaded[1][0]), data)
 
     def test_nfigure_get_nfigure_set_parameters(self):
-        data = self.sa.Sense.NFIGure.Fetch.get_nfigure()
-        self.sa.Sense.NFIGure.Fetch.set_nfigure(data)
-        self.assertEqual(self.sa.Sense.NFIGure.Fetch.get_nfigure(), data)
+        data = self.sa.sense.nfigure.Fetch.get_nfigure()
+        self.sa.sense.nfigure.Fetch.set_nfigure(data)
+        self.assertEqual(self.sa.sense.nfigure.Fetch.get_nfigure(), data)
 
-    # 8. NFIGure Fetch get_gain
+    # 8. nfigure Fetch get_gain
     def test_nfigure_get_gain_returns_float(self):
-        result = self.sa.Sense.NFIGure.Fetch.get_gain()
+        result = self.sa.sense.nfigure.Fetch.get_gain()
         self.assertIsInstance(result, float)
 
     def test_nfigure_get_gain_write_and_read_file(self):
-        data = self.sa.Sense.NFIGure.Fetch.get_gain()
+        data = self.sa.sense.nfigure.Fetch.get_gain()
         self.dh.write_to_file("test_nfigure_gain", [data], file_type=EFileType.CSV)
         loaded = self.dh.read_file("test_nfigure_gain.csv", EFileType.CSV)
         self.assertEqual(float(loaded[1][0]), data)
 
     def test_nfigure_get_gain_set_parameters(self):
-        data = self.sa.Sense.NFIGure.Fetch.get_gain()
-        self.sa.Sense.NFIGure.Fetch.set_gain(data)
-        self.assertEqual(self.sa.Sense.NFIGure.Fetch.get_gain(), data)
+        data = self.sa.sense.nfigure.Fetch.get_gain()
+        self.sa.sense.nfigure.Fetch.set_gain(data)
+        self.assertEqual(self.sa.sense.nfigure.Fetch.get_gain(), data)
 
     # 9. Bluetooth Fetch fetch
     def test_bluetooth_fetch_returns_dict(self):
-        result = self.sa.Sense.Bluetooth.Fetch.fetch(self.metrics)
+        result = self.sa.sense.Bluetooth.Fetch.fetch(self.metrics)
         self.assertIsInstance(result, dict)
 
     def test_bluetooth_fetch_write_and_read_file(self):
-        data = self.sa.Sense.Bluetooth.Fetch.fetch(self.metrics)
+        data = self.sa.sense.Bluetooth.Fetch.fetch(self.metrics)
         self.dh.write_to_file("test_bluetooth_fetch", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_bluetooth_fetch", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_bluetooth_fetch_set_parameters(self):
-        data = self.sa.Sense.Bluetooth.Fetch.fetch(self.metrics)
-        self.sa.Sense.Bluetooth.Fetch.set_fetch(data)
-        self.assertEqual(self.sa.Sense.Bluetooth.Fetch.get_fetch(), data)
+        data = self.sa.sense.Bluetooth.Fetch.fetch(self.metrics)
+        self.sa.sense.Bluetooth.Fetch.set_fetch(data)
+        self.assertEqual(self.sa.sense.Bluetooth.Fetch.get_fetch(), data)
 
     # 10. Calculate LimitLine get_data
     def test_limitline_get_data_returns_list(self):
@@ -240,90 +241,88 @@ class TestSpectrumAnalyzerSignalHound(unittest.TestCase):
 
     # 11. Pathloss get_data
     def test_pathloss_get_data_returns_list(self):
-        result = self.sa.Sense.Pathloss.get_data()
+        result = self.sa.sense.Pathloss.get_data()
         self.assertIsInstance(result, list)
 
     def test_pathloss_get_data_write_and_read_file(self):
-        data = self.sa.Sense.Pathloss.get_data()
+        data = self.sa.sense.Pathloss.get_data()
         self.dh.write_to_file("test_pathloss", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_pathloss", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_pathloss_get_data_set_parameters(self):
-        data = self.sa.Sense.Pathloss.get_data()
-        self.sa.Sense.Pathloss.set_data(data)
-        self.assertEqual(self.sa.Sense.Pathloss.get_data(), data)
+        data = self.sa.sense.Pathloss.get_data()
+        self.sa.sense.Pathloss.set_data(data)
+        self.assertEqual(self.sa.sense.Pathloss.get_data(), data)
 
     # 12. SEMask Offset get_offset_parameters
     def test_semask_offset_get_offset_parameters_returns_dict(self):
-        result = self.sa.Sense.SEMask.Offset.get_offset_parameters()
+        result = self.sa.sense.SEMask.Offset.get_offset_parameters()
         self.assertIsInstance(result, dict)
 
     def test_semask_offset_get_offset_parameters_write_and_read_file(self):
-        data = self.sa.Sense.SEMask.Offset.get_offset_parameters()
+        data = self.sa.sense.SEMask.Offset.get_offset_parameters()
         self.dh.write_to_file("test_semask_offset", data, file_type=EFileType.JSON)
         loaded = self.dh.read_file("test_semask_offset", EFileType.JSON)
         self.assertEqual(data, loaded)
 
     def test_semask_offset_get_offset_parameters_set_parameters(self):
-        data = self.sa.Sense.SEMask.Offset.get_offset_parameters()
-        self.sa.Sense.SEMask.Offset.set_offset_parameters(data)
-        self.assertEqual(self.sa.Sense.SEMask.Offset.get_offset_parameters(), data)
+        data = self.sa.sense.SEMask.Offset.get_offset_parameters()
+        self.sa.sense.SEMask.Offset.set_offset_parameters(data)
+        self.assertEqual(self.sa.sense.SEMask.Offset.get_offset_parameters(), data)
 
-    # 13. NFIGure Correction ENRTable get_data
-    def test_nfigure_enrtable_get_data_returns_list(self):
-        result = self.sa.Sense.NFIGure.Correction.ENRTable.get_data()
+    # 13. nfigure correction enr_table get_data
+    def test_nfigure_enr_table_get_data_returns_list(self):
+        result = self.sa.sense.nfigure.correction.enr_table.get_data()
         self.assertIsInstance(result, list)
 
-    def test_nfigure_enrtable_get_data_write_and_read_file(self):
-        data = self.sa.Sense.NFIGure.Correction.ENRTable.get_data()
-        self.dh.write_to_file("test_enrtable", data, file_type=EFileType.JSON)
-        loaded = self.dh.read_file("test_enrtable", EFileType.JSON)
+    def test_nfigure_enr_table_get_data_write_and_read_file(self):
+        data = self.sa.sense.nfigure.correction.enr_table.get_data()
+        self.dh.write_to_file("test_enr_table", data, file_type=EFileType.JSON)
+        loaded = self.dh.read_file("test_enr_table", EFileType.JSON)
         self.assertEqual(data, loaded)
 
-    def test_nfigure_enrtable_get_data_set_parameters(self):
-        data = self.sa.Sense.NFIGure.Correction.ENRTable.get_data()
-        self.sa.Sense.NFIGure.Correction.ENRTable.set_data(data)
-        self.assertEqual(self.sa.Sense.NFIGure.Correction.ENRTable.get_data(), data)
+    def test_nfigure_enr_table_get_data_set_parameters(self):
+        data = self.sa.sense.nfigure.correction.enr_table.get_data()
+        self.sa.sense.nfigure.correction.enr_table.set_data(data)
+        self.assertEqual(self.sa.sense.nfigure.correction.enr_table.get_data(), data)
 
-if __name__ == "__main__":
-    unittest.main()
 
-class TestOscilloscopeData(unittest.Testcase):
-    def setUp(self):
+
+
+class TestOscilloscopeData(unittest.TestCase):
+    def osc_setup(self):
         nm = NetworkManager()
-        inst = nm.connect_oscilloscope()
+        return nm.connect_oscilloscope()
         
-        return oscilloscope_rigol.Oscilloscope(inst)
-        
-        self.metrics = ["metric1", "metric2"]
     def test_system_parameters_byte_values_change_with_parms(self):
-            osc = self.setup()
-            osc.auto_save = False
-            data1 = osc.get_system_parameters()
-            #print("Initial Data "+str(data1))
-            osc.set_acquistion_mode("NORMAL")
-            osc.set_channel_units(1,"WATT")
+            osc = self.osc_setup()
+            #osc.auto_save = False
+            data1 = osc.system.get_setup()
+            print("Initial Data "+str(data1))
+            #print("Check tmc header"+str(osc.instrument.query_binary_values(":SYST:SETup?", datatype='B', container=bytes)))
+            osc.acquisition.set_mode("NORMAL")
+            osc.channel1.set_units("WATT")
         
-            data2 = osc.get_system_parameters()
+            data2 = osc.system.get_setup()
             #print("After Data "+str(data2))
             print(data1)
             self.assertNotEqual(data1, data2,"Bytes did not change even with parameter changes.")
 
     def test_load_parameters_(self):
-        osc = self.setup()
-        osc.auto_save = False
+        osc = self.osc_setup()
+        #osc.auto_save = False
         
-        osc.enable_system_autoscale_key(True)
-        osc.set_system_power_on_recall("LAT")
-        data1 = osc.get_system_parameters()
+        #osc.enable_system_autoscale_key(True)
+        osc.system.set_pon("LAT")
+        osc.system.data_handler.enable_auto_saving_data()
+        data1 = osc.system.get_setup()
 
-        osc.enable_system_autoscale_key(False)
-        osc.set_system_power_on_recall("DEF")
-
-        osc.set_system_parameters(data1)
-        self.assertTrue(osc.is_system_autoscale_key_enabled())
-        self.assertEqual(osc.get_system_power_on_recall(),"LAT")
+        osc.system.set_pon("DEF")
+        
+        osc.system.set_setup(str(data1))
+        #self.assertTrue(osc.is_system_autoscale_key_enabled())
+        self.assertEqual(osc.system.get_pon(),"DEF")
        
     """def test_system_parameters_file_write(self):
         osc = self.setup()

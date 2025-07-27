@@ -109,14 +109,14 @@ class DataHandler():
         else:
             raise ValueError(f"Unsupported file format: {self.format}")
         
-    def write_to_file(self, file_path, data, file_type = None, headers = None):
+    def write_to_file(self, file_name, data, file_type = None, headers = None):
         """Writes data to file
         params: file_path: str - path to file
                 data: list or dict - data to write to file
                 file_type: EFileType - type of file to write to, if None then uses default format
                 headers: list - headers for file, if None then numerical headers are used. Only used if data is not a dictionary.
                 If file already exists, headers are not written again."""
-        file_path = self.default_save_path+file_path
+        file_path = file_name#self.default_save_path+file_name
         format = self.format
         if file_type is not None:
             format = file_type
