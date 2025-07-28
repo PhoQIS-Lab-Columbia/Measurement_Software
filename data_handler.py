@@ -63,15 +63,18 @@ class DataHandler():
         #size_count = int.from_bytes(bytes[1]
         return bytes[2+size_count:]
 
-    def bytes_to_image(self, bytes, image_name = "Image", format="PNG", header = None):
-        """Converts bytes to image object"""
-        if header is not None:
-            if header == "TMC":
+    def bytes_to_image(self, bytes, image_name = "Image", format=EFileType.PNG):
+        """Converts bytes to image object
+        Parameters: 
+        bytes (bytes): bytes containing image information
+        image_name (str): name of file
+        format (EFileType): file type used for saving"""
+        if bytes and bytes[0] == ord('#'):
                 #Remove TMC header if present
                 bytes = self.remove_image_tmc_header(bytes)
 
         image = Image.open(io.BytesIO(bytes))
-        im = image.save(f"{image_name}.{format.lower()}")
+        im = image.save(f"{image_name}.{format.value.lower()}")
         return im, bytes
     
     def set_default_file_type(self, format):

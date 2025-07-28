@@ -323,7 +323,17 @@ class TestOscilloscopeData(unittest.TestCase):
         osc.system.set_setup(str(data1))
         #self.assertTrue(osc.is_system_autoscale_key_enabled())
         self.assertEqual(osc.system.get_pon(),"DEF")
-       
+    def test_bytes_to_image_display_get_data(self):
+        osc = self.osc_setup()
+        imgBytes, img = osc.display.get_data()
+        print(imgBytes)
+        raw, img = osc.data_handler.bytes_to_image(imgBytes, "test_image")
+    def test_etable_get_data(self):
+        #TODO Test again with voltage soruce
+        osc = self.osc_setup()
+        etabBytes = osc.etable1.get_data()
+        print(etabBytes)
+
     """def test_system_parameters_file_write(self):
         osc = self.setup()
         osc.auto_save = True
@@ -334,6 +344,7 @@ class TestOscilloscopeData(unittest.TestCase):
         osc.auto_save = False
         #data = osc.get_waveform_data()
         #print(data)"""
+    
     #get_waveform_data
     #get_display_data
     #get_event_table_data

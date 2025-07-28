@@ -554,7 +554,7 @@ class Decoder:
         """
         return self.instrument.query(f":DECoder{self.n}:MODE?")
 
-    def set_display(self, state):
+    def enable_display(self, state):
         """
         Turn on or off the decoder display.
         Parameter:
@@ -571,7 +571,7 @@ class Decoder:
             return
         self.instrument.write(f":DECoder{self.n}:DISPlay {val}")
 
-    def get_display(self):
+    def is_display_enabled(self):
         """
         Query the decoder display status.
         Parameter:
@@ -1713,6 +1713,7 @@ class Display:
             
         Return:
             bytes: Raw image data (TMC header included)
+            Image: If auto save enabled, return PIL Image object, if not set to save return None
         """
         cmd = ":DISPlay:DATA?"
         args = []
@@ -1736,15 +1737,15 @@ class Display:
                 print("Invalid format. Allowed: BMP24, BMP8, PNG, JPEG, TIFF.")
             return None
             args.append(fmt)
+        img = None
         if args:
             cmd += " " + ",".join(args)
         data = self.instrument.query_binary_values(cmd, datatype='B', container=bytes)
         if data and data[0] == ord('#'):  # Check for TMC header
             data = self.data_handler.remove_tmc_header(data)
-        if self.data_handler.autosave:
-            
-            self.data_handler.write_to_file("Display_Data", data, EFileType.PNG)  # Assuming PNG as default, adjust if needed
-        return data
+        if self.data_handler.auto_save:
+            img, data = self.data_handler.bytes_to_image("Osc_Display_Data", data, EFileType.PNG)  # Assuming PNG as default, adjust if needed
+        return data, img
     def set_type(self, disp_type):
         """
         Set the waveform display mode.
@@ -2042,7 +2043,7 @@ class ETable:
 
     def get_data(self):
         """
-        Read the current event table data. If autosave is on, then also saves them to a csv file.
+        Read the current event table data. If auto save is on, then also saves them to a csv file.
         Parameter:
             None
         Return:
