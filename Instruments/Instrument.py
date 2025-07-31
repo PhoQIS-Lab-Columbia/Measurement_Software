@@ -3,19 +3,19 @@ from EFileType import EFileType
 from PIL import Image
 from EFileType import EFileType
 class Instrument():
-    def __init__(self, instrument, name = None):
+    def __init__(self, instrument, name):
         self.instrument = instrument
         
         self.name = name
         self.data_handler = DataHandler()  # Default format set to JSON
-        self.subtrees = []
+        
     def disconnect(self):
         """Disconnect from instrument and shut down all data reading and controls."""
         self.instrument.close()
         print("Disconnected from "+str(self.name))
 
 
-    def save_data(self, data, filepath, format ='json'):
+    def save_data(self, data, filepath, format =EFileType.CSV):
         """
         Save data to a file in the specified save path.
         
@@ -23,7 +23,7 @@ class Instrument():
         data (dict): The data to be saved.
         filename (str): The name of the file to save the data in.
         """
-        self.data_handler.write_to_file(filepath, response, EFileType.CSV, header)
+        self.data_handler.write_to_file(filepath, data, format)
 
     def clear_event_registers(self):
         """

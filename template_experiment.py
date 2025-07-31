@@ -35,6 +35,7 @@ def __main__():
     #OR you can individually cco the instrument
     osc = nm.connect_oscilloscope()
     sa = nm.connect_spectrum_analyzer()
+    vna = nm.connect_vector_network_analyzer()
     osc.run()
     print(osc)
     osc_helper.set_timebase(2)
