@@ -7,14 +7,14 @@ class SpectrumAnalyzer(Instrument.Instrument):
        
        self.instrument = device
        self.name = EInstrument.SPECTRUM_ANALYZER
-       self.display = SpectrumAnalyzer.Display(self.instrument, data_handler)
-       self.format = SpectrumAnalyzer.Format(self.instrument, data_handler)
-       self.system = SpectrumAnalyzer.System(self.instrument, data_handler)
-       self.sense = SpectrumAnalyzer.Sense(self.instrument, data_handler)
-       self.initiate = SpectrumAnalyzer.Initiate(self.instrument, data_handler)
-       self.calculate = SpectrumAnalyzer.Calculate(self.instrument, data_handler)
-       self.trace = SpectrumAnalyzer.Trace(self.instrument, data_handler)
-       self.wlan = SpectrumAnalyzer.WLAN(self.instrument, data_handler)
+       self.display = SpectrumAnalyzer.Display(self.instrument, self.data_handler)
+       self.format = SpectrumAnalyzer.Format(self.instrument, self.data_handler)
+       self.system = SpectrumAnalyzer.System(self.instrument, self.data_handler)
+       self.sense = SpectrumAnalyzer.Sense(self.instrument, self.data_handler)
+       self.initiate = SpectrumAnalyzer.Initiate(self.instrument, self.data_handler)
+       self.calculate = SpectrumAnalyzer.Calculate(self.instrument, self.data_handler)
+       self.trace = SpectrumAnalyzer.Trace(self.instrument, self.data_handler)
+       self.wlan = SpectrumAnalyzer.WLAN(self.instrument, self.data_handler)
        
 
     #Helper Functions

@@ -9,10 +9,13 @@ from network_manager import NetworkManager
 from Instruments.oscilloscope_rigol import Oscilloscope
 from Instruments.oscilloscope_helper import Oscilloscope_Helper
 from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
-from Instruments.spectrum_analyzer_helper import SpectrumAnalyzer
+from Instruments.spectrum_analyzer_helper import Spectrum_Analyzer_Helper
+from Instruments.vector_network_analyzer_copper_mountain import VNA
+from Instruments.vector_network_analyzer_helper import VNA_Helper
 from EInstrument import EInstrument
 from EFileType import EFileType
 from data_handler import DataHandler
+
 def __main__():
     nm = NetworkManager()
     dh = DataHandler()
@@ -31,7 +34,7 @@ def __main__():
 
     #OR you can individually cco the instrument
     osc = nm.connect_oscilloscope()
-    
+    sa = nm.connect_spectrum_analyzer()
     osc.run()
     print(osc)
     osc_helper.set_timebase(2)
