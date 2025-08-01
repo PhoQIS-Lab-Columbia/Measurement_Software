@@ -1,6 +1,6 @@
 from Instruments import oscilloscope_rigol
 import pyvisa
-
+import platform
 from network_manager import NetworkManager
 from EInstrument import EInstrument
 import time
@@ -23,7 +23,7 @@ print(osc.get_waveform_format())
 osc.run()
 time.sleep(3)
 osc.stop()"""
-
+print(platform.system())
 #Read out any data
 #If you want to save the data to a file everytime the function is run, leave 
 #The default path for saved data is "~/Measurement_Software/Experiments/Outputs"

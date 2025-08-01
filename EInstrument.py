@@ -5,3 +5,5 @@ class EInstrument(Enum):
     SPECTRUM_ANALYZER = "spectrum analyzer"
     OHM_METER = "ohm meter"
     VECTOR_NETWORK_ANALYZER = "vector network analyzer"
+    DIGITAL_ATTENUATOR = "digital attenuator"
+    SIGNAL_GENERATOR = "signal generator"

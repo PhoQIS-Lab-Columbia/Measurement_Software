@@ -1,10 +1,15 @@
 import json
 import pyvisa
+import os
+from ctypes import *
+import ctypes
+import struct
 from Instruments.oscilloscope_rigol import Oscilloscope
 from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
 from Instruments.vector_network_analyzer_copper_mountain import VNA
 from EInstrument import EInstrument
-
+from Instruments.digital_attenuator_vanuix import digital_attenuator
+from Instruments.signal_generator_signal_core import signal_generator
 class NetworkManager:
     def __init__(self, rm = pyvisa.ResourceManager()):
         self.rm = rm
@@ -24,6 +29,10 @@ class NetworkManager:
             '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         elif name== EInstrument.VECTOR_NETWORK_ANALYZER.value or name== EInstrument.VECTOR_NETWORK_ANALYZER:
             return VNA(instrument)
+        elif name == EInstrument.DIGITAL_ATTENUATOR.value or name == EInstrument.DIGITAL_ATTENUATOR:
+            return self.connect_digital_attenuator()
+        elif name == EInstrument.SIGNAL_GENERATOR.value or name == EInstrument.SIGNAL_GENERATOR:
+            return self.connect_signal_generator()
         else:
             raise ValueError(f"Instrument {name} is not recognized.")
 
@@ -54,6 +63,11 @@ class NetworkManager:
             if id in instrumentPorts.keys() and (instrument_list == [] or EInstrument(instrumentPorts[id]) in instrument_list):
                 print("To create instrument: "+ str(instrumentPorts[id]))
                 instruments.append(self.create_instrument(instrumentPorts[id],inst))
+        if instrument_list == [] or EInstrument.DIGITAL_ATTENUATOR in instrument_list:
+            instruments.append(self.connect_digital_attenuator())
+        if instrument_list == [] or EInstrument.SIGNAL_GENERATOR in instrument_list:
+            instruments.append(self.connect_signal_generator())
+            
         return instruments
 
     def connect_oscilloscope(self) -> Oscilloscope:
@@ -74,7 +88,75 @@ class NetworkManager:
         if vna == None:
             raise ValueError("Vector Network Analyzer failed to connect.")
         return vna[0]
-           
+    
+    def connect_digital_attenuator(self):
+        os.add_dll_directory(os.getcwd())
+        # Open the dll
+        if struct.calcsize("P") * 8 == 32:
+            vnx = cdll.VNX_atten
+        elif struct.calcsize("P") * 8 == 64:
+            vnx = cdll.VNX_atten64
+        else:
+            raise NotImplementedError("Unsupported operating system")
+        
+        # Set test mode to false
+        # This means that we will be using real devices
+        vnx.fnLDA_SetTestMode(False)
+
+        # Get the number of devices
+        devices_num = vnx.fnLDA_GetNumDevices()
+        # Create an array of device ids for connected devices
+        DeviceIDArray = c_int * devices_num
+        devices_list = DeviceIDArray()
+        # fill the array with the ID's of connected attenuators
+        vnx.fnLDA_GetDevInfo(devices_list)
+
+        if len(devices_list) > 0:
+            # Select which device to use
+            devid = 0
+            if len(devices_list) == 1:
+                devid = devices_list[0]
+            else:
+                while not devid in devices_list:
+                    print("Connected Devices:")
+                    for device in devices_list:
+                        print(f"\t({device}) {vnx.fnLDA_GetSerialNumber(device)}")
+                    try:
+                        devid = int(input("Select a device: "))
+                        if not devid in devices_list:
+                            print("Invalid device selection")
+                    except ValueError:
+                        print("Invalid device selection")
+                    print()
+            
+            
+            # Open selected device
+            vnx.fnLDA_InitDevice(devid)
+            
+            return digital_attenuator(vnx, devid)
+        
+    def connect_signal_generator(self):
+        """Connects to the signal generator and returns the instrument object."""
+        os.add_dll_directory(os.getcwd())
+        # Open the dll
+        
+        sg = cdll.sc5510a
+        # Get the number of devices
+        devices_num = sg.sc5510a_search_devices()
+        # Create an array of device ids for connected devices
+        
+
+        if devices_num > 0:
+            # Select which device to use
+            devid = 0
+            if devices_num == 1:
+                devices_list = []
+                #TODO: Test if id correctly returned or char array jsut give memory address
+                sg.sc5510a_search_devices(devices_list,1)
+                sig_gen = sg.sc5510a_open_device(devices_list[0])
+            
+        return signal_generator(sg, sig_gen)
+            
     def disconnect(self, instruments):
         
         if type(instruments) is not list:
