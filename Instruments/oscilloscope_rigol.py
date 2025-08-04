@@ -9,8 +9,8 @@ from PIL import Image
 
 class Oscilloscope(Instrument.Instrument):
 
-    def __init__(self, instrument):
-        super().__init__(instrument, EInstrument.OSCILLOSCOPE)
+    def __init__(self, instrument, save_files_path=None):
+        super().__init__(instrument, EInstrument.OSCILLOSCOPE, save_files_path)
 
         self.acquisition = Acquisition(self.instrument,self.data_handler)
         self.calibrate = Calibrate(self.instrument,self.data_handler)

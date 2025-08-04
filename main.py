@@ -11,8 +11,6 @@ insturment_list = [] #types the name of the instruments you want to query
 #resources = rm.list_resources()
 #print(resources)
 #switch = rm.open_resource()
-flit init
-
 #id = inst.query('*IDN?')
 #nm = NetworkManager()
 #Can connect to all instruments with empty list

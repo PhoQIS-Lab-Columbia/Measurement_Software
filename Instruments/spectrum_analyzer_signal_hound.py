@@ -3,9 +3,9 @@ import time
 from EFileType import EFileType
 from EInstrument import EInstrument
 class SpectrumAnalyzer(Instrument.Instrument):
-    def __init__(self, instrument):
+    def __init__(self, instrument, save_files_path=None):
        
-       super().__init__(instrument, EInstrument.SPECTRUM_ANALYZER)
+       super().__init__(instrument, EInstrument.SPECTRUM_ANALYZER, save_files_path)
 
        self.display = Display(self.instrument, self.data_handler)
        self.format = Format(self.instrument, self.data_handler)

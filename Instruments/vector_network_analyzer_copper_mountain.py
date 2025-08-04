@@ -3,8 +3,8 @@ import pyvisa
 from EInstrument import EInstrument
 class VNA(Instrument.Instrument):
 
-    def __init__(self, instrument):
-        super().__init__(instrument, name=EInstrument.VECTOR_NETWORK_ANALYZER)
+    def __init__(self, instrument, save_files_path=None):
+        super().__init__(instrument, EInstrument.VECTOR_NETWORK_ANALYZER, save_files_path)
         
         # Add instance variables for each direct subclass under VNA
 
