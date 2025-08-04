@@ -3,12 +3,17 @@ from EInstrument import EInstrument
 import pyvisa
 from ctypes import *
 import ctypes
+from data_handler import DataHandler
+class signal_generator():
 
-class signal_generator(Instrument.Instrument):
-
-    def __init__(self, instrument, handle):
-        super().__init__(instrument, EInstrument.SIGNAL_GENERATOR)
+    def __init__(self, instrument, handle, save_files_path = None):
+        self.instrument = instrument
+        self.name = EInstrument.SIGNAL_GENERATOR
         self.handle = handle
+        if save_files_path is None:
+            self.data_handler = DataHandler()  # Default format set to JSON
+        else:
+            self.data_handler = DataHandler(save_files_path)  # Default format set to JSON
         #Class objects
     def disconnect(self):
         """Disconnects the instrument."""

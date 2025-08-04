@@ -2,17 +2,22 @@ from Instruments import Instrument
 from EInstrument import EInstrument
 from EConnection import EConnection
 import platform
-
+from data_handler import DataHandler
 import os 
 import ctypes
 class digital_attenuator(Instrument.Instrument):
 
-    def __init__(self, instrument, devid):
+    def __init__(self, instrument, devid, save_files_path=None):
         self.instrument = instrument
         self.name = EInstrument.DIGITAL_ATTENUATOR
         self.minumum_attenuation_increment = 0.25 #dB
         #Choose which dll to load based on native system
+        self.instrument = instrument
         
+        if save_files_path is None:
+            self.data_handler = DataHandler()  # Default format set to JSON
+        else:
+            self.data_handler = DataHandler(save_files_path)
         self.devid = devid
         self.minAttenuation = int(self.instrument.fnLDA_GetMinAttenuation(devid) / 4)
         self.maxAttenuation = int(self.instrument.fnLDA_GetMaxAttenuation(devid) / 4)

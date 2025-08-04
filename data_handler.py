@@ -6,10 +6,10 @@ from PIL import Image
 from EFileType import EFileType
 
 class DataHandler():
-    def __init__(self):
+    def __init__(self, file_path = "~/Measurement_Software/Experiments/Outputs/" ):
         self.format = EFileType.CSV
-        self.default_save_path = "~/Measurement_Software/Experiments/Outputs/"        
-        self.save_path = self.default_save_path
+        self.default_save_path = file_path 
+        self.file_path = self.default_save_path
         self.auto_save = False
     def get_save_path(self):
         """
@@ -18,7 +18,7 @@ class DataHandler():
         Returns:
         str: The current save path.
         """
-        return self.save_path
+        return self.file_path
     
     def is_auto_saving_data_enabled(self):
         """
@@ -29,7 +29,7 @@ class DataHandler():
         """
         return self.auto_save
     
-    def enable_auto_saving_data(self, save_path=None):
+    def enable_auto_saving_data(self):
         """
         Enable the automatic saving of data to a specified path.
         
@@ -37,11 +37,7 @@ class DataHandler():
         save_path (str): The path where data will be saved. If None, auto-saving is disabled.
         """
         self.auto_save = True
-        
-        if save_path is not None:
-            self.save_path = save_path
-        else:
-            self.save_path = self.default_save_path
+       
         
         print(f"Auto-saving enabled. Data will be saved to {self.save_path}")
             
@@ -85,12 +81,14 @@ class DataHandler():
         #TODO Change readers and writers
     #TODO Add update_file
 
-    def read_file(self, file_path, format = None):
+    def read_file(self, file_name, format = None):
         """Reads file and returns data"""
-        fmt = self.format
+        
         if format is not None:  
             fmt = format
-        file_path = file_path + format.value if not file_path.endswith(format.value) else file_path
+        else:
+            fmt = self.format
+        file_path = self.file_path+file_name + format.value if not file_path.endswith(format.value) else file_path
         if fmt == EFileType.CSV:
             with open(file_path, mode='r') as csvfile:
                 data = list(csv.reader(csvfile))
@@ -119,7 +117,7 @@ class DataHandler():
                 file_type: EFileType - type of file to write to, if None then uses default format
                 headers: list - headers for file, if None then numerical headers are used. Only used if data is not a dictionary.
                 If file already exists, headers are not written again."""
-        file_path = file_name#self.default_save_path+file_name
+        file_path = self.file_path+file_name
         format = self.format
         if file_type is not None:
             format = file_type

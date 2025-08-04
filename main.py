@@ -5,12 +5,16 @@ from network_manager import NetworkManager
 from EInstrument import EInstrument
 import time
 from PIL import Image
+import flit_core
 rm = pyvisa.ResourceManager()
 insturment_list = [] #types the name of the instruments you want to query 
-resources = rm.list_resources()
-print(resources)
+#resources = rm.list_resources()
+#print(resources)
+#switch = rm.open_resource()
+flit init
+
 #id = inst.query('*IDN?')
-nm = NetworkManager()
+#nm = NetworkManager()
 #Can connect to all instruments with empty list
 #instruments = nm.connect_instruments([])
 #instruments = nm.connect_instruments([EInstrument.OSCILLOSCOPE,EInstrument.SPECTRUM_ANALYZER])
@@ -23,7 +27,7 @@ print(osc.get_waveform_format())
 osc.run()
 time.sleep(3)
 osc.stop()"""
-print(platform.system())
+#print(platform.system())
 #Read out any data
 #If you want to save the data to a file everytime the function is run, leave 
 #The default path for saved data is "~/Measurement_Software/Experiments/Outputs"
