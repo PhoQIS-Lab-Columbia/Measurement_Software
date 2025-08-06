@@ -6,6 +6,8 @@ class DCPowerSupply(Instrument.Instrument):
 
     def __init__(self, instrument, save_files_path=None):
         super().__init__(instrument, EInstrument.DC_POWER_SUPPLY, save_files_path)
+        self.channel1 = Channel(instrument, self.data_handler, "CH1")
+        self.channel2 = Channel(instrument, self.data_handler, "CH2")
         
         #Class objects
     def save(self, name):
@@ -119,6 +121,7 @@ class DCPowerSupply(Instrument.Instrument):
 
         """
         self.instrument.write("*UNLOCK")
+        
 class Channel:
     def __init__(self, instrument, data_handler, channel):
         self.instrument = instrument

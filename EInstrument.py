@@ -8,3 +8,4 @@ class EInstrument(Enum):
     DIGITAL_ATTENUATOR = "digital attenuator"
     SIGNAL_GENERATOR = "signal generator"
     DC_POWER_SUPPLY = "DC power supply"
+    LOCK_IN_AMP = "Lock In Amplifier"
