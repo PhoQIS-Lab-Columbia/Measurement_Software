@@ -5,7 +5,7 @@ from network_manager import NetworkManager
 from EInstrument import EInstrument
 import time
 from PIL import Image
-import flit_core
+
 rm = pyvisa.ResourceManager()
 insturment_list = [] #types the name of the instruments you want to query 
 #resources = rm.list_resources()

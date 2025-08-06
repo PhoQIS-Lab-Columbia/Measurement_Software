@@ -10,7 +10,15 @@ class LockInAmp(Instrument.Instrument):
 “V” Volts"""
     def __init__(self, instrument, name, save_files_path=None):
         super().__init__(instrument, EInstrument.Name, save_files_path)
-        
+        self.reference = Reference(instrument, self.data_handler)
+        self.signal = Signal(instrument, self.data_handler)
+        self.channel1 = Channel(instrument, self.data_handler, 1)
+        self.channel2 = Channel(instrument, self.data_handler, 2)
+        self.aux = Aux(instrument, self.data_handler)
+        self.display = Display(instrument, self.data_handler)
+        self.scan = Scan(instrument, self.data_handler)
+        self.data = Data(instrument, self.data_handler)
+        self.system = System(instrument, self.data_handler)
         #Class objects
     def auto_range(self):
         """
@@ -595,6 +603,9 @@ class Signal:
     def __init__(self, instrument, data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
+        self.voltage = self.Voltage(instrument, data_handler)
+        self.current = self.Current(instrument, data_handler)
+        self.filter = self.Filter(instrument, data_handler)
     def set_signal_source(self, source):
         """
         Sets the signal source to either voltage or current.
@@ -1037,6 +1048,7 @@ class Channel:
         self.instrument = instrument
         self.data_handler = data_handler
         self.channel = channel
+        self.offset = self.Offset(instrument, data_handler, channel)
     def set_basis(self, basis):
         """
         Sets the output basis for the specified channel.
@@ -1403,25 +1415,31 @@ class Display:
     def __init__(self, instrument, data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        def get_screenshot_image(self):
-            """
-            Queries the instrument for a screen image (BMP format) and returns it as an image object using data_handler.bytes_toimage.
-            Returns: Image object (from data_handler.bytes_toimage)
-            """
-            cmd = "GETSCREEN?"
-            # Initiate the screen capture
-            self.instrument.write(cmd)
-            # Wait for MAV (Message Available) bit to be set in the status byte
-            while True:
-                stb = self.instrument.read_stb()  # Use VISA Read STB, not *STB?
-                if stb & 0x10:  # MAV bit is bit 4 (0x10)
-                    break
-            # Read the binary block
-            raw_data = self.instrument.read_raw()
-            # Convert the binary block to an image using the data_handler
-            image = self.data_handler.bytes_to_image(raw_data)
-            self.data_handler.log_command(cmd, "<BMP image>")
-            return image
+        self.channel1 = self.Channel(instrument, data_handler, 1)
+        self.channel2 = self.Channel(instrument, data_handler, 2)
+        self.channel3 = self.Channel(instrument, data_handler, 3)
+        self.channel4 = self.Channel(instrument, data_handler, 4)
+        self.cursor = self.Cursor(instrument, data_handler)
+        self.fft = self.FFT(instrument, data_handler)
+    def get_screenshot_image(self):
+        """
+        Queries the instrument for a screen image (BMP format) and returns it as an image object using data_handler.bytes_toimage.
+        Returns: Image object (from data_handler.bytes_toimage)
+        """
+        cmd = "GETSCREEN?"
+        # Initiate the screen capture
+        self.instrument.write(cmd)
+        # Wait for MAV (Message Available) bit to be set in the status byte
+        while True:
+            stb = self.instrument.read_stb()  # Use VISA Read STB, not *STB?
+            if stb & 0x10:  # MAV bit is bit 4 (0x10)
+                break
+        # Read the binary block
+        raw_data = self.instrument.read_raw()
+        # Convert the binary block to an image using the data_handler
+        image = self.data_handler.bytes_to_image(raw_data)
+        self.data_handler.log_command(cmd, "<BMP image>")
+        return image
     def set_strip_chart_live(self, state):
         """
         Pauses (OFF/0) or resumes (ON/1) the strip chart.
@@ -2853,7 +2871,10 @@ class Data:
     def __init__(self, instrument, data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-
+        self.transfer = self.Transfer(instrument, data_handler)
+        self.capture = self.Capture(instrument, data_handler)
+        self.ethernet_streaming = self.Ethernet_Streaming(instrument, data_handler)
+        
     class Transfer:
         """Commands to transfer data to/from the instrument."""
         def __init__(self, instrument, data_handler):
@@ -3631,6 +3652,227 @@ class System:
         Returns: int
         """
         cmd = "FNUM?"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return int(response)
+    def get_next_file_name(self):
+        """
+        Returns the next file name that will be used for saving data or screenshots.
+        Returns: str
+        """
+        cmd = "FNXT?"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return response.strip().strip('"')
+
+    def save_screenshot_to_usb(self):
+        """
+        Saves a screenshot to a USB memory stick (same as pressing [Screen Shot]).
+        """
+        cmd = "DCAP"
+        self.instrument.write(cmd)
+
+    def save_data_to_usb(self):
+        """
+        Saves data to a USB memory stick (same as pressing [Data Save]).
+        """
+        cmd = "SVDT"
+        self.instrument.write(cmd)
+
+    def set_local_remote(self, mode):
+        """
+        Sets the local/remote function.
+        mode: 'LOCAL', 0; 'REMOTE', 1; 'LOCKOUT', 'LOCAL LOCKOUT', 2; or integer 0-2
+        """
+        if isinstance(mode, str):
+            m = mode.upper()
+            if m in ["LOCAL"]:
+                i = 0
+            elif m in ["REMOTE"]:
+                i = 1
+            elif m in ["LOCKOUT", "LOCAL LOCKOUT"]:
+                i = 2
+            else:
+                raise ValueError("Mode must be 'LOCAL', 'REMOTE', 'LOCKOUT', or integer 0-2.")
+        elif mode in [0, 1, 2]:
+            i = int(mode)
+        else:
+            raise ValueError("Mode must be 'LOCAL', 'REMOTE', 'LOCKOUT', or integer 0-2.")
+        cmd = f"LOCL {i}"
+        self.instrument.write(cmd)
+
+    def get_local_remote(self):
+        """
+        Queries the local/remote state.
+        Returns: int (0=LOCAL, 1=REMOTE, 2=LOCAL LOCKOUT)
+        """
+        cmd = "LOCL?"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return int(response)
+
+    def set_override_remote(self, state):
+        """
+        Sets the GPIB Override Remote state.
+        state: 'OFF', 0; 'ON', 1; or integer 0-1
+        """
+        if isinstance(state, str):
+            s = state.upper()
+            if s == "OFF":
+                i = 0
+            elif s == "ON":
+                i = 1
+            else:
+                raise ValueError("State must be 'OFF', 'ON', 0, or 1.")
+        elif state in [0, 1]:
+            i = int(state)
+        else:
+            raise ValueError("State must be 'OFF', 'ON', 0, or 1.")
+        cmd = f"OVRM {i}"
+        self.instrument.write(cmd)
+
+    def get_override_remote(self):
+        """
+        Queries the GPIB Override Remote state.
+        Returns: int (0=OFF, 1=ON)
+        """
+        cmd = "OVRM?"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return int(response)
+
+    def set_power_on_status_clear(self, state):
+        """
+        Sets the value of the power-on status clear bit.
+        state: 0 or 1
+        """
+        if state not in [0, 1]:
+            raise ValueError("State must be 0 or 1.")
+        cmd = f"*PSC {int(state)}"
+        self.instrument.write(cmd)
+
+    def get_power_on_status_clear(self):
+        """
+        Queries the value of the power-on status clear bit.
+        Returns: int (0 or 1)
+        """
+        cmd = "*PSC?"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return int(response)
+
+    def set_error_status_enable(self, *args):
+        """
+        Sets the error status enable register.
+        Usage:
+            set_error_status_enable(i)         # i: 0-255, sets the whole register
+            set_error_status_enable(j, i)      # j: 0-7, i: 0 or 1, sets bit j
+        """
+        if len(args) == 1:
+            i = int(args[0])
+            if not (0 <= i <= 255):
+                raise ValueError("i must be between 0 and 255.")
+            cmd = f"ERRE {i}"
+        elif len(args) == 2:
+            j, i = int(args[0]), int(args[1])
+            if not (0 <= j <= 7):
+                raise ValueError("j must be between 0 and 7.")
+            if i not in [0, 1]:
+                raise ValueError("i must be 0 or 1.")
+            cmd = f"ERRE {j}, {i}"
+        else:
+            raise ValueError("Usage: set_error_status_enable(i) or set_error_status_enable(j, i)")
+        self.instrument.write(cmd)
+
+    def get_error_status_enable(self, j=None):
+        """
+        Queries the error status enable register or a specific bit.
+        j: None (returns 0-255), or int 0-7 (returns 0 or 1)
+        """
+        if j is None:
+            cmd = "ERRE?"
+        else:
+            if not (0 <= int(j) <= 7):
+                raise ValueError("j must be between 0 and 7.")
+            cmd = f"ERRE? {int(j)}"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return int(response)
+
+    def get_error_status(self, j=None):
+        """
+        Queries the error status byte or a specific bit.
+        j: None (returns 0-255), or int 0-7 (returns 0 or 1)
+        """
+        if j is None:
+            cmd = "ERRS?"
+        else:
+            if not (0 <= int(j) <= 7):
+                raise ValueError("j must be between 0 and 7.")
+            cmd = f"ERRS? {int(j)}"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return int(response)
+
+    def set_lockin_status_enable(self, *args):
+        """
+        Sets the lock-in status enable register.
+        Usage:
+            set_lockin_status_enable(i)         # i: 0-4095, sets the whole register
+            set_lockin_status_enable(j, i)      # j: 0-11, i: 0 or 1, sets bit j
+        """
+        if len(args) == 1:
+            i = int(args[0])
+            if not (0 <= i <= 4095):
+                raise ValueError("i must be between 0 and 4095.")
+            cmd = f"LIAE {i}"
+        elif len(args) == 2:
+            j, i = int(args[0]), int(args[1])
+            if not (0 <= j <= 11):
+                raise ValueError("j must be between 0 and 11.")
+            if i not in [0, 1]:
+                raise ValueError("i must be 0 or 1.")
+            cmd = f"LIAE {j}, {i}"
+        else:
+            raise ValueError("Usage: set_lockin_status_enable(i) or set_lockin_status_enable(j, i)")
+        self.instrument.write(cmd)
+
+    def get_lockin_status_enable(self, j=None):
+        """
+        Queries the lock-in status enable register or a specific bit.
+        j: None (returns 0-4095), or int 0-11 (returns 0 or 1)
+        """
+        if j is None:
+            cmd = "LIAE?"
+        else:
+            if not (0 <= int(j) <= 11):
+                raise ValueError("j must be between 0 and 11.")
+            cmd = f"LIAE? {int(j)}"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return int(response)
+
+    def get_lockin_status(self, j=None):
+        """
+        Queries the lock-in status word or a specific bit.
+        j: None (returns 0-4095), or int 0-11 (returns 0 or 1)
+        """
+        if j is None:
+            cmd = "LIAS?"
+        else:
+            if not (0 <= int(j) <= 11):
+                raise ValueError("j must be between 0 and 11.")
+            cmd = f"LIAS? {int(j)}"
+        response = self.instrument.query(cmd)
+        self.data_handler.log_command(cmd, response)
+        return int(response)
+
+    def get_overload_status(self):
+        """
+        Queries the present overload states of the lock-in.
+        Returns: int (bitfield, see documentation)
+        """
+        cmd = "CUROVLDSTAT?"
         response = self.instrument.query(cmd)
         self.data_handler.log_command(cmd, response)
         return int(response)

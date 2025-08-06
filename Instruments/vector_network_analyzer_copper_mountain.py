@@ -1,6 +1,7 @@
 from Instruments import Instrument
 import pyvisa
 from EInstrument import EInstrument
+from EFileType import EFileType
 class VNA(Instrument.Instrument):
 
     def __init__(self, instrument, save_files_path=None):
@@ -549,6 +550,8 @@ trace data transfer.
         list: Formatted data array
         """
         data = self.instrument.query(f":CALC{self.n}:DATA:FDAT?")
+        if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, f"FORMATTED_DATA", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
 
     # CALC:DATA:FMEM - Formatted memory array
@@ -563,6 +566,8 @@ trace data transfer.
         list: Formatted memory array
         """
         data = self.instrument.query(f":CALC{self.n}:DATA:FMEM?")
+        if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, f"FORMAT_MEM", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
 
     # CALC:DATA:SDAT - Corrected data array
@@ -577,6 +582,8 @@ trace data transfer.
         list: Corrected data array
         """
         data = self.instrument.query(f":CALC{self.n}:DATA:SDAT?")
+        if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, f"CORR_DATA", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
 
     # CALC:DATA:SMEM - Corrected memory array
@@ -591,6 +598,8 @@ trace data transfer.
         list: Corrected memory array
         """
         data = self.instrument.query(f":CALC{self.n}:DATA:SMEM?")
+        if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, f"CORR_MEM", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
 
     # CALC:DATA:XAX? - X-axis values array
@@ -605,6 +614,8 @@ trace data transfer.
         list: X-axis values
         """
         data = self.instrument.query(f":CALC{self.n}:DATA:XAX?")
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, f"X_AXIS", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
 
     # CALC:FORM - Trace format
@@ -745,6 +756,8 @@ trace data transfer.
                 list: Analysis result data array
             """
             data = self.instrument.query(f":CALC{self.n}:FUNC:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "ANALYSIS_RESULT", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
 
         # CALC:FUNC:DOM - Arbitrary sweep range ON/OFF
@@ -1112,8 +1125,10 @@ trace data transfer.
             Return:
                 str: Limit line table string
             """
-            return self.instrument.query(f":CALC{self.n}:LIM:DATA?").strip()
-
+            data = self.instrument.query(f":CALC{self.n}:LIM:DATA?").strip()
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "LIMIT_LINE", data, file_type = EFileType.CSV)
+            return data
         # CALC:LIM:DISP - Limits display ON/OFF
         def enable_limits_display(self, enable: bool):
             """
@@ -1387,6 +1402,8 @@ trace data transfer.
                 list: Marker data array
             """
             data = self.instrument.query(f":CALC{self.n}:MARK:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "MARKER", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
     
         # CALC:MARK:DISC - Marker discrete mode ON/OFF
@@ -1517,6 +1534,8 @@ trace data transfer.
                 list: Bandwidth search result array
             """
             data = self.instrument.query(f":CALC{self.n}:MARK{marker}:BWID:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "BWDTH_SEARCH", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
     
         # CALC:MARK:BWID:REF - Reference of search
@@ -1894,6 +1913,8 @@ trace data transfer.
                 list: Flatness data array
             """
             data = self.instrument.query(f":CALC{self.n}:MARK{marker}:MATH:FLAT:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "MARKER_FLATNESS", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
     
         # CALC:MARK:MATH:FLAT:STAT - Marker flatness ON/OFF
@@ -2081,6 +2102,8 @@ trace data transfer.
                 list: Statistics data array
             """
             data = self.instrument.query(f":CALC{self.n}:MST:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "MSTH_STATS", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
 
         # CALC:MST:DOM - Partial frequency range ON/OFF
@@ -2240,7 +2263,10 @@ trace data transfer.
             Return:
                 str: Ripple limit line table string
             """
-            return self.instrument.query(f":CALC{self.n}:RLIM:DATA?").strip()
+            data = self.instrument.query(f":CALC{self.n}:RLIM:DATA?").strip()
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "RIPPLE_LIMIT_LINE", data, file_type = EFileType.CSV)
+            return data
 
         # CALC:RLIM:DISP:LINE - Ripple Limit line display ON/OFF
         def enable_ripple_limit_line_display(self, enable: bool):
@@ -5710,6 +5736,8 @@ frequency offset, channel data transfer."""
                 list: Corrected data array
             """
             data = self.instrument.query(f":SENS{self.n}:DATA:CORR?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, f"CORR_S_PARAM", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
         
         def get_raw_data_array_of_parameter(self, param: str):
@@ -5723,6 +5751,8 @@ frequency offset, channel data transfer."""
                 if not any(param.startswith(p) for p in allowed_prefixes):
                     raise ValueError("param must start with S, T, R, A, B, C, or D")
                 data = self.instrument.query(f":SENS{self.n}:DATA:CORR? {param}")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"RAW_DATA", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
         # SENS:DATA:RAWD? - Raw S-parameter or receiver data
@@ -5737,6 +5767,8 @@ frequency offset, channel data transfer."""
                 list: Raw data array
             """
             data = self.instrument.query(f":SENS{self.n}:DATA:RAWD?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"RAW_S_PARAM", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
 
         # SENS:FREQ:DATA? - Stimulus data
@@ -5751,6 +5783,8 @@ frequency offset, channel data transfer."""
                 list: Stimulus data array
             """
             data = self.instrument.query(f":SENS{self.n}:FREQ:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "STIMULUS", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
 
 
@@ -5957,6 +5991,8 @@ frequency offset, channel data transfer."""
                     list: Port offset data array
                 """
                 data = self.instrument.query(f":SENS{self.n}:OFFS:PORT:DATA?")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, "PORT_OFFSET", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:OFFS:PORT:DIV - Port offset divisor
@@ -6096,6 +6132,8 @@ frequency offset, channel data transfer."""
                     list: Receiver offset data array
                 """
                 data = self.instrument.query(f":SENS{self.n}:OFFS:REC:DATA?")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"RECIEVER_OFFSET_{self.n}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:OFFS:REC:DIV - Receiver offset divisor
@@ -6235,6 +6273,8 @@ frequency offset, channel data transfer."""
                     list: Source offset data array
                 """
                 data = self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DATA?")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"SOURCE_OFFSET_{self.n}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:OFFS:SOUR:DIV - Source offset divisor
@@ -7162,6 +7202,8 @@ frequency offset, channel data transfer."""
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
                     data = self.instrument.query(f":SENS{self.n}:CORR:COEF:DATA? {term},{rcvport},{srcport}")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, f"CALIB_COEFFECIENTS_{self.n}", data, file_type = EFileType.CSV)
                     return self.data_handler.parse_array(data)
 
                 # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse <rcvport>,<srcport>
@@ -7506,6 +7548,8 @@ frequency offset, channel data transfer."""
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
                 data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:LOAD? {port}")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"CALIB_STANDARD", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:CORR:COLL:DATA:OPEN <port>,<numeric list>
@@ -7539,6 +7583,8 @@ frequency offset, channel data transfer."""
                 if not (1 <= port <= 2):
                     raise ValueError("port must be 1-2")
                 data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:OPEN? {port}")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"OPEN_CALIB_STAND_CH_{self.n}_PORT_{port}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:CORR:COLL:DATA:SHOR <port>,<numeric list>
@@ -7572,6 +7618,8 @@ frequency offset, channel data transfer."""
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
                 data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:SHOR? {port}")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"SHORT_CALIB_CH{self.n}_PORT{port}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:CORR:COLL:DATA:THRU:MATC <rcvport>,<srcport>,<numeric list>
@@ -7607,6 +7655,8 @@ frequency offset, channel data transfer."""
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
                 data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:THRU:MATC? {rcvport},{srcport}")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"REFLECT_SRCPORT{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:CORR:COLL:DATA:THRU:TRAN <rcvport>,<srcport>,<numeric list>
@@ -7642,6 +7692,8 @@ frequency offset, channel data transfer."""
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
                 data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:THRU:TRAN? {rcvport},{srcport}")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"TRANSM_MEAS{self.n}_{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
             
         class Method:
@@ -9677,6 +9729,8 @@ frequency offset, channel data transfer."""
                             list: Data array
                         """
                         data = self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DATA?")
+                        if self.data_handler.is_auto_saving_data_enabled():
+                            self.data_handler.write_to_file(self, f"KIT_STANDARD_CALIB_{self.n}", data, file_type = EFileType.CSV)
                         return self.data_handler.parse_array(data)
 
                 class Delay:
@@ -10609,6 +10663,8 @@ frequency offset, channel data transfer."""
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
                     data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:ISOL? {rcvport},{srcport}")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, f"ISO_CALIB_SRCPORT{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
                     return self.data_handler.parse_array(data)
 
         
@@ -11331,6 +11387,8 @@ frequency offset, channel data transfer."""
                 list: Frequency values at each measurement point
             """
             data = self.instrument.query(f":SENS{self.n}:FREQ:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"FREQUENCIES_{self.n}", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
         
         # SENS:FREQ[:CW] <frequency>
@@ -11612,6 +11670,8 @@ frequency offset, channel data transfer."""
                         list: Frequency values at each measurement point
                     """
                     data = self.instrument.query(f":SENS{self.n}:OFFS:REC:FREQ:DATA?")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, f"FREQ_OFFSET_{self.n}", data, file_type = EFileType.CSV)
                     return self.data_handler.parse_array(data)
 
                 # SENSe<Ch>:OFFSet:RECeiver[:FREQuency]:DIVisor <numeric>
@@ -11683,6 +11743,8 @@ frequency offset, channel data transfer."""
                     list: Frequency values at each measurement point
                 """
                 data = self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DATA?")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"FREQ_SOURCE_OFFSET_{self.n}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:DIVisor <numeric>
@@ -12120,6 +12182,8 @@ frequency offset, channel data transfer."""
                     list: Segment sweep table data
                 """
                 data = self.instrument.query(f":SENS{self.n}:SEGM:DATA?")
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"SWEEPSEG_TABLE_{self.n}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
         # SENS:SWE:REV - Reverse sweep ON/OFF
         def enable_reverse_sweep(self, enable: bool):
@@ -12953,6 +13017,8 @@ class Source:
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
                 data = self.instrument.query(f":SOUR{channel}:POW:PORT{port}:CORR:COLL:TABL:LOSS:DATA?").strip()
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"LOSS_COMP_{channel}_PORT_{port}", data, file_type = EFileType.CSV)
                 return [float(x) for x in data.split(',') if x]
 
             # SOURce<Ch>:POWer:PORT<Pt>:CORRection:COLLect:TABLe:LOSS[:STATe] {OFF|ON|0|1}
@@ -13064,6 +13130,8 @@ class Source:
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
                 data = self.instrument.query(f":SOUR{channel}:POW:PORT{port}:CORR:COLL:TABL:LOSS:DATA?").strip()
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"LOSS_COMP_{channel}_PORT_{port}", data, file_type = EFileType.CSV)
                 return [float(x) for x in data.split(',') if x]
 
             # SOURce<Ch>:POWer:PORT<Pt>:CORRection:DATA <numeric list>
@@ -13102,6 +13170,8 @@ class Source:
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
                 data = self.instrument.query(f":SOUR{channel}:POW:PORT{port}:CORR:DATA?").strip()
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"POW_CORRECTION_{channel}_PORT_{port}", data, file_type = EFileType.CSV)
                 return [float(x) for x in data.split(',') if x]
 
         # SOURce<Ch>:POWer:PORT:COUPle {OFF|ON|0|1}
@@ -14628,7 +14698,10 @@ class System:
                 if characterization:
                     cmd += f",{characterization}"
                 data = self.instrument.query(cmd)
-                return [float(x) for x in data.strip().split(',') if x]
+                data =  [float(x) for x in data.strip().split(',') if x]
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"S_PARAMS", data, file_type = EFileType.CSV)
+                return data
 
             # SYSTem:COMMunicate:ECAL:FREQuency:DATA? [<characterization>]
             def get_characterization_frequency_array(self, characterization: str = "FACTory"):
@@ -14648,7 +14721,10 @@ class System:
                 if characterization:
                     cmd += f" {characterization}"
                 data = self.instrument.query(cmd)
-                return [float(x) for x in data.strip().split(',') if x]
+                data = [float(x) for x in data.strip().split(',') if x]
+                if self.data_handler.is_auto_saving_data_enabled():
+                    self.data_handler.write_to_file(self, f"CHAR_POINT_FREQS", data, file_type = EFileType.CSV)
+                return data
 
             # SYSTem:COMMunicate:ECAL:POINts? [<characterization>]
             def get_characterization_point_count(self, characterization: str = "FACTory") -> int:

@@ -1,12 +1,66 @@
 from Instruments import Instrument
 from EInstrument import EInstrument
 import pyvisa
+import time
+from data_handler import DataHandler
+class RF_Switch():
 
-class RF_Switch(Instrument.Instrument):
-
-    def __init__(self, instrument, name):
-        super().__init__(instrument, EInstrument.Name)
-        
+    def __init__(self, instrument, save_files_path):
+        self.instrument = instrument
+        self.name = EInstrument.RF_SWITCH
+        if save_files_path is None:
+            self.data_handler = DataHandler()  # Default format set to JSON
+        else:
+            self.data_handler = DataHandler(save_files_path)
+        self.instrument.read_termination = '\n'
+        self.switch1 = Switch(self.instrument, self.data_handler, "CH1")
+        self.switch2 = Switch(self.instrument, self.data_handler, "CH2")
         #Class objects
+    def reset_all(self):
+        """
+        Reset all switches to their default state. If successfully returns 000000
+        """
+        res = self.instrument.write("Reset")
+        return res
     
     #TODO: Add SCPI functions below
+class Switch:
+    """RF Switch class"""
+    def __init__(self, instrument, data_handler, switch):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.switch = switch
+        self.channel1 = self.Channel(instrument, data_handler, switch, 1)
+        self.channel2 = self.Channel(instrument, data_handler, switch, 2)
+        self.channel3 = self.Channel(instrument, data_handler, switch, 3)
+        self.channel4 = self.Channel(instrument, data_handler, switch, 4)
+        self.channel5 = self.Channel(instrument, data_handler, switch, 5)
+        self.channel6 = self.Channel(instrument, data_handler, switch, 6)
+    def reset(self):
+        """
+        Reset the switch to its default state. If successfully returns 000000
+        """
+        res = self.instrument.write(f"{self.switch}_RES")
+        return res
+    def get_status(self):
+        """Get which switch channels are enabled."""
+        res = self.instrument.query(f"{self.switch}_Status?")
+        return res.strip()
+    class Channel:
+        def __init__(self, instrument, data_handler, switch, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.switch = switch
+            self.channel = channel
+
+        def enable(self):
+            """
+            Enable the channel for this switch.
+            """
+            self.instrument.write(f"CH{self.switch}_{self.channel}_ON")
+        
+        def disable(self):
+            """
+            Enable the channel for this switch.
+            """
+            self.instrument.write(f"CH{self.switch}_{self.channel}_OFF")

@@ -10,12 +10,15 @@ from Instruments.vector_network_analyzer_copper_mountain import VNA
 from EInstrument import EInstrument
 from Instruments.digital_attenuator_vanuix import digital_attenuator
 from Instruments.signal_generator_signal_core import signal_generator
+from Instruments.lock_in_amp_srs import LockInAmp
+from Instruments.rf_switch import RF_Switch
+from Instruments.dc_power_supply_siglent import DCPowerSupply
 class NetworkManager:
     def __init__(self, rm = pyvisa.ResourceManager()):
         self.rm = rm
 
 
-    def create_instrument(self, name, instrument):
+    def create_instrument(self, name, instrument,saved_files_path):
         """Create new instrument object based on the name using the selected port.
         params: name: EInstrument - name of the instrument
                 instrument_ports: string 
@@ -23,21 +26,27 @@ class NetworkManager:
         
         
         if name == EInstrument.OSCILLOSCOPE.value or name == EInstrument.OSCILLOSCOPE:
-            return Oscilloscope(instrument)
+            return Oscilloscope(instrument,saved_files_path)
         elif name== EInstrument.SPECTRUM_ANALYZER.value or name== EInstrument.SPECTRUM_ANALYZER:
-            return SpectrumAnalyzer(instrument)
+            return SpectrumAnalyzer(instrument,saved_files_path)
             '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         elif name== EInstrument.VECTOR_NETWORK_ANALYZER.value or name== EInstrument.VECTOR_NETWORK_ANALYZER:
-            return VNA(instrument)
+            return VNA(instrument,saved_files_path)
         elif name == EInstrument.DIGITAL_ATTENUATOR.value or name == EInstrument.DIGITAL_ATTENUATOR:
-            return self.connect_digital_attenuator()
+            return self.connect_digital_attenuator(saved_files_path)
         elif name == EInstrument.SIGNAL_GENERATOR.value or name == EInstrument.SIGNAL_GENERATOR:
-            return self.connect_signal_generator()
+            return self.connect_signal_generator(saved_files_path)
+        elif name == EInstrument.LOCK_IN_AMP.value or name == EInstrument.LOCK_IN_AMP:
+            return LockInAmp(instrument,saved_files_path)
+        elif name == EInstrument.RF_SWITCH.value or name == EInstrument.RF_SWITCH:
+            return RF_Switch(instrument, saved_files_path)
+        elif name == EInstrument.DC_POWER_SUPPLY.value or name == EInstrument.DC_POWER_SUPPLY:
+            return DCPowerSupply(instrument, saved_files_path)
         else:
             raise ValueError(f"Instrument {name} is not recognized.")
 
     
-    def connect_instruments(self, instrument_list = []):
+    def connect_instruments(self, instrument_list = [], saved_files_path = None):
         """Connects and creates instrument objects from list of names. If no list is provided, then connects 
         and creates instrument for all detected instruments.
         params: instrument_list: list - list of instrument Enum names to connect to.
@@ -64,32 +73,49 @@ class NetworkManager:
                 print("To create instrument: "+ str(instrumentPorts[id]))
                 instruments.append(self.create_instrument(instrumentPorts[id],inst))
         if instrument_list == [] or EInstrument.DIGITAL_ATTENUATOR in instrument_list:
-            instruments.append(self.connect_digital_attenuator())
+            instruments.append(self.connect_digital_attenuator(saved_files_path))
         if instrument_list == [] or EInstrument.SIGNAL_GENERATOR in instrument_list:
-            instruments.append(self.connect_signal_generator())
+            instruments.append(self.connect_signal_generator(saved_files_path))
             
         return instruments
 
-    def connect_oscilloscope(self) -> Oscilloscope:
+    def connect_oscilloscope(self,saved_files_path = None) -> Oscilloscope:
         '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
-        osc = self.connect_instruments([EInstrument.OSCILLOSCOPE])
+        osc = self.connect_instruments([EInstrument.OSCILLOSCOPE],saved_files_path)
         print(osc)
         if osc == None:
             raise ValueError("Oscilloscope failed to connect.")
         return osc[0]
             
-    def connect_spectrum_analyzer(self) -> SpectrumAnalyzer:
-        sa = self.connect_instruments([EInstrument.SPECTRUM_ANALYZER])
+    def connect_spectrum_analyzer(self,saved_files_path = None) -> SpectrumAnalyzer:
+        sa = self.connect_instruments([EInstrument.SPECTRUM_ANALYZER],saved_files_path)
         if sa == None:
             raise ValueError("Spectrum Analyzer failed to connect.")
         return sa[0]
-    def connect_vector_network_analyzer(self) -> VNA:
-        vna = self.connect_instruments([EInstrument.VECTOR_NETWORK_ANALYZER])
+    
+    def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
+        vna = self.connect_instruments([EInstrument.VECTOR_NETWORK_ANALYZER],saved_files_path)
         if vna == None:
             raise ValueError("Vector Network Analyzer failed to connect.")
         return vna[0]
     
-    def connect_digital_attenuator(self):
+    def connect_lock_in_amp(self,saved_files_path = None) -> LockInAmp:
+        lock_in_amp = self.connect_instruments([EInstrument.LOCK_IN_AMP],saved_files_path)
+        if lock_in_amp == None:
+            raise ValueError("Lock In Amplifier failed to connect.")
+        return lock_in_amp[0]
+    
+    def connect_dc_power_supply(self,saved_files_path = None) -> DCPowerSupply:
+        dc_power = self.connect_instruments([EInstrument.DC_POWER_SUPPLY],saved_files_path)
+        if dc_power == None:
+            raise ValueError("Lock In Amplifier failed to connect.")
+        return dc_power[0]
+    def connect_rf_switch(self,saved_files_path = None) -> RF_Switch:
+        rf_switch = self.connect_instruments([EInstrument.RF_SWITCH],saved_files_path)
+        if rf_switch == None:
+            raise ValueError("Lock In Amplifier failed to connect.")
+        return rf_switch[0]
+    def connect_digital_attenuator(self,saved_files_path = None):
         os.add_dll_directory(os.getcwd())
         # Open the dll
         if struct.calcsize("P") * 8 == 32:
@@ -133,9 +159,9 @@ class NetworkManager:
             # Open selected device
             vnx.fnLDA_InitDevice(devid)
             
-            return digital_attenuator(vnx, devid)
+            return digital_attenuator(vnx, devid, saved_files_path)
         
-    def connect_signal_generator(self):
+    def connect_signal_generator(self,saved_files_path = None):
         """Connects to the signal generator and returns the instrument object."""
         os.add_dll_directory(os.getcwd())
         # Open the dll
@@ -155,7 +181,7 @@ class NetworkManager:
                 sg.sc5510a_search_devices(devices_list,1)
                 sig_gen = sg.sc5510a_open_device(devices_list[0])
             
-        return signal_generator(sg, sig_gen)
+        return signal_generator(sg, sig_gen,saved_files_path)
             
     def disconnect(self, instruments):
         

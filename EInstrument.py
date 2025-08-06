@@ -9,3 +9,4 @@ class EInstrument(Enum):
     SIGNAL_GENERATOR = "signal generator"
     DC_POWER_SUPPLY = "DC power supply"
     LOCK_IN_AMP = "Lock In Amplifier"
+    RF_SWITCH = "RF Switch"

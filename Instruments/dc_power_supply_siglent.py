@@ -6,8 +6,8 @@ class DCPowerSupply(Instrument.Instrument):
 
     def __init__(self, instrument, save_files_path=None):
         super().__init__(instrument, EInstrument.DC_POWER_SUPPLY, save_files_path)
-        self.channel1 = Channel(instrument, self.data_handler, "CH1")
-        self.channel2 = Channel(instrument, self.data_handler, "CH2")
+        self.channel1 = Channel(self.instrument, self.data_handler, "CH1")
+        self.channel2 = Channel(self.instrument, self.data_handler, "CH2")
         
         #Class objects
     def save(self, name):

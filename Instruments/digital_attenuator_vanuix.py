@@ -5,6 +5,7 @@ import platform
 from data_handler import DataHandler
 import os 
 import ctypes
+
 class digital_attenuator(Instrument.Instrument):
 
     def __init__(self, instrument, devid, save_files_path=None):

@@ -36,17 +36,24 @@ class Display:
         self.instrument = instrument
         self.data_handler = data_handler
 
-    def hide(self, state):
+    def hide(self):
         """
-        Parameter:
-            state (int): 1 to hide, 0 to show.
+        Hide Spike's window.
+        
         Return:
             None
         """
-        if state not in [0, 1]:
-            raise ValueError("state must be 0 or 1")
-        self.instrument.write(f":DISP:HIDE {state}")
-
+        
+        self.instrument.write(f":DISP:HIDE 1")
+    def show(self):
+        """
+        Opens Spike's window.
+        
+        Return:
+            None
+        """
+        
+        self.instrument.write(f":DISP:HIDE 0")
     def is_hidden(self):
         """
         Parameter:
@@ -1951,7 +1958,7 @@ class Sense:
                 self.instrument = instrument
                 self.data_handler = data_handler
 
-            def fetch_am(self, metrics):
+            def am(self, metrics):
                 """
                 Parameter:
                 metrics (int or list of int): Metric(s) to retrieve for AM demodulation.
@@ -1969,7 +1976,7 @@ class Sense:
                     self.data_handler.write_to_file(self, "ADEMod_AM", response, file_type = EFileType.CSV, headers = metrics_str)
                 return response
 
-            def fetch_fm(self, metrics):
+            def fm(self, metrics):
                 """
                 Parameter:
                 metrics (int or list of int): Metric(s) to retrieve for FM demodulation.
@@ -6557,7 +6564,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-
+                self.fetch = Sense.Bluetooth.Trigger.Fetch(self.instrument,data_handler)
             def set_slength(self, value):
                 """
                 Parameter:
