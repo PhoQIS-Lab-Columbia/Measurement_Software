@@ -14,16 +14,15 @@ class TestDCPowerSupply(unittest.TestCase):
         rm = pyvisa.ResourceManager()
         nm = NetworkManager(rm)
         print(rm.list_resources())
-        atten = nm.connect_digital_attenuator()
-        self.assertIsNotNone(atten, "Data Attenuator connection failed.")
+        atten = nm.connect_dc_power_supply()
+        self.assertIsNotNone(atten, "DC Power Supply connection failed.")
+    
+    def test_recall(self):
+        dc = self.setup()
+        dc.save("default")
+        state = dc.recall("default")
+        print(state)
 
-    def test_get_device_status(self):
-        attenuator = self.setup()
-        
-        status = attenuator.get_device_status()
-        print(status)
-        self.assertIsNotNone(status, "Device status fetch failed.")
-        self.assertIn("", status, "Device status should contain 'ATTENUATOR'.")
        
 
     

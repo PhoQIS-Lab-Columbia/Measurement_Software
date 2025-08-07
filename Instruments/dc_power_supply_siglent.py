@@ -29,7 +29,7 @@ class DCPowerSupply(Instrument.Instrument):
         Parameters:
         name (str): The name of the state to recall.
         """
-        self.instrument.write(f"*RCL {name}")
+        return self.instrument.write(f"*RCL {name}")
     """def set_channel(self, channel):
         
         Select the channel that will be operated.

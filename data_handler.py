@@ -65,12 +65,13 @@ class DataHandler():
         bytes (bytes): bytes containing image information
         image_name (str): name of file
         format (EFileType): file type used for saving"""
-        if bytes and bytes[0] == ord('#'):
+        #if bytes and bytes[0] == ord('#'):
                 #Remove TMC header if present
-                bytes = self.remove_image_tmc_header(bytes)
+                #bytes = self.remove_image_tmc_header(bytes)
 
         image = Image.open(io.BytesIO(bytes))
         im = image.save(f"{image_name}.{format.value.lower()}")
+        
         return im, bytes
     
     def set_default_file_type(self, format):

@@ -2,7 +2,7 @@ from Instruments import Instrument
 from EInstrument import EInstrument
 import pyvisa
 import re
-
+from EFileType import EFileType
 class LockInAmp(Instrument.Instrument):
     """“NV” nanoVolts “HZ” Hertz “UDEG” microDegrees
 “UV” microVolts “KHZ” kiloHertz “MDEG” milliDegrees
@@ -1438,6 +1438,8 @@ class Display:
         raw_data = self.instrument.read_raw()
         # Convert the binary block to an image using the data_handler
         image = self.data_handler.bytes_to_image(raw_data)
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, f"LOCKIN_SCREENSHOT", file_type = EFileType.PNG)
         self.data_handler.log_command(cmd, "<BMP image>")
         return image
     def set_strip_chart_live(self, state):

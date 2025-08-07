@@ -26,4 +26,3 @@ class TestAttenuator(unittest.TestCase):
         self.assertIn("", status, "Device status should contain 'ATTENUATOR'.")
        
 
-    
