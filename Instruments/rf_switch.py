@@ -46,7 +46,10 @@ class Switch:
         res = self.instrument.write(f"{self.switch}_RES")
         return res
     def get_status(self):
-        """Get which switch channels are enabled."""
+        """Get which switch channels are enabled.
+        Returns:
+            str: A string representing the status of the switch channels.
+        """
         res = self.instrument.query(f"{self.switch}_Status?")
         return res.strip()
     class Channel:
@@ -60,10 +63,22 @@ class Switch:
             """
             Enable the channel for this switch.
             """
-            self.instrument.write(f"CH{self.switch}_{self.channel}_ON")
+            status = self.get_status()
+            if status == '000000':
+                self.instrument.write(f"CH{self.switch}_{self.channel}_ON")
+            else:
+                print(f"Channel {status.index('1')} is already on. Please disable it or reset the switch before turning on channel {self.channel}")
         
         def disable(self):
             """
             Enable the channel for this switch.
             """
             self.instrument.write(f"CH{self.switch}_{self.channel}_OFF")
+
+        def get_status(self):
+            """Get which switch channels are enabled.
+            Returns:
+                str: A string representing the status of the switch channels.
+            """
+            res = self.instrument.query(f"{self.switch}_Status?")
+            return res.strip()
