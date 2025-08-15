@@ -3,6 +3,7 @@ import time
 import subprocess
 from EFileType import EFileType
 from EInstrument import EInstrument
+import sys
 class SpectrumAnalyzer(Instrument.Instrument):
     
     def __init__(self, instrument, save_files_path=None):
@@ -18,14 +19,16 @@ class SpectrumAnalyzer(Instrument.Instrument):
        self.trace = Trace(self.instrument, self.data_handler)
        self.wlan = WLAN(self.instrument, self.data_handler)
        self.record = Record(self.instrument, self.data_handler)
-       self.app = subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'])
+       self.app = subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'], shell = False)
+       self.display.hide()
     #Helper Functions
     def open_software(self):
-        subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'])
+        subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'], shell = False)
     def disconnect(self):
         super().disconnect()
         self.app.terminate()
-        
+        sys.ext()
+
     def _validate_line_num(self, line_num):
         """Helper to validate if line_num is within the allowed range (1-6)."""
         if not 1 <= line_num <= 6:

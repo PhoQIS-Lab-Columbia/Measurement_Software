@@ -3,6 +3,7 @@ import pyvisa
 from EInstrument import EInstrument
 from EFileType import EFileType
 import subprocess
+import sys
 class VNA(Instrument.Instrument):
 
     def __init__(self, instrument, save_files_path=None):
@@ -75,9 +76,10 @@ class VNA(Instrument.Instrument):
         self.hcopy = HCopy(self.instrument, self.data_handler)
         self.output = Output(self.instrument, self.data_handler)
         self.service = Service(self.instrument, self.data_handler)
-        self.app = subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'])
+        self.app = subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'], shell = False)
+    
     def open_software(self):
-        subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'])
+        subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'], shell = False)
     def disconnect(self):
         super().disconnect()
         self.app.terminate()

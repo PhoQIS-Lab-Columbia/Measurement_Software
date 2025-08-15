@@ -23,17 +23,17 @@ insturment_list = [] #types the name of the instruments you want to query
 #Or can connect to each instrument seperately
 #osc = nm.connect_oscilloscope()
 #sa = spectrum_analyzer_signal_hound.SpectrumAnalyzer(None)
-app = subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'], shell=True)
+"""app = subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'], shell=False)
 time.sleep(2)
 app.terminate()
-sys.exit()
+sys.exit()"""
 #sa.app.terminate()
+#app = subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'], shell = False)
+    #Helper Functions
 
-"""vna = vector_network_analyzer_copper_mountain.VNA(None)
-vna.open_software()
-time.sleep(2)
-vna.app.terminate()"""
-#Put your instrument settings here
+#time.sleep(2)
+#app.terminate()
+#Put your instrument ttings here
 """osc.set_waveform_format(fmt="ASCII")
 print(osc.get_waveform_format())
 osc.run()
