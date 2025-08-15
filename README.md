@@ -2,7 +2,7 @@
 
 ## Overview
 
-Measurement Software is a Python package for controlling and automating a variety of laboratory measurement instruments. It provides a unified interface for experiment setup, data acquisition, and instrument management, enabling users to streamline workflows and automate repetitive tasks.
+Measurement Software is a Python package for controlling and automating a variety of laboratory measurement instruments. It provides a unified interface for experiment setup, data acquisition, and instrument management, enabling users to streamline workflows and automate repetitive tasks. The package version can be downloaded by TODO
 
 ## Features
 
@@ -11,11 +11,18 @@ Measurement Software is a Python package for controlling and automating a variet
 - Reuseable experiments
 - Data auto-saving and management
 - Network manager for multi-instrument setups
+- Opens and closes supporting programs automatically
 
 ## Instruments Supported
 - Vector Network Analyzer (Copper Mountain)
 - Oscilloscope (Rigol)
 - Spectrum Analyzer (Signal Hound)
+- RF Switch (Vasta)
+- DC Power Supply (Siglent)
+- Signal Generator (Signal Core)
+- Lock In Amplifier (SRS)
+- Digital Attenuator (Vanuix)
+- Flow Meter (Keyence)
 - Additional instruments can be added using provided jupyter notebook AddANewInstrument.ipynb
 
 ## How to Use
