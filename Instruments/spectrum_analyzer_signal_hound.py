@@ -1,8 +1,10 @@
 from Instruments import Instrument
 import time
+import subprocess
 from EFileType import EFileType
 from EInstrument import EInstrument
 class SpectrumAnalyzer(Instrument.Instrument):
+    
     def __init__(self, instrument, save_files_path=None):
        
        super().__init__(instrument, EInstrument.SPECTRUM_ANALYZER, save_files_path)
@@ -16,9 +18,14 @@ class SpectrumAnalyzer(Instrument.Instrument):
        self.trace = Trace(self.instrument, self.data_handler)
        self.wlan = WLAN(self.instrument, self.data_handler)
        self.record = Record(self.instrument, self.data_handler)
-       
-
+       self.app = subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'])
     #Helper Functions
+    def open_software(self):
+        subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'])
+    def disconnect(self):
+        super().disconnect()
+        self.app.terminate()
+        
     def _validate_line_num(self, line_num):
         """Helper to validate if line_num is within the allowed range (1-6)."""
         if not 1 <= line_num <= 6:
@@ -148,9 +155,9 @@ class System:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.device = System.Device(self.instrument)
-        self.error = System.Error(self.instrument)
-        self.instrumentmode = System.InstrumentMode(self.instrument)
+        self.device = System.Device(self.instrument, self.data_handler)
+        self.error = System.Error(self.instrument, self.data_handler)
+        self.instrumentmode = System.InstrumentMode(self.instrument,self.data_handler)
 
     def close(self):
         """
@@ -329,7 +336,7 @@ class System:
                 raise ValueError("device_index must be a non-negative integer")
             self.instrument.write(f":SYSTem:DEVice:CONnect? {device_index}")
 
-        def disconnect(self):
+        def is_disconnected(self):
             """
             Parameter:
             None
@@ -461,15 +468,15 @@ class Calculate:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.pnoise = Calculate.PNoise(self.instrument)
-        self.marker = Calculate.Marker(self.instrument)
-        self.math = Calculate.Math(self.instrument)
-        self.limitline1 = Calculate.LimitLine(self.instrument,1)
-        self.limitline2 = Calculate.LimitLine(self.instrument,2)
-        self.limitline3 = Calculate.LimitLine(self.instrument,3)
-        self.limitline4 = Calculate.LimitLine(self.instrument,4)
-        self.limitline5 = Calculate.LimitLine(self.instrument,5)
-        self.limitline6 = Calculate.LimitLine(self.instrument,6)
+        self.pnoise = Calculate.PNoise(self.instrument, self.data_handler)
+        self.marker = Calculate.Marker(self.instrument, self.data_handler)
+        self.math = Calculate.Math(self.instrument, self.data_handler)
+        self.limitline1 = Calculate.LimitLine(self.instrument, self.data_handler,1)
+        self.limitline2 = Calculate.LimitLine(self.instrument, self.data_handler,2)
+        self.limitline3 = Calculate.LimitLine(self.instrument, self.data_handler,3)
+        self.limitline4 = Calculate.LimitLine(self.instrument, self.data_handler,4)
+        self.limitline5 = Calculate.LimitLine(self.instrument, self.data_handler,5)
+        self.limitline6 = Calculate.LimitLine(self.instrument, self.data_handler,6)
     class PNoise:
         """
         The PNoise commands control phase noise marker and jitter configuration.
@@ -477,8 +484,8 @@ class Calculate:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.marker = Calculate.PNoise.Marker(self.instrument)
-            self.jitter = Calculate.PNoise.Jitter(self.instrument)
+            self.marker = Calculate.PNoise.Marker(self.instrument, self.data_handler)
+            self.jitter = Calculate.PNoise.Jitter(self.instrument, self.data_handler)
 
         class Marker:
             """
@@ -1563,32 +1570,32 @@ class Sense:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.harmonics = Sense.Harmonics(self.instrument)
-        self.ademod = Sense.ADEMod(self.instrument)
-        self.ddemod = Sense.DDEMod(self.instrument)
-        self.sweep_configuration = Sense.Sweep_Configuration(self.instrument)
-        self.na = Sense.NA(self.instrument)
-        self.vco = Sense.VCO(self.instrument)
-        self.audio = Sense.Audio(self.instrument)
-        self.pnoise = Sense.PNoise(self.instrument)
-        self.peaktable = Sense.PeakTable(self.instrument)
-        self.chpower = Sense.ChPower(self.instrument)
-        self.pathloss1 = Sense.Pathloss(self.instrument, 1)
-        self.pathloss2 = Sense.Pathloss(self.instrument, 2)
-        self.pathloss3 = Sense.Pathloss(self.instrument, 3)
-        self.pathloss4 = Sense.Pathloss(self.instrument, 4)
-        self.pathloss5 = Sense.Pathloss(self.instrument, 5)
-        self.pathloss6 = Sense.Pathloss(self.instrument, 6)
-        self.pathloss7 = Sense.Pathloss(self.instrument, 7)
-        self.pathloss8 = Sense.Pathloss(self.instrument, 8)
-        self.frequency = Sense.Frequency(self.instrument)
-        self.power = Sense.Power(self.instrument)
-        self.bandwidth = Sense.Bandwidth(self.instrument)
-        self.sweep = Sense.Sweep(self.instrument)
-        self.semask = Sense.SEMask(self.instrument)
-        self.nfigure = Sense.NFIGure(self.instrument)
-        self.bluetooth = Sense.Bluetooth(self.instrument)
-        self.lte = Sense.LTE(self.instrument)
+        self.harmonics = Sense.Harmonics(self.instrument, self.data_handler)
+        self.ademod = Sense.ADEMod(self.instrument, self.data_handler)
+        self.ddemod = Sense.DDEMod(self.instrument, self.data_handler)
+        self.sweep_configuration = Sense.Sweep_Configuration(self.instrument, self.data_handler)
+        self.na = Sense.NA(self.instrument, self.data_handler)
+        self.vco = Sense.VCO(self.instrument, self.data_handler)
+        self.audio = Sense.Audio(self.instrument, self.data_handler)
+        self.pnoise = Sense.PNoise(self.instrument, self.data_handler)
+        self.peaktable = Sense.PeakTable(self.instrument, self.data_handler)
+        self.chpower = Sense.ChPower(self.instrument, self.data_handler)
+        self.pathloss1 = Sense.Pathloss(self.instrument, self.data_handler, 1)
+        self.pathloss2 = Sense.Pathloss(self.instrument, self.data_handler, 2)
+        self.pathloss3 = Sense.Pathloss(self.instrument, self.data_handler, 3)
+        self.pathloss4 = Sense.Pathloss(self.instrument, self.data_handler, 4)
+        self.pathloss5 = Sense.Pathloss(self.instrument, self.data_handler, 5)
+        self.pathloss6 = Sense.Pathloss(self.instrument, self.data_handler, 6)
+        self.pathloss7 = Sense.Pathloss(self.instrument, self.data_handler, 7)
+        self.pathloss8 = Sense.Pathloss(self.instrument, self.data_handler, 8)
+        self.frequency = Sense.Frequency(self.instrument, self.data_handler)
+        self.power = Sense.Power(self.instrument, self.data_handler)
+        self.bandwidth = Sense.Bandwidth(self.instrument, self.data_handler)
+        self.sweep = Sense.Sweep(self.instrument, self.data_handler)
+        self.semask = Sense.SEMask(self.instrument, self.data_handler)
+        self.nfigure = Sense.NFIGure(self.instrument, self.data_handler)
+        self.bluetooth = Sense.Bluetooth(self.instrument, self.data_handler)
+        self.lte = Sense.LTE(self.instrument, self.data_handler)
     class Harmonics:
         """
         The Sense:Harmonics commands configure harmonic measurements.
@@ -1871,7 +1878,7 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.fetch = Sense.ADEMod.Fetch(self.instrument)
+            self.fetch = Sense.ADEMod.Fetch(self.instrument, self.data_handler)
         def set_center_frequency(self, freq):
             """
             Parameter:
@@ -2000,13 +2007,13 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.custom = Sense.DDEMod.Custom(self.instrument)
-            self.trigger = Sense.DDEMod.Trigger(self.instrument)
-            self.sync = Sense.DDEMod.Sync(self.instrument)
-            self.compensate = Sense.DDEMod.Compensate(self.instrument)
-            self.equalization = Sense.DDEMod.Equalization(self.instrument)
-            self.trace = Sense.DDEMod.Trace(self.instrument)
-            self.fetch = Sense.DDEMod.Fetch(self.instrument)
+            self.custom = Sense.DDEMod.Custom(self.instrument, self.data_handler)
+            self.trigger = Sense.DDEMod.Trigger(self.instrument, self.data_handler)
+            self.sync = Sense.DDEMod.Sync(self.instrument, self.data_handler)
+            self.compensate = Sense.DDEMod.Compensate(self.instrument, self.data_handler)
+            self.equalization = Sense.DDEMod.Equalization(self.instrument, self.data_handler)
+            self.trace = Sense.DDEMod.Trace(self.instrument, self.data_handler)
+            self.fetch = Sense.DDEMod.Fetch(self.instrument, self.data_handler)
         def set_center_frequency(self, freq):
             """
             Parameter:
@@ -2308,7 +2315,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.iq = Sense.DDEMod.Custom.IQ(self.instrument)
+                self.iq = Sense.DDEMod.Custom.IQ(self.instrument, self.data_handler)
 
             class IQ:
                 """
@@ -2434,7 +2441,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.sword = Sense.DDEMod.Sync.Sword(self.instrument)
+                self.sword = Sense.DDEMod.Sync.Sword(self.instrument, self.data_handler)
             def set_state(self, state):
                 """
                 Parameter:
@@ -2749,7 +2756,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.sweep = Sense.DDEMod.Trace.Sweep(self.instrument)
+                self.sweep = Sense.DDEMod.Trace.Sweep(self.instrument, self.data_handler)
             class Sweep:
                 """
                 The DDEMod:Trace:Sweep commands retrieve sweep data.
@@ -2903,8 +2910,8 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.view = Sense.NA.View(self.instrument)
-            self.correction = Sense.NA.Correction(self.instrument)
+            self.view = Sense.NA.View(self.instrument, self.data_handler)
+            self.correction = Sense.NA.Correction(self.instrument, self.data_handler)
         
         class View():
             """View commands control the view settings in scalar network analysis mode."""
@@ -3010,8 +3017,8 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.sweep = Sense.VCO.Sweep(self.instrument)
-            self.source = Sense.VCO.Source(self.instrument)
+            self.sweep = Sense.VCO.Sweep(self.instrument, self.data_handler)
+            self.source = Sense.VCO.Source(self.instrument, self.data_handler)
         class Sweep:
             """
             The Sweep commands control the sweep configuration in VCO Characterization mode.
@@ -3485,11 +3492,11 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.carrier = Sense.PNoise.Carrier(self.instrument)
-            self.view = Sense.PNoise.View(self.instrument)
-            self.frequency = Sense.PNoise.Frequency(self.instrument)
-            self.xcorr = Sense.PNoise.XCORr(self.instrument)
-            self.vco = Sense.PNoise.VCO(self.instrument)
+            self.carrier = Sense.PNoise.Carrier(self.instrument, self.data_handler)
+            self.view = Sense.PNoise.View(self.instrument, self.data_handler)
+            self.frequency = Sense.PNoise.Frequency(self.instrument, self.data_handler)
+            self.xcorr = Sense.PNoise.XCORr(self.instrument, self.data_handler)
+            self.vco = Sense.PNoise.VCO(self.instrument, self.data_handler)
 
         def set_peak_track(self, state):
             """
@@ -3802,7 +3809,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.device = Sense.PNoise.XCORr.Device(self.instrument)
+                self.device = Sense.PNoise.XCORr.Device(self.instrument, self.data_handler)
 
             class Device:
                 """
@@ -5062,7 +5069,7 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.detector = Sense.Sweep.Detector(self.instrument)
+            self.detector = Sense.Sweep.Detector(self.instrument, self.data_handler)
         def set_time(self, value):
             """
             Parameter:
@@ -5137,12 +5144,12 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.frequency = Sense.SEMask.Frequency(self.instrument)
-            self.bandwidth = Sense.SEMask.Bandwidth(self.instrument)
-            self.sweep = Sense.SEMask.Sweep(self.instrument)
-            self.reference = Sense.SEMask.Reference(self.instrument)
-            self.offset = Sense.SEMask.Offset(self.instrument)
-            self.marker = Sense.SEMask.Marker(self.instrument)
+            self.frequency = Sense.SEMask.Frequency(self.instrument, self.data_handler)
+            self.bandwidth = Sense.SEMask.Bandwidth(self.instrument, self.data_handler)
+            self.sweep = Sense.SEMask.Sweep(self.instrument, self.data_handler)
+            self.reference = Sense.SEMask.Reference(self.instrument, self.data_handler)
+            self.offset = Sense.SEMask.Offset(self.instrument, self.data_handler)
+            self.marker = Sense.SEMask.Marker(self.instrument, self.data_handler)
         class Frequency:
             """
             The SEMask:Frequency commands control the frequency range of the sweeps in spectrum emission mask mode.
@@ -5325,7 +5332,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.detector = Sense.SEMask.Sweep.Detector(self.instrument)
+                self.detector = Sense.SEMask.Sweep.Detector(self.instrument, self.data_handler)
             class Detector:
                 """
                 The Detector commands control the detector function and units in SEM mode.
@@ -5769,10 +5776,10 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.frequency = Sense.NFIGure.Frequency(self.instrument)
-            self.bandwidth = Sense.NFIGure.Bandwidth(self.instrument)
-            self.correction = Sense.NFIGure.Correction(self.instrument)
-            self.fetch = Sense.NFIGure.Fetch(self.instrument)
+            self.frequency = Sense.NFIGure.Frequency(self.instrument, self.data_handler)
+            self.bandwidth = Sense.NFIGure.Bandwidth(self.instrument, self.data_handler)
+            self.correction = Sense.NFIGure.Correction(self.instrument, self.data_handler)
+            self.fetch = Sense.NFIGure.Fetch(self.instrument, self.data_handler)
         class Frequency:
             """
             The NFIGure:Frequency commands control the list of frequency points for noise figure measurements.
@@ -6169,7 +6176,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.enr_table = Sense.NFIGure.Correction.ENRTable(self.instrument)
+                self.enr_table = Sense.NFIGure.Correction.ENRTable(self.instrument, self.data_handler)
             class ENRTable:
                 """
                 The ENRTable commands manage ENR tables for noise sources.
@@ -6408,8 +6415,8 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.measurement = Sense.Bluetooth.Measurement(self.instrument)
-            self.trigger = Sense.Bluetooth.Trigger(self.instrument)
+            self.measurement = Sense.Bluetooth.Measurement(self.instrument, self.data_handler)
+            self.trigger = Sense.Bluetooth.Trigger(self.instrument, self.data_handler)
         class Measurement:
             """
             The Measurement commands configure Bluetooth measurement mode.
@@ -6615,10 +6622,10 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.measurement = Sense.LTE.Measurement(self.instrument)
-            self.scan = Sense.LTE.Scan(self.instrument)
-            self.fetch = Sense.LTE.Fetch(self.instrument)
-            self.trigger = Sense.LTE.Trigger(self.instrument)
+            self.measurement = Sense.LTE.Measurement(self.instrument, self.data_handler)
+            self.scan = Sense.LTE.Scan(self.instrument, self.data_handler)
+            self.fetch = Sense.LTE.Fetch(self.instrument, self.data_handler)
+            self.trigger = Sense.LTE.Trigger(self.instrument, self.data_handler)
         class Measurement:
             """
             The Measurement commands configure LTE measurement mode.
@@ -7013,9 +7020,9 @@ class WLAN:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.measurement = WLAN.Measurement(self.instrument)
-        self.trigger = WLAN.Trigger(self.instrument)
-        self.fetch = WLAN.Fetch(self.instrument)
+        self.measurement = WLAN.Measurement(self.instrument, self.data_handler)
+        self.trigger = WLAN.Trigger(self.instrument, self.data_handler)
+        self.fetch = WLAN.Fetch(self.instrument, self.data_handler)
             
     class Measurement:
         """
@@ -7273,7 +7280,7 @@ class Trace:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.pnoise = Trace.PNoise(self.instrument)
+        self.pnoise = Trace.PNoise(self.instrument, self.data_handler)
     class PNoise:
         """
         The PNoise commands control the user configurable traces for phase noise measurements.
@@ -7740,14 +7747,15 @@ class Record:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.sweep = Record.Sweep(self.instrument)
-        self.trigger = Record.Trigger(self.instrument)
+        self.sweep = Record.Sweep(self.instrument, self.data_handler)
+        self.trigger = Record.Trigger(self.instrument, self.data_handler)
     class Sweep:
-        def __init__(self, instrument):
+        def __init__(self, instrument, data_handler):
             self.instrument = instrument
-            self.decimate = Record.Sweep.Decimate(self.instrument)
-            self.channelizer = Record.Sweep.Channelizer(self.instrument)
-            self.zero_span = Record.Sweep.ZeroSpan(self.instrument)
+            self.data_handler = data_handler
+            self.decimate = Record.Sweep.Decimate(self.instrument, self.data_handler)
+            self.channelizer = Record.Sweep.Channelizer(self.instrument, self.data_handler)
+            self.zero_span = Record.Sweep.ZeroSpan(self.instrument, self.data_handler)
         class Decimate:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
@@ -8019,7 +8027,7 @@ class Record:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.capture = Record.Sweep.ZeroSpan.Capture(self.instrument)
+                self.capture = Record.Sweep.ZeroSpan.Capture(self.instrument, self.data_handler)
             class Capture:
                 def __init__(self, instrument,data_handler):
                     self.instrument = instrument
@@ -8176,13 +8184,13 @@ class Record:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.zerospan = Record.Trigger.ZS(self.instrument)
+            self.zerospan = Record.Trigger.ZS(self.instrument, self.data_handler)
         class ZS:
             """The ZS commands control the trigger configuration in zero-span mode."""
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.fetch = Record.Trigger.ZS.Fetch(self.instrument)
+                self.fetch = Record.Trigger.ZS.Fetch(self.instrument, self.data_handler)
             def set_source(self, source):
                 """
                 Parameter:

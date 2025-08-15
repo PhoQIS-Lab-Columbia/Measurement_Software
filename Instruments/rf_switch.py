@@ -16,6 +16,9 @@ class RF_Switch():
         self.switch1 = Switch(self.instrument, self.data_handler, "CH1")
         self.switch2 = Switch(self.instrument, self.data_handler, "CH2")
         #Class objects
+    
+    def disconnect(self):
+        pass
     def reset_all(self):
         """
         Reset all switches to their default state. If successfully returns 000000

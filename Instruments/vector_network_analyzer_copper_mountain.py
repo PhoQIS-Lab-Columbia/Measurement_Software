@@ -2,6 +2,7 @@ from Instruments import Instrument
 import pyvisa
 from EInstrument import EInstrument
 from EFileType import EFileType
+import subprocess
 class VNA(Instrument.Instrument):
 
     def __init__(self, instrument, save_files_path=None):
@@ -74,6 +75,12 @@ class VNA(Instrument.Instrument):
         self.hcopy = HCopy(self.instrument, self.data_handler)
         self.output = Output(self.instrument, self.data_handler)
         self.service = Service(self.instrument, self.data_handler)
+        self.app = subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'])
+    def open_software(self):
+        subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'])
+    def disconnect(self):
+        super().disconnect()
+        self.app.terminate()
 
 class Calculate:
     """
@@ -742,7 +749,7 @@ trace data transfer.
             self.instrument = instrument
             self.data_handler = data_handler
             self.n = channel
-            self.hold = self.Hold(self.instrument)
+            self.hold = self.Hold(self.instrument, self.data_handler,channel)
 
         # CALC:FUNC:DATA? - Analysis result data array
         def get_analysis_result_data(self):
@@ -5495,7 +5502,6 @@ frequency offset, channel data transfer."""
             self.instrument = instrument
             self.data_handler = data_handler
             self.n = channel
-            self.width_resolution = self.WidthResolution(instrument, data_handler, channel)
             self.resolution = self.Resolution(instrument, data_handler, channel)
             
 
