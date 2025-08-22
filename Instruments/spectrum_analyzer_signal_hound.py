@@ -4,6 +4,7 @@ import subprocess
 from EFileType import EFileType
 from EInstrument import EInstrument
 import sys
+import json
 class SpectrumAnalyzer(Instrument.Instrument):
     
     def __init__(self, instrument, save_files_path=None):
@@ -19,15 +20,18 @@ class SpectrumAnalyzer(Instrument.Instrument):
        self.trace = Trace(self.instrument, self.data_handler)
        self.wlan = WLAN(self.instrument, self.data_handler)
        self.record = Record(self.instrument, self.data_handler)
-       self.app = subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'], shell = False)
-       self.display.hide()
+       with open('program_paths.json') as file:
+            p = json.load(file)
+       self.program_path = p[self.name.value]
+       self.app = subprocess.Popen([self.program_path], shell = False)
+       #self.display.hide()
     #Helper Functions
     def open_software(self):
         subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'], shell = False)
     def disconnect(self):
-        super().disconnect()
         self.app.terminate()
-        sys.ext()
+        super().disconnect()
+        
 
     def _validate_line_num(self, line_num):
         """Helper to validate if line_num is within the allowed range (1-6)."""

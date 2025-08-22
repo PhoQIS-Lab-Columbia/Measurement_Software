@@ -57,9 +57,9 @@ class DCPowerSupply(Instrument.Instrument):
         response = self.instrument.query(":SYST:ERR?").strip()
         return response
     
-    def enable_output_channel(self, source: str, state: str):
+    def enable_output_channel(self, source: str):
         """
-        Turn on/off the specified channel.
+        Turn on the specified channel.
 
         Parameters:
         source (str): Channel to control ('CH1', 'CH2', 'CH3').
@@ -67,9 +67,21 @@ class DCPowerSupply(Instrument.Instrument):
         """
         if source not in ['CH1', 'CH2', 'CH3']:
             raise ValueError("Invalid source. Must be 'CH1', 'CH2', or 'CH3'.")
-        if state not in ['ON', 'OFF']:
-            raise ValueError("Invalid state. Must be 'ON' or 'OFF'.")
-        self.instrument.write(f"OUTPut {source},{state}")
+        
+        self.instrument.write(f"OUTPut {source},ON")
+    
+    def disable_output_channel(self, source: str):
+        """
+        Turn off the specified channel.
+
+        Parameters:
+        source (str): Channel to control ('CH1', 'CH2', 'CH3').
+        
+        """
+        if source not in ['CH1', 'CH2', 'CH3']:
+            raise ValueError("Invalid source. Must be 'CH1', 'CH2', or 'CH3'.")
+    
+        self.instrument.write(f"OUTPut {source},OFF")
 
     def set_output_mode(self, mode: int):
         """
@@ -144,11 +156,12 @@ class Current:
         Returns:
         float: The current value in Amperes.
         """
-        
+        self.instrument.write(f"INSTrument {self.channel}")
         response = self.instrument.query(f"MEASure:CURRent? {self.channel}")
         return response
     def set(self, current):
         """Set current value for the current channel"""
+        self.instrument.write(f"INSTrument {self.channel}")
         self.channel+":CURRent "+str(current)
 
 class Voltage:
@@ -165,10 +178,11 @@ class Voltage:
         Returns:
         float: The current value in Amperes.
         """
-        
+        self.instrument.write(f"INSTrument {self.channel}")
         response = self.instrument.query(f"MEASure:VOLTage? {self.channel}")
         return response
         
     def set(self, voltage):
         """Set voltage value for the current channel"""
+        self.instrument.write(f"INSTrument {self.channel}")
         self.channel+":VOLTage "+str(voltage)

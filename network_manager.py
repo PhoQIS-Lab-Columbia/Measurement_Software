@@ -65,18 +65,25 @@ class NetworkManager:
         with open('instrumentPorts.json', 'r') as f:
             instrumentPorts = json.load(f) 
         for port in unknown_resources:
-            #print("Port: "+str(port))
-            inst = self.rm.open_resource(port, read_termination = '\n')
-            id = inst.query('*IDN?')
-            
+        #for i in range(0,1):
+            #port = unknown_resources[i]
+            print("Port: "+str(port))
+            try:
+                inst = self.rm.open_resource(port, read_termination = '\n')
+                id = inst.query('*IDN?')
+            except pyvisa.VisaIOError:
+                print("Resource is listed but not actually present or accessible.")
+                id = "None"
+            print(id)
+            print("Instrument list "+str(instrument_list))
             if id in instrumentPorts.keys() and (instrument_list == [] or EInstrument(instrumentPorts[id]) in instrument_list):
                 print("To create instrument: "+ str(instrumentPorts[id]))
-                instruments.append(self.create_instrument(instrumentPorts[id],inst))
+                instruments.append(self.create_instrument(instrumentPorts[id],inst,saved_files_path))
         if instrument_list == [] or EInstrument.DIGITAL_ATTENUATOR in instrument_list:
             instruments.append(self.connect_digital_attenuator(saved_files_path))
         if instrument_list == [] or EInstrument.SIGNAL_GENERATOR in instrument_list:
             instruments.append(self.connect_signal_generator(saved_files_path))
-            
+        print("Abount to leave connect instrument.")
         return instruments
 
     def connect_oscilloscope(self,saved_files_path = None) -> Oscilloscope:

@@ -4,6 +4,7 @@ from EInstrument import EInstrument
 from EFileType import EFileType
 import subprocess
 import sys
+import json
 class VNA(Instrument.Instrument):
 
     def __init__(self, instrument, save_files_path=None):
@@ -76,7 +77,10 @@ class VNA(Instrument.Instrument):
         self.hcopy = HCopy(self.instrument, self.data_handler)
         self.output = Output(self.instrument, self.data_handler)
         self.service = Service(self.instrument, self.data_handler)
-        self.app = subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'], shell = False)
+        with open('program_paths.json') as file:
+            p = json.load(file)
+        self.program_path = p[self.name.value]
+        self.app = subprocess.Popen([self.program_path], shell = False)
     
     def open_software(self):
         subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'], shell = False)
