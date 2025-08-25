@@ -4,6 +4,8 @@ import os
 from ctypes import *
 import ctypes
 import struct
+import subprocess
+
 from Instruments.oscilloscope_rigol import Oscilloscope
 from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
 from Instruments.vector_network_analyzer_copper_mountain import VNA
@@ -13,6 +15,7 @@ from Instruments.signal_generator_signal_core import signal_generator
 from Instruments.lock_in_amp_srs import LockInAmp
 from Instruments.rf_switch import RF_Switch
 from Instruments.dc_power_supply_siglent import DCPowerSupply
+from Instruments.flowmeter_keyence import Flowmeter
 class NetworkManager:
     def __init__(self, rm = pyvisa.ResourceManager()):
         self.rm = rm
@@ -28,7 +31,7 @@ class NetworkManager:
         if name == EInstrument.OSCILLOSCOPE.value or name == EInstrument.OSCILLOSCOPE:
             return Oscilloscope(instrument,saved_files_path)
         elif name== EInstrument.SPECTRUM_ANALYZER.value or name== EInstrument.SPECTRUM_ANALYZER:
-            return SpectrumAnalyzer(instrument,saved_files_path)
+            return self.connect_spectrum_analyzer(saved_files_path)
             '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         elif name== EInstrument.VECTOR_NETWORK_ANALYZER.value or name== EInstrument.VECTOR_NETWORK_ANALYZER:
             return VNA(instrument,saved_files_path)
@@ -42,10 +45,13 @@ class NetworkManager:
             return RF_Switch(instrument, saved_files_path)
         elif name == EInstrument.DC_POWER_SUPPLY.value or name == EInstrument.DC_POWER_SUPPLY:
             return DCPowerSupply(instrument, saved_files_path)
+        elif name == EInstrument.FLOW_METER.value or name == EInstrument.FLOW_METER:
+            return Flowmeter()
         else:
             raise ValueError(f"Instrument {name} is not recognized.")
 
-    
+    def connect_flow_meter(self):
+        return Flowmeter()
     def connect_instruments(self, instrument_list = [], saved_files_path = None):
         """Connects and creates instrument objects from list of names. If no list is provided, then connects 
         and creates instrument for all detected instruments.
@@ -79,13 +85,16 @@ class NetworkManager:
             if id in instrumentPorts.keys() and (instrument_list == [] or EInstrument(instrumentPorts[id]) in instrument_list):
                 print("To create instrument: "+ str(instrumentPorts[id]))
                 instruments.append(self.create_instrument(instrumentPorts[id],inst,saved_files_path))
+        if instrument_list == [] or EInstrument.SPECTRUM_ANALYZER in instrument_list:
+            instruments.append(self.connect_spectrum_analyzer(saved_files_path))
         if instrument_list == [] or EInstrument.DIGITAL_ATTENUATOR in instrument_list:
             instruments.append(self.connect_digital_attenuator(saved_files_path))
         if instrument_list == [] or EInstrument.SIGNAL_GENERATOR in instrument_list:
             instruments.append(self.connect_signal_generator(saved_files_path))
         print("Abount to leave connect instrument.")
         return instruments
-
+    def connect_flowmeter(self, saved_files_path = None) -> :
+        x = 0
     def connect_oscilloscope(self,saved_files_path = None) -> Oscilloscope:
         '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         osc = self.connect_instruments([EInstrument.OSCILLOSCOPE],saved_files_path)
@@ -95,10 +104,24 @@ class NetworkManager:
         return osc[0]
             
     def connect_spectrum_analyzer(self,saved_files_path = None) -> SpectrumAnalyzer:
-        sa = self.connect_instruments([EInstrument.SPECTRUM_ANALYZER],saved_files_path)
-        if sa == None:
+        try: 
+            
+            with open('program_paths.json') as file:
+                p = json.load(file)
+            program_path = p[EInstrument.SPECTRUM_ANALYZER.value]
+            app = subprocess.Popen([program_path], shell = False)
+            
+            
+            # Open a session to the Spike software, Spike must be running at this point
+            inst = self.rm.open_resource('TCPIP0::localhost::5025::SOCKET')
+
+            # For SOCKET programming, we want to tell VISA to use a terminating character
+            #   to end a read and write operation.
+            inst.read_termination = '\n'
+            inst.write_termination = '\n'
+        except:
             raise ValueError("Spectrum Analyzer failed to connect.")
-        return sa[0]
+        return SpectrumAnalyzer(inst,app, program_path,saved_files_path)
     
     def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
         vna = self.connect_instruments([EInstrument.VECTOR_NETWORK_ANALYZER],saved_files_path)
@@ -120,7 +143,7 @@ class NetworkManager:
     def connect_rf_switch(self,saved_files_path = None) -> RF_Switch:
         rf_switch = self.connect_instruments([EInstrument.RF_SWITCH],saved_files_path)
         if rf_switch == None:
-            raise ValueError("Lock In Amplifier failed to connect.")
+            raise ValueError("Switch failed to connect.")
         return rf_switch[0]
     def connect_digital_attenuator(self,saved_files_path = None):
         os.add_dll_directory(os.getcwd())

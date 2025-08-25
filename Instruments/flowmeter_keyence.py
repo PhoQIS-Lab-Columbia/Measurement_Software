@@ -8,9 +8,11 @@ class Flowmeter:
             p = json.load(file)
         self.program_path = p[self.name.value]
         self.name = EInstrument.FLOW_METER
-        self.datalogger = subprocess.Popen([self.program_path], shell = False) # Placeholder for a path to 
-    def end_data_logging(self):
+        self.app = subprocess.Popen([self.program_path], shell = False) # Placeholder for a path to 
+    def load_csv(self):
+        pass
+    def disconnect(self):
         """
         Ends data logging on the flowmeter.
         """
-        subprocess.terminate([""])
+        self.app.terminate()

@@ -7,7 +7,7 @@ import sys
 import json
 class SpectrumAnalyzer(Instrument.Instrument):
     
-    def __init__(self, instrument, save_files_path=None):
+    def __init__(self, instrument, app, program_path, save_files_path=None):
        
        super().__init__(instrument, EInstrument.SPECTRUM_ANALYZER, save_files_path)
 

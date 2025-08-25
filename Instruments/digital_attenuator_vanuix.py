@@ -23,8 +23,7 @@ class digital_attenuator(Instrument.Instrument):
         self.minAttenuation = int(self.instrument.fnLDA_GetMinAttenuation(devid) / 4)
         self.maxAttenuation = int(self.instrument.fnLDA_GetMaxAttenuation(devid) / 4)
         self.numChannels = self.instrument.fnLDA_GetNumChannels(devid)
-    def disconnect(self):
-        pass
+   
     #TODO: Add SCPI functions below
     def enable_testing(self):
         """Enables testting mode for the digital attenuator."""
