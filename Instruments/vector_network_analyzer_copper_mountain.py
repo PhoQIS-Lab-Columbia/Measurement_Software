@@ -9,7 +9,10 @@ class VNA(Instrument.Instrument):
 
     def __init__(self, instrument, save_files_path=None):
         super().__init__(instrument, EInstrument.VECTOR_NETWORK_ANALYZER, save_files_path)
-        
+        """with open('program_paths.json') as file:
+            p = json.load(file)"""
+        self.program_path = p[self.name.value]
+        self.app = subprocess.Popen([self.program_path], shell = False)
         # Add instance variables for each direct subclass under VNA
 
         # Instances for each channel (1-based index)
@@ -77,10 +80,7 @@ class VNA(Instrument.Instrument):
         self.hcopy = HCopy(self.instrument, self.data_handler)
         self.output = Output(self.instrument, self.data_handler)
         self.service = Service(self.instrument, self.data_handler)
-        with open('program_paths.json') as file:
-            p = json.load(file)
-        self.program_path = p[self.name.value]
-        self.app = subprocess.Popen([self.program_path], shell = False)
+        
     
     def open_software(self):
         subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'], shell = False)

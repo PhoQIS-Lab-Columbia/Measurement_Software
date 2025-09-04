@@ -93,8 +93,8 @@ class NetworkManager:
             instruments.append(self.connect_signal_generator(saved_files_path))
         print("Abount to leave connect instrument.")
         return instruments
-    def connect_flowmeter(self, saved_files_path = None) -> :
-        x = 0
+    def connect_flowmeter(self, saved_files_path = None) -> Flowmeter:
+        return Flowmeter()
     def connect_oscilloscope(self,saved_files_path = None) -> Oscilloscope:
         '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         osc = self.connect_instruments([EInstrument.OSCILLOSCOPE],saved_files_path)
@@ -104,30 +104,44 @@ class NetworkManager:
         return osc[0]
             
     def connect_spectrum_analyzer(self,saved_files_path = None) -> SpectrumAnalyzer:
+        #try: 
+            
+        with open('program_paths.json') as file:
+            p = json.load(file)
+        program_path = p[EInstrument.SPECTRUM_ANALYZER.value]
+        app = subprocess.Popen([program_path], shell = False)
+        
+        
+        # Open a session to the Spike software, Spike must be running at this point
+        inst = self.rm.open_resource('TCPIP0::localhost::5025::SOCKET')
+
+        # For SOCKET programming, we want to tell VISA to use a terminating character
+        #   to end a read and write operation.
+        inst.read_termination = '\n'
+        inst.write_termination = '\n'
+        #except:
+            #raise ValueError("Spectrum Analyzer failed to connect.")
+        return SpectrumAnalyzer(inst,app, program_path,saved_files_path)
+    
+    def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
         try: 
             
             with open('program_paths.json') as file:
                 p = json.load(file)
-            program_path = p[EInstrument.SPECTRUM_ANALYZER.value]
+            program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
             app = subprocess.Popen([program_path], shell = False)
             
             
-            # Open a session to the Spike software, Spike must be running at this point
-            inst = self.rm.open_resource('TCPIP0::localhost::5025::SOCKET')
+            # Open a session to the S4VNA software, S4VNA must be running at this point
+            inst = self.rm.open_resource('TCPIP0::localhost::5026::SOCKET')
 
             # For SOCKET programming, we want to tell VISA to use a terminating character
             #   to end a read and write operation.
             inst.read_termination = '\n'
             inst.write_termination = '\n'
         except:
-            raise ValueError("Spectrum Analyzer failed to connect.")
-        return SpectrumAnalyzer(inst,app, program_path,saved_files_path)
-    
-    def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
-        vna = self.connect_instruments([EInstrument.VECTOR_NETWORK_ANALYZER],saved_files_path)
-        if vna == None:
-            raise ValueError("Vector Network Analyzer failed to connect.")
-        return vna[0]
+            raise ValueError("VNA failed to connect.")
+        return VNA(inst,app, program_path,saved_files_path)
     
     def connect_lock_in_amp(self,saved_files_path = None) -> LockInAmp:
         lock_in_amp = self.connect_instruments([EInstrument.LOCK_IN_AMP],saved_files_path)

@@ -9,6 +9,7 @@ from Instruments import flowmeter_keyence
 from PIL import Image
 from Instruments import spectrum_analyzer_signal_hound
 import time
+import json
 import subprocess
 import sys
 rm = pyvisa.ResourceManager()
@@ -29,7 +30,8 @@ inst.write_termination = '\n'"""
 print(inst.query('*IDN?'))"""
 nm = NetworkManager()
 sa = nm.connect_spectrum_analyzer()
-sa.display.show()
+vna = nm.connect_vector_network_analyzer()
+
 #Can connect to all instruments with empty list
 #instruments = nm.connect_instruments([])
 #instruments = nm.connect_instruments([EInstrument.OSCILLOSCOPE,EInstrument.SPECTRUM_ANALYZER])
