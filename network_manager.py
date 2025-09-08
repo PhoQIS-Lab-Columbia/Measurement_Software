@@ -111,9 +111,10 @@ class NetworkManager:
         program_path = p[EInstrument.SPECTRUM_ANALYZER.value]
         app = subprocess.Popen([program_path], shell = False)
         
-        
+        with open('instrumentPorts.json') as file:
+            ports = json.load()
         # Open a session to the Spike software, Spike must be running at this point
-        inst = self.rm.open_resource('TCPIP0::localhost::5025::SOCKET')
+        inst = self.rm.open_resource('TCPIP0::localhost::5026::SOCKET')
 
         # For SOCKET programming, we want to tell VISA to use a terminating character
         #   to end a read and write operation.
@@ -124,24 +125,24 @@ class NetworkManager:
         return SpectrumAnalyzer(inst,app, program_path,saved_files_path)
     
     def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
-        try: 
+        #try: 
             
-            with open('program_paths.json') as file:
-                p = json.load(file)
-            program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
-            app = subprocess.Popen([program_path], shell = False)
-            
-            
-            # Open a session to the S4VNA software, S4VNA must be running at this point
-            inst = self.rm.open_resource('TCPIP0::localhost::5026::SOCKET')
+        with open('program_paths.json') as file:
+            p = json.load(file)
+        program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
+        app = subprocess.Popen([program_path], shell = False)
+        
+        
+        # Open a session to the S4VNA software, S4VNA must be running at this point
+        inst = self.rm.open_resource('TCPIP0::localhost::5025::SOCKET')
 
-            # For SOCKET programming, we want to tell VISA to use a terminating character
-            #   to end a read and write operation.
-            inst.read_termination = '\n'
-            inst.write_termination = '\n'
-        except:
+        # For SOCKET programming, we want to tell VISA to use a terminating character
+        #   to end a read and write operation.
+        inst.read_termination = '\n'
+        inst.write_termination = '\n'
+        """except:
             raise ValueError("VNA failed to connect.")
-        return VNA(inst,app, program_path,saved_files_path)
+        return VNA(inst,app, program_path,saved_files_path)"""
     
     def connect_lock_in_amp(self,saved_files_path = None) -> LockInAmp:
         lock_in_amp = self.connect_instruments([EInstrument.LOCK_IN_AMP],saved_files_path)
@@ -160,12 +161,12 @@ class NetworkManager:
             raise ValueError("Switch failed to connect.")
         return rf_switch[0]
     def connect_digital_attenuator(self,saved_files_path = None):
-        os.add_dll_directory(os.getcwd())
-        # Open the dll
+        #os.add_dll_directory(os.getcwd())
+
         if struct.calcsize("P") * 8 == 32:
-            vnx = cdll.VNX_atten
+            vnx = cdll.LoadLibrary("C:/Users/phoqi/Desktop/Measurement_Software/Instruments/digital_attenuator_vanuix/VNX_atten.dll")
         elif struct.calcsize("P") * 8 == 64:
-            vnx = cdll.VNX_atten64
+            vnx = cdll.LoadLibrary("C:/Users/phoqi/Desktop/Measurement_Software/Instruments/digital_attenuator_vanuix/VNX_atten64.dll")
         else:
             raise NotImplementedError("Unsupported operating system")
         
@@ -185,6 +186,7 @@ class NetworkManager:
             # Select which device to use
             devid = 0
             if len(devices_list) == 1:
+                
                 devid = devices_list[0]
             else:
                 while not devid in devices_list:
