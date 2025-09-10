@@ -73,12 +73,14 @@ class VNA(Instrument.Instrument):
         self.status = Status(self.instrument, self.data_handler)
         self.source = Source(self.instrument, self.data_handler)
         self.system = System(self.instrument, self.data_handler)
+        
         self.trigger = Trigger(self.instrument, self.data_handler)
         # Single instance subclasses (not channel-dependent)
         self.format = Format(self.instrument, self.data_handler)
         self.hcopy = HCopy(self.instrument, self.data_handler)
         self.output = Output(self.instrument, self.data_handler)
-        self.service = Service(self.instrument, self.data_handler)
+        #TODO Check service channel values
+        self.service = Service(self.instrument, self.data_handler, 1)
         
     
     def open_software(self):
@@ -11286,7 +11288,7 @@ frequency offset, channel data transfer."""
             self.offset = self.Offset(instrument, data_handler, channel)
             self.receiver = self.Receiver(instrument, data_handler, channel)
             self.source = self.Source(instrument, data_handler, channel)
-            self.extender = self.Extender(instrument, data_handler, channel)
+            self.extender = self.Extender(instrument)
         # SENS:FREQ - Fixed frequency for a power sweep
         def set_fixed_frequency(self, value: float):
             """
@@ -11467,7 +11469,8 @@ frequency offset, channel data transfer."""
                 self.instrument = instrument
                 self.data_handler = data_handler
                 self.n = channel
-                self.port = self.Port(instrument, data_handler, channel)
+                #TODO CHeck possible port numbers
+                self.port = self.Port(instrument, data_handler, channel,1)
                 self.receiver = self.Receiver(instrument, data_handler, channel) 
             # SENSe<Ch>:OFFSet[:STATe] {OFF|ON|0|1}
             def enable_frequency_offset(self, enable: bool):
@@ -13523,10 +13526,10 @@ class Status:
         """
         Questionable status register commands.
         """
-        def __init__(self, instrument):
+        def __init__(self, instrument, data_handler):
             self.instrument = instrument
-            self.limit = self.Limit(instrument)
-            self.ripple_limit = self.RippleLimit(instrument)
+            self.limit = self.Limit(instrument,data_handler)
+            self.ripple_limit = self.RippleLimit(instrument,data_handler)
 
         # STATus:QUEStionable:PTRansition <numeric>
         def set_positive_transition(self, value: int):
@@ -14363,9 +14366,10 @@ class System:
     """
     System commands.
     """
-    def __init__(self, instrument):
+    def __init__(self, instrument, data_handler):
         self.instrument = instrument
-        self.display = self.Display(instrument, None)
+        self.data_handler = data_handler
+        self.display = self.Display(instrument, data_handler)
         self.datetime = self.DateTime(instrument)
         self.beeper = self.Beeper(instrument)
         self.capability = self.Capability(instrument)
@@ -15298,7 +15302,7 @@ class Trigger:
     """
     addition Trigger system commands.
     """
-    def __init__(self, instrument):
+    def __init__(self, instrument, data_handler):
         self.instrument = instrument
         self.average = self.Average(instrument)
         self.external = self.External(instrument)

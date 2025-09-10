@@ -32,15 +32,15 @@ inst.write_termination = '\n'"""
 """inst = rm.open_resources('TCPIP0::192.168.0.215::inst0::INSTR')
 print(inst.query('*IDN?'))"""
 nm = NetworkManager()
-if struct.calcsize("P") * 8 == 32:
-    vnx = cdll.LoadLibrary("C:/Users/phoqi/Desktop/Measurement_Software/Instruments/digital_attenuator_vanuix/VNX_atten.dll")
-elif struct.calcsize("P") * 8 == 64:
-    vnx = cdll.LoadLibrary("C:/Users/phoqi/Desktop/Measurement_Software/Instruments/digital_attenuator_vanuix/VNX_atten64.dll")
-else:
-    raise NotImplementedError("Unsupported operating system")
-
-devices_num = vnx.fnLDA_GetNumDevices()
-print(devices_num)
+vna = nm.connect_vector_network_analyzer()
+time.sleep(10)
+vna.disconnect()
+print("Should have disconnected.")
+"""rf = nm.connect_rf_switch()
+rf.reset_all()
+print("Status Check Before "+str(rf.switch2.get_status()))
+rf.switch1.channel1.enable()
+print("Status Check After "+str(rf.switch2.get_status()))"""
 #print(rm.list_resources())
 #port = 'TCPIP0::192.168.0.8::8249::SOCKET'
 #inst = rm.open_resource(port, read_termination = '\n')
