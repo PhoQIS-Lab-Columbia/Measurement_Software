@@ -50,8 +50,8 @@ class Switch:
         Returns:
             str: A string representing the status of the switch channels.
         """
-        res = self.instrument.query(f"{self.switch}_Status?")
-        return res.strip()
+        res = self.instrument.write(f"{self.switch}_Status?")
+        return res
     class Channel:
         def __init__(self, instrument, data_handler, switch, channel):
             self.instrument = instrument
@@ -80,5 +80,5 @@ class Switch:
             Returns:
                 str: A string representing the status of the switch channels.
             """
-            res = self.instrument.query(f"{self.switch}_Status?")
-            return res.strip()
+            res = self.instrument.write(f"{self.switch}_Status?")
+            return res

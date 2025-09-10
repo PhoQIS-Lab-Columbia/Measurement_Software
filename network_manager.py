@@ -51,7 +51,7 @@ class NetworkManager:
             raise ValueError(f"Instrument {name} is not recognized.")
 
     def connect_flow_meter(self):
-        return Flowmeter()
+        return Flowmeter(None)
     def connect_instruments(self, instrument_list = [], saved_files_path = None):
         """Connects and creates instrument objects from list of names. If no list is provided, then connects 
         and creates instrument for all detected instruments.
@@ -85,6 +85,8 @@ class NetworkManager:
             if id in instrumentPorts.keys() and (instrument_list == [] or EInstrument(instrumentPorts[id]) in instrument_list):
                 print("To create instrument: "+ str(instrumentPorts[id]))
                 instruments.append(self.create_instrument(instrumentPorts[id],inst,saved_files_path))
+        if instrument_list == [] or EInstrument.VECTOR_NETWORK_ANALYZER in instrument_list:
+            instruments.append(self.connect_vector_network_analyzer(saved_files_path))
         if instrument_list == [] or EInstrument.SPECTRUM_ANALYZER in instrument_list:
             instruments.append(self.connect_spectrum_analyzer(saved_files_path))
         if instrument_list == [] or EInstrument.DIGITAL_ATTENUATOR in instrument_list:
@@ -112,9 +114,10 @@ class NetworkManager:
         app = subprocess.Popen([program_path], shell = False)
         
         with open('instrumentPorts.json') as file:
-            ports = json.load()
+            ip = json.load(file)
         # Open a session to the Spike software, Spike must be running at this point
-        inst = self.rm.open_resource('TCPIP0::localhost::5026::SOCKET')
+        port = ip[EInstrument.SPECTRUM_ANALYZER.value]
+        inst = self.rm.open_resource(port)
 
         # For SOCKET programming, we want to tell VISA to use a terminating character
         #   to end a read and write operation.
@@ -125,24 +128,28 @@ class NetworkManager:
         return SpectrumAnalyzer(inst,app, program_path,saved_files_path)
     
     def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
-        #try: 
+        try: 
             
-        with open('program_paths.json') as file:
-            p = json.load(file)
-        program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
-        app = subprocess.Popen([program_path], shell = False)
-        
-        
-        # Open a session to the S4VNA software, S4VNA must be running at this point
-        inst = self.rm.open_resource('TCPIP0::localhost::5025::SOCKET')
+            with open('program_paths.json') as file:
+                p = json.load(file)
+            program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
+            app = subprocess.Popen([program_path], shell = False)
+            
+            with open('instrumentPorts.json') as file:
+                ip = json.load(file)
+            port = ip[EInstrument.VECTOR_NETWORK_ANALYZER.value]
+            
+            # Open a session to the S4VNA software, S4VNA must be running at this point
+            inst = self.rm.open_resource(port)
 
-        # For SOCKET programming, we want to tell VISA to use a terminating character
-        #   to end a read and write operation.
-        inst.read_termination = '\n'
-        inst.write_termination = '\n'
-        """except:
+            # For SOCKET programming, we want to tell VISA to use a terminating character
+            #   to end a read and write operation.
+            inst.read_termination = '\n'
+            inst.write_termination = '\n'
+        except:
             raise ValueError("VNA failed to connect.")
-        return VNA(inst,app, program_path,saved_files_path)"""
+        return VNA(inst,app, program_path,saved_files_path)
+        
     
     def connect_lock_in_amp(self,saved_files_path = None) -> LockInAmp:
         lock_in_amp = self.connect_instruments([EInstrument.LOCK_IN_AMP],saved_files_path)
@@ -156,13 +163,20 @@ class NetworkManager:
             raise ValueError("Lock In Amplifier failed to connect.")
         return dc_power[0]
     def connect_rf_switch(self,saved_files_path = None) -> RF_Switch:
-        rf_switch = self.connect_instruments([EInstrument.RF_SWITCH],saved_files_path)
-        if rf_switch == None:
-            raise ValueError("Switch failed to connect.")
-        return rf_switch[0]
-    def connect_digital_attenuator(self,saved_files_path = None):
-        #os.add_dll_directory(os.getcwd())
+        with open('instrumentPorts.json') as file:
+            ip = json.load(file)
+        port = ip[EInstrument.RF_SWITCH.value]
+        inst = self.rm.open_resource(port)
 
+        # For SOCKET programming, we want to tell VISA to use a terminating character
+        #   to end a read and write operation.
+        inst.read_termination = '\n'
+        inst.write_termination = '\n'
+
+        return RF_Switch(inst,saved_files_path)
+    def connect_digital_attenuators(self,saved_files_path = None):
+        #os.add_dll_directory(os.getcwd())
+        #TODO Add an add digital attnuator and have it take device id as param, only return that one, call that function in here recursively
         if struct.calcsize("P") * 8 == 32:
             vnx = cdll.LoadLibrary("C:/Users/phoqi/Desktop/Measurement_Software/Instruments/digital_attenuator_vanuix/VNX_atten.dll")
         elif struct.calcsize("P") * 8 == 64:

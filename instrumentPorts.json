@@ -1,5 +1,7 @@
 {"RIGOL TECHNOLOGIES,DS1202Z-E,DS1ZE264M00036,00.06.04":"oscilloscope",
 "Siglent Technologies,SPD3303C,SPD3EGGD802587,1.02.01.02.02R3,V2.0":"dc power supply",
-"TCPIP0::localhost::5026::SOCKET":"spectrum analyzer",
-"TCPIP0::localhost::5025::SOCKET":"vector network analyzer"
+"spectrum analyzer":"TCPIP0::localhost::5026::SOCKET",
+"vector network analyzer":"TCPIP0::localhost::5025::SOCKET",
+"rf switch":"TCPIP0::192.168.0.8::8249::SOCKET"
+
 }
