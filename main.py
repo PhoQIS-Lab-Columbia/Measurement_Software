@@ -33,8 +33,12 @@ inst.write_termination = '\n'"""
 print(inst.query('*IDN?'))"""
 nm = NetworkManager()
 vna = nm.connect_vector_network_analyzer()
-time.sleep(10)
-vna.disconnect()
+instrument = vna.instrument
+sa = nm.connect_spectrum_analyzer()
+#time.sleep(10)
+print("Spectrum Analyzer "+str(sa.get_id()))
+
+#print("VNA "+str(vna.calculate_channel1.get_active_trace()))
 print("Should have disconnected.")
 """rf = nm.connect_rf_switch()
 rf.reset_all()

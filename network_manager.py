@@ -16,10 +16,11 @@ from Instruments.lock_in_amp_srs import LockInAmp
 from Instruments.rf_switch import RF_Switch
 from Instruments.dc_power_supply_siglent import DCPowerSupply
 from Instruments.flowmeter_keyence import Flowmeter
+import time
+
 class NetworkManager:
     def __init__(self, rm = pyvisa.ResourceManager()):
         self.rm = rm
-
 
     def create_instrument(self, name, instrument,saved_files_path):
         """Create new instrument object based on the name using the selected port.
@@ -27,14 +28,12 @@ class NetworkManager:
                 instrument_ports: string 
             Returns: Instrument object"""
         
-        
         if name == EInstrument.OSCILLOSCOPE.value or name == EInstrument.OSCILLOSCOPE:
             return Oscilloscope(instrument,saved_files_path)
         elif name== EInstrument.SPECTRUM_ANALYZER.value or name== EInstrument.SPECTRUM_ANALYZER:
             return self.connect_spectrum_analyzer(saved_files_path)
-            '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         elif name== EInstrument.VECTOR_NETWORK_ANALYZER.value or name== EInstrument.VECTOR_NETWORK_ANALYZER:
-            return VNA(instrument,saved_files_path)
+            return self.connect_vector_network_analyzer(saved_files_path)
         elif name == EInstrument.DIGITAL_ATTENUATOR.value or name == EInstrument.DIGITAL_ATTENUATOR:
             return self.connect_digital_attenuator(saved_files_path)
         elif name == EInstrument.SIGNAL_GENERATOR.value or name == EInstrument.SIGNAL_GENERATOR:
@@ -52,6 +51,7 @@ class NetworkManager:
 
     def connect_flow_meter(self):
         return Flowmeter(None)
+    
     def connect_instruments(self, instrument_list = [], saved_files_path = None):
         """Connects and creates instrument objects from list of names. If no list is provided, then connects 
         and creates instrument for all detected instruments.
@@ -95,10 +95,11 @@ class NetworkManager:
             instruments.append(self.connect_signal_generator(saved_files_path))
         print("Abount to leave connect instrument.")
         return instruments
+    
     def connect_flowmeter(self, saved_files_path = None) -> Flowmeter:
         return Flowmeter()
+    
     def connect_oscilloscope(self,saved_files_path = None) -> Oscilloscope:
-        '''MODIFY WHEN ADDING A NEW INSTRUMENT TYPE'''
         osc = self.connect_instruments([EInstrument.OSCILLOSCOPE],saved_files_path)
         print(osc)
         if osc == None:
@@ -112,7 +113,7 @@ class NetworkManager:
             p = json.load(file)
         program_path = p[EInstrument.SPECTRUM_ANALYZER.value]
         app = subprocess.Popen([program_path], shell = False)
-        
+        time.sleep(8)
         with open('instrumentPorts.json') as file:
             ip = json.load(file)
         # Open a session to the Spike software, Spike must be running at this point
@@ -134,7 +135,7 @@ class NetworkManager:
                 p = json.load(file)
             program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
             app = subprocess.Popen([program_path], shell = False)
-            
+            time.sleep(5)
             with open('instrumentPorts.json') as file:
                 ip = json.load(file)
             port = ip[EInstrument.VECTOR_NETWORK_ANALYZER.value]
