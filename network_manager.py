@@ -6,22 +6,41 @@ import ctypes
 import struct
 import subprocess
 
-from Instruments.oscilloscope_rigol import Oscilloscope
-from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
-from Instruments.vector_network_analyzer_copper_mountain import VNA
+from oscilloscope_rigol import Oscilloscope
+from spectrum_analyzer_signal_hound import SpectrumAnalyzer
+from vector_network_analyzer_copper_mountain import VNA
 from EInstrument import EInstrument
-from Instruments.digital_attenuator_vanuix import digital_attenuator
-from Instruments.signal_generator_signal_core import signal_generator
-from Instruments.lock_in_amp_srs import LockInAmp
-from Instruments.rf_switch import RF_Switch
-from Instruments.dc_power_supply_siglent import DCPowerSupply
-from Instruments.flowmeter_keyence import Flowmeter
+from digital_attenuator_vanuix import digital_attenuator
+from signal_generator_signal_core import signal_generator
+from lock_in_amp_srs import LockInAmp
+from rf_switch import RF_Switch
+from dc_power_supply_siglent import DCPowerSupply
+from flowmeter_keyence import Flowmeter
 import time
+import psutil
 
 class NetworkManager:
     def __init__(self, rm = pyvisa.ResourceManager()):
         self.rm = rm
 
+    def process_exists(self, process_name): 
+        pieces = process_name.split('/')
+        process_name = pieces[len(pieces)-1]
+        call = 'TASKLIST', '/FI', f'imagename eq {process_name}'
+        output = subprocess.check_output(call).decode()
+        last_line = output.strip().split('\r\n')[-1]
+        return last_line.lower().startswith(process_name.lower())
+    
+    def get_process_by_name(self,process_name):
+        """Return the first psutil.Process object matching the process name."""
+        
+        pieces = process_name.split('/')
+        name = pieces[len(pieces)-1]
+        for proc in psutil.process_iter(['name']):
+            if proc.info['name'] and proc.info['name'].lower() == name.lower():
+                return proc  # This is a psutil.Process object
+        return None
+    
     def create_instrument(self, name, instrument,saved_files_path):
         """Create new instrument object based on the name using the selected port.
         params: name: EInstrument - name of the instrument
@@ -45,12 +64,9 @@ class NetworkManager:
         elif name == EInstrument.DC_POWER_SUPPLY.value or name == EInstrument.DC_POWER_SUPPLY:
             return DCPowerSupply(instrument, saved_files_path)
         elif name == EInstrument.FLOW_METER.value or name == EInstrument.FLOW_METER:
-            return Flowmeter()
+            return self.connect_flow_meter()
         else:
             raise ValueError(f"Instrument {name} is not recognized.")
-
-    def connect_flow_meter(self):
-        return Flowmeter(None)
     
     def connect_instruments(self, instrument_list = [], saved_files_path = None):
         """Connects and creates instrument objects from list of names. If no list is provided, then connects 
@@ -90,14 +106,14 @@ class NetworkManager:
         if instrument_list == [] or EInstrument.SPECTRUM_ANALYZER in instrument_list:
             instruments.append(self.connect_spectrum_analyzer(saved_files_path))
         if instrument_list == [] or EInstrument.DIGITAL_ATTENUATOR in instrument_list:
-            instruments.append(self.connect_digital_attenuator(saved_files_path))
+            instruments.append(self.connect_digital_attenuators(saved_files_path))
         if instrument_list == [] or EInstrument.SIGNAL_GENERATOR in instrument_list:
             instruments.append(self.connect_signal_generator(saved_files_path))
         print("Abount to leave connect instrument.")
         return instruments
     
-    def connect_flowmeter(self, saved_files_path = None) -> Flowmeter:
-        return Flowmeter()
+    def connect_flowmeter(self, saved_files = []) -> Flowmeter:
+        return Flowmeter(saved_files)
     
     def connect_oscilloscope(self,saved_files_path = None) -> Oscilloscope:
         osc = self.connect_instruments([EInstrument.OSCILLOSCOPE],saved_files_path)
@@ -112,6 +128,8 @@ class NetworkManager:
         with open('program_paths.json') as file:
             p = json.load(file)
         program_path = p[EInstrument.SPECTRUM_ANALYZER.value]
+        if self.process_exists(program_path):
+            app = self.get_process_by_name(program_path)
         app = subprocess.Popen([program_path], shell = False)
         time.sleep(8)
         with open('instrumentPorts.json') as file:
@@ -161,7 +179,7 @@ class NetworkManager:
     def connect_dc_power_supply(self,saved_files_path = None) -> DCPowerSupply:
         dc_power = self.connect_instruments([EInstrument.DC_POWER_SUPPLY],saved_files_path)
         if dc_power == None:
-            raise ValueError("Lock In Amplifier failed to connect.")
+            raise ValueError("DC Power Supply failed to connect.")
         return dc_power[0]
     def connect_rf_switch(self,saved_files_path = None) -> RF_Switch:
         with open('instrumentPorts.json') as file:
