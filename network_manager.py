@@ -6,16 +6,16 @@ import ctypes
 import struct
 import subprocess
 
-from oscilloscope_rigol import Oscilloscope
-from spectrum_analyzer_signal_hound import SpectrumAnalyzer
-from vector_network_analyzer_copper_mountain import VNA
-from EInstrument import EInstrument
-from digital_attenuator_vanuix import digital_attenuator
-from signal_generator_signal_core import signal_generator
-from lock_in_amp_srs import LockInAmp
-from rf_switch import RF_Switch
-from dc_power_supply_siglent import DCPowerSupply
-from flowmeter_keyence import Flowmeter
+from Instruments.oscilloscope_rigol import Oscilloscope
+from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
+from Instruments.vector_network_analyzer_copper_mountain import VNA
+from Instruments.EInstrument import EInstrument
+from Instruments.digital_attenuator_vanuix import digital_attenuator
+from Instruments.signal_generator_signal_core import signal_generator
+from Instruments.lock_in_amp_srs import LockInAmp
+from Instruments.rf_switch import RF_Switch
+from Instruments.dc_power_supply_siglent import DCPowerSupply
+from Instruments.flowmeter_keyence import Flowmeter
 import time
 import psutil
 

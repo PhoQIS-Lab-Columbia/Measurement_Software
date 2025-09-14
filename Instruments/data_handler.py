@@ -3,7 +3,7 @@ import csv
 import os as os
 import io
 from PIL import Image
-from EFileType import EFileType
+from Instruments.EFileType import EFileType
 
 class DataHandler():
     def __init__(self, file_path = "~/Measurement_Software/Experiments/Outputs/" ):

@@ -1,9 +1,9 @@
-from Instrument import Instrument
-from EInstrument import EInstrument
+from Instruments.Instrument import Instrument
+from Instruments.EInstrument import EInstrument
 import pyvisa
 from ctypes import *
 import ctypes
-from data_handler import DataHandler
+from Instruments.data_handler import DataHandler
 class signal_generator():
 
     def __init__(self, instrument, handle, save_files_path = None):

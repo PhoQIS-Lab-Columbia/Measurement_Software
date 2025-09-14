@@ -1,8 +1,8 @@
-from Instrument import Instrument
-from EInstrument import EInstrument
+from Instruments.Instrument import Instrument
+from Instruments.EInstrument import EInstrument
 import pyvisa
 import re
-from EFileType import EFileType
+from Instruments.EFileType import EFileType
 class LockInAmp(Instrument):
     """“NV” nanoVolts “HZ” Hertz “UDEG” microDegrees
 “UV” microVolts “KHZ” kiloHertz “MDEG” milliDegrees

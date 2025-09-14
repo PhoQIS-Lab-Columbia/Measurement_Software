@@ -2,9 +2,9 @@
 from time import sleep
 from time import sleep
 import pyvisa
-from EFileType import EFileType
-import Instrument
-from EInstrument import EInstrument
+from Instruments.EFileType import EFileType
+import Instruments.Instrument as Instrument
+from Instruments.EInstrument import EInstrument
 from PIL import Image
 
 class Oscilloscope(Instrument.Instrument):

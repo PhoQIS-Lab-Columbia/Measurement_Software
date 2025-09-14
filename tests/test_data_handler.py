@@ -3,8 +3,8 @@ import pyvisa
 from network_manager import NetworkManager
 from Instruments import oscilloscope_rigol
 from Instruments import spectrum_analyzer_signal_hound
-from data_handler import DataHandler
-from EFileType import EFileType
+from Instruments.data_handler import DataHandler
+from Instruments.EFileType import EFileType
 #TODO: Fix import path issues and dafult save path issues
 #How to give access to computer file system
 class TestDataHandler(unittest.TestCase):

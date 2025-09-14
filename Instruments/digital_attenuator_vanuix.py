@@ -1,8 +1,8 @@
-from Instrument import Instrument
-from EInstrument import EInstrument
+from Instruments.Instrument import Instrument
+from Instruments.EInstrument import EInstrument
 from EConnection import EConnection
 import platform
-from data_handler import DataHandler
+from Instruments.data_handler import DataHandler
 import os 
 import ctypes
 

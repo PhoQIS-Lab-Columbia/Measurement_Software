@@ -1,7 +1,7 @@
-from Instrument import Instrument
+from Instruments.Instrument import Instrument
 import pyvisa
-from EInstrument import EInstrument
-from EFileType import EFileType
+from Instruments.EInstrument import EInstrument
+from Instruments.EFileType import EFileType
 import subprocess
 import sys
 import json

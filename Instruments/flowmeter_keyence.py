@@ -3,7 +3,7 @@ import psutil
 import json
 import csv
 import psutil
-from EInstrument import EInstrument
+from Instruments.EInstrument import EInstrument
 class Flowmeter:
     def __init__(self, csv_paths, program_open = False):
         #TODO Add pop up about how experiemtn must be set up in flowmeter, but if project already set up (check if can do,) the ndo not need to set blah blah blah

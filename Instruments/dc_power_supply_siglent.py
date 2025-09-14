@@ -1,5 +1,5 @@
-import Instrument
-from EInstrument import EInstrument
+from Instruments import Instrument
+from Instruments.EInstrument import EInstrument
 import pyvisa
 
 class DCPowerSupply():

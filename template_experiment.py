@@ -14,7 +14,7 @@ from Instruments.vector_network_analyzer_copper_mountain import VNA
 from Instruments.vector_network_analyzer_helper import VNA_Helper
 from EInstrument import EInstrument
 from EFileType import EFileType
-from data_handler import DataHandler
+from Instruments.data_handler import DataHandler
 
 def __main__():
     nm = NetworkManager()
