@@ -20,10 +20,9 @@ class SpectrumAnalyzer(Instrument):
        self.trace = Trace(self.instrument, self.data_handler)
        self.wlan = WLAN(self.instrument, self.data_handler)
        self.record = Record(self.instrument, self.data_handler)
-       """with open('program_paths.json') as file:
-            p = json.load(file)
-       self.program_path = p[self.name.value]
-       self.app = subprocess.Popen([self.program_path], shell = False)"""
+       
+       self.program_path = program_path
+       self.app = app
        #self.display.hide()
     #Helper Functions
     def open_software(self):

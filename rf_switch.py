@@ -50,8 +50,9 @@ class Switch:
         Returns:
             str: A string representing the status of the switch channels.
         """
-        res = self.instrument.write(f"{self.switch}_Status")
-        return res
+        res = self.instrument.query("Read_Channel_Status?")
+        idx = res.find(self.switch) + len(self.switch+"_status:")
+        return res[idx:idx+6]
 class Channel:
     def __init__(self, instrument, data_handler, switch, channel):
         self.instrument = instrument
@@ -76,9 +77,12 @@ class Channel:
         self.instrument.write(f"{self.switch}_{self.channel}_OFF")
 
     def get_status(self):
-        """Get which switch channels are enabled.
+        """Return true if the channel is enabled.
         Returns:
-            str: A string representing the status of the switch channels.
+            boolean: True if channel is enable, false otherwise.
         """
-        res = self.instrument.write(f"{self.switch}_Status?")
-        return res
+        
+        res = self.instrument.query("Read_Channel_Status?")
+        idx = res.find(self.switch) + len(self.switch+"_status:")
+        switch_stats = res[idx:idx+6]
+        return '1' == switch_stats[self.channel-1]
