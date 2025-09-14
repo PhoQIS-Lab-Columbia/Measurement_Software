@@ -14,7 +14,7 @@ from Instruments.vector_network_analyzer_copper_mountain import VNA
 from Instruments.vector_network_analyzer_helper import VNA_Helper
 from EInstrument import EInstrument
 from EFileType import EFileType
-from data_handler import DataHandler
+from Instruments.data_handler import DataHandler
 
 def __main__():
     nm = NetworkManager()
@@ -35,6 +35,7 @@ def __main__():
     #OR you can individually cco the instrument
     osc = nm.connect_oscilloscope()
     sa = nm.connect_spectrum_analyzer()
+    vna = nm.connect_vector_network_analyzer()
     osc.run()
     print(osc)
     osc_helper.set_timebase(2)

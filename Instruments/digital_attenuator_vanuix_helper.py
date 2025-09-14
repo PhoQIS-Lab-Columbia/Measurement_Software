@@ -1,0 +1,9 @@
+import json
+class DigitalAttenuatorHelper:
+    def __init__(self, inst):
+        self.instrument = inst
+
+    def set_voltage_parameters(self, channel: int, voltage: float):
+        """Set the voltage parameters for a specific channel."""
+        
+        

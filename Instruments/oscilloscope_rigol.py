@@ -2,16 +2,16 @@
 from time import sleep
 from time import sleep
 import pyvisa
-from EFileType import EFileType
-from Instruments import Instrument
-from EInstrument import EInstrument
+from Instruments.EFileType import EFileType
+import Instruments.Instrument as Instrument
+from Instruments.EInstrument import EInstrument
 from PIL import Image
 
 class Oscilloscope(Instrument.Instrument):
 
-    def __init__(self, instru):
-        super().__init__(instru)
-        self.name = EInstrument.OSCILLOSCOPE
+    def __init__(self, instrument, save_files_path=None):
+        super().__init__(instrument, EInstrument.OSCILLOSCOPE, save_files_path)
+
         self.acquisition = Acquisition(self.instrument,self.data_handler)
         self.calibrate = Calibrate(self.instrument,self.data_handler)
         self.channel1 = Channel(self.instrument,self.data_handler,1)

@@ -1,29 +1,33 @@
-from data_handler import DataHandler
-from EFileType import EFileType
+from Instruments.data_handler import DataHandler
+from Instruments.EFileType import EFileType
 from PIL import Image
-from EFileType import EFileType
+from Instruments.EFileType import EFileType
 class Instrument():
-    def __init__(self, instrument, name = None):
+    def __init__(self, instrument, name, save_files_path = None):
         self.instrument = instrument
         
         self.name = name
-        self.data_handler = DataHandler()  # Default format set to JSON
-        self.subtrees = []
+        if save_files_path is None:
+            self.data_handler = DataHandler()  # Default format set to JSON
+        else:
+            self.data_handler = DataHandler(save_files_path)
+        
     def disconnect(self):
         """Disconnect from instrument and shut down all data reading and controls."""
         self.instrument.close()
         print("Disconnected from "+str(self.name))
 
 
-    def save_data(self, data, filepath, format ='json'):
+    def save_data(self, data, file_name = "data", format = EFileType.CSV):
         """
         Save data to a file in the specified save path.
         
         Parameters:
         data (dict): The data to be saved.
         filename (str): The name of the file to save the data in.
+        format (EFileType): The format in which to save the data. Default is EFileType.CSV.
         """
-        self.data_handler.write_to_file(filepath, response, EFileType.CSV, header)
+        self.data_handler.write_to_file(file_name, data, format)
 
     def clear_event_registers(self):
         """
@@ -71,7 +75,7 @@ class Instrument():
     
     def get_id(self):
         """
-        Query the ID string of the instrument (*IDN?).
+        Query the ID string of the instrument.
 
         Returns:
         str: The ID string in the format "RIGOL TECHNOLOGIES,<model>,<serial number>,<software version>".
