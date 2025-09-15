@@ -1,6 +1,6 @@
 import unittest
 import pyvisa
-from network_manager import NetworkManager
+from Instruments.network_manager import NetworkManager
 from Instruments import oscilloscope_rigol
 from Instruments import spectrum_analyzer_signal_hound
 from Instruments.data_handler import DataHandler

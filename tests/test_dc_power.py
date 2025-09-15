@@ -1,7 +1,7 @@
 import unittest
 from Instruments import spectrum_analyzer_signal_hound
 import pyvisa
-from network_manager import NetworkManager
+from Instruments.network_manager import NetworkManager
 import time
 import os
 class TestDCPowerSupply(unittest.TestCase):

@@ -1,6 +1,6 @@
 from Instruments.Instrument import Instrument
 from Instruments.EInstrument import EInstrument
-from EConnection import EConnection
+from Instruments.EConnection import EConnection
 import platform
 from Instruments.data_handler import DataHandler
 import os 

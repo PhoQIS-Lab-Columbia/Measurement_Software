@@ -33,12 +33,39 @@ class Switch:
         self.instrument = instrument
         self.data_handler = data_handler
         self.switch = switch
+        self.auto_disable = False
         self.channel_1 = Channel(instrument, data_handler, switch, 1)
         self.channel_2 = Channel(instrument, data_handler, switch, 2)
         self.channel_3 = Channel(instrument, data_handler, switch, 3)
         self.channel_4 = Channel(instrument, data_handler, switch, 4)
         self.channel_5 = Channel(instrument, data_handler, switch, 5)
         self.channel_6 = Channel(instrument, data_handler, switch, 6)
+        self.list_channels = [self.channel_1, self.channel_2, self.channel_3, self.channel_4, self.channel_5, self.channel_6]
+    def enable_auto_disable(self):
+        """
+        If on, then if a channel is already enabled when another channel is trying to turn on, 
+        the first channel will be automatically turned off. Otherwise it will not turn on the new channel and jsut issue a warning.
+        
+        """
+        self.auto_disable = True
+        for c in self.list_channels:
+            c.auto_disable = True
+
+    def disable_auto_disable(self):
+        """
+        If off, it will not turn on the new channel and just issue a warning. Otherwise, if a channel is already enabled when another channel is trying to turn on, 
+        the first channel will be automatically turned off.
+        
+        """
+        self.auto_disable = False
+        for c in self.list_channels:
+            c.auto_disable = False
+    def is_auto_disable_on(self):
+        """
+        Return true if auto disable is on.
+        """
+        return self.auto_disable
+    
     def reset(self):
         """
         Reset the switch to its default state. If successfully returns 000000
@@ -59,20 +86,26 @@ class Channel:
         self.data_handler = data_handler
         self.switch = switch
         self.channel = channel
-
+        self.auto_disable = False
     def enable(self):
         """
         Enable the channel for this switch.
         """
         status = self.get_status()
-        #if status == '000000':
-        self.instrument.write(f"{self.switch}_{self.channel}_ON")
-        #else:
-            #print(f"Channel {status.index('1')} is already on. Please disable it or reset the switch before turning on channel {self.channel}")
+        if status == '000000':
+            self.instrument.write(f"{self.switch}_{self.channel}_ON")
+        else:
+            if self.auto_disable:
+                idx = status.index('1')
+                self.instrument.write(f"{self.switch}_{idx+1}_OFF")
+                time.sleep(0.3)
+                self.instrument.write(f"{self.switch}_{self.channel}_ON")
+            else: 
+                print(f"Channel {status.index('1')+1} is already on. Please disable it or reset the switch before turning on channel {self.channel}")
     
     def disable(self):
         """
-        Enable the channel for this switch.
+        Disable the channel for this switch.
         """
         self.instrument.write(f"{self.switch}_{self.channel}_OFF")
 
@@ -85,4 +118,4 @@ class Channel:
         res = self.instrument.query("Read_Channel_Status?")
         idx = res.find(self.switch) + len(self.switch+"_status:")
         switch_stats = res[idx:idx+6]
-        return '1' == switch_stats[self.channel-1]
+        return switch_stats
