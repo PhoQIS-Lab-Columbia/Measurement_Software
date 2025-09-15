@@ -21,20 +21,25 @@ csv1 = "20250912_021011.csv"
 #fm.add_csv(0,csv1) # Add the csv file path for flowmeter 1
 #data = fm.load_csv() # Load the csv data into a list of dictionaries
 #Run an experiment here. Add any PCB board code, set timer and loops
+rf.switch1.channel_1.enable()
+#rf.switch1.enable_auto_disable()
+rf.switch1.channel_2.enable()
 
-osc.timebase.set_delay_offset(0)
-osc.trigger.set_mode("'RS232'")
+
+'''osc.timebase.set_delay_offset(0)
+osc.trigger.set_mode("RS232")
 sa.format.get_trace_data_format()
-sa.sense.pathloss1.set_enabled(True)
+sa.sense.pathloss_1.set_enabled(True)
+print(sa.record.trigger.zerospan.get_slope())
 sa.record.trigger.zerospan.set_source("EXTERNAL")
 vna.calculate_channel13.set_phase_offset(0)
 avg_count = vna.trigger.get_source()
 osc.channel_1.set_scale(0.5)
 osc.run()
 sa.sense.bluetooth.set_channel_index(1)
-osc.stop()
+osc.stop()'''
 # Data Processing
 
-time.sleep(4)
+#time.sleep(4)
 #Disconnect all instruments and close applications
 nm.disconnect([osc,vna,sa,fm])
