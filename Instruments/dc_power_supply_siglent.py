@@ -1,11 +1,17 @@
 from Instruments import Instrument
 from Instruments.EInstrument import EInstrument
 import pyvisa
-
+from data_handler import DataHandler
 class DCPowerSupply():
 
     def __init__(self, instrument, save_files_path=None):
-        super().__init__(instrument, EInstrument.DC_POWER_SUPPLY, save_files_path)
+        self.instrument = instrument
+        self.name = EInstrument.DC_POWER_SUPPLY
+        
+        if save_files_path is None:
+            self.data_handler = DataHandler()  # Default format set to JSON
+        else:
+            self.data_handler = DataHandler(save_files_path)
         self.channel1 = Channel(self.instrument, self.data_handler, "CH1")
         self.channel2 = Channel(self.instrument, self.data_handler, "CH2")
         

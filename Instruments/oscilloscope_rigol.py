@@ -14,14 +14,12 @@ class Oscilloscope(Instrument.Instrument):
 
         self.acquisition = Acquisition(self.instrument,self.data_handler)
         self.calibrate = Calibrate(self.instrument,self.data_handler)
-        self.channel1 = Channel(self.instrument,self.data_handler,1)
-        self.channel2 = Channel(self.instrument,self.data_handler,2)
+        self.channel_1 = Channel(self.instrument,self.data_handler,1)
+        self.channel_2 = Channel(self.instrument,self.data_handler,2)
         self.cursor = Cursor(self.instrument,self.data_handler)
-        self.decoder1 = Decoder(self.instrument,self.data_handler, 1)
-        self.decoder2 = Decoder(self.instrument,self.data_handler, 2)
+        
         self.display = Display(self.instrument,self.data_handler)
-        self.etable1 = ETable(self.instrument,self.data_handler, 1)
-        self.etable2 = ETable(self.instrument,self.data_handler, 2)
+    
         self.function = Function(self.instrument,self.data_handler)
         self.lan = LAN(self.instrument,self.data_handler)
         self.math = Math(self.instrument,self.data_handler)
@@ -146,6 +144,8 @@ class Channel:
         self.instrument = instrument
         self.data_handler = data_handler
         self.channel = channel
+        self.decoder = Decoder(self.instrument,self.data_handler, channel)
+        self.etable = ETable(self.instrument,self.data_handler, channel)
 
     def set_bandwidth_limit(self,  bw):
         """Set or query the bandwidth limit parameter of the specified channel.
@@ -507,10 +507,10 @@ class Decoder:
         if n not in [1, 2]:
             raise ValueError("Parameter n must be 1 or 2.")
         self.n = n
-        self.uart = Decoder.UART(instrument, data_handler, n)
-        self.iic = Decoder.IIC(instrument, data_handler, n)
-        self.spi = Decoder.SPI(instrument, data_handler, n)
-        self.parallel = Decoder.Parallel(instrument, data_handler, n)
+        self.uart = UART(instrument, data_handler, n)
+        self.iic = IIC_Decoder(instrument, data_handler, n)
+        self.spi = SPI_Decoder(instrument, data_handler, n)
+        self.parallel = Parallel(instrument, data_handler, n)
 
     def get_current_decoder(self):
         """Query which decoder you are currently using.
@@ -818,872 +818,863 @@ class Decoder:
         """
         return int(self.instrument.query(f":DECoder{self.n}:CONFig:WIDth?"))
 
-    class UART:
+class UART:
+    """
+    The UART commands are used to set the RS232 decoding parameters.
+    """
+    def __init__(self, instrument,data_handler,n):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        if n not in [1, 2]:
+            raise ValueError("Parameter n must be 1 or 2.")
+        self.n = n
+
+    def set_tx(self, tx):
         """
-        The UART commands are used to set the RS232 decoding parameters.
-        """
-        def __init__(self, instrument,data_handler,n):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            if n not in [1, 2]:
-                raise ValueError("Parameter n must be 1 or 2.")
-            self.n = n
-
-        def set_tx(self, tx):
-            """
-            Set the TX channel source of RS232 decoding.
-            Parameter:
-                tx (str): "CHANNEL1", "CHANNEL2", or "OFF"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-            tx = tx.upper()
-            if tx in allowed:
-                self.instrument.write(f":DECoder{self.n}:UART:TX {tx}")
-            else:
-                print(f"Invalid TX source. Allowed: {allowed}")
-
-        def get_tx(self):
-            """
-            Query the TX channel source of RS232 decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1", "CHAN2", or "OFF"
-            """
-            return self.instrument.query(f":DECoder{self.n}:UART:TX?")
-
-        def set_rx(self, rx):
-            """
-            Set the RX channel source of RS232 decoding.
-            Parameter:
-                rx (str): "CHANNEL1", "CHANNEL2", or "OFF"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-            rx = rx.upper()
-            if rx in allowed:
-                self.instrument.write(f":DECoder{self.n}:UART:RX {rx}")
-            else:
-                print(f"Invalid RX source. Allowed: {allowed}")
-
-        def get_rx(self):
-            """
-            Query the RX channel source of RS232 decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1", "CHAN2", or "OFF"
-            """
-            return self.instrument.query(f":DECoder{self.n}:UART:RX?")
-
-        def set_polarity(self, polarity):
-            """
-            Set the polarity of RS232 decoding.
-            Parameter:
-                polarity (str): "NEGATIVE" or "POSITIVE"
-            Return:
-                None
-            """
-            allowed = {"NEGATIVE", "POSITIVE"}
-            polarity = polarity.upper()
-            if polarity in allowed:
-                self.instrument.write(f":DECoder{self.n}:UART:POLarity {polarity}")
-            else:
-                print(f"Invalid polarity. Allowed: {allowed}")
-
-        def get_polarity(self):
-            """
-            Query the polarity of RS232 decoding.
-            Parameter:
-                None
-            Return:
-                str: "NEG" or "POS"
-            """
-            return self.instrument.query(f":DECoder{self.n}:UART:POLarity?")
-
-        def set_endian(self, endian):
-            """
-            Set the endian of RS232 decoding.
-            Parameter:
-                endian (str): "LSB" or "MSB"
-            Return:
-                None
-            """
-            allowed = {"LSB", "MSB"}
-            endian = endian.upper()
-            if endian in allowed:
-                self.instrument.write(f":DECoder{self.n}:UART:ENDian {endian}")
-            else:
-                print(f"Invalid endian. Allowed: {allowed}")
-
-        def get_endian(self):
-            """
-            Query the endian of RS232 decoding.
-            Parameter:
-                None
-            Return:
-                str: "LSB" or "MSB"
-            """
-            return self.instrument.query(f":DECoder{self.n}:UART:ENDian?")
-        def set_baud(self, baud):
-            """
-            Set the baud rate of RS232 decoding.
-            Parameter:
-                baud (int): Baud rate, 110 to 20000000
-            Return:
-                None
-            """
-            if isinstance(baud, int) and 110 <= baud <= 20000000:
-                self.instrument.write(f":DECoder{self.n}:UART:BAUD {baud}")
-            else:
-                print("Invalid baud rate. Must be integer between 110 and 20000000.")
-
-        def get_baud(self):
-            """
-            Query the baud rate of RS232 decoding.
-            Parameter:
-                None
-            Return:
-                int: Current baud rate
-            """
-            return int(self.instrument.query(f":DECoder{self.n}:UART:BAUD?"))
-
-        def set_width(self, width):
-            """
-            Set the width of each frame of data in RS232 decoding.
-            Parameter:
-                width (int): Data width, 5 to 8
-            Return:
-                None
-            """
-            if isinstance(width, int) and 5 <= width <= 8:
-                self.instrument.write(f":DECoder{self.n}:UART:WIDTh {width}")
-            else:
-                print("Invalid width. Must be integer between 5 and 8.")
-
-        def get_width(self):
-            """
-            Query the width of each frame of data in RS232 decoding.
-            Parameter:
-                None
-            Return:
-                int: Data width (5 to 8)
-            """
-            return int(self.instrument.query(f":DECoder{self.n}:UART:WIDTh?"))
-
-        def set_stop(self, stop):
-            """
-            Set the stop bit after each frame of data in RS232 decoding.
-            Parameter:
-                stop (float): Stop bit, one of 1, 1.5, or 2
-            Return:
-                None
-            """
-            allowed = {1, 1.5, 2}
-            if stop in allowed:
-                self.instrument.write(f":DECoder{self.n}:UART:STOP {stop}")
-            else:
-                print("Invalid stop bit. Allowed: 1, 1.5, 2.")
-
-        def get_stop(self):
-            """
-            Query the stop bit after each frame of data in RS232 decoding.
-            Parameter:
-                None
-            Return:
-                float: Stop bit (1, 1.5, or 2)
-            """
-            resp = self.instrument.query(f":DECoder{self.n}:UART:STOP?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
-
-        def set_parity(self, parity):
-            """
-            Set the even-odd check mode of the data transmission in RS232 decoding.
-            Parameter:
-                parity (str): "NONE", "EVEN", or "ODD"
-            Return:
-                None
-            """
-            allowed = {"NONE", "EVEN", "ODD"}
-            parity = parity.upper()
-            if parity in allowed:
-                self.instrument.write(f":DECoder{self.n}:UART:PARity {parity}")
-            else:
-                print("Invalid parity. Allowed: NONE, EVEN, ODD.")
-
-        def get_parity(self):
-            """
-            Query the even-odd check mode of the data transmission in RS232 decoding.
-            Parameter:
-                None
-            Return:
-                str: "NONE", "EVEN", or "ODD"
-            """
-            return self.instrument.query(f":DECoder{self.n}:UART:PARity?")
-
-    class IIC:
-        """
-        The IIC commands are used to set the I2C decoding parameters.
-        """
-        def __init__(self, instrument,data_handler,n):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            if n not in [1, 2]:
-                raise ValueError("Parameter n must be 1 or 2.")
-            self.n = n
-
-        def set_clk(self, clk):
-            """
-            Set the signal source of the clock channel in I2C decoding.
-            Parameter:
-                clk (str): "CHANNEL1" or "CHANNEL2"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2"}
-            clk = clk.upper()
-            if clk in allowed:
-                self.instrument.write(f":DECoder{self.n}:IIC:CLK {clk}")
-            else:
-                print("Invalid clock channel. Allowed: CHANNEL1, CHANNEL2.")
-
-        def get_clk(self):
-            """
-            Query the signal source of the clock channel in I2C decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(f":DECoder{self.n}:IIC:CLK?")
-
-        def set_data(self, data):
-            """
-            Set the signal source of the data channel in I2C decoding.
-            Parameter:
-                data (str): "CHANNEL1" or "CHANNEL2"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2"}
-            data = data.upper()
-            if data in allowed:
-                self.instrument.write(f":DECoder{self.n}:IIC:DATA {data}")
-            else:
-                print("Invalid data channel. Allowed: CHANNEL1, CHANNEL2.")
-
-        def get_data(self):
-            """
-            Query the signal source of the data channel in I2C decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(f":DECoder{self.n}:IIC:DATA?")
-
-        def set_address(self, addr):
-            """
-            Set the address mode of I2C decoding.
-            Parameter:
-                addr (str): "NORMAL" or "RW"
-            Return:
-                None
-            """
-            allowed = {"NORMAL", "RW"}
-            addr = addr.upper()
-            if addr in allowed:
-                self.instrument.write(f":DECoder{self.n}:IIC:ADDRess {addr}")
-            else:
-                print("Invalid address mode. Allowed: NORMAL, RW.")
-
-        def get_address(self):
-            """
-            Query the address mode of I2C decoding.
-            Parameter:
-                None
-            Return:
-                str: "NORM" or "RW"
-            """
-            return self.instrument.query(f":DECoder{self.n}:IIC:ADDRess?")
-
-    class SPI:
-        """
-        The SPI commands are used to set the SPI decoding parameters.
-        """
-        def __init__(self, instrument,data_handler,n):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            if n not in [1, 2]:
-                raise ValueError("Parameter n must be 1 or 2.")
-            self.n = n
-
-        def set_clk(self, clk):
-            """
-            Set the signal source of the clock channel in SPI decoding.
-            Parameter:
-                clk (str): "CHANNEL1" or "CHANNEL2"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2"}
-            clk = clk.upper()
-            if clk in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:CLK {clk}")
-            else:
-                print("Invalid clock channel. Allowed: CHANNEL1, CHANNEL2.")
-
-        def get_clk(self):
-            """
-            Query the signal source of the clock channel in SPI decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:CLK?")
-
-        def set_miso(self, miso):
-            """
-            Set the MISO channel source in SPI decoding.
-            Parameter:
-                miso (str): "CHANNEL1", "CHANNEL2", or "OFF"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-            miso = miso.upper()
-            if miso in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:MISO {miso}")
-            else:
-                print("Invalid MISO channel. Allowed: CHANNEL1, CHANNEL2, OFF.")
-
-        def get_miso(self):
-            """
-            Query the MISO channel source in SPI decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1", "CHAN2", or "OFF"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:MISO?")
-        def set_mosi(self, mosi):
-            """
-            Set the MOSI channel source in SPI decoding.
-            Parameter:
-                mosi (str): "CHANNEL1", "CHANNEL2", or "OFF"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-            mosi = mosi.upper()
-            if mosi in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:MOSI {mosi}")
-            else:
-                print("Invalid MOSI channel. Allowed: CHANNEL1, CHANNEL2, OFF.")
-
-        def get_mosi(self):
-            """
-            Query the MOSI channel source in SPI decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1", "CHAN2", or "OFF"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:MOSI?")
-
-        def set_cs(self, cs):
-            """
-            Set the CS channel source in SPI decoding.
-            Parameter:
-                cs (str): "CHANNEL1" or "CHANNEL2"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2"}
-            cs = cs.upper()
-            if cs in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:CS {cs}")
-            else:
-                print("Invalid CS channel. Allowed: CHANNEL1, CHANNEL2.")
-
-        def get_cs(self):
-            """
-            Query the CS channel source in SPI decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:CS?")
-
-        def set_select(self, csncs):
-            """
-            Set the CS polarity in SPI decoding.
-            Parameter:
-                csncs (str): "NCS" or "CS"
-            Return:
-                None
-            """
-            allowed = {"NCS", "CS"}
-            csncs = csncs.upper()
-            if csncs in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:SELect {csncs}")
-            else:
-                print("Invalid CS polarity. Allowed: NCS, CS.")
-
-        def get_select(self):
-            """
-            Query the CS polarity in SPI decoding.
-            Parameter:
-                None
-            Return:
-                str: "NCS" or "CS"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:SELect?")
-
-        def set_mode(self, mode):
-            """
-            Set the frame synchronization mode of SPI decoding.
-            Parameter:
-                mode (str): "CS" or "TIMEOUT"
-            Return:
-                None
-            """
-            allowed = {"CS", "TIMEOUT"}
-            mode = mode.upper()
-            if mode in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:MODE {mode}")
-            else:
-                print("Invalid mode. Allowed: CS, TIMEOUT.")
-
-        def get_mode(self):
-            """
-            Query the frame synchronization mode of SPI decoding.
-            Parameter:
-                None
-            Return:
-                str: "CS" or "TIM"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:MODE?")
-
-        def set_timeout(self, tmo):
-            """
-            Set the timeout time in the timeout mode of SPI decoding.
-            Parameter:
-                tmo (float): Timeout time in seconds (e.g., 1e-6)
-            Return:
-                None
-            """
-            if isinstance(tmo, (float, int)) and tmo > 0:
-                self.instrument.write(f":DECoder{self.n}:SPI:TIMeout {tmo}")
-            else:
-                print("Invalid timeout value. Must be a positive number.")
-
-        def get_timeout(self):
-            """
-            Query the timeout time in the timeout mode of SPI decoding.
-            Parameter:
-                None
-            Return:
-                float: Timeout time in seconds
-            """
-            resp = self.instrument.query(f":DECoder{self.n}:SPI:TIMeout?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
-
-        def set_polarity(self, pol):
-            """
-            Set the polarity of the SDA data line in SPI decoding.
-            Parameter:
-                pol (str): "NEGATIVE" or "POSITIVE"
-            Return:
-                None
-            """
-            allowed = {"NEGATIVE", "POSITIVE"}
-            pol = pol.upper()
-            if pol in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:POLarity {pol}")
-            else:
-                print("Invalid polarity. Allowed: NEGATIVE, POSITIVE.")
-
-        def get_polarity(self):
-            """
-            Query the polarity of the SDA data line in SPI decoding.
-            Parameter:
-                None
-            Return:
-                str: "NEG" or "POS"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:POLarity?")
-
-        def set_edge(self, edge):
-            """
-            Set the clock type when the instrument samples the data line in SPI decoding.
-            Parameter:
-                edge (str): "RISE" or "FALL"
-            Return:
-                None
-            """
-            allowed = {"RISE", "FALL"}
-            edge = edge.upper()
-            if edge in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:EDGE {edge}")
-            else:
-                print("Invalid edge. Allowed: RISE, FALL.")
-
-        def get_edge(self):
-            """
-            Query the clock type when the instrument samples the data line in SPI decoding.
-            Parameter:
-                None
-            Return:
-                str: "RISE" or "FALL"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:EDGE?")
-
-        def set_endian(self, endian):
-            """
-            Set the endian of the SPI decoding data.
-            Parameter:
-                endian (str): "LSB" or "MSB"
-            Return:
-                None
-            """
-            allowed = {"LSB", "MSB"}
-            endian = endian.upper()
-            if endian in allowed:
-                self.instrument.write(f":DECoder{self.n}:SPI:ENDian {endian}")
-            else:
-                print("Invalid endian. Allowed: LSB, MSB.")
-
-        def get_endian(self):
-            """
-            Query the endian of the SPI decoding data.
-            Parameter:
-                None
-            Return:
-                str: "LSB" or "MSB"
-            """
-            return self.instrument.query(f":DECoder{self.n}:SPI:ENDian?")
-
-        def set_width(self, wid):
-            """
-            Set the number of bits of each frame of data in SPI decoding.
-            Parameter:
-                wid (int): Data width, 4 to 32
-            Return:
-                None
-            """
-            if isinstance(wid, int) and 4 <= wid <= 32:
-                self.instrument.write(f":DECoder{self.n}:SPI:WIDTh {wid}")
-            else:
-                print("Invalid width. Must be integer between 4 and 32.")
-
-        def get_width(self):
-            """
-            Query the number of bits of each frame of data in SPI decoding.
-            Parameter:
-                None
-            Return:
-                int: Data width (4 to 32)
-            """
-            resp = self.instrument.query(f":DECoder{self.n}:SPI:WIDTh?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-    class Parallel:
-        """
-        The Parallel commands are used to set the parallel decoding parameters.
-        """
-        def __init__(self, instrument,data_handler,n):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            if n not in [1, 2]:
-                raise ValueError("Parameter n must be 1 or 2.")
-            self.n = n
-
-        def set_clk(self, clk):
-            """
-            Set the CLK channel source of parallel decoding.
-            Parameter:
-                clk (str): "CHANNEL1", "CHANNEL2", or "OFF"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-            clk = clk.upper()
-            if clk in allowed:
-                self.instrument.write(f":DECoder{self.n}:PARallel:CLK {clk}")
-            else:
-                print("Invalid clk. Allowed: CHANNEL1, CHANNEL2, OFF.")
-
-        def get_clk(self):
-            """
-            Query the CLK channel source of parallel decoding.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1", "CHAN2", or "OFF"
-            """
-            return self.instrument.query(f":DECoder{self.n}:PARallel:CLK?")
-
-        def set_edge(self, edge):
-            """
-            Set the edge type of the clock channel for parallel decoding.
-            Parameter:
-                edge (str): "RISE", "FALL", or "BOTH"
-            Return:
-                None
-            """
-            allowed = {"RISE", "FALL", "BOTH"}
-            edge = edge.upper()
-            if edge in allowed:
-                self.instrument.write(f":DECoder{self.n}:PARallel:EDGE {edge}")
-            else:
-                print("Invalid edge. Allowed: RISE, FALL, BOTH.")
-
-        def get_edge(self):
-            """
-            Query the edge type of the clock channel for parallel decoding.
-            Parameter:
-                None
-            Return:
-                str: "RISE", "FALL", or "BOTH"
-            """
-            return self.instrument.query(f":DECoder{self.n}:PARallel:EDGE?")
-
-        def set_width(self, wid):
-            """
-            Set the data width (number of bits per frame) for parallel decoding.
-            Parameter:
-                wid (int): Data width, 1 to 2
-            Return:
-                None
-            """
-            if isinstance(wid, int) and 1 <= wid <= 2:
-                self.instrument.write(f":DECoder{self.n}:PARallel:WIDTh {wid}")
-            else:
-                print("Invalid width. Must be integer between 1 and 2.")
-
-        def get_width(self):
-            """
-            Query the data width for parallel decoding.
-            Parameter:
-                None
-            Return:
-                int: Data width (1 to 2)
-            """
-            resp = self.instrument.query(f":DECoder{self.n}:PARallel:WIDTh?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_bitx(self, bit):
-            """
-            Set the data bit that requires a channel source on the parallel bus.
-            Parameter:
-                bit (int): Bit index, 0 to (data width - 1)
-            Return:
-                None
-            """
-            if isinstance(bit, int) and bit >= 0:
-                self.instrument.write(f":DECoder{self.n}:PARallel:BITX {bit}")
-            else:
-                print("Invalid bit index.")
-
-        def get_bitx(self):
-            """
-            Query the current data bit selected on the parallel bus.
-            Parameter:
-                None
-            Return:
-                int: Current bit index
-            """
-            resp = self.instrument.query(f":DECoder{self.n}:PARallel:BITX?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_source(self, src):
-            """
-            Set the channel source of the data bit currently selected.
-            Parameter:
-                src (str): "CHANNEL1" or "CHANNEL2"
-            Return:
-                None
-            """
-            allowed = {"CHANNEL1", "CHANNEL2"}
-            src = src.upper()
-            if src in allowed:
-                self.instrument.write(f":DECoder{self.n}:PARallel:SOURce {src}")
-            else:
-                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-        def get_source(self):
-            """
-            Query the channel source of the data bit currently selected.
-            Parameter:
-                None
-            Return:
-                str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(f":DECoder{self.n}:PARallel:SOURce?")
-
-        def set_polarity(self, pol):
-            """
-            Set the data polarity of parallel decoding.
-            Parameter:
-                pol (str): "NEGATIVE" or "POSITIVE"
-            Return:
-                None
-            """
-            allowed = {"NEGATIVE", "POSITIVE"}
-            pol = pol.upper()
-            if pol in allowed:
-                self.instrument.write(f":DECoder{self.n}:PARallel:POLarity {pol}")
-            else:
-                print("Invalid polarity. Allowed: NEGATIVE, POSITIVE.")
-
-        def get_polarity(self):
-            """
-            Query the data polarity of parallel decoding.
-            Parameter:
-                None
-            Return:
-                str: "NEG" or "POS"
-            """
-            return self.instrument.query(f":DECoder{self.n}:PARallel:POLarity?")
-
-        def enable_noise_rejection(self, enable):
-            """
-            Turn on or off the noise rejection function of parallel decoding.
-            Parameter:
-                enable (int or str): 1/0 or "ON"/"OFF"
-            Return:
-                None
-            """
-            if enable in [1, 0]:
-                val = enable
-            elif isinstance(enable, str) and enable.upper() in {"ON", "OFF"}:
-                val = 1 if enable.upper() == "ON" else 0
-            else:
-                print("Invalid enable value. Use 1, 0, 'ON', or 'OFF'.")
-                return
-            self.instrument.write(f":DECoder{self.n}:PARallel:NREJect {val}")
-
-        def is_noise_rejection_enabled(self):
-            """
-            Query the status of the noise rejection function of parallel decoding.
-            Parameter:
-                None
-            Return:
-                int: 1 (on) or 0 (off)
-            """
-            return int(self.instrument.query(f":DECoder{self.n}:PARallel:NREJect?"))
-
-        def set_noise_rejection_time(self, time):
-            """
-            Set the noise rejection time of parallel decoding (in seconds).
-            Parameter:
-                time (float): 0.00s to 0.1s (100ms)
-            Return:
-                None
-            """
-            if isinstance(time, (float, int)) and 0.0 <= time <= 0.1:
-                self.instrument.write(f":DECoder{self.n}:PARallel:NRTime {time}")
-            else:
-                print("Invalid time. Must be between 0.00 and 0.1 seconds.")
-
-        def get_noise_rejection_time(self):
-            """
-            Query the noise rejection time of parallel decoding.
-            Parameter:
-                None
-            Return:
-                float: Noise rejection time in seconds
-            """
-            resp = self.instrument.query(f":DECoder{self.n}:PARallel:NRTime?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
-
-        def set_compensation(self, comp):
-            """
-            Set the clock compensation time of parallel decoding (in seconds).
-            Parameter:
-                comp (float): -0.1s to 0.1s (-100ms to 100ms)
-            Return:
-                None
-            """
-            if isinstance(comp, (float, int)) and -0.1 <= comp <= 0.1:
-                self.instrument.write(f":DECoder{self.n}:PARallel:CCOMpensation {comp}")
-            else:
-                print("Invalid compensation. Must be between -0.1 and 0.1 seconds.")
-
-        def get_compensation(self):
-            """
-            Query the clock compensation time of parallel decoding.
-            Parameter:
-                None
-            Return:
-                float: Compensation time in seconds
-            """
-            resp = self.instrument.query(f":DECoder{self.n}:PARallel:CCOMpensation?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
-
-        def enable_plot(self, enable):
-            """
-            Turn on or off the curve function of parallel decoding.
-            Parameter:
-                enable (int or str): 1/0 or "ON"/"OFF"
-            Return:
-                None
-            """
-            if enable in [1, 0]:
-                val = enable
-            elif isinstance(enable, str) and enable.upper() in {"ON", "OFF"}:
-                val = 1 if enable.upper() == "ON" else 0
-            else:
-                print("Invalid enable value. Use 1, 0, 'ON', or 'OFF'.")
-                return
-            self.instrument.write(f":DECoder{self.n}:PARallel:PLOT {val}")
-
-        def is_plot_enabled(self):
-            """
-            Query the status of the curve function of parallel decoding.
-            Parameter:
-                None
-            Return:
-                int: 1 (on) or 0 (off)
-            """
-            return int(self.instrument.query(f":DECoder{self.n}:PARallel:PLOT?"))
-
-    # Attach Parallel decoder to Decoder
-    def get_parallel(self):
-        """
-        Get the Parallel decoder interface for this decoder.
+        Set the TX channel source of RS232 decoding.
         Parameter:
-        None
+            tx (str): "CHANNEL1", "CHANNEL2", or "OFF"
         Return:
-        Decoder.Parallel: Parallel decoder object
+            None
         """
-        return Decoder.Parallel(self.instrument, self.n)
+        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+        tx = tx.upper()
+        if tx in allowed:
+            self.instrument.write(f":DECoder{self.n}:UART:TX {tx}")
+        else:
+            print(f"Invalid TX source. Allowed: {allowed}")
+
+    def get_tx(self):
+        """
+        Query the TX channel source of RS232 decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1", "CHAN2", or "OFF"
+        """
+        return self.instrument.query(f":DECoder{self.n}:UART:TX?")
+
+    def set_rx(self, rx):
+        """
+        Set the RX channel source of RS232 decoding.
+        Parameter:
+            rx (str): "CHANNEL1", "CHANNEL2", or "OFF"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+        rx = rx.upper()
+        if rx in allowed:
+            self.instrument.write(f":DECoder{self.n}:UART:RX {rx}")
+        else:
+            print(f"Invalid RX source. Allowed: {allowed}")
+
+    def get_rx(self):
+        """
+        Query the RX channel source of RS232 decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1", "CHAN2", or "OFF"
+        """
+        return self.instrument.query(f":DECoder{self.n}:UART:RX?")
+
+    def set_polarity(self, polarity):
+        """
+        Set the polarity of RS232 decoding.
+        Parameter:
+            polarity (str): "NEGATIVE" or "POSITIVE"
+        Return:
+            None
+        """
+        allowed = {"NEGATIVE", "POSITIVE"}
+        polarity = polarity.upper()
+        if polarity in allowed:
+            self.instrument.write(f":DECoder{self.n}:UART:POLarity {polarity}")
+        else:
+            print(f"Invalid polarity. Allowed: {allowed}")
+
+    def get_polarity(self):
+        """
+        Query the polarity of RS232 decoding.
+        Parameter:
+            None
+        Return:
+            str: "NEG" or "POS"
+        """
+        return self.instrument.query(f":DECoder{self.n}:UART:POLarity?")
+
+    def set_endian(self, endian):
+        """
+        Set the endian of RS232 decoding.
+        Parameter:
+            endian (str): "LSB" or "MSB"
+        Return:
+            None
+        """
+        allowed = {"LSB", "MSB"}
+        endian = endian.upper()
+        if endian in allowed:
+            self.instrument.write(f":DECoder{self.n}:UART:ENDian {endian}")
+        else:
+            print(f"Invalid endian. Allowed: {allowed}")
+
+    def get_endian(self):
+        """
+        Query the endian of RS232 decoding.
+        Parameter:
+            None
+        Return:
+            str: "LSB" or "MSB"
+        """
+        return self.instrument.query(f":DECoder{self.n}:UART:ENDian?")
+    def set_baud(self, baud):
+        """
+        Set the baud rate of RS232 decoding.
+        Parameter:
+            baud (int): Baud rate, 110 to 20000000
+        Return:
+            None
+        """
+        if isinstance(baud, int) and 110 <= baud <= 20000000:
+            self.instrument.write(f":DECoder{self.n}:UART:BAUD {baud}")
+        else:
+            print("Invalid baud rate. Must be integer between 110 and 20000000.")
+
+    def get_baud(self):
+        """
+        Query the baud rate of RS232 decoding.
+        Parameter:
+            None
+        Return:
+            int: Current baud rate
+        """
+        return int(self.instrument.query(f":DECoder{self.n}:UART:BAUD?"))
+
+    def set_width(self, width):
+        """
+        Set the width of each frame of data in RS232 decoding.
+        Parameter:
+            width (int): Data width, 5 to 8
+        Return:
+            None
+        """
+        if isinstance(width, int) and 5 <= width <= 8:
+            self.instrument.write(f":DECoder{self.n}:UART:WIDTh {width}")
+        else:
+            print("Invalid width. Must be integer between 5 and 8.")
+
+    def get_width(self):
+        """
+        Query the width of each frame of data in RS232 decoding.
+        Parameter:
+            None
+        Return:
+            int: Data width (5 to 8)
+        """
+        return int(self.instrument.query(f":DECoder{self.n}:UART:WIDTh?"))
+
+    def set_stop(self, stop):
+        """
+        Set the stop bit after each frame of data in RS232 decoding.
+        Parameter:
+            stop (float): Stop bit, one of 1, 1.5, or 2
+        Return:
+            None
+        """
+        allowed = {1, 1.5, 2}
+        if stop in allowed:
+            self.instrument.write(f":DECoder{self.n}:UART:STOP {stop}")
+        else:
+            print("Invalid stop bit. Allowed: 1, 1.5, 2.")
+
+    def get_stop(self):
+        """
+        Query the stop bit after each frame of data in RS232 decoding.
+        Parameter:
+            None
+        Return:
+            float: Stop bit (1, 1.5, or 2)
+        """
+        resp = self.instrument.query(f":DECoder{self.n}:UART:STOP?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def set_parity(self, parity):
+        """
+        Set the even-odd check mode of the data transmission in RS232 decoding.
+        Parameter:
+            parity (str): "NONE", "EVEN", or "ODD"
+        Return:
+            None
+        """
+        allowed = {"NONE", "EVEN", "ODD"}
+        parity = parity.upper()
+        if parity in allowed:
+            self.instrument.write(f":DECoder{self.n}:UART:PARity {parity}")
+        else:
+            print("Invalid parity. Allowed: NONE, EVEN, ODD.")
+
+    def get_parity(self):
+        """
+        Query the even-odd check mode of the data transmission in RS232 decoding.
+        Parameter:
+            None
+        Return:
+            str: "NONE", "EVEN", or "ODD"
+        """
+        return self.instrument.query(f":DECoder{self.n}:UART:PARity?")
+
+class IIC_Decoder:
+    """
+    The IIC commands are used to set the I2C decoding parameters.
+    """
+    def __init__(self, instrument,data_handler,n):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        if n not in [1, 2]:
+            raise ValueError("Parameter n must be 1 or 2.")
+        self.n = n
+
+    def set_clk(self, clk):
+        """
+        Set the signal source of the clock channel in I2C decoding.
+        Parameter:
+            clk (str): "CHANNEL1" or "CHANNEL2"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2"}
+        clk = clk.upper()
+        if clk in allowed:
+            self.instrument.write(f":DECoder{self.n}:IIC:CLK {clk}")
+        else:
+            print("Invalid clock channel. Allowed: CHANNEL1, CHANNEL2.")
+
+    def get_clk(self):
+        """
+        Query the signal source of the clock channel in I2C decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(f":DECoder{self.n}:IIC:CLK?")
+
+    def set_data(self, data):
+        """
+        Set the signal source of the data channel in I2C decoding.
+        Parameter:
+            data (str): "CHANNEL1" or "CHANNEL2"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2"}
+        data = data.upper()
+        if data in allowed:
+            self.instrument.write(f":DECoder{self.n}:IIC:DATA {data}")
+        else:
+            print("Invalid data channel. Allowed: CHANNEL1, CHANNEL2.")
+
+    def get_data(self):
+        """
+        Query the signal source of the data channel in I2C decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(f":DECoder{self.n}:IIC:DATA?")
+
+    def set_address(self, addr):
+        """
+        Set the address mode of I2C decoding.
+        Parameter:
+            addr (str): "NORMAL" or "RW"
+        Return:
+            None
+        """
+        allowed = {"NORMAL", "RW"}
+        addr = addr.upper()
+        if addr in allowed:
+            self.instrument.write(f":DECoder{self.n}:IIC:ADDRess {addr}")
+        else:
+            print("Invalid address mode. Allowed: NORMAL, RW.")
+
+    def get_address(self):
+        """
+        Query the address mode of I2C decoding.
+        Parameter:
+            None
+        Return:
+            str: "NORM" or "RW"
+        """
+        return self.instrument.query(f":DECoder{self.n}:IIC:ADDRess?")
+
+class SPI_Decoder:
+    """
+    The SPI commands are used to set the SPI decoding parameters.
+    """
+    def __init__(self, instrument,data_handler,n):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        if n not in [1, 2]:
+            raise ValueError("Parameter n must be 1 or 2.")
+        self.n = n
+
+    def set_clk(self, clk):
+        """
+        Set the signal source of the clock channel in SPI decoding.
+        Parameter:
+            clk (str): "CHANNEL1" or "CHANNEL2"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2"}
+        clk = clk.upper()
+        if clk in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:CLK {clk}")
+        else:
+            print("Invalid clock channel. Allowed: CHANNEL1, CHANNEL2.")
+
+    def get_clk(self):
+        """
+        Query the signal source of the clock channel in SPI decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:CLK?")
+
+    def set_miso(self, miso):
+        """
+        Set the MISO channel source in SPI decoding.
+        Parameter:
+            miso (str): "CHANNEL1", "CHANNEL2", or "OFF"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+        miso = miso.upper()
+        if miso in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:MISO {miso}")
+        else:
+            print("Invalid MISO channel. Allowed: CHANNEL1, CHANNEL2, OFF.")
+
+    def get_miso(self):
+        """
+        Query the MISO channel source in SPI decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1", "CHAN2", or "OFF"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:MISO?")
+    def set_mosi(self, mosi):
+        """
+        Set the MOSI channel source in SPI decoding.
+        Parameter:
+            mosi (str): "CHANNEL1", "CHANNEL2", or "OFF"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+        mosi = mosi.upper()
+        if mosi in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:MOSI {mosi}")
+        else:
+            print("Invalid MOSI channel. Allowed: CHANNEL1, CHANNEL2, OFF.")
+
+    def get_mosi(self):
+        """
+        Query the MOSI channel source in SPI decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1", "CHAN2", or "OFF"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:MOSI?")
+
+    def set_cs(self, cs):
+        """
+        Set the CS channel source in SPI decoding.
+        Parameter:
+            cs (str): "CHANNEL1" or "CHANNEL2"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2"}
+        cs = cs.upper()
+        if cs in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:CS {cs}")
+        else:
+            print("Invalid CS channel. Allowed: CHANNEL1, CHANNEL2.")
+
+    def get_cs(self):
+        """
+        Query the CS channel source in SPI decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:CS?")
+
+    def set_select(self, csncs):
+        """
+        Set the CS polarity in SPI decoding.
+        Parameter:
+            csncs (str): "NCS" or "CS"
+        Return:
+            None
+        """
+        allowed = {"NCS", "CS"}
+        csncs = csncs.upper()
+        if csncs in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:SELect {csncs}")
+        else:
+            print("Invalid CS polarity. Allowed: NCS, CS.")
+
+    def get_select(self):
+        """
+        Query the CS polarity in SPI decoding.
+        Parameter:
+            None
+        Return:
+            str: "NCS" or "CS"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:SELect?")
+
+    def set_mode(self, mode):
+        """
+        Set the frame synchronization mode of SPI decoding.
+        Parameter:
+            mode (str): "CS" or "TIMEOUT"
+        Return:
+            None
+        """
+        allowed = {"CS", "TIMEOUT"}
+        mode = mode.upper()
+        if mode in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:MODE {mode}")
+        else:
+            print("Invalid mode. Allowed: CS, TIMEOUT.")
+
+    def get_mode(self):
+        """
+        Query the frame synchronization mode of SPI decoding.
+        Parameter:
+            None
+        Return:
+            str: "CS" or "TIM"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:MODE?")
+
+    def set_timeout(self, tmo):
+        """
+        Set the timeout time in the timeout mode of SPI decoding.
+        Parameter:
+            tmo (float): Timeout time in seconds (e.g., 1e-6)
+        Return:
+            None
+        """
+        if isinstance(tmo, (float, int)) and tmo > 0:
+            self.instrument.write(f":DECoder{self.n}:SPI:TIMeout {tmo}")
+        else:
+            print("Invalid timeout value. Must be a positive number.")
+
+    def get_timeout(self):
+        """
+        Query the timeout time in the timeout mode of SPI decoding.
+        Parameter:
+            None
+        Return:
+            float: Timeout time in seconds
+        """
+        resp = self.instrument.query(f":DECoder{self.n}:SPI:TIMeout?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def set_polarity(self, pol):
+        """
+        Set the polarity of the SDA data line in SPI decoding.
+        Parameter:
+            pol (str): "NEGATIVE" or "POSITIVE"
+        Return:
+            None
+        """
+        allowed = {"NEGATIVE", "POSITIVE"}
+        pol = pol.upper()
+        if pol in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:POLarity {pol}")
+        else:
+            print("Invalid polarity. Allowed: NEGATIVE, POSITIVE.")
+
+    def get_polarity(self):
+        """
+        Query the polarity of the SDA data line in SPI decoding.
+        Parameter:
+            None
+        Return:
+            str: "NEG" or "POS"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:POLarity?")
+
+    def set_edge(self, edge):
+        """
+        Set the clock type when the instrument samples the data line in SPI decoding.
+        Parameter:
+            edge (str): "RISE" or "FALL"
+        Return:
+            None
+        """
+        allowed = {"RISE", "FALL"}
+        edge = edge.upper()
+        if edge in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:EDGE {edge}")
+        else:
+            print("Invalid edge. Allowed: RISE, FALL.")
+
+    def get_edge(self):
+        """
+        Query the clock type when the instrument samples the data line in SPI decoding.
+        Parameter:
+            None
+        Return:
+            str: "RISE" or "FALL"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:EDGE?")
+
+    def set_endian(self, endian):
+        """
+        Set the endian of the SPI decoding data.
+        Parameter:
+            endian (str): "LSB" or "MSB"
+        Return:
+            None
+        """
+        allowed = {"LSB", "MSB"}
+        endian = endian.upper()
+        if endian in allowed:
+            self.instrument.write(f":DECoder{self.n}:SPI:ENDian {endian}")
+        else:
+            print("Invalid endian. Allowed: LSB, MSB.")
+
+    def get_endian(self):
+        """
+        Query the endian of the SPI decoding data.
+        Parameter:
+            None
+        Return:
+            str: "LSB" or "MSB"
+        """
+        return self.instrument.query(f":DECoder{self.n}:SPI:ENDian?")
+
+    def set_width(self, wid):
+        """
+        Set the number of bits of each frame of data in SPI decoding.
+        Parameter:
+            wid (int): Data width, 4 to 32
+        Return:
+            None
+        """
+        if isinstance(wid, int) and 4 <= wid <= 32:
+            self.instrument.write(f":DECoder{self.n}:SPI:WIDTh {wid}")
+        else:
+            print("Invalid width. Must be integer between 4 and 32.")
+
+    def get_width(self):
+        """
+        Query the number of bits of each frame of data in SPI decoding.
+        Parameter:
+            None
+        Return:
+            int: Data width (4 to 32)
+        """
+        resp = self.instrument.query(f":DECoder{self.n}:SPI:WIDTh?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
+class Parallel:
+    """
+    The Parallel commands are used to set the parallel decoding parameters.
+    """
+    def __init__(self, instrument,data_handler,n):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        if n not in [1, 2]:
+            raise ValueError("Parameter n must be 1 or 2.")
+        self.n = n
+
+    def set_clk(self, clk):
+        """
+        Set the CLK channel source of parallel decoding.
+        Parameter:
+            clk (str): "CHANNEL1", "CHANNEL2", or "OFF"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+        clk = clk.upper()
+        if clk in allowed:
+            self.instrument.write(f":DECoder{self.n}:PARallel:CLK {clk}")
+        else:
+            print("Invalid clk. Allowed: CHANNEL1, CHANNEL2, OFF.")
+
+    def get_clk(self):
+        """
+        Query the CLK channel source of parallel decoding.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1", "CHAN2", or "OFF"
+        """
+        return self.instrument.query(f":DECoder{self.n}:PARallel:CLK?")
+
+    def set_edge(self, edge):
+        """
+        Set the edge type of the clock channel for parallel decoding.
+        Parameter:
+            edge (str): "RISE", "FALL", or "BOTH"
+        Return:
+            None
+        """
+        allowed = {"RISE", "FALL", "BOTH"}
+        edge = edge.upper()
+        if edge in allowed:
+            self.instrument.write(f":DECoder{self.n}:PARallel:EDGE {edge}")
+        else:
+            print("Invalid edge. Allowed: RISE, FALL, BOTH.")
+
+    def get_edge(self):
+        """
+        Query the edge type of the clock channel for parallel decoding.
+        Parameter:
+            None
+        Return:
+            str: "RISE", "FALL", or "BOTH"
+        """
+        return self.instrument.query(f":DECoder{self.n}:PARallel:EDGE?")
+
+    def set_width(self, wid):
+        """
+        Set the data width (number of bits per frame) for parallel decoding.
+        Parameter:
+            wid (int): Data width, 1 to 2
+        Return:
+            None
+        """
+        if isinstance(wid, int) and 1 <= wid <= 2:
+            self.instrument.write(f":DECoder{self.n}:PARallel:WIDTh {wid}")
+        else:
+            print("Invalid width. Must be integer between 1 and 2.")
+
+    def get_width(self):
+        """
+        Query the data width for parallel decoding.
+        Parameter:
+            None
+        Return:
+            int: Data width (1 to 2)
+        """
+        resp = self.instrument.query(f":DECoder{self.n}:PARallel:WIDTh?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
+
+    def set_bitx(self, bit):
+        """
+        Set the data bit that requires a channel source on the parallel bus.
+        Parameter:
+            bit (int): Bit index, 0 to (data width - 1)
+        Return:
+            None
+        """
+        if isinstance(bit, int) and bit >= 0:
+            self.instrument.write(f":DECoder{self.n}:PARallel:BITX {bit}")
+        else:
+            print("Invalid bit index.")
+
+    def get_bitx(self):
+        """
+        Query the current data bit selected on the parallel bus.
+        Parameter:
+            None
+        Return:
+            int: Current bit index
+        """
+        resp = self.instrument.query(f":DECoder{self.n}:PARallel:BITX?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
+
+    def set_source(self, src):
+        """
+        Set the channel source of the data bit currently selected.
+        Parameter:
+            src (str): "CHANNEL1" or "CHANNEL2"
+        Return:
+            None
+        """
+        allowed = {"CHANNEL1", "CHANNEL2"}
+        src = src.upper()
+        if src in allowed:
+            self.instrument.write(f":DECoder{self.n}:PARallel:SOURce {src}")
+        else:
+            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+    def get_source(self):
+        """
+        Query the channel source of the data bit currently selected.
+        Parameter:
+            None
+        Return:
+            str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(f":DECoder{self.n}:PARallel:SOURce?")
+
+    def set_polarity(self, pol):
+        """
+        Set the data polarity of parallel decoding.
+        Parameter:
+            pol (str): "NEGATIVE" or "POSITIVE"
+        Return:
+            None
+        """
+        allowed = {"NEGATIVE", "POSITIVE"}
+        pol = pol.upper()
+        if pol in allowed:
+            self.instrument.write(f":DECoder{self.n}:PARallel:POLarity {pol}")
+        else:
+            print("Invalid polarity. Allowed: NEGATIVE, POSITIVE.")
+
+    def get_polarity(self):
+        """
+        Query the data polarity of parallel decoding.
+        Parameter:
+            None
+        Return:
+            str: "NEG" or "POS"
+        """
+        return self.instrument.query(f":DECoder{self.n}:PARallel:POLarity?")
+
+    def enable_noise_rejection(self, enable):
+        """
+        Turn on or off the noise rejection function of parallel decoding.
+        Parameter:
+            enable (int or str): 1/0 or "ON"/"OFF"
+        Return:
+            None
+        """
+        if enable in [1, 0]:
+            val = enable
+        elif isinstance(enable, str) and enable.upper() in {"ON", "OFF"}:
+            val = 1 if enable.upper() == "ON" else 0
+        else:
+            print("Invalid enable value. Use 1, 0, 'ON', or 'OFF'.")
+            return
+        self.instrument.write(f":DECoder{self.n}:PARallel:NREJect {val}")
+
+    def is_noise_rejection_enabled(self):
+        """
+        Query the status of the noise rejection function of parallel decoding.
+        Parameter:
+            None
+        Return:
+            int: 1 (on) or 0 (off)
+        """
+        return int(self.instrument.query(f":DECoder{self.n}:PARallel:NREJect?"))
+
+    def set_noise_rejection_time(self, time):
+        """
+        Set the noise rejection time of parallel decoding (in seconds).
+        Parameter:
+            time (float): 0.00s to 0.1s (100ms)
+        Return:
+            None
+        """
+        if isinstance(time, (float, int)) and 0.0 <= time <= 0.1:
+            self.instrument.write(f":DECoder{self.n}:PARallel:NRTime {time}")
+        else:
+            print("Invalid time. Must be between 0.00 and 0.1 seconds.")
+
+    def get_noise_rejection_time(self):
+        """
+        Query the noise rejection time of parallel decoding.
+        Parameter:
+            None
+        Return:
+            float: Noise rejection time in seconds
+        """
+        resp = self.instrument.query(f":DECoder{self.n}:PARallel:NRTime?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def set_compensation(self, comp):
+        """
+        Set the clock compensation time of parallel decoding (in seconds).
+        Parameter:
+            comp (float): -0.1s to 0.1s (-100ms to 100ms)
+        Return:
+            None
+        """
+        if isinstance(comp, (float, int)) and -0.1 <= comp <= 0.1:
+            self.instrument.write(f":DECoder{self.n}:PARallel:CCOMpensation {comp}")
+        else:
+            print("Invalid compensation. Must be between -0.1 and 0.1 seconds.")
+
+    def get_compensation(self):
+        """
+        Query the clock compensation time of parallel decoding.
+        Parameter:
+            None
+        Return:
+            float: Compensation time in seconds
+        """
+        resp = self.instrument.query(f":DECoder{self.n}:PARallel:CCOMpensation?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def enable_plot(self, enable):
+        """
+        Turn on or off the curve function of parallel decoding.
+        Parameter:
+            enable (int or str): 1/0 or "ON"/"OFF"
+        Return:
+            None
+        """
+        if enable in [1, 0]:
+            val = enable
+        elif isinstance(enable, str) and enable.upper() in {"ON", "OFF"}:
+            val = 1 if enable.upper() == "ON" else 0
+        else:
+            print("Invalid enable value. Use 1, 0, 'ON', or 'OFF'.")
+            return
+        self.instrument.write(f":DECoder{self.n}:PARallel:PLOT {val}")
+
+    def is_plot_enabled(self):
+        """
+        Query the status of the curve function of parallel decoding.
+        Parameter:
+            None
+        Return:
+            int: 1 (on) or 0 (off)
+        """
+        return int(self.instrument.query(f":DECoder{self.n}:PARallel:PLOT?"))
+
+
 
 class Display:
     """
@@ -2064,368 +2055,368 @@ class Function:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.WRecord = Function.WRecord(instrument, data_handler)
-        self.WReplay = Function.WReplay(instrument, data_handler)
+        self.WRecord = WRecord(instrument, data_handler)
+        self.WReplay = WReplay(instrument, data_handler)
 
-    class WRecord:
-        def __init__(self, instrument,data_handler):
-            self.instrument = instrument
-            self.data_handler = data_handler
-        def set_wrecord_fend(self, frame):
-            """
-            Set the end frame of waveform recording.
-            Parameter:
-                frame (int): 1 to max frames (use get_wrecord_fmax to query max)
-            Return:
-                None
-            """
-            if isinstance(frame, int) and frame >= 1:
-                self.instrument.write(f":FUNCtion:WRECord:FEND {frame}")
-            else:
-                print("Invalid frame value.")
+class WRecord:
+    def __init__(self, instrument,data_handler):
+        self.instrument = instrument
+        self.data_handler = data_handler
+    def set_wrecord_fend(self, frame):
+        """
+        Set the end frame of waveform recording.
+        Parameter:
+            frame (int): 1 to max frames (use get_wrecord_fmax to query max)
+        Return:
+            None
+        """
+        if isinstance(frame, int) and frame >= 1:
+            self.instrument.write(f":FUNCtion:WRECord:FEND {frame}")
+        else:
+            print("Invalid frame value.")
 
-        def get_wrecord_fend(self):
-            """
-            Query the end frame of waveform recording.
-            Parameter:
-                None
-            Return:
-                int: Current end frame
-            """
-            resp = self.instrument.query(":FUNCtion:WRECord:FEND?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_wrecord_fend(self):
+        """
+        Query the end frame of waveform recording.
+        Parameter:
+            None
+        Return:
+            int: Current end frame
+        """
+        resp = self.instrument.query(":FUNCtion:WRECord:FEND?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def get_wrecord_fmax(self):
-            """
-            Query the maximum number of frames that can be recorded currently.
-            Parameter:
-                None
-            Return:
-                int: Maximum number of frames
-            """
-            resp = self.instrument.query(":FUNCtion:WRECord:FMAX?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_wrecord_fmax(self):
+        """
+        Query the maximum number of frames that can be recorded currently.
+        Parameter:
+            None
+        Return:
+            int: Maximum number of frames
+        """
+        resp = self.instrument.query(":FUNCtion:WRECord:FMAX?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def set_wrecord_finterval(self, interval):
-            """
-            Set the time interval between frames in waveform recording.
-            Parameter:
-                interval (float): 100e-9 to 10.0 (seconds)
-            Return:
-                None
-            """
-            if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
-                self.instrument.write(f":FUNCtion:WRECord:FINTerval {interval}")
-            else:
-                print("Invalid interval. Must be between 100ns and 10s.")
+    def set_wrecord_finterval(self, interval):
+        """
+        Set the time interval between frames in waveform recording.
+        Parameter:
+            interval (float): 100e-9 to 10.0 (seconds)
+        Return:
+            None
+        """
+        if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
+            self.instrument.write(f":FUNCtion:WRECord:FINTerval {interval}")
+        else:
+            print("Invalid interval. Must be between 100ns and 10s.")
 
-        def get_wrecord_finterval(self):
-            """
-            Query the time interval between frames in waveform recording.
-            Parameter:
-                None
-            Return:
-                float: Time interval in seconds
-            """
-            resp = self.instrument.query(":FUNCtion:WRECord:FINTerval?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
+    def get_wrecord_finterval(self):
+        """
+        Query the time interval between frames in waveform recording.
+        Parameter:
+            None
+        Return:
+            float: Time interval in seconds
+        """
+        resp = self.instrument.query(":FUNCtion:WRECord:FINTerval?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
 
-        def set_wrecord_prompt(self, state):
-            """
-            Turn on or off the sound prompt when recording finishes.
-            Parameter:
-                state (int or str): 1/0 or "ON"/"OFF"
-            Return:
-                None
-            """
-            if state in [1, 0]:
-                val = state
-            elif isinstance(state, str) and state.upper() in {"ON", "OFF"}:
-                val = 1 if state.upper() == "ON" else 0
-            else:
-                print("Invalid state. Use 1, 0, 'ON', or 'OFF'.")
-                return
-            self.instrument.write(f":FUNCtion:WRECord:PROMpt {val}")
+    def set_wrecord_prompt(self, state):
+        """
+        Turn on or off the sound prompt when recording finishes.
+        Parameter:
+            state (int or str): 1/0 or "ON"/"OFF"
+        Return:
+            None
+        """
+        if state in [1, 0]:
+            val = state
+        elif isinstance(state, str) and state.upper() in {"ON", "OFF"}:
+            val = 1 if state.upper() == "ON" else 0
+        else:
+            print("Invalid state. Use 1, 0, 'ON', or 'OFF'.")
+            return
+        self.instrument.write(f":FUNCtion:WRECord:PROMpt {val}")
 
-        def get_wrecord_prompt(self):
-            """
-            Query the status of the sound prompt when recording finishes.
-            Parameter:
-                None
-            Return:
-                int: 1 (on) or 0 (off)
-            """
-            resp = self.instrument.query(":FUNCtion:WRECord:PROMpt?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_wrecord_prompt(self):
+        """
+        Query the status of the sound prompt when recording finishes.
+        Parameter:
+            None
+        Return:
+            int: 1 (on) or 0 (off)
+        """
+        resp = self.instrument.query(":FUNCtion:WRECord:PROMpt?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def set_wrecord_operate(self, opt):
-            """
-            Start or stop the waveform recording.
-            Parameter:
-                opt (str): "RUN" or "STOP"
-            Return:
-                None
-            """
-            allowed = {"RUN", "STOP"}
-            opt = opt.upper()
-            if opt in allowed:
-                self.instrument.write(f":FUNCtion:WRECord:OPERate {opt}")
-            else:
-                print("Invalid option. Allowed: RUN, STOP.")
+    def set_wrecord_operate(self, opt):
+        """
+        Start or stop the waveform recording.
+        Parameter:
+            opt (str): "RUN" or "STOP"
+        Return:
+            None
+        """
+        allowed = {"RUN", "STOP"}
+        opt = opt.upper()
+        if opt in allowed:
+            self.instrument.write(f":FUNCtion:WRECord:OPERate {opt}")
+        else:
+            print("Invalid option. Allowed: RUN, STOP.")
 
-        def get_wrecord_operate(self):
-            """
-            Query the status of the waveform recording.
-            Parameter:
-                None
-            Return:
-                str: "RUN" or "STOP"
-            """
-            return self.instrument.query(":FUNCtion:WRECord:OPERate?")
+    def get_wrecord_operate(self):
+        """
+        Query the status of the waveform recording.
+        Parameter:
+            None
+        Return:
+            str: "RUN" or "STOP"
+        """
+        return self.instrument.query(":FUNCtion:WRECord:OPERate?")
 
-        def set_wrecord_enable(self, state):
-            """
-            Turn on or off the waveform recording function.
-            Parameter:
-                state (int or str): 1/0 or "ON"/"OFF"
-            Return:
-                None
-            """
-            if state in [1, 0]:
-                val = state
-            elif isinstance(state, str) and state.upper() in {"ON", "OFF"}:
-                val = 1 if state.upper() == "ON" else 0
-            else:
-                print("Invalid state. Use 1, 0, 'ON', or 'OFF'.")
-                return
-            self.instrument.write(f":FUNCtion:WRECord:ENABle {val}")
+    def set_wrecord_enable(self, state):
+        """
+        Turn on or off the waveform recording function.
+        Parameter:
+            state (int or str): 1/0 or "ON"/"OFF"
+        Return:
+            None
+        """
+        if state in [1, 0]:
+            val = state
+        elif isinstance(state, str) and state.upper() in {"ON", "OFF"}:
+            val = 1 if state.upper() == "ON" else 0
+        else:
+            print("Invalid state. Use 1, 0, 'ON', or 'OFF'.")
+            return
+        self.instrument.write(f":FUNCtion:WRECord:ENABle {val}")
 
-        def get_wrecord_enable(self):
-            """
-            Query the status of the waveform recording function.
-            Parameter:
-                None
-            Return:
-                int: 1 (on) or 0 (off)
-            """
-            resp = self.instrument.query(":FUNCtion:WRECord:ENABle?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_wrecord_enable(self):
+        """
+        Query the status of the waveform recording function.
+        Parameter:
+            None
+        Return:
+            int: 1 (on) or 0 (off)
+        """
+        resp = self.instrument.query(":FUNCtion:WRECord:ENABle?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-    class WReplay:
-        def __init__(self, instrument,data_handler):
-            self.instrument = instrument
-            self.data_handler = data_handler
-        def set_wreplay_fstart(self, frame):
-            """
-            Set the start frame of waveform playback.
-            Parameter:
-                frame (int): 1 to max frames recorded
-            Return:
-                None
-            """
-            if isinstance(frame, int) and frame >= 1:
-                self.instrument.write(f":FUNCtion:WREPlay:FSTart {frame}")
-            else:
-                print("Invalid frame value.")
+class WReplay:
+    def __init__(self, instrument,data_handler):
+        self.instrument = instrument
+        self.data_handler = data_handler
+    def set_wreplay_fstart(self, frame):
+        """
+        Set the start frame of waveform playback.
+        Parameter:
+            frame (int): 1 to max frames recorded
+        Return:
+            None
+        """
+        if isinstance(frame, int) and frame >= 1:
+            self.instrument.write(f":FUNCtion:WREPlay:FSTart {frame}")
+        else:
+            print("Invalid frame value.")
 
-        def get_wreplay_fstart(self):
-            """
-            Query the start frame of waveform playback.
-            Parameter:
-                None
-            Return:
-                int: Start frame
-            """
-            resp = self.instrument.query(":FUNCtion:WREPlay:FSTart?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_wreplay_fstart(self):
+        """
+        Query the start frame of waveform playback.
+        Parameter:
+            None
+        Return:
+            int: Start frame
+        """
+        resp = self.instrument.query(":FUNCtion:WREPlay:FSTart?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def set_wreplay_fend(self, frame):
-            """
-            Set the end frame of waveform playback.
-            Parameter:
-                frame (int): 1 to max frames recorded
-            Return:
-                None
-            """
-            if isinstance(frame, int) and frame >= 1:
-                self.instrument.write(f":FUNCtion:WREPlay:FEND {frame}")
-            else:
-                print("Invalid frame value.")
+    def set_wreplay_fend(self, frame):
+        """
+        Set the end frame of waveform playback.
+        Parameter:
+            frame (int): 1 to max frames recorded
+        Return:
+            None
+        """
+        if isinstance(frame, int) and frame >= 1:
+            self.instrument.write(f":FUNCtion:WREPlay:FEND {frame}")
+        else:
+            print("Invalid frame value.")
 
-        def get_wreplay_fend(self):
-            """
-            Query the end frame of waveform playback.
-            Parameter:
-                None
-            Return:
-                int: End frame
-            """
-            resp = self.instrument.query(":FUNCtion:WREPlay:FEND?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_wreplay_fend(self):
+        """
+        Query the end frame of waveform playback.
+        Parameter:
+            None
+        Return:
+            int: End frame
+        """
+        resp = self.instrument.query(":FUNCtion:WREPlay:FEND?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def get_wreplay_fmax(self):
-            """
-            Query the maximum number of frames that can be played (max frames recorded).
-            Parameter:
-                None
-            Return:
-                int: Maximum number of frames
-            """
-            resp = self.instrument.query(":FUNCtion:WREPlay:FMAX?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_wreplay_fmax(self):
+        """
+        Query the maximum number of frames that can be played (max frames recorded).
+        Parameter:
+            None
+        Return:
+            int: Maximum number of frames
+        """
+        resp = self.instrument.query(":FUNCtion:WREPlay:FMAX?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def set_wreplay_finterval(self, interval):
-            """
-            Set the time interval between frames in waveform playback.
-            Parameter:
-                interval (float): 100e-9 to 10.0 (seconds)
-            Return:
-                None
-            """
-            if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
-                self.instrument.write(f":FUNCtion:WREPlay:FINTerval {interval}")
-            else:
-                print("Invalid interval. Must be between 100ns and 10s.")
+    def set_wreplay_finterval(self, interval):
+        """
+        Set the time interval between frames in waveform playback.
+        Parameter:
+            interval (float): 100e-9 to 10.0 (seconds)
+        Return:
+            None
+        """
+        if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
+            self.instrument.write(f":FUNCtion:WREPlay:FINTerval {interval}")
+        else:
+            print("Invalid interval. Must be between 100ns and 10s.")
 
-        def get_wreplay_finterval(self):
-            """
-            Query the time interval between frames in waveform playback.
-            Parameter:
-                None
-            Return:
-                float: Time interval in seconds
-            """
-            resp = self.instrument.query(":FUNCtion:WREPlay:FINTerval?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
+    def get_wreplay_finterval(self):
+        """
+        Query the time interval between frames in waveform playback.
+        Parameter:
+            None
+        Return:
+            float: Time interval in seconds
+        """
+        resp = self.instrument.query(":FUNCtion:WREPlay:FINTerval?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
 
-        def set_wreplay_mode(self, mode):
-            """
-            Set the waveform playback mode.
-            Parameter:
-                mode (str): "REPEAT" or "SINGLE"
-            Return:
-                None
-            """
-            allowed = {"REPEAT", "SINGLE"}
-            mode = mode.upper()
-            if mode in allowed:
-                self.instrument.write(f":FUNCtion:WREPlay:MODE {mode}")
-            else:
-                print("Invalid mode. Allowed: REPEAT, SINGLE.")
+    def set_wreplay_mode(self, mode):
+        """
+        Set the waveform playback mode.
+        Parameter:
+            mode (str): "REPEAT" or "SINGLE"
+        Return:
+            None
+        """
+        allowed = {"REPEAT", "SINGLE"}
+        mode = mode.upper()
+        if mode in allowed:
+            self.instrument.write(f":FUNCtion:WREPlay:MODE {mode}")
+        else:
+            print("Invalid mode. Allowed: REPEAT, SINGLE.")
 
-        def get_wreplay_mode(self):
-            """
-            Query the waveform playback mode.
-            Parameter:
-                None
-            Return:
-                str: "REP" or "SING"
-            """
-            return self.instrument.query(":FUNCtion:WREPlay:MODE?")
+    def get_wreplay_mode(self):
+        """
+        Query the waveform playback mode.
+        Parameter:
+            None
+        Return:
+            str: "REP" or "SING"
+        """
+        return self.instrument.query(":FUNCtion:WREPlay:MODE?")
 
-        def set_wreplay_direction(self, direction):
-            """
-            Set the waveform playback direction.
-            Parameter:
-                direction (str): "FORWARD" or "BACKWARD"
-            Return:
-                None
-            """
-            allowed = {"FORWARD", "BACKWARD"}
-            direction = direction.upper()
-            if direction in allowed:
-                self.instrument.write(f":FUNCtion:WREPlay:DIRection {direction}")
-            else:
-                print("Invalid direction. Allowed: FORWARD, BACKWARD.")
+    def set_wreplay_direction(self, direction):
+        """
+        Set the waveform playback direction.
+        Parameter:
+            direction (str): "FORWARD" or "BACKWARD"
+        Return:
+            None
+        """
+        allowed = {"FORWARD", "BACKWARD"}
+        direction = direction.upper()
+        if direction in allowed:
+            self.instrument.write(f":FUNCtion:WREPlay:DIRection {direction}")
+        else:
+            print("Invalid direction. Allowed: FORWARD, BACKWARD.")
 
-        def get_wreplay_direction(self):
-            """
-            Query the waveform playback direction.
-            Parameter:
-                None
-            Return:
-                str: "FORW" or "BACK"
-            """
-            return self.instrument.query(":FUNCtion:WREPlay:DIRection?")
+    def get_wreplay_direction(self):
+        """
+        Query the waveform playback direction.
+        Parameter:
+            None
+        Return:
+            str: "FORW" or "BACK"
+        """
+        return self.instrument.query(":FUNCtion:WREPlay:DIRection?")
 
-        def set_wreplay_operate(self, opt):
-            """
-            Start, pause, or stop the waveform playback.
-            Parameter:
-                opt (str): "PLAY", "PAUSE", or "STOP"
-            Return:
-                None
-            """
-            allowed = {"PLAY", "PAUSE", "STOP"}
-            opt = opt.upper()
-            if opt in allowed:
-                self.instrument.write(f":FUNCtion:WREPlay:OPERate {opt}")
-            else:
-                print("Invalid option. Allowed: PLAY, PAUSE, STOP.")
+    def set_wreplay_operate(self, opt):
+        """
+        Start, pause, or stop the waveform playback.
+        Parameter:
+            opt (str): "PLAY", "PAUSE", or "STOP"
+        Return:
+            None
+        """
+        allowed = {"PLAY", "PAUSE", "STOP"}
+        opt = opt.upper()
+        if opt in allowed:
+            self.instrument.write(f":FUNCtion:WREPlay:OPERate {opt}")
+        else:
+            print("Invalid option. Allowed: PLAY, PAUSE, STOP.")
 
-        def get_wreplay_operate(self):
-            """
-            Query the status of the waveform playback.
-            Parameter:
-                None
-            Return:
-                str: "PLAY", "PAUS", or "STOP"
-            """
-            return self.instrument.query(":FUNCtion:WREPlay:OPERate?")
+    def get_wreplay_operate(self):
+        """
+        Query the status of the waveform playback.
+        Parameter:
+            None
+        Return:
+            str: "PLAY", "PAUS", or "STOP"
+        """
+        return self.instrument.query(":FUNCtion:WREPlay:OPERate?")
 
-        def set_wreplay_fcurrent(self, frame):
-            """
-            Set the current frame in waveform playback.
-            Parameter:
-                frame (int): 1 to max frames recorded
-            Return:
-                None
-            """
-            if isinstance(frame, int) and frame >= 1:
-                self.instrument.write(f":FUNCtion:WREPlay:FCURrent {frame}")
-            else:
-                print("Invalid frame value.")
+    def set_wreplay_fcurrent(self, frame):
+        """
+        Set the current frame in waveform playback.
+        Parameter:
+            frame (int): 1 to max frames recorded
+        Return:
+            None
+        """
+        if isinstance(frame, int) and frame >= 1:
+            self.instrument.write(f":FUNCtion:WREPlay:FCURrent {frame}")
+        else:
+            print("Invalid frame value.")
 
-        def get_wreplay_fcurrent(self):
-            """
-            Query the current frame in waveform playback.
-            Parameter:
-                None
-            Return:
-                int: Current frame
-            """
-            resp = self.instrument.query(":FUNCtion:WREPlay:FCURrent?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_wreplay_fcurrent(self):
+        """
+        Query the current frame in waveform playback.
+        Parameter:
+            None
+        Return:
+            int: Current frame
+        """
+        resp = self.instrument.query(":FUNCtion:WREPlay:FCURrent?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
 class LAN:
     """
@@ -4870,9 +4861,9 @@ class Trigger:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.rs232 = Trigger.RS232(instrument)
-        self.iic = Trigger.IIC(instrument)
-        self.spi = Trigger.SPI(instrument)
+        self.rs232 = RS232(instrument)
+        self.iic = IIC_Trigger(instrument)
+        self.spi = SPI_Trigger(instrument)
 
     def set_mode(self, mode):
         """
@@ -6657,653 +6648,653 @@ class Trigger:
         except Exception:
             return resp
 
-    # RS232 Subtree
-    class RS232:
-        """
-        The RS232 trigger commands for the oscilloscope.
-        """
+# RS232 Subtree
+class RS232:
+    """
+    The RS232 trigger commands for the oscilloscope.
+    """
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
 
-        def set_source(self, source):
-            """
-            Set the trigger source in RS232 trigger.
-            Parameter:
-                source (str): "CHANNEL1" or "CHANNEL2"
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-            s = source.upper()
-            if s in allowed:
-                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-                self.instrument.write(f":TRIG:RS232:SOUR {val}")
-            else:
-                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-        def get_source(self):
-            """
-            Query the trigger source in RS232 trigger.
-            Returns:
-                str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(":TRIG:RS232:SOUR?")
-
-        def set_when(self, when):
-            """
-            Set the trigger condition in RS232 trigger.
-            Parameter:
-                when (str): "START", "STOP", "DATA", "PARITY", "ERROR"
-            """
-            allowed = {"START", "STOP", "DATA", "PARITY", "ERROR"}
-            w = when.upper()
-            if w in allowed:
-                self.instrument.write(f":TRIG:RS232:WHEN {w}")
-            else:
-                print("Invalid when. Allowed: START, STOP, DATA, PARITY, ERROR.")
-
-        def get_when(self):
-            """
-            Query the trigger condition in RS232 trigger.
-            Returns:
-                str: Condition
-            """
-            return self.instrument.query(":TRIG:RS232:WHEN?")
-
-        def set_parity(self, parity):
-            """
-            Set the parity in RS232 trigger.
-            Parameter:
-                parity (str): "NONE", "EVEN", or "ODD"
-            """
-            allowed = {"NONE", "EVEN", "ODD"}
-            p = parity.upper()
-            if p in allowed:
-                self.instrument.write(f":TRIG:RS232:PAR {p}")
-            else:
-                print("Invalid parity. Allowed: NONE, EVEN, ODD.")
-
-        def get_parity(self):
-            """
-            Query the parity in RS232 trigger.
-            Returns:
-                str: Parity
-            """
-            return self.instrument.query(":TRIG:RS232:PAR?")
-
-        def set_stop(self, stop):
-            """
-            Set the stop bit in RS232 trigger.
-            Parameter:
-                stop (float): Stop bit, one of 1, 1.5, or 2
-            """
-            allowed = {1, 1.5, 2}
-            if stop in allowed:
-                self.instrument.write(f":TRIG:RS232:STOP {stop}")
-            else:
-                print("Invalid stop bit. Allowed: 1, 1.5, 2.")
-
-        def get_stop(self):
-            """
-            Query the stop bit in RS232 trigger.
-            Returns:
-                float: Stop bit
-            """
-            resp = self.instrument.query(":TRIG:RS232:STOP?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
-
-        def set_data(self, data):
-            """
-            Set the data width in RS232 trigger.
-            Parameter:
-                data (int): Data width, 5 to 8
-            """
-            if isinstance(data, int) and 5 <= data <= 8:
-                self.instrument.write(f":TRIG:RS232:DATA {data}")
-            else:
-                print("Invalid data width. Must be integer between 5 and 8.")
-
-        def get_data(self):
-            """
-            Query the data width in RS232 trigger.
-            Returns:
-                int: Data width
-            """
-            resp = self.instrument.query(":TRIG:RS232:DATA?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_width(self, width):
-            """
-            Set the width in RS232 trigger.
-            Parameter:
-                width (int): Data width, 5 to 8
-            """
-            if isinstance(width, int) and 5 <= width <= 8:
-                self.instrument.write(f":TRIG:RS232:WIDT {width}")
-            else:
-                print("Invalid width. Must be integer between 5 and 8.")
-
-        def get_width(self):
-            """
-            Query the width in RS232 trigger.
-            Returns:
-                int: Data width
-            """
-            resp = self.instrument.query(":TRIG:RS232:WIDT?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_baud(self, baud):
-            """
-            Set the baud rate in RS232 trigger.
-            Parameter:
-                baud (int): Baud rate, 110 to 20000000
-            """
-            if isinstance(baud, int) and 110 <= baud <= 20000000:
-                self.instrument.write(f":TRIG:RS232:BAUD {baud}")
-            else:
-                print("Invalid baud rate. Must be integer between 110 and 20000000.")
-
-        def get_baud(self):
-            """
-            Query the baud rate in RS232 trigger.
-            Returns:
-                int: Baud rate
-            """
-            resp = self.instrument.query(":TRIG:RS232:BAUD?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_buser(self, buser):
-            """
-            Set the bus user value in RS232 trigger.
-            Parameter:
-                buser (int): User value (see instrument documentation for valid range)
-            """
-            if isinstance(buser, int):
-                self.instrument.write(f":TRIG:RS232:BUS {buser}")
-            else:
-                print("Invalid bus user value. Must be integer.")
-
-        def get_buser(self):
-            """
-            Query the bus user value in RS232 trigger.
-            Returns:
-                int: Bus user value
-            """
-            resp = self.instrument.query(":TRIG:RS232:BUS?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_level(self, level):
-            """
-            Set the trigger level in RS232 trigger.
-            Parameter:
-                level (float): Level value
-            """
-            self.instrument.write(f":TRIG:RS232:LEV {level}")
-
-        def get_level(self):
-            """
-            Query the trigger level in RS232 trigger.
-            Returns:
-                float: Level value
-            """
-            resp = self.instrument.query(":TRIG:RS232:LEV?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
-
-    class IIC:
+    def set_source(self, source):
         """
-        The IIC trigger commands for the oscilloscope.
+        Set the trigger source in RS232 trigger.
+        Parameter:
+            source (str): "CHANNEL1" or "CHANNEL2"
         """
-        def __init__(self, instrument,data_handler):
-            self.instrument = instrument
-            self.data_handler = data_handler
+        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+        s = source.upper()
+        if s in allowed:
+            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+            self.instrument.write(f":TRIG:RS232:SOUR {val}")
+        else:
+            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
 
-        def set_scl(self, source):
-            """
-            Set the channel source of SCL in I2C trigger.
-            source (str): "CHANNEL1" or "CHANNEL2"
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-            s = source.upper()
-            if s in allowed:
-                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-                self.instrument.write(f":TRIG:IIC:SCL {val}")
-            else:
-                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-        def get_scl(self):
-            """
-            Query the channel source of SCL in I2C trigger.
-            Returns: str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(":TRIG:IIC:SCL?")
-
-        def set_sda(self, source):
-            """
-            Set the channel source of SDA in I2C trigger.
-            source (str): "CHANNEL1" or "CHANNEL2"
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-            s = source.upper()
-            if s in allowed:
-                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-                self.instrument.write(f":TRIG:IIC:SDA {val}")
-            else:
-                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-        def get_sda(self):
-            """
-            Query the channel source of SDA in I2C trigger.
-            Returns: str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(":TRIG:IIC:SDA?")
-
-        def set_when(self, trig_type):
-            """
-            Set the trigger condition in I2C trigger.
-            trig_type (str): "START", "RESTART", "STOP", "NACKNOWLEDGE", "ADDRESS", "DATA", "ADATA"
-            """
-            allowed = {"START", "RESTART", "STOP", "NACKNOWLEDGE", "ADDRESS", "DATA", "ADATA"}
-            t = trig_type.upper()
-            if t in allowed:
-                val = {
-                    "START": "STARt",
-                    "RESTART": "RESTart",
-                    "STOP": "STOP",
-                    "NACKNOWLEDGE": "NACKnowledge",
-                    "ADDRESS": "ADDRess",
-                    "DATA": "DATA",
-                    "ADATA": "ADATa"
-                }[t]
-                self.instrument.write(f":TRIG:IIC:WHEN {val}")
-            else:
-                print("Invalid trigger type.")
-
-        def get_when(self):
-            """
-            Query the trigger condition in I2C trigger.
-            Returns: str
-            """
-            return self.instrument.query(":TRIG:IIC:WHEN?")
-
-        def set_awidth(self, bits):
-            """
-            Set the address bits when trigger condition is ADDRESS or ADATA.
-            bits (int): 7, 8, or 10
-            """
-            if bits in [7, 8, 10]:
-                self.instrument.write(f":TRIG:IIC:AWIDth {bits}")
-            else:
-                print("Invalid address width. Allowed: 7, 8, 10.")
-
-        def get_awidth(self):
-            """
-            Query the address bits for I2C trigger.
-            Returns: int
-            """
-            resp = self.instrument.query(":TRIG:IIC:AWIDth?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_address(self, adr):
-            """
-            Set the address for ADDRESS or ADATA trigger.
-            adr (int): 0 to 1023 (depends on address width)
-            """
-            if isinstance(adr, int) and 0 <= adr <= 1023:
-                self.instrument.write(f":TRIG:IIC:ADDRess {adr}")
-            else:
-                print("Invalid address value.")
-
-        def get_address(self):
-            """
-            Query the address for I2C trigger.
-            Returns: int
-            """
-            resp = self.instrument.query(":TRIG:IIC:ADDRess?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_direction(self, direction):
-            """
-            Set the data direction for ADDRESS or ADATA trigger.
-            direction (str): "READ", "WRITE", or "RWRITE"
-            """
-            allowed = {"READ", "WRITE", "RWRITE"}
-            d = direction.upper()
-            if d in allowed:
-                val = {"READ": "READ", "WRITE": "WRITe", "RWRITE": "RWRite"}[d]
-                self.instrument.write(f":TRIG:IIC:DIRection {val}")
-            else:
-                print("Invalid direction. Allowed: READ, WRITE, RWRITE.")
-
-        def get_direction(self):
-            """
-            Query the data direction for I2C trigger.
-            Returns: str
-            """
-            return self.instrument.query(":TRIG:IIC:DIRection?")
-
-        def set_data(self, data):
-            """
-            Set the data for DATA or ADATA trigger.
-            data (int): 0 to 2^40-1 (max 40 bits)
-            """
-            if isinstance(data, int) and 0 <= data < 2**40:
-                self.instrument.write(f":TRIG:IIC:DATA {data}")
-            else:
-                print("Invalid data value.")
-
-        def get_data(self):
-            """
-            Query the data for I2C trigger.
-            Returns: int
-            """
-            resp = self.instrument.query(":TRIG:IIC:DATA?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
-
-        def set_clevel(self, level):
-            """
-            Set the trigger level of SCL in I2C trigger.
-            level (float): Level value
-            """
-            self.instrument.write(f":TRIG:IIC:CLEVel {level}")
-
-        def get_clevel(self):
-            """
-            Query the trigger level of SCL in I2C trigger.
-            Returns: float
-            """
-            resp = self.instrument.query(":TRIG:IIC:CLEVel?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
-
-        def set_dlevel(self, level):
-            """
-            Set the trigger level of SDA in I2C trigger.
-            level (float): Level value
-            """
-            self.instrument.write(f":TRIG:IIC:DLEVel {level}")
-
-        def get_dlevel(self):
-            """
-            Query the trigger level of SDA in I2C trigger.
-            Returns: float
-            """
-            resp = self.instrument.query(":TRIG:IIC:DLEVel?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
-
-    class SPI:
+    def get_source(self):
         """
-        The SPI trigger commands for the oscilloscope.
+        Query the trigger source in RS232 trigger.
+        Returns:
+            str: "CHAN1" or "CHAN2"
         """
-        def __init__(self, instrument,data_handler):
-            self.instrument = instrument
-            self.data_handler = data_handler
+        return self.instrument.query(":TRIG:RS232:SOUR?")
 
-        def set_scl(self, source):
-            """
-            Set the channel source of SCL in SPI trigger.
-            source (str): "CHANNEL1" or "CHANNEL2"
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-            s = source.upper()
-            if s in allowed:
-                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-                self.instrument.write(f":TRIG:SPI:SCL {val}")
-            else:
-                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+    def set_when(self, when):
+        """
+        Set the trigger condition in RS232 trigger.
+        Parameter:
+            when (str): "START", "STOP", "DATA", "PARITY", "ERROR"
+        """
+        allowed = {"START", "STOP", "DATA", "PARITY", "ERROR"}
+        w = when.upper()
+        if w in allowed:
+            self.instrument.write(f":TRIG:RS232:WHEN {w}")
+        else:
+            print("Invalid when. Allowed: START, STOP, DATA, PARITY, ERROR.")
 
-        def get_scl(self):
-            """
-            Query the channel source of SCL in SPI trigger.
-            Returns: str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(":TRIG:SPI:SCL?")
+    def get_when(self):
+        """
+        Query the trigger condition in RS232 trigger.
+        Returns:
+            str: Condition
+        """
+        return self.instrument.query(":TRIG:RS232:WHEN?")
 
-        def set_sda(self, source):
-            """
-            Set the channel source of SDA in SPI trigger.
-            source (str): "CHANNEL1" or "CHANNEL2"
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-            s = source.upper()
-            if s in allowed:
-                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-                self.instrument.write(f":TRIG:SPI:SDA {val}")
-            else:
-                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+    def set_parity(self, parity):
+        """
+        Set the parity in RS232 trigger.
+        Parameter:
+            parity (str): "NONE", "EVEN", or "ODD"
+        """
+        allowed = {"NONE", "EVEN", "ODD"}
+        p = parity.upper()
+        if p in allowed:
+            self.instrument.write(f":TRIG:RS232:PAR {p}")
+        else:
+            print("Invalid parity. Allowed: NONE, EVEN, ODD.")
 
-        def get_sda(self):
-            """
-            Query the channel source of SDA in SPI trigger.
-            Returns: str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(":TRIG:SPI:SDA?")
+    def get_parity(self):
+        """
+        Query the parity in RS232 trigger.
+        Returns:
+            str: Parity
+        """
+        return self.instrument.query(":TRIG:RS232:PAR?")
 
-        def set_when(self, trig_type):
-            """
-            Set the trigger condition in SPI trigger.
-            trig_type (str): "CS" or "TIMEOUT"
-            """
-            allowed = {"CS", "TIMEOUT"}
-            t = trig_type.upper()
-            if t in allowed:
-                val = "CS" if t == "CS" else "TIMeout"
-                self.instrument.write(f":TRIG:SPI:WHEN {val}")
-            else:
-                print("Invalid trigger type. Allowed: CS, TIMEOUT.")
+    def set_stop(self, stop):
+        """
+        Set the stop bit in RS232 trigger.
+        Parameter:
+            stop (float): Stop bit, one of 1, 1.5, or 2
+        """
+        allowed = {1, 1.5, 2}
+        if stop in allowed:
+            self.instrument.write(f":TRIG:RS232:STOP {stop}")
+        else:
+            print("Invalid stop bit. Allowed: 1, 1.5, 2.")
 
-        def get_when(self):
-            """
-            Query the trigger condition in SPI trigger.
-            Returns: str
-            """
-            return self.instrument.query(":TRIG:SPI:WHEN?")
+    def get_stop(self):
+        """
+        Query the stop bit in RS232 trigger.
+        Returns:
+            float: Stop bit
+        """
+        resp = self.instrument.query(":TRIG:RS232:STOP?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
 
-        def set_width(self, width):
-            """
-            Set the data bits of the SDA channel in SPI trigger.
-            width (int): 4 to 32
-            """
-            if isinstance(width, int) and 4 <= width <= 32:
-                self.instrument.write(f":TRIG:SPI:WIDTh {width}")
-            else:
-                print("Invalid width. Must be integer between 4 and 32.")
+    def set_data(self, data):
+        """
+        Set the data width in RS232 trigger.
+        Parameter:
+            data (int): Data width, 5 to 8
+        """
+        if isinstance(data, int) and 5 <= data <= 8:
+            self.instrument.write(f":TRIG:RS232:DATA {data}")
+        else:
+            print("Invalid data width. Must be integer between 5 and 8.")
 
-        def get_width(self):
-            """
-            Query the data bits of the SDA channel in SPI trigger.
-            Returns: int
-            """
-            resp = self.instrument.query(":TRIG:SPI:WIDTh?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_data(self):
+        """
+        Query the data width in RS232 trigger.
+        Returns:
+            int: Data width
+        """
+        resp = self.instrument.query(":TRIG:RS232:DATA?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def set_data(self, data):
-            """
-            Set the data in SPI trigger.
-            data (int): 0 to 2^32-1
-            """
-            if isinstance(data, int) and 0 <= data < 2**32:
-                self.instrument.write(f":TRIG:SPI:DATA {data}")
-            else:
-                print("Invalid data value.")
+    def set_width(self, width):
+        """
+        Set the width in RS232 trigger.
+        Parameter:
+            width (int): Data width, 5 to 8
+        """
+        if isinstance(width, int) and 5 <= width <= 8:
+            self.instrument.write(f":TRIG:RS232:WIDT {width}")
+        else:
+            print("Invalid width. Must be integer between 5 and 8.")
 
-        def get_data(self):
-            """
-            Query the data in SPI trigger.
-            Returns: int
-            """
-            resp = self.instrument.query(":TRIG:SPI:DATA?")
-            try:
-                return int(resp)
-            except Exception:
-                return resp
+    def get_width(self):
+        """
+        Query the width in RS232 trigger.
+        Returns:
+            int: Data width
+        """
+        resp = self.instrument.query(":TRIG:RS232:WIDT?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def set_timeout(self, time_value):
-            """
-            Set the timeout value in SPI trigger (seconds).
-            time_value (float): 100e-9 to 1
-            """
-            if isinstance(time_value, (float, int)) and 1e-7 <= time_value <= 1:
-                self.instrument.write(f":TRIG:SPI:TIMeout {time_value}")
-            else:
-                print("Invalid timeout value. Must be between 100ns and 1s.")
+    def set_baud(self, baud):
+        """
+        Set the baud rate in RS232 trigger.
+        Parameter:
+            baud (int): Baud rate, 110 to 20000000
+        """
+        if isinstance(baud, int) and 110 <= baud <= 20000000:
+            self.instrument.write(f":TRIG:RS232:BAUD {baud}")
+        else:
+            print("Invalid baud rate. Must be integer between 110 and 20000000.")
 
-        def get_timeout(self):
-            """
-            Query the timeout value in SPI trigger.
-            Returns: float
-            """
-            resp = self.instrument.query(":TRIG:SPI:TIMeout?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
+    def get_baud(self):
+        """
+        Query the baud rate in RS232 trigger.
+        Returns:
+            int: Baud rate
+        """
+        resp = self.instrument.query(":TRIG:RS232:BAUD?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def set_slope(self, slope):
-            """
-            Set the clock edge in SPI trigger.
-            slope (str): "POSITIVE" or "NEGATIVE"
-            """
-            allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
-            s = slope.upper()
-            if s in allowed:
-                val = "POSitive" if s.startswith("POS") else "NEGative"
-                self.instrument.write(f":TRIG:SPI:SLOPe {val}")
-            else:
-                print("Invalid slope. Allowed: POSITIVE, NEGATIVE.")
+    def set_buser(self, buser):
+        """
+        Set the bus user value in RS232 trigger.
+        Parameter:
+            buser (int): User value (see instrument documentation for valid range)
+        """
+        if isinstance(buser, int):
+            self.instrument.write(f":TRIG:RS232:BUS {buser}")
+        else:
+            print("Invalid bus user value. Must be integer.")
 
-        def get_slope(self):
-            """
-            Query the clock edge in SPI trigger.
-            Returns: str: "POS" or "NEG"
-            """
-            return self.instrument.query(":TRIG:SPI:SLOPe?")
+    def get_buser(self):
+        """
+        Query the bus user value in RS232 trigger.
+        Returns:
+            int: Bus user value
+        """
+        resp = self.instrument.query(":TRIG:RS232:BUS?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
 
-        def set_clevel(self, level):
-            """
-            Set the trigger level of the SCL channel in SPI trigger.
+    def set_level(self, level):
+        """
+        Set the trigger level in RS232 trigger.
+        Parameter:
             level (float): Level value
-            """
-            self.instrument.write(f":TRIG:SPI:CLEVel {level}")
+        """
+        self.instrument.write(f":TRIG:RS232:LEV {level}")
 
-        def get_clevel(self):
-            """
-            Query the trigger level of the SCL channel in SPI trigger.
-            Returns: float
-            """
-            resp = self.instrument.query(":TRIG:SPI:CLEVel?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
+    def get_level(self):
+        """
+        Query the trigger level in RS232 trigger.
+        Returns:
+            float: Level value
+        """
+        resp = self.instrument.query(":TRIG:RS232:LEV?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
 
-        def set_dlevel(self, level):
-            """
-            Set the trigger level of the SDA channel in SPI trigger.
-            level (float): Level value
-            """
-            self.instrument.write(f":TRIG:SPI:DLEVel {level}")
+class IIC_Trigger:
+    """
+    The IIC trigger commands for the oscilloscope.
+    """
+    def __init__(self, instrument,data_handler):
+        self.instrument = instrument
+        self.data_handler = data_handler
 
-        def get_dlevel(self):
-            """
-            Query the trigger level of the SDA channel in SPI trigger.
-            Returns: float
-            """
-            resp = self.instrument.query(":TRIG:SPI:DLEVel?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
+    def set_scl(self, source):
+        """
+        Set the channel source of SCL in I2C trigger.
+        source (str): "CHANNEL1" or "CHANNEL2"
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+        s = source.upper()
+        if s in allowed:
+            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+            self.instrument.write(f":TRIG:IIC:SCL {val}")
+        else:
+            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
 
-        def set_slevel(self, level):
-            """
-            Set the trigger level of the CS channel in SPI trigger.
-            level (float): Level value
-            """
-            self.instrument.write(f":TRIG:SPI:SLEVel {level}")
+    def get_scl(self):
+        """
+        Query the channel source of SCL in I2C trigger.
+        Returns: str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(":TRIG:IIC:SCL?")
 
-        def get_slevel(self):
-            """
-            Query the trigger level of the CS channel in SPI trigger.
-            Returns: float
-            """
-            resp = self.instrument.query(":TRIG:SPI:SLEVel?")
-            try:
-                return float(resp)
-            except Exception:
-                return resp
+    def set_sda(self, source):
+        """
+        Set the channel source of SDA in I2C trigger.
+        source (str): "CHANNEL1" or "CHANNEL2"
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+        s = source.upper()
+        if s in allowed:
+            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+            self.instrument.write(f":TRIG:IIC:SDA {val}")
+        else:
+            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
 
-        def set_mode(self, mode):
-            """
-            Set the CS mode when trigger condition is CS in SPI trigger.
-            mode (str): "HIGH" or "LOW"
-            """
-            allowed = {"HIGH", "LOW"}
-            m = mode.upper()
-            if m in allowed:
-                self.instrument.write(f":TRIG:SPI:MODE {m}")
-            else:
-                print("Invalid mode. Allowed: HIGH, LOW.")
+    def get_sda(self):
+        """
+        Query the channel source of SDA in I2C trigger.
+        Returns: str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(":TRIG:IIC:SDA?")
 
-        def get_mode(self):
-            """
-            Query the CS mode when trigger condition is CS in SPI trigger.
-            Returns: str: "HIGH" or "LOW"
-            """
-            return self.instrument.query(":TRIG:SPI:MODE?")
+    def set_when(self, trig_type):
+        """
+        Set the trigger condition in I2C trigger.
+        trig_type (str): "START", "RESTART", "STOP", "NACKNOWLEDGE", "ADDRESS", "DATA", "ADATA"
+        """
+        allowed = {"START", "RESTART", "STOP", "NACKNOWLEDGE", "ADDRESS", "DATA", "ADATA"}
+        t = trig_type.upper()
+        if t in allowed:
+            val = {
+                "START": "STARt",
+                "RESTART": "RESTart",
+                "STOP": "STOP",
+                "NACKNOWLEDGE": "NACKnowledge",
+                "ADDRESS": "ADDRess",
+                "DATA": "DATA",
+                "ADATA": "ADATa"
+            }[t]
+            self.instrument.write(f":TRIG:IIC:WHEN {val}")
+        else:
+            print("Invalid trigger type.")
 
-        def set_cs(self, source):
-            """
-            Set the data source of the CS signal in SPI trigger.
-            source (str): "CHANNEL1" or "CHANNEL2"
-            """
-            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-            s = source.upper()
-            if s in allowed:
-                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-                self.instrument.write(f":TRIG:SPI:CS {val}")
-            else:
-                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+    def get_when(self):
+        """
+        Query the trigger condition in I2C trigger.
+        Returns: str
+        """
+        return self.instrument.query(":TRIG:IIC:WHEN?")
 
-        def get_cs(self):
-            """
-            Query the data source of the CS signal in SPI trigger.
-            Returns: str: "CHAN1" or "CHAN2"
-            """
-            return self.instrument.query(":TRIG:SPI:CS?")
+    def set_awidth(self, bits):
+        """
+        Set the address bits when trigger condition is ADDRESS or ADATA.
+        bits (int): 7, 8, or 10
+        """
+        if bits in [7, 8, 10]:
+            self.instrument.write(f":TRIG:IIC:AWIDth {bits}")
+        else:
+            print("Invalid address width. Allowed: 7, 8, 10.")
+
+    def get_awidth(self):
+        """
+        Query the address bits for I2C trigger.
+        Returns: int
+        """
+        resp = self.instrument.query(":TRIG:IIC:AWIDth?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
+
+    def set_address(self, adr):
+        """
+        Set the address for ADDRESS or ADATA trigger.
+        adr (int): 0 to 1023 (depends on address width)
+        """
+        if isinstance(adr, int) and 0 <= adr <= 1023:
+            self.instrument.write(f":TRIG:IIC:ADDRess {adr}")
+        else:
+            print("Invalid address value.")
+
+    def get_address(self):
+        """
+        Query the address for I2C trigger.
+        Returns: int
+        """
+        resp = self.instrument.query(":TRIG:IIC:ADDRess?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
+
+    def set_direction(self, direction):
+        """
+        Set the data direction for ADDRESS or ADATA trigger.
+        direction (str): "READ", "WRITE", or "RWRITE"
+        """
+        allowed = {"READ", "WRITE", "RWRITE"}
+        d = direction.upper()
+        if d in allowed:
+            val = {"READ": "READ", "WRITE": "WRITe", "RWRITE": "RWRite"}[d]
+            self.instrument.write(f":TRIG:IIC:DIRection {val}")
+        else:
+            print("Invalid direction. Allowed: READ, WRITE, RWRITE.")
+
+    def get_direction(self):
+        """
+        Query the data direction for I2C trigger.
+        Returns: str
+        """
+        return self.instrument.query(":TRIG:IIC:DIRection?")
+
+    def set_data(self, data):
+        """
+        Set the data for DATA or ADATA trigger.
+        data (int): 0 to 2^40-1 (max 40 bits)
+        """
+        if isinstance(data, int) and 0 <= data < 2**40:
+            self.instrument.write(f":TRIG:IIC:DATA {data}")
+        else:
+            print("Invalid data value.")
+
+    def get_data(self):
+        """
+        Query the data for I2C trigger.
+        Returns: int
+        """
+        resp = self.instrument.query(":TRIG:IIC:DATA?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
+
+    def set_clevel(self, level):
+        """
+        Set the trigger level of SCL in I2C trigger.
+        level (float): Level value
+        """
+        self.instrument.write(f":TRIG:IIC:CLEVel {level}")
+
+    def get_clevel(self):
+        """
+        Query the trigger level of SCL in I2C trigger.
+        Returns: float
+        """
+        resp = self.instrument.query(":TRIG:IIC:CLEVel?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def set_dlevel(self, level):
+        """
+        Set the trigger level of SDA in I2C trigger.
+        level (float): Level value
+        """
+        self.instrument.write(f":TRIG:IIC:DLEVel {level}")
+
+    def get_dlevel(self):
+        """
+        Query the trigger level of SDA in I2C trigger.
+        Returns: float
+        """
+        resp = self.instrument.query(":TRIG:IIC:DLEVel?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+class SPI_Trigger:
+    """
+    The SPI trigger commands for the oscilloscope.
+    """
+    def __init__(self, instrument,data_handler):
+        self.instrument = instrument
+        self.data_handler = data_handler
+
+    def set_scl(self, source):
+        """
+        Set the channel source of SCL in SPI trigger.
+        source (str): "CHANNEL1" or "CHANNEL2"
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+        s = source.upper()
+        if s in allowed:
+            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+            self.instrument.write(f":TRIG:SPI:SCL {val}")
+        else:
+            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+    def get_scl(self):
+        """
+        Query the channel source of SCL in SPI trigger.
+        Returns: str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(":TRIG:SPI:SCL?")
+
+    def set_sda(self, source):
+        """
+        Set the channel source of SDA in SPI trigger.
+        source (str): "CHANNEL1" or "CHANNEL2"
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+        s = source.upper()
+        if s in allowed:
+            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+            self.instrument.write(f":TRIG:SPI:SDA {val}")
+        else:
+            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+    def get_sda(self):
+        """
+        Query the channel source of SDA in SPI trigger.
+        Returns: str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(":TRIG:SPI:SDA?")
+
+    def set_when(self, trig_type):
+        """
+        Set the trigger condition in SPI trigger.
+        trig_type (str): "CS" or "TIMEOUT"
+        """
+        allowed = {"CS", "TIMEOUT"}
+        t = trig_type.upper()
+        if t in allowed:
+            val = "CS" if t == "CS" else "TIMeout"
+            self.instrument.write(f":TRIG:SPI:WHEN {val}")
+        else:
+            print("Invalid trigger type. Allowed: CS, TIMEOUT.")
+
+    def get_when(self):
+        """
+        Query the trigger condition in SPI trigger.
+        Returns: str
+        """
+        return self.instrument.query(":TRIG:SPI:WHEN?")
+
+    def set_width(self, width):
+        """
+        Set the data bits of the SDA channel in SPI trigger.
+        width (int): 4 to 32
+        """
+        if isinstance(width, int) and 4 <= width <= 32:
+            self.instrument.write(f":TRIG:SPI:WIDTh {width}")
+        else:
+            print("Invalid width. Must be integer between 4 and 32.")
+
+    def get_width(self):
+        """
+        Query the data bits of the SDA channel in SPI trigger.
+        Returns: int
+        """
+        resp = self.instrument.query(":TRIG:SPI:WIDTh?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
+
+    def set_data(self, data):
+        """
+        Set the data in SPI trigger.
+        data (int): 0 to 2^32-1
+        """
+        if isinstance(data, int) and 0 <= data < 2**32:
+            self.instrument.write(f":TRIG:SPI:DATA {data}")
+        else:
+            print("Invalid data value.")
+
+    def get_data(self):
+        """
+        Query the data in SPI trigger.
+        Returns: int
+        """
+        resp = self.instrument.query(":TRIG:SPI:DATA?")
+        try:
+            return int(resp)
+        except Exception:
+            return resp
+
+    def set_timeout(self, time_value):
+        """
+        Set the timeout value in SPI trigger (seconds).
+        time_value (float): 100e-9 to 1
+        """
+        if isinstance(time_value, (float, int)) and 1e-7 <= time_value <= 1:
+            self.instrument.write(f":TRIG:SPI:TIMeout {time_value}")
+        else:
+            print("Invalid timeout value. Must be between 100ns and 1s.")
+
+    def get_timeout(self):
+        """
+        Query the timeout value in SPI trigger.
+        Returns: float
+        """
+        resp = self.instrument.query(":TRIG:SPI:TIMeout?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def set_slope(self, slope):
+        """
+        Set the clock edge in SPI trigger.
+        slope (str): "POSITIVE" or "NEGATIVE"
+        """
+        allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
+        s = slope.upper()
+        if s in allowed:
+            val = "POSitive" if s.startswith("POS") else "NEGative"
+            self.instrument.write(f":TRIG:SPI:SLOPe {val}")
+        else:
+            print("Invalid slope. Allowed: POSITIVE, NEGATIVE.")
+
+    def get_slope(self):
+        """
+        Query the clock edge in SPI trigger.
+        Returns: str: "POS" or "NEG"
+        """
+        return self.instrument.query(":TRIG:SPI:SLOPe?")
+
+    def set_clevel(self, level):
+        """
+        Set the trigger level of the SCL channel in SPI trigger.
+        level (float): Level value
+        """
+        self.instrument.write(f":TRIG:SPI:CLEVel {level}")
+
+    def get_clevel(self):
+        """
+        Query the trigger level of the SCL channel in SPI trigger.
+        Returns: float
+        """
+        resp = self.instrument.query(":TRIG:SPI:CLEVel?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def set_dlevel(self, level):
+        """
+        Set the trigger level of the SDA channel in SPI trigger.
+        level (float): Level value
+        """
+        self.instrument.write(f":TRIG:SPI:DLEVel {level}")
+
+    def get_dlevel(self):
+        """
+        Query the trigger level of the SDA channel in SPI trigger.
+        Returns: float
+        """
+        resp = self.instrument.query(":TRIG:SPI:DLEVel?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def set_slevel(self, level):
+        """
+        Set the trigger level of the CS channel in SPI trigger.
+        level (float): Level value
+        """
+        self.instrument.write(f":TRIG:SPI:SLEVel {level}")
+
+    def get_slevel(self):
+        """
+        Query the trigger level of the CS channel in SPI trigger.
+        Returns: float
+        """
+        resp = self.instrument.query(":TRIG:SPI:SLEVel?")
+        try:
+            return float(resp)
+        except Exception:
+            return resp
+
+    def set_mode(self, mode):
+        """
+        Set the CS mode when trigger condition is CS in SPI trigger.
+        mode (str): "HIGH" or "LOW"
+        """
+        allowed = {"HIGH", "LOW"}
+        m = mode.upper()
+        if m in allowed:
+            self.instrument.write(f":TRIG:SPI:MODE {m}")
+        else:
+            print("Invalid mode. Allowed: HIGH, LOW.")
+
+    def get_mode(self):
+        """
+        Query the CS mode when trigger condition is CS in SPI trigger.
+        Returns: str: "HIGH" or "LOW"
+        """
+        return self.instrument.query(":TRIG:SPI:MODE?")
+
+    def set_cs(self, source):
+        """
+        Set the data source of the CS signal in SPI trigger.
+        source (str): "CHANNEL1" or "CHANNEL2"
+        """
+        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+        s = source.upper()
+        if s in allowed:
+            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+            self.instrument.write(f":TRIG:SPI:CS {val}")
+        else:
+            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+    def get_cs(self):
+        """
+        Query the data source of the CS signal in SPI trigger.
+        Returns: str: "CHAN1" or "CHAN2"
+        """
+        return self.instrument.query(":TRIG:SPI:CS?")
 class Waveform:
     """
     The Waveform commands are used to read the waveform data and its related settings.

@@ -5,7 +5,7 @@ import csv
 import psutil
 from Instruments.EInstrument import EInstrument
 class Flowmeter:
-    def __init__(self, csv_paths, program_open = False):
+    def __init__(self, csv_files, default_csv_save_path = "C:/Users/phoqi/Documents/NQ Sensor Monitor/",program_open = False):
         #TODO Add pop up about how experiemtn must be set up in flowmeter, but if project already set up (check if can do,) the ndo not need to set blah blah blah
         self.name = EInstrument.FLOW_METER
         with open('program_paths.json') as file:
@@ -13,7 +13,7 @@ class Flowmeter:
         self.program_path = p[self.name.value]
         self.name = EInstrument.FLOW_METER
         pieces = self.program_path.split('/')
-        self.default_csv_path = "C:/Users/phoqi/Documents/NQ Sensor Monitor/"
+        self.default_csv_path = default_csv_save_path
         if self.process_exists(pieces[len(pieces)-1]):
             self.app = self.get_process_by_name(pieces[len(pieces)-1])
         else:
