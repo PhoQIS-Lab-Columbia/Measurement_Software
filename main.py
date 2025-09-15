@@ -4,7 +4,7 @@ from Instruments.oscilloscope_rigol import Oscilloscope
 from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
 from Instruments.vector_network_analyzer_copper_mountain import VNA
 import time
-from network_manager import NetworkManager
+from Instruments.network_manager import NetworkManager
 import pyvisa
 from Instruments.data_handler import DataHandler
 # Initialize the instruments
