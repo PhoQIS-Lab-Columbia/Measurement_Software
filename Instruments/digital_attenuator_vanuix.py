@@ -149,7 +149,7 @@ class digital_attenuator(Instrument):
         step_code = int(step_db / 0.05)
         status = self.instrument.fnLDA_SetAttenuationStepHR(self.devid, step_code)
         return status
-    def set_attenuation_step_two(self, step_db):
+    def set_second_attenuation_step(self, step_db):
         """
         Sets the size of the attenuation step for the second phase of a bidirectional sweep (0.25 dB steps).
         step_db: Step size in dB (e.g., 2 for 2 dB)
@@ -158,7 +158,7 @@ class digital_attenuator(Instrument):
         status = self.instrument.fnLDA_SetAttenuationStepTwo(self.devid, step_code)
         return status
 
-    def set_attenuation_step_two_hr(self, step_db):
+    def set_second_attenuation_step_hr(self, step_db):
         """
         Sets the size of the attenuation step for the second phase of a bidirectional sweep (0.05 dB steps).
         step_db: Step size in dB (e.g., 2 for 2 dB)
@@ -167,7 +167,7 @@ class digital_attenuator(Instrument):
         status = self.instrument.fnLDA_SetAttenuationStepTwoHR(self.devid, step_code)
         return status
 
-    def set_dwell_time(self, dwell_time_ms):
+    def set_first_dwell_time(self, dwell_time_ms):
         """
         Sets the dwell time at each attenuation step during a ramp (in milliseconds).
         dwell_time_ms: Dwell time in milliseconds (minimum 1 ms)
@@ -175,7 +175,7 @@ class digital_attenuator(Instrument):
         status = self.instrument.fnLDA_SetDwellTime(self.devid, int(dwell_time_ms))
         return status
 
-    def set_dwell_time_two(self, dwell_time_ms):
+    def set_second_dwell_time(self, dwell_time_ms):
         """
         Sets the dwell time at each attenuation step during the second phase of a ramp (in milliseconds).
         dwell_time_ms: Dwell time in milliseconds (minimum 1 ms)
@@ -373,14 +373,14 @@ class digital_attenuator(Instrument):
         step_code = self.instrument.fnLDA_GetAttenuationStepHR(self.devid)
         return step_code * 0.05
 
-    def get_attenuation_step_two(self):
+    def get_second_attenuation_step(self):
         """
         Gets the current attenuation step size for the second phase of a bidirectional sweep (in dB, 0.25 dB steps).
         """
         step_code = self.instrument.fnLDA_GetAttenuationStepTwo(self.devid)
         return step_code * 0.25
 
-    def get_attenuation_step_two_hr(self):
+    def get_second_attenuation_step_hr(self):
         """
         Gets the current attenuation step size for the second phase of a bidirectional sweep (in dB, 0.05 dB steps).
         """
@@ -393,7 +393,7 @@ class digital_attenuator(Instrument):
         """
         return self.instrument.fnLDA_GetDwellTime(self.devid)
 
-    def get_dwell_time_two(self):
+    def get_second_dwell_time(self):
         """
         Gets the current dwell time for each step on the second phase of a bidirectional attenuation ramp (in milliseconds).
         """

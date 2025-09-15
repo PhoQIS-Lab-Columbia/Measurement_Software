@@ -11,8 +11,7 @@ from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
 from Instruments.vector_network_analyzer_copper_mountain import VNA
 from Instruments.EInstrument import EInstrument
 from Instruments.digital_attenuator_vanuix import digital_attenuator
-from Instruments.signal_generator_signal_core import signal_generator
-from Instruments.lock_in_amp_srs import LockInAmp
+
 from Instruments.rf_switch import RF_Switch
 from Instruments.dc_power_supply_siglent import DCPowerSupply
 from Instruments.flowmeter_keyence import Flowmeter
@@ -57,8 +56,7 @@ class NetworkManager:
             return self.connect_digital_attenuator(saved_files_path)
         elif name == EInstrument.SIGNAL_GENERATOR.value or name == EInstrument.SIGNAL_GENERATOR:
             return self.connect_signal_generator(saved_files_path)
-        elif name == EInstrument.LOCK_IN_AMP.value or name == EInstrument.LOCK_IN_AMP:
-            return LockInAmp(instrument,saved_files_path)
+       
         elif name == EInstrument.RF_SWITCH.value or name == EInstrument.RF_SWITCH:
             return RF_Switch(instrument, saved_files_path)
         elif name == EInstrument.DC_POWER_SUPPLY.value or name == EInstrument.DC_POWER_SUPPLY:
@@ -107,8 +105,7 @@ class NetworkManager:
             instruments.append(self.connect_spectrum_analyzer(saved_files_path))
         if instrument_list == [] or EInstrument.DIGITAL_ATTENUATOR in instrument_list:
             instruments.append(self.connect_digital_attenuators(saved_files_path))
-        if instrument_list == [] or EInstrument.SIGNAL_GENERATOR in instrument_list:
-            instruments.append(self.connect_signal_generator(saved_files_path))
+
         print("Abount to leave connect instrument.")
         return instruments
     
@@ -169,12 +166,8 @@ class NetworkManager:
             raise ValueError("VNA failed to connect.")
         return VNA(inst,app, program_path,saved_files_path)
         
-    
-    def connect_lock_in_amp(self,saved_files_path = None) -> LockInAmp:
-        lock_in_amp = self.connect_instruments([EInstrument.LOCK_IN_AMP],saved_files_path)
-        if lock_in_amp == None:
-            raise ValueError("Lock In Amplifier failed to connect.")
-        return lock_in_amp[0]
+    def connect_flow_meter(self,saved_files = []) -> Flowmeter:
+        return Flowmeter(saved_files)
     
     def connect_dc_power_supply(self,saved_files_path = None) -> DCPowerSupply:
         dc_power = self.connect_instruments([EInstrument.DC_POWER_SUPPLY],saved_files_path)
@@ -240,27 +233,6 @@ class NetworkManager:
             
             return digital_attenuator(vnx, devid, saved_files_path)
         
-    def connect_signal_generator(self,saved_files_path = None):
-        """Connects to the signal generator and returns the instrument object."""
-        os.add_dll_directory(os.getcwd())
-        # Open the dll
-        
-        sg = cdll.sc5510a
-        # Get the number of devices
-        devices_num = sg.sc5510a_search_devices()
-        # Create an array of device ids for connected devices
-        
-
-        if devices_num > 0:
-            # Select which device to use
-            devid = 0
-            if devices_num == 1:
-                devices_list = []
-                #TODO: Test if id correctly returned or char array jsut give memory address
-                sg.sc5510a_search_devices(devices_list,1)
-                sig_gen = sg.sc5510a_open_device(devices_list[0])
-            
-        return signal_generator(sg, sig_gen,saved_files_path)
             
     def disconnect(self, instruments):
         
