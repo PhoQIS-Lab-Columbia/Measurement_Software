@@ -53,10 +53,7 @@ class NetworkManager:
         elif name== EInstrument.VECTOR_NETWORK_ANALYZER.value or name== EInstrument.VECTOR_NETWORK_ANALYZER:
             return self.connect_vector_network_analyzer(saved_files_path)
         elif name == EInstrument.DIGITAL_ATTENUATOR.value or name == EInstrument.DIGITAL_ATTENUATOR:
-            return self.connect_digital_attenuator(saved_files_path)
-        elif name == EInstrument.SIGNAL_GENERATOR.value or name == EInstrument.SIGNAL_GENERATOR:
-            return self.connect_signal_generator(saved_files_path)
-       
+            return self.connect_digital_attenuators(saved_files_path)
         elif name == EInstrument.RF_SWITCH.value or name == EInstrument.RF_SWITCH:
             return RF_Switch(instrument, saved_files_path)
         elif name == EInstrument.DC_POWER_SUPPLY.value or name == EInstrument.DC_POWER_SUPPLY:
