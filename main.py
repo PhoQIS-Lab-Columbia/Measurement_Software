@@ -37,4 +37,4 @@ osc.stop()
 
 time.sleep(4)
 #Disconnect all instruments and close applications
-#nm.disconnect([osc,vna,sa,fm])
+nm.disconnect([osc,vna,sa,fm])

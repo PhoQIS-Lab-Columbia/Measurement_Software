@@ -19,8 +19,26 @@ import time
 import psutil
 
 class NetworkManager:
-    def __init__(self, rm = pyvisa.ResourceManager()):
+    def __init__(self, non_default_program_path = None, non_default_instrument_ports=None,rm = pyvisa.ResourceManager()):
+        '''Initialize the NetworkManager with a VISA Resource Manager.
+        params: non_default_program_path: string - path to a json file containing non-default program paths for instruments.
+            If None, internal default will be used
+            non_default_instrument_ports: string - path to a json file containing non-default instrument ports.
+            If None, internal default will be used
+            rm: pyvisa.ResourceManager - Resource manager to use for instrument connections.
+            If None, a new resource manager will be created.
+        '''
         self.rm = rm
+        if non_default_program_path is None:
+            self.program_path = 'program_paths.json'
+        else:
+            self.program_path = non_default_program_path
+
+        if non_default_instrument_ports is None:
+            self.instrument_ports = 'instrumentPorts.json'
+        else:
+            self.instrument_ports = non_default_instrument_ports
+        
 
     def process_exists(self, process_name): 
         pieces = process_name.split('/')
@@ -119,14 +137,14 @@ class NetworkManager:
     def connect_spectrum_analyzer(self,saved_files_path = None) -> SpectrumAnalyzer:
         #try: 
             
-        with open('program_paths.json') as file:
+        with open(self.program_path) as file:
             p = json.load(file)
         program_path = p[EInstrument.SPECTRUM_ANALYZER.value]
         if self.process_exists(program_path):
             app = self.get_process_by_name(program_path)
         app = subprocess.Popen([program_path], shell = False)
         time.sleep(8)
-        with open('instrumentPorts.json') as file:
+        with open(self.instrument_ports) as file:
             ip = json.load(file)
         # Open a session to the Spike software, Spike must be running at this point
         port = ip[EInstrument.SPECTRUM_ANALYZER.value]
@@ -143,12 +161,12 @@ class NetworkManager:
     def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
         try: 
             
-            with open('program_paths.json') as file:
+            with open(self.program_path) as file:
                 p = json.load(file)
             program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
             app = subprocess.Popen([program_path], shell = False)
             time.sleep(5)
-            with open('instrumentPorts.json') as file:
+            with open(self.instrument_ports) as file:
                 ip = json.load(file)
             port = ip[EInstrument.VECTOR_NETWORK_ANALYZER.value]
             
@@ -172,7 +190,7 @@ class NetworkManager:
             raise ValueError("DC Power Supply failed to connect.")
         return dc_power[0]
     def connect_rf_switch(self,saved_files_path = None) -> RF_Switch:
-        with open('instrumentPorts.json') as file:
+        with open(self.instrument_ports) as file:
             ip = json.load(file)
         port = ip[EInstrument.RF_SWITCH.value]
         inst = self.rm.open_resource(port)
