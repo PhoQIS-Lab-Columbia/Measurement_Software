@@ -23,7 +23,7 @@ class SpectrumAnalyzer(Instrument):
        
        self.program_path = program_path
        self.app = app
-       #self.display.hide()
+    
     #Helper Functions
     def open_software(self):
         subprocess.Popen(['C:/Program Files/Signal Hound/Spike/Spike.exe'], shell = False)

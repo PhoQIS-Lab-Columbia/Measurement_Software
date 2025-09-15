@@ -4861,9 +4861,9 @@ class Trigger:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.rs232 = RS232(instrument)
-        self.iic = IIC_Trigger(instrument)
-        self.spi = SPI_Trigger(instrument)
+        self.rs232 = RS232(instrument, data_handler)
+        self.iic = IIC_Trigger(instrument, data_handler)
+        self.spi = SPI_Trigger(instrument, data_handler)
 
     def set_mode(self, mode):
         """
