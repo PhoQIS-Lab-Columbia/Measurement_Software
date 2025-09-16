@@ -1,6 +1,6 @@
 [project]
 name = "measurement_instruments_Grace_Davanzo"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
   { name="Mary Grace D Avanzo", email="mgdavanzo26@gmail.com" },
 ]
