@@ -1,8 +1,8 @@
-from Instrument import Instrument
+from Instruments.Instrument import Instrument
 import time
 import subprocess
-from EFileType import EFileType
-from EInstrument import EInstrument
+from Instruments.EFileType import EFileType
+from Instruments.EInstrument import EInstrument
 import sys
 import json
 class SpectrumAnalyzer(Instrument):
