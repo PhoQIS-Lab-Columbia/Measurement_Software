@@ -33,7 +33,7 @@ class VNA(Instrument):
         self.calculate_channel15 = Calculate(self.instrument, self.data_handler, channel=15)
         self.calculate_channel6 = Calculate(self.instrument, self.data_handler, channel=16)  
 
-        self.display_channel1 = Display(self.instrument, self.data_handler)
+        self.display = Display(self.instrument, self.data_handler)
         
         self.initate_channel1 = Initate(self.instrument, self.data_handler, channel=1)
         self.initate_channel2 = Initate(self.instrument, self.data_handler, channel=2)
@@ -4107,7 +4107,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:Y:SCAL:PDIV {value}")
+        self.instrument.write(f":DISP:WIND{trace}:TRAC{trace}:Y:SCAL:PDIV {value}")
 
     def get_trace_scale_per_division(self,  trace: int) -> float:
         """
@@ -4120,7 +4120,7 @@ class Display:
         Return:
         float: Scale value
         """
-        return float(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:Y:SCAL:PDIV?"))
+        return float(self.instrument.query(f":DISP:WIND{trace}:TRAC{trace}:Y:SCAL:PDIV?"))
 
     # DISP:WIND:TRAC:Y:SCALe:RLEVel - Set/read reference line value
     def set_reference_line_value(self,  trace: int, value: float):
@@ -4135,7 +4135,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:Y:SCAL:RLEV {value}")
+        self.instrument.write(f":DISP:WIND{trace}:TRAC{trace}:Y:SCAL:RLEV {value}")
 
     def get_reference_line_value(self,  trace: int) -> float:
         """

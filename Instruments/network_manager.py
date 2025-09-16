@@ -5,7 +5,7 @@ from ctypes import *
 import ctypes
 import struct
 import subprocess
-
+import importlib.resources
 from Instruments.oscilloscope_rigol import Oscilloscope
 from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
 from Instruments.vector_network_analyzer_copper_mountain import VNA
@@ -30,12 +30,12 @@ class NetworkManager:
         '''
         self.rm = rm
         if non_default_program_path is None:
-            self.program_path = 'Instruments\program_paths.json'
+            self.program_path = 'program_paths.json'
         else:
             self.program_path = non_default_program_path
 
         if non_default_instrument_ports is None:
-            self.instrument_ports = 'Instruments\instrumentPorts.json'
+            self.instrument_ports = 'instrumentPorts.json'
         else:
             self.instrument_ports = non_default_instrument_ports
         
@@ -89,15 +89,15 @@ class NetworkManager:
 
         resources = self.rm.list_resources()
         
-        with open('Instruments\noninstrumentPorts.json', 'r') as f:
-            data = json.load(f) 
+        with importlib.resources.open_text('Instruments.data','noninstrumentPorts.json') as f:
+            data = json.load(f)
         
         #Remove ports that are known to not be instruments
         unknown_resources = [x for x in resources if x not in data.keys()]
         instruments = []
         print(unknown_resources)
 
-        with open('instrumentPorts.json', 'r') as f:
+        with importlib.resources.open_text('Instruments.data','instrumentPorts.json') as f:
             instrumentPorts = json.load(f) 
         for port in unknown_resources:
         #for i in range(0,1):
@@ -137,17 +137,17 @@ class NetworkManager:
     def connect_spectrum_analyzer(self,saved_files_path = None) -> SpectrumAnalyzer:
         #try: 
             
-        with open(self.program_path) as file:
-            p = json.load(file)
-        program_path = p[EInstrument.SPECTRUM_ANALYZER.value]
+        '''with importlib.resources.open_text('Instruments.data','program_paths.json') as file:
+            p = json.load(file)'''
+        program_path = "C:/Program Files/Signal Hound/Spike/Spike.exe"#p[EInstrument.SPECTRUM_ANALYZER.value]
         if self.process_exists(program_path):
             app = self.get_process_by_name(program_path)
         app = subprocess.Popen([program_path], shell = False)
         time.sleep(8)
-        with open(self.instrument_ports) as file:
-            ip = json.load(file)
+        '''with importlib.resources.open_text('Instruments.data','instrumentPorts.json') as file:
+            ip = json.load(file)'''
         # Open a session to the Spike software, Spike must be running at this point
-        port = ip[EInstrument.SPECTRUM_ANALYZER.value]
+        port = "TCPIP0::localhost::5026::SOCKET"#ip[EInstrument.SPECTRUM_ANALYZER.value]
         inst = self.rm.open_resource(port)
 
         # For SOCKET programming, we want to tell VISA to use a terminating character
@@ -161,14 +161,14 @@ class NetworkManager:
     def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
         #try: 
             
-        with open(self.program_path) as file:
-            p = json.load(file)
-        program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
+        '''with importlib.resources.open_text('Instruments.data','program_paths.json') as file:
+            p = json.load(file)'''
+        program_path = "C:/VNA/S4VNA/S4VNA.exe"#p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
         app = subprocess.Popen([program_path], shell = False)
         time.sleep(5)
-        with open(self.instrument_ports) as file:
-            ip = json.load(file)
-        port = ip[EInstrument.VECTOR_NETWORK_ANALYZER.value]
+        '''with importlib.resources.open_text('Instruments.data','instrumentPorts.json') as file:
+            ip = json.load(file)'''
+        port = "TCPIP0::localhost::5025::SOCKET"#ip[EInstrument.VECTOR_NETWORK_ANALYZER.value]
         
         # Open a session to the S4VNA software, S4VNA must be running at this point
         inst = self.rm.open_resource(port)
@@ -190,7 +190,7 @@ class NetworkManager:
             raise ValueError("DC Power Supply failed to connect.")
         return dc_power[0]
     def connect_rf_switch(self,saved_files_path = None) -> RF_Switch:
-        with open(self.instrument_ports) as file:
+        with importlib.resources.open_text('Instruments.data','instrumentPorts.json') as file:
             ip = json.load(file)
         port = ip[EInstrument.RF_SWITCH.value]
         inst = self.rm.open_resource(port)

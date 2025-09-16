@@ -1,6 +1,6 @@
 [project]
 name = "measurement_instruments_Grace_Davanzo"
-version = "0.1.1"
+version = "0.1.8"
 authors = [
   { name="Mary Grace D Avanzo", email="mgdavanzo26@gmail.com" },
 ]
@@ -18,3 +18,5 @@ license-files = ["LICEN[CS]E*"]
 [project.urls]
 Homepage = "https://github.com/phoqis-lab/Measurement_Software"
 Issues = "https://github.com/phoqis-lab/Measurement_Software/Issues"
+
+[tool.setuptools.package-data]
