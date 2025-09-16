@@ -3,11 +3,11 @@ from time import sleep
 from time import sleep
 import pyvisa
 from Instruments.EFileType import EFileType
-import Instruments.Instrument as Instrument
+from Instruments.Instrument import Instrument
 from Instruments.EInstrument import EInstrument
 from PIL import Image
 
-class Oscilloscope(Instrument.Instrument):
+class Oscilloscope(Instrument):
 
     def __init__(self, instrument, save_files_path=None):
         super().__init__(instrument, EInstrument.OSCILLOSCOPE, save_files_path)

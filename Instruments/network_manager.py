@@ -30,12 +30,12 @@ class NetworkManager:
         '''
         self.rm = rm
         if non_default_program_path is None:
-            self.program_path = 'program_paths.json'
+            self.program_path = 'Instruments\program_paths.json'
         else:
             self.program_path = non_default_program_path
 
         if non_default_instrument_ports is None:
-            self.instrument_ports = 'instrumentPorts.json'
+            self.instrument_ports = 'Instruments\instrumentPorts.json'
         else:
             self.instrument_ports = non_default_instrument_ports
         
@@ -89,7 +89,7 @@ class NetworkManager:
 
         resources = self.rm.list_resources()
         
-        with open('noninstrumentPorts.json', 'r') as f:
+        with open('Instruments\noninstrumentPorts.json', 'r') as f:
             data = json.load(f) 
         
         #Remove ports that are known to not be instruments
@@ -159,26 +159,26 @@ class NetworkManager:
         return SpectrumAnalyzer(inst,app, program_path,saved_files_path)
     
     def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
-        try: 
+        #try: 
             
-            with open(self.program_path) as file:
-                p = json.load(file)
-            program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
-            app = subprocess.Popen([program_path], shell = False)
-            time.sleep(5)
-            with open(self.instrument_ports) as file:
-                ip = json.load(file)
-            port = ip[EInstrument.VECTOR_NETWORK_ANALYZER.value]
-            
-            # Open a session to the S4VNA software, S4VNA must be running at this point
-            inst = self.rm.open_resource(port)
+        with open(self.program_path) as file:
+            p = json.load(file)
+        program_path = p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
+        app = subprocess.Popen([program_path], shell = False)
+        time.sleep(5)
+        with open(self.instrument_ports) as file:
+            ip = json.load(file)
+        port = ip[EInstrument.VECTOR_NETWORK_ANALYZER.value]
+        
+        # Open a session to the S4VNA software, S4VNA must be running at this point
+        inst = self.rm.open_resource(port)
 
-            # For SOCKET programming, we want to tell VISA to use a terminating character
-            #   to end a read and write operation.
-            inst.read_termination = '\n'
-            inst.write_termination = '\n'
-        except:
-            raise ValueError("VNA failed to connect.")
+        # For SOCKET programming, we want to tell VISA to use a terminating character
+        #   to end a read and write operation.
+        inst.read_termination = '\n'
+        inst.write_termination = '\n'
+        #except:
+            #raise ValueError("VNA failed to connect.")
         return VNA(inst,app, program_path,saved_files_path)
         
     def connect_flow_meter(self,saved_files = []) -> Flowmeter:

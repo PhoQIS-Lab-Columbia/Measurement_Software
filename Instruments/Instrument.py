@@ -1,7 +1,7 @@
-from data_handler import DataHandler
-from EFileType import EFileType
+from Instruments.data_handler import DataHandler
+from Instruments.EFileType import EFileType
 from PIL import Image
-from EFileType import EFileType
+from Instruments.EFileType import EFileType
 class Instrument():
     def __init__(self, instrument, name, save_files_path = None):
         self.instrument = instrument
