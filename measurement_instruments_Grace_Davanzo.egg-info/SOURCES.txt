@@ -22,6 +22,7 @@ Instruments/spectrum_analyzer_helper.py
 Instruments/spectrum_analyzer_signal_hound.py
 Instruments/vector_network_analyzer_copper_mountain.py
 Instruments/vector_network_analyzer_helper.py
+Instruments/data/__init__.py
 measurement_instruments_Grace_Davanzo.egg-info/PKG-INFO
 measurement_instruments_Grace_Davanzo.egg-info/SOURCES.txt
 measurement_instruments_Grace_Davanzo.egg-info/dependency_links.txt

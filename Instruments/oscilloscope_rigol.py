@@ -1,6 +1,6 @@
 
 from time import sleep
-from time import sleep
+
 import pyvisa
 from Instruments.EFileType import EFileType
 from Instruments.Instrument import Instrument
