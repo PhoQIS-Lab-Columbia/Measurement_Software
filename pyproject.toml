@@ -1,8 +1,8 @@
 [project]
-name = "measurement_software_Grace-Davanzo"
-version = "0.0.9"
+name = "measurement_instruments_Grace_Davanzo"
+version = "0.1.0"
 authors = [
-  { name="Mary Grace D'Avanzo", email="mgdavanzo26@gmail.com" },
+  { name="Mary Grace D Avanzo", email="mgdavanzo26@gmail.com" },
 ]
 description = "A package to control PhoQis Labs various pieces of measurement equipment."
 readme = "README.md"
