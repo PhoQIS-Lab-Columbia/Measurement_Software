@@ -13,84 +13,56 @@ class VNA(Instrument):
         self.program_path = program_path
         self.app = app
         
-        # Add instance variables for each direct subclass under VNA
-
-        # Instances for each channel (1-based index)
-        self.calculate_channel1 = Calculate(self.instrument, self.data_handler, channel=1)
-        self.calculate_channel2 = Calculate(self.instrument, self.data_handler, channel=2)
-        self.calculate_channel3 = Calculate(self.instrument, self.data_handler, channel=3)
-        self.calculate_channel4 = Calculate(self.instrument, self.data_handler, channel=4)  
-        self.calculate_channel5 = Calculate(self.instrument, self.data_handler, channel=5)
-        self.calculate_channel6 = Calculate(self.instrument, self.data_handler, channel=6)
-        self.calculate_channel7 = Calculate(self.instrument, self.data_handler, channel=7)
-        self.calculate_channel8 = Calculate(self.instrument, self.data_handler, channel=8)
-        self.calculate_channel9 = Calculate(self.instrument, self.data_handler, channel=9)
-        self.calculate_channel10 = Calculate(self.instrument, self.data_handler, channel=10)
-        self.calculate_channel11 = Calculate(self.instrument, self.data_handler, channel=11)
-        self.calculate_channel12 = Calculate(self.instrument, self.data_handler, channel=12)  
-        self.calculate_channel13 = Calculate(self.instrument, self.data_handler, channel=13)
-        self.calculate_channel14 = Calculate(self.instrument, self.data_handler, channel=14)
-        self.calculate_channel15 = Calculate(self.instrument, self.data_handler, channel=15)
-        self.calculate_channel6 = Calculate(self.instrument, self.data_handler, channel=16)  
+        self.channel1 = Channel(self.instrument, self.data_handler, channel=1)
+        self.channel2 = Channel(self.instrument, self.data_handler, channel=2)
+        self.channel3 = Channel(self.instrument, self.data_handler, channel=3)
+        self.channel4 = Channel(self.instrument, self.data_handler, channel=4)  
+        self.channel5 = Channel(self.instrument, self.data_handler, channel=5)
+        self.channel6 = Channel(self.instrument, self.data_handler, channel=6)
+        self.channel7 = Channel(self.instrument, self.data_handler, channel=7)
+        self.channel8 = Channel(self.instrument, self.data_handler, channel=8)
+        self.channel9 = Channel(self.instrument, self.data_handler, channel=9)
+        self.channel10 = Channel(self.instrument, self.data_handler, channel=10)
+        self.channel11 = Channel(self.instrument, self.data_handler, channel=11)
+        self.channel12 = Channel(self.instrument, self.data_handler, channel=12)  
+        self.channel13 = Channel(self.instrument, self.data_handler, channel=13)
+        self.channel14 = Channel(self.instrument, self.data_handler, channel=14)
+        self.channel15 = Channel(self.instrument, self.data_handler, channel=15)
+        self.channel16 = Channel(self.instrument, self.data_handler, channel=16)  
 
         self.display = Display(self.instrument, self.data_handler)
-        
-        self.initate_channel1 = Initate(self.instrument, self.data_handler, channel=1)
-        self.initate_channel2 = Initate(self.instrument, self.data_handler, channel=2)
-        self.initate_channel3 = Initate(self.instrument, self.data_handler, channel=3)
-        self.initate_channel4 = Initate(self.instrument, self.data_handler, channel=4)
-        self.initate_channel5 = Initate(self.instrument, self.data_handler, channel=5)
-        self.initate_channel6 = Initate(self.instrument, self.data_handler, channel=6)
-        self.initate_channel7 = Initate(self.instrument, self.data_handler, channel=7)
-        self.initate_channel8 = Initate(self.instrument, self.data_handler, channel=8)
-        self.initate_channel9 = Initate(self.instrument, self.data_handler, channel=9)
-        self.initate_channel10 = Initate(self.instrument, self.data_handler, channel=10)
-        self.initate_channel11 = Initate(self.instrument, self.data_handler, channel=11)
-        self.initate_channel12 = Initate(self.instrument, self.data_handler, channel=12)
-        self.initate_channel13 = Initate(self.instrument, self.data_handler, channel=13)
-        self.initate_channel14 = Initate(self.instrument, self.data_handler, channel=14)
-        self.initate_channel15= Initate(self.instrument, self.data_handler, channel=15)
-        self.initate_channel16 = Initate(self.instrument, self.data_handler, channel=16)
-
+        self.format = Format(self.instrument, self.data_handler)
+        self.hcopy = HCopy(self.instrument, self.data_handler)
         self.mmemory = MMemory(self.instrument, self.data_handler)
-        
-        self.sense_channel1 = Sense(self.instrument, self.data_handler, channel=1)
-        self.sense_channel2 = Sense(self.instrument, self.data_handler, channel=2)
-        self.sense_channel3 = Sense(self.instrument, self.data_handler, channel=3)
-        self.sense_channel4 = Sense(self.instrument, self.data_handler, channel=4)
-        self.sense_channel5 = Sense(self.instrument, self.data_handler, channel=5)
-        self.sense_channel6 = Sense(self.instrument, self.data_handler, channel=6)
-        self.sense_channel7 = Sense(self.instrument, self.data_handler, channel=7)
-        self.sense_channel8 = Sense(self.instrument, self.data_handler, channel=8)
-        self.sense_channel9 = Sense(self.instrument, self.data_handler, channel=9)
-        self.sense_channel10 = Sense(self.instrument, self.data_handler, channel=10)
-        self.sense_channel11 = Sense(self.instrument, self.data_handler, channel=11)
-        self.sense_channel12 = Sense(self.instrument, self.data_handler, channel=12)
-        self.sense_channel13 = Sense(self.instrument, self.data_handler, channel=13)
-        self.sense_channel14 = Sense(self.instrument, self.data_handler, channel=14)
-        self.sense_channel15 = Sense(self.instrument, self.data_handler, channel=15)
-        self.sense_channel16 = Sense(self.instrument, self.data_handler, channel=16)
+        self.output = Output(self.instrument, self.data_handler)
 
+        self.service = Service(self.instrument, self.data_handler)
         self.status = Status(self.instrument, self.data_handler)
         self.source = Source(self.instrument, self.data_handler)
         self.system = System(self.instrument, self.data_handler)
-        
         self.trigger = Trigger(self.instrument, self.data_handler)
-        # Single instance subclasses (not channel-dependent)
-        self.format = Format(self.instrument, self.data_handler)
-        self.hcopy = HCopy(self.instrument, self.data_handler)
-        self.output = Output(self.instrument, self.data_handler)
-        #TODO Check service channel values
-        self.service = Service(self.instrument, self.data_handler, 1)
         
-    
+    def abort(self):
+        """Aborts the sweep."""
+        self.instrument.write(":ABORt")
     def open_software(self):
+        """Open the VNA software."""
         subprocess.Popen(['C:/VNA/S4VNA/S4VNA.exe'], shell = False)
     def disconnect(self):
+        """Turn off the VNA software and disconnect."""
         super().disconnect()
         self.app.terminate()
-#TODO Switch channel and calc, sense etc around
-#TODO fix descriptions
+
+class Channel:
+    """Channel selected."""
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+        self.calculate = Calculate(self.instrument, self.data_handler, self.channel)
+        self.initate = Initate(self.instrument, self.data_handler, self.channel)
+        self.sense = Sense(self.instrument, self.data_handler, self.channel)
+        
 class Calculate:
     """
     Data processing (conversion, electrical delay, phase offset,
@@ -101,21 +73,32 @@ trace data transfer.
     def __init__(self, instrument, data_handler,channel):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.n  = channel
-        self.marker = self.Marker(self.instrument, self.data_handler, channel)
-        self.math = self.Math(self.instrument, self.data_handler, channel)
-        self.mst = self.MST(self.instrument, self.data_handler, channel)
-        self.rlim = self.RLIM(self.instrument, self.data_handler, channel)
-        self.smo = self.SMO(self.instrument, self.data_handler, channel)
-        self.tran = self.TRAN(self.instrument, self.data_handler, channel)
-        self.electrical_delay = self.ElectricalDelay(self.instrument, self.data_handler,channel)
-        self.filter = self.Filter(self.instrument, self.data_handler,channel)
-        self.trace_analysis = self.Trace(self.instrument, self.data_handler,channel)
-        self.limit = self.Limit(self.instrument, self.data_handler,channel)
+        self.channel  = channel
+        self.balanced_port_1 = Calc_Balanced(self.instrument, self.data_handler, self.channel, bport=1)
+        self.balanced_port_2 = Calc_Balanced(self.instrument, self.data_handler, self.channel, bport=2)
+        self.marker = Calc_Marker(self.instrument, self.data_handler, channel)
+        self.math = Calc_Math(self.instrument, self.data_handler, channel)
+        self.mst = Calc_MST(self.instrument, self.data_handler, channel)
+        self.rlim = Calc_RLIM(self.instrument, self.data_handler, channel)
+        self.smo = Calc_SMO(self.instrument, self.data_handler, channel)
+        self.tran = Calc_TRAN(self.instrument, self.data_handler, channel)
+        self.electrical_delay = Calc_ElectricalDelay(self.instrument, self.data_handler,channel)
+        self.filter = Calc_Filter(self.instrument, self.data_handler,channel)
+        self.trace_analysis = Calc_Trace(self.instrument, self.data_handler,channel)
+        self.limit = Calc_Limit(self.instrument, self.data_handler,channel)
     # CALC:CONV - S-parameter Conversion ON/OFF
-    def enable_conversion(self, enable: bool):
+    def enable_conversion(self):
         """
-        Enable or disable the S-parameter conversion function.
+        Enable the S-parameter conversion function.
+
+        Return:
+        None
+        """
+        self.instrument.write(f":CALC{self.channel}:CONV 1")
+
+    def disable_conversion(self):
+        """
+        Disable the S-parameter conversion function.
 
         Parameter:
         enable (bool): True to enable, False to disable
@@ -123,8 +106,7 @@ trace data transfer.
         Return:
         None
         """
-        self.instrument.write(f":CALC{self.n}:CONV {1 if enable else 0}")
-
+        self.instrument.write(f":CALC{self.channel}:CONV 0")
     def is_conversion_enabled(self) -> bool:
         """
         Query if the S-parameter conversion function is enabled.
@@ -135,7 +117,7 @@ trace data transfer.
         Return:
         bool: True if enabled, False otherwise
         """
-        return bool(int(self.instrument.query(f":CALC{self.n}:CONV?")))
+        return bool(int(self.instrument.query(f":CALC{self.channel}:CONV?")))
 
     # CALC:CONV:FUNC - S-parameter conversion function type
     def set_conversion_type(self, conv_type: str):
@@ -143,15 +125,21 @@ trace data transfer.
         Set the S-parameter conversion function type.
 
         Parameter:
-        conv_type (str): Conversion type, one of ['ZREF', 'ZTR', 'YREF', 'YTR', 'INV', 'ZTSH', 'YTSH', 'CONJ']
+        conv_type (str): Conversion type, one of [
+            'ZREF', 'ZTR', 'YREF', 'YTR', 'INV', 'ZTSH', 'YTSH', 'CONJ',
+            'ZREFlection', 'ZTRansmit', 'YREFlection', 'YTRansmit', 'INVersion', 'ZTSHunt', 'YTSHunt', 'CONJugation'
+        ]
 
         Return:
         None
         """
-        allowed = ['ZREF', 'ZTR', 'YREF', 'YTR', 'INV', 'ZTSH', 'YTSH', 'CONJ']
+        allowed = [
+            'ZREF', 'ZTR', 'YREF', 'YTR', 'INV', 'ZTSH', 'YTSH', 'CONJ',
+            'ZREFlection', 'ZTRansmit', 'YREFlection', 'YTRansmit', 'INVersion', 'ZTSHunt', 'YTSHunt', 'CONJugation'
+        ]
         if conv_type not in allowed:
             raise ValueError(f"conv_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.n}:CONV:FUNC {conv_type}")
+        self.instrument.write(f":CALC{self.channel}:CONV:FUNC {conv_type}")
 
     def get_conversion_type(self) -> str:
         """
@@ -163,359 +151,7 @@ trace data transfer.
         Return:
         str: Current conversion function type
         """
-        return self.instrument.query(f":CALC{self.n}:CONV:FUNC?").strip()
-
-    class ElectricalDelay:
-        """Commands to modify electrical delay parameters."""
-        def __init__(self, instrument, data_handler, channel):
-            self.n = channel
-            self.instrument = instrument
-            self.data_handler = data_handler
-
-        # CALC:CORR:EDEL:DIST - Equivalent distance in the electrical delay function
-        def set_equivalent_distance(self, distance: float):
-            """
-            Set the value of the equivalent distance in the electrical delay function.
-
-            Parameter:
-                distance (float): Distance value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:CORR:EDEL:DIST {distance}")
-
-        def get_equivalent_distance(self) -> float:
-            """
-            Get the value of the equivalent distance in the electrical delay function.
-
-            Parameter:
-                None
-
-            Return:
-                float: Distance value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:CORR:EDEL:DIST?"))
-
-        # CALC:CORR:EDEL:DIST:UNIT - Distance units in the electrical delay function
-        def set_distance_unit(self, unit: str):
-            """
-            Set the distance units in the electrical delay function.
-
-            Parameter:
-                unit (str): Unit, one of ['MET', 'FEET', 'INCH']
-
-            Return:
-                None
-            """
-            allowed = ['MET', 'FEET', 'INCH']
-            if unit not in allowed:
-                raise ValueError(f"unit must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:CORR:EDEL:DIST:UNIT {unit}")
-
-        def get_distance_unit(self) -> str:
-            """
-            Get the distance units in the electrical delay function.
-
-            Parameter:
-                None
-
-            Return:
-                str: Unit
-            """
-            return self.instrument.query(f":CALC{self.n}:CORR:EDEL:DIST:UNIT?").strip()
-
-        # CALC:CORR:EDEL:MED - Type of media in the electrical delay function
-        def set_media(self, media: str):
-            """
-            Set the type of media in the electrical delay function.
-
-            Parameter:
-                media (str): Media type, one of ['COAX', 'WAV']
-
-            Return:
-                None
-            """
-            allowed = ['COAX', 'WAV']
-            if media not in allowed:
-                raise ValueError(f"media must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:CORR:EDEL:MED {media}")
-
-        def get_media(self) -> str:
-            """
-            Get the type of media in the electrical delay function.
-
-            Parameter:
-                None
-
-            Return:
-                str: Media type
-            """
-            return self.instrument.query(f":CALC{self.n}:CORR:EDEL:MED?").strip()
-
-        # CALC:CORR:EDEL:RVEL - Velocity factor used to calculate between delay and distance
-        def set_velocity_factor(self, factor: float):
-            """
-            Set the value of the velocity factor used to calculate between delay and distance.
-
-            Parameter:
-                factor (float): Velocity factor (0 to 1)
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:CORR:EDEL:RVEL {factor}")
-
-        def get_velocity_factor(self) -> float:
-            """
-            Get the value of the velocity factor used to calculate between delay and distance.
-
-            Parameter:
-                None
-
-            Return:
-                float: Velocity factor
-            """
-            return float(self.instrument.query(f":CALC{self.n}:CORR:EDEL:RVEL?"))
-
-        # CALC:CORR:EDEL:TIME - Value of the electrical delay
-        def set_electrical_delay(self, delay: float):
-            """
-            Set the value of the electrical delay.
-
-            Parameter:
-                delay (float): Delay in seconds
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:CORR:EDEL:TIME {delay}")
-
-        def get_electrical_delay(self) -> float:
-            """
-            Get the value of the electrical delay.
-
-            Parameter:
-                None
-
-            Return:
-                float: Delay in seconds
-            """
-            return float(self.instrument.query(f":CALC{self.n}:CORR:EDEL:TIME?"))
-
-        # CALC:CORR:EDEL:WAV:CUT - Waveguide cutoff frequency in the electrical delay function
-        def set_waveguide_cutoff(self, freq: float):
-            """
-            Set the value of the waveguide cutoff frequency in the electrical delay function.
-
-            Parameter:
-                freq (float): Frequency in Hz
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:CORR:EDEL:WAV:CUT {freq}")
-
-        def get_waveguide_cutoff(self) -> float:
-            """
-            Get the value of the waveguide cutoff frequency in the electrical delay function.
-
-            Parameter:
-                None
-
-            Return:
-                float: Frequency in Hz
-            """
-            return float(self.instrument.query(f":CALC{self.n}:CORR:EDEL:WAV:CUT?"))
-
-    class Filter:
-        """Commands for modifying the gating function parameters."""
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-
-        # CALC:FILT:TIME - Gate type of the gating function
-        def set_gate_type(self, gate_type: str):
-            """
-            Set the gate type of the gating function.
-
-            Parameter:
-                gate_type (str): Gate type, one of ['BPAS', 'NOTC']
-
-            Return:
-                None
-            """
-            allowed = ['BPAS', 'NOTC']
-            if gate_type not in allowed:
-                raise ValueError(f"gate_type must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:FILT:TIME {gate_type}")
-
-        def get_gate_type(self) -> str:
-            """
-            Get the gate type of the gating function.
-
-            Parameter:
-                None
-
-            Return:
-                str: Gate type
-            """
-            return self.instrument.query(f":CALC{self.n}:FILT:TIME?").strip()
-
-        # CALC:FILT:TIME:CENT - Gate center value of the gating function
-        def set_gate_center(self, center: float):
-            """
-            Set the gate center value of the gating function.
-
-            Parameter:
-                center (float): Center value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FILT:TIME:CENT {center}")
-
-        def get_gate_center(self) -> float:
-            """
-            Get the gate center value of the gating function.
-
-            Parameter:
-                None
-
-            Return:
-                float: Center value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:FILT:TIME:CENT?"))
-
-        # CALC:FILT:TIME:SHAP - Gate shape of the gating function
-        def set_gate_shape(self, shape: str):
-            """
-            Set the gate shape of the gating function.
-
-            Parameter:
-                shape (str): Gate shape, one of ['MAX', 'WIDE', 'NORM', 'MIN']
-
-            Return:
-                None
-            """
-            allowed = ['MAX', 'WIDE', 'NORM', 'MIN']
-            if shape not in allowed:
-                raise ValueError(f"shape must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:FILT:TIME:SHAP {shape}")
-
-        def get_gate_shape(self) -> str:
-            """
-            Get the gate shape of the gating function.
-
-            Parameter:
-                None
-
-            Return:
-                str: Gate shape
-            """
-            return self.instrument.query(f":CALC{self.n}:FILT:TIME:SHAP?").strip()
-
-        # CALC:FILT:TIME:SPAN - Gate span value of the gating function
-        def set_gate_span(self, span: float):
-            """
-            Set the gate span value of the gating function.
-
-            Parameter:
-                span (float): Span value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FILT:TIME:SPAN {span}")
-
-        def get_gate_span(self) -> float:
-            """
-            Get the gate span value of the gating function.
-
-            Parameter:
-                None
-
-            Return:
-                float: Span value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:FILT:TIME:SPAN?"))
-
-        # CALC:FILT:TIME:STAR - Gate start value of the gating function
-        def set_gate_start(self, start: float):
-            """
-            Set the gate start value of the gating function.
-
-            Parameter:
-                start (float): Start value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FILT:TIME:STAR {start}")
-
-        def get_gate_start(self) -> float:
-            """
-            Get the gate start value of the gating function.
-
-            Parameter:
-                None
-
-            Return:
-                float: Start value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:FILT:TIME:STAR?"))
-
-        # CALC:FILT:TIME:STAT - Gating function ON/OFF
-        def enable_gating(self, enable: bool):
-            """
-            Enable or disable the gating function.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FILT:TIME:STAT {1 if enable else 0}")
-
-        def is_gating_enabled(self) -> bool:
-            """
-            Query if the gating function is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:FILT:TIME:STAT?")))
-
-        # CALC:FILT:TIME:STOP - Gate stop value of the gating function
-        def set_gate_stop(self, stop: float):
-            """
-            Set the gate stop value of the gating function.
-
-            Parameter:
-                stop (float): Stop value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FILT:TIME:STOP {stop}")
-
-        def get_gate_stop(self) -> float:
-            """
-            Get the gate stop value of the gating function.
-
-            Parameter:
-                None
-
-            Return:
-                float: Stop value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:FILT:TIME:STOP?"))
-
+        return self.instrument.query(f":CALC{self.channel}:CONV:FUNC?").strip()
     # CALC:CORR:OFFS:PHAS - Phase offset
     def set_phase_offset(self, offset: float):
         """
@@ -527,7 +163,7 @@ trace data transfer.
         Return:
         None
         """
-        self.instrument.write(f":CALC{self.n}:CORR:OFFS:PHAS {offset}")
+        self.instrument.write(f":CALC{self.channel}:CORR:OFFS:PHAS {offset}")
 
     def get_phase_offset(self) -> float:
         """
@@ -539,7 +175,7 @@ trace data transfer.
         Return:
         float: Phase offset in degrees
         """
-        return float(self.instrument.query(f":CALC{self.n}:CORR:OFFS:PHAS?"))
+        return float(self.instrument.query(f":CALC{self.channel}:CORR:OFFS:PHAS?"))
 
     # CALC:CORR:STAT? - Interpolation/extrapolation status of the error correction
     def get_correction_status(self) -> str:
@@ -552,7 +188,7 @@ trace data transfer.
         Return:
         str: Status
         """
-        return self.instrument.query(f":CALC{self.n}:CORR:STAT?").strip()
+        return self.instrument.query(f":CALC{self.channel}:CORR:STAT?").strip()
 
     # CALC:DATA:FDAT - Formatted data array
     def get_formatted_data(self):
@@ -565,7 +201,7 @@ trace data transfer.
         Return:
         list: Formatted data array
         """
-        data = self.instrument.query(f":CALC{self.n}:DATA:FDAT?")
+        data = self.instrument.query(f":CALC{self.channel}:DATA:FDAT?")
         if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"FORMATTED_DATA", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
@@ -581,7 +217,7 @@ trace data transfer.
         Return:
         list: Formatted memory array
         """
-        data = self.instrument.query(f":CALC{self.n}:DATA:FMEM?")
+        data = self.instrument.query(f":CALC{self.channel}:DATA:FMEM?")
         if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"FORMAT_MEM", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
@@ -597,7 +233,7 @@ trace data transfer.
         Return:
         list: Corrected data array
         """
-        data = self.instrument.query(f":CALC{self.n}:DATA:SDAT?")
+        data = self.instrument.query(f":CALC{self.channel}:DATA:SDAT?")
         if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"CORR_DATA", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
@@ -613,7 +249,7 @@ trace data transfer.
         Return:
         list: Corrected memory array
         """
-        data = self.instrument.query(f":CALC{self.n}:DATA:SMEM?")
+        data = self.instrument.query(f":CALC{self.channel}:DATA:SMEM?")
         if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"CORR_MEM", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
@@ -629,7 +265,7 @@ trace data transfer.
         Return:
         list: X-axis values
         """
-        data = self.instrument.query(f":CALC{self.n}:DATA:XAX?")
+        data = self.instrument.query(f":CALC{self.channel}:DATA:XAX?")
         if self.data_handler.is_auto_saving_data_enabled():
             self.data_handler.write_to_file(self, f"X_AXIS", data, file_type = EFileType.CSV)
         return self.data_handler.parse_array(data)
@@ -648,7 +284,7 @@ trace data transfer.
         allowed = ['MLOG', 'PHAS', 'UPH', 'MLIN', 'REAL', 'IMAG', 'POL', 'SMIT', 'SMIC', 'SWR', 'GDEL', 'K']
         if fmt not in allowed:
             raise ValueError(f"fmt must be one of {allowed}")
-        self.instrument.write(f":CALC{self.n}:FORM {fmt}")
+        self.instrument.write(f":CALC{self.channel}:FORM {fmt}")
 
     def get_trace_format(self) -> str:
         """
@@ -660,7 +296,7 @@ trace data transfer.
         Return:
         str: Trace format
         """
-        return self.instrument.query(f":CALC{self.n}:FORM?").strip()
+        return self.instrument.query(f":CALC{self.channel}:FORM?").strip()
 
     # CALC:PAR:COUN - Number of traces in the channel
     def get_trace_count(self) -> int:
@@ -673,7 +309,7 @@ trace data transfer.
         Return:
         int: Number of traces
         """
-        return int(self.instrument.query(f":CALC{self.n}:PAR:COUN?"))
+        return int(self.instrument.query(f":CALC{self.channel}:PAR:COUN?"))
 
     # CALC:PAR:SEL - Active trace number (write)
     def set_active_trace(self, trace_num: int):
@@ -686,7 +322,7 @@ trace data transfer.
         Return:
         None
         """
-        self.instrument.write(f":CALC{self.n}:PAR:SEL {trace_num}")
+        self.instrument.write(f":CALC{self.channel}:PAR:SEL {trace_num}")
 
     def get_active_trace(self) -> int:
         """
@@ -698,7 +334,7 @@ trace data transfer.
         Return:
         int: Active trace number
         """
-        return int(self.instrument.query(f":CALC{self.n}:PAR:SEL?"))
+        return int(self.instrument.query(f":CALC{self.channel}:PAR:SEL?"))
     
     def is_port_z_conversion_enabled(self) -> bool:
         """
@@ -710,7 +346,7 @@ trace data transfer.
         Return:
             bool: True if enabled, False otherwise
         """
-        return bool(int(self.instrument.query(f":CALC{self.n}:FSIM:SEND:ZCON:STAT?")))
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:SEND:ZCON:STAT?")))
 
     # CALC:FSIM:SEND:ZCON:THE - Theory of Port Z Conversion
     def get_port_z_conversion_theory(self) -> str:
@@ -723,7 +359,7 @@ trace data transfer.
         Return:
             str: Theory description
         """
-        return self.instrument.query(f":CALC{self.n}:FSIM:SEND:ZCON:THE?").strip()
+        return self.instrument.query(f":CALC{self.channel}:FSIM:SEND:ZCON:THE?").strip()
 
     # CALC:FSIM:STAT - Fixture simulation ON/OFF
     def enable_fixture_simulation(self, enable: bool):
@@ -736,7 +372,7 @@ trace data transfer.
         Return:
             None
         """
-        self.instrument.write(f":CALC{self.n}:FSIM:STAT {1 if enable else 0}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:STAT {1 if enable else 0}")
 
     def is_fixture_simulation_enabled(self) -> bool:
         """
@@ -748,2098 +384,3287 @@ trace data transfer.
         Return:
             bool: True if enabled, False otherwise
         """
-        return bool(int(self.instrument.query(f":CALC{self.n}:FSIM:STAT?")))
-
-    class Trace:
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:STAT?")))
+class Calc_Balanced:
+    """Commands to modify balanced fixture simulation parameters."""
+    def __init__(self, instrument, data_handler, channel, bport):
+        self.channel = channel
+        self.bport = bport
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.DMC = Calc_Balanced_DMC(self.instrument, self.data_handler, channel, bport)
+    # CALC:FSIM:BAL:CZC:BPOR:Z0 - Set/read common impedance for balanced port
+    def set_balanced_port_common_impedance(self,value: float):
         """
-        Trace analysis, limit tests, markers, trace memory, math, statistic, trace data transfer.
+        Set the impedance value for the common impedance conversion function of the balanced port.
+
+        Description:
+            Sets the real impedance value for the common impedance conversion function of the balanced port.
+            The value is limited to the range 0.001 to 10_000_000 Ohms (1 mΩ to 10 MΩ).
+            The default value is 25 Ohms.
+
+        Parameters:
+            value (float): Impedance value in Ohms
+
+        Returns:
+            None
         """
-        def __init__(self, instrument, data_handler,channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-            self.hold = self.Hold(self.instrument, self.data_handler,channel)
+        value = max(0.001, min(10_000_000, value))
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:BPOR{self.bport}:Z0 {value}")
 
-        # CALC:FUNC:DATA? - Analysis result data array
-        def get_analysis_result_data(self):
-            """
-            Get the analysis result data array.
-
-            Parameter:
-                None
-
-            Return:
-                list: Analysis result data array
-            """
-            data = self.instrument.query(f":CALC{self.n}:FUNC:DATA?")
-            if self.data_handler.is_auto_saving_data_enabled():
-                self.data_handler.write_to_file(self, "ANALYSIS_RESULT", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
-
-        # CALC:FUNC:DOM - Arbitrary sweep range ON/OFF
-        def enable_arbitrary_sweep_range(self, enable: bool):
-            """
-            Enable or disable arbitrary sweep range.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FUNC:DOM {1 if enable else 0}")
-
-        def is_arbitrary_sweep_range_enabled(self) -> bool:
-            """
-            Query if arbitrary sweep range is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:FUNC:DOM?")))
-
-        # CALC:FUNC:DOM:COUP - Coupling range ON/OFF
-        def enable_coupling_range(self, enable: bool):
-            """
-            Enable or disable coupling range.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FUNC:DOM:COUP {1 if enable else 0}")
-
-        def is_coupling_range_enabled(self) -> bool:
-            """
-            Query if coupling range is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:FUNC:DOM:COUP?")))
-
-        # CALC:FUNC:DOM:STAR - Analysis range start
-        def set_analysis_range_start(self, value: float):
-            """
-            Set the analysis range start.
-
-            Parameter:
-                value (float): Start value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FUNC:DOM:STAR {value}")
-
-        def get_analysis_range_start(self) -> float:
-            """
-            Get the analysis range start.
-
-            Parameter:
-                None
-
-            Return:
-                float: Start value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:FUNC:DOM:STAR?"))
-
-        # CALC:FUNC:DOM:STOP - Analysis range stop
-        def set_analysis_range_stop(self, value: float):
-            """
-            Set the analysis range stop.
-
-            Parameter:
-                value (float): Stop value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FUNC:DOM:STOP {value}")
-
-        def get_analysis_range_stop(self) -> float:
-            """
-            Get the analysis range stop.
-
-            Parameter:
-                None
-
-            Return:
-                float: Stop value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:FUNC:DOM:STOP?"))
-
-        # CALC:FUNC:EXEC - Execute analysis
-        def execute_analysis(self):
-            """
-            Execute analysis.
-
-            Parameter:
-                None
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FUNC:EXEC")
-
-        # CALC:FUNC:PEXC - Lower limit for the peak excursion value
-        def set_peak_excursion_limit(self, value: float):
-            """
-            Set the lower limit for the peak excursion value.
-
-            Parameter:
-                value (float): Lower limit
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FUNC:PEXC {value}")
-
-        def get_peak_excursion_limit(self) -> float:
-            """
-            Get the lower limit for the peak excursion value.
-
-            Parameter:
-                None
-
-            Return:
-                float: Lower limit
-            """
-            return float(self.instrument.query(f":CALC{self.n}:FUNC:PEXC?"))
-
-        # CALC:FUNC:POIN? - Number of points (data pairs)
-        def get_number_of_points(self) -> int:
-            """
-            Get the number of points (data pairs).
-
-            Parameter:
-                None
-
-            Return:
-                int: Number of points
-            """
-            return int(self.instrument.query(f":CALC{self.n}:FUNC:POIN?"))
-
-        # CALC:FUNC:PPOL - Peak polarity
-        def set_peak_polarity(self, polarity: str):
-            """
-            Set the peak polarity.
-
-            Parameter:
-                polarity (str): One of ['POS', 'NEG', 'BOTH']
-
-            Return:
-                None
-            """
-            allowed = ['POS', 'NEG', 'BOTH']
-            if polarity not in allowed:
-                raise ValueError(f"polarity must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:FUNC:PPOL {polarity}")
-
-        def get_peak_polarity(self) -> str:
-            """
-            Get the peak polarity.
-
-            Parameter:
-                None
-
-            Return:
-                str: Peak polarity
-            """
-            return self.instrument.query(f":CALC{self.n}:FUNC:PPOL?").strip()
-
-        # CALC:FUNC:TARG - Target level
-        def set_target_level(self, value: float):
-            """
-            Set the target level.
-
-            Parameter:
-                value (float): Target level
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:FUNC:TARG {value}")
-
-        def get_target_level(self) -> float:
-            """
-            Get the target level.
-
-            Parameter:
-                None
-
-            Return:
-                float: Target level
-            """
-            return float(self.instrument.query(f":CALC{self.n}:FUNC:TARG?"))
-
-        # CALC:FUNC:TTR - Transition type
-        def set_transition_type(self, ttype: str):
-            """
-            Set the transition type.
-
-            Parameter:
-                ttype (str): One of ['RISE', 'FALL', 'BOTH']
-
-            Return:
-                None
-            """
-            allowed = ['RISE', 'FALL', 'BOTH']
-            if ttype not in allowed:
-                raise ValueError(f"ttype must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:FUNC:TTR {ttype}")
-
-        def get_transition_type(self) -> str:
-            """
-            Get the transition type.
-
-            Parameter:
-                None
-
-            Return:
-                str: Transition type
-            """
-            return self.instrument.query(f":CALC{self.n}:FUNC:TTR?").strip()
-
-        # CALC:FUNC:TYPE - Analysis type
-        def set_analysis_type(self, atype: str):
-            """
-            Set the analysis type.
-
-            Parameter:
-                atype (str): Analysis type, e.g., 'PEAK', 'VALLEY', etc.
-
-            Return:
-                None
-            """
-            allowed = ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
-            if atype not in allowed:
-                raise ValueError(f"atype must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:FUNC:TYPE {atype}")
-
-        def get_analysis_type(self) -> str:
-            """
-            Get the analysis type.
-
-            Parameter:
-                None
-
-            Return:
-                str: Analysis type
-            """
-            return self.instrument.query(f":CALC{self.n}:FUNC:TYPE?").strip()
-
-        class Hold:
-            """
-            Commands for trace hold functionality.
-            """
-            def __init__(self, instrument,data_handler, channel):
-                self.instrument = instrument
-                self.data_handler = data_handler
-                self.n = channel
-            # CALC:HOLD:TYPE - Trace hold type
-            def set_trace_hold_type(self, hold_type: str):
-                """
-                Set the trace hold type.
-
-                Parameter:
-                    hold_type (str): Trace hold type, e.g., 'NONE', 'MAX', 'MIN', etc.
-
-                Return:
-                    None
-                """
-                allowed = ['NONE', 'MAX', 'MIN', 'AVER']
-                if hold_type not in allowed:
-                    raise ValueError(f"hold_type must be one of {allowed}")
-                self.instrument.write(f":CALC{self.n}:HOLD:TYPE {hold_type}")
-
-            def get_trace_hold_type(self) -> str:
-                """
-                Get the trace hold type.
-
-                Parameter:
-                    None
-
-                Return:
-                    str: Trace hold type
-                """
-                return self.instrument.query(f":CALC{self.n}:HOLD:TYPE?").strip()
-
-            # CALC:HOLD:CLE - Trace hold restart
-            def restart_trace_hold(self):
-                """
-                Restart trace hold.
-
-                Parameter:
-                    None
-
-                Return:
-                    None
-                """
-                self.instrument.write(f":CALC{self.n}:HOLD:CLE")
-
-    class Limit:
+    def get_balanced_port_common_impedance(self, bport: int) -> float:
         """
-            Commands for limit tests, limit line table, limits display, limit test result,
-            """
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-        # CALC:LIM - Limit test ON/OFF
-        def enable_limit_test(self, enable: bool):
-            """
-            Enable or disable limit test.
+        Read out the impedance value for the common impedance conversion function of the balanced port.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+        Description:
+            Reads the real impedance value for the common impedance conversion function of the balanced port.
 
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:LIM {1 if enable else 0}")
+        Parameters:
+            bport (int): Balanced port number (1 or 2 for Bal-Bal topology, 1 for others)
 
-        def is_limit_test_enabled(self) -> bool:
-            """
-            Query if limit test is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:LIM?")))
-
-        # CALC:LIM:DATA - Limit line table
-        def set_limit_line_table(self, table: str):
-            """
-            Set the limit line table.
-
-            Parameter:
-                table (str): Limit line table string
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:LIM:DATA {table}")
-
-        def get_limit_line_table(self) -> str:
-            """
-            Get the limit line table.
-
-            Parameter:
-                None
-
-            Return:
-                str: Limit line table string
-            """
-            data = self.instrument.query(f":CALC{self.n}:LIM:DATA?").strip()
-            if self.data_handler.is_auto_saving_data_enabled():
-                self.data_handler.write_to_file(self, "LIMIT_LINE", data, file_type = EFileType.CSV)
-            return data
-        # CALC:LIM:DISP - Limits display ON/OFF
-        def enable_limits_display(self, enable: bool):
-            """
-            Enable or disable limits display.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:LIM:DISP {1 if enable else 0}")
-
-        def is_limits_display_enabled(self) -> bool:
-            """
-            Query if limits display is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:LIM:DISP?")))
-
-        # CALC:LIM:FAIL? - Limit test result
-        def get_limit_test_result(self) -> bool:
-            """
-            Get the limit test result.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if test failed, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:LIM:FAIL?")))
-
-        # CALC:LIM:OFFS:AMPL - Limit line Y-offset
-        def set_limit_line_y_offset(self, value: float):
-            """
-            Set the limit line Y-offset.
-
-            Parameter:
-                value (float): Y-offset value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:LIM:OFFS:AMPL {value}")
-
-        def get_limit_line_y_offset(self) -> float:
-            """
-            Get the limit line Y-offset.
-
-            Parameter:
-                None
-
-            Return:
-                float: Y-offset value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:LIM:OFFS:AMPL?"))
-
-        # CALC:LIM:OFFS:MARK - Limit line Y-offset to active marker value
-        def set_limit_line_y_offset_to_marker(self, value: float):
-            """
-            Set the limit line Y-offset to active marker value.
-
-            Parameter:
-                value (float): Y-offset value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:LIM:OFFS:MARK {value}")
-
-        def get_limit_line_y_offset_to_marker(self) -> float:
-            """
-            Get the limit line Y-offset to active marker value.
-
-            Parameter:
-                None
-
-            Return:
-                float: Y-offset value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:LIM:OFFS:MARK?"))
-
-        # CALC:LIM:OFFS:STIM - Limit line X-offset
-        def set_limit_line_x_offset(self, value: float):
-            """
-            Set the limit line X-offset.
-
-            Parameter:
-                value (float): X-offset value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:LIM:OFFS:STIM {value}")
-
-        def get_limit_line_x_offset(self) -> float:
-            """
-            Get the limit line X-offset.
-
-            Parameter:
-                None
-
-            Return:
-                float: X-offset value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:LIM:OFFS:STIM?"))
-
-        # CALC:LIM:REP:ALL? - Limit test result report
-        def get_limit_test_result_report(self) -> str:
-            """
-            Get the limit test result report.
-
-            Parameter:
-                None
-
-            Return:
-                str: Limit test result report
-            """
-            return self.instrument.query(f":CALC{self.n}:LIM:REP:ALL?").strip()
-
-        # CALC:LIM:REP:POIN? - Failed points
-        def get_failed_points(self) -> str:
-            """
-            Get the failed points.
-
-            Parameter:
-                None
-
-            Return:
-                str: Failed points
-            """
-            return self.instrument.query(f":CALC{self.n}:LIM:REP:POIN?").strip()
-
-        # CALC:LIM:REP? - Stimulus values of failed points
-        def get_failed_points_stimulus_values(self) -> str:
-            """
-            Get the stimulus values of failed points.
-
-            Parameter:
-                None
-
-            Return:
-                str: Stimulus values
-            """
-            return self.instrument.query(f":CALC{self.n}:LIM:REP?").strip()
-
-    class Marker:
+        Returns:
+            float: Impedance value in Ohms
         """
-            Commands for modifying the marker function parameters.
-            """
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-        # CALC:MARK - Marker ON/OFF
-        def enable_marker(self, marker: int, enable: bool):
-            """
-            Enable or disable marker.
-    
-            Parameter:
-                marker (int): Marker number
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker} {1 if enable else 0}")
-    
-        def is_marker_enabled(self, marker: int) -> bool:
-            """
-            Query if marker is enabled.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK{marker}?")))
-    
-        # CALC:MARK:ACT - Sets active marker
-        def set_active_marker(self, marker: int):
-            """
-            Set the active marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK:ACT {marker}")
-    
-        def get_active_marker(self) -> int:
-            """
-            Get the active marker.
-    
-            Parameter:
-                None
-    
-            Return:
-                int: Active marker number
-            """
-            return int(self.instrument.query(f":CALC{self.n}:MARK:ACT?"))
-    
-        # CALC:MARK:COUN - Number of markers
-        def set_marker_count(self, count: int):
-            """
-            Set the number of markers.
-    
-            Parameter:
-                count (int): Number of markers
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK:COUN {count}")
-    
-        def get_marker_count(self) -> int:
-            """
-            Get the number of markers.
-    
-            Parameter:
-                None
-    
-            Return:
-                int: Number of markers
-            """
-            return int(self.instrument.query(f":CALC{self.n}:MARK:COUN?"))
-    
-        # CALC:MARK:COUP - Coupling of markers ON/OFF
-        def enable_marker_coupling(self, enable: bool):
-            """
-            Enable or disable coupling of markers.
-    
-            Parameter:
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK:COUP {1 if enable else 0}")
-    
-        def is_marker_coupling_enabled(self) -> bool:
-            """
-            Query if coupling of markers is enabled.
-    
-            Parameter:
-                None
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK:COUP?")))
-    
-        # CALC:MARK:DATA? - Response and stimulus values of all trace marker
-        def get_all_marker_data(self):
-            """
-            Get response and stimulus values of all trace markers.
-    
-            Parameter:
-                None
-    
-            Return:
-                list: Marker data array
-            """
-            data = self.instrument.query(f":CALC{self.n}:MARK:DATA?")
-            if self.data_handler.is_auto_saving_data_enabled():
-                self.data_handler.write_to_file(self, "MARKER", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
-    
-        # CALC:MARK:DISC - Marker discrete mode ON/OFF
-        def enable_marker_discrete_mode(self, enable: bool):
-            """
-            Enable or disable marker discrete mode.
-    
-            Parameter:
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK:DISC {1 if enable else 0}")
-    
-        def is_marker_discrete_mode_enabled(self) -> bool:
-            """
-            Query if marker discrete mode is enabled.
-    
-            Parameter:
-                None
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK:DISC?")))
-    
-        # CALC:MARK:REF - Reference marker ON/OFF
-        def enable_reference_marker(self, marker: int, enable: bool):
-            """
-            Enable or disable reference marker.
-    
-            Parameter:
-                marker (int): Marker number
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:REF {1 if enable else 0}")
-    
-        def is_reference_marker_enabled(self, marker: int) -> bool:
-            """
-            Query if reference marker is enabled.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK{marker}:REF?")))
-    
-        # CALC:MARK:X - Stimulus value of marker
-        def set_marker_x(self, marker: int, value: float):
-            """
-            Set the stimulus value of marker.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Stimulus value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:X {value}")
-    
-        def get_marker_x(self, marker: int) -> float:
-            """
-            Get the stimulus value of marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Stimulus value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:X?"))
-    
-        # CALC:MARK:Y? - Response value of marker
-        def get_marker_y(self, marker: int) -> float:
-            """
-            Get the response value of marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Response value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:Y?"))
-    
-        # CALC:MARK:BWID - Bandwidth search ON/OFF
-        def enable_bandwidth_search(self, marker: int, enable: bool):
-            """
-            Enable or disable bandwidth search for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:BWID {1 if enable else 0}")
-    
-        def is_bandwidth_search_enabled(self, marker: int) -> bool:
-            """
-            Query if bandwidth search for marker is enabled.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK{marker}:BWID?")))
-    
-        # CALC:MARK:BWID:DATA? - Bandwidth search result
-        def get_bandwidth_search_result(self, marker: int):
-            """
-            Get bandwidth search result for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                list: Bandwidth search result array
-            """
-            data = self.instrument.query(f":CALC{self.n}:MARK{marker}:BWID:DATA?")
-            if self.data_handler.is_auto_saving_data_enabled():
-                self.data_handler.write_to_file(self, "BWDTH_SEARCH", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
-    
-        # CALC:MARK:BWID:REF - Reference of search
-        def set_bandwidth_search_reference(self, marker: int, value: float):
-            """
-            Set reference of bandwidth search for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Reference value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:BWID:REF {value}")
-    
-        def get_bandwidth_search_reference(self, marker: int) -> float:
-            """
-            Get reference of bandwidth search for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Reference value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:BWID:REF?"))
-    
-        # CALC:MARK:BWID:THR - Bandwidth threshold value
-        def set_bandwidth_threshold(self, marker: int, value: float):
-            """
-            Set bandwidth threshold value for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Threshold value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:BWID:THR {value}")
-    
-        def get_bandwidth_threshold(self, marker: int) -> float:
-            """
-            Get bandwidth threshold value for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Threshold value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:BWID:THR?"))
-    
-        # CALC:MARK:BWID:TYPE - Type of search
-        def set_bandwidth_search_type(self, marker: int, search_type: str):
-            """
-            Set type of bandwidth search for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                search_type (str): One of ['3DB', '6DB', 'XDB']
-    
-            Return:
-                None
-            """
-            allowed = ['3DB', '6DB', 'XDB']
-            if search_type not in allowed:
-                raise ValueError(f"search_type must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:BWID:TYPE {search_type}")
-    
-        def get_bandwidth_search_type(self, marker: int) -> str:
-            """
-            Get type of bandwidth search for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                str: Search type
-            """
-            return self.instrument.query(f":CALC{self.n}:MARK{marker}:BWID:TYPE?").strip()
-    
-        # CALC:MARK:FUNC:DOM - Marker search arbitrary range ON/OFF
-        def enable_marker_search_arbitrary_range(self, marker: int, enable: bool):
-            """
-            Enable or disable marker search arbitrary range.
-    
-            Parameter:
-                marker (int): Marker number
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:DOM {1 if enable else 0}")
-    
-        def is_marker_search_arbitrary_range_enabled(self, marker: int) -> bool:
-            """
-            Query if marker search arbitrary range is enabled.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:DOM?")))
-    
-        # CALC:MARK:FUNC:DOM:COUP - Coupling of marker search ranges ON/OFF
-        def enable_marker_search_range_coupling(self, marker: int, enable: bool):
-            """
-            Enable or disable coupling of marker search ranges.
-    
-            Parameter:
-                marker (int): Marker number
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:DOM:COUP {1 if enable else 0}")
-    
-        def is_marker_search_range_coupling_enabled(self, marker: int) -> bool:
-            """
-            Query if coupling of marker search ranges is enabled.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:DOM:COUP?")))
-    
-        # CALC:MARK:FUNC:DOM:STAR - Start of the marker search range
-        def set_marker_search_range_start(self, marker: int, value: float):
-            """
-            Set start of the marker search range.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Start value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:DOM:STAR {value}")
-    
-        def get_marker_search_range_start(self, marker: int) -> float:
-            """
-            Get start of the marker search range.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Start value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:DOM:STAR?"))
-    
-        # CALC:MARK:FUNC:DOM:STOP - Stop of the marker search range
-        def set_marker_search_range_stop(self, marker: int, value: float):
-            """
-            Set stop of the marker search range.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Stop value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:DOM:STOP {value}")
-    
-        def get_marker_search_range_stop(self, marker: int) -> float:
-            """
-            Get stop of the marker search range.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Stop value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:DOM:STOP?"))
-    
-        # CALC:MARK:FUNC:EXEC - Executes search
-        def execute_marker_search(self, marker: int):
-            """
-            Execute marker search.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:EXEC")
-    
-        # CALC:MARK:FUNC:PEXC - Peak excursion value
-        def set_marker_peak_excursion(self, marker: int, value: float):
-            """
-            Set peak excursion value for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Peak excursion value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:PEXC {value}")
-    
-        def get_marker_peak_excursion(self, marker: int) -> float:
-            """
-            Get peak excursion value for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Peak excursion value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:PEXC?"))
-    
-        # CALC:MARK:FUNC:PPOL - Peak polarity
-        def set_marker_peak_polarity(self, marker: int, polarity: str):
-            """
-            Set peak polarity for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                polarity (str): One of ['POS', 'NEG', 'BOTH']
-    
-            Return:
-                None
-            """
-            allowed = ['POS', 'NEG', 'BOTH']
-            if polarity not in allowed:
-                raise ValueError(f"polarity must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:PPOL {polarity}")
-    
-        def get_marker_peak_polarity(self, marker: int) -> str:
-            """
-            Get peak polarity for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                str: Peak polarity
-            """
-            return self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:PPOL?").strip()
-    
-        # CALC:MARK:FUNC:TARG - Target value
-        def set_marker_target_value(self, marker: int, value: float):
-            """
-            Set target value for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Target value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:TARG {value}")
-    
-        def get_marker_target_value(self, marker: int) -> float:
-            """
-            Get target value for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Target value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:TARG?"))
-    
-        # CALC:MARK:FUNC:TRAC - Marker search tracking ON/OFF
-        def enable_marker_search_tracking(self, marker: int, enable: bool):
-            """
-            Enable or disable marker search tracking.
-    
-            Parameter:
-                marker (int): Marker number
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:TRAC {1 if enable else 0}")
-    
-        def is_marker_search_tracking_enabled(self, marker: int) -> bool:
-            """
-            Query if marker search tracking is enabled.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:TRAC?")))
-    
-        # CALC:MARK:FUNC:TTR - Type of target transition
-        def set_marker_target_transition_type(self, marker: int, ttype: str):
-            """
-            Set type of target transition for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                ttype (str): One of ['RISE', 'FALL', 'BOTH']
-    
-            Return:
-                None
-            """
-            allowed = ['RISE', 'FALL', 'BOTH']
-            if ttype not in allowed:
-                raise ValueError(f"ttype must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:TTR {ttype}")
-    
-        def get_marker_target_transition_type(self, marker: int) -> str:
-            """
-            Get type of target transition for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                str: Transition type
-            """
-            return self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:TTR?").strip()
-    
-        # CALC:MARK:FUNC:TYPE - Search type
-        def set_marker_search_type(self, marker: int, search_type: str):
-            """
-            Set search type for marker.
-    
-            Parameter:
-                marker (int): Marker number
-                search_type (str): One of ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
-    
-            Return:
-                None
-            """
-            allowed = ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
-            if search_type not in allowed:
-                raise ValueError(f"search_type must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:FUNC:TYPE {search_type}")
-    
-        def get_marker_search_type(self, marker: int) -> str:
-            """
-            Get search type for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                str: Search type
-            """
-            return self.instrument.query(f":CALC{self.n}:MARK{marker}:FUNC:TYPE?").strip()
-    
-        # CALC:MARK:MATH:FLAT:DATA? - Flatness function data
-        def get_marker_flatness_data(self, marker: int):
-            """
-            Get flatness function data for marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                list: Flatness data array
-            """
-            data = self.instrument.query(f":CALC{self.n}:MARK{marker}:MATH:FLAT:DATA?")
-            if self.data_handler.is_auto_saving_data_enabled():
-                self.data_handler.write_to_file(self, "MARKER_FLATNESS", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
-    
-        # CALC:MARK:MATH:FLAT:STAT - Marker flatness ON/OFF
-        def enable_marker_flatness(self, marker: int, enable: bool):
-            """
-            Enable or disable marker flatness.
-    
-            Parameter:
-                marker (int): Marker number
-                enable (bool): True to enable, False to disable
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:MATH:FLAT:STAT {1 if enable else 0}")
-    
-        def is_marker_flatness_enabled(self, marker: int) -> bool:
-            """
-            Query if marker flatness is enabled.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MARK{marker}:MATH:FLAT:STAT?")))
-    
-        # CALC:MARK:MATH:FLAT:DOM:STAR - Marker specifying start of frequency range
-        def set_marker_flatness_range_start(self, marker: int, value: float):
-            """
-            Set marker specifying start of frequency range for flatness.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Start value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:MATH:FLAT:DOM:STAR {value}")
-    
-        def get_marker_flatness_range_start(self, marker: int) -> float:
-            """
-            Get marker specifying start of frequency range for flatness.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Start value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:MATH:FLAT:DOM:STAR?"))
-    
-        # CALC:MARK:MATH:FLAT:DOM:STOP - Marker specifying stop of frequency range
-        def set_marker_flatness_range_stop(self, marker: int, value: float):
-            """
-            Set marker specifying stop of frequency range for flatness.
-    
-            Parameter:
-                marker (int): Marker number
-                value (float): Stop value
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:MATH:FLAT:DOM:STOP {value}")
-    
-        def get_marker_flatness_range_stop(self, marker: int) -> float:
-            """
-            Get marker specifying stop of frequency range for flatness.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                float: Stop value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MARK{marker}:MATH:FLAT:DOM:STOP?"))
-    
-        # CALC:MARK:SET - Sets item value according to the position of the marker
-        def set_item_value_by_marker(self, marker: int):
-            """
-            Set item value according to the position of the marker.
-    
-            Parameter:
-                marker (int): Marker number
-    
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MARK{marker}:SET")
-    
-    class Math:
+        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:CZC:BPOR{bport}:Z0?"))
+    # CALC:FSIM:BAL:CZC:STAT - Common impedance conversion ON/OFF
+    def enable_common_impedance_conversion(self):
         """
-        Memory Trace Function, Math operation, statistics, smoothing, ripple limit, and time domain.
+        Turns ON the common impedance conversion function of the balanced port.
+
+
+        Returns:
+            None
         """
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-        # CALC:MATH:FUNC - Math operation
-        def set_math_operation(self, operation: str):
-            """
-            Set the math operation for memory trace.
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:STAT 1")
 
-            Parameter:
-                operation (str): Math operation, e.g., 'ADD', 'SUB', 'MUL', 'DIV', etc.
-
-            Return:
-                None
-            """
-            allowed = ['ADD', 'SUB', 'MUL', 'DIV', 'NONE']
-            if operation not in allowed:
-                raise ValueError(f"operation must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:MATH:FUNC {operation}")
-
-        def get_math_operation(self) -> str:
-            """
-            Get the current math operation for memory trace.
-
-            Parameter:
-                None
-
-            Return:
-                str: Math operation
-            """
-            return self.instrument.query(f":CALC{self.n}:MATH:FUNC?").strip()
-
-        # CALC:MATH:MEM - Data => Memory
-        def store_data_to_memory(self):
-            """
-            Store current data to memory.
-
-            Parameter:
-                None
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MATH:MEM")
-
-    class MST:
+    def disable_common_impedance_conversion(self):
         """
-         Commands math statistics commands.
+        Turns OFF the common impedance conversion function of the balanced port.
+
+
+        Returns:
+            None
         """
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-        # CALC:MST - Math statistics ON/OFF
-        def enable_statistics(self, enable: bool):
-            """
-            Enable or disable math statistics.
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:STAT 0")
 
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MST {1 if enable else 0}")
-
-        def is_statistics_enabled(self) -> bool:
-            """
-            Query if math statistics is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MST?")))
-
-        # CALC:MST:DATA? - Math statistics data
-        def get_statistics_data(self):
-            """
-            Get math statistics data.
-
-            Parameter:
-                None
-
-            Return:
-                list: Statistics data array
-            """
-            data = self.instrument.query(f":CALC{self.n}:MST:DATA?")
-            if self.data_handler.is_auto_saving_data_enabled():
-                self.data_handler.write_to_file(self, "MSTH_STATS", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
-
-        # CALC:MST:DOM - Partial frequency range ON/OFF
-        def enable_partial_frequency_range(self, enable: bool):
-            """
-            Enable or disable partial frequency range for statistics.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MST:DOM {1 if enable else 0}")
-
-        def is_partial_frequency_range_enabled(self) -> bool:
-            """
-            Query if partial frequency range is enabled for statistics.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:MST:DOM?")))
-
-        # CALC:MST:DOM:STAR - Marker specifying start of frequency range
-        def set_statistics_range_start(self, value: float):
-            """
-            Set marker specifying start of frequency range for statistics.
-
-            Parameter:
-                value (float): Start value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MST:DOM:STAR {value}")
-
-        def get_statistics_range_start(self) -> float:
-            """
-            Get marker specifying start of frequency range for statistics.
-
-            Parameter:
-                None
-
-            Return:
-                float: Start value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MST:DOM:STAR?"))
-
-        # CALC:MST:DOM:STOP - Marker specifying stop of frequency range
-        def set_statistics_range_stop(self, value: float):
-            """
-            Set marker specifying stop of frequency range for statistics.
-
-            Parameter:
-                value (float): Stop value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:MST:DOM:STOP {value}")
-
-        def get_statistics_range_stop(self) -> float:
-            """
-            Get marker specifying stop of frequency range for statistics.
-
-            Parameter:
-                None
-
-            Return:
-                float: Stop value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:MST:DOM:STOP?"))
-    # CALC:PAR:DEF - Define a new trace
-    def define_trace(self, trace_name: str, parameter: str):
+    def is_common_impedance_conversion_enabled(self) -> bool:
         """
-        Define a new trace with the given name and parameter.
+        Query if the common impedance conversion function of the balanced port is enabled.
+
+        Returns:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:CZC:STAT?")))
+
+    # CALC:FSIM:BAL:DEV - Select type of balanced device
+    def set_balanced_device_type(self, device_type: str):
+        """
+        Selects the type of balanced device of the balance-unbalance fixture simulation function.
+
+        Parameters:
+            device_type (str): Type of balanced device, one of ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
+
+        Returns:
+            None
+        """
+        allowed = ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
+        if device_type not in allowed:
+            raise ValueError(f"device_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DEV {device_type}")
+
+    def get_balanced_device_type(self) -> str:
+        """
+        Reads out the type of balanced device of the balance-unbalance fixture simulation function.
+
+        Returns:
+            str: Type of balanced device
+        """
+        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DEV?").strip()
+
+    # CALC:FSIM:BAL:DMC:BPOR:PAR:C - Capacitance value of C element
+    def set_dmc_c(self, bport: int, value: float):
+        """
+        Sets the capacitance value of the C element of the differential matching circuit.
+
+        Parameters:
+            bport (int): Balanced port number (1 or 2)
+            value (float): Capacitance value in Farads (1e-18 to 1e18)
+
+        Returns:
+            None
+        """
+        value = max(1e-18, min(1e18, value))
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:C {value}")
+
+    def get_dmc_c(self, bport: int) -> float:
+        """
+        Reads out the capacitance value of the C element of the differential matching circuit.
+
+        Parameters:
+            bport (int): Balanced port number (1 or 2)
+
+        Returns:
+            float: Capacitance value in Farads
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:C?"))
+
+    # CALC:FSIM:BAL:DMC:BPOR:PAR:G - Conductance value of G element
+    def set_dmc_g(self, bport: int, value: float):
+        """
+        Sets the conductance value of the G element of the differential matching circuit.
+
+        Parameters:
+            bport (int): Balanced port number (1 or 2)
+            value (float): Conductance value in Siemens (1e-18 to 1e18)
+
+        Returns:
+            None
+        """
+        value = max(1e-18, min(1e18, value))
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:G {value}")
+
+    def get_dmc_g(self, bport: int) -> float:
+        """
+        Reads out the conductance value of the G element of the differential matching circuit.
+
+        Parameters:
+            bport (int): Balanced port number (1 or 2)
+
+        Returns:
+            float: Conductance value in Siemens
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:G?"))
+
+    # CALC:FSIM:BAL:DMC:BPOR:PAR:L - Inductance value of L element
+    def set_dmc_l(self, bport: int, value: float):
+        """
+        Sets the inductance value of the L element of the differential matching circuit.
+
+        Parameters:
+            bport (int): Balanced port number (1 or 2)
+            value (float): Inductance value in Henry (1e-18 to 1e18)
+
+        Returns:
+            None
+        """
+        value = max(1e-18, min(1e18, value))
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:L {value}")
+
+    def get_dmc_l(self, bport: int) -> float:
+        """
+        Reads out the inductance value of the L element of the differential matching circuit.
+
+        Parameters:
+            bport (int): Balanced port number (1 or 2)
+
+        Returns:
+            float: Inductance value in Henry
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:L?"))
+    
+    # CALC:FSIM:BAL:DZC:BPOR:Z0 - Set/read DMC differential impedance
+    def set_dzconversion_impedance(self, bport: int, value: float):
+        """
+        Set the impedance value for the differential impedance conversion function of the balanced port.
+
+        Parameters:
+            bport (int): Balanced port number (1 or 2)
+            value (float): Impedance value in Ohms (0.001 to 10_000_000)
+
+        Returns:
+            None
+        """
+        value = max(0.001, min(10_000_000, value))
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:BPOR{bport}:Z0 {value}")
+
+    def get_dzconversion_impedance(self, bport: int) -> float:
+        """
+        Get the impedance value for the differential impedance conversion function of the balanced port.
+
+        Parameters:
+            bport (int): Balanced port number (1 or 2)
+
+        Returns:
+            float: Impedance value in Ohms
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DZC:BPOR{bport}:Z0?"))
+
+    # CALC:FSIM:BAL:DZC:STAT - Enable/disable DMC differential impedance conversion
+    def enable_dzconversion(self):
+        """
+        Enable the differential impedance conversion function of the balanced port.
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:STAT 1")
+
+    def disable_dzconversion(self):
+        """
+        Disable the differential impedance conversion function of the balanced port.
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:STAT 0")
+
+    def is_dzconversion_enabled(self) -> bool:
+        """
+        Query if the differential impedance conversion function of the balanced port is enabled.
+
+        Returns:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DZC:STAT?")))
+
+    # CALC:FSIM:BAL:PAR:BAL - Set/read measurement parameter for BALanced device type
+    def set_balanced_measurement_parameter(self, trace: int, param: str):
+        """
+        Set the measurement parameter of the fixture simulation function for BALanced device type.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+            param (str): Measurement parameter ('SDD11', 'SCD11', 'SDC11', 'SCC11')
+
+        Returns:
+            None
+        """
+        allowed = ['SDD11', 'SCD11', 'SDC11', 'SCC11']
+        if param not in allowed:
+            raise ValueError(f"param must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BAL:DEF {param}")
+
+    def get_balanced_measurement_parameter(self, trace: int) -> str:
+        """
+        Get the measurement parameter of the fixture simulation function for BALanced device type.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+
+        Returns:
+            str: Measurement parameter
+        """
+        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BAL:DEF?").strip()
+
+    # CALC:FSIM:BAL:PAR:BBAL - Set/read measurement parameter for BBALanced device type
+    def set_bbalanced_measurement_parameter(self, trace: int, param: str):
+        """
+        Set the measurement parameter of the fixture simulation function for BBALanced device type.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+            param (str): Measurement parameter (see allowed list)
+
+        Returns:
+            None
+        """
+        allowed = [
+            'SDD11', 'SDD21', 'SDD12', 'SDD22',
+            'SCD11', 'SCD21', 'SCD12', 'SCD22',
+            'SDC11', 'SDC21', 'SDC12', 'SDC22',
+            'SCC11', 'SCC21', 'SCC12', 'SCC22',
+            'IMB1', 'IMB2', 'CMRR'
+        ]
+        if param not in allowed:
+            raise ValueError(f"param must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BBAL:DEF {param}")
+
+    def get_bbalanced_measurement_parameter(self, trace: int) -> str:
+        """
+        Get the measurement parameter of the fixture simulation function for BBALanced device type.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+
+        Returns:
+            str: Measurement parameter
+        """
+        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BBAL:DEF?").strip()
+    # CALC:FSIM:BAL:PAR:SBAL - Set/read measurement parameter for SBALanced device type
+    def set_sbalanced_measurement_parameter(self, trace: int, param: str):
+        """
+        Set the measurement parameter of the fixture simulation function for SBALanced device type.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+            param (str): Measurement parameter, one of [
+                'SSS11', 'SDS21', 'SSD12', 'SCS21', 'SSC12', 'SDD22', 'SCD22', 'SDC22', 'SCC22',
+                'IMB', 'CMRR1', 'CMRR2'
+            ]
+
+        Returns:
+            None
+        """
+        allowed = [
+            'SSS11', 'SDS21', 'SSD12', 'SCS21', 'SSC12', 'SDD22', 'SCD22', 'SDC22', 'SCC22',
+            'IMB', 'CMRR1', 'CMRR2'
+        ]
+        if param not in allowed:
+            raise ValueError(f"param must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SBAL:DEF {param}")
+
+    def get_sbalanced_measurement_parameter(self, trace: int) -> str:
+        """
+        Get the measurement parameter of the fixture simulation function for SBALanced device type.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+
+        Returns:
+            str: Measurement parameter
+        """
+        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SBAL:DEF?").strip()
+
+    # CALC:FSIM:BAL:PAR:SSB - Set/read measurement parameter for SSBalanced device type
+    def set_ssbalanced_measurement_parameter(self, trace: int, param: str):
+        """
+        Set the measurement parameter of the fixture simulation function for SSBalanced device type.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+            param (str): Measurement parameter, one of [
+                'SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23',
+                'SCS31', 'SCS32', 'SSC13', 'SSC23', 'SDD33', 'SCD33', 'SDC33', 'SCC33',
+                'IMB1', 'IMB2', 'IMB3', 'IMB4', 'CMRR1', 'CMRR2'
+            ]
+
+        Returns:
+            None
+        """
+        allowed = [
+            'SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23',
+            'SCS31', 'SCS32', 'SSC13', 'SSC23', 'SDD33', 'SCD33', 'SDC33', 'SCC33',
+            'IMB1', 'IMB2', 'IMB3', 'IMB4', 'CMRR1', 'CMRR2'
+        ]
+        if param not in allowed:
+            raise ValueError(f"param must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SSB:DEF {param}")
+
+    def get_ssbalanced_measurement_parameter(self, trace: int) -> str:
+        """
+        Get the measurement parameter of the fixture simulation function for SSBalanced device type.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+
+        Returns:
+            str: Measurement parameter
+        """
+        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SSB:DEF?").strip()
+
+    # CALC:FSIM:BAL:PAR:STAT - Enable/disable BalUn function for the specified trace
+    def enable_balun_function(self, trace: int):
+        """
+        Turn ON the BalUn function for the specified trace.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT 1")
+
+    def disable_balun_function(self, trace: int):
+        """
+        Turn OFF the BalUn function for the specified trace.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT 0")
+
+    def is_balun_function_enabled(self, trace: int) -> bool:
+        """
+        Query if the BalUn function is enabled for the specified trace.
+
+        Parameters:
+            trace (int): Trace number (1-16)
+
+        Returns:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT?")))
+
+    # CALC:FSIM:BAL:TOP:BAL - Set/read ports assigned to BALanced device type
+    def set_balanced_device_ports(self, port1: int, port2: int):
+        """
+        Set the ports assigned to the balanced device when its type is "BALance".
+
+        Parameters:
+            port1 (int): First port number
+            port2 (int): Second port number
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:BAL:PPOR {port1},{port2}")
+
+    def get_balanced_device_ports(self):
+        """
+        Get the ports assigned to the balanced device when its type is "BALance".
+
+        Returns:
+            tuple: (port1, port2)
+        """
+        resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:BAL:PPOR?").strip()
+        return tuple(map(int, resp.split(',')))
+
+    # CALC:FSIM:BAL:TOP:BBAL - Set/read ports assigned to BBALanced device type
+    def set_bbalanced_device_ports(self, port1: int, port2: int, port3: int, port4: int):
+        """
+        Set the ports assigned to the balanced device when its type is "BBALance".
+
+        Parameters:
+            port1 (int): First port number
+            port2 (int): Second port number
+            port3 (int): Third port number
+            port4 (int): Fourth port number
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:BBAL:PPOR {port1},{port2},{port3},{port4}")
+
+    def get_bbalanced_device_ports(self):
+        """
+        Get the ports assigned to the balanced device when its type is "BBALance".
+
+        Returns:
+            tuple: (port1, port2, port3, port4)
+        """
+        resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:BBAL:PPOR?").strip()
+        return tuple(map(int, resp.split(',')))
+    # CALC:FSIM:BAL:TOP:SBAL:PPOR - Set ports for SBALanced device type
+    def set_sbalanced_device_ports(self, port1: int, port2: int, port3: int):
+        """
+        Set the ports assigned to the balanced device when its type is "SBALanced".
+
+        Parameters:
+            port1 (int): First port number
+            port2 (int): Second port number
+            port3 (int): Third port number
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:SBAL:PPOR {port1},{port2},{port3}")
+
+    def get_sbalanced_device_ports(self):
+        """
+        Get the ports assigned to the balanced device when its type is "SBALanced".
+
+        Returns:
+            tuple: (port1, port2, port3)
+        """
+        resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:SBAL:PPOR?").strip()
+        return tuple(map(int, resp.split(',')))
+
+    # CALC:FSIM:BAL:TOP:SSB:PPOR - Set ports for SSBalanced device type
+    def set_ssbalanced_device_ports(self, port1: int, port2: int, port3: int, port4: int):
+        """
+        Set the ports assigned to the balanced device when its type is "SSBalanced".
+
+        Parameters:
+            port1 (int): First port number
+            port2 (int): Second port number
+            port3 (int): Third port number
+            port4 (int): Fourth port number
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:SSB:PPOR {port1},{port2},{port3},{port4}")
+
+    def get_ssbalanced_device_ports(self):
+        """
+        Get the ports assigned to the balanced device when its type is "SSBalanced".
+
+        Returns:
+            tuple: (port1, port2, port3, port4)
+        """
+        resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:SSB:PPOR?").strip()
+        return tuple(map(int, resp.split(',')))
+
+    # CALC:FSIM:BAL:TOP:PROP:STAT - Enable/disable BalUn property indication
+    def enable_balun_property_indication(self):
+        """
+        Turn ON the BalUn property indication on the screen.
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT 1")
+
+    def disable_balun_property_indication(self):
+        """
+        Turn OFF the BalUn property indication on the screen.
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT 0")
+
+    def is_balun_property_indication_enabled(self) -> bool:
+        """
+        Query if the BalUn property indication is enabled on the screen.
+
+        Returns:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT?")))
+
+    
+class Calc_Balanced_DMC:
+    """
+    Commands to modify differential matching circuit (DMC) parameters for balanced ports.
+    """
+    def __init__(self, instrument, data_handler, channel, bport):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+        self.bport = bport
+
+    # CALC:FSIM:BAL:DMC:BPOR:PAR:R - Set/read resistance value of R element
+    def set_dmc_r(self, value: float):
+        """
+        Set the resistance value of the R element of the differential matching circuit.
+
+        Parameters:
+            value (float): Resistance value in Ohms (1e-18 to 1e18)
+
+        Returns:
+            None
+        """
+        value = max(1e-18, min(1e18, value))
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:PAR:R {value}")
+
+    def get_dmc_r(self) -> float:
+        """
+        Get the resistance value of the R element of the differential matching circuit.
+
+        Returns:
+            float: Resistance value in Ohms
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:PAR:R?"))
+
+    # CALC:FSIM:BAL:DMC:BPOR:TYPE - Set/read type of DMC
+    def set_dmc_type(self, dmc_type: str):
+        """
+        Set the type of the differential matching circuit for the specified balanced port.
+
+        Parameters:
+            dmc_type (str): DMC type, one of ['NONE', 'PLPC', 'USER']
+
+        Returns:
+            None
+        """
+        allowed = ['NONE', 'PLPC', 'USER']
+        if dmc_type not in allowed:
+            raise ValueError(f"dmc_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:TYPE {dmc_type}")
+
+    def get_dmc_type(self) -> str:
+        """
+        Get the type of the differential matching circuit for the specified balanced port.
+
+        Returns:
+            str: DMC type ('NONE', 'PLPC', or 'USER')
+        """
+        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:TYPE?").strip()
+
+    # CALC:FSIM:BAL:DMC:BPOR:USER:FIL - Set/read user-defined DMC file
+    def set_dmc_user_file(self, filename: str):
+        """
+        Set the filename for the user-defined 2-port network for the DMC.
+
+        Parameters:
+            filename (str): Path to the .s2p Touchstone file (up to 256 characters)
+
+        Returns:
+            None
+        """
+        if len(filename) > 256:
+            raise ValueError("filename must be 256 characters or less")
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:USER:FIL \"{filename}\"")
+
+    def get_dmc_user_file(self) -> str:
+        """
+        Get the filename for the user-defined 2-port network for the DMC.
+
+        Returns:
+            str: Filename
+        """
+        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:USER:FIL?").strip()
+
+    # CALC:FSIM:BAL:DMC:STAT - Enable/disable DMC function
+    def enable_dmc(self):
+        """
+        Enable the differential matching circuit function.
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:STAT 1")
+
+    def disable_dmc(self):
+        """
+        Disable the differential matching circuit function.
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:STAT 0")
+
+    def is_dmc_enabled(self) -> bool:
+        """
+        Query if the differential matching circuit function is enabled.
+
+        Returns:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:STAT?")))
+class Calc_Embedded:
+    """Commands to modify embedding and de-embedding parameters."""
+    def __init__(self, instrument, data_handler, channel):
+        self.channel = channel
+        self.instrument = instrument
+        self.data_handler = data_handler
+    # CALC:FSIM:EMB:NETW<Nk>:FIL - Set/read 4-port Touchstone file for embedding/de-embedding
+    def set_embedded_network_file(self, network: int, filename: str):
+        """
+        Set the name of the 4-port Touchstone file (*.s4p) for the embedding/de-embedding feature.
+
+        Parameters:
+            network (int): Network number (1 or 2)
+            filename (str): Path to the .s4p Touchstone file
+
+        Returns:
+            None
+        """
+        if network not in [1, 2]:
+            raise ValueError("network must be 1 or 2")
+        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:NETW{network}:FIL \"{filename}\"")
+
+    def get_embedded_network_file(self, network: int) -> str:
+        """
+        Get the name of the 4-port Touchstone file (*.s4p) for the embedding/de-embedding feature.
+
+        Parameters:
+            network (int): Network number (1 or 2)
+
+        Returns:
+            str: Filename
+        """
+        if network not in [1, 2]:
+            raise ValueError("network must be 1 or 2")
+        return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:NETW{network}:FIL?").strip()
+    # CALC:FSIM:EMB:NETW:TYPE - Select processing type for 4-port embedding/de-embedding
+    def set_network_processing_type(self, network: int, proc_type: str):
+        """
+        Select the processing type of the 4-port network embedding/de-embedding feature.
+
+        Parameters:
+            network (int): Network number (1 or 2)
+            proc_type (str): Processing type, one of ['NONE', 'EMBed', 'DEEMbed']
+
+        Returns:
+            None
+        """
+        allowed = ['NONE', 'EMBed', 'DEEMbed']
+        if network not in [1, 2]:
+            raise ValueError("network must be 1 or 2")
+        if proc_type not in allowed:
+            raise ValueError(f"proc_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:NETW{network}:TYPE {proc_type}")
+
+    def get_network_processing_type(self, network: int) -> str:
+        """
+        Get the processing type of the 4-port network embedding/de-embedding feature.
+
+        Parameters:
+            network (int): Network number (1 or 2)
+
+        Returns:
+            str: Processing type ('NONE', 'EMB', or 'DEEM')
+        """
+        if network not in [1, 2]:
+            raise ValueError("network must be 1 or 2")
+        return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:NETW{network}:TYPE?").strip()
+
+    # CALC:FSIM:EMB:STATe - Enable/disable 4-port embedding/de-embedding feature
+    def enable_embedding(self):
+        """
+        Turn ON the 4-port network embedding/de-embedding feature.
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:STAT 1")
+
+    def disable_embedding(self):
+        """
+        Turn OFF the 4-port network embedding/de-embedding feature.
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:STAT 0")
+
+    def is_embedding_enabled(self) -> bool:
+        """
+        Query if the 4-port network embedding/de-embedding feature is enabled.
+
+        Returns:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:EMB:STAT?")))
+
+    # CALC:FSIM:EMB:TOP:A:PORTs - Set/read test port assignment for Topology A
+    def set_topology_a_ports(self, port1: int, port2: int):
+        """
+        Set the test port assignment for Topology A in the 4-port embedding/de-embedding feature.
+
+        Parameters:
+            port1 (int): First port number
+            port2 (int): Second port number
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:A:PORT {port1},{port2}")
+
+    def get_topology_a_ports(self):
+        """
+        Get the test port assignment for Topology A in the 4-port embedding/de-embedding feature.
+
+        Returns:
+            tuple: (port1, port2)
+        """
+        resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:A:PORT?").strip()
+        return tuple(map(int, resp.split(',')))
+
+    # CALC:FSIM:EMB:TOP:B:PORTs - Set/read test port assignment for Topology B
+    def set_topology_b_ports(self, port1: int, port2: int, port3: int):
+        """
+        Set the test port assignment for Topology B in the 4-port embedding/de-embedding feature.
+
+        Parameters:
+            port1 (int): First port number
+            port2 (int): Second port number
+            port3 (int): Third port number
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:B:PORT {port1},{port2},{port3}")
+
+    def get_topology_b_ports(self):
+        """
+        Get the test port assignment for Topology B in the 4-port embedding/de-embedding feature.
+
+        Returns:
+            tuple: (port1, port2, port3)
+        """
+        resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:B:PORT?").strip()
+        return tuple(map(int, resp.split(',')))
+
+    # CALC:FSIM:EMB:TOP:C:PORTs - Set/read test port assignment for Topology C
+    def set_topology_c_ports(self, port1: int, port2: int, port3: int, port4: int):
+        """
+        Set the test port assignment for Topology C in the 4-port embedding/de-embedding feature.
+
+        Parameters:
+            port1 (int): First port number
+            port2 (int): Second port number
+            port3 (int): Third port number
+            port4 (int): Fourth port number
+
+        Returns:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:C:PORT {port1},{port2},{port3},{port4}")
+
+    def get_topology_c_ports(self):
+        """
+        Get the test port assignment for Topology C in the 4-port embedding/de-embedding feature.
+
+        Returns:
+            tuple: (port1, port2, port3, port4)
+        """
+        resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:C:PORT?").strip()
+        return tuple(map(int, resp.split(',')))
+
+    # CALC:FSIM:EMB:TYPE - Select topology for 4-port embedding/de-embedding
+    def set_embedding_topology(self, topology: str):
+        """
+        Select the topology for the 4-port network embedding/de-embedding feature.
+
+        Parameters:
+            topology (str): Topology, one of ['A', 'B', 'C']
+
+        Returns:
+            None
+        """
+        allowed = ['A', 'B', 'C']
+        if topology not in allowed:
+            raise ValueError(f"topology must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TYPE {topology}")
+
+    def get_embedding_topology(self) -> str:
+        """
+        Get the topology for the 4-port network embedding/de-embedding feature.
+
+        Returns:
+            str: Topology ('A', 'B', or 'C')
+        """
+        return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TYPE?").strip()
+    
+class Calc_ElectricalDelay:
+    """Commands to modify electrical delay parameters."""
+    def __init__(self, instrument, data_handler, channel):
+        self.channel = channel
+        self.instrument = instrument
+        self.data_handler = data_handler
+
+    # CALC:CORR:EDEL:DIST - Equivalent distance in the electrical delay function
+    def set_equivalent_distance(self, distance: float):
+        """
+        Set the value of the equivalent distance in the electrical delay function.
 
         Parameter:
-        trace_name (str): Name of the trace
-        parameter (str): S-parameter (e.g., 'S11', 'S21', etc.)
+            distance (float): Distance value
 
         Return:
-        None
+            None
         """
-        self.instrument.write(f":CALC{self.n}:PAR:DEF '{trace_name}',{parameter}")
+        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:DIST {distance}")
 
-    # CALC:PAR:SPOR - Select trace by name
-    def select_trace_by_name(self, trace_name: str):
+    def get_equivalent_distance(self) -> float:
         """
-        Select the trace by its name.
+        Get the value of the equivalent distance in the electrical delay function.
 
         Parameter:
-        trace_name (str): Name of the trace
+            None
 
         Return:
-        None
+            float: Distance value
         """
-        self.instrument.write(f":CALC{self.n}:PAR:SPOR '{trace_name}'")
+        return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:DIST?"))
 
-    class RLIM:
+    # CALC:CORR:EDEL:DIST:UNIT - Distance units in the electrical delay function
+    def set_distance_unit(self, unit: str):
         """
-        Ripple Limit Test commands.
+        Set the distance units in the electrical delay function.
+
+        Parameter:
+            unit (str): Unit, one of ['MET', 'FEET', 'INCH']
+
+        Return:
+            None
         """
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-        # CALC:RLIM - Ripple limit test ON/OFF
-        def enable_ripple_limit_test(self, enable: bool):
-            """
-            Enable or disable ripple limit test.
+        allowed = ['MET', 'FEET', 'INCH']
+        if unit not in allowed:
+            raise ValueError(f"unit must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:DIST:UNIT {unit}")
 
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:RLIM {1 if enable else 0}")
-
-        def is_ripple_limit_test_enabled(self) -> bool:
-            """
-            Query if ripple limit test is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:RLIM?")))
-
-        # CALC:RLIM:DATA - Ripple limit line table
-        def set_ripple_limit_line_table(self, table: str):
-            """
-            Set the ripple limit line table.
-
-            Parameter:
-                table (str): Ripple limit line table string
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:RLIM:DATA {table}")
-
-        def get_ripple_limit_line_table(self) -> str:
-            """
-            Get the ripple limit line table.
-
-            Parameter:
-                None
-
-            Return:
-                str: Ripple limit line table string
-            """
-            data = self.instrument.query(f":CALC{self.n}:RLIM:DATA?").strip()
-            if self.data_handler.is_auto_saving_data_enabled():
-                self.data_handler.write_to_file(self, "RIPPLE_LIMIT_LINE", data, file_type = EFileType.CSV)
-            return data
-
-        # CALC:RLIM:DISP:LINE - Ripple Limit line display ON/OFF
-        def enable_ripple_limit_line_display(self, enable: bool):
-            """
-            Enable or disable ripple limit line display.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:RLIM:DISP:LINE {1 if enable else 0}")
-
-        def is_ripple_limit_line_display_enabled(self) -> bool:
-            """
-            Query if ripple limit line display is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:RLIM:DISP:LINE?")))
-
-        # CALC:RLIM:DISP:SEL - Number of band for ripple value display
-        def set_ripple_band_display(self, band: int):
-            """
-            Set the number of band for ripple value display.
-
-            Parameter:
-                band (int): Band number
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:RLIM:DISP:SEL {band}")
-
-        def get_ripple_band_display(self) -> int:
-            """
-            Get the number of band for ripple value display.
-
-            Parameter:
-                None
-
-            Return:
-                int: Band number
-            """
-            return int(self.instrument.query(f":CALC{self.n}:RLIM:DISP:SEL?"))
-
-        # CALC:RLIM:DISP:VAL - Display type of ripple value
-        def set_ripple_value_display_type(self, dtype: str):
-            """
-            Set the display type of ripple value.
-
-            Parameter:
-                dtype (str): Display type, e.g., 'MAX', 'MIN', 'AVG'
-
-            Return:
-                None
-            """
-            allowed = ['MAX', 'MIN', 'AVG']
-            if dtype not in allowed:
-                raise ValueError(f"dtype must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:RLIM:DISP:VAL {dtype}")
-
-        def get_ripple_value_display_type(self) -> str:
-            """
-            Get the display type of ripple value.
-
-            Parameter:
-                None
-
-            Return:
-                str: Display type
-            """
-            return self.instrument.query(f":CALC{self.n}:RLIM:DISP:VAL?").strip()
-
-        # CALC:RLIM:FAIL? - Ripple limit test result
-        def get_ripple_limit_test_result(self) -> bool:
-            """
-            Get the ripple limit test result.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if test failed, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:RLIM:FAIL?")))
-
-        # CALC:RLIM:REP? - Ripple limit test result report
-        def get_ripple_limit_test_result_report(self) -> str:
-            """
-            Get the ripple limit test result report.
-
-            Parameter:
-                None
-
-            Return:
-                str: Ripple limit test result report
-            """
-            return self.instrument.query(f":CALC{self.n}:RLIM:REP?").strip()
-
-    class SMO:
+    def get_distance_unit(self) -> str:
         """
-        Smoothing commands.
+        Get the distance units in the electrical delay function.
+
+        Parameter:
+            None
+
+        Return:
+            str: Unit
         """
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-        # CALC:SMO - Trace smoothing ON/OFF
-        def enable_smoothing(self, enable: bool):
-            """
-            Enable or disable trace smoothing.
+        return self.instrument.query(f":CALC{self.channel}:CORR:EDEL:DIST:UNIT?").strip()
 
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:SMO {1 if enable else 0}")
-
-        def is_smoothing_enabled(self) -> bool:
-            """
-            Query if trace smoothing is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:SMO?")))
-
-        # CALC:SMO:APER - Smoothing aperture
-        def set_smoothing_aperture(self, value: float):
-            """
-            Set the smoothing aperture.
-
-            Parameter:
-                value (float): Aperture value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:SMO:APER {value}")
-
-        def get_smoothing_aperture(self) -> float:
-            """
-            Get the smoothing aperture.
-
-            Parameter:
-                None
-
-            Return:
-                float: Aperture value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:SMO:APER?"))
-
-    class TRAN:
+    # CALC:CORR:EDEL:MED - Type of media in the electrical delay function
+    def set_media(self, media: str):
         """
-        Time Domain related commands.
+        Set the type of media in the electrical delay function.
+
+        Parameter:
+            media (str): Media type, one of ['COAX', 'WAV']
+
+        Return:
+            None
         """
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.n = channel
-        # CALC:TRAN:TIME - Setting Time Domain Parameters (Band-pass/Low-pass)
-        def set_time_domain_type(self, td_type: str):
-            """
-            Set the time domain type (Band-pass/Low-pass).
-
-            Parameter:
-                td_type (str): 'BPAS' for Band-pass, 'LPAS' for Low-pass
-
-            Return:
-                None
-            """
-            allowed = ['BPAS', 'LPAS']
-            if td_type not in allowed:
-                raise ValueError(f"td_type must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME {td_type}")
-
-        def get_time_domain_type(self) -> str:
-            """
-            Get the time domain type.
-
-            Parameter:
-                None
-
-            Return:
-                str: Time domain type
-            """
-            return self.instrument.query(f":CALC{self.n}:TRAN:TIME?").strip()
-
-        # CALC:TRAN:TIME:CENT - Time domain center
-        def set_time_domain_center(self, value: float):
-            """
-            Set the time domain center.
-
-            Parameter:
-                value (float): Center value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:CENT {value}")
-
-        def get_time_domain_center(self) -> float:
-            """
-            Get the time domain center.
-
-            Parameter:
-                None
-
-            Return:
-                float: Center value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:CENT?"))
-
-        # CALC:TRAN:TIME:DC:VAL - DC value
-        def set_time_domain_dc_value(self, value: float):
-            """
-            Set the DC value for time domain.
-
-            Parameter:
-                value (float): DC value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:DC:VAL {value}")
-
-        def get_time_domain_dc_value(self) -> float:
-            """
-            Get the DC value for time domain.
-
-            Parameter:
-                None
-
-            Return:
-                float: DC value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:DC:VAL?"))
-
-        # CALC:TRAN:TIME:EXTR:DC - DC extrapolation ON/OFF
-        def enable_time_domain_dc_extrapolation(self, enable: bool):
-            """
-            Enable or disable DC extrapolation in time domain.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:EXTR:DC {1 if enable else 0}")
-
-        def is_time_domain_dc_extrapolation_enabled(self) -> bool:
-            """
-            Query if DC extrapolation in time domain is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:TRAN:TIME:EXTR:DC?")))
-
-        # CALC:TRAN:TIME:IMP:WIDT - Impulse Width
-        def set_time_domain_impulse_width(self, value: float):
-            """
-            Set the impulse width for time domain.
-
-            Parameter:
-                value (float): Impulse width
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:IMP:WIDT {value}")
-
-        def get_time_domain_impulse_width(self) -> float:
-            """
-            Get the impulse width for time domain.
-
-            Parameter:
-                None
-
-            Return:
-                float: Impulse width
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:IMP:WIDT?"))
-
-        # CALC:TRAN:TIME:KBES - Kaiser-Bessel β
-        def set_time_domain_kaiser_bessel_beta(self, value: float):
-            """
-            Set the Kaiser-Bessel β for time domain.
-
-            Parameter:
-                value (float): Beta value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:KBES {value}")
-
-        def get_time_domain_kaiser_bessel_beta(self) -> float:
-            """
-            Get the Kaiser-Bessel β for time domain.
-
-            Parameter:
-                None
-
-            Return:
-                float: Beta value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:KBES?"))
-
-        # CALC:TRAN:TIME:LPFR - Sets frequency Low-Pass
-        def set_time_domain_lowpass_frequency(self, value: float):
-            """
-            Set the frequency for a Low-Pass in time domain.
-
-            Parameter:
-                value (float): Frequency value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:LPFR {value}")
-
-        def get_time_domain_lowpass_frequency(self) -> float:
-            """
-            Get the frequency for Low-Pass in time domain.
-
-            Parameter:
-                None
-
-            Return:
-                float: Frequency value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:LPFR?"))
-
-        # CALC:TRAN:TIME:REFL:TYPE - Selects One way/Round trip
-        def set_time_domain_reflection_type(self, refl_type: str):
-            """
-            Set the reflection type for time domain.
-
-            Parameter:
-                refl_type (str): 'ONEW' for One way, 'ROUN' for Round trip
-
-            Return:
-                None
-            """
-            allowed = ['ONEW', 'ROUN']
-            if refl_type not in allowed:
-                raise ValueError(f"refl_type must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:REFL:TYPE {refl_type}")
-
-        def get_time_domain_reflection_type(self) -> str:
-            """
-            Get the reflection type for time domain.
-
-            Parameter:
-                None
-
-            Return:
-                str: Reflection type
-            """
-            return self.instrument.query(f":CALC{self.n}:TRAN:TIME:REFL:TYPE?").strip()
-
-        # CALC:TRAN:TIME:SPAN - Time domain Span
-        def set_time_domain_span(self, value: float):
-            """
-            Set the time domain span.
-
-            Parameter:
-                value (float): Span value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:SPAN {value}")
-
-        def get_time_domain_span(self) -> float:
-            """
-            Get the time domain span.
-
-            Parameter:
-                None
-
-            Return:
-                float: Span value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:SPAN?"))
-
-        # CALC:TRAN:TIME:STAR - Time domain Start
-        def set_time_domain_start(self, value: float):
-            """
-            Set the time domain start.
-
-            Parameter:
-                value (float): Start value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:STAR {value}")
-
-        def get_time_domain_start(self) -> float:
-            """
-            Get the time domain start.
-
-            Parameter:
-                None
-
-            Return:
-                float: Start value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:STAR?"))
-
-        # CALC:TRAN:TIME:STOP - Time domain Stop
-        def set_time_domain_stop(self, value: float):
-            """
-            Set the time domain stop.
-
-            Parameter:
-                value (float): Stop value
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:STOP {value}")
-
-        def get_time_domain_stop(self) -> float:
-            """
-            Get the time domain stop.
-
-            Parameter:
-                None
-
-            Return:
-                float: Stop value
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:STOP?"))
-
-        # CALC:TRAN:TIME:STAT - Time domain transformation ON/OFF
-        def enable_time_domain_transformation(self, enable: bool):
-            """
-            Enable or disable time domain transformation.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:STAT {1 if enable else 0}")
-
-        def is_time_domain_transformation_enabled(self) -> bool:
-            """
-            Query if time domain transformation is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":CALC{self.n}:TRAN:TIME:STAT?")))
-
-        # CALC:TRAN:TIME:STEP:RTIM - Step rise time
-        def set_time_domain_step_rise_time(self, value: float):
-            """
-            Set the step rise time for time domain.
-
-            Parameter:
-                value (float): Rise time
-
-            Return:
-                None
-            """
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:STEP:RTIM {value}")
-
-        def get_time_domain_step_rise_time(self) -> float:
-            """
-            Get the step rise time for time domain.
-
-            Parameter:
-                None
-
-            Return:
-                float: Rise time
-            """
-            return float(self.instrument.query(f":CALC{self.n}:TRAN:TIME:STEP:RTIM?"))
-
-        # CALC:TRAN:TIME:STIM - Selects Impulse/Step type
-        def set_time_domain_stimulus_type(self, stim_type: str):
-            """
-            Set the stimulus type for time domain.
-
-            Parameter:
-                stim_type (str): 'IMP' for Impulse, 'STEP' for Step
-
-            Return:
-                None
-            """
-            allowed = ['IMP', 'STEP']
-            if stim_type not in allowed:
-                raise ValueError(f"stim_type must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:STIM {stim_type}")
-
-        def get_time_domain_stimulus_type(self) -> str:
-            """
-            Get the stimulus type for time domain.
-
-            Parameter:
-                None
-
-            Return:
-                str: Stimulus type
-            """
-            return self.instrument.query(f":CALC{self.n}:TRAN:TIME:STIM?").strip()
-
-        # CALC:TRAN:TIME:UNIT - Time domain Unit
-        def set_time_domain_unit(self, unit: str):
-            """
-            Set the time domain unit.
-
-            Parameter:
-                unit (str): 'SEC' for seconds, 'M' for meters
-
-            Return:
-                None
-            """
-            allowed = ['SEC', 'M']
-            if unit not in allowed:
-                raise ValueError(f"unit must be one of {allowed}")
-            self.instrument.write(f":CALC{self.n}:TRAN:TIME:UNIT {unit}")
-
-        def get_time_domain_unit(self) -> str:
-            """
-            Get the time domain unit.
-
-            Parameter:
-                None
-
-            Return:
-                str: Unit
-            """
-            return self.instrument.query(f":CALC{self.n}:TRAN:TIME:UNIT?").strip()
+        allowed = ['COAX', 'WAV']
+        if media not in allowed:
+            raise ValueError(f"media must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:MED {media}")
+
+    def get_media(self) -> str:
+        """
+        Get the type of media in the electrical delay function.
+
+        Parameter:
+            None
+
+        Return:
+            str: Media type
+        """
+        return self.instrument.query(f":CALC{self.channel}:CORR:EDEL:MED?").strip()
+
+    # CALC:CORR:EDEL:RVEL - Velocity factor used to calculate between delay and distance
+    def set_velocity_factor(self, factor: float):
+        """
+        Set the value of the velocity factor used to calculate between delay and distance.
+
+        Parameter:
+            factor (float): Velocity factor (0 to 1)
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:RVEL {factor}")
+
+    def get_velocity_factor(self) -> float:
+        """
+        Get the value of the velocity factor used to calculate between delay and distance.
+
+        Parameter:
+            None
+
+        Return:
+            float: Velocity factor
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:RVEL?"))
+
+    # CALC:CORR:EDEL:TIME - Value of the electrical delay
+    def set_electrical_delay(self, delay: float):
+        """
+        Set the value of the electrical delay.
+
+        Parameter:
+            delay (float): Delay in seconds
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:TIME {delay}")
+
+    def get_electrical_delay(self) -> float:
+        """
+        Get the value of the electrical delay.
+
+        Parameter:
+            None
+
+        Return:
+            float: Delay in seconds
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:TIME?"))
+
+    # CALC:CORR:EDEL:WAV:CUT - Waveguide cutoff frequency in the electrical delay function
+    def set_waveguide_cutoff(self, freq: float):
+        """
+        Set the value of the waveguide cutoff frequency in the electrical delay function.
+
+        Parameter:
+            freq (float): Frequency in Hz
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:WAV:CUT {freq}")
+
+    def get_waveguide_cutoff(self) -> float:
+        """
+        Get the value of the waveguide cutoff frequency in the electrical delay function.
+
+        Parameter:
+            None
+
+        Return:
+            float: Frequency in Hz
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:WAV:CUT?"))
+
+class Calc_Filter:
+    """Commands for modifying the gating function parameters."""
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+
+    # CALC:FILT:TIME - Gate type of the gating function
+    def set_gate_type(self, gate_type: str):
+        """
+        Set the gate type of the gating function.
+
+        Parameter:
+            gate_type (str): Gate type, one of ['BPAS', 'NOTC']
+
+        Return:
+            None
+        """
+        allowed = ['BPAS', 'NOTC']
+        if gate_type not in allowed:
+            raise ValueError(f"gate_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FILT:TIME {gate_type}")
+
+    def get_gate_type(self) -> str:
+        """
+        Get the gate type of the gating function.
+
+        Parameter:
+            None
+
+        Return:
+            str: Gate type
+        """
+        return self.instrument.query(f":CALC{self.channel}:FILT:TIME?").strip()
+
+    # CALC:FILT:TIME:CENT - Gate center value of the gating function
+    def set_gate_center(self, center: float):
+        """
+        Set the gate center value of the gating function.
+
+        Parameter:
+            center (float): Center value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FILT:TIME:CENT {center}")
+
+    def get_gate_center(self) -> float:
+        """
+        Get the gate center value of the gating function.
+
+        Parameter:
+            None
+
+        Return:
+            float: Center value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:CENT?"))
+
+    # CALC:FILT:TIME:SHAP - Gate shape of the gating function
+    def set_gate_shape(self, shape: str):
+        """
+        Set the gate shape of the gating function.
+
+        Parameter:
+            shape (str): Gate shape, one of ['MAX', 'WIDE', 'NORM', 'MIN']
+
+        Return:
+            None
+        """
+        allowed = ['MAX', 'WIDE', 'NORM', 'MIN']
+        if shape not in allowed:
+            raise ValueError(f"shape must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FILT:TIME:SHAP {shape}")
+
+    def get_gate_shape(self) -> str:
+        """
+        Get the gate shape of the gating function.
+
+        Parameter:
+            None
+
+        Return:
+            str: Gate shape
+        """
+        return self.instrument.query(f":CALC{self.channel}:FILT:TIME:SHAP?").strip()
+
+    # CALC:FILT:TIME:SPAN - Gate span value of the gating function
+    def set_gate_span(self, span: float):
+        """
+        Set the gate span value of the gating function.
+
+        Parameter:
+            span (float): Span value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FILT:TIME:SPAN {span}")
+
+    def get_gate_span(self) -> float:
+        """
+        Get the gate span value of the gating function.
+
+        Parameter:
+            None
+
+        Return:
+            float: Span value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:SPAN?"))
+
+    # CALC:FILT:TIME:STAR - Gate start value of the gating function
+    def set_gate_start(self, start: float):
+        """
+        Set the gate start value of the gating function.
+
+        Parameter:
+            start (float): Start value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FILT:TIME:STAR {start}")
+
+    def get_gate_start(self) -> float:
+        """
+        Get the gate start value of the gating function.
+
+        Parameter:
+            None
+
+        Return:
+            float: Start value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STAR?"))
+
+    # CALC:FILT:TIME:STAT - Gating function ON/OFF
+    def enable_gating(self, enable: bool):
+        """
+        Enable or disable the gating function.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FILT:TIME:STAT {1 if enable else 0}")
+
+    def is_gating_enabled(self) -> bool:
+        """
+        Query if the gating function is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STAT?")))
+
+    # CALC:FILT:TIME:STOP - Gate stop value of the gating function
+    def set_gate_stop(self, stop: float):
+        """
+        Set the gate stop value of the gating function.
+
+        Parameter:
+            stop (float): Stop value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FILT:TIME:STOP {stop}")
+
+    def get_gate_stop(self) -> float:
+        """
+        Get the gate stop value of the gating function.
+
+        Parameter:
+            None
+
+        Return:
+            float: Stop value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STOP?"))
+
+
+class Calc_Trace:
+    """
+    Trace analysis, limit tests, markers, trace memory, math, statistic, trace data transfer.
+    """
+    def __init__(self, instrument, data_handler,channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+        self.hold = Tr_Hold(self.instrument, self.data_handler,channel)
+
+    # CALC:FUNC:DATA? - Analysis result data array
+    def get_analysis_result_data(self):
+        """
+        Get the analysis result data array.
+
+        Parameter:
+            None
+
+        Return:
+            list: Analysis result data array
+        """
+        data = self.instrument.query(f":CALC{self.channel}:FUNC:DATA?")
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, "ANALYSIS_RESULT", data, file_type = EFileType.CSV)
+        return self.data_handler.parse_array(data)
+
+    # CALC:FUNC:DOM - Arbitrary sweep range ON/OFF
+    def enable_arbitrary_sweep_range(self, enable: bool):
+        """
+        Enable or disable arbitrary sweep range.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FUNC:DOM {1 if enable else 0}")
+
+    def is_arbitrary_sweep_range_enabled(self) -> bool:
+        """
+        Query if arbitrary sweep range is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FUNC:DOM?")))
+
+    # CALC:FUNC:DOM:COUP - Coupling range ON/OFF
+    def enable_coupling_range(self, enable: bool):
+        """
+        Enable or disable coupling range.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FUNC:DOM:COUP {1 if enable else 0}")
+
+    def is_coupling_range_enabled(self) -> bool:
+        """
+        Query if coupling range is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:COUP?")))
+
+    # CALC:FUNC:DOM:STAR - Analysis range start
+    def set_analysis_range_start(self, value: float):
+        """
+        Set the analysis range start.
+
+        Parameter:
+            value (float): Start value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FUNC:DOM:STAR {value}")
+
+    def get_analysis_range_start(self) -> float:
+        """
+        Get the analysis range start.
+
+        Parameter:
+            None
+
+        Return:
+            float: Start value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:STAR?"))
+
+    # CALC:FUNC:DOM:STOP - Analysis range stop
+    def set_analysis_range_stop(self, value: float):
+        """
+        Set the analysis range stop.
+
+        Parameter:
+            value (float): Stop value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FUNC:DOM:STOP {value}")
+
+    def get_analysis_range_stop(self) -> float:
+        """
+        Get the analysis range stop.
+
+        Parameter:
+            None
+
+        Return:
+            float: Stop value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:STOP?"))
+
+    # CALC:FUNC:EXEC - Execute analysis
+    def execute_analysis(self):
+        """
+        Execute analysis.
+
+        Parameter:
+            None
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FUNC:EXEC")
+
+    # CALC:FUNC:PEXC - Lower limit for the peak excursion value
+    def set_peak_excursion_limit(self, value: float):
+        """
+        Set the lower limit for the peak excursion value.
+
+        Parameter:
+            value (float): Lower limit
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FUNC:PEXC {value}")
+
+    def get_peak_excursion_limit(self) -> float:
+        """
+        Get the lower limit for the peak excursion value.
+
+        Parameter:
+            None
+
+        Return:
+            float: Lower limit
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FUNC:PEXC?"))
+
+    # CALC:FUNC:POIN? - Number of points (data pairs)
+    def get_number_of_points(self) -> int:
+        """
+        Get the number of points (data pairs).
+
+        Parameter:
+            None
+
+        Return:
+            int: Number of points
+        """
+        return int(self.instrument.query(f":CALC{self.channel}:FUNC:POIN?"))
+
+    # CALC:FUNC:PPOL - Peak polarity
+    def set_peak_polarity(self, polarity: str):
+        """
+        Set the peak polarity.
+
+        Parameter:
+            polarity (str): One of ['POS', 'NEG', 'BOTH']
+
+        Return:
+            None
+        """
+        allowed = ['POS', 'NEG', 'BOTH']
+        if polarity not in allowed:
+            raise ValueError(f"polarity must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FUNC:PPOL {polarity}")
+
+    def get_peak_polarity(self) -> str:
+        """
+        Get the peak polarity.
+
+        Parameter:
+            None
+
+        Return:
+            str: Peak polarity
+        """
+        return self.instrument.query(f":CALC{self.channel}:FUNC:PPOL?").strip()
+
+    # CALC:FUNC:TARG - Target level
+    def set_target_level(self, value: float):
+        """
+        Set the target level.
+
+        Parameter:
+            value (float): Target level
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:FUNC:TARG {value}")
+
+    def get_target_level(self) -> float:
+        """
+        Get the target level.
+
+        Parameter:
+            None
+
+        Return:
+            float: Target level
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:FUNC:TARG?"))
+
+    # CALC:FUNC:TTR - Transition type
+    def set_transition_type(self, ttype: str):
+        """
+        Set the transition type.
+
+        Parameter:
+            ttype (str): One of ['RISE', 'FALL', 'BOTH']
+
+        Return:
+            None
+        """
+        allowed = ['RISE', 'FALL', 'BOTH']
+        if ttype not in allowed:
+            raise ValueError(f"ttype must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FUNC:TTR {ttype}")
+
+    def get_transition_type(self) -> str:
+        """
+        Get the transition type.
+
+        Parameter:
+            None
+
+        Return:
+            str: Transition type
+        """
+        return self.instrument.query(f":CALC{self.channel}:FUNC:TTR?").strip()
+
+    # CALC:FUNC:TYPE - Analysis type
+    def set_analysis_type(self, atype: str):
+        """
+        Set the analysis type.
+
+        Parameter:
+            atype (str): Analysis type, e.g., 'PEAK', 'VALLEY', etc.
+
+        Return:
+            None
+        """
+        allowed = ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
+        if atype not in allowed:
+            raise ValueError(f"atype must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:FUNC:TYPE {atype}")
+
+    def get_analysis_type(self) -> str:
+        """
+        Get the analysis type.
+
+        Parameter:
+            None
+
+        Return:
+            str: Analysis type
+        """
+        return self.instrument.query(f":CALC{self.channel}:FUNC:TYPE?").strip()
+
+class Tr_Hold:
+    """
+    Commands for trace hold functionality.
+    """
+    def __init__(self, instrument,data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+    # CALC:HOLD:TYPE - Trace hold type
+    def set_trace_hold_type(self, hold_type: str):
+        """
+        Set the trace hold type.
+
+        Parameter:
+            hold_type (str): Trace hold type, e.g., 'NONE', 'MAX', 'MIN', etc.
+
+        Return:
+            None
+        """
+        allowed = ['NONE', 'MAX', 'MIN', 'AVER']
+        if hold_type not in allowed:
+            raise ValueError(f"hold_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:HOLD:TYPE {hold_type}")
+
+    def get_trace_hold_type(self) -> str:
+        """
+        Get the trace hold type.
+
+        Parameter:
+            None
+
+        Return:
+            str: Trace hold type
+        """
+        return self.instrument.query(f":CALC{self.channel}:HOLD:TYPE?").strip()
+
+    # CALC:HOLD:CLE - Trace hold restart
+    def restart_trace_hold(self):
+        """
+        Restart trace hold.
+
+        Parameter:
+            None
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:HOLD:CLE")
+
+class Calc_Limit:
+    """
+        Commands for limit tests, limit line table, limits display, limit test result,
+        """
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+    # CALC:LIM - Limit test ON/OFF
+    def enable_limit_test(self, enable: bool):
+        """
+        Enable or disable limit test.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:LIM {1 if enable else 0}")
+
+    def is_limit_test_enabled(self) -> bool:
+        """
+        Query if limit test is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:LIM?")))
+
+    # CALC:LIM:DATA - Limit line table
+    def set_limit_line_table(self, table: str):
+        """
+        Set the limit line table.
+
+        Parameter:
+            table (str): Limit line table string
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:LIM:DATA {table}")
+
+    def get_limit_line_table(self) -> str:
+        """
+        Get the limit line table.
+
+        Parameter:
+            None
+
+        Return:
+            str: Limit line table string
+        """
+        data = self.instrument.query(f":CALC{self.channel}:LIM:DATA?").strip()
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, "LIMIT_LINE", data, file_type = EFileType.CSV)
+        return data
+    # CALC:LIM:DISP - Limits display ON/OFF
+    def enable_limits_display(self, enable: bool):
+        """
+        Enable or disable limits display.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:LIM:DISP {1 if enable else 0}")
+
+    def is_limits_display_enabled(self) -> bool:
+        """
+        Query if limits display is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:LIM:DISP?")))
+
+    # CALC:LIM:FAIL? - Limit test result
+    def get_limit_test_result(self) -> bool:
+        """
+        Get the limit test result.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if test failed, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:LIM:FAIL?")))
+
+    # CALC:LIM:OFFS:AMPL - Limit line Y-offset
+    def set_limit_line_y_offset(self, value: float):
+        """
+        Set the limit line Y-offset.
+
+        Parameter:
+            value (float): Y-offset value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:LIM:OFFS:AMPL {value}")
+
+    def get_limit_line_y_offset(self) -> float:
+        """
+        Get the limit line Y-offset.
+
+        Parameter:
+            None
+
+        Return:
+            float: Y-offset value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:AMPL?"))
+
+    # CALC:LIM:OFFS:MARK - Limit line Y-offset to active marker value
+    def set_limit_line_y_offset_to_marker(self, value: float):
+        """
+        Set the limit line Y-offset to active marker value.
+
+        Parameter:
+            value (float): Y-offset value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:LIM:OFFS:MARK {value}")
+
+    def get_limit_line_y_offset_to_marker(self) -> float:
+        """
+        Get the limit line Y-offset to active marker value.
+
+        Parameter:
+            None
+
+        Return:
+            float: Y-offset value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:MARK?"))
+
+    # CALC:LIM:OFFS:STIM - Limit line X-offset
+    def set_limit_line_x_offset(self, value: float):
+        """
+        Set the limit line X-offset.
+
+        Parameter:
+            value (float): X-offset value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:LIM:OFFS:STIM {value}")
+
+    def get_limit_line_x_offset(self) -> float:
+        """
+        Get the limit line X-offset.
+
+        Parameter:
+            None
+
+        Return:
+            float: X-offset value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:STIM?"))
+
+    # CALC:LIM:REP:ALL? - Limit test result report
+    def get_limit_test_result_report(self) -> str:
+        """
+        Get the limit test result report.
+
+        Parameter:
+            None
+
+        Return:
+            str: Limit test result report
+        """
+        return self.instrument.query(f":CALC{self.channel}:LIM:REP:ALL?").strip()
+
+    # CALC:LIM:REP:POIN? - Failed points
+    def get_failed_points(self) -> str:
+        """
+        Get the failed points.
+
+        Parameter:
+            None
+
+        Return:
+            str: Failed points
+        """
+        return self.instrument.query(f":CALC{self.channel}:LIM:REP:POIN?").strip()
+
+    # CALC:LIM:REP? - Stimulus values of failed points
+    def get_failed_points_stimulus_values(self) -> str:
+        """
+        Get the stimulus values of failed points.
+
+        Parameter:
+            None
+
+        Return:
+            str: Stimulus values
+        """
+        return self.instrument.query(f":CALC{self.channel}:LIM:REP?").strip()
+
+class Calc_Marker:
+    """
+        Commands for modifying the marker function parameters.
+        """
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+    # CALC:MARK - Marker ON/OFF
+    def enable_marker(self, marker: int, enable: bool):
+        """
+        Enable or disable marker.
+
+        Parameter:
+            marker (int): Marker number
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker} {1 if enable else 0}")
+
+    def is_marker_enabled(self, marker: int) -> bool:
+        """
+        Query if marker is enabled.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}?")))
+
+    # CALC:MARK:ACT - Sets active marker
+    def set_active_marker(self, marker: int):
+        """
+        Set the active marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK:ACT {marker}")
+
+    def get_active_marker(self) -> int:
+        """
+        Get the active marker.
+
+        Parameter:
+            None
+
+        Return:
+            int: Active marker number
+        """
+        return int(self.instrument.query(f":CALC{self.channel}:MARK:ACT?"))
+
+    # CALC:MARK:COUN - Number of markers
+    def set_marker_count(self, count: int):
+        """
+        Set the number of markers.
+
+        Parameter:
+            count (int): Number of markers
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK:COUN {count}")
+
+    def get_marker_count(self) -> int:
+        """
+        Get the number of markers.
+
+        Parameter:
+            None
+
+        Return:
+            int: Number of markers
+        """
+        return int(self.instrument.query(f":CALC{self.channel}:MARK:COUN?"))
+
+    # CALC:MARK:COUP - Coupling of markers ON/OFF
+    def enable_marker_coupling(self, enable: bool):
+        """
+        Enable or disable coupling of markers.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK:COUP {1 if enable else 0}")
+
+    def is_marker_coupling_enabled(self) -> bool:
+        """
+        Query if coupling of markers is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK:COUP?")))
+
+    # CALC:MARK:DATA? - Response and stimulus values of all trace marker
+    def get_all_marker_data(self):
+        """
+        Get response and stimulus values of all trace markers.
+
+        Parameter:
+            None
+
+        Return:
+            list: Marker data array
+        """
+        data = self.instrument.query(f":CALC{self.channel}:MARK:DATA?")
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, "MARKER", data, file_type = EFileType.CSV)
+        return self.data_handler.parse_array(data)
+
+    # CALC:MARK:DISC - Marker discrete mode ON/OFF
+    def enable_marker_discrete_mode(self, enable: bool):
+        """
+        Enable or disable marker discrete mode.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK:DISC {1 if enable else 0}")
+
+    def is_marker_discrete_mode_enabled(self) -> bool:
+        """
+        Query if marker discrete mode is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK:DISC?")))
+
+    # CALC:MARK:REF - Reference marker ON/OFF
+    def enable_reference_marker(self, marker: int, enable: bool):
+        """
+        Enable or disable reference marker.
+
+        Parameter:
+            marker (int): Marker number
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:REF {1 if enable else 0}")
+
+    def is_reference_marker_enabled(self, marker: int) -> bool:
+        """
+        Query if reference marker is enabled.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:REF?")))
+
+    # CALC:MARK:X - Stimulus value of marker
+    def set_marker_x(self, marker: int, value: float):
+        """
+        Set the stimulus value of marker.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Stimulus value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:X {value}")
+
+    def get_marker_x(self, marker: int) -> float:
+        """
+        Get the stimulus value of marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Stimulus value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:X?"))
+
+    # CALC:MARK:Y? - Response value of marker
+    def get_marker_y(self, marker: int) -> float:
+        """
+        Get the response value of marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Response value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:Y?"))
+
+    # CALC:MARK:BWID - Bandwidth search ON/OFF
+    def enable_bandwidth_search(self, marker: int, enable: bool):
+        """
+        Enable or disable bandwidth search for marker.
+
+        Parameter:
+            marker (int): Marker number
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID {1 if enable else 0}")
+
+    def is_bandwidth_search_enabled(self, marker: int) -> bool:
+        """
+        Query if bandwidth search for marker is enabled.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID?")))
+
+    # CALC:MARK:BWID:DATA? - Bandwidth search result
+    def get_bandwidth_search_result(self, marker: int):
+        """
+        Get bandwidth search result for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            list: Bandwidth search result array
+        """
+        data = self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:DATA?")
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, "BWDTH_SEARCH", data, file_type = EFileType.CSV)
+        return self.data_handler.parse_array(data)
+
+    # CALC:MARK:BWID:REF - Reference of search
+    def set_bandwidth_search_reference(self, marker: int, value: float):
+        """
+        Set reference of bandwidth search for marker.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Reference value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:REF {value}")
+
+    def get_bandwidth_search_reference(self, marker: int) -> float:
+        """
+        Get reference of bandwidth search for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Reference value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:REF?"))
+
+    # CALC:MARK:BWID:THR - Bandwidth threshold value
+    def set_bandwidth_threshold(self, marker: int, value: float):
+        """
+        Set bandwidth threshold value for marker.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Threshold value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:THR {value}")
+
+    def get_bandwidth_threshold(self, marker: int) -> float:
+        """
+        Get bandwidth threshold value for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Threshold value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:THR?"))
+
+    # CALC:MARK:BWID:TYPE - Type of search
+    def set_bandwidth_search_type(self, marker: int, search_type: str):
+        """
+        Set type of bandwidth search for marker.
+
+        Parameter:
+            marker (int): Marker number
+            search_type (str): One of ['3DB', '6DB', 'XDB']
+
+        Return:
+            None
+        """
+        allowed = ['3DB', '6DB', 'XDB']
+        if search_type not in allowed:
+            raise ValueError(f"search_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:TYPE {search_type}")
+
+    def get_bandwidth_search_type(self, marker: int) -> str:
+        """
+        Get type of bandwidth search for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            str: Search type
+        """
+        return self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:TYPE?").strip()
+
+    # CALC:MARK:FUNC:DOM - Marker search arbitrary range ON/OFF
+    def enable_marker_search_arbitrary_range(self, marker: int, enable: bool):
+        """
+        Enable or disable marker search arbitrary range.
+
+        Parameter:
+            marker (int): Marker number
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM {1 if enable else 0}")
+
+    def is_marker_search_arbitrary_range_enabled(self, marker: int) -> bool:
+        """
+        Query if marker search arbitrary range is enabled.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM?")))
+
+    # CALC:MARK:FUNC:DOM:COUP - Coupling of marker search ranges ON/OFF
+    def enable_marker_search_range_coupling(self, marker: int, enable: bool):
+        """
+        Enable or disable coupling of marker search ranges.
+
+        Parameter:
+            marker (int): Marker number
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:COUP {1 if enable else 0}")
+
+    def is_marker_search_range_coupling_enabled(self, marker: int) -> bool:
+        """
+        Query if coupling of marker search ranges is enabled.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:COUP?")))
+
+    # CALC:MARK:FUNC:DOM:STAR - Start of the marker search range
+    def set_marker_search_range_start(self, marker: int, value: float):
+        """
+        Set start of the marker search range.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Start value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STAR {value}")
+
+    def get_marker_search_range_start(self, marker: int) -> float:
+        """
+        Get start of the marker search range.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Start value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STAR?"))
+
+    # CALC:MARK:FUNC:DOM:STOP - Stop of the marker search range
+    def set_marker_search_range_stop(self, marker: int, value: float):
+        """
+        Set stop of the marker search range.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Stop value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STOP {value}")
+
+    def get_marker_search_range_stop(self, marker: int) -> float:
+        """
+        Get stop of the marker search range.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Stop value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STOP?"))
+
+    # CALC:MARK:FUNC:EXEC - Executes search
+    def execute_marker_search(self, marker: int):
+        """
+        Execute marker search.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:EXEC")
+
+    # CALC:MARK:FUNC:PEXC - Peak excursion value
+    def set_marker_peak_excursion(self, marker: int, value: float):
+        """
+        Set peak excursion value for marker.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Peak excursion value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:PEXC {value}")
+
+    def get_marker_peak_excursion(self, marker: int) -> float:
+        """
+        Get peak excursion value for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Peak excursion value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:PEXC?"))
+
+    # CALC:MARK:FUNC:PPOL - Peak polarity
+    def set_marker_peak_polarity(self, marker: int, polarity: str):
+        """
+        Set peak polarity for marker.
+
+        Parameter:
+            marker (int): Marker number
+            polarity (str): One of ['POS', 'NEG', 'BOTH']
+
+        Return:
+            None
+        """
+        allowed = ['POS', 'NEG', 'BOTH']
+        if polarity not in allowed:
+            raise ValueError(f"polarity must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:PPOL {polarity}")
+
+    def get_marker_peak_polarity(self, marker: int) -> str:
+        """
+        Get peak polarity for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            str: Peak polarity
+        """
+        return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:PPOL?").strip()
+
+    # CALC:MARK:FUNC:TARG - Target value
+    def set_marker_target_value(self, marker: int, value: float):
+        """
+        Set target value for marker.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Target value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TARG {value}")
+
+    def get_marker_target_value(self, marker: int) -> float:
+        """
+        Get target value for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Target value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TARG?"))
+
+    # CALC:MARK:FUNC:TRAC - Marker search tracking ON/OFF
+    def enable_marker_search_tracking(self, marker: int, enable: bool):
+        """
+        Enable or disable marker search tracking.
+
+        Parameter:
+            marker (int): Marker number
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TRAC {1 if enable else 0}")
+
+    def is_marker_search_tracking_enabled(self, marker: int) -> bool:
+        """
+        Query if marker search tracking is enabled.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TRAC?")))
+
+    # CALC:MARK:FUNC:TTR - Type of target transition
+    def set_marker_target_transition_type(self, marker: int, ttype: str):
+        """
+        Set type of target transition for marker.
+
+        Parameter:
+            marker (int): Marker number
+            ttype (str): One of ['RISE', 'FALL', 'BOTH']
+
+        Return:
+            None
+        """
+        allowed = ['RISE', 'FALL', 'BOTH']
+        if ttype not in allowed:
+            raise ValueError(f"ttype must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TTR {ttype}")
+
+    def get_marker_target_transition_type(self, marker: int) -> str:
+        """
+        Get type of target transition for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            str: Transition type
+        """
+        return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TTR?").strip()
+
+    # CALC:MARK:FUNC:TYPE - Search type
+    def set_marker_search_type(self, marker: int, search_type: str):
+        """
+        Set search type for marker.
+
+        Parameter:
+            marker (int): Marker number
+            search_type (str): One of ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
+
+        Return:
+            None
+        """
+        allowed = ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
+        if search_type not in allowed:
+            raise ValueError(f"search_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TYPE {search_type}")
+
+    def get_marker_search_type(self, marker: int) -> str:
+        """
+        Get search type for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            str: Search type
+        """
+        return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TYPE?").strip()
+
+    # CALC:MARK:MATH:FLAT:DATA? - Flatness function data
+    def get_marker_flatness_data(self, marker: int):
+        """
+        Get flatness function data for marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            list: Flatness data array
+        """
+        data = self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DATA?")
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, "MARKER_FLATNESS", data, file_type = EFileType.CSV)
+        return self.data_handler.parse_array(data)
+
+    # CALC:MARK:MATH:FLAT:STAT - Marker flatness ON/OFF
+    def enable_marker_flatness(self, marker: int, enable: bool):
+        """
+        Enable or disable marker flatness.
+
+        Parameter:
+            marker (int): Marker number
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:STAT {1 if enable else 0}")
+
+    def is_marker_flatness_enabled(self, marker: int) -> bool:
+        """
+        Query if marker flatness is enabled.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:STAT?")))
+
+    # CALC:MARK:MATH:FLAT:DOM:STAR - Marker specifying start of frequency range
+    def set_marker_flatness_range_start(self, marker: int, value: float):
+        """
+        Set marker specifying start of frequency range for flatness.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Start value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STAR {value}")
+
+    def get_marker_flatness_range_start(self, marker: int) -> float:
+        """
+        Get marker specifying start of frequency range for flatness.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Start value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STAR?"))
+
+    # CALC:MARK:MATH:FLAT:DOM:STOP - Marker specifying stop of frequency range
+    def set_marker_flatness_range_stop(self, marker: int, value: float):
+        """
+        Set marker specifying stop of frequency range for flatness.
+
+        Parameter:
+            marker (int): Marker number
+            value (float): Stop value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STOP {value}")
+
+    def get_marker_flatness_range_stop(self, marker: int) -> float:
+        """
+        Get marker specifying stop of frequency range for flatness.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            float: Stop value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STOP?"))
+
+    # CALC:MARK:SET - Sets item value according to the position of the marker
+    def set_item_value_by_marker(self, marker: int):
+        """
+        Set item value according to the position of the marker.
+
+        Parameter:
+            marker (int): Marker number
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MARK{marker}:SET")
+
+class Calc_Math:
+    """
+    Memory Trace Function, Math operation, statistics, smoothing, ripple limit, and time domain.
+    """
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+    # CALC:MATH:FUNC - Math operation
+    def set_math_operation(self, operation: str):
+        """
+        Set the math operation for memory trace.
+
+        Parameter:
+            operation (str): Math operation, e.g., 'ADD', 'SUB', 'MUL', 'DIV', etc.
+
+        Return:
+            None
+        """
+        allowed = ['ADD', 'SUB', 'MUL', 'DIV', 'NONE']
+        if operation not in allowed:
+            raise ValueError(f"operation must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:MATH:FUNC {operation}")
+
+    def get_math_operation(self) -> str:
+        """
+        Get the current math operation for memory trace.
+
+        Parameter:
+            None
+
+        Return:
+            str: Math operation
+        """
+        return self.instrument.query(f":CALC{self.channel}:MATH:FUNC?").strip()
+
+    # CALC:MATH:MEM - Data => Memory
+    def store_data_to_memory(self):
+        """
+        Store current data to memory.
+
+        Parameter:
+            None
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MATH:MEM")
+
+class Calc_MST:
+    """
+        Commands math statistics commands.
+    """
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+    # CALC:MST - Math statistics ON/OFF
+    def enable_statistics(self, enable: bool):
+        """
+        Enable or disable math statistics.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MST {1 if enable else 0}")
+
+    def is_statistics_enabled(self) -> bool:
+        """
+        Query if math statistics is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MST?")))
+
+    # CALC:MST:DATA? - Math statistics data
+    def get_statistics_data(self):
+        """
+        Get math statistics data.
+
+        Parameter:
+            None
+
+        Return:
+            list: Statistics data array
+        """
+        data = self.instrument.query(f":CALC{self.channel}:MST:DATA?")
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, "MSTH_STATS", data, file_type = EFileType.CSV)
+        return self.data_handler.parse_array(data)
+
+    # CALC:MST:DOM - Partial frequency range ON/OFF
+    def enable_partial_frequency_range(self, enable: bool):
+        """
+        Enable or disable partial frequency range for statistics.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MST:DOM {1 if enable else 0}")
+
+    def is_partial_frequency_range_enabled(self) -> bool:
+        """
+        Query if partial frequency range is enabled for statistics.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:MST:DOM?")))
+
+    # CALC:MST:DOM:STAR - Marker specifying start of frequency range
+    def set_statistics_range_start(self, value: float):
+        """
+        Set marker specifying start of frequency range for statistics.
+
+        Parameter:
+            value (float): Start value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MST:DOM:STAR {value}")
+
+    def get_statistics_range_start(self) -> float:
+        """
+        Get marker specifying start of frequency range for statistics.
+
+        Parameter:
+            None
+
+        Return:
+            float: Start value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MST:DOM:STAR?"))
+
+    # CALC:MST:DOM:STOP - Marker specifying stop of frequency range
+    def set_statistics_range_stop(self, value: float):
+        """
+        Set marker specifying stop of frequency range for statistics.
+
+        Parameter:
+            value (float): Stop value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:MST:DOM:STOP {value}")
+
+    def get_statistics_range_stop(self) -> float:
+        """
+        Get marker specifying stop of frequency range for statistics.
+
+        Parameter:
+            None
+
+        Return:
+            float: Stop value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:MST:DOM:STOP?"))
+# CALC:PAR:DEF - Define a new trace
+def define_trace(self, trace_name: str, parameter: str):
+    """
+    Define a new trace with the given name and parameter.
+
+    Parameter:
+    trace_name (str): Name of the trace
+    parameter (str): S-parameter (e.g., 'S11', 'S21', etc.)
+
+    Return:
+    None
+    """
+    self.instrument.write(f":CALC{self.channel}:PAR:DEF '{trace_name}',{parameter}")
+
+# CALC:PAR:SPOR - Select trace by name
+def select_trace_by_name(self, trace_name: str):
+    """
+    Select the trace by its name.
+
+    Parameter:
+    trace_name (str): Name of the trace
+
+    Return:
+    None
+    """
+    self.instrument.write(f":CALC{self.channel}:PAR:SPOR '{trace_name}'")
+
+class Calc_RLIM:
+    """
+    Ripple Limit Test commands.
+    """
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+    # CALC:RLIM - Ripple limit test ON/OFF
+    def enable_ripple_limit_test(self, enable: bool):
+        """
+        Enable or disable ripple limit test.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:RLIM {1 if enable else 0}")
+
+    def is_ripple_limit_test_enabled(self) -> bool:
+        """
+        Query if ripple limit test is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM?")))
+
+    # CALC:RLIM:DATA - Ripple limit line table
+    def set_ripple_limit_line_table(self, table: str):
+        """
+        Set the ripple limit line table.
+
+        Parameter:
+            table (str): Ripple limit line table string
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:RLIM:DATA {table}")
+
+    def get_ripple_limit_line_table(self) -> str:
+        """
+        Get the ripple limit line table.
+
+        Parameter:
+            None
+
+        Return:
+            str: Ripple limit line table string
+        """
+        data = self.instrument.query(f":CALC{self.channel}:RLIM:DATA?").strip()
+        if self.data_handler.is_auto_saving_data_enabled():
+            self.data_handler.write_to_file(self, "RIPPLE_LIMIT_LINE", data, file_type = EFileType.CSV)
+        return data
+
+    # CALC:RLIM:DISP:LINE - Ripple Limit line display ON/OFF
+    def enable_ripple_limit_line_display(self, enable: bool):
+        """
+        Enable or disable ripple limit line display.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:RLIM:DISP:LINE {1 if enable else 0}")
+
+    def is_ripple_limit_line_display_enabled(self) -> bool:
+        """
+        Query if ripple limit line display is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM:DISP:LINE?")))
+
+    # CALC:RLIM:DISP:SEL - Number of band for ripple value display
+    def set_ripple_band_display(self, band: int):
+        """
+        Set the number of band for ripple value display.
+
+        Parameter:
+            band (int): Band number
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:RLIM:DISP:SEL {band}")
+
+    def get_ripple_band_display(self) -> int:
+        """
+        Get the number of band for ripple value display.
+
+        Parameter:
+            None
+
+        Return:
+            int: Band number
+        """
+        return int(self.instrument.query(f":CALC{self.channel}:RLIM:DISP:SEL?"))
+
+    # CALC:RLIM:DISP:VAL - Display type of ripple value
+    def set_ripple_value_display_type(self, dtype: str):
+        """
+        Set the display type of ripple value.
+
+        Parameter:
+            dtype (str): Display type, e.g., 'MAX', 'MIN', 'AVG'
+
+        Return:
+            None
+        """
+        allowed = ['MAX', 'MIN', 'AVG']
+        if dtype not in allowed:
+            raise ValueError(f"dtype must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:RLIM:DISP:VAL {dtype}")
+
+    def get_ripple_value_display_type(self) -> str:
+        """
+        Get the display type of ripple value.
+
+        Parameter:
+            None
+
+        Return:
+            str: Display type
+        """
+        return self.instrument.query(f":CALC{self.channel}:RLIM:DISP:VAL?").strip()
+
+    # CALC:RLIM:FAIL? - Ripple limit test result
+    def get_ripple_limit_test_result(self) -> bool:
+        """
+        Get the ripple limit test result.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if test failed, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM:FAIL?")))
+
+    # CALC:RLIM:REP? - Ripple limit test result report
+    def get_ripple_limit_test_result_report(self) -> str:
+        """
+        Get the ripple limit test result report.
+
+        Parameter:
+            None
+
+        Return:
+            str: Ripple limit test result report
+        """
+        return self.instrument.query(f":CALC{self.channel}:RLIM:REP?").strip()
+
+class Calc_SMO:
+    """
+    Smoothing commands.
+    """
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+    # CALC:SMO - Trace smoothing ON/OFF
+    def enable_smoothing(self, enable: bool):
+        """
+        Enable or disable trace smoothing.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:SMO {1 if enable else 0}")
+
+    def is_smoothing_enabled(self) -> bool:
+        """
+        Query if trace smoothing is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:SMO?")))
+
+    # CALC:SMO:APER - Smoothing aperture
+    def set_smoothing_aperture(self, value: float):
+        """
+        Set the smoothing aperture.
+
+        Parameter:
+            value (float): Aperture value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:SMO:APER {value}")
+
+    def get_smoothing_aperture(self) -> float:
+        """
+        Get the smoothing aperture.
+
+        Parameter:
+            None
+
+        Return:
+            float: Aperture value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:SMO:APER?"))
+
+class Calc_TRAN:
+    """
+    Time Domain related commands.
+    """
+    def __init__(self, instrument, data_handler, channel):
+        self.instrument = instrument
+        self.data_handler = data_handler
+        self.channel = channel
+    # CALC:TRAN:TIME - Setting Time Domain Parameters (Band-pass/Low-pass)
+    def set_time_domain_type(self, td_type: str):
+        """
+        Set the time domain type (Band-pass/Low-pass).
+
+        Parameter:
+            td_type (str): 'BPAS' for Band-pass, 'LPAS' for Low-pass
+
+        Return:
+            None
+        """
+        allowed = ['BPAS', 'LPAS']
+        if td_type not in allowed:
+            raise ValueError(f"td_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME {td_type}")
+
+    def get_time_domain_type(self) -> str:
+        """
+        Get the time domain type.
+
+        Parameter:
+            None
+
+        Return:
+            str: Time domain type
+        """
+        return self.instrument.query(f":CALC{self.channel}:TRAN:TIME?").strip()
+
+    # CALC:TRAN:TIME:CENT - Time domain center
+    def set_time_domain_center(self, value: float):
+        """
+        Set the time domain center.
+
+        Parameter:
+            value (float): Center value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:CENT {value}")
+
+    def get_time_domain_center(self) -> float:
+        """
+        Get the time domain center.
+
+        Parameter:
+            None
+
+        Return:
+            float: Center value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:CENT?"))
+
+    # CALC:TRAN:TIME:DC:VAL - DC value
+    def set_time_domain_dc_value(self, value: float):
+        """
+        Set the DC value for time domain.
+
+        Parameter:
+            value (float): DC value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:DC:VAL {value}")
+
+    def get_time_domain_dc_value(self) -> float:
+        """
+        Get the DC value for time domain.
+
+        Parameter:
+            None
+
+        Return:
+            float: DC value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:DC:VAL?"))
+
+    # CALC:TRAN:TIME:EXTR:DC - DC extrapolation ON/OFF
+    def enable_time_domain_dc_extrapolation(self, enable: bool):
+        """
+        Enable or disable DC extrapolation in time domain.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:EXTR:DC {1 if enable else 0}")
+
+    def is_time_domain_dc_extrapolation_enabled(self) -> bool:
+        """
+        Query if DC extrapolation in time domain is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:EXTR:DC?")))
+
+    # CALC:TRAN:TIME:IMP:WIDT - Impulse Width
+    def set_time_domain_impulse_width(self, value: float):
+        """
+        Set the impulse width for time domain.
+
+        Parameter:
+            value (float): Impulse width
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:IMP:WIDT {value}")
+
+    def get_time_domain_impulse_width(self) -> float:
+        """
+        Get the impulse width for time domain.
+
+        Parameter:
+            None
+
+        Return:
+            float: Impulse width
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:IMP:WIDT?"))
+
+    # CALC:TRAN:TIME:KBES - Kaiser-Bessel β
+    def set_time_domain_kaiser_bessel_beta(self, value: float):
+        """
+        Set the Kaiser-Bessel β for time domain.
+
+        Parameter:
+            value (float): Beta value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:KBES {value}")
+
+    def get_time_domain_kaiser_bessel_beta(self) -> float:
+        """
+        Get the Kaiser-Bessel β for time domain.
+
+        Parameter:
+            None
+
+        Return:
+            float: Beta value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:KBES?"))
+
+    # CALC:TRAN:TIME:LPFR - Sets frequency Low-Pass
+    def set_time_domain_lowpass_frequency(self, value: float):
+        """
+        Set the frequency for a Low-Pass in time domain.
+
+        Parameter:
+            value (float): Frequency value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:LPFR {value}")
+
+    def get_time_domain_lowpass_frequency(self) -> float:
+        """
+        Get the frequency for Low-Pass in time domain.
+
+        Parameter:
+            None
+
+        Return:
+            float: Frequency value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:LPFR?"))
+
+    # CALC:TRAN:TIME:REFL:TYPE - Selects One way/Round trip
+    def set_time_domain_reflection_type(self, refl_type: str):
+        """
+        Set the reflection type for time domain.
+
+        Parameter:
+            refl_type (str): 'ONEW' for One way, 'ROUN' for Round trip
+
+        Return:
+            None
+        """
+        allowed = ['ONEW', 'ROUN']
+        if refl_type not in allowed:
+            raise ValueError(f"refl_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:REFL:TYPE {refl_type}")
+
+    def get_time_domain_reflection_type(self) -> str:
+        """
+        Get the reflection type for time domain.
+
+        Parameter:
+            None
+
+        Return:
+            str: Reflection type
+        """
+        return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:REFL:TYPE?").strip()
+
+    # CALC:TRAN:TIME:SPAN - Time domain Span
+    def set_time_domain_span(self, value: float):
+        """
+        Set the time domain span.
+
+        Parameter:
+            value (float): Span value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:SPAN {value}")
+
+    def get_time_domain_span(self) -> float:
+        """
+        Get the time domain span.
+
+        Parameter:
+            None
+
+        Return:
+            float: Span value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:SPAN?"))
+
+    # CALC:TRAN:TIME:STAR - Time domain Start
+    def set_time_domain_start(self, value: float):
+        """
+        Set the time domain start.
+
+        Parameter:
+            value (float): Start value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STAR {value}")
+
+    def get_time_domain_start(self) -> float:
+        """
+        Get the time domain start.
+
+        Parameter:
+            None
+
+        Return:
+            float: Start value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STAR?"))
+
+    # CALC:TRAN:TIME:STOP - Time domain Stop
+    def set_time_domain_stop(self, value: float):
+        """
+        Set the time domain stop.
+
+        Parameter:
+            value (float): Stop value
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STOP {value}")
+
+    def get_time_domain_stop(self) -> float:
+        """
+        Get the time domain stop.
+
+        Parameter:
+            None
+
+        Return:
+            float: Stop value
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STOP?"))
+
+    # CALC:TRAN:TIME:STAT - Time domain transformation ON/OFF
+    def enable_time_domain_transformation(self, enable: bool):
+        """
+        Enable or disable time domain transformation.
+
+        Parameter:
+            enable (bool): True to enable, False to disable
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STAT {1 if enable else 0}")
+
+    def is_time_domain_transformation_enabled(self) -> bool:
+        """
+        Query if time domain transformation is enabled.
+
+        Parameter:
+            None
+
+        Return:
+            bool: True if enabled, False otherwise
+        """
+        return bool(int(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STAT?")))
+
+    # CALC:TRAN:TIME:STEP:RTIM - Step rise time
+    def set_time_domain_step_rise_time(self, value: float):
+        """
+        Set the step rise time for time domain.
+
+        Parameter:
+            value (float): Rise time
+
+        Return:
+            None
+        """
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STEP:RTIM {value}")
+
+    def get_time_domain_step_rise_time(self) -> float:
+        """
+        Get the step rise time for time domain.
+
+        Parameter:
+            None
+
+        Return:
+            float: Rise time
+        """
+        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STEP:RTIM?"))
+
+    # CALC:TRAN:TIME:STIM - Selects Impulse/Step type
+    def set_time_domain_stimulus_type(self, stim_type: str):
+        """
+        Set the stimulus type for time domain.
+
+        Parameter:
+            stim_type (str): 'IMP' for Impulse, 'STEP' for Step
+
+        Return:
+            None
+        """
+        allowed = ['IMP', 'STEP']
+        if stim_type not in allowed:
+            raise ValueError(f"stim_type must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STIM {stim_type}")
+
+    def get_time_domain_stimulus_type(self) -> str:
+        """
+        Get the stimulus type for time domain.
+
+        Parameter:
+            None
+
+        Return:
+            str: Stimulus type
+        """
+        return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STIM?").strip()
+
+    # CALC:TRAN:TIME:UNIT - Time domain Unit
+    def set_time_domain_unit(self, unit: str):
+        """
+        Set the time domain unit.
+
+        Parameter:
+            unit (str): 'SEC' for seconds, 'M' for meters
+
+        Return:
+            None
+        """
+        allowed = ['SEC', 'M']
+        if unit not in allowed:
+            raise ValueError(f"unit must be one of {allowed}")
+        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:UNIT {unit}")
+
+    def get_time_domain_unit(self) -> str:
+        """
+        Get the time domain unit.
+
+        Parameter:
+            None
+
+        Return:
+            str: Unit
+        """
+        return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:UNIT?").strip()
 class Display:
     """
         Command display settings.
@@ -3167,7 +3992,7 @@ class Display:
             allowed = ['NONE', 'VERT', 'HOR']
             if alignment not in allowed:
                 raise ValueError(f"alignment must be one of {allowed}")
-            self.instrument.write(f":DISP:WIND{self.n}:ANN:MARK:ALIG {alignment}")
+            self.instrument.write(f":DISP:WIND{self.channel}:ANN:MARK:ALIG {alignment}")
 
         def get_annotation_alignment(self, channel: int) -> str:
             """
@@ -3179,7 +4004,7 @@ class Display:
             Return:
             str: Alignment
             """
-            return self.instrument.query(f":DISP:WIND{self.n}:ANN:MARK:ALIG?").strip()
+            return self.instrument.query(f":DISP:WIND{self.channel}:ANN:MARK:ALIG?").strip()
 
         # DISP:WIND:ANN:MARK:SING - Active marker only ON/OFF
         def enable_active_only(self,  enable: bool):
@@ -3193,7 +4018,7 @@ class Display:
             Return:
             None
             """
-            self.instrument.write(f":DISP:WIND{self.n}:ANN:MARK:SING {1 if enable else 0}")
+            self.instrument.write(f":DISP:WIND{self.channel}:ANN:MARK:SING {1 if enable else 0}")
 
         def is_active_only_enabled(self, channel: int) -> bool:
             """
@@ -3205,7 +4030,7 @@ class Display:
             Return:
             bool: True if active only, False otherwise
             """
-            return bool(int(self.instrument.query(f":DISP:WIND{self.n}:ANN:MARK:SING?")))
+            return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:ANN:MARK:SING?")))
 
         # DISP:WIND:TRAC:ANN:MARK:POS:X - Marker annotation X position
         def set_annotation_x(self,  trace: int, value: float):
@@ -3221,7 +4046,7 @@ class Display:
             None
             """
             value = max(0, min(100, value))
-            self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:ANN:MARK:POS:X {value}")
+            self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:X {value}")
 
         def get_annotation_x(self,  trace: int) -> float:
             """
@@ -3234,7 +4059,7 @@ class Display:
             Return:
             float: Position (0-100)
             """
-            return float(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:ANN:MARK:POS:X?"))
+            return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:X?"))
 
         # DISP:WIND:TRAC:ANN:MARK:POS:Y - Marker annotation Y position
         def set_annotation_y(self,  trace: int, value: float):
@@ -3250,7 +4075,7 @@ class Display:
             None
             """
             value = max(0, min(100, value))
-            self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:ANN:MARK:POS:Y {value}")
+            self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:Y {value}")
 
         def get_annotation_y(self,  trace: int) -> float:
             """
@@ -3263,7 +4088,7 @@ class Display:
             Return:
             float: Position (0-100)
             """
-            return float(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:ANN:MARK:POS:Y?"))
+            return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:Y?"))
     def set_background_color(self, r: int, g: int, b: int):
         """
         Set the background color for trace display.
@@ -3779,7 +4604,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:ACT")
+        self.instrument.write(f":DISP:WIND{self.channel}:ACT")
 
     # DISP:WIND:ANN:MARK:ALIG - Marker annotation alignment
     def set_marker_annotation_alignment(self,  alignment: str):
@@ -3796,7 +4621,7 @@ class Display:
         allowed = ['NONE', 'VERT', 'HOR']
         if alignment not in allowed:
             raise ValueError(f"alignment must be one of {allowed}")
-        self.instrument.write(f":DISP:WIND{self.n}:ANN:MARK:ALIG {alignment}")
+        self.instrument.write(f":DISP:WIND{self.channel}:ANN:MARK:ALIG {alignment}")
 
     def get_marker_annotation_alignment(self, channel: int) -> str:
         """
@@ -3808,7 +4633,7 @@ class Display:
         Return:
         str: Alignment
         """
-        return self.instrument.query(f":DISP:WIND{self.n}:ANN:MARK:ALIG?").strip()
+        return self.instrument.query(f":DISP:WIND{self.channel}:ANN:MARK:ALIG?").strip()
 
     # DISP:WIND:ANN:MARK:SING - Active marker only ON/OFF
     def enable_active_marker_only(self,  enable: bool):
@@ -3822,7 +4647,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:ANN:MARK:SING {1 if enable else 0}")
+        self.instrument.write(f":DISP:WIND{self.channel}:ANN:MARK:SING {1 if enable else 0}")
 
     def is_active_marker_only_enabled(self, channel: int) -> bool:
         """
@@ -3834,7 +4659,7 @@ class Display:
         Return:
         bool: True if active only, False otherwise
         """
-        return bool(int(self.instrument.query(f":DISP:WIND{self.n}:ANN:MARK:SING?")))
+        return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:ANN:MARK:SING?")))
 
     # DISP:WIND:MAX - Maximize trace in channel ON/OFF
     def enable_trace_maximization(self,  enable: bool):
@@ -3848,7 +4673,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:MAX {1 if enable else 0}")
+        self.instrument.write(f":DISP:WIND{self.channel}:MAX {1 if enable else 0}")
 
     def is_trace_maximization_enabled(self, channel: int) -> bool:
         """
@@ -3860,7 +4685,7 @@ class Display:
         Return:
         bool: True if enabled, False otherwise
         """
-        return bool(int(self.instrument.query(f":DISP:WIND{self.n}:MAX?")))
+        return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:MAX?")))
 
     # DISP:WIND:SPL - Graph layout in channel window
     def set_channel_graph_layout(self,  layout: int):
@@ -3875,7 +4700,7 @@ class Display:
         None
         """
         layout = max(1, min(16, layout))
-        self.instrument.write(f":DISP:WIND{self.n}:SPL {layout}")
+        self.instrument.write(f":DISP:WIND{self.channel}:SPL {layout}")
 
     def get_channel_graph_layout(self, channel: int) -> int:
         """
@@ -3887,7 +4712,7 @@ class Display:
         Return:
         int: Layout code
         """
-        return int(self.instrument.query(f":DISP:WIND{self.n}:SPL?"))
+        return int(self.instrument.query(f":DISP:WIND{self.channel}:SPL?"))
 
     # DISP:WIND:TITL - Channel title display ON/OFF
     def enable_channel_title(self,  enable: bool):
@@ -3901,7 +4726,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TITL {1 if enable else 0}")
+        self.instrument.write(f":DISP:WIND{self.channel}:TITL {1 if enable else 0}")
 
     def is_channel_title_enabled(self, channel: int) -> bool:
         """
@@ -3913,7 +4738,7 @@ class Display:
         Return:
         bool: True if enabled, False otherwise
         """
-        return bool(int(self.instrument.query(f":DISP:WIND{self.n}:TITL?")))
+        return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:TITL?")))
 
     # DISP:WIND:TITL:DATA - Channel title label
     def set_channel_title_label(self,  label: str):
@@ -3927,7 +4752,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TITL:DATA \"{label}\"")
+        self.instrument.write(f":DISP:WIND{self.channel}:TITL:DATA \"{label}\"")
 
     def get_channel_title_label(self, channel: int) -> str:
         """
@@ -3939,7 +4764,7 @@ class Display:
         Return:
         str: Title label
         """
-        return self.instrument.query(f":DISP:WIND{self.n}:TITL:DATA?").strip()
+        return self.instrument.query(f":DISP:WIND{self.channel}:TITL:DATA?").strip()
 
     # DISP:WIND:TRAC:ANN:MARK:POS:X - Marker annotation X position
     def set_marker_annotation_x(self,  trace: int, value: float):
@@ -3955,7 +4780,7 @@ class Display:
         None
         """
         value = max(0, min(100, value))
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:ANN:MARK:POS:X {value}")
+        self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:X {value}")
 
     def get_marker_annotation_x(self,  trace: int) -> float:
         """
@@ -3968,7 +4793,7 @@ class Display:
         Return:
         float: Position (0-100)
         """
-        return float(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:ANN:MARK:POS:X?"))
+        return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:X?"))
 
     # DISP:WIND:TRAC:ANN:MARK:POS:Y - Marker annotation Y position
     def set_marker_annotation_y(self,  trace: int, value: float):
@@ -3984,7 +4809,7 @@ class Display:
         None
         """
         value = max(0, min(100, value))
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:ANN:MARK:POS:Y {value}")
+        self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:Y {value}")
 
     def get_marker_annotation_y(self,  trace: int) -> float:
         """
@@ -3997,7 +4822,7 @@ class Display:
         Return:
         float: Position (0-100)
         """
-        return float(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:ANN:MARK:POS:Y?"))
+        return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:Y?"))
     # DISP:SPL - Number and layout of channels
     def set_number_and_layout_of_channels(self, layout_code: int):
         """
@@ -4037,7 +4862,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:MEM:STAT {1 if enable else 0}")
+        self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:MEM:STAT {1 if enable else 0}")
 
     def is_memory_trace_display_enabled(self,  trace: int) -> bool:
         """
@@ -4050,7 +4875,7 @@ class Display:
         Return:
         bool: True if enabled, False otherwise
         """
-        return bool(int(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:MEM:STAT?")))
+        return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:MEM:STAT?")))
 
     # DISP:WIND:TRAC:STATe - Data trace display ON/OFF
     def enable_data_trace_display(self,  trace: int, enable: bool):
@@ -4065,7 +4890,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:STAT {1 if enable else 0}")
+        self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:STAT {1 if enable else 0}")
 
     def is_data_trace_display_enabled(self,  trace: int) -> bool:
         """
@@ -4078,7 +4903,7 @@ class Display:
         Return:
         bool: True if enabled, False otherwise
         """
-        return bool(int(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:STAT?")))
+        return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:STAT?")))
 
     # DISP:WIND:TRAC:Y:SCALe:AUTO - Auto scale function for the trace
     def auto_scale_trace(self,  trace: int):
@@ -4092,7 +4917,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:Y:SCAL:AUTO")
+        self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:AUTO")
 
     # DISP:WIND:TRAC:Y:SCALe:PDIVision - Set/read trace scale per division
     def set_trace_scale_per_division(self,  trace: int, value: float):
@@ -4148,7 +4973,7 @@ class Display:
         Return:
         float: Reference line value
         """
-        return float(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:Y:SCAL:RLEV?"))
+        return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:RLEV?"))
 
     # DISP:WIND:TRAC:Y:SCALe:RLEVel:AUTO - Auto reference function for the trace
     def auto_reference_line(self,  trace: int):
@@ -4162,7 +4987,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:Y:SCAL:RLEV:AUTO")
+        self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:RLEV:AUTO")
 
     # DISP:WIND:TRAC:Y:SCALe:RPOSition - Set/read reference line position
     def set_reference_line_position(self,  trace: int, value: float):
@@ -4177,7 +5002,7 @@ class Display:
         Return:
         None
         """
-        self.instrument.write(f":DISP:WIND{self.n}:TRAC{trace}:Y:SCAL:RPOS {value}")
+        self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:RPOS {value}")
 
     def get_reference_line_position(self,  trace: int) -> float:
         """
@@ -4190,7 +5015,7 @@ class Display:
         Return:
         float: Reference line position
         """
-        return float(self.instrument.query(f":DISP:WIND{self.n}:TRAC{trace}:Y:SCAL:RPOS?"))
+        return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:RPOS?"))
 
     # DISP:WIND:X:SPACing - Set/read display method of horizontal axis for segment sweep
     def set_x_axis_spacing(self,  spacing: str):
@@ -4207,7 +5032,7 @@ class Display:
         allowed = ['LIN', 'OBAS']
         if spacing not in allowed:
             raise ValueError(f"spacing must be one of {allowed}")
-        self.instrument.write(f":DISP:WIND{self.n}:X:SPAC {spacing}")
+        self.instrument.write(f":DISP:WIND{self.channel}:X:SPAC {spacing}")
 
     def get_x_axis_spacing(self, channel: int) -> str:
         """
@@ -4219,7 +5044,7 @@ class Display:
         Return:
         str: Spacing method
         """
-        return self.instrument.query(f":DISP:WIND{self.n}:X:SPAC?").strip()
+        return self.instrument.query(f":DISP:WIND{self.channel}:X:SPAC?").strip()
 
     # DISP:WIND:Y:SCALe:DIVisions - Set/read number of vertical scale divisions
     def set_vertical_scale_divisions(self,  value: int):
@@ -4234,7 +5059,7 @@ class Display:
         None
         """
         value = max(4, min(30, value))
-        self.instrument.write(f":DISP:WIND{self.n}:Y:SCAL:DIV {value}")
+        self.instrument.write(f":DISP:WIND{self.channel}:Y:SCAL:DIV {value}")
 
     def get_vertical_scale_divisions(self, channel: int) -> int:
         """
@@ -4246,7 +5071,7 @@ class Display:
         Return:
         int: Number of divisions
         """
-        return int(self.instrument.query(f":DISP:WIND{self.n}:Y:SCAL:DIV?"))
+        return int(self.instrument.query(f":DISP:WIND{self.channel}:Y:SCAL:DIV?"))
 
     # DISP:WIND:TRAC:ANN:MARK:POS:Y - Marker annotation Y position (already implemented above)
 class Format:
@@ -4462,7 +5287,7 @@ class Initate:
     def __init__(self, instrument, data_handler, channel):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.n = channel
+        self.channel = channel
     # INITiate<Ch>[:IMMediate] - Initiate channel once (trigger)
     def initiate(self):
         """
@@ -4474,7 +5299,7 @@ class Initate:
         Return:
         None
         """
-        self.instrument.write(f":INITiate{self.n}:IMMediate")
+        self.instrument.write(f":INITiate{self.channel}:IMMediate")
 
     # INITiate<Ch>:CONTinuous - Continuous channel initiation mode ON/OFF
     def enable_continuous(self, enable: bool):
@@ -4487,7 +5312,7 @@ class Initate:
         Return:
         None
         """
-        self.instrument.write(f":INITiate{self.n}:CONTinuous {1 if enable else 0}")
+        self.instrument.write(f":INITiate{self.channel}:CONTinuous {1 if enable else 0}")
 
     def is_continuous_enabled(self) -> bool:
         """
@@ -4499,7 +5324,7 @@ class Initate:
         Return:
         bool: True if enabled, False otherwise
         """
-        return bool(int(self.instrument.query(f":INITiate{self.n}:CONTinuous?")))
+        return bool(int(self.instrument.query(f":INITiate{self.channel}:CONTinuous?")))
 
     # INITiate:CONTinuous:ALL - Continuous channel initiation mode for all channels ON/OFF
     @staticmethod
@@ -5411,7 +6236,7 @@ frequency offset, channel data transfer."""
     def __init__(self, instrument, data_handler, channel):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.n = channel
+        self.channel = channel
         # Add instance variables for each direct subclass under Sense
         self.average = self.Average(instrument, data_handler, channel)
         self.bandwidth = self.Bandwidth(instrument, data_handler, channel)
@@ -5438,7 +6263,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
 
         # SENS:AVER - Averaging ON/OFF
         def enable_averaging(self, enable: bool):
@@ -5451,7 +6276,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:AVER {1 if enable else 0}")
+            self.instrument.write(f":SENS{self.channel}:AVER {1 if enable else 0}")
 
         def is_averaging_enabled(self) -> bool:
             """
@@ -5463,7 +6288,7 @@ frequency offset, channel data transfer."""
             Return:
                 bool: True if enabled, False otherwise
             """
-            return bool(int(self.instrument.query(f":SENS{self.n}:AVER?")))
+            return bool(int(self.instrument.query(f":SENS{self.channel}:AVER?")))
 
         # SENS:AVER:CLE - Restart averaging
         def restart_averaging(self):
@@ -5476,7 +6301,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:AVER:CLE")
+            self.instrument.write(f":SENS{self.channel}:AVER:CLE")
 
         # SENS:AVER:COUN - Averaging factor
         def set_averaging_factor(self, value: int):
@@ -5489,7 +6314,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:AVER:COUN {value}")
+            self.instrument.write(f":SENS{self.channel}:AVER:COUN {value}")
 
         def get_averaging_factor(self) -> int:
             """
@@ -5501,7 +6326,7 @@ frequency offset, channel data transfer."""
             Return:
                 int: Averaging factor
             """
-            return int(self.instrument.query(f":SENS{self.n}:AVER:COUN?"))
+            return int(self.instrument.query(f":SENS{self.channel}:AVER:COUN?"))
 
     class Bandwidth:
         """
@@ -5510,7 +6335,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
             self.resolution = self.Resolution(instrument, data_handler, channel)
             
 
@@ -5521,7 +6346,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:BANDwidth[:RESolution] <frequency>
             def set_bandwidth_resolution(self, value: float):
@@ -5534,7 +6359,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:BAND:RES {value}")
+                self.instrument.write(f":SENS{self.channel}:BAND:RES {value}")
 
             def get_bandwidth_resolution(self) -> float:
                 """
@@ -5546,7 +6371,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: IF bandwidth value in Hz
                 """
-                return float(self.instrument.query(f":SENS{self.n}:BAND:RES?"))
+                return float(self.instrument.query(f":SENS{self.channel}:BAND:RES?"))
         # SENS:BAND - IF bandwidth
         def set_if_bandwidth(self, value: float):
             """
@@ -5558,7 +6383,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:BAND {value}")
+            self.instrument.write(f":SENS{self.channel}:BAND {value}")
 
         def get_if_bandwidth(self) -> float:
             """
@@ -5570,7 +6395,7 @@ frequency offset, channel data transfer."""
             Return:
                 float: IF bandwidth in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:BAND?"))
+            return float(self.instrument.query(f":SENS{self.channel}:BAND?"))
 
         # SENS:BWID - IF bandwidth (alias)
         def set_if_bandwidth_alias(self, value: float):
@@ -5583,7 +6408,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:BWID {value}")
+            self.instrument.write(f":SENS{self.channel}:BWID {value}")
 
         def get_if_bandwidth_alias(self) -> float:
             """
@@ -5595,7 +6420,7 @@ frequency offset, channel data transfer."""
             Return:
                 float: IF bandwidth in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:BWID?"))
+            return float(self.instrument.query(f":SENS{self.channel}:BWID?"))
 
     
         
@@ -5607,7 +6432,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
             self.port = self.Port(instrument, data_handler, channel)
 
 
@@ -5622,7 +6447,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:CORR:IMP {value}")
+            self.instrument.write(f":SENS{self.channel}:CORR:IMP {value}")
 
         def get_system_impedance(self) -> float:
             """
@@ -5634,7 +6459,7 @@ frequency offset, channel data transfer."""
             Return:
                 float: System impedance
             """
-            return float(self.instrument.query(f":SENS{self.n}:CORR:IMP?"))
+            return float(self.instrument.query(f":SENS{self.channel}:CORR:IMP?"))
 
         # SENS:CORR:IMP:SEL:AUTO - Auto-select Z0 ON/OFF
         def enable_auto_select_impedance(self, enable: bool):
@@ -5647,7 +6472,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:CORR:IMP:SEL:AUTO {1 if enable else 0}")
+            self.instrument.write(f":SENS{self.channel}:CORR:IMP:SEL:AUTO {1 if enable else 0}")
 
         def is_auto_select_impedance_enabled(self) -> bool:
             """
@@ -5659,7 +6484,7 @@ frequency offset, channel data transfer."""
             Return:
                 bool: True if enabled, False otherwise
             """
-            return bool(int(self.instrument.query(f":SENS{self.n}:CORR:IMP:SEL:AUTO?")))
+            return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:IMP:SEL:AUTO?")))
 
         class Port:
             """
@@ -5668,7 +6493,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:PORT:IMP - System Z0 for the specified port
             def set_port_impedance(self, port: int, value: float):
@@ -5682,7 +6507,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:PORT{port}:IMP {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:PORT{port}:IMP {value}")
 
             def get_port_impedance(self, port: int) -> float:
                 """
@@ -5694,7 +6519,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Impedance value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:PORT{port}:IMP?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:PORT{port}:IMP?"))
 
     
     class Receiver:
@@ -5704,7 +6529,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
 
         # SENS:CORR:REC - Receiver correction ON/OFF
         def enable_receiver_correction(self, enable: bool):
@@ -5717,7 +6542,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:CORR:REC {1 if enable else 0}")
+            self.instrument.write(f":SENS{self.channel}:CORR:REC {1 if enable else 0}")
 
         def is_receiver_correction_enabled(self) -> bool:
             """
@@ -5729,7 +6554,7 @@ frequency offset, channel data transfer."""
             Return:
                 bool: True if enabled, False otherwise
             """
-            return bool(int(self.instrument.query(f":SENS{self.n}:CORR:REC?")))
+            return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:REC?")))
     class Data:
         """
         Channel data transfer commands.
@@ -5737,7 +6562,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
 
         # SENS:DATA:CORR? - Corrected S-parameter or receiver data
         def get_corrected_data(self):
@@ -5750,7 +6575,7 @@ frequency offset, channel data transfer."""
             Return:
                 list: Corrected data array
             """
-            data = self.instrument.query(f":SENS{self.n}:DATA:CORR?")
+            data = self.instrument.query(f":SENS{self.channel}:DATA:CORR?")
             if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"CORR_S_PARAM", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
@@ -5765,7 +6590,7 @@ frequency offset, channel data transfer."""
                 allowed_prefixes = ['S', 'T', 'R', 'A', 'B', 'C', 'D']
                 if not any(param.startswith(p) for p in allowed_prefixes):
                     raise ValueError("param must start with S, T, R, A, B, C, or D")
-                data = self.instrument.query(f":SENS{self.n}:DATA:CORR? {param}")
+                data = self.instrument.query(f":SENS{self.channel}:DATA:CORR? {param}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"RAW_DATA", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
@@ -5781,7 +6606,7 @@ frequency offset, channel data transfer."""
             Return:
                 list: Raw data array
             """
-            data = self.instrument.query(f":SENS{self.n}:DATA:RAWD?")
+            data = self.instrument.query(f":SENS{self.channel}:DATA:RAWD?")
             if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"RAW_S_PARAM", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
@@ -5797,7 +6622,7 @@ frequency offset, channel data transfer."""
             Return:
                 list: Stimulus data array
             """
-            data = self.instrument.query(f":SENS{self.n}:FREQ:DATA?")
+            data = self.instrument.query(f":SENS{self.channel}:FREQ:DATA?")
             if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, "STIMULUS", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
@@ -5810,7 +6635,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
             self.adjustment = self.Adjustment(instrument, data_handler, channel)
             self.settings = self.Settings(instrument, data_handler, channel)
         class Adjustment:
@@ -5820,7 +6645,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:OFFS:ADJ - Frequency offset adjust ON/OFF
             def enable_offset_adjust(self, enable: bool):
@@ -5833,7 +6658,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:ADJ {1 if enable else 0}")
 
             def is_offset_adjust_enabled(self) -> bool:
                 """
@@ -5845,7 +6670,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:OFFS:ADJ?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ?")))
 
             # SENS:OFFS:ADJ:CONT:PER - Adjust period
             def set_adjust_period(self, value: float):
@@ -5858,7 +6683,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:CONT:PER {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:CONT:PER {value}")
 
             def get_adjust_period(self) -> float:
                 """
@@ -5870,7 +6695,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Period value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:ADJ:CONT:PER?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:CONT:PER?"))
 
             # SENS:OFFS:ADJ:EXEC - Executes adjustment once
             def execute_adjustment_once(self):
@@ -5883,7 +6708,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:EXEC")
+                self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:EXEC")
 
             # SENS:OFFS:ADJ:PATH - Adjustment path
             def set_adjustment_path(self, path: str):
@@ -5896,7 +6721,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:PATH {path}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:PATH {path}")
 
             def get_adjustment_path(self) -> str:
                 """
@@ -5908,7 +6733,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Adjustment path
                 """
-                return self.instrument.query(f":SENS{self.n}:OFFS:ADJ:PATH?").strip()
+                return self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:PATH?").strip()
 
             # SENS:OFFS:ADJ:PORT - Adjusted Ports
             def set_adjusted_ports(self, ports: str):
@@ -5921,7 +6746,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:PORT {ports}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:PORT {ports}")
 
             def get_adjusted_ports(self) -> str:
                 """
@@ -5933,7 +6758,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Adjusted ports
                 """
-                return self.instrument.query(f":SENS{self.n}:OFFS:ADJ:PORT?").strip()
+                return self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:PORT?").strip()
 
             # SENS:OFFS:ADJ:VAL - Adjust Value
             def set_adjust_value(self, value: float):
@@ -5946,7 +6771,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:VAL {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:VAL {value}")
 
             def get_adjust_value(self) -> float:
                 """
@@ -5958,7 +6783,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Adjust value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:ADJ:VAL?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:VAL?"))
 
         class Settings:
             """
@@ -5967,7 +6792,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:OFFS - Frequency offset ON/OFF
             def enable_frequency_offset(self, enable: bool):
@@ -5980,7 +6805,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:OFFS {1 if enable else 0}")
 
             def is_frequency_offset_enabled(self) -> bool:
                 """
@@ -5992,7 +6817,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:OFFS?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:OFFS?")))
 
             # SENS:OFFS:PORT:DATA? - Port offset data
             def get_port_offset_data(self):
@@ -6005,7 +6830,7 @@ frequency offset, channel data transfer."""
                 Return:
                     list: Port offset data array
                 """
-                data = self.instrument.query(f":SENS{self.n}:OFFS:PORT:DATA?")
+                data = self.instrument.query(f":SENS{self.channel}:OFFS:PORT:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, "PORT_OFFSET", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
@@ -6021,7 +6846,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:DIV {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:PORT:DIV {value}")
 
             def get_port_offset_divisor(self) -> float:
                 """
@@ -6033,7 +6858,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Divisor value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:DIV?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:DIV?"))
 
             # SENS:OFFS:PORT:MULT - Port offset multiplier
             def set_port_offset_multiplier(self, value: float):
@@ -6046,7 +6871,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:MULT {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:PORT:MULT {value}")
 
             def get_port_offset_multiplier(self) -> float:
                 """
@@ -6058,7 +6883,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Multiplier value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:MULT?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:MULT?"))
 
             # SENS:OFFS:PORT:OFFS - Port offset
             def set_port_offset(self, value: float):
@@ -6071,7 +6896,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:OFFS {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:PORT:OFFS {value}")
 
             def get_port_offset(self) -> float:
                 """
@@ -6083,7 +6908,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Offset value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:OFFS?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:OFFS?"))
 
             # SENS:OFFS:PORT:STAR - Port offset start
             def set_port_offset_start(self, value: float):
@@ -6096,7 +6921,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:STAR {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:PORT:STAR {value}")
 
             def get_port_offset_start(self) -> float:
                 """
@@ -6108,7 +6933,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Start value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:STAR?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:STAR?"))
 
             # SENS:OFFS:PORT:STOP - Port offset stop
             def set_port_offset_stop(self, value: float):
@@ -6121,7 +6946,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:PORT:STOP {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:PORT:STOP {value}")
 
             def get_port_offset_stop(self) -> float:
                 """
@@ -6133,7 +6958,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Stop value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT:STOP?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:STOP?"))
 
             # SENS:OFFS:REC:DATA? - Receiver offset data
             def get_receiver_offset_data(self):
@@ -6146,9 +6971,9 @@ frequency offset, channel data transfer."""
                 Return:
                     list: Receiver offset data array
                 """
-                data = self.instrument.query(f":SENS{self.n}:OFFS:REC:DATA?")
+                data = self.instrument.query(f":SENS{self.channel}:OFFS:REC:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, f"RECIEVER_OFFSET_{self.n}", data, file_type = EFileType.CSV)
+                    self.data_handler.write_to_file(self, f"RECIEVER_OFFSET_{self.channel}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:OFFS:REC:DIV - Receiver offset divisor
@@ -6162,7 +6987,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:DIV {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:REC:DIV {value}")
 
             def get_receiver_offset_divisor(self) -> float:
                 """
@@ -6174,7 +6999,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Divisor value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:DIV?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:DIV?"))
 
             # SENS:OFFS:REC:MULT - Receiver offset multiplier
             def set_receiver_offset_multiplier(self, value: float):
@@ -6187,7 +7012,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:MULT {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:REC:MULT {value}")
 
             def get_receiver_offset_multiplier(self) -> float:
                 """
@@ -6199,7 +7024,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Multiplier value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:MULT?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:MULT?"))
 
             # SENS:OFFS:REC:OFFS - Receiver offset
             def set_receiver_offset(self, value: float):
@@ -6212,7 +7037,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:OFFS {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:REC:OFFS {value}")
 
             def get_receiver_offset(self) -> float:
                 """
@@ -6224,7 +7049,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Offset value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:OFFS?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:OFFS?"))
 
             # SENS:OFFS:REC:STAR - Receiver offset start
             def set_receiver_offset_start(self, value: float):
@@ -6237,7 +7062,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:STAR {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:REC:STAR {value}")
 
             def get_receiver_offset_start(self) -> float:
                 """
@@ -6249,7 +7074,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Start value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:STAR?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:STAR?"))
 
             # SENS:OFFS:REC:STOP - Receiver offset stop
             def set_receiver_offset_stop(self, value: float):
@@ -6262,7 +7087,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:STOP {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:REC:STOP {value}")
 
             def get_receiver_offset_stop(self) -> float:
                 """
@@ -6274,7 +7099,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Stop value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:STOP?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:STOP?"))
 
             # SENS:OFFS:SOUR:DATA? - Source offset data
             def get_source_offset_data(self):
@@ -6287,9 +7112,9 @@ frequency offset, channel data transfer."""
                 Return:
                     list: Source offset data array
                 """
-                data = self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DATA?")
+                data = self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, f"SOURCE_OFFSET_{self.n}", data, file_type = EFileType.CSV)
+                    self.data_handler.write_to_file(self, f"SOURCE_OFFSET_{self.channel}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:OFFS:SOUR:DIV - Source offset divisor
@@ -6303,7 +7128,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:DIV {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:DIV {value}")
 
             def get_source_offset_divisor(self) -> float:
                 """
@@ -6315,7 +7140,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Divisor value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DIV?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DIV?"))
 
             # SENS:OFFS:SOUR:MULT - Source offset multiplier
             def set_source_offset_multiplier(self, value: float):
@@ -6328,7 +7153,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:MULT {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:MULT {value}")
 
             def get_source_offset_multiplier(self) -> float:
                 """
@@ -6340,7 +7165,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Multiplier value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:MULT?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:MULT?"))
 
             # SENS:OFFS:SOUR:OFFS - Source offset
             def set_source_offset(self, value: float):
@@ -6353,7 +7178,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:OFFS {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:OFFS {value}")
 
             def get_source_offset(self) -> float:
                 """
@@ -6365,7 +7190,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Offset value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:OFFS?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:OFFS?"))
 
             # SENS:OFFS:SOUR:STAR - Source offset start
             def set_source_offset_start(self, value: float):
@@ -6378,7 +7203,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:STAR {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:STAR {value}")
 
             def get_source_offset_start(self) -> float:
                 """
@@ -6390,7 +7215,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Start value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:STAR?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:STAR?"))
 
             # SENS:OFFS:SOUR:STOP - Source offset stop
             def set_source_offset_stop(self, value: float):
@@ -6403,7 +7228,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:STOP {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:STOP {value}")
 
             def get_source_offset_stop(self) -> float:
                 """
@@ -6415,7 +7240,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Stop value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:STOP?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:STOP?"))
 
             # SENS:OFFS:TYPE - Offset type
             def set_offset_type(self, offset_type: str):
@@ -6428,7 +7253,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:TYPE {offset_type}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:TYPE {offset_type}")
 
             def get_offset_type(self) -> str:
                 """
@@ -6440,7 +7265,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Offset type
                 """
-                return self.instrument.query(f":SENS{self.n}:OFFS:TYPE?").strip()
+                return self.instrument.query(f":SENS{self.channel}:OFFS:TYPE?").strip()
 
     class ReferenceSource:
         """
@@ -6449,7 +7274,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
 
         # SENS:ROSC:SOUR - Reference source
         def set_reference_source(self, source: str):
@@ -6462,7 +7287,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:ROSC:SOUR {source}")
+            self.instrument.write(f":SENS{self.channel}:ROSC:SOUR {source}")
 
         def get_reference_source(self) -> str:
             """
@@ -6474,7 +7299,7 @@ frequency offset, channel data transfer."""
             Return:
                 str: Reference source
             """
-            return self.instrument.query(f":SENS{self.n}:ROSC:SOUR?").strip()
+            return self.instrument.query(f":SENS{self.channel}:ROSC:SOUR?").strip()
 
     class Voltage:
         """
@@ -6483,7 +7308,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
 
         # SENS:VOLT:DC:RANG:UPP - DC voltage range
         def set_dc_voltage_range(self, value: float):
@@ -6496,7 +7321,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:VOLT:DC:RANG:UPP {value}")
+            self.instrument.write(f":SENS{self.channel}:VOLT:DC:RANG:UPP {value}")
 
         def get_dc_voltage_range(self) -> float:
             """
@@ -6508,13 +7333,13 @@ frequency offset, channel data transfer."""
             Return:
                 float: DC voltage range
             """
-            return float(self.instrument.query(f":SENS{self.n}:VOLT:DC:RANG:UPP?"))
+            return float(self.instrument.query(f":SENS{self.channel}:VOLT:DC:RANG:UPP?"))
     class Average:
         """addition """
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
 
         # SENSe<Ch>:AVERage[:STATe] {OFF|ON|0|1}
         def enable_averaging_state(self, enable: bool):
@@ -6527,7 +7352,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:AVER:STAT {1 if enable else 0}")
+            self.instrument.write(f":SENS{self.channel}:AVER:STAT {1 if enable else 0}")
 
         def is_averaging_state_enabled(self) -> bool:
             """
@@ -6539,7 +7364,7 @@ frequency offset, channel data transfer."""
             Return:
                 bool: True if enabled, False otherwise
             """
-            return bool(int(self.instrument.query(f":SENS{self.n}:AVER:STAT?")))
+            return bool(int(self.instrument.query(f":SENS{self.channel}:AVER:STAT?")))
 
     
 
@@ -6554,7 +7379,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:AVER:CLE")
+            self.instrument.write(f":SENS{self.channel}:AVER:CLE")
 
     
         
@@ -6571,7 +7396,7 @@ frequency offset, channel data transfer."""
                 None
             """
             value = max(1, min(999, value))
-            self.instrument.write(f":SENS{self.n}:AVER:COUN {value}")
+            self.instrument.write(f":SENS{self.channel}:AVER:COUN {value}")
 
         def get_averaging_count(self) -> int:
             """
@@ -6583,7 +7408,7 @@ frequency offset, channel data transfer."""
             Return:
                 int: Averaging factor
             """
-            return int(self.instrument.query(f":SENS{self.n}:AVER:COUN?"))
+            return int(self.instrument.query(f":SENS{self.channel}:AVER:COUN?"))
 
 
 
@@ -6595,7 +7420,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
            
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:DELay <numeric>
@@ -6609,7 +7434,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:CORR:COLL:ADAP:DEL {value}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:DEL {value}")
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:DELay?
         def get_adapter_delay(self) -> float:
@@ -6622,7 +7447,7 @@ frequency offset, channel data transfer."""
             Return:
                 float: Delay value in seconds
             """
-            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:ADAP:DEL?"))
+            return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:DEL?"))
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:LENGth <numeric>
         def set_adapter_length(self, value: float):
@@ -6635,7 +7460,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:CORR:COLL:ADAP:LENG {value}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:LENG {value}")
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:LENGth?
         def get_adapter_length(self) -> float:
@@ -6648,7 +7473,7 @@ frequency offset, channel data transfer."""
             Return:
                 float: Length value in meters
             """
-            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:ADAP:LENG?"))
+            return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:LENG?"))
     
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:UNIT {SEConds|METers}
@@ -6665,7 +7490,7 @@ frequency offset, channel data transfer."""
             allowed = ['SEConds', 'METers']
             if unit not in allowed:
                 raise ValueError(f"unit must be one of {allowed}")
-            self.instrument.write(f":SENS{self.n}:CORR:COLL:ADAP:UNIT {unit}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:UNIT {unit}")
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:UNIT?
         def get_delay_unit(self) -> str:
@@ -6678,7 +7503,7 @@ frequency offset, channel data transfer."""
             Return:
                 str: 'SEC' or 'MET'
             """
-            return self.instrument.query(f":SENS{self.n}:CORR:COLL:ADAP:UNIT?").strip()
+            return self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:UNIT?").strip()
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:MEDia {COAXial|WAVeguide}
         def set_media(self, media: str):
@@ -6694,7 +7519,7 @@ frequency offset, channel data transfer."""
             allowed = ['COAXial', 'WAVeguide']
             if media not in allowed:
                 raise ValueError(f"media must be one of {allowed}")
-            self.instrument.write(f":SENS{self.n}:CORR:COLL:ADAP:MED {media}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:MED {media}")
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:MEDia?
         def get_media(self) -> str:
@@ -6707,7 +7532,7 @@ frequency offset, channel data transfer."""
             Return:
                 str: 'COAX' or 'WAV'
             """
-            return self.instrument.query(f":SENS{self.n}:CORR:COLL:ADAP:MED?").strip()
+            return self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:MED?").strip()
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:PERMittivity <numeric>
         def set_permittivity(self, value: float):
@@ -6720,7 +7545,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:CORR:COLL:ADAP:PERM {value}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:PERM {value}")
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:PERMittivity?
         def get_permittivity(self) -> float:
@@ -6733,7 +7558,7 @@ frequency offset, channel data transfer."""
             Return:
                 float: Permittivity value
             """
-            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:ADAP:PERM?"))
+            return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:PERM?"))
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:WAVeguide:CUToff <numeric>
         def set_waveguide_cutoff_frequency(self, value: float):
@@ -6746,7 +7571,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:CORR:COLL:ADAP:WAV:CUT {value}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:WAV:CUT {value}")
 
         # SENSe<Ch>:CORRection:COLLect:ADAPter:WAVeguide:CUToff?
         def get_waveguide_cutoff_frequency(self) -> float:
@@ -6759,7 +7584,7 @@ frequency offset, channel data transfer."""
             Return:
                 float: Cutoff frequency in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:ADAP:WAV:CUT?"))
+            return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:WAV:CUT?"))
 
         # SENSe<Ch>:CORRection:COLLect:METHod:ADAPter:REMoval <port>
         def set_removal_port(self, port: int):
@@ -6774,14 +7599,14 @@ frequency offset, channel data transfer."""
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
-            self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:ADAP:REM {port}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:ADAP:REM {port}")
 
     class Calibration:
         """ addition Calibration commands for the instrument. """
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
             self.correction = self.Correction(instrument, data_handler, channel)
             
             self.extension = self.Extension(instrument, data_handler, channel)
@@ -6826,7 +7651,7 @@ frequency offset, channel data transfer."""
                 raise ValueError("rcvport and srcport must be 1-4")
             if rcvport == srcport:
                 raise ValueError("rcvport and srcport must be different for ERESponse")
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:ERES {rcvport},{srcport}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:ERES {rcvport},{srcport}")
 
         # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:OPEN <port>
         def set_response_open(self, port: int):
@@ -6841,7 +7666,7 @@ frequency offset, channel data transfer."""
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:OPEN {port}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:RESP:OPEN {port}")
 
         # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:SHORt <port>
         def set_response_short(self, port: int):
@@ -6856,7 +7681,7 @@ frequency offset, channel data transfer."""
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:SHOR {port}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:RESP:SHOR {port}")
 
         # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT1 <port>
         def set_solt1(self, port: int):
@@ -6871,7 +7696,7 @@ frequency offset, channel data transfer."""
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT1 {port}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:SOLT1 {port}")
 
         # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT2 <port1>,<port2>
         def set_solt2(self, port1: int, port2: int):
@@ -6889,7 +7714,7 @@ frequency offset, channel data transfer."""
                 raise ValueError("port1 and port2 must be 1-4")
             if port1 == port2:
                 raise ValueError("port1 and port2 must be different for SOLT2")
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT2 {port1},{port2}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:SOLT2 {port1},{port2}")
 
         # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT3 <port1>,<port2>,<port3>
         def set_solt3(self, port1: int, port2: int, port3: int):
@@ -6909,7 +7734,7 @@ frequency offset, channel data transfer."""
                 raise ValueError("All ports must be 1-4")
             if len(set(ports)) != 3:
                 raise ValueError("All ports must be different for SOLT3")
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT3 {port1},{port2},{port3}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:SOLT3 {port1},{port2},{port3}")
             # SENSe<Ch>:CORRection:COEFficient:METHod:SOLT4 <port1>,<port2>,<port3>,<port4>
         def set_solt4(self, port1: int, port2: int, port3: int, port4: int):
             """
@@ -6929,7 +7754,7 @@ frequency offset, channel data transfer."""
                 raise ValueError("All ports must be 1-4")
             if len(set(ports)) != 4:
                 raise ValueError("All ports must be different for SOLT4")
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:SOLT4 {port1},{port2},{port3},{port4}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:SOLT4 {port1},{port2},{port3},{port4}")
 
         # SENSe<Ch>:CORRection:COEFficient:METHod[:RESPonse]:THRU <rcvport>,<srcport>
         def set_response_thru(self, rcvport: int, srcport: int):
@@ -6947,7 +7772,7 @@ frequency offset, channel data transfer."""
                 raise ValueError("rcvport and srcport must be 1-4")
             if rcvport == srcport:
                 raise ValueError("rcvport and srcport must be different for THRU")
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:RESP:THRU {rcvport},{srcport}")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:RESP:THRU {rcvport},{srcport}")
 
         # SENSe<Ch>:CORRection:COEFficient:SAVE
         def save_coefficients(self):
@@ -6960,7 +7785,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:CORR:COEF:SAVE")
+            self.instrument.write(f":SENS{self.channel}:CORR:COEF:SAVE")
 
         class Correction:
             """
@@ -6970,7 +7795,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.offset = self.Offset(instrument, data_handler, channel)
                 self.coefficient = self.Coefficient(instrument, data_handler, channel)
                 self.extension = self.Extension(instrument, data_handler, channel)
@@ -6982,7 +7807,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENS:CORR:OFFS:CLE - Clears calibration coefficient table
                 def clear_calibration_coefficient_table(self):
@@ -6995,7 +7820,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:CLE")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:CLE")
 
                 # SENS:CORR:OFFS:COLL:CLE - Clears calibration data
                 def clear_offset_calibration_data(self):
@@ -7008,7 +7833,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:CLE")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:CLE")
 
                 # SENS:CORR:OFFS:COLL:DIR - Calibration direction
                 def set_calibration_direction(self, direction: str):
@@ -7024,7 +7849,7 @@ frequency offset, channel data transfer."""
                     allowed = ['FORW', 'REV']
                     if direction not in allowed:
                         raise ValueError(f"direction must be one of {allowed}")
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:DIR {direction}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:DIR {direction}")
 
                 def get_calibration_direction(self) -> str:
                     """
@@ -7036,7 +7861,7 @@ frequency offset, channel data transfer."""
                     Return:
                         str: Calibration direction
                     """
-                    return self.instrument.query(f":SENS{self.n}:CORR:OFFS:COLL:DIR?").strip()
+                    return self.instrument.query(f":SENS{self.channel}:CORR:OFFS:COLL:DIR?").strip()
 
                 # SENS:CORR:OFFS:COLL:ECAL - Measure all standards using ACM
                 def measure_all_standards_acm(self):
@@ -7049,7 +7874,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:ECAL")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:ECAL")
 
                 # SENS:CORR:OFFS:COLL:LOAD - Measure the Load standard
                 def measure_load_standard(self):
@@ -7062,7 +7887,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:LOAD")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:LOAD")
 
                 # SENS:CORR:OFFS:COLL:METH:SMIX2 - Calibration port
                 def set_scalar_mixer_calibration_port(self, port: int):
@@ -7075,7 +7900,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:METH:SMIX2 {port}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:METH:SMIX2 {port}")
 
                 def get_scalar_mixer_calibration_port(self) -> int:
                     """
@@ -7087,7 +7912,7 @@ frequency offset, channel data transfer."""
                     Return:
                         int: Port number
                     """
-                    return int(self.instrument.query(f":SENS{self.n}:CORR:OFFS:COLL:METH:SMIX2?"))
+                    return int(self.instrument.query(f":SENS{self.channel}:CORR:OFFS:COLL:METH:SMIX2?"))
 
                 # SENS:CORR:OFFS:COLL:OPEN - Measure the Open standard
                 def measure_open_standard(self):
@@ -7100,7 +7925,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:OPEN")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:OPEN")
 
                 # SENS:CORR:OFFS:COLL:PMET - Measure power
                 def measure_power(self):
@@ -7113,7 +7938,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:PMET")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:PMET")
 
                 # SENS:CORR:OFFS:COLL:SHOR - Measure the Short standard
                 def measure_short_standard(self):
@@ -7126,7 +7951,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:SHOR")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:SHOR")
 
                 # SENS:CORR:OFFS:COLL:THRU - Measure the Thru standard
                 def measure_thru_standard(self):
@@ -7139,7 +7964,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:THRU")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:THRU")
 
                 # SENS:CORR:OFFS:COLL:SAVE - Completes calibration
                 def complete_offset_calibration(self):
@@ -7152,7 +7977,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:SAVE")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:SAVE")
 
             class Coefficient:
                 """
@@ -7161,7 +7986,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:CORRection:CLEar
                 def clear_correction_table(self):
@@ -7174,7 +7999,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:CLE")
+                    self.instrument.write(f":SENS{self.channel}:CORR:CLE")
 
                 # SENSe<Ch>:CORRection:COEFficient[:DATA] <char>,<rcvport>,<srcport>,<numeric list>
                 def set_correction_coefficient_data(self, term: str, rcvport: int, srcport: int, coeffs):
@@ -7196,7 +8021,7 @@ frequency offset, channel data transfer."""
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
                     coeffs_str = ",".join(str(float(x)) for x in coeffs)
-                    self.instrument.write(f":SENS{self.n}:CORR:COEF:DATA {term},{rcvport},{srcport},{coeffs_str}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COEF:DATA {term},{rcvport},{srcport},{coeffs_str}")
 
                 # SENSe<Ch>:CORRection:COEFficient[:DATA]? <char>,<rcvport>,<srcport>
                 def get_correction_coefficient_data(self, term: str, rcvport: int, srcport: int):
@@ -7216,9 +8041,9 @@ frequency offset, channel data transfer."""
                         raise ValueError(f"term must be one of {allowed_terms}")
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
-                    data = self.instrument.query(f":SENS{self.n}:CORR:COEF:DATA? {term},{rcvport},{srcport}")
+                    data = self.instrument.query(f":SENS{self.channel}:CORR:COEF:DATA? {term},{rcvport},{srcport}")
                     if self.data_handler.is_auto_saving_data_enabled():
-                        self.data_handler.write_to_file(self, f"CALIB_COEFFECIENTS_{self.n}", data, file_type = EFileType.CSV)
+                        self.data_handler.write_to_file(self, f"CALIB_COEFFECIENTS_{self.channel}", data, file_type = EFileType.CSV)
                     return self.data_handler.parse_array(data)
 
                 # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse <rcvport>,<srcport>
@@ -7237,7 +8062,7 @@ frequency offset, channel data transfer."""
                         raise ValueError("rcvport and srcport must be 1-4")
                     if rcvport == srcport:
                         raise ValueError("rcvport and srcport must be different for ERESponse")
-                    self.instrument.write(f":SENS{self.n}:CORR:COEF:METH:ERES {rcvport},{srcport}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COEF:METH:ERES {rcvport},{srcport}")
             class Extension:
                 """
                 Port extension correction related commands.
@@ -7245,7 +8070,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENS:CORR:EXT - Port extension ON/OFF
                 def enable_port_extension(self, enable: bool):
@@ -7254,7 +8079,7 @@ frequency offset, channel data transfer."""
 
                     Parameter:
                         enable (bool): True to enable, False to disable"""
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT {1 if enable else 0}")
                 def is_port_extension_enabled(self) -> bool:
                     """
                     Query if port extension is enabled.
@@ -7265,7 +8090,7 @@ frequency offset, channel data transfer."""
                     Return:
                         bool: True if enabled, False otherwise
                     """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT?")))
 
                 # SENS:CORR:EXT:PORT:FREQ - Values of "Frequency1" and "Frequency2"
                 def get_port_extension_frequencies(self):
@@ -7278,7 +8103,7 @@ frequency offset, channel data transfer."""
                     Return:
                         tuple: (Frequency1, Frequency2)
                     """
-                    data = self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:FREQ?").strip()
+                    data = self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:FREQ?").strip()
                     return tuple(map(float, data.split(',')))
 
                 # SENS:CORR:EXT:PORT:INCL - Loss compensation ON/OFF
@@ -7292,7 +8117,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:INCL {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT:INCL {1 if enable else 0}")
 
                 def is_loss_compensation_enabled(self) -> bool:
                     """
@@ -7304,7 +8129,7 @@ frequency offset, channel data transfer."""
                     Return:
                         bool: True if enabled, False otherwise
                     """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:INCL?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:INCL?")))
 
                 # SENS:CORR:EXT:PORT:LDC - Value "Loss at DC"
                 def set_loss_at_dc(self, value: float):
@@ -7317,7 +8142,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:LDC {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT:LDC {value}")
 
                 def get_loss_at_dc(self) -> float:
                     """
@@ -7329,7 +8154,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Loss at DC
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:LDC?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:LDC?"))
 
                 # SENS:CORR:EXT:PORT:LOSS - Values of "Loss 1" and "Loss 2"
                 def set_loss_values(self, loss1: float, loss2: float):
@@ -7343,7 +8168,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:LOSS {loss1},{loss2}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT:LOSS {loss1},{loss2}")
 
                 def get_loss_values(self):
                     """
@@ -7355,7 +8180,7 @@ frequency offset, channel data transfer."""
                     Return:
                         tuple: (Loss 1, Loss 2)
                     """
-                    data = self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:LOSS?").strip()
+                    data = self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:LOSS?").strip()
                     return tuple(map(float, data.split(',')))
 
                 # SENS:CORR:EXT:PORT:TIME - Extension Port n
@@ -7369,7 +8194,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT:TIME {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT:TIME {value}")
 
                 def get_extension_time(self) -> float:
                     """
@@ -7381,7 +8206,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Extension time
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT:TIME?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:TIME?"))
 
             class Error:
                 """
@@ -7390,7 +8215,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:CORRection:STATe {OFF|ON|0|1}
                 def set_error_correction_state(self, enable: bool):
@@ -7403,7 +8228,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:STAT {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:STAT {1 if enable else 0}")
 
                 # SENSe<Ch>:CORRection:STATe?
                 def is_error_correction_enabled(self) -> bool:
@@ -7416,7 +8241,7 @@ frequency offset, channel data transfer."""
                     Return:
                         bool: True if enabled, False otherwise
                     """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:STAT?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:STAT?")))
 
             # SENS:CORR:CLE - Clears the table of calibration factors
             def clear_calibration_factors(self):
@@ -7429,7 +8254,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:CLE")
+                self.instrument.write(f":SENS{self.channel}:CORR:CLE")
 
             # SENS:CORR:COLL:CLE - Clears data of calibration standards
             def clear_calibration_standards(self):
@@ -7442,7 +8267,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CLE")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:CLE")
 
             # SENS:CORR:INF? - Information string of calibration
             def get_calibration_info(self) -> str:
@@ -7455,7 +8280,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Calibration information
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:INF?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:INF?").strip()
 
             # SENS:CORR:STAT - S-parameter error correction state
             def set_error_correction_state(self, enable: bool):
@@ -7468,7 +8293,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:STAT {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:STAT {1 if enable else 0}")
 
             def is_error_correction_enabled(self) -> bool:
                 """
@@ -7480,7 +8305,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:STAT?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:STAT?")))
 
             # SENS:CORR:TRIG:FREE - Calibration trigger source
             def set_calibration_trigger_source(self, source: str):
@@ -7496,7 +8321,7 @@ frequency offset, channel data transfer."""
                 allowed = ['FREE', 'EXT']
                 if source not in allowed:
                     raise ValueError(f"source must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:TRIG:FREE {source}")
+                self.instrument.write(f":SENS{self.channel}:CORR:TRIG:FREE {source}")
 
             def get_calibration_trigger_source(self) -> str:
                 """
@@ -7508,7 +8333,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Trigger source
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:TRIG:FREE?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:TRIG:FREE?").strip()
 
             # SENS:CORR:TYPE? - Information about trace (calibration type, number of ports)
             def get_calibration_type_info(self) -> str:
@@ -7521,7 +8346,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Calibration type info
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:TYPE?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:TYPE?").strip()
         
         class Data:
             """
@@ -7530,7 +8355,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:COLL:DATA:LOAD <port>,<numeric list>
             def set_load_standard_data(self, port: int, data_list):
@@ -7547,7 +8372,7 @@ frequency offset, channel data transfer."""
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
                 data_str = ",".join(str(float(x)) for x in data_list)
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:DATA:LOAD {port},{data_str}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:DATA:LOAD {port},{data_str}")
 
             # SENS:CORR:COLL:DATA:LOAD? <port>
             def get_load_standard_data(self, port: int):
@@ -7562,7 +8387,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:LOAD? {port}")
+                data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:LOAD? {port}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"CALIB_STANDARD", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
@@ -7582,7 +8407,7 @@ frequency offset, channel data transfer."""
                 if not (1 <= port <= 2):
                     raise ValueError("port must be 1-2")
                 data_str = ",".join(str(float(x)) for x in data_list)
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:DATA:OPEN {port},{data_str}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:DATA:OPEN {port},{data_str}")
 
             # SENS:CORR:COLL:DATA:OPEN? <port>
             def get_open_standard_data(self, port: int):
@@ -7597,9 +8422,9 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 2):
                     raise ValueError("port must be 1-2")
-                data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:OPEN? {port}")
+                data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:OPEN? {port}")
                 if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, f"OPEN_CALIB_STAND_CH_{self.n}_PORT_{port}", data, file_type = EFileType.CSV)
+                    self.data_handler.write_to_file(self, f"OPEN_CALIB_STAND_CH_{self.channel}_PORT_{port}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:CORR:COLL:DATA:SHOR <port>,<numeric list>
@@ -7617,7 +8442,7 @@ frequency offset, channel data transfer."""
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
                 data_str = ",".join(str(float(x)) for x in data_list)
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:DATA:SHOR {port},{data_str}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:DATA:SHOR {port},{data_str}")
 
             # SENS:CORR:COLL:DATA:SHOR? <port>
             def get_short_standard_data(self, port: int):
@@ -7632,9 +8457,9 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:SHOR? {port}")
+                data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:SHOR? {port}")
                 if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, f"SHORT_CALIB_CH{self.n}_PORT{port}", data, file_type = EFileType.CSV)
+                    self.data_handler.write_to_file(self, f"SHORT_CALIB_CH{self.channel}_PORT{port}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENS:CORR:COLL:DATA:THRU:MATC <rcvport>,<srcport>,<numeric list>
@@ -7653,7 +8478,7 @@ frequency offset, channel data transfer."""
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
                 data_str = ",".join(str(float(x)) for x in data_list)
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:DATA:THRU:MATC {rcvport},{srcport},{data_str}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:DATA:THRU:MATC {rcvport},{srcport},{data_str}")
 
             # SENS:CORR:COLL:DATA:THRU:MATC? <rcvport>,<srcport>
             def get_thru_match_data(self, rcvport: int, srcport: int):
@@ -7669,7 +8494,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
-                data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:THRU:MATC? {rcvport},{srcport}")
+                data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:THRU:MATC? {rcvport},{srcport}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"REFLECT_SRCPORT{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
@@ -7690,7 +8515,7 @@ frequency offset, channel data transfer."""
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
                 data_str = ",".join(str(float(x)) for x in data_list)
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:DATA:THRU:TRAN {rcvport},{srcport},{data_str}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:DATA:THRU:TRAN {rcvport},{srcport},{data_str}")
 
             # SENS:CORR:COLL:DATA:THRU:TRAN? <rcvport>,<srcport>
             def get_thru_transmission_data(self, rcvport: int, srcport: int):
@@ -7706,9 +8531,9 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
-                data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:THRU:TRAN? {rcvport},{srcport}")
+                data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:THRU:TRAN? {rcvport},{srcport}")
                 if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, f"TRANSM_MEAS{self.n}_{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
+                    self.data_handler.write_to_file(self, f"TRANSM_MEAS{self.channel}_{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
             
         class Method:
@@ -7718,7 +8543,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.trl = self.TRL(instrument, data_handler, channel)
 
             # SENS:CORR:COLL:METH:ERES <rcvport>,<srcport>
@@ -7737,7 +8562,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("rcvport and srcport must be 1-4")
                 if rcvport == srcport:
                     raise ValueError("rcvport and srcport must be different for ERESponse")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:ERES {rcvport},{srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:ERES {rcvport},{srcport}")
 
             # SENS:CORR:COLL:METH:OPEN <port>
             def set_response_open(self, port: int):
@@ -7752,7 +8577,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:OPEN {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:OPEN {port}")
 
             # SENS:CORR:COLL:METH:SHOR <port>
             def set_response_short(self, port: int):
@@ -7767,7 +8592,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:SHOR {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:SHOR {port}")
 
             # SENS:CORR:COLL:METH:SOLT1 <port>
             def set_solt1(self, port: int):
@@ -7782,7 +8607,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:SOLT1 {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:SOLT1 {port}")
 
             # SENS:CORR:COLL:METH:SOLT2 <port1>,<port2>
             def set_solt2(self, port1: int, port2: int):
@@ -7800,7 +8625,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("port1 and port2 must be 1-4")
                 if port1 == port2:
                     raise ValueError("port1 and port2 must be different for SOLT2")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:SOLT2 {port1},{port2}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:SOLT2 {port1},{port2}")
 
       
 
@@ -7822,7 +8647,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("All ports must be 1-4")
                 if len(set(ports)) != 3:
                     raise ValueError("All ports must be different for SOLT3")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:SOLT3 {port1},{port2},{port3}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:SOLT3 {port1},{port2},{port3}")
 
             # SENS:CORR:COLL:METH:SOLT4 <port1>,<port2>,<port3>,<port4>
             def set_solt4(self, port1: int, port2: int, port3: int, port4: int):
@@ -7843,7 +8668,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("All ports must be 1-4")
                 if len(set(ports)) != 4:
                     raise ValueError("All ports must be different for SOLT4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:SOLT4 {port1},{port2},{port3},{port4}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:SOLT4 {port1},{port2},{port3},{port4}")
 
             # SENS:CORR:COLL:METH:THRU <rcvport>,<srcport>
             def set_response_thru(self, rcvport: int, srcport: int):
@@ -7861,7 +8686,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("rcvport and srcport must be 1-4")
                 if rcvport == srcport:
                     raise ValueError("rcvport and srcport must be different for THRU")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:THRU {rcvport},{srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:THRU {rcvport},{srcport}")
 
             
 
@@ -7873,7 +8698,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
                 # SENS:CORR:COLL:METH:TRL:MULTiline[:STATe] {OFF|ON|0|1}
                 def enable_trl_multiline(self, enable: bool):
                     """
@@ -7885,7 +8710,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:TRL:MULT:STAT {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:TRL:MULT:STAT {1 if enable else 0}")
 
                 def is_trl_multiline_enabled(self) -> bool:
                     """
@@ -7897,7 +8722,7 @@ frequency offset, channel data transfer."""
                     Return:
                         bool: True if enabled, False otherwise
                     """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:METH:TRL:MULT:STAT?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:METH:TRL:MULT:STAT?")))
                 
                 # SENS:CORR:COLL:METH:TRL2 <port1>,<port2>
                 def set_trl2(self, port1: int, port2: int):
@@ -7915,7 +8740,7 @@ frequency offset, channel data transfer."""
                         raise ValueError("port1 and port2 must be 1-4")
                     if port1 == port2:
                         raise ValueError("port1 and port2 must be different for TRL2")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:TRL2 {port1},{port2}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:TRL2 {port1},{port2}")
 
                 # SENS:CORR:COLL:METH:TRL3 <port1>,<port2>,<port3>
                 def set_trl3(self, port1: int, port2: int, port3: int):
@@ -7935,7 +8760,7 @@ frequency offset, channel data transfer."""
                         raise ValueError("All ports must be 1-4")
                     if len(set(ports)) != 3:
                         raise ValueError("All ports must be different for TRL3")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:TRL3 {port1},{port2},{port3}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:TRL3 {port1},{port2},{port3}")
 
                 # SENS:CORR:COLL:METH:TRL4 <port1>,<port2>,<port3>,<port4>
                 def set_trl4(self, port1: int, port2: int, port3: int, port4: int):
@@ -7956,7 +8781,7 @@ frequency offset, channel data transfer."""
                         raise ValueError("All ports must be 1-4")
                     if len(set(ports)) != 4:
                         raise ValueError("All ports must be different for TRL4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:METH:TRL4 {port1},{port2},{port3},{port4}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:TRL4 {port1},{port2},{port3},{port4}")
 
                 # SENS:CORR:COLL:METH:TYPE?
                 def get_calibration_method_type(self) -> str:
@@ -7969,7 +8794,7 @@ frequency offset, channel data transfer."""
                     Return:
                         str: Calibration method type (e.g., 'RESPO', 'RESPS', 'RESPT', 'SOLT1', 'SOLT2', '1PATH', 'NONE')
                     """
-                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:METH:TYPE?").strip()
+                    return self.instrument.query(f":SENS{self.channel}:CORR:COLL:METH:TYPE?").strip()
 
         class Save:
             """
@@ -7978,7 +8803,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.simplified = self.Simplified(instrument, data_handler, channel)
             # SENS:CORR:COLL:SAVE
             def save_calibration_collection(self):
@@ -7991,7 +8816,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:SAVE")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:SAVE")
 
             class Simplified:
                 """
@@ -8000,7 +8825,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENS:CORR:COLL:SIMP:SAVE
                 def save_simplified_calibration_collection(self):
@@ -8013,7 +8838,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:SIMP:SAVE")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:SIMP:SAVE")
 
         class Thru:
             """
@@ -8022,7 +8847,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.waveguide = self.Waveguide(instrument, data_handler, channel)
                 self.full2port = self.Full2Port(instrument, data_handler, channel)
                 self.full3port = self.Full3Port(instrument, data_handler, channel)
@@ -8044,7 +8869,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("rcvport and srcport must be 1-4")
                 if rcvport == srcport:
                     raise ValueError("rcvport and srcport must be different")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU {rcvport},{srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU {rcvport},{srcport}")
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:DELay <numeric>
             def set_addition_delay(self, value: float):
@@ -8057,7 +8882,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:DEL {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:DEL {value}")
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:DELay?
             def get_addition_delay(self) -> float:
@@ -8070,7 +8895,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Delay value in seconds
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:THRU:ADD:DEL?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:DEL?"))
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:LENGth <numeric>
             def set_addition_length(self, value: float):
@@ -8083,7 +8908,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:LENG {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:LENG {value}")
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:LENGth?
             def get_addition_length(self) -> float:
@@ -8096,7 +8921,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Length value in meters
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:THRU:ADD:LENG?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:LENG?"))
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:UNIT {SEConds|METers}
             def set_addition_unit(self, unit: str):
@@ -8112,7 +8937,7 @@ frequency offset, channel data transfer."""
                 allowed = ['SEConds', 'METers']
                 if unit not in allowed:
                     raise ValueError(f"unit must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:UNIT {unit}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:UNIT {unit}")
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:UNIT?
             def get_addition_unit(self) -> str:
@@ -8125,7 +8950,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: 'SEC' or 'MET'
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:COLL:THRU:ADD:UNIT?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:UNIT?").strip()
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:MEDia {COAXial|WAVeguide}
             def set_addition_media(self, media: str):
@@ -8141,7 +8966,7 @@ frequency offset, channel data transfer."""
                 allowed = ['COAXial', 'WAVeguide']
                 if media not in allowed:
                     raise ValueError(f"media must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:MED {media}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:MED {media}")
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:MEDia?
             def get_addition_media(self) -> str:
@@ -8154,7 +8979,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: 'COAX' or 'WAV'
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:COLL:THRU:ADD:MED?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:MED?").strip()
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:PERMittivity <numeric>
             def set_addition_permittivity(self, value: float):
@@ -8167,7 +8992,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:PERM {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:PERM {value}")
 
             # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:PERMittivity?
             def get_addition_permittivity(self) -> float:
@@ -8180,7 +9005,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Permittivity value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:THRU:ADD:PERM?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:PERM?"))
             class Waveguide:
                 """
                 Thru addition waveguide cutoff frequency commands.
@@ -8188,7 +9013,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:WAVeguide:CUToff <numeric>
                 def set_waveguide_cutoff(self, value: float):
@@ -8201,7 +9026,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:WAV:CUT {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:WAV:CUT {value}")
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:WAVeguide:CUToff?
                 def get_waveguide_cutoff(self) -> float:
@@ -8214,7 +9039,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Cutoff frequency in Hz
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:THRU:ADD:WAV:CUT?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:WAV:CUT?"))
 
             class Full2Port:
                 """
@@ -8223,7 +9048,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:FULL2:COMPlete <port1>,<port2>
                 def complete_full_two_port_calibration(self, port1: int, port2: int):
@@ -8239,7 +9064,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                         raise ValueError("port1 and port2 must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:FULL2:COMP {port1},{port2}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL2:COMP {port1},{port2}")
 
             class Full3Port:
                 """
@@ -8248,7 +9073,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:FULL3:PORTs <port1>,<port2>,<port3>
                 def set_ports(self, port1: int, port2: int, port3: int):
@@ -8266,7 +9091,7 @@ frequency offset, channel data transfer."""
                     ports = [port1, port2, port3]
                     if any(not (1 <= p <= 4) for p in ports):
                         raise ValueError("All ports must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:FULL3:PORT {port1},{port2},{port3}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL3:PORT {port1},{port2},{port3}")
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:FULL3:PORTs?
                 def get_ports(self):
@@ -8279,7 +9104,7 @@ frequency offset, channel data transfer."""
                     Return:
                         tuple: (port1, port2, port3)
                     """
-                    resp = self.instrument.query(f":SENS{self.n}:CORR:COLL:THRU:ADD:FULL3:PORT?").strip()
+                    resp = self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL3:PORT?").strip()
                     return tuple(map(int, resp.split(',')))
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:FULL3:ACQuire <port1>,<port2>
@@ -8296,7 +9121,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                         raise ValueError("port1 and port2 must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:FULL3:ACQ {port1},{port2}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL3:ACQ {port1},{port2}")
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:FULL3:COMPlete
                 def complete(self):
@@ -8309,7 +9134,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:FULL3:COMP")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL3:COMP")
 
             class Full4Port:
                 """
@@ -8318,7 +9143,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:FULL4:ACQuire <port1>,<port2>
                 def acquire_thru(self, port1: int, port2: int):
@@ -8334,7 +9159,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                         raise ValueError("port1 and port2 must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:FULL4:ACQ {port1},{port2}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL4:ACQ {port1},{port2}")
 
                 # SENSe<Ch>:CORRection:COLLect:THRU:ADDition:FULL4:COMPlete
                 def complete(self):
@@ -8347,7 +9172,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:THRU:ADD:FULL4:COMP")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL4:COMP")
 
         class Extension:
             
@@ -8357,7 +9182,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.auto = self.Auto(instrument, data_handler, channel)
                 self.port = self.Port(instrument, data_handler, channel, port=1)  # Example: port=1, user should instantiate as needed
 
@@ -8372,7 +9197,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:EXT:STAT {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:EXT:STAT {1 if enable else 0}")
 
             # SENSe<Ch>:CORRection:EXTension[:STATe]?
             def is_port_extension_enabled(self) -> bool:
@@ -8385,7 +9210,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT:STAT?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:STAT?")))
 
             class Auto:
                 """
@@ -8394,7 +9219,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:CONFig {CSPN|AMKR|USPN}
                 def set_auto_config(self, config: str):
@@ -8410,7 +9235,7 @@ frequency offset, channel data transfer."""
                     allowed = ['CSPN', 'AMKR', 'USPN']
                     if config not in allowed:
                         raise ValueError(f"config must be one of {allowed}")
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:AUTO:CONF {config}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:CONF {config}")
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:CONFig?
                 def get_auto_config(self) -> str:
@@ -8423,7 +9248,7 @@ frequency offset, channel data transfer."""
                     Return:
                         str: 'CSPN', 'AMKR', or 'USPN'
                     """
-                    return self.instrument.query(f":SENS{self.n}:CORR:EXT:AUTO:CONF?").strip()
+                    return self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:CONF?").strip()
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:DCOFfset {OFF|ON|0|1}
                 def enable_dc_offset(self, enable: bool):
@@ -8436,7 +9261,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:AUTO:DCOF {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:DCOF {1 if enable else 0}")
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:DCOFfset?
                 def is_dc_offset_enabled(self) -> bool:
@@ -8449,7 +9274,7 @@ frequency offset, channel data transfer."""
                     Return:
                         bool: True if enabled, False otherwise
                     """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT:AUTO:DCOF?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:DCOF?")))
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:LOSS {OFF|ON|0|1}
                 def enable_loss(self, enable: bool):
@@ -8462,7 +9287,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:AUTO:LOSS {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:LOSS {1 if enable else 0}")
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:LOSS?
                 def is_loss_enabled(self) -> bool:
@@ -8475,7 +9300,7 @@ frequency offset, channel data transfer."""
                     Return:
                         bool: True if enabled, False otherwise
                     """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT:AUTO:LOSS?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:LOSS?")))
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:MEASure {SHORt|OPEN}
                 def measure_standard(self, standard: str):
@@ -8491,7 +9316,7 @@ frequency offset, channel data transfer."""
                     allowed = ['SHORt', 'OPEN']
                     if standard not in allowed:
                         raise ValueError(f"standard must be one of {allowed}")
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:AUTO:MEAS {standard}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:MEAS {standard}")
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:PORT<Pt> {OFF|ON|0|1}
                 def enable_auto_port(self, port: int, enable: bool):
@@ -8507,7 +9332,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:AUTO:PORT{port} {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:PORT{port} {1 if enable else 0}")
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:PORT<Pt>?
                 def is_auto_port_enabled(self, port: int) -> bool:
@@ -8522,7 +9347,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT:AUTO:PORT{port}?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:PORT{port}?")))
                 # SENSe<Ch>:CORRection:EXTension:AUTO:RES - Reset auto port extension measurement data
                 def reset_auto_measurement_data(self):
                     """
@@ -8534,7 +9359,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:AUTO:RES")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:RES")
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:STARt <frequency>
                 def set_user_span_start(self, frequency: float):
@@ -8547,7 +9372,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:AUTO:STAR {frequency}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:STAR {frequency}")
 
                 def get_user_span_start(self) -> float:
                     """
@@ -8559,7 +9384,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Start frequency in Hz
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:AUTO:STAR?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:STAR?"))
 
                 # SENSe<Ch>:CORRection:EXTension:AUTO:STOP <frequency>
                 def set_user_span_stop(self, frequency: float):
@@ -8572,7 +9397,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:AUTO:STOP {frequency}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:STOP {frequency}")
 
                 def get_user_span_stop(self) -> float:
                     """
@@ -8584,7 +9409,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Stop frequency in Hz
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:AUTO:STOP?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:STOP?"))
 
             class Port:
                 """
@@ -8593,7 +9418,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel, port):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
                     self.p = port
 
                 # SENSe<Ch>:CORRection:EXTension:PORT<Pt>:FREQuency{[1]|2} <frequency>
@@ -8610,7 +9435,7 @@ frequency offset, channel data transfer."""
                     """
                     if freq_num not in [1, 2]:
                         raise ValueError("freq_num must be 1 or 2")
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT{self.p}:FREQ{freq_num} {frequency}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:FREQ{freq_num} {frequency}")
 
                 def get_frequency(self, freq_num: int) -> float:
                     """
@@ -8624,7 +9449,7 @@ frequency offset, channel data transfer."""
                     """
                     if freq_num not in [1, 2]:
                         raise ValueError("freq_num must be 1 or 2")
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT{self.p}:FREQ{freq_num}?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:FREQ{freq_num}?"))
 
                 # SENSe<Ch>:CORRection:EXTension:PORT<Pt>:INCLude{[1]|2}[:STATe] {OFF|ON|0|1}
                 def enable_loss_compensation(self, loss_num: int, enable: bool):
@@ -8640,7 +9465,7 @@ frequency offset, channel data transfer."""
                     """
                     if loss_num not in [1, 2]:
                         raise ValueError("loss_num must be 1 or 2")
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT{self.p}:INCL{loss_num}:STAT {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:INCL{loss_num}:STAT {1 if enable else 0}")
 
                 def is_loss_compensation_enabled(self, loss_num: int) -> bool:
                     """
@@ -8654,7 +9479,7 @@ frequency offset, channel data transfer."""
                     """
                     if loss_num not in [1, 2]:
                         raise ValueError("loss_num must be 1 or 2")
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT{self.p}:INCL{loss_num}:STAT?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:INCL{loss_num}:STAT?")))
 
                 # SENSe<Ch>:CORRection:EXTension:PORT<Pt>:LDC <numeric>
                 def set_loss_at_dc(self, value: float):
@@ -8667,7 +9492,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT{self.p}:LDC {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:LDC {value}")
 
                 def get_loss_at_dc(self) -> float:
                     """
@@ -8679,7 +9504,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Loss value at DC in dB
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT{self.p}:LDC?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:LDC?"))
 
                 # SENSe<Ch>:CORRection:EXTension:PORT<Pt>:LOSS{[1]|2} <numeric>
                 def set_loss(self, loss_num: int, value: float):
@@ -8695,7 +9520,7 @@ frequency offset, channel data transfer."""
                     """
                     if loss_num not in [1, 2]:
                         raise ValueError("loss_num must be 1 or 2")
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT{self.p}:LOSS{loss_num} {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:LOSS{loss_num} {value}")
 
                 def get_loss(self, loss_num: int) -> float:
                     """
@@ -8709,7 +9534,7 @@ frequency offset, channel data transfer."""
                     """
                     if loss_num not in [1, 2]:
                         raise ValueError("loss_num must be 1 or 2")
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT{self.p}:LOSS{loss_num}?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:LOSS{loss_num}?"))
 
                 # SENSe<Ch>:CORRection:EXTension:PORT<Pt>:TIME <time>
                 def set_electrical_delay(self, value: float):
@@ -8722,7 +9547,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:EXT:PORT{self.p}:TIME {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:TIME {value}")
 
                 def get_electrical_delay(self) -> float:
                     """
@@ -8734,7 +9559,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Electrical delay value in seconds
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:EXT:PORT{self.p}:TIME?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:TIME?"))
                 # SENS:CORR:INF? <rcvport>,<srcport>
                 def get_correction_information(self, rcvport: int, srcport: int) -> str:
                     """
@@ -8749,7 +9574,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
-                    return self.instrument.query(f":SENS{self.n}:CORR:INF? {rcvport},{srcport}").strip()
+                    return self.instrument.query(f":SENS{self.channel}:CORR:INF? {rcvport},{srcport}").strip()
 
                 # SENS:CORR:IMP[:INPut][:MAGNitude] <numeric>
                 def set_system_impedance(self, value: float):
@@ -8762,7 +9587,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:IMP:INP:MAGN {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:IMP:INP:MAGN {value}")
 
                 def get_system_impedance(self) -> float:
                     """
@@ -8774,7 +9599,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Z0 value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:IMP:INP:MAGN?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:IMP:INP:MAGN?"))
 
                 # SENS:CORR:IMP:SEL:AUTO {OFF|ON|0|1}
                 def enable_auto_select_impedance(self, enable: bool):
@@ -8787,7 +9612,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:IMP:INP:SEL:AUTO {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:IMP:INP:SEL:AUTO {1 if enable else 0}")
 
                 def is_auto_select_impedance_enabled(self) -> bool:
                     """
@@ -8799,7 +9624,7 @@ frequency offset, channel data transfer."""
                     Return:
                         bool: True if enabled, False otherwise
                     """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:IMP:INP:SEL:AUTO?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:IMP:INP:SEL:AUTO?")))
         class AutoImpedance:
             """
             Auto select Z0 function ON/OFF.
@@ -8807,7 +9632,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:IMP:SEL:AUTO {OFF|ON|0|1}
             def enable_auto_select_z0(self, enable: bool):
@@ -8820,7 +9645,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:IMP:SEL:AUTO {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:IMP:SEL:AUTO {1 if enable else 0}")
 
             # SENS:CORR:IMP:SEL:AUTO?
             def is_auto_select_z0_enabled(self) -> bool:
@@ -8833,7 +9658,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:IMP:SEL:AUTO?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:IMP:SEL:AUTO?")))
 
         class Offset:
             """
@@ -8842,7 +9667,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:OFFS:CLE
             def clear_scalar_mixer_calibration_table(self):
@@ -8855,7 +9680,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:CLE")
+                self.instrument.write(f":SENS{self.channel}:CORR:OFFS:CLE")
 
             # SENS:CORR:OFFS:COLL:CLE
             def clear_scalar_mixer_calibration_data(self):
@@ -8868,7 +9693,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:CLE")
+                self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:CLE")
 
             # SENS:CORR:OFFS:COLL:DIR {FORWard|REVerse|BOTH}
             def set_scalar_mixer_calibration_direction(self, direction: str):
@@ -8884,7 +9709,7 @@ frequency offset, channel data transfer."""
                 allowed = ['FORW', 'REV', 'BOTH']
                 if direction not in allowed:
                     raise ValueError(f"direction must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:DIR {direction}")
+                self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:DIR {direction}")
 
 
             # SENS:CORR:OFFS:COLL:DIR?
@@ -8898,7 +9723,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: 'FORW', 'REV', or 'BOTH'
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:OFFS:COLL:DIR?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:OFFS:COLL:DIR?").strip()
 
             # SENS:CORR:OFFS:COLL:ECAL <numeric1>,<numeric2>
             def measure_scalar_mixer_calibration_ecal(self, port1: int, port2: int):
@@ -8912,7 +9737,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:ECAL {port1},{port2}")
+                self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:ECAL {port1},{port2}")
 
             # SENS:CORR:OFFS:COLL:LOAD <numeric1>,<numeric2>
             def measure_scalar_mixer_calibration_load(self, port1: int, port2: int):
@@ -8926,7 +9751,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:LOAD {port1},{port2}")
+                self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:LOAD {port1},{port2}")
 
             # SENS:CORR:OFFS:COLL:METH:SMIX2 <numeric1>,<numeric2>
             def set_scalar_mixer_calibration_type(self, port1: int, port2: int):
@@ -8940,7 +9765,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:METH:SMIX2 {port1},{port2}")
+                self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:METH:SMIX2 {port1},{port2}")
 
         class Receiver:
             """
@@ -8949,7 +9774,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.offset_amplitude = self.OffsetAmplitude(instrument, data_handler, channel)
 
             # SENS:CORR:REC - Receiver correction ON/OFF
@@ -8962,12 +9787,12 @@ frequency offset, channel data transfer."""
                     enable (bool): True to enable, False to disable
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:REC:RECeiver{port}:STATe {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:STATe {1 if enable else 0}")
 
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:REC:RECeiver{port}:STATe {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:STATe {1 if enable else 0}")
 
             def is_receiver_correction_enabled(self, port: int) -> bool:
                 """
@@ -8976,13 +9801,13 @@ frequency offset, channel data transfer."""
                 Parameter:
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:REC:RECeiver{port}:STATe?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:REC:RECeiver{port}:STATe?")))
 
                     bool: True if enabled, False otherwise
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:REC:RECeiver{port}:STATe?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:REC:RECeiver{port}:STATe?")))
 
             # SENS:CORR:REC:COLL:ACQ - Receiver calibration (both receivers)
             def acquire_receiver_calibration(self, port: int, srcport: int):
@@ -8992,14 +9817,14 @@ frequency offset, channel data transfer."""
                 Parameter:
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:REC:RECeiver{port}:COLLect:ACQuire {srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:ACQuire {srcport}")
 
                 Return:
                     None
                 """
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:REC:RECeiver{port}:COLLect:ACQuire {srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:ACQuire {srcport}")
 
             # SENS:CORR:REC:COLL:RCH:ACQ - Reference receiver calibration
             def acquire_reference_receiver_calibration(self, port: int, srcport: int):
@@ -9008,7 +9833,7 @@ frequency offset, channel data transfer."""
 
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:REC:RECeiver{port}:COLLect:RCHannel:ACQuire {srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:RCHannel:ACQuire {srcport}")
 
 
                 Return:
@@ -9016,7 +9841,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:REC:RECeiver{port}:COLLect:RCHannel:ACQuire {srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:RCHannel:ACQuire {srcport}")
 
             # SENS:CORR:REC:COLL:TCH:ACQ - Test receiver calibration
             def acquire_test_receiver_calibration(self, port: int, srcport: int):
@@ -9024,7 +9849,7 @@ frequency offset, channel data transfer."""
                 Execute receiver calibration of the test receiver of the specified port.
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:REC:RECeiver{port}:COLLect:TCHannel:ACQuire {srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:TCHannel:ACQuire {srcport}")
 
                     srcport (int): Source port number (1-4)
 
@@ -9033,7 +9858,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:REC:RECeiver{port}:COLLect:TCHannel:ACQuire {srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:TCHannel:ACQuire {srcport}")
             class OffsetAmplitude:
                 """
                 Power offset value for receiver calibration.
@@ -9041,7 +9866,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:CORRection:RECeiver<Pt>:OFFSET:AMPLitude <numeric>
                 def set_offset_amplitude(self, port: int, value: float):
@@ -9058,7 +9883,7 @@ frequency offset, channel data transfer."""
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
                     value = max(-100, min(100, value))
-                    self.instrument.write(f":SENS{self.n}:CORR:REC:OFFS:AMPL {port},{value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:REC:OFFS:AMPL {port},{value}")
 
                 # SENSe<Ch>:CORRection:RECeiver<Pt>:OFFSET:AMPLitude?
                 def get_offset_amplitude(self, port: int) -> float:
@@ -9073,7 +9898,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:REC:OFFS:AMPL? {port}"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:REC:OFFS:AMPL? {port}"))
 
         
         class CableInTimeDomain:
@@ -9083,7 +9908,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:CORRection:TRANsform:TIME:FREQuency <frequency>
             def set_cable_loss_frequency(self, value: float):
@@ -9096,7 +9921,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:TRAN:TIME:FREQ {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:FREQ {value}")
 
             # SENSe<Ch>:CORRection:TRANsform:TIME:FREQuency?
             def get_cable_loss_frequency(self) -> float:
@@ -9109,7 +9934,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Frequency value in Hz
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:TRAN:TIME:FREQ?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:FREQ?"))
 
             # SENSe<Ch>:CORRection:TRANsform:TIME:LOSS <numeric>
             def set_cable_loss_value(self, value: float):
@@ -9122,7 +9947,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:TRAN:TIME:LOSS {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:LOSS {value}")
 
             # SENSe<Ch>:CORRection:TRANsform:TIME:LOSS?
             def get_cable_loss_value(self) -> float:
@@ -9135,7 +9960,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Cable loss value in dB/m
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:TRAN:TIME:LOSS?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:LOSS?"))
 
             # SENSe<Ch>:CORRection:TRANsform:TIME:RVELocity <numeric>
             def set_cable_velocity_factor(self, value: float):
@@ -9148,7 +9973,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:TRAN:TIME:RVEL {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:RVEL {value}")
 
             # SENSe<Ch>:CORRection:TRANsform:TIME:RVELocity?
             def get_cable_velocity_factor(self) -> float:
@@ -9161,7 +9986,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Velocity factor
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:TRAN:TIME:RVEL?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:RVEL?"))
 
         
             # SENSe<Ch>:CORRection:TRANsform:TIME:RVELocity
@@ -9175,7 +10000,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:TRAN:TIME:RVEL {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:RVEL {value}")
 
             def get_relative_velocity(self) -> float:
                 """
@@ -9187,7 +10012,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Velocity factor
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:TRAN:TIME:RVEL?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:RVEL?"))
 
             # SENSe<Ch>:CORRection:TRANsform:TIME:STATe {OFF|ON|0|1}
             def enable_cable_correction(self, enable: bool):
@@ -9200,7 +10025,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:TRAN:TIME:STAT {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:STAT {1 if enable else 0}")
 
             def is_cable_correction_enabled(self) -> bool:
                 """
@@ -9212,7 +10037,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:TRAN:TIME:STAT?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:STAT?")))
 
         class Trigger:
             """
@@ -9221,7 +10046,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:CORRection:TRIGger:FREE[:STATe] {OFF|ON|0|1}
             def enable_internal_trigger_source(self, enable: bool):
@@ -9234,7 +10059,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:TRIG:FREE:STAT {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:TRIG:FREE:STAT {1 if enable else 0}")
 
             def is_internal_trigger_source_enabled(self) -> bool:
                 """
@@ -9246,7 +10071,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:TRIG:FREE:STAT?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:TRIG:FREE:STAT?")))
 
         class Type:
             """
@@ -9255,7 +10080,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:CORRection:TYPE<Tr>?
             def get_calibration_type(self, trace: int):
@@ -9268,7 +10093,7 @@ frequency offset, channel data transfer."""
                 Return:
                     tuple: (type, port1, ..., portN)
                 """
-                resp = self.instrument.query(f":SENS{self.n}:CORR:TYPE{trace}?").strip()
+                resp = self.instrument.query(f":SENS{self.channel}:CORR:TYPE{trace}?").strip()
                 parts = resp.split(',')
                 return (parts[0],) + tuple(map(int, parts[1:]))
 
@@ -9279,7 +10104,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:CORRection:OFFSet:COLLect:ECAL:SAVE <string>
             def save_vector_mixer_calibration(self, filename: str = 'vmctemp.S2P'):
@@ -9292,7 +10117,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLL:ECAL:SAVE \"{filename}\"")
+                self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:ECAL:SAVE \"{filename}\"")
 
             # SENSe<Ch>:CORRection:VMC:COLLect:PORT <numeric>
             def set_vmc_port(self, port: int):
@@ -9307,7 +10132,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:VMC:COLL:PORT {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:PORT {port}")
 
             def get_vmc_port(self) -> int:
                 """
@@ -9319,7 +10144,7 @@ frequency offset, channel data transfer."""
                 Return:
                     int: Port number
                 """
-                return int(self.instrument.query(f":SENS{self.n}:CORR:VMC:COLL:PORT?"))
+                return int(self.instrument.query(f":SENS{self.channel}:CORR:VMC:COLL:PORT?"))
 
             # SENSe<Ch>:CORRection:VMC:COLLect:LO:FREQuency <numeric>
             def set_vmc_lo_frequency(self, value: float):
@@ -9332,7 +10157,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:VMC:COLL:LO:FREQ {value}")
+                self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:LO:FREQ {value}")
 
             def get_vmc_lo_frequency(self) -> float:
 
@@ -9345,7 +10170,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: LO frequency in Hz
                 """
-                return float(self.instrument.query(f":SENS{self.n}:CORR:VMC:COLL:LO:FREQ?"))
+                return float(self.instrument.query(f":SENS{self.channel}:CORR:VMC:COLL:LO:FREQ?"))
     
             
 
@@ -9363,7 +10188,7 @@ frequency offset, channel data transfer."""
                 allowed = ['RFPLO', 'RFMLO', 'LOMRF']
                 if freq_type not in allowed:
                     raise ValueError(f"freq_type must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:VMC:COLL:IF:SEL {freq_type}")
+                self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:IF:SEL {freq_type}")
 
             def get_if_frequency(self) -> str:
                 """
@@ -9375,7 +10200,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: IF frequency type
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:VMC:COLL:IF:SEL?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:VMC:COLL:IF:SEL?").strip()
 
             # SENS:CORR:VMC:COLL:LOAD
             def measure_load_standard(self):
@@ -9388,7 +10213,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:VMC:COLL:LOAD")
+                self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:LOAD")
 
             # SENS:CORR:VMC:COLL:OPEN
             def measure_open_standard(self):
@@ -9401,7 +10226,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:VMC:COLL:OPEN")
+                self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:OPEN")
 
             # SENS:CORR:VMC:COLL:SHOR
             def measure_short_standard(self):
@@ -9414,7 +10239,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:VMC:COLL:SHOR")
+                self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:SHOR")
 
             # SENS:CORR:VMC:COLL:OPT
             def enable_setup_option(self, enable: bool):
@@ -9427,7 +10252,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:VMC:COLL:SETup:OPTion {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:SETup:OPTion {1 if enable else 0}")
 
             def is_setup_option_enabled(self) -> bool:
                 """
@@ -9439,7 +10264,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:VMC:COLL:SETup:OPTion?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:VMC:COLL:SETup:OPTion?")))
 
             # SENS:CORR:VMC:COLL:SAVE
             def save_calibration(self, filename: str = None):
@@ -9453,9 +10278,9 @@ frequency offset, channel data transfer."""
                     None
                 """
                 if filename:
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLLect:SAVE \"{filename}\"")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLLect:SAVE \"{filename}\"")
                 else:
-                    self.instrument.write(f":SENS{self.n}:CORR:OFFS:COLLect:SAVE")
+                    self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLLect:SAVE")
 
         class Kit:
             """
@@ -9464,7 +10289,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.standard = self.Standard(instrument, data_handler, channel)
                 self.select = self.Select(instrument, data_handler, channel)
                 
@@ -9478,7 +10303,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
                     self.count = self.Count(instrument, data_handler, channel)
                     self.data = self.Data(instrument, data_handler, channel)
                     self.delay = self.Delay(instrument, data_handler, channel)
@@ -9503,7 +10328,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LOSS {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:LOSS {value}")
 
                 def get_standard_offset_loss(self, std: int) -> float:
                     """
@@ -9515,7 +10340,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Offset loss value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LOSS?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:LOSS?"))
 
                 # SENS:CORR:COLL:CKIT:STAN<Std>:REM - Delete calibration standard
                 def remove_standard(self, std: int):
@@ -9528,7 +10353,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:REM")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:REM")
 
                 # SENS:CORR:COLL:CKIT:STAN<Std>:TYPE - Type of calibration standard
                 def set_standard_type(self, std: int, std_type: str):
@@ -9545,7 +10370,7 @@ frequency offset, channel data transfer."""
                     allowed = ['OPEN', 'SHOR', 'LOAD', 'THRU', 'UTHR', 'SLID', 'DATA', 'NONE']
                     if std_type not in allowed:
                         raise ValueError(f"std_type must be one of {allowed}")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:TYPE {std_type}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:TYPE {std_type}")
 
                 def get_standard_type(self, std: int) -> str:
                     """
@@ -9557,7 +10382,7 @@ frequency offset, channel data transfer."""
                     Return:
                         str: Standard type
                     """
-                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:TYPE?").strip()
+                    return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:TYPE?").strip()
 
                 # SENS:CORR:COLL:CKIT:STAN<Std>:Z0 - Offset Z0 value for calibration standard
                 def set_standard_offset_z0(self, std: int, value: float):
@@ -9571,7 +10396,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:Z0 {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:Z0 {value}")
 
                 def get_standard_offset_z0(self, std: int) -> float:
                     """
@@ -9583,7 +10408,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Offset Z0 value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:Z0?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:Z0?"))
                 # SENS:CORR:COLL:CKIT:STAN:LAB - Standard label
                 def set_standard_label(self, label: str):
                     """
@@ -9595,7 +10420,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LAB \"{label}\"")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:LAB \"{label}\"")
 
                 def get_standard_label(self) -> str:
                     """
@@ -9607,7 +10432,7 @@ frequency offset, channel data transfer."""
                     Return:
                         str: Standard label
                     """
-                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LAB?").strip()
+                    return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:LAB?").strip()
 
                 # SENS:CORR:COLL:CKIT:STAN:LOSS - Offset loss
                 def set_standard_offset_loss(self, value: float):
@@ -9620,7 +10445,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LOSS {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:LOSS {value}")
 
                 def get_standard_offset_loss(self) -> float:
                     """
@@ -9632,7 +10457,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Offset loss
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:LOSS?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:LOSS?"))
 
                 # SENS:CORR:COLL:CKIT:STAN:TYPE - Standard type
                 def set_standard_type(self, std_type: str):
@@ -9648,7 +10473,7 @@ frequency offset, channel data transfer."""
                     allowed = ['LOAD', 'OPEN', 'SHORT', 'THRU', 'ARB', 'C0', 'C1', 'C2', 'C3', 'L0', 'L1', 'L2', 'L3']
                     if std_type not in allowed:
                         raise ValueError(f"std_type must be one of {allowed}")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:TYPE {std_type}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:TYPE {std_type}")
 
                 def get_standard_type(self) -> str:
                     """
@@ -9660,7 +10485,7 @@ frequency offset, channel data transfer."""
                     Return:
                         str: Standard type
                     """
-                    return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:TYPE?").strip()
+                    return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:TYPE?").strip()
 
                 # SENS:CORR:COLL:CKIT:STAN:Z0 - Offset Z0
                 def set_standard_offset_z0(self, value: float):
@@ -9673,7 +10498,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN:Z0 {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:Z0 {value}")
 
                 def get_standard_offset_z0(self) -> float:
                     """
@@ -9685,7 +10510,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Offset Z0
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:Z0?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:Z0?"))
                 class Count:
                     """
                     Calibration kit standard count commands.
@@ -9693,7 +10518,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STANdard:COUNt?
                     def get_standard_count(self) -> int:
@@ -9706,7 +10531,7 @@ frequency offset, channel data transfer."""
                         Return:
                             int: Number of standards in the calibration kit
                         """
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN:COUN?"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:COUN?"))
 
                 class Data:
                     """
@@ -9715,7 +10540,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DATA <numeric list>
                     def set_standard_data(self, std: int, data_list):
@@ -9730,7 +10555,7 @@ frequency offset, channel data transfer."""
                             None
                         """
                         data_str = ",".join(str(float(x)) for x in data_list)
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DATA {data_str}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DATA {data_str}")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DATA?
                     def get_standard_data(self, std: int):
@@ -9743,9 +10568,9 @@ frequency offset, channel data transfer."""
                         Return:
                             list: Data array
                         """
-                        data = self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DATA?")
+                        data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DATA?")
                         if self.data_handler.is_auto_saving_data_enabled():
-                            self.data_handler.write_to_file(self, f"KIT_STANDARD_CALIB_{self.n}", data, file_type = EFileType.CSV)
+                            self.data_handler.write_to_file(self, f"KIT_STANDARD_CALIB_{self.channel}", data, file_type = EFileType.CSV)
                         return self.data_handler.parse_array(data)
 
                 class Delay:
@@ -9755,7 +10580,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:DELay <numeric>
                     def set_standard_delay(self, std: int, value: float):
@@ -9769,7 +10594,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DEL {value}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DEL {value}")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:Delay?
                     def get_standard_delay(self, std: int) -> float:
@@ -9782,7 +10607,7 @@ frequency offset, channel data transfer."""
                         Return:
                             float: Offset delay value in seconds
                         """
-                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:DEL?"))
+                        return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DEL?"))
 
                 class Fmax:
                     """
@@ -9791,7 +10616,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMAXimum <numeric>
                     def set_standard_fmax(self, std: int, value: float):
@@ -9805,7 +10630,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMAX {value}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:FMAX {value}")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMAXimum?
                     def get_standard_fmax(self, std: int) -> float:
@@ -9818,7 +10643,7 @@ frequency offset, channel data transfer."""
                         Return:
                             float: Maximum frequency limit in Hz
                         """
-                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMAX?"))
+                        return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:FMAX?"))
 
                 class StandardFmin:
                     """
@@ -9827,7 +10652,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMINimum <numeric>
                     def set_standard_fmin(self, std: int, value: float):
@@ -9841,7 +10666,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMIN {value}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:FMIN {value}")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:FMINimum?
                     def get_standard_fmin(self, std: int) -> float:
@@ -9854,7 +10679,7 @@ frequency offset, channel data transfer."""
                         Return:
                             float: Minimum frequency limit in Hz
                         """
-                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:FMIN?"))
+                        return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:FMIN?"))
 
                 class Insert:
                     """
@@ -9863,7 +10688,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:INSert
                     def insert_standard(self, std: int):
@@ -9876,7 +10701,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:INS")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:INS")
 
                 class StandardL0:
                     """
@@ -9885,7 +10710,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L0 <numeric>
                     def set_l0(self, std: int, value: float):
@@ -9899,7 +10724,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L0 {value}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L0 {value}")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L0?
                     def get_l0(self, std: int) -> float:
@@ -9912,7 +10737,7 @@ frequency offset, channel data transfer."""
                         Return:
                             float: L0 value
                         """
-                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L0?"))
+                        return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L0?"))
 
                 class L1:
                     """
@@ -9921,7 +10746,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L1 <numeric>
                     def set_l1(self, std: int, value: float):
@@ -9935,7 +10760,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L1 {value}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L1 {value}")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L1?
                     def get_l1(self, std: int) -> float:
@@ -9948,7 +10773,7 @@ frequency offset, channel data transfer."""
                         Return:
                             float: L1 value
                         """
-                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L1?"))
+                        return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L1?"))
 
                 class L2:
                     """
@@ -9957,7 +10782,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L2 <numeric>
                     def set_l2(self, std: int, value: float):
@@ -9971,7 +10796,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L2 {value}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L2 {value}")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L2?
                     def get_l2(self, std: int) -> float:
@@ -9984,7 +10809,7 @@ frequency offset, channel data transfer."""
                         Return:
                             float: L2 value
                         """
-                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L2?"))
+                        return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L2?"))
 
                 class L3:
                     """
@@ -9993,7 +10818,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L3 <numeric>
                     def set_l3(self, std: int, value: float):
@@ -10007,7 +10832,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L3 {value}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L3 {value}")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:L3?
                     def get_l3(self, std: int) -> float:
@@ -10020,7 +10845,7 @@ frequency offset, channel data transfer."""
                         Return:
                             float: L3 value
                         """
-                        return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:L3?"))
+                        return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L3?"))
 
                 class Label:
                     """
@@ -10029,7 +10854,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:LABel <string>
                     def set_label(self, std: int, label: str):
@@ -10045,7 +10870,7 @@ frequency offset, channel data transfer."""
                         """
                         if len(label) > 254:
                             raise ValueError("label must be up to 254 characters")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LAB \"{label}\"")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:LAB \"{label}\"")
 
                     # SENSe:CORRection:COLLect:CKIT:STAN<Std>:LABel?
                     def get_label(self, std: int) -> str:
@@ -10058,7 +10883,7 @@ frequency offset, channel data transfer."""
                         Return:
                             str: Label string
                         """
-                        return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:LAB?").strip()
+                        return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:LAB?").strip()
                 
                     # SENS:CORR:COLL:CKIT - Calibration kit selection
                     def select_calibration_kit(self, kit: int):
@@ -10071,7 +10896,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT {kit}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT {kit}")
 
                     # SENS:CORR:COLL:CKIT:LAB - Calibration kit label
                     def set_calibration_kit_label(self, label: str):
@@ -10084,7 +10909,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:LAB \"{label}\"")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:LAB \"{label}\"")
 
                     def get_calibration_kit_label(self) -> str:
                         """
@@ -10096,7 +10921,7 @@ frequency offset, channel data transfer."""
                         Return:
                             str: Calibration kit label
                         """
-                        return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:LAB?").strip()
+                        return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:LAB?").strip()
 
                     # SENS:CORR:COLL:CKIT:RES - Remove or restore a calibration kit
                     def remove_calibration_kit(self):
@@ -10109,7 +10934,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:RES")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:RES")
 
 
             
@@ -10120,7 +10945,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
                     self.description = self.Description(instrument, data_handler, channel)
                     self.order = self.Order(instrument, data_handler, channel)
 
@@ -10137,7 +10962,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= kit <= 64):
                         raise ValueError("kit must be 1-64")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:SEL {kit}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:SEL {kit}")
 
                 # SENSe:CORRection:COLLect:CKIT[:SELect]?
                 def get_selected_cal_kit(self) -> int:
@@ -10150,7 +10975,7 @@ frequency offset, channel data transfer."""
                     Return:
                         int: Calibration kit number
                     """
-                    return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:SEL?"))
+                    return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:SEL?"))
                 class Description:
                     """
                     Calibration kit description string commands.
@@ -10158,7 +10983,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:DESCription <string>
                     def set_description(self, description: str):
@@ -10173,7 +10998,7 @@ frequency offset, channel data transfer."""
                         """
                         if len(description) > 254:
                             raise ValueError("description must be up to 254 characters")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:DESC \"{description}\"")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:DESC \"{description}\"")
 
                     # SENSe:CORRection:COLLect:CKIT:DESCription?
                     def get_description(self) -> str:
@@ -10186,7 +11011,7 @@ frequency offset, channel data transfer."""
                         Return:
                             str: Description string
                         """
-                        return self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:DESC?").strip()
+                        return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:DESC?").strip()
 
                 class Order:
                     """
@@ -10195,7 +11020,7 @@ frequency offset, channel data transfer."""
                     def __init__(self, instrument, data_handler, channel):
                         self.instrument = instrument
                         self.data_handler = data_handler
-                        self.n = channel
+                        self.channel = channel
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:LOAD <port>,<numeric>
                     def set_load_standard(self, port: int, standard_num: int):
@@ -10211,7 +11036,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:LOAD {port},{standard_num}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:LOAD {port},{standard_num}")
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:LOAD? <port>
                     def get_load_standard(self, port: int) -> int:
@@ -10226,7 +11051,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:LOAD? {port}"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:LOAD? {port}"))
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:OPEN <port>,<numeric>
                     def set_open_standard(self, port: int, standard_num: int):
@@ -10242,7 +11067,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:OPEN {port},{standard_num}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:OPEN {port},{standard_num}")
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:OPEN? <port>
                     def get_open_standard(self, port: int) -> int:
@@ -10257,7 +11082,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:OPEN? {port}"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:OPEN? {port}"))
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:SELect <numeric>
                     def set_subclass(self, subclass_num: int):
@@ -10272,7 +11097,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= subclass_num <= 8):
                             raise ValueError("subclass_num must be 1-8")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SEL {subclass_num}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:SEL {subclass_num}")
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:SELect?
                     def get_subclass(self) -> int:
@@ -10285,7 +11110,7 @@ frequency offset, channel data transfer."""
                         Return:
                             int: Subclass number
                         """
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SEL?"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:SEL?"))
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:SHORt <port>,<numeric>
                     def set_short_standard(self, port: int, standard_num: int):
@@ -10301,7 +11126,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SHOR {port},{standard_num}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:SHOR {port},{standard_num}")
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:SHORt? <port>
                     def get_short_standard(self, port: int) -> int:
@@ -10316,7 +11141,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:SHOR? {port}"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:SHOR? {port}"))
                     # SENSe:CORRection:COLLect:CKIT:ORDer:THRU <port1>,<port2>,<numeric>
                     def set_thru_standard(self, port1: int, port2: int, standard_num: int):
                         """
@@ -10332,7 +11157,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:THRU {port1},{port2},{standard_num}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:THRU {port1},{port2},{standard_num}")
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:THRU? <port1>,<port2>
                     def get_thru_standard(self, port1: int, port2: int) -> int:
@@ -10348,7 +11173,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:THRU? {port1},{port2}"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:THRU? {port1},{port2}"))
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:TRLLine <port1>,<port2>,<numeric>
                     def set_trl_line_standard(self, port1: int, port2: int, standard_num: int):
@@ -10365,7 +11190,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLL {port1},{port2},{standard_num}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:TRLL {port1},{port2},{standard_num}")
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:TRLLine? <port1>,<port2>
                     def get_trl_line_standard(self, port1: int, port2: int) -> int:
@@ -10381,7 +11206,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLL? {port1},{port2}"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:TRLL? {port1},{port2}"))
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:TRLThru <port1>,<port2>,<numeric>
                     def set_trl_thru_standard(self, port1: int, port2: int, standard_num: int):
@@ -10398,7 +11223,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLT {port1},{port2},{standard_num}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:TRLT {port1},{port2},{standard_num}")
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:TRLThru? <port1>,<port2>
                     def get_trl_thru_standard(self, port1: int, port2: int) -> int:
@@ -10414,7 +11239,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLT? {port1},{port2}"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:TRLT? {port1},{port2}"))
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:TRLReflect <port>,<numeric>
                     def set_trl_reflect_standard(self, port: int, standard_num: int):
@@ -10430,7 +11255,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLR {port},{standard_num}")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:TRLR {port},{standard_num}")
 
                     # SENSe:CORRection:COLLect:CKIT:ORDer:TRLReflect? <port>
                     def get_trl_reflect_standard(self, port: int) -> int:
@@ -10445,7 +11270,7 @@ frequency offset, channel data transfer."""
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
-                        return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:ORD:TRLR? {port}"))
+                        return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:TRLR? {port}"))
 
                     # SENSe:CORRection:COLLect:CKIT:RESet
                     def reset_calibration_kit(self):
@@ -10458,7 +11283,7 @@ frequency offset, channel data transfer."""
                         Return:
                             None
                         """
-                        self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:RES")
+                        self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:RES")
             class Arbitrary:
                 """
                 Calibration kit arbitrary impedance commands.
@@ -10466,7 +11291,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:ARBitrary <numeric>
                 def set_arbitrary_impedance(self, std: int, value: float):
@@ -10480,7 +11305,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:ARB {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:ARB {value}")
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:ARBitrary?
                 def get_arbitrary_impedance(self, std: int) -> float:
@@ -10493,7 +11318,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Impedance value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:ARB?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:ARB?"))
 
             class OpenCapacitance:
                 """
@@ -10502,7 +11327,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C0 <numeric>
                 def set_c0(self, std: int, value: float):
@@ -10516,7 +11341,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C0 {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C0 {value}")
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C0?
                 def get_c0(self, std: int) -> float:
@@ -10529,7 +11354,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: C0 value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C0?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C0?"))
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C1 <numeric>
                 def set_c1(self, std: int, value: float):
@@ -10543,7 +11368,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C1 {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C1 {value}")
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C1?
                 def get_c1(self, std: int) -> float:
@@ -10556,7 +11381,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: C1 value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C1?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C1?"))
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C2 <numeric>
                 def set_c2(self, std: int, value: float):
@@ -10570,7 +11395,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C2 {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C2 {value}")
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C2?
                 def get_c2(self, std: int) -> float:
@@ -10583,7 +11408,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: C2 value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C2?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C2?"))
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C3 <numeric>
                 def set_c3(self, std: int, value: float):
@@ -10597,7 +11422,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C3 {value}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C3 {value}")
 
                 # SENSe:CORRection:COLLect:CKIT:STAN<Std>:C3?
                 def get_c3(self, std: int) -> float:
@@ -10610,7 +11435,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: C3 value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:CORR:COLL:CKIT:STAN{std}:C3?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C3?"))
             
         class Collection:
             """
@@ -10619,7 +11444,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.data = self.Data(instrument, data_handler, channel)
                 
             
@@ -10634,7 +11459,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:CLE")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:CLE")
 
             class Data:
                 """
@@ -10643,7 +11468,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENS:CORR:COLL:DATA:ISOLation <rcvport>,<srcport>,<numeric list>
                 def set_isolation_data(self, rcvport: int, srcport: int, data_list):
@@ -10661,7 +11486,7 @@ frequency offset, channel data transfer."""
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
                     data_str = ",".join(str(float(x)) for x in data_list)
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:DATA:ISOL {rcvport},{srcport},{data_str}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:DATA:ISOL {rcvport},{srcport},{data_str}")
 
                 # SENS:CORR:COLL:DATA:ISOLation? <rcvport>,<srcport>
                 def get_isolation_data(self, rcvport: int, srcport: int):
@@ -10677,7 +11502,7 @@ frequency offset, channel data transfer."""
                     """
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
-                    data = self.instrument.query(f":SENS{self.n}:CORR:COLL:DATA:ISOL? {rcvport},{srcport}")
+                    data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:ISOL? {rcvport},{srcport}")
                     if self.data_handler.is_auto_saving_data_enabled():
                         self.data_handler.write_to_file(self, f"ISO_CALIB_SRCPORT{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
                     return self.data_handler.parse_array(data)
@@ -10690,7 +11515,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.unknown_thru = self.UnknownThru(instrument, data_handler, channel)
 
             # SENS:CORR:COLL:ECAL:CCH[:ACQuire] - Confidence check of calibration coefficients
@@ -10704,7 +11529,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:CCH:ACQuire")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:CCH:ACQuire")
 
             # SENS:CORR:COLL:ECAL:ERESponse <rcvport>,<srcport>
             def execute_one_path_two_port_cal(self, rcvport: int, srcport: int):
@@ -10720,7 +11545,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ERES {rcvport},{srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:ERES {rcvport},{srcport}")
 
             # SENS:CORR:COLL:ECAL:INFormation?
             def get_autocal_information(self) -> str:
@@ -10733,7 +11558,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Information string (comma separated fields)
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:INFormation?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:INFormation?").strip()
 
             # SENS:CORR:COLL:ECAL:ORIentation:EXECute
             def execute_auto_orientation(self):
@@ -10746,7 +11571,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:EXECute")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:ORIentation:EXECute")
 
             # SENS:CORR:COLL:ECAL:ORIentation:STATe {OFF|ON|0|1}
             def enable_auto_orientation(self, enable: bool):
@@ -10759,7 +11584,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:STATe {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:ORIentation:STATe {1 if enable else 0}")
 
             def is_auto_orientation_enabled(self) -> bool:
                 """
@@ -10771,7 +11596,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:ORIentation:STATe?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:ORIentation:STATe?")))
 
             # SENS:CORR:COLL:ECAL:PATH <numeric1>,<numeric2>
             def set_autocal_path(self, analyzer_port: int, autocal_port: int):
@@ -10789,7 +11614,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("analyzer_port must be 1-4")
                 if not (1 <= autocal_port <= 4):
                     raise ValueError("autocal_port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:PATH {analyzer_port},{autocal_port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:PATH {analyzer_port},{autocal_port}")
 
             # SENS:CORR:COLL:ECAL:PATH? <numeric1>
             def get_autocal_path(self, analyzer_port: int) -> int:
@@ -10804,7 +11629,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= analyzer_port <= 4):
                     raise ValueError("analyzer_port must be 1-4")
-                return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:PATH? {analyzer_port}"))
+                return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:PATH? {analyzer_port}"))
             # SENS:CORR:COLL:ECAL:SOLT1 <port>
             def execute_solt1_calibration(self, port: int):
                 """
@@ -10818,7 +11643,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT1 {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:SOLT1 {port}")
 
             # SENS:CORR:COLL:ECAL:SOLT2 <port1>,<port2>
             def execute_solt2_calibration(self, port1: int, port2: int):
@@ -10836,7 +11661,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("port1 and port2 must be 1-4")
                 if port1 == port2:
                     raise ValueError("port1 and port2 must be different for SOLT2")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT2 {port1},{port2}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:SOLT2 {port1},{port2}")
 
             # SENS:CORR:COLL:ECAL:SOLT3 <port1>,<port2>,<port3>
             def execute_solt3_calibration(self, port1: int, port2: int, port3: int):
@@ -10856,7 +11681,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("All ports must be 1-4")
                 if len(set(ports)) != 3:
                     raise ValueError("All ports must be different for SOLT3")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT3 {port1},{port2},{port3}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:SOLT3 {port1},{port2},{port3}")
 
             # SENS:CORR:COLL:ECAL:SOLT4 <port1>,<port2>,<port3>,<port4>
             def execute_solt4_calibration(self, port1: int, port2: int, port3: int, port4: int):
@@ -10877,7 +11702,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("All ports must be 1-4")
                 if len(set(ports)) != 4:
                     raise ValueError("All ports must be different for SOLT4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:SOLT4 {port1},{port2},{port3},{port4}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:SOLT4 {port1},{port2},{port3},{port4}")
 
             # SENS:CORR:COLL:ECAL:THERmo:COMPensation[:STATe] {OFF|ON|0|1}
             def enable_thermo_compensation(self, enable: bool):
@@ -10890,7 +11715,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:THERmo:COMPensation:STATe {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:THERmo:COMPensation:STATe {1 if enable else 0}")
 
             def is_thermo_compensation_enabled(self) -> bool:
                 """
@@ -10902,7 +11727,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:THERmo:COMPensation:STATe?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:THERmo:COMPensation:STATe?")))
 
             # SENS:CORR:COLL:ECAL:UCHar <char>
             def set_autocal_characterization(self, char: str):
@@ -10918,7 +11743,7 @@ frequency offset, channel data transfer."""
                 allowed = ['CHAR0', 'CHAR1', 'CHAR2', 'CHAR3']
                 if char not in allowed:
                     raise ValueError(f"char must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:UCHar {char}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:UCHar {char}")
 
             def get_autocal_characterization(self) -> str:
                 """
@@ -10930,7 +11755,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Characterization ('CHAR0', 'CHAR1', 'CHAR2', 'CHAR3')
                 """
-                return self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:UCHar?").strip()
+                return self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:UCHar?").strip()
             class UnknownThru:
                 """
                 AutoCal Unknown Thru feature commands.
@@ -10938,7 +11763,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENS:CORR:COLL:ECAL:UTHRu:STATe {OFF|ON|0|1}
                 def enable_unknown_thru(self, enable: bool):
@@ -10951,7 +11776,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL:UTHRu:STATe {1 if enable else 0}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:UTHRu:STATe {1 if enable else 0}")
 
                 def is_unknown_thru_enabled(self) -> bool:
                     """
@@ -10963,7 +11788,7 @@ frequency offset, channel data transfer."""
                     Return:
                         bool: True if enabled, False otherwise
                     """
-                    return bool(int(self.instrument.query(f":SENS{self.n}:CORR:COLL:ECAL:UTHRu:STATe?")))
+                    return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:UTHRu:STATe?")))
         class AutoCal2:
             """
             AutoCal 2-port/3-port/4-port calibration commands.
@@ -10971,7 +11796,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:COLL:ECAL2 <port 1>,<port 2>
             def execute_ecal2(self, port1: int, port2: int):
@@ -10989,7 +11814,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("port1 and port2 must be 1-4")
                 if port1 == port2:
                     raise ValueError("port1 and port2 must be different")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2 {port1},{port2}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL2 {port1},{port2}")
 
             # SENS:CORR:COLL:ECAL2:METH:SOLT3 <port1>,<port2>,<port3>
             def set_method_solt3(self, port1: int, port2: int, port3: int):
@@ -11009,7 +11834,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("All ports must be 1-4")
                 if len(set(ports)) != 3:
                     raise ValueError("All ports must be different for SOLT3")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:METH:SOLT3 {port1},{port2},{port3}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL2:METH:SOLT3 {port1},{port2},{port3}")
 
             # SENS:CORR:COLL:ECAL2:METH:SOLT4 <port1>,<port2>,<port3>,<port4>
             def set_method_solt4(self, port1: int, port2: int, port3: int, port4: int):
@@ -11030,7 +11855,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("Ports must be 1, 2, 3, 4 for SOLT4")
                 if len(set(ports)) != 4:
                     raise ValueError("All ports must be different for SOLT4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:METH:SOLT4 {port1},{port2},{port3},{port4}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL2:METH:SOLT4 {port1},{port2},{port3},{port4}")
 
             # SENS:CORR:COLL:ECAL2:THRU <port 1>, <port 2>, {[UNKNown] | FLUSh}
             def measure_thru(self, port1: int, port2: int, thru_type: str = "UNKNown"):
@@ -11052,7 +11877,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("port1 and port2 must be different")
                 if thru_type not in allowed:
                     raise ValueError(f"thru_type must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ECAL2:THRU {port1},{port2},{thru_type}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL2:THRU {port1},{port2},{thru_type}")
 
         
 
@@ -11063,7 +11888,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:COLL:ISOLation <rcvport>,<srcport>
             def measure_isolation(self, rcvport: int, srcport: int):
@@ -11081,7 +11906,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("rcvport and srcport must be 1-4")
                 if rcvport == srcport:
                     raise ValueError("rcvport and srcport must be different")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:ISOL {rcvport},{srcport}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:ISOL {rcvport},{srcport}")
 
         class Load:
             """
@@ -11090,7 +11915,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:COLL:LOAD <port>
             def measure_load(self, port: int):
@@ -11105,7 +11930,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:LOAD {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:LOAD {port}")
 
         class Open:
             """
@@ -11114,7 +11939,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:COLL:OPEN <port>
             def measure_open(self, port: int):
@@ -11129,7 +11954,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:OPEN {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:OPEN {port}")
 
         class Short:
             """
@@ -11138,7 +11963,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENS:CORR:COLL:SHORt <port>
             def measure_short(self, port: int):
@@ -11153,14 +11978,14 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:SHOR {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:SHOR {port}")
 
         class TRL:
             """addition Look at what TRL stands for in manual"""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 self.line = self.Line(instrument, data_handler, channel)
                 
             class Line:
@@ -11170,7 +11995,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENS:CORR:COLL:TRLLine <port1>,<port2>
                 def measure_trl_line(self, port1: int, port2: int):
@@ -11188,7 +12013,7 @@ frequency offset, channel data transfer."""
                         raise ValueError("port1 and port2 must be 1-4")
                     if port1 == port2:
                         raise ValueError("port1 and port2 must be different")
-                    self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLL {port1},{port2}")
+                    self.instrument.write(f":SENS{self.channel}:CORR:COLL:TRLL {port1},{port2}")
 
             
 
@@ -11208,7 +12033,7 @@ frequency offset, channel data transfer."""
                     raise ValueError("port1 and port2 must be 1-4")
                 if port1 == port2:
                     raise ValueError("port1 and port2 must be different")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLT {port1},{port2}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:TRLT {port1},{port2}")
 
 
             # SENS:CORR:COLL:TRLReflect <port>
@@ -11224,7 +12049,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:TRLR {port}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:TRLR {port}")
 
         
         
@@ -11235,7 +12060,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
             # SENS:CORR:COLL:SUBClass <numeric>
             def set_subclass(self, subclass_num: int):
                 """
@@ -11249,7 +12074,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= subclass_num <= 8):
                     raise ValueError("subclass_num must be 1-8")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:SUBC {subclass_num}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:SUBC {subclass_num}")
 
             # SENS:CORR:COLL:SUBClass?
             def get_subclass(self) -> int:
@@ -11262,7 +12087,7 @@ frequency offset, channel data transfer."""
                 Return:
                     int: Subclass number
                 """
-                return int(self.instrument.query(f":SENS{self.n}:CORR:COLL:SUBC?"))
+                return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:SUBC?"))
             # SENSe<Ch>:CORRection:COLLect:SUBClass = <numeric>
             def set_subclass(self, subclass_num: int):
                 """
@@ -11276,7 +12101,7 @@ frequency offset, channel data transfer."""
                 """
                 if not (1 <= subclass_num <= 8):
                     raise ValueError("subclass_num must be 1-8")
-                self.instrument.write(f":SENS{self.n}:CORR:COLL:SUBC {subclass_num}")
+                self.instrument.write(f":SENS{self.channel}:CORR:COLL:SUBC {subclass_num}")
     
 
     class Frequency:
@@ -11286,7 +12111,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
             self.offset = self.Offset(instrument, data_handler, channel)
             self.receiver = self.Receiver(instrument, data_handler, channel)
             self.source = self.Source(instrument, data_handler, channel)
@@ -11302,7 +12127,7 @@ frequency offset, channel data transfer."""
             Returns:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:FREQ {value}")
+            self.instrument.write(f":SENS{self.channel}:FREQ {value}")
 
         def get_fixed_frequency(self) -> float:
             """
@@ -11311,7 +12136,7 @@ frequency offset, channel data transfer."""
             Returns:
                 float: Frequency in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:FREQ?"))
+            return float(self.instrument.query(f":SENS{self.channel}:FREQ?"))
 
         # SENS:FREQ:CENT - Center frequency
         def set_center_frequency(self, value: float):
@@ -11324,7 +12149,7 @@ frequency offset, channel data transfer."""
             Returns:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:FREQ:CENT {value}")
+            self.instrument.write(f":SENS{self.channel}:FREQ:CENT {value}")
 
         def get_center_frequency(self) -> float:
             """
@@ -11333,7 +12158,7 @@ frequency offset, channel data transfer."""
             Returns:
                 float: Center frequency in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:FREQ:CENT?"))
+            return float(self.instrument.query(f":SENS{self.channel}:FREQ:CENT?"))
 
         # SENS:FREQ:SPAN - Span frequency
         def set_span_frequency(self, value: float):
@@ -11346,7 +12171,7 @@ frequency offset, channel data transfer."""
             Returns:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:FREQ:SPAN {value}")
+            self.instrument.write(f":SENS{self.channel}:FREQ:SPAN {value}")
 
 
         # SENS:FREQ:STAR - Start frequency
@@ -11360,7 +12185,7 @@ frequency offset, channel data transfer."""
             Returns:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:FREQ:STAR {value}")
+            self.instrument.write(f":SENS{self.channel}:FREQ:STAR {value}")
 
         def get_start_frequency(self) -> float:
             """
@@ -11369,7 +12194,7 @@ frequency offset, channel data transfer."""
             Returns:
                 float: Start frequency in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:FREQ:STAR?"))
+            return float(self.instrument.query(f":SENS{self.channel}:FREQ:STAR?"))
 
         # SENS:FREQ:STOP - Stop frequency
         def set_stop_frequency(self, value: float):
@@ -11382,7 +12207,7 @@ frequency offset, channel data transfer."""
             Returns:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:FREQ:STOP {value}")
+            self.instrument.write(f":SENS{self.channel}:FREQ:STOP {value}")
 
         def get_stop_frequency(self) -> float:
             """
@@ -11391,7 +12216,7 @@ frequency offset, channel data transfer."""
             Returns:
                 float: Stop frequency in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:FREQ:STOP?"))
+            return float(self.instrument.query(f":SENS{self.channel}:FREQ:STOP?"))
 
         # SENS:FREQ:DATA?
         def get_frequency_data(self):
@@ -11401,9 +12226,9 @@ frequency offset, channel data transfer."""
             Returns:
                 list: Frequency values at each measurement point
             """
-            data = self.instrument.query(f":SENS{self.n}:FREQ:DATA?")
+            data = self.instrument.query(f":SENS{self.channel}:FREQ:DATA?")
             if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, f"FREQUENCIES_{self.n}", data, file_type = EFileType.CSV)
+                    self.data_handler.write_to_file(self, f"FREQUENCIES_{self.channel}", data, file_type = EFileType.CSV)
             return self.data_handler.parse_array(data)
         
         # SENS:FREQ[:CW] <frequency>
@@ -11417,7 +12242,7 @@ frequency offset, channel data transfer."""
             Returns:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:FREQ:CW {value}")
+            self.instrument.write(f":SENS{self.channel}:FREQ:CW {value}")
 
         # SENS:FREQ[:CW]?
         def get_cw_frequency(self) -> float:
@@ -11427,7 +12252,7 @@ frequency offset, channel data transfer."""
             Returns:
                 float: Frequency in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:FREQ:CW?"))
+            return float(self.instrument.query(f":SENS{self.channel}:FREQ:CW?"))
 
         # SENS:FREQ[:FIXed] <frequency>
         def set_fixed_frequency(self, value: float):
@@ -11440,7 +12265,7 @@ frequency offset, channel data transfer."""
             Returns:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:FREQ:FIX {value}")
+            self.instrument.write(f":SENS{self.channel}:FREQ:FIX {value}")
 
         # SENS:FREQ[:FIXed]?
         def get_fixed_frequency(self) -> float:
@@ -11450,7 +12275,7 @@ frequency offset, channel data transfer."""
             Returns:
                 float: Frequency in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:FREQ:FIX?"))
+            return float(self.instrument.query(f":SENS{self.channel}:FREQ:FIX?"))
 
         
 
@@ -11462,7 +12287,7 @@ frequency offset, channel data transfer."""
             Returns:
                 float: Span frequency in Hz
             """
-            return float(self.instrument.query(f":SENS{self.n}:FREQ:SPAN?"))
+            return float(self.instrument.query(f":SENS{self.channel}:FREQ:SPAN?"))
         class Offset:
             """
             Frequency offset feature and adjustment commands.
@@ -11470,7 +12295,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
                 #TODO CHeck possible port numbers
                 self.port = self.Port(instrument, data_handler, channel,1)
                 self.receiver = self.Receiver(instrument, data_handler, channel) 
@@ -11485,7 +12310,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:STAT {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:STAT {1 if enable else 0}")
 
             def is_frequency_offset_enabled(self) -> bool:
                 """
@@ -11497,7 +12322,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:OFFS:STAT?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:OFFS:STAT?")))
 
             # SENSe<Ch>:OFFSet:ADJust[:STATe] {OFF|ON|0|1}
             def enable_offset_adjust(self, enable: bool):
@@ -11510,7 +12335,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:STAT {1 if enable else 0}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:STAT {1 if enable else 0}")
 
             def is_offset_adjust_enabled(self) -> bool:
                 """
@@ -11522,7 +12347,7 @@ frequency offset, channel data transfer."""
                 Return:
                     bool: True if enabled, False otherwise
                 """
-                return bool(int(self.instrument.query(f":SENS{self.n}:OFFS:ADJ:STAT?")))
+                return bool(int(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:STAT?")))
 
             # SENSe<Ch>:OFFSet:ADJust:CONTinuous:PERiod <numeric>
             def set_adjust_period(self, value: float):
@@ -11535,7 +12360,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:ADJ:CONT:PER {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:CONT:PER {value}")
 
             def get_adjust_period(self) -> float:
                 """
@@ -11547,7 +12372,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Period in seconds
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:ADJ:CONT:PER?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:CONT:PER?"))
 
             class Port:
                 """
@@ -11556,7 +12381,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel, port):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
                     self.p = port
 
                 # SENSe<Ch>:OFFSet:PORT<Pt>[:FREQuency]:MULTiplier <numeric>
@@ -11571,7 +12396,7 @@ frequency offset, channel data transfer."""
                         None
                     """
                     value = max(-1000, min(1000, value))
-                    self.instrument.write(f":SENS{self.n}:OFFS:PORT{self.p}:FREQ:MULT {value}")
+                    self.instrument.write(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:MULT {value}")
 
                 # SENSe<Ch>:OFFSet:PORT<Pt>[:FREQuency]:MULTiplier?
                 def get_multiplier(self) -> float:
@@ -11584,7 +12409,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Multiplier value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT{self.p}:FREQ:MULT?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:MULT?"))
 
                 # SENSe<Ch>:OFFSet:PORT<Pt>[:FREQuency]:OFFSet <frequency>
                 def set_offset(self, value: float):
@@ -11598,7 +12423,7 @@ frequency offset, channel data transfer."""
                         None
                     """
                     value = max(-1e12, min(1e12, value))
-                    self.instrument.write(f":SENS{self.n}:OFFS:PORT{self.p}:FREQ:OFFS {value}")
+                    self.instrument.write(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:OFFS {value}")
 
                 # SENSe<Ch>:OFFSet:PORT<Pt>[:FREQuency]:OFFSet?
                 def get_offset(self) -> float:
@@ -11611,7 +12436,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Offset value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT{self.p}:FREQ:OFFS?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:OFFS?"))
 
                 # SENSe<Ch>:OFFSet:PORT<Pt>[:FREQuency]:STARt <frequency>
                 def set_start(self, value: float):
@@ -11624,7 +12449,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:OFFS:PORT{self.p}:FREQ:STAR {value}")
+                    self.instrument.write(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:STAR {value}")
 
                 # SENSe<Ch>:OFFSet:PORT<Pt>[:FREQuency]:STARt?
                 def get_start(self) -> float:
@@ -11637,7 +12462,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Start frequency in Hz
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT{self.p}:FREQ:STAR?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:STAR?"))
 
                 # SENSe<Ch>:OFFSet:PORT<Pt>[:FREQuency]:STOP <frequency>
                 def set_stop(self, value: float):
@@ -11650,7 +12475,7 @@ frequency offset, channel data transfer."""
                     Return:
                         None
                     """
-                    self.instrument.write(f":SENS{self.n}:OFFS:PORT{self.p}:FREQ:STOP {value}")
+                    self.instrument.write(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:STOP {value}")
 
                 # SENSe<Ch>:OFFSet:PORT<Pt>[:FREQuency]:STOP?
                 def get_stop(self) -> float:
@@ -11663,7 +12488,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Stop frequency in Hz
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:OFFS:PORT{self.p}:FREQ:STOP?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:STOP?"))
 
             class Receiver:
                 """
@@ -11672,7 +12497,7 @@ frequency offset, channel data transfer."""
                 def __init__(self, instrument, data_handler, channel):
                     self.instrument = instrument
                     self.data_handler = data_handler
-                    self.n = channel
+                    self.channel = channel
 
                 # SENSe<Ch>:OFFSet:RECeiver[:FREQuency]:DATA?
                 def get_frequency_data(self):
@@ -11685,9 +12510,9 @@ frequency offset, channel data transfer."""
                     Return:
                         list: Frequency values at each measurement point
                     """
-                    data = self.instrument.query(f":SENS{self.n}:OFFS:REC:FREQ:DATA?")
+                    data = self.instrument.query(f":SENS{self.channel}:OFFS:REC:FREQ:DATA?")
                     if self.data_handler.is_auto_saving_data_enabled():
-                        self.data_handler.write_to_file(self, f"FREQ_OFFSET_{self.n}", data, file_type = EFileType.CSV)
+                        self.data_handler.write_to_file(self, f"FREQ_OFFSET_{self.channel}", data, file_type = EFileType.CSV)
                     return self.data_handler.parse_array(data)
 
                 # SENSe<Ch>:OFFSet:RECeiver[:FREQuency]:DIVisor <numeric>
@@ -11702,7 +12527,7 @@ frequency offset, channel data transfer."""
                         None
                     """
                     value = max(1, min(1000, value))
-                    self.instrument.write(f":SENS{self.n}:OFFS:REC:FREQ:DIV {value}")
+                    self.instrument.write(f":SENS{self.channel}:OFFS:REC:FREQ:DIV {value}")
 
                 # SENSe<Ch>:OFFSet:RECeiver[:FREQuency]:DIVisor?
                 def get_divisor(self) -> float:
@@ -11715,7 +12540,7 @@ frequency offset, channel data transfer."""
                     Return:
                         float: Divisor value
                     """
-                    return float(self.instrument.query(f":SENS{self.n}:OFFS:REC:FREQ:DIV?"))
+                    return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:FREQ:DIV?"))
         class Receiver:
             """
             Frequency offset feature: Receiver frequency settings.
@@ -11723,7 +12548,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:OFFSet:RECeiver[:FREQuency]:MULTiplier <numeric>
             def set_multiplier(self, value: float):
@@ -11737,7 +12562,7 @@ frequency offset, channel data transfer."""
                     None
                 """
                 value = max(-1000, min(1000, value))
-                self.instrument.write(f":SENS{self.n}:OFFS:REC:FREQ:MULT {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:REC:FREQ:MULT {value}")
         class Source:
             """
             Frequency offset feature: Source frequency settings.
@@ -11745,7 +12570,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:DATA?
             def get_frequency_data(self):
@@ -11758,9 +12583,9 @@ frequency offset, channel data transfer."""
                 Return:
                     list: Frequency values at each measurement point
                 """
-                data = self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DATA?")
+                data = self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, f"FREQ_SOURCE_OFFSET_{self.n}", data, file_type = EFileType.CSV)
+                    self.data_handler.write_to_file(self, f"FREQ_SOURCE_OFFSET_{self.channel}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:DIVisor <numeric>
@@ -11775,7 +12600,7 @@ frequency offset, channel data transfer."""
                     None
                 """
                 value = max(1, min(1000, value))
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:DIV {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:DIV {value}")
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:DIVisor?
             def get_divisor(self) -> float:
@@ -11788,7 +12613,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Divisor value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:DIV?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DIV?"))
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:MULTiplier <numeric>
             def set_multiplier(self, value: float):
@@ -11802,7 +12627,7 @@ frequency offset, channel data transfer."""
                     None
                 """
                 value = max(-1000, min(1000, value))
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:MULT {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:MULT {value}")
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:MULTiplier?
             def get_multiplier(self) -> float:
@@ -11815,7 +12640,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Multiplier value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:MULT?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:MULT?"))
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:OFFSet <frequency>
             def set_offset(self, value: float):
@@ -11829,7 +12654,7 @@ frequency offset, channel data transfer."""
                     None
                 """
                 value = max(-1e12, min(1e12, value))
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:OFFS {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:OFFS {value}")
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:OFFSet?
             def get_offset(self) -> float:
@@ -11842,7 +12667,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Offset value
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:OFFS?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:OFFS?"))
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:STARt <frequency>
             def set_start(self, value: float):
@@ -11855,7 +12680,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:STAR {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:STAR {value}")
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:STARt?
             def get_start(self) -> float:
@@ -11868,7 +12693,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Start frequency in Hz
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:STAR?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:STAR?"))
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:STOP <frequency>
             def set_stop(self, value: float):
@@ -11881,7 +12706,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:OFFS:SOUR:STOP {value}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:STOP {value}")
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:STOP?
             def get_stop(self) -> float:
@@ -11894,7 +12719,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Stop frequency in Hz
                 """
-                return float(self.instrument.query(f":SENS{self.n}:OFFS:SOUR:STOP?"))
+                return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:STOP?"))
     
 
             # SENSe<Ch>:OFFSet:TYPE <char>
@@ -11911,7 +12736,7 @@ frequency offset, channel data transfer."""
                 allowed = ['PORT', 'SRCRcv']
                 if offset_type not in allowed:
                     raise ValueError(f"offset_type must be one of {allowed}")
-                self.instrument.write(f":SENS{self.n}:OFFS:TYPE {offset_type}")
+                self.instrument.write(f":SENS{self.channel}:OFFS:TYPE {offset_type}")
 
             # SENSe<Ch>:OFFSet:TYPE?
             def get_offset_type(self) -> str:
@@ -11924,7 +12749,7 @@ frequency offset, channel data transfer."""
                 Return:
                     str: Offset type ('PORT' or 'SRCRcv')
                 """
-                return self.instrument.query(f":SENS{self.n}:OFFS:TYPE?").strip()
+                return self.instrument.query(f":SENS{self.channel}:OFFS:TYPE?").strip()
         class Extender:
             """
             System frequency extender commands.
@@ -12123,7 +12948,7 @@ frequency offset, channel data transfer."""
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
 
         # SENSe:ROSCillator:SOURce <char>
         def set_reference_oscillator_source(self, source: str):
@@ -12139,7 +12964,7 @@ frequency offset, channel data transfer."""
             allowed = ['INTernal', 'EXTernal']
             if source not in allowed:
                 raise ValueError(f"source must be one of {allowed}")
-            self.instrument.write(f":SENS{self.n}:ROSC:SOUR {source}")
+            self.instrument.write(f":SENS{self.channel}:ROSC:SOUR {source}")
 
         # SENSe:ROSCillator:SOURce?
         def get_reference_oscillator_source(self) -> str:
@@ -12152,14 +12977,14 @@ frequency offset, channel data transfer."""
             Return:
                 str: Reference source ('INTernal' or 'EXTernal')
             """
-            return self.instrument.query(f":SENS{self.n}:ROSC:SOUR?").strip()
+            return self.instrument.query(f":SENS{self.channel}:ROSC:SOUR?").strip()
         
     
     class Sweep:
         def __init__(self, instrument, data_handler, channel):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.n = channel
+            self.channel = channel
             self.segment_table_data = self.SegmentTableData(instrument, data_handler, channel)
             self.cw = self.CW(instrument, data_handler, channel)
 
@@ -12170,7 +12995,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:SEGMent:DATA <numeric list>
             def set_segment_data(self, data_list):
@@ -12184,7 +13009,7 @@ frequency offset, channel data transfer."""
                     None
                 """
                 data_str = ",".join(str(float(x)) for x in data_list)
-                self.instrument.write(f":SENS{self.n}:SEGM:DATA {data_str}")
+                self.instrument.write(f":SENS{self.channel}:SEGM:DATA {data_str}")
 
             # SENSe<Ch>:SEGMent:DATA?
             def get_segment_data(self):
@@ -12197,9 +13022,9 @@ frequency offset, channel data transfer."""
                 Return:
                     list: Segment sweep table data
                 """
-                data = self.instrument.query(f":SENS{self.n}:SEGM:DATA?")
+                data = self.instrument.query(f":SENS{self.channel}:SEGM:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, f"SWEEPSEG_TABLE_{self.n}", data, file_type = EFileType.CSV)
+                    self.data_handler.write_to_file(self, f"SWEEPSEG_TABLE_{self.channel}", data, file_type = EFileType.CSV)
                 return self.data_handler.parse_array(data)
         # SENS:SWE:REV - Reverse sweep ON/OFF
         def enable_reverse_sweep(self, enable: bool):
@@ -12212,7 +13037,7 @@ frequency offset, channel data transfer."""
             Return:
                 None
             """
-            self.instrument.write(f":SENS{self.n}:SWE:REV {1 if enable else 0}")
+            self.instrument.write(f":SENS{self.channel}:SWE:REV {1 if enable else 0}")
 
         def is_reverse_sweep_enabled(self) -> bool:
             """
@@ -12224,7 +13049,7 @@ frequency offset, channel data transfer."""
             Return:
                 bool: True if enabled, False otherwise
             """
-            return bool(int(self.instrument.query(f":SENS{self.n}:SWE:REV?")))
+            return bool(int(self.instrument.query(f":SENS{self.channel}:SWE:REV?")))
         class CW:
             """
             Sweep time value commands for CW time mode.
@@ -12232,7 +13057,7 @@ frequency offset, channel data transfer."""
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.n = channel
+                self.channel = channel
 
             # SENSe<Ch>:SWEep:CW:TIME <numeric>
             def set_cw_sweep_time(self, value: float):
@@ -12245,7 +13070,7 @@ frequency offset, channel data transfer."""
                 Return:
                     None
                 """
-                self.instrument.write(f":SENS{self.n}:SWE:CW:TIME {value}")
+                self.instrument.write(f":SENS{self.channel}:SWE:CW:TIME {value}")
 
             # SENSe<Ch>:SWEep:CW:TIME?
             def get_cw_sweep_time(self) -> float:
@@ -12258,7 +13083,7 @@ frequency offset, channel data transfer."""
                 Return:
                     float: Sweep time value in seconds
                 """
-                return float(self.instrument.query(f":SENS{self.n}:SWE:CW:TIME?"))
+                return float(self.instrument.query(f":SENS{self.channel}:SWE:CW:TIME?"))
 
         
 class Service:
@@ -12268,7 +13093,7 @@ class Service:
     def __init__(self, instrument, data_handler, channel):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.n = channel
+        self.channel = channel
         self.channel = self.Channel(self.instrument,data_handler)
         self.port = self.Port(self.instrument, data_handler)
         self.sweep = self.Sweep(self.instrument, data_handler)
