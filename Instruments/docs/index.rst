@@ -5,14 +5,11 @@
 
 Measurement Software Documentation
 ==================================
-
+Contents
+---------
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-   usage/installation
+   Home <self>
+   usage
+   api
    
-Indices and tables
-======================
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+
