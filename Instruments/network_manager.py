@@ -97,8 +97,15 @@ class NetworkManager:
         instruments = []
         print(unknown_resources)
 
-        with importlib.resources.open_text('Instruments.data','instrumentPorts.json') as f:
-            instrumentPorts = json.load(f) 
+        '''with importlib.resources.open_text('Instruments.data','instrumentPorts.json') as f:
+            instrumentPorts = json.load(f) '''
+        instrumentPorts = {"RIGOL TECHNOLOGIES,DS1202Z-E,DS1ZE264M00036,00.06.04":"oscilloscope",
+"Siglent Technologies,SPD3303C,SPD3EGGD802587,1.02.01.02.02R3,V2.0":"dc power supply",
+"spectrum analyzer":"TCPIP0::localhost::5026::SOCKET",
+"vector network analyzer":"TCPIP0::localhost::5025::SOCKET",
+"rf switch":"TCPIP0::192.168.0.8::8249::SOCKET"
+
+}
         for port in unknown_resources:
         #for i in range(0,1):
             #port = unknown_resources[i]
@@ -190,9 +197,8 @@ class NetworkManager:
             raise ValueError("DC Power Supply failed to connect.")
         return dc_power[0]
     def connect_rf_switch(self,saved_files_path = None) -> RF_Switch:
-        with importlib.resources.open_text('Instruments.data','instrumentPorts.json') as file:
-            ip = json.load(file)
-        port = ip[EInstrument.RF_SWITCH.value]
+        
+        port = "TCPIP0::192.168.0.8::8249::SOCKET"#ip[EInstrument.RF_SWITCH.value]
         inst = self.rm.open_resource(port)
 
         # For SOCKET programming, we want to tell VISA to use a terminating character

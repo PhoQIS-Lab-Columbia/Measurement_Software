@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: measurement_instruments_Grace_Davanzo
-Version: 0.1.8
+Version: 0.1.10
 Summary: A package to control PhoQis Labs various pieces of measurement equipment.
 Home-page: https://github.com/phoqis-lab/Measurement_Software
 Author: Mary Grace D Avanzo
