@@ -13,7 +13,7 @@ from Instruments.EInstrument import EInstrument
 from Instruments.digital_attenuator_vanuix import digital_attenuator
 
 from Instruments.rf_switch import RF_Switch
-from Instruments.docs.dc_power_supply_siglent import DCPowerSupply
+from Instruments.dc_power_supply_siglent import DCPowerSupply
 from Instruments.flowmeter_keyence import Flowmeter
 import time
 import psutil
