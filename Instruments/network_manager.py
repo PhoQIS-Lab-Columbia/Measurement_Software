@@ -10,7 +10,7 @@ from Instruments.oscilloscope_rigol import Oscilloscope
 from Instruments.spectrum_analyzer_signal_hound import SpectrumAnalyzer
 from Instruments.vector_network_analyzer_copper_mountain import VNA
 from Instruments.EInstrument import EInstrument
-from Instruments.digital_attenuator_vanuix import digital_attenuator
+from Instruments.digital_attenuator_vanuix import DigitalAttenuator
 
 from Instruments.rf_switch import RF_Switch
 from Instruments.dc_power_supply_siglent import DCPowerSupply
@@ -252,7 +252,7 @@ class NetworkManager:
             # Open selected device
             vnx.fnLDA_InitDevice(devid)
             
-            return digital_attenuator(vnx, devid, saved_files_path)
+            return DigitalAttenuator(vnx, devid, saved_files_path)
         
             
     def disconnect(self, instruments):
