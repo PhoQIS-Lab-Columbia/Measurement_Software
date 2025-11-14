@@ -29,14 +29,16 @@ class VNA(Instrument):
         self.channel14 = Channel(self.instrument, self.data_handler, channel=14)
         self.channel15 = Channel(self.instrument, self.data_handler, channel=15)
         self.channel16 = Channel(self.instrument, self.data_handler, channel=16)  
-
+        self.channels = [self.channel1, self.channel2, self.channel3, self.channel4, self.channel5, self.channel6, 
+                         self.channel7, self.channel8, self.channel9,self.channel10, self.channel11, self.channel12, self.channel13, 
+                         self.channel14, self.channel15, self.channel16]
         self.display = Display(self.instrument, self.data_handler)
         self.format = Format(self.instrument, self.data_handler)
         self.hcopy = HCopy(self.instrument, self.data_handler)
         self.mmemory = MMemory(self.instrument, self.data_handler)
         self.output = Output(self.instrument, self.data_handler)
 
-        self.service = Service(self.instrument, self.data_handler)
+        
         self.status = Status(self.instrument, self.data_handler)
         self.source = Source(self.instrument, self.data_handler)
         self.system = System(self.instrument, self.data_handler)
@@ -62,7 +64,7 @@ class Channel:
         self.calculate = Calculate(self.instrument, self.data_handler, self.channel)
         self.initate = Initate(self.instrument, self.data_handler, self.channel)
         self.sense = Sense(self.instrument, self.data_handler, self.channel)
-        
+        self.service = Service(self.instrument, self.data_handler, self.channel)
 class Calculate:
     """
     Data processing (conversion, electrical delay, phase offset,
@@ -204,7 +206,7 @@ trace data transfer.
         data = self.instrument.query(f":CALC{self.channel}:DATA:FDAT?")
         if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"FORMATTED_DATA", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:DATA:FMEM - Formatted memory array
     def get_formatted_memory(self):
@@ -220,7 +222,7 @@ trace data transfer.
         data = self.instrument.query(f":CALC{self.channel}:DATA:FMEM?")
         if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"FORMAT_MEM", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:DATA:SDAT - Corrected data array
     def get_corrected_data(self):
@@ -236,7 +238,7 @@ trace data transfer.
         data = self.instrument.query(f":CALC{self.channel}:DATA:SDAT?")
         if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"CORR_DATA", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:DATA:SMEM - Corrected memory array
     def get_corrected_memory(self):
@@ -252,7 +254,7 @@ trace data transfer.
         data = self.instrument.query(f":CALC{self.channel}:DATA:SMEM?")
         if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"CORR_MEM", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:DATA:XAX? - X-axis values array
     def get_x_axis(self):
@@ -268,7 +270,7 @@ trace data transfer.
         data = self.instrument.query(f":CALC{self.channel}:DATA:XAX?")
         if self.data_handler.is_auto_saving_data_enabled():
             self.data_handler.write_to_file(self, f"X_AXIS", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:FORM - Trace format
     def set_trace_format(self, fmt: str):
@@ -1599,7 +1601,7 @@ class Calc_Trace:
         data = self.instrument.query(f":CALC{self.channel}:FUNC:DATA?")
         if self.data_handler.is_auto_saving_data_enabled():
             self.data_handler.write_to_file(self, "ANALYSIS_RESULT", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:FUNC:DOM - Arbitrary sweep range ON/OFF
     def enable_arbitrary_sweep_range(self, enable: bool):
@@ -2245,7 +2247,7 @@ class Calc_Marker:
         data = self.instrument.query(f":CALC{self.channel}:MARK:DATA?")
         if self.data_handler.is_auto_saving_data_enabled():
             self.data_handler.write_to_file(self, "MARKER", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:MARK:DISC - Marker discrete mode ON/OFF
     def enable_marker_discrete_mode(self, enable: bool):
@@ -2377,7 +2379,7 @@ class Calc_Marker:
         data = self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:DATA?")
         if self.data_handler.is_auto_saving_data_enabled():
             self.data_handler.write_to_file(self, "BWDTH_SEARCH", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:MARK:BWID:REF - Reference of search
     def set_bandwidth_search_reference(self, marker: int, value: float):
@@ -2756,7 +2758,7 @@ class Calc_Marker:
         data = self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DATA?")
         if self.data_handler.is_auto_saving_data_enabled():
             self.data_handler.write_to_file(self, "MARKER_FLATNESS", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:MARK:MATH:FLAT:STAT - Marker flatness ON/OFF
     def enable_marker_flatness(self, marker: int, enable: bool):
@@ -2945,7 +2947,7 @@ class Calc_MST:
         data = self.instrument.query(f":CALC{self.channel}:MST:DATA?")
         if self.data_handler.is_auto_saving_data_enabled():
             self.data_handler.write_to_file(self, "MSTH_STATS", data, file_type = EFileType.CSV)
-        return self.data_handler.parse_array(data)
+        return data
 
     # CALC:MST:DOM - Partial frequency range ON/OFF
     def enable_partial_frequency_range(self, enable: bool):
@@ -6255,7 +6257,7 @@ frequency offset, channel data transfer."""
         self.calibration = self.Calibration(instrument, data_handler, channel)
         self.frequency = self.Frequency(instrument, data_handler, channel)
         self.reference_oscillator = self.ReferenceOscillator(instrument, data_handler, channel)
-        
+    
     class Average:
         """
         Averaging related commands.
@@ -6578,7 +6580,7 @@ frequency offset, channel data transfer."""
             data = self.instrument.query(f":SENS{self.channel}:DATA:CORR?")
             if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, f"CORR_S_PARAM", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
+            return data
         
         def get_raw_data_array_of_parameter(self, param: str):
                 """param (str): S-parameter (e.g., 'S11', 'S21', ...) 
@@ -6593,7 +6595,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:DATA:CORR? {param}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"RAW_DATA", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
         # SENS:DATA:RAWD? - Raw S-parameter or receiver data
         def get_raw_data(self):
@@ -6609,7 +6611,7 @@ frequency offset, channel data transfer."""
             data = self.instrument.query(f":SENS{self.channel}:DATA:RAWD?")
             if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"RAW_S_PARAM", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
+            return data
 
         # SENS:FREQ:DATA? - Stimulus data
         def get_stimulus_data(self):
@@ -6625,7 +6627,7 @@ frequency offset, channel data transfer."""
             data = self.instrument.query(f":SENS{self.channel}:FREQ:DATA?")
             if self.data_handler.is_auto_saving_data_enabled():
                 self.data_handler.write_to_file(self, "STIMULUS", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
+            return data
 
 
 
@@ -6833,7 +6835,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:OFFS:PORT:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, "PORT_OFFSET", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
             # SENS:OFFS:PORT:DIV - Port offset divisor
             def set_port_offset_divisor(self, value: float):
@@ -6974,7 +6976,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:OFFS:REC:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"RECIEVER_OFFSET_{self.channel}", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
             # SENS:OFFS:REC:DIV - Receiver offset divisor
             def set_receiver_offset_divisor(self, value: float):
@@ -7115,7 +7117,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"SOURCE_OFFSET_{self.channel}", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
             # SENS:OFFS:SOUR:DIV - Source offset divisor
             def set_source_offset_divisor(self, value: float):
@@ -8044,7 +8046,7 @@ frequency offset, channel data transfer."""
                     data = self.instrument.query(f":SENS{self.channel}:CORR:COEF:DATA? {term},{rcvport},{srcport}")
                     if self.data_handler.is_auto_saving_data_enabled():
                         self.data_handler.write_to_file(self, f"CALIB_COEFFECIENTS_{self.channel}", data, file_type = EFileType.CSV)
-                    return self.data_handler.parse_array(data)
+                    return data
 
                 # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse <rcvport>,<srcport>
                 def set_coefficient_method_eresponse(self, rcvport: int, srcport: int):
@@ -8390,7 +8392,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:LOAD? {port}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"CALIB_STANDARD", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
             # SENS:CORR:COLL:DATA:OPEN <port>,<numeric list>
             def set_open_standard_data(self, port: int, data_list):
@@ -8425,7 +8427,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:OPEN? {port}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"OPEN_CALIB_STAND_CH_{self.channel}_PORT_{port}", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
             # SENS:CORR:COLL:DATA:SHOR <port>,<numeric list>
             def set_short_standard_data(self, port: int, data_list):
@@ -8460,7 +8462,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:SHOR? {port}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"SHORT_CALIB_CH{self.channel}_PORT{port}", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
             # SENS:CORR:COLL:DATA:THRU:MATC <rcvport>,<srcport>,<numeric list>
             def set_thru_match_data(self, rcvport: int, srcport: int, data_list):
@@ -8497,7 +8499,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:THRU:MATC? {rcvport},{srcport}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"REFLECT_SRCPORT{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
             # SENS:CORR:COLL:DATA:THRU:TRAN <rcvport>,<srcport>,<numeric list>
             def set_thru_transmission_data(self, rcvport: int, srcport: int, data_list):
@@ -8534,7 +8536,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:THRU:TRAN? {rcvport},{srcport}")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"TRANSM_MEAS{self.channel}_{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
             
         class Method:
             """
@@ -10571,7 +10573,7 @@ frequency offset, channel data transfer."""
                         data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DATA?")
                         if self.data_handler.is_auto_saving_data_enabled():
                             self.data_handler.write_to_file(self, f"KIT_STANDARD_CALIB_{self.channel}", data, file_type = EFileType.CSV)
-                        return self.data_handler.parse_array(data)
+                        return data
 
                 class Delay:
                     """
@@ -11505,7 +11507,7 @@ frequency offset, channel data transfer."""
                     data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:DATA:ISOL? {rcvport},{srcport}")
                     if self.data_handler.is_auto_saving_data_enabled():
                         self.data_handler.write_to_file(self, f"ISO_CALIB_SRCPORT{srcport}_RCVPORT{rcvport}", data, file_type = EFileType.CSV)
-                    return self.data_handler.parse_array(data)
+                    return data
 
         
         class AutoCal:
@@ -12229,7 +12231,7 @@ frequency offset, channel data transfer."""
             data = self.instrument.query(f":SENS{self.channel}:FREQ:DATA?")
             if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"FREQUENCIES_{self.channel}", data, file_type = EFileType.CSV)
-            return self.data_handler.parse_array(data)
+            return data
         
         # SENS:FREQ[:CW] <frequency>
         def set_cw_frequency(self, value: float):
@@ -12513,7 +12515,7 @@ frequency offset, channel data transfer."""
                     data = self.instrument.query(f":SENS{self.channel}:OFFS:REC:FREQ:DATA?")
                     if self.data_handler.is_auto_saving_data_enabled():
                         self.data_handler.write_to_file(self, f"FREQ_OFFSET_{self.channel}", data, file_type = EFileType.CSV)
-                    return self.data_handler.parse_array(data)
+                    return data
 
                 # SENSe<Ch>:OFFSet:RECeiver[:FREQuency]:DIVisor <numeric>
                 def set_divisor(self, value: float):
@@ -12586,7 +12588,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"FREQ_SOURCE_OFFSET_{self.channel}", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
 
             # SENSe<Ch>:OFFSet:SOURce[:FREQuency]:DIVisor <numeric>
             def set_divisor(self, value: float):
@@ -12987,7 +12989,31 @@ frequency offset, channel data transfer."""
             self.channel = channel
             self.segment_table_data = self.SegmentTableData(instrument, data_handler, channel)
             self.cw = self.CW(instrument, data_handler, channel)
+        # SENSe<Ch>:SWEep:TYPE <char>
+        def set_type(self, sweep_type: str):
+            """
+            Set the sweep type for the specified channel.
 
+            Parameter:
+            sweep_type (str): Sweep type, one of ['LIN', 'LOG', 'SEGM', 'POW']
+
+            Return:
+            None
+            """
+            allowed = ['LIN', 'LOG', 'SEGM', 'POW']
+            if sweep_type not in allowed:
+                raise ValueError(f"sweep_type must be one of {allowed}")
+            self.instrument.write(f":SENS{self.channel}:SWE:TYPE {sweep_type}")
+
+        # SENSe<Ch>:SWEep:TYPE?
+        def get_type(self) -> str:
+            """
+            Get the sweep type for the specified channel.
+
+            Return:
+            str: Sweep type ('LIN', 'LOG', 'SEGM', or 'POW')
+            """
+            return self.instrument.query(f":SENS{self.channel}:SWE:TYPE?").strip()
         class SegmentTableData:
             """
             Segment sweep table commands.
@@ -13025,7 +13051,7 @@ frequency offset, channel data transfer."""
                 data = self.instrument.query(f":SENS{self.channel}:SEGM:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
                     self.data_handler.write_to_file(self, f"SWEEPSEG_TABLE_{self.channel}", data, file_type = EFileType.CSV)
-                return self.data_handler.parse_array(data)
+                return data
         # SENS:SWE:REV - Reverse sweep ON/OFF
         def enable_reverse_sweep(self, enable: bool):
             """
@@ -13050,6 +13076,7 @@ frequency offset, channel data transfer."""
                 bool: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":SENS{self.channel}:SWE:REV?")))
+        
         class CW:
             """
             Sweep time value commands for CW time mode.
@@ -16136,7 +16163,7 @@ class Trigger:
         self.output = self.Output(instrument)
         self.point = self.Point(instrument)
     # TRIGger[:SEQuence][:IMMediate]
-    def sequence_immediate(self):
+    def Trigger(self):
         """
         Generates a trigger signal and initiates a sweep if conditions are met.
 
@@ -16443,12 +16470,12 @@ class Trigger:
         Selects the trigger source.
 
         Parameter:
-            source (str): 'INTernal', 'EXTernal', 'MANual', or 'BUS'
+            source (str): 'INT', 'EXT', 'MAN', or 'BUS'
 
         Return:
             None
         """
-        allowed = ['INTernal', 'EXTernal', 'MANual', 'BUS']
+        allowed = ['INT', 'EXT', 'MAN', 'BUS']
         if source not in allowed:
             raise ValueError("source must be one of ['INTernal', 'EXTernal', 'MANual', 'BUS']")
         self.instrument.write(f":TRIG:SEQ:SOUR {source}")

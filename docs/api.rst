@@ -10,7 +10,6 @@ Instrument Package
     :template: class.rst
     
     Instruments.Instrument.Instrument
-    Instruments.Instrument.
-
-
+    Instruments.vector_network_analyzer_copper_mountain.VNA
+    
 
