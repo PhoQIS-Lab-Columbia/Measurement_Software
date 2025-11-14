@@ -11,6 +11,8 @@ class DataHandler():
         self.default_save_path = file_path 
         self.file_path = self.default_save_path
         self.auto_save = False
+    def parse_array(self,data):
+        return data
     def get_save_path(self):
         """
         Get the current folder where data is saved.
