@@ -1,5 +1,5 @@
 ﻿Instruments.flowmeter_keyence.Flowmeter Class
-==========================================
+==========================================================================
 
 .. autoclass:: Instruments.flowmeter_keyence.Flowmeter
    :members:

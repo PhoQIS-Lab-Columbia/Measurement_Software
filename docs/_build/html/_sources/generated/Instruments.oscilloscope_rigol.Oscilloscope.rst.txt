@@ -1,5 +1,5 @@
 ﻿Instruments.oscilloscope_rigol.Oscilloscope Class
-==========================================
+==========================================================================
 
 .. autoclass:: Instruments.oscilloscope_rigol.Oscilloscope
    :members:

@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Instruments.vector_network_analyzer_copper_mountain.Display Class &#8212; Instruments 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Instruments.vector_network_analyzer_copper_mountain.Format Class" href="Instruments.vector_network_analyzer_copper_mountain.Format.html" />
+    <link rel="prev" title="Instruments.vector_network_analyzer_copper_mountain.Channel Class" href="Instruments.vector_network_analyzer_copper_mountain.Channel.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="instruments-vector-network-analyzer-copper-mountain-display-class">
+<h1>Instruments.vector_network_analyzer_copper_mountain.Display Class<a class="headerlink" href="#instruments-vector-network-analyzer-copper-mountain-display-class" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.vector_network_analyzer_copper_mountain.</span></span><span class="sig-name descname"><span class="pre">Display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Command display settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Display color settings.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.get_background">
+<span class="sig-name descname"><span class="pre">get_background</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.get_background"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.get_background" title="Link to this definition">¶</a></dt>
+<dd><p>Get the background color for trace display.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+tuple: (r, g, b)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.get_graticule">
+<span class="sig-name descname"><span class="pre">get_graticule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.get_graticule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.get_graticule" title="Link to this definition">¶</a></dt>
+<dd><p>Get the grid and graticule label color.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+tuple: (r, g, b)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.get_trace_data">
+<span class="sig-name descname"><span class="pre">get_trace_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.get_trace_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.get_trace_data" title="Link to this definition">¶</a></dt>
+<dd><p>Get the data trace color for a specific trace.</p>
+<p>Parameter:
+trace (int): Trace number (1-16)</p>
+<p>Return:
+tuple: (r, g, b)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.get_trace_memory">
+<span class="sig-name descname"><span class="pre">get_trace_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.get_trace_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.get_trace_memory" title="Link to this definition">¶</a></dt>
+<dd><p>Get the memory trace color for a specific trace.</p>
+<p>Parameter:
+trace (int): Trace number (1-16)</p>
+<p>Return:
+tuple: (r, g, b)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.restore_defaults">
+<span class="sig-name descname"><span class="pre">restore_defaults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.restore_defaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.restore_defaults" title="Link to this definition">¶</a></dt>
+<dd><p>Restore the display settings to the default values.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.set_background">
+<span class="sig-name descname"><span class="pre">set_background</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.set_background"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.set_background" title="Link to this definition">¶</a></dt>
+<dd><p>Set the background color for trace display.</p>
+<p>Parameter:
+r (int): Red value (0-255)
+g (int): Green value (0-255)
+b (int): Blue value (0-255)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.set_graticule">
+<span class="sig-name descname"><span class="pre">set_graticule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.set_graticule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.set_graticule" title="Link to this definition">¶</a></dt>
+<dd><p>Set the grid and graticule label color.</p>
+<p>Parameter:
+r (int): Red value (0-255)
+g (int): Green value (0-255)
+b (int): Blue value (0-255)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.set_trace_data">
+<span class="sig-name descname"><span class="pre">set_trace_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.set_trace_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.set_trace_data" title="Link to this definition">¶</a></dt>
+<dd><p>Set the data trace color for a specific trace.</p>
+<p>Parameter:
+trace (int): Trace number (1-16)
+r (int): Red value (0-255)
+g (int): Green value (0-255)
+b (int): Blue value (0-255)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Color.set_trace_memory">
+<span class="sig-name descname"><span class="pre">set_trace_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Color.set_trace_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Color.set_trace_memory" title="Link to this definition">¶</a></dt>
+<dd><p>Set the memory trace color for a specific trace.</p>
+<p>Parameter:
+trace (int): Trace number (1-16)
+r (int): Red value (0-255)
+g (int): Green value (0-255)
+b (int): Blue value (0-255)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Display interface settings.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.enable_individual_font_sizes">
+<span class="sig-name descname"><span class="pre">enable_individual_font_sizes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.enable_individual_font_sizes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.enable_individual_font_sizes" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable individual font sizes for elements.</p>
+<p>Parameter:
+enable (bool): True for individual, False for same size</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.get_font_size">
+<span class="sig-name descname"><span class="pre">get_font_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.get_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.get_font_size" title="Link to this definition">¶</a></dt>
+<dd><p>Get the font size for all displayed elements.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: Font size</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.get_partition_font_size">
+<span class="sig-name descname"><span class="pre">get_partition_font_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.get_partition_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.get_partition_font_size" title="Link to this definition">¶</a></dt>
+<dd><p>Get the font size of the specified display item.</p>
+<p>Parameter:
+item (str): Display item (‘BUTT’, ‘MENU’, ‘CST’, ‘AST’, ‘CHAN’)</p>
+<p>Return:
+int: Font size</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.is_individual_font_sizes_enabled">
+<span class="sig-name descname"><span class="pre">is_individual_font_sizes_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.is_individual_font_sizes_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.is_individual_font_sizes_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if individual font sizes for elements are enabled.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.is_partition_visible">
+<span class="sig-name descname"><span class="pre">is_partition_visible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.is_partition_visible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.is_partition_visible" title="Link to this definition">¶</a></dt>
+<dd><p>Query if the specified display partition is visible.</p>
+<p>Parameter:
+partition (str): Display partition (‘BUTT’, ‘MENU’, ‘CST’, ‘AST’, ‘TIT’, ‘FLA’, ‘MTA’)</p>
+<p>Return:
+bool: True if visible, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.set_font_size">
+<span class="sig-name descname"><span class="pre">set_font_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.set_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.set_font_size" title="Link to this definition">¶</a></dt>
+<dd><p>Set the font size for all displayed elements.</p>
+<p>Parameter:
+size (int): Font size (10-22)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.set_partition_font_size">
+<span class="sig-name descname"><span class="pre">set_partition_font_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.set_partition_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.set_partition_font_size" title="Link to this definition">¶</a></dt>
+<dd><p>Set the font size of the specified display item.</p>
+<p>Parameter:
+item (str): Display item (‘BUTT’, ‘MENU’, ‘CST’, ‘AST’, ‘CHAN’)
+size (int): Font size (10-22)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Interface.set_partition_visible">
+<span class="sig-name descname"><span class="pre">set_partition_visible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Interface.set_partition_visible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Interface.set_partition_visible" title="Link to this definition">¶</a></dt>
+<dd><p>Show or hide the specified display partition.</p>
+<p>Parameter:
+partition (str): Display partition (‘BUTT’, ‘MENU’, ‘CST’, ‘AST’, ‘TIT’, ‘FLA’, ‘MTA’)
+enable (bool): True to show, False to hide</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Marker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Display marker annotation settings.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.enable_active_only">
+<span class="sig-name descname"><span class="pre">enable_active_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.enable_active_only"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.enable_active_only" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable display of only the active trace markers.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+enable (bool): True for active only, False for all</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.enable_table">
+<span class="sig-name descname"><span class="pre">enable_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.enable_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.enable_table" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the marker table.</p>
+<p>Parameter:
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.get_annotation_alignment">
+<span class="sig-name descname"><span class="pre">get_annotation_alignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.get_annotation_alignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.get_annotation_alignment" title="Link to this definition">¶</a></dt>
+<dd><p>Get the alignment of the marker annotation.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+str: Alignment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.get_annotation_x">
+<span class="sig-name descname"><span class="pre">get_annotation_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.get_annotation_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.get_annotation_x" title="Link to this definition">¶</a></dt>
+<dd><p>Get the X position of marker annotation.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+float: Position (0-100)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.get_annotation_y">
+<span class="sig-name descname"><span class="pre">get_annotation_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.get_annotation_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.get_annotation_y" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Y position of marker annotation.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+float: Position (0-100)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.is_active_only_enabled">
+<span class="sig-name descname"><span class="pre">is_active_only_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.is_active_only_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.is_active_only_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if only the active trace markers are displayed.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+bool: True if active only, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.is_table_enabled">
+<span class="sig-name descname"><span class="pre">is_table_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.is_table_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.is_table_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if the marker table is enabled.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.set_annotation_alignment">
+<span class="sig-name descname"><span class="pre">set_annotation_alignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alignment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.set_annotation_alignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.set_annotation_alignment" title="Link to this definition">¶</a></dt>
+<dd><p>Set the alignment of the marker annotation.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+alignment (str): ‘NONE’, ‘VERT’, or ‘HOR’</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.set_annotation_x">
+<span class="sig-name descname"><span class="pre">set_annotation_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.set_annotation_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.set_annotation_x" title="Link to this definition">¶</a></dt>
+<dd><p>Set the X position of marker annotation (percent of display width).</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+value (float): Position (0-100)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.Marker.set_annotation_y">
+<span class="sig-name descname"><span class="pre">set_annotation_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.Marker.set_annotation_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.Marker.set_annotation_y" title="Link to this definition">¶</a></dt>
+<dd><p>Set the Y position of marker annotation (percent of display height).</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+value (float): Position (0-100)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.auto_reference_line">
+<span class="sig-name descname"><span class="pre">auto_reference_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.auto_reference_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.auto_reference_line" title="Link to this definition">¶</a></dt>
+<dd><p>Execute the auto reference function for the trace.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.auto_scale_trace">
+<span class="sig-name descname"><span class="pre">auto_scale_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.auto_scale_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.auto_scale_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Execute the auto scale function for the trace.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_active_marker_only">
+<span class="sig-name descname"><span class="pre">enable_active_marker_only</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_active_marker_only"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_active_marker_only" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable display of only the active trace markers.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+enable (bool): True for active only, False for all</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_channel_maximization">
+<span class="sig-name descname"><span class="pre">enable_channel_maximization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_channel_maximization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_channel_maximization" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable maximization of the active channel window.</p>
+<p>Parameter:
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_channel_title">
+<span class="sig-name descname"><span class="pre">enable_channel_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_channel_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_channel_title" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the channel title display.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_data_trace_display">
+<span class="sig-name descname"><span class="pre">enable_data_trace_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_data_trace_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_data_trace_display" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the data trace display for a trace.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_display_update">
+<span class="sig-name descname"><span class="pre">enable_display_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_display_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_display_update" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable display update.</p>
+<p>Parameter:
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_fail_sign">
+<span class="sig-name descname"><span class="pre">enable_fail_sign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_fail_sign"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_fail_sign" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the “Fail” sign display.</p>
+<p>Parameter:
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_individual_font_sizes">
+<span class="sig-name descname"><span class="pre">enable_individual_font_sizes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_individual_font_sizes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_individual_font_sizes" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable individual font sizes for elements.</p>
+<p>Parameter:
+enable (bool): True for individual, False for same size</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_marker_table">
+<span class="sig-name descname"><span class="pre">enable_marker_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_marker_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_marker_table" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the marker table.</p>
+<p>Parameter:
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_memory_trace_display">
+<span class="sig-name descname"><span class="pre">enable_memory_trace_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_memory_trace_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_memory_trace_display" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the memory trace display for a trace.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.enable_trace_maximization">
+<span class="sig-name descname"><span class="pre">enable_trace_maximization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.enable_trace_maximization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.enable_trace_maximization" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable maximization of the active trace in the specified channel.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+enable (bool): True to enable, False to disable</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_background_color">
+<span class="sig-name descname"><span class="pre">get_background_color</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_background_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_background_color" title="Link to this definition">¶</a></dt>
+<dd><p>Get the background color for trace display.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+tuple: (r, g, b)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_channel_graph_layout">
+<span class="sig-name descname"><span class="pre">get_channel_graph_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_channel_graph_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_channel_graph_layout" title="Link to this definition">¶</a></dt>
+<dd><p>Get the graph layout in the channel window.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+int: Layout code</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_channel_layout">
+<span class="sig-name descname"><span class="pre">get_channel_layout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_channel_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_channel_layout" title="Link to this definition">¶</a></dt>
+<dd><p>Get the number and layout of channels on the screen.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: Layout code</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_channel_title_label">
+<span class="sig-name descname"><span class="pre">get_channel_title_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_channel_title_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_channel_title_label" title="Link to this definition">¶</a></dt>
+<dd><p>Get the channel title label.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+str: Title label</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_data_trace_color">
+<span class="sig-name descname"><span class="pre">get_data_trace_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_data_trace_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_data_trace_color" title="Link to this definition">¶</a></dt>
+<dd><p>Get the data trace color for a specific trace.</p>
+<p>Parameter:
+trace (int): Trace number (1-16)</p>
+<p>Return:
+tuple: (r, g, b)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_display_inversion">
+<span class="sig-name descname"><span class="pre">get_display_inversion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_display_inversion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_display_inversion" title="Link to this definition">¶</a></dt>
+<dd><p>Get the inversion mode of display colors.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: Inversion mode</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_font_size">
+<span class="sig-name descname"><span class="pre">get_font_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_font_size" title="Link to this definition">¶</a></dt>
+<dd><p>Get the font size for all displayed elements.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: Font size</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_graticule_color">
+<span class="sig-name descname"><span class="pre">get_graticule_color</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_graticule_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_graticule_color" title="Link to this definition">¶</a></dt>
+<dd><p>Get the grid and graticule label color.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+tuple: (r, g, b)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_graticule_label_state">
+<span class="sig-name descname"><span class="pre">get_graticule_label_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_graticule_label_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_graticule_label_state" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Graticule Label state.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: Graticule Label state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_marker_annotation_alignment">
+<span class="sig-name descname"><span class="pre">get_marker_annotation_alignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_marker_annotation_alignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_marker_annotation_alignment" title="Link to this definition">¶</a></dt>
+<dd><p>Get the alignment of the marker annotation.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+str: Alignment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_marker_annotation_x">
+<span class="sig-name descname"><span class="pre">get_marker_annotation_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_marker_annotation_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_marker_annotation_x" title="Link to this definition">¶</a></dt>
+<dd><p>Get the X position of marker annotation.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+float: Position (0-100)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_marker_annotation_y">
+<span class="sig-name descname"><span class="pre">get_marker_annotation_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_marker_annotation_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_marker_annotation_y" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Y position of marker annotation.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+float: Position (0-100)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_memory_trace_color">
+<span class="sig-name descname"><span class="pre">get_memory_trace_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_memory_trace_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_memory_trace_color" title="Link to this definition">¶</a></dt>
+<dd><p>Get the memory trace color for a specific trace.</p>
+<p>Parameter:
+trace (int): Trace number (1-16)</p>
+<p>Return:
+tuple: (r, g, b)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_number_and_layout_of_channels">
+<span class="sig-name descname"><span class="pre">get_number_and_layout_of_channels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_number_and_layout_of_channels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_number_and_layout_of_channels" title="Link to this definition">¶</a></dt>
+<dd><p>Get the number and layout of channels on the screen.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: Layout code</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_partition_font_size">
+<span class="sig-name descname"><span class="pre">get_partition_font_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_partition_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_partition_font_size" title="Link to this definition">¶</a></dt>
+<dd><p>Get the font size of the specified display item.</p>
+<p>Parameter:
+item (str): Display item (‘BUTT’, ‘MENU’, ‘CST’, ‘AST’, ‘CHAN’)</p>
+<p>Return:
+int: Font size</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_reference_line_position">
+<span class="sig-name descname"><span class="pre">get_reference_line_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_reference_line_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_reference_line_position" title="Link to this definition">¶</a></dt>
+<dd><p>Get the position of the reference line.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+float: Reference line position</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_reference_line_value">
+<span class="sig-name descname"><span class="pre">get_reference_line_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_reference_line_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_reference_line_value" title="Link to this definition">¶</a></dt>
+<dd><p>Get the value of the reference line.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+float: Reference line value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_trace_scale_per_division">
+<span class="sig-name descname"><span class="pre">get_trace_scale_per_division</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_trace_scale_per_division"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_trace_scale_per_division" title="Link to this definition">¶</a></dt>
+<dd><p>Get the trace scale per division.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+float: Scale value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_vertical_scale_divisions">
+<span class="sig-name descname"><span class="pre">get_vertical_scale_divisions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_vertical_scale_divisions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_vertical_scale_divisions" title="Link to this definition">¶</a></dt>
+<dd><p>Get the number of the vertical scale divisions.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+int: Number of divisions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_window_position">
+<span class="sig-name descname"><span class="pre">get_window_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_window_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_window_position" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Analyzer window position and size.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+tuple: (left, top, width, height)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.get_x_axis_spacing">
+<span class="sig-name descname"><span class="pre">get_x_axis_spacing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.get_x_axis_spacing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.get_x_axis_spacing" title="Link to this definition">¶</a></dt>
+<dd><p>Get the display method of the graph horizontal axis for the segment sweep.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+str: Spacing method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.hide_analyzer_window">
+<span class="sig-name descname"><span class="pre">hide_analyzer_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.hide_analyzer_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.hide_analyzer_window" title="Link to this definition">¶</a></dt>
+<dd><p>Hide the Analyzer window (shows “Remote Control” label).</p>
+<p>Parameter:
+None</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_active_marker_only_enabled">
+<span class="sig-name descname"><span class="pre">is_active_marker_only_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_active_marker_only_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_active_marker_only_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if only the active trace markers are displayed.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+bool: True if active only, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_channel_maximization_enabled">
+<span class="sig-name descname"><span class="pre">is_channel_maximization_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_channel_maximization_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_channel_maximization_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if maximization of the active channel window is enabled.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_channel_title_enabled">
+<span class="sig-name descname"><span class="pre">is_channel_title_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_channel_title_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_channel_title_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if the channel title display is enabled.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_data_trace_display_enabled">
+<span class="sig-name descname"><span class="pre">is_data_trace_display_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_data_trace_display_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_data_trace_display_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if the data trace display is enabled for a trace.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_display_update_enabled">
+<span class="sig-name descname"><span class="pre">is_display_update_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_display_update_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_display_update_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if display update is enabled.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_fail_sign_enabled">
+<span class="sig-name descname"><span class="pre">is_fail_sign_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_fail_sign_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_fail_sign_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if the “Fail” sign display is enabled.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_individual_font_sizes_enabled">
+<span class="sig-name descname"><span class="pre">is_individual_font_sizes_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_individual_font_sizes_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_individual_font_sizes_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if individual font sizes for elements are enabled.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_marker_table_enabled">
+<span class="sig-name descname"><span class="pre">is_marker_table_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_marker_table_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_marker_table_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if the marker table is enabled.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_memory_trace_display_enabled">
+<span class="sig-name descname"><span class="pre">is_memory_trace_display_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_memory_trace_display_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_memory_trace_display_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if the memory trace display is enabled for a trace.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_partition_visible">
+<span class="sig-name descname"><span class="pre">is_partition_visible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_partition_visible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_partition_visible" title="Link to this definition">¶</a></dt>
+<dd><p>Query if the specified display partition is visible.</p>
+<p>Parameter:
+partition (str): Display partition (‘BUTT’, ‘MENU’, ‘CST’, ‘AST’, ‘TIT’, ‘FLA’, ‘MTA’)</p>
+<p>Return:
+bool: True if visible, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.is_trace_maximization_enabled">
+<span class="sig-name descname"><span class="pre">is_trace_maximization_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.is_trace_maximization_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.is_trace_maximization_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if maximization of the active trace in the specified channel is enabled.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+bool: True if enabled, False otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.restore_display_defaults">
+<span class="sig-name descname"><span class="pre">restore_display_defaults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.restore_display_defaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.restore_display_defaults" title="Link to this definition">¶</a></dt>
+<dd><p>Restore the display settings to the default values.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_active_channel">
+<span class="sig-name descname"><span class="pre">set_active_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_active_channel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_active_channel" title="Link to this definition">¶</a></dt>
+<dd><p>Set the active channel.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_background_color">
+<span class="sig-name descname"><span class="pre">set_background_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_background_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_background_color" title="Link to this definition">¶</a></dt>
+<dd><p>Set the background color for trace display.</p>
+<p>Parameter:
+r (int): Red value (0-255)
+g (int): Green value (0-255)
+b (int): Blue value (0-255)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_channel_graph_layout">
+<span class="sig-name descname"><span class="pre">set_channel_graph_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_channel_graph_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_channel_graph_layout" title="Link to this definition">¶</a></dt>
+<dd><p>Set the graph layout in the channel window.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+layout (int): Layout code (1-16)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_channel_layout">
+<span class="sig-name descname"><span class="pre">set_channel_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layout_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_channel_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_channel_layout" title="Link to this definition">¶</a></dt>
+<dd><p>Set the number and layout of channels on the screen.</p>
+<p>Parameter:
+layout_code (int): Layout code (1-16)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_channel_title_label">
+<span class="sig-name descname"><span class="pre">set_channel_title_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_channel_title_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_channel_title_label" title="Link to this definition">¶</a></dt>
+<dd><p>Set the channel title label.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+label (str): Title label (up to 256 characters)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_data_trace_color">
+<span class="sig-name descname"><span class="pre">set_data_trace_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_data_trace_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_data_trace_color" title="Link to this definition">¶</a></dt>
+<dd><p>Set the data trace color for a specific trace.</p>
+<p>Parameter:
+trace (int): Trace number (1-16)
+r (int): Red value (0-255)
+g (int): Green value (0-255)
+b (int): Blue value (0-255)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_display_inversion">
+<span class="sig-name descname"><span class="pre">set_display_inversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_display_inversion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_display_inversion" title="Link to this definition">¶</a></dt>
+<dd><p>Set the inversion of display colors of the trace area.</p>
+<p>Parameter:
+mode (str): ‘NORM’ for normal, ‘INV’ for inverted</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_font_size">
+<span class="sig-name descname"><span class="pre">set_font_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_font_size" title="Link to this definition">¶</a></dt>
+<dd><p>Set the font size for all displayed elements.</p>
+<p>Parameter:
+size (int): Font size (10-22)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_graticule_color">
+<span class="sig-name descname"><span class="pre">set_graticule_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_graticule_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_graticule_color" title="Link to this definition">¶</a></dt>
+<dd><p>Set the grid and graticule label color.</p>
+<p>Parameter:
+r (int): Red value (0-255)
+g (int): Green value (0-255)
+b (int): Blue value (0-255)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_graticule_label_state">
+<span class="sig-name descname"><span class="pre">set_graticule_label_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_graticule_label_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_graticule_label_state" title="Link to this definition">¶</a></dt>
+<dd><p>Set the Graticule Label state.</p>
+<p>Parameter:
+state (str): ‘OFF’, ‘ACT’, or ‘ALL’</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_marker_annotation_alignment">
+<span class="sig-name descname"><span class="pre">set_marker_annotation_alignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alignment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_marker_annotation_alignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_marker_annotation_alignment" title="Link to this definition">¶</a></dt>
+<dd><p>Set the alignment of the marker annotation.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+alignment (str): ‘NONE’, ‘VERT’, or ‘HOR’</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_marker_annotation_x">
+<span class="sig-name descname"><span class="pre">set_marker_annotation_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_marker_annotation_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_marker_annotation_x" title="Link to this definition">¶</a></dt>
+<dd><p>Set the X position of marker annotation (percent of display width).</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+value (float): Position (0-100)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_marker_annotation_y">
+<span class="sig-name descname"><span class="pre">set_marker_annotation_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_marker_annotation_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_marker_annotation_y" title="Link to this definition">¶</a></dt>
+<dd><p>Set the Y position of marker annotation (percent of display height).</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+value (float): Position (0-100)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_memory_trace_color">
+<span class="sig-name descname"><span class="pre">set_memory_trace_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_memory_trace_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_memory_trace_color" title="Link to this definition">¶</a></dt>
+<dd><p>Set the memory trace color for a specific trace.</p>
+<p>Parameter:
+trace (int): Trace number (1-16)
+r (int): Red value (0-255)
+g (int): Green value (0-255)
+b (int): Blue value (0-255)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_number_and_layout_of_channels">
+<span class="sig-name descname"><span class="pre">set_number_and_layout_of_channels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layout_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_number_and_layout_of_channels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_number_and_layout_of_channels" title="Link to this definition">¶</a></dt>
+<dd><p>Set the number and layout of channels on the screen.</p>
+<p>Parameter:
+layout_code (int): Layout code (1-16)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_partition_font_size">
+<span class="sig-name descname"><span class="pre">set_partition_font_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_partition_font_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_partition_font_size" title="Link to this definition">¶</a></dt>
+<dd><p>Set the font size of the specified display item.</p>
+<p>Parameter:
+item (str): Display item (‘BUTT’, ‘MENU’, ‘CST’, ‘AST’, ‘CHAN’)
+size (int): Font size (10-22)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_partition_visible">
+<span class="sig-name descname"><span class="pre">set_partition_visible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_partition_visible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_partition_visible" title="Link to this definition">¶</a></dt>
+<dd><p>Show or hide the specified display partition.</p>
+<p>Parameter:
+partition (str): Display partition (‘BUTT’, ‘MENU’, ‘CST’, ‘AST’, ‘TIT’, ‘FLA’, ‘MTA’)
+enable (bool): True to show, False to hide</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_reference_line_position">
+<span class="sig-name descname"><span class="pre">set_reference_line_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_reference_line_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_reference_line_position" title="Link to this definition">¶</a></dt>
+<dd><p>Set the position of the reference line.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+value (float): Reference line position (0 to number of scale divisions)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_reference_line_value">
+<span class="sig-name descname"><span class="pre">set_reference_line_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_reference_line_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_reference_line_value" title="Link to this definition">¶</a></dt>
+<dd><p>Set the value of the reference line.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+value (float): Reference line value (10e-18 to 1e18)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_trace_scale_per_division">
+<span class="sig-name descname"><span class="pre">set_trace_scale_per_division</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_trace_scale_per_division"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_trace_scale_per_division" title="Link to this definition">¶</a></dt>
+<dd><p>Set the trace scale per division.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+trace (int): Trace number (1-16)
+value (float): Scale value (10e-18 to 1e18)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_vertical_scale_divisions">
+<span class="sig-name descname"><span class="pre">set_vertical_scale_divisions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_vertical_scale_divisions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_vertical_scale_divisions" title="Link to this definition">¶</a></dt>
+<dd><p>Set the number of the vertical scale divisions.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+value (int): Number of divisions (4-30)</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_window_position">
+<span class="sig-name descname"><span class="pre">set_window_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_window_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_window_position" title="Link to this definition">¶</a></dt>
+<dd><p>Set the Analyzer window position and size.</p>
+<p>Parameter:
+left (int): Left coordinate
+top (int): Top coordinate
+width (int): Window width
+height (int): Window height</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.set_x_axis_spacing">
+<span class="sig-name descname"><span class="pre">set_x_axis_spacing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.set_x_axis_spacing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.set_x_axis_spacing" title="Link to this definition">¶</a></dt>
+<dd><p>Set the display method of the graph horizontal axis for the segment sweep.</p>
+<p>Parameter:
+channel (int): Channel number (1-16)
+spacing (str): ‘LIN’ or ‘OBAS’</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.show_analyzer_window">
+<span class="sig-name descname"><span class="pre">show_analyzer_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.show_analyzer_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.show_analyzer_window" title="Link to this definition">¶</a></dt>
+<dd><p>Show the Analyzer window hidden by DISP:HIDE.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Display.update_display_once">
+<span class="sig-name descname"><span class="pre">update_display_once</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Display.update_display_once"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Display.update_display_once" title="Link to this definition">¶</a></dt>
+<dd><p>Update the display once when display update is OFF.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+None</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Instruments</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api.html">API</a><ul>
+  <li><a href="../vectornetworkanalyzer.html">Vector Network Analyzer</a><ul>
+      <li>Previous: <a href="Instruments.vector_network_analyzer_copper_mountain.Channel.html" title="previous chapter">Instruments.vector_network_analyzer_copper_mountain.Channel Class</a></li>
+      <li>Next: <a href="Instruments.vector_network_analyzer_copper_mountain.Format.html" title="next chapter">Instruments.vector_network_analyzer_copper_mountain.Format Class</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Grace.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/generated/Instruments.vector_network_analyzer_copper_mountain.Display.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

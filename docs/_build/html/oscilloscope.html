@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>OScilloscope &#8212; Instruments 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Instruments.oscilloscope_rigol.Oscilloscope Class" href="generated/Instruments.oscilloscope_rigol.Oscilloscope.html" />
+    <link rel="prev" title="Instruments.flowmeter_keyence.Flowmeter Class" href="generated/Instruments.flowmeter_keyence.Flowmeter.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="oscilloscope">
+<h1>OScilloscope<a class="headerlink" href="#oscilloscope" title="Link to this heading">¶</a></h1>
+<p>This is the Oscilloscope class and all relevant subclasses.</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Oscilloscope.html#Instruments.oscilloscope_rigol.Oscilloscope" title="Instruments.oscilloscope_rigol.Oscilloscope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Oscilloscope</span></code></a>(instrument)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Acquisition.html#Instruments.oscilloscope_rigol.Acquisition" title="Instruments.oscilloscope_rigol.Acquisition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Acquisition</span></code></a>(instrument, ...)</p></td>
+<td><p>The Aquire commands are used to set and query the memory depth, acquisition mode and the number of averages as well as query the current sample rate of the oscilloscope.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Channel.html#Instruments.oscilloscope_rigol.Channel" title="Instruments.oscilloscope_rigol.Channel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Channel</span></code></a>(instrument, ...)</p></td>
+<td><p>The Channel commands are used to control and query channel-specific settings.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Cursor.html#Instruments.oscilloscope_rigol.Cursor" title="Instruments.oscilloscope_rigol.Cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Cursor</span></code></a>(instrument, ...)</p></td>
+<td><p>The Cursor commands are used to control and query cursor-specific settings.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Decoder.html#Instruments.oscilloscope_rigol.Decoder" title="Instruments.oscilloscope_rigol.Decoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Decoder</span></code></a>(instrument, ...)</p></td>
+<td><p>The Decoder commands are used to execute decoding settings and operations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.UART.html#Instruments.oscilloscope_rigol.UART" title="Instruments.oscilloscope_rigol.UART"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.UART</span></code></a>(instrument, ...)</p></td>
+<td><p>The UART commands are used to set the RS232 decoding parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.IIC_Decoder.html#Instruments.oscilloscope_rigol.IIC_Decoder" title="Instruments.oscilloscope_rigol.IIC_Decoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.IIC_Decoder</span></code></a>(instrument, ...)</p></td>
+<td><p>The IIC commands are used to set the I2C decoding parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.SPI_Decoder.html#Instruments.oscilloscope_rigol.SPI_Decoder" title="Instruments.oscilloscope_rigol.SPI_Decoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.SPI_Decoder</span></code></a>(instrument, ...)</p></td>
+<td><p>The SPI commands are used to set the SPI decoding parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Parallel.html#Instruments.oscilloscope_rigol.Parallel" title="Instruments.oscilloscope_rigol.Parallel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Parallel</span></code></a>(instrument, ...)</p></td>
+<td><p>The Parallel commands are used to set the parallel decoding parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Display.html#Instruments.oscilloscope_rigol.Display" title="Instruments.oscilloscope_rigol.Display"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Display</span></code></a>(instrument, ...)</p></td>
+<td><p>The Display commands are used to set the waveform display mode, persistence time, waveform intensity, screen grid type and grid brightness.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.ETable.html#Instruments.oscilloscope_rigol.ETable" title="Instruments.oscilloscope_rigol.ETable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.ETable</span></code></a>(instrument, ...)</p></td>
+<td><p>The ETable commands are used to set the parameters related to the decoding event table.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Function.html#Instruments.oscilloscope_rigol.Function" title="Instruments.oscilloscope_rigol.Function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Function</span></code></a>(instrument, ...)</p></td>
+<td><p>The Function commands are used to set the waveform recording and playback parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.LAN.html#Instruments.oscilloscope_rigol.LAN" title="Instruments.oscilloscope_rigol.LAN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.LAN</span></code></a>(instrument, data_handler)</p></td>
+<td><p>The LAN commands are used to set/query network parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Math.html#Instruments.oscilloscope_rigol.Math" title="Instruments.oscilloscope_rigol.Math"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Math</span></code></a>(instrument, data_handler)</p></td>
+<td><p>The Math commands are used to set the operations between the waveforms of multiple channels.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Mask.html#Instruments.oscilloscope_rigol.Mask" title="Instruments.oscilloscope_rigol.Mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Mask</span></code></a>(instrument, data_handler)</p></td>
+<td><p>The Mask commands are used to set and query the pass/fail test parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Measure.html#Instruments.oscilloscope_rigol.Measure" title="Instruments.oscilloscope_rigol.Measure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Measure</span></code></a>(instrument, ...)</p></td>
+<td><p>The Measure commands are used to set and query measurement parameters and statistics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Reference.html#Instruments.oscilloscope_rigol.Reference" title="Instruments.oscilloscope_rigol.Reference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Reference</span></code></a>(instrument, ...)</p></td>
+<td><p>The Reference commands are used to set the reference waveform parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Storage.html#Instruments.oscilloscope_rigol.Storage" title="Instruments.oscilloscope_rigol.Storage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Storage</span></code></a>(instrument, ...)</p></td>
+<td><p>The Storage commands are used to set the related parameters when storing images.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.System.html#Instruments.oscilloscope_rigol.System" title="Instruments.oscilloscope_rigol.System"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.System</span></code></a>(instrument, ...)</p></td>
+<td><p>The System commands are used to set system-related parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Timebase.html#Instruments.oscilloscope_rigol.Timebase" title="Instruments.oscilloscope_rigol.Timebase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Timebase</span></code></a>(instrument, ...)</p></td>
+<td><p>The Timebase commands are used to set the horizontal parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Trigger.html#Instruments.oscilloscope_rigol.Trigger" title="Instruments.oscilloscope_rigol.Trigger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Trigger</span></code></a>(instrument, ...)</p></td>
+<td><p>The Trigger commands are used to set the trigger system of the oscilloscope.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform" title="Instruments.oscilloscope_rigol.Waveform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">oscilloscope_rigol.Waveform</span></code></a>(instrument, ...)</p></td>
+<td><p>The Waveform commands are used to read the waveform data and its related settings.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Instruments</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api.html#instruments">Instruments</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="api.html">API</a><ul>
+      <li>Previous: <a href="generated/Instruments.flowmeter_keyence.Flowmeter.html" title="previous chapter">Instruments.flowmeter_keyence.Flowmeter Class</a></li>
+      <li>Next: <a href="generated/Instruments.oscilloscope_rigol.Oscilloscope.html" title="next chapter">Instruments.oscilloscope_rigol.Oscilloscope Class</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Grace.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/oscilloscope.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

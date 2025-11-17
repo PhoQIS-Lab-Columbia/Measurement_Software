@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instruments.spectrum_analyzer_signal_hound &#8212; sphinxtest 0.0.1 documentation</title>
+    <title>Instruments.spectrum_analyzer_signal_hound &#8212; Instruments 0.0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
@@ -86,14 +86,21 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Path loss table number must be an integer between 1 and 8.&quot;</span><span class="p">)</span></div>
 
 <span class="c1">#Display</span>
+<div class="viewcode-block" id="Display">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Display.html#Instruments.spectrum_analyzer_signal_hound.Display">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Display</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Display commands are used to control display-related settings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Display.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Display.html#Instruments.spectrum_analyzer_signal_hound.Display.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
 
+
+<div class="viewcode-block" id="Display.hide">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Display.html#Instruments.spectrum_analyzer_signal_hound.Display.hide">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">hide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        HIDE - Hide Spike&#39;s window.</span>
@@ -107,8 +114,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:DISP:HIDE 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:DISP:HIDE 1&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Display.show">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Display.html#Instruments.spectrum_analyzer_signal_hound.Display.show">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Show Spike&#39;s window.</span>
@@ -118,8 +128,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:DISP:HIDE 0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:DISP:HIDE 0&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Display.is_hidden">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Display.html#Instruments.spectrum_analyzer_signal_hound.Display.is_hidden">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_hidden</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        HIDE? - Query if Spike&#39;s window is hidden.</span>
@@ -132,8 +145,11 @@
 <span class="sd">            bool: True if display is hidden, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:DISP:HIDE?&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span>
+        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span></div>
 
+
+<div class="viewcode-block" id="Display.set_title">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Display.html#Instruments.spectrum_analyzer_signal_hound.Display.set_title">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TITLe - Set the measurement title.</span>
@@ -143,8 +159,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;:DISP:ANN:TITLE &quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;:DISP:ANN:TITLE &quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Display.get_title">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Display.html#Instruments.spectrum_analyzer_signal_hound.Display.get_title">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TITLe? - Query the measurement title.</span>
@@ -154,8 +173,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            str: The current measurement title.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:DISP:ANN:TITLE?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:DISP:ANN:TITLE?&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Display.clear_title">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Display.html#Instruments.spectrum_analyzer_signal_hound.Display.clear_title">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        CLEar - Remove the measurement title.</span>
@@ -167,16 +189,25 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:DISP:ANN:CLEAR&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:DISP:ANN:CLEAR&quot;</span><span class="p">)</span></div>
+</div>
 
+
+<div class="viewcode-block" id="Format">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Format.html#Instruments.spectrum_analyzer_signal_hound.Format">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Format</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Format commands are used to set/query trace and IQ data formats.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Format.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Format.html#Instruments.spectrum_analyzer_signal_hound.Format.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
 
+
+<div class="viewcode-block" id="Format.set_trace_data_format">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Format.html#Instruments.spectrum_analyzer_signal_hound.Format.set_trace_data_format">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_trace_data_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the format of the returned trace data from the TRACe[:DATA]? command.</span>
@@ -189,8 +220,11 @@
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ASCII&quot;</span><span class="p">,</span> <span class="s2">&quot;REAL&quot;</span><span class="p">}</span>
         <span class="k">if</span> <span class="n">fmt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;fmt must be &#39;ASCII&#39; or &#39;REAL&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:FORM:TRAC </span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:FORM:TRAC </span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Format.get_trace_data_format">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Format.html#Instruments.spectrum_analyzer_signal_hound.Format.get_trace_data_format">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_trace_data_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the format of the returned trace data from the TRACe[:DATA]? command.</span>
@@ -200,8 +234,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            str: The current trace data format.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:FORM:TRAC?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:FORM:TRAC?&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Format.set_iq_data_format">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Format.html#Instruments.spectrum_analyzer_signal_hound.Format.set_iq_data_format">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_iq_data_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Specify the format of the returned IQ data from the FETCH:ZS? 1 command.</span>
@@ -214,8 +251,11 @@
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ASCII&quot;</span><span class="p">,</span> <span class="s2">&quot;BIN&quot;</span><span class="p">}</span>
         <span class="k">if</span> <span class="n">fmt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;fmt must be &#39;ASCII&#39; or &#39;BIN&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:FORM:IQ </span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:FORM:IQ </span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Format.get_iq_data_format">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Format.html#Instruments.spectrum_analyzer_signal_hound.Format.get_iq_data_format">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_iq_data_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the format of the returned IQ data from the FETCH:ZS? 1 command.</span>
@@ -225,19 +265,28 @@
 <span class="sd">        Return:</span>
 <span class="sd">            str: The current IQ data format.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:FORM:IQ?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:FORM:IQ?&quot;</span><span class="p">)</span></div>
+</div>
 
+
+<div class="viewcode-block" id="System">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">System</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The System commands are used to perform system level software actions and query information about the system.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="System.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">Device_System</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">Error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrumentmode</span> <span class="o">=</span> <span class="n">InstrumentMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrumentmode</span> <span class="o">=</span> <span class="n">InstrumentMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.close">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.close">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        CLOSe - Disconnect any active device and close the Spike software.</span>
@@ -251,8 +300,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:CLOSe&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:CLOSe&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.preset">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.preset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">preset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        PRESet - Preset the active device.</span>
@@ -265,8 +317,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:PRESet&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:PRESet&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.is_preset">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.is_preset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        PRESet? - Query if the active device is preset.</span>
@@ -280,8 +335,11 @@
 <span class="sd">            bool: True if system is preset, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:PRESet?&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span></div>
 
+
+<div class="viewcode-block" id="System.save_user_preset">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.save_user_preset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_user_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        PRESet:USER:SAVE - Save a user preset with the given file name.</span>
@@ -295,8 +353,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.ini&quot;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;filename must have extension &#39;.ini&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;:SYSTem:PRESet:USER:SAVE &quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;:SYSTem:PRESet:USER:SAVE &quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.load_user_preset">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.load_user_preset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load_user_preset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        PRESet:USER:LOAD - Load a user preset from the given file name.</span>
@@ -310,8 +371,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.ini&quot;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;filename must have extension &#39;.ini&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;:SYSTem:PRESet:USER:LOAD &quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;:SYSTem:PRESet:USER:LOAD &quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.get_version">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.get_version">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        VERsion? - Query the Spike software version number.</span>
@@ -321,8 +385,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            str: The Spike software version number.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:VERsion?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:VERsion?&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.goto_local">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.goto_local">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">goto_local</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        COMMunicate:GTLocal - Put Spike in local mode.</span>
@@ -332,8 +399,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:COMMunicate:GTLocal&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:COMMunicate:GTLocal&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.save_image">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.save_image">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        IMAGe:SAVe - Save an image with the specified filename.</span>
@@ -343,8 +413,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;:SYSTem:IMAGe:SAVe &quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;:SYSTem:IMAGe:SAVe &quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.quick_save_image">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.quick_save_image">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">quick_save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        IMAGe:SAVe:QUICk - Quick save image.</span>
@@ -356,8 +429,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:IMAGe:SAVe:QUICk&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:IMAGe:SAVe:QUICk&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.print_image">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.print_image">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">print_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        PRINt - Print with the default system print settings.</span>
@@ -367,8 +443,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:PRINt&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SYSTem:PRINt&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="System.get_temperature">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.get_temperature">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TEMPerature? - Query the current internal temperature of the active device.</span>
@@ -380,8 +459,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            float: The current internal temperature of the active device, in degrees Celsius.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:TEMPerature?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:TEMPerature?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="System.get_voltage">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.get_voltage">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        VOLTage? - Query the measured voltage of the active device.</span>
@@ -393,8 +475,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            float: The measured voltage of the active device, in volts.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:VOLTage?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:VOLTage?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="System.get_current">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.get_current">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_current</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        CURRent? - Query the measured current of the active device.</span>
@@ -406,7 +491,10 @@
 <span class="sd">        Return:</span>
 <span class="sd">            float: The measured current of the active device, in amps.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:CURRent?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:CURRent?&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="System.did_overflow">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.did_overflow">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">did_overflow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query if the system is in an overflow state.</span>
@@ -415,7 +503,9 @@
 <span class="sd">            bool: True if overflow is present, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:OVERflow?&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span>
+        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span></div>
+</div>
+
 <span class="k">class</span><span class="w"> </span><span class="nc">Device_System</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Device commands allow you to remotely manage the active device in the Spike software.</span>
@@ -583,14 +673,21 @@
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:INSTrument:RECALibrate&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="Initiate">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Initiate.html#Instruments.spectrum_analyzer_signal_hound.Initiate">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Initiate</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Initiate commands control when measurements are performed in the application.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Initiate.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Initiate.html#Instruments.spectrum_analyzer_signal_hound.Initiate.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
 
+
+<div class="viewcode-block" id="Initiate.set_continuous">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Initiate.html#Instruments.spectrum_analyzer_signal_hound.Initiate.set_continuous">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_continuous</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        CONTinuous - Enable/Disable continuous measurement operation.</span>
@@ -610,8 +707,11 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;state must be 1, 0, &#39;ON&#39;, or &#39;OFF&#39;&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;state must be 1, 0, &#39;ON&#39;, or &#39;OFF&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:INITiate:CONTinuous </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:INITiate:CONTinuous </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Initiate.is_continuous_enabled">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Initiate.html#Instruments.spectrum_analyzer_signal_hound.Initiate.is_continuous_enabled">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_continuous_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        CONTinuous? - Query if continuous measurement is enabled.</span>
@@ -624,8 +724,11 @@
 <span class="sd">        bool: True if continuous measurement is enabled, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:INITiate:CONTinuous?&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;ON&quot;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;ON&quot;</span><span class="p">}</span></div>
 
+
+<div class="viewcode-block" id="Initiate.immediate">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Initiate.html#Instruments.spectrum_analyzer_signal_hound.Initiate.immediate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">immediate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        IMMediate - Trigger a measurement.</span>
@@ -637,12 +740,18 @@
 <span class="sd">        Return:</span>
 <span class="sd">        None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:INITiate:IMMediate&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:INITiate:IMMediate&quot;</span><span class="p">)</span></div>
+</div>
 
+
+<div class="viewcode-block" id="Calculate">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Calculate.html#Instruments.spectrum_analyzer_signal_hound.Calculate">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Calculate</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Calculate commands control the limit lines in measurement modes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Calculate.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Calculate.html#Instruments.spectrum_analyzer_signal_hound.Calculate.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
@@ -654,7 +763,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">limitline_3</span> <span class="o">=</span> <span class="n">LimitLine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">limitline_4</span> <span class="o">=</span> <span class="n">LimitLine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">limitline_5</span> <span class="o">=</span> <span class="n">LimitLine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">limitline_6</span> <span class="o">=</span> <span class="n">LimitLine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">limitline_6</span> <span class="o">=</span> <span class="n">LimitLine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span></div>
+</div>
+
 <span class="k">class</span><span class="w"> </span><span class="nc">PNoise_Calc</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The PNoise commands control phase noise marker and jitter configuration.</span>
@@ -1940,7 +2051,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:CALCulate:LLINe:ALL:CLEAr&quot;</span><span class="p">)</span>
 
+<div class="viewcode-block" id="Sense">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Sense</span><span class="p">:</span>
+<div class="viewcode-block" id="Sense.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
@@ -1971,7 +2086,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bluetooth</span> <span class="o">=</span> <span class="n">Bluetooth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lte</span> <span class="o">=</span> <span class="n">LTE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">occupied_bandwidth</span> <span class="o">=</span> <span class="n">Occupied_Bandwidth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">intermodulation_distort</span> <span class="o">=</span> <span class="n">IntermodulationDistortion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intermodulation_distort</span> <span class="o">=</span> <span class="n">IntermodulationDistortion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Sense.set_reference_oscillator_source">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.set_reference_oscillator_source">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_reference_oscillator_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameter:</span>
@@ -1982,8 +2100,11 @@
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;INTERNAL&quot;</span><span class="p">,</span> <span class="s2">&quot;EXTERNAL&quot;</span><span class="p">,</span> <span class="s2">&quot;OUT&quot;</span><span class="p">}</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source must be one of &#39;INTERNAL&#39;, &#39;EXTERNAL&#39;, or &#39;OUT&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:ROSCillator:SOURce </span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:ROSCillator:SOURce </span><span class="si">{</span><span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Sense.get_reference_oscillator_source">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.get_reference_oscillator_source">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_reference_oscillator_source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameter:</span>
@@ -1991,7 +2112,9 @@
 <span class="sd">        Return:</span>
 <span class="sd">            str: The current reference oscillator source.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:ROSCillator:SOURce?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:ROSCillator:SOURce?&quot;</span><span class="p">)</span></div>
+</div>
+
 <span class="k">class</span><span class="w"> </span><span class="nc">IntermodulationDistortion</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Intermodulation Distortion (IMD) commands control the IMD measurement mode.</span>
@@ -8972,25 +9095,37 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">is_auto_saving_data_enabled</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;FETCH_LTE&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">file_type</span> <span class="o">=</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">response</span>
+<div class="viewcode-block" id="WLAN">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">WLAN</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The WLAN commands control the receiver and measurement configuration in the WLAN measurement mode.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WLAN.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">measurement</span> <span class="o">=</span> <span class="n">WLAN</span><span class="o">.</span><span class="n">Measurement</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span> <span class="o">=</span> <span class="n">WLAN</span><span class="o">.</span><span class="n">Trigger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span> <span class="o">=</span> <span class="n">WLAN</span><span class="o">.</span><span class="n">Fetch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span> <span class="o">=</span> <span class="n">WLAN</span><span class="o">.</span><span class="n">Fetch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
+
             
+<div class="viewcode-block" id="WLAN.Measurement">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Measurement</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The Measurement commands configure WLAN measurement mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WLAN.Measurement.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.__init__">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.set_standard">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.set_standard">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">standard</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Select the WLAN modulation standard.</span>
@@ -9003,8 +9138,11 @@
             <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;BG&quot;</span><span class="p">,</span> <span class="s2">&quot;AG&quot;</span><span class="p">,</span> <span class="s2">&quot;N20&quot;</span><span class="p">,</span> <span class="s2">&quot;N40&quot;</span><span class="p">,</span> <span class="s2">&quot;AC20&quot;</span><span class="p">,</span> <span class="s2">&quot;AC40&quot;</span><span class="p">,</span> <span class="s2">&quot;AH&quot;</span><span class="p">}</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">standard</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">standard</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;standard must be one of &#39;BG&#39;, &#39;AG&#39;, &#39;N20&#39;, &#39;N40&#39;, &#39;AC20&#39;, &#39;AC40&#39;, or &#39;AH&#39;&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:STANdard </span><span class="si">{</span><span class="n">standard</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:STANdard </span><span class="si">{</span><span class="n">standard</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.get_standard">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.get_standard">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_standard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query the WLAN modulation standard.</span>
@@ -9014,8 +9152,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            str: The current WLAN modulation standard.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:STANdard?&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:STANdard?&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.set_dsss_symbols">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.set_dsss_symbols">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_dsss_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Specify how many DSSS symbols to demodulate/decode.</span>
@@ -9027,8 +9168,11 @@
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num must be an integer&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:SYMbols:DSSS </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:SYMbols:DSSS </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.get_dsss_symbols">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.get_dsss_symbols">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_dsss_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query how many DSSS symbols to demodulate/decode.</span>
@@ -9038,8 +9182,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            int: Number of DSSS symbols to demodulate/decode.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:SYMbols:DSSS?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:SYMbols:DSSS?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.set_psdu_decode">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.set_psdu_decode">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_psdu_decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Enable OFDM PSDU decoding for BCC encoded waveforms.</span>
@@ -9056,8 +9203,11 @@
                 <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;ON&quot;</span> <span class="k">else</span> <span class="mi">0</span>
             <span class="k">elif</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;state must be 1, 0, &#39;ON&#39;, or &#39;OFF&#39;&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:PSDU:DECode </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:PSDU:DECode </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.is_psdu_decode_enabled">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.is_psdu_decode_enabled">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">is_psdu_decode_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query if OFDM PSDU decoding is enabled.</span>
@@ -9068,8 +9218,11 @@
 <span class="sd">            bool: True if OFDM PSDU decoding is enabled, False otherwise.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:PSDU:DECode?&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.set_symbol_offset">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.set_symbol_offset">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_symbol_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Specify a GI timing offset between -100 and 0 (%).</span>
@@ -9079,8 +9232,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            None</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:SYMBol:OFFSet </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:SYMBol:OFFSet </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.get_symbol_offset">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.get_symbol_offset">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query the GI timing offset.</span>
@@ -9090,8 +9246,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            float: GI timing offset between -100 and 0 (%)</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:SYMBol:OFFSet?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:SYMBol:OFFSet?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.set_center_frequency">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.set_center_frequency">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_center_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Specify the center frequency of the WLAN measurement.</span>
@@ -9101,8 +9260,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            None</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:FREQuency:CENTer </span><span class="si">{</span><span class="n">freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:FREQuency:CENTer </span><span class="si">{</span><span class="n">freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.get_center_frequency">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.get_center_frequency">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_center_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query the center frequency of the WLAN measurement.</span>
@@ -9112,8 +9274,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            float: Center frequency in Hz.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:FREQuency:CENTer?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:FREQuency:CENTer?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.set_center_step">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.set_center_step">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_center_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Specify the center frequency step size.</span>
@@ -9123,8 +9288,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            None</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:FREQuency:CENTer:STEP </span><span class="si">{</span><span class="n">freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:FREQuency:CENTer:STEP </span><span class="si">{</span><span class="n">freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.get_center_step">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.get_center_step">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_center_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query the center frequency step size.</span>
@@ -9134,8 +9302,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            float: Center frequency step size in Hz.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:FREQuency:CENTer:STEP?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:FREQuency:CENTer:STEP?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.set_ifbw">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.set_ifbw">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_ifbw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Specify the IF bandwidth of the measurement. This is applied as a low pass filter before the WLAN demodulation occurs.</span>
@@ -9145,8 +9316,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            None</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:IFBW </span><span class="si">{</span><span class="n">freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:IFBW </span><span class="si">{</span><span class="n">freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.get_ifbw">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.get_ifbw">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_ifbw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query the IF bandwidth of the measurement.</span>
@@ -9156,8 +9330,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            float: IF bandwidth in Hz.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:IFBW?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:IFBW?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.set_reference_level">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.set_reference_level">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_reference_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Specify the reference level of the measurement in dBm. This controls the sensitivity of the measurement.</span>
@@ -9167,8 +9344,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            None</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:POWer:RF:RLEVel </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:WLAN:POWer:RF:RLEVel </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Measurement.get_reference_level">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Measurement.get_reference_level">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_reference_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query the reference level of the measurement in dBm.</span>
@@ -9178,16 +9358,25 @@
 <span class="sd">            Return:</span>
 <span class="sd">            float: Reference level in dBm.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:POWer:RF:RLEVel?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:WLAN:POWer:RF:RLEVel?&quot;</span><span class="p">))</span></div>
+</div>
 
+
+<div class="viewcode-block" id="WLAN.Trigger">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Trigger">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Trigger</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The Trigger commands control the WLAN trigger settings.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WLAN.Trigger.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Trigger.__init__">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Trigger.set_slength">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Trigger.set_slength">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_slength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            SLENgth - Specify the measurement capture length.</span>
@@ -9197,8 +9386,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            None</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIGger:WLAN:SLENgth </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIGger:WLAN:SLENgth </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Trigger.get_slength">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Trigger.get_slength">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_slength</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            SLENgth? - Query the measurement capture length.</span>
@@ -9208,8 +9400,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            float: Measurement capture length in seconds.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIGger:WLAN:SLENgth?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIGger:WLAN:SLENgth?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Trigger.set_if_threshold">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Trigger.set_if_threshold">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_if_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            IF:THRESHold - Specify the OFDM trigger threshold in dB.</span>
@@ -9219,8 +9414,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            None</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIGger:WLAN:IF:THRESHold </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIGger:WLAN:IF:THRESHold </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Trigger.get_if_threshold">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Trigger.get_if_threshold">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_if_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            IF:THRESHold? - Query the OFDM trigger threshold in dB.</span>
@@ -9230,8 +9428,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            float: OFDM trigger threshold in dB.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIGger:WLAN:IF:THRESHold?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIGger:WLAN:IF:THRESHold?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Trigger.set_if_level">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Trigger.set_if_level">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">set_if_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            IF:LEVel - Specify the DSSS video trigger level in dBm.</span>
@@ -9241,8 +9442,11 @@
 <span class="sd">            Return:</span>
 <span class="sd">            None</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIGger:WLAN:IF:LEVel </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIGger:WLAN:IF:LEVel </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Trigger.get_if_level">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Trigger.get_if_level">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_if_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            IF:LEVel? - Query the DSSS video trigger level in dBm.</span>
@@ -9252,16 +9456,25 @@
 <span class="sd">            Return:</span>
 <span class="sd">            float: DSSS video trigger level in dBm.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIGger:WLAN:IF:LEVel?&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIGger:WLAN:IF:LEVel?&quot;</span><span class="p">))</span></div>
+</div>
 
+
+<div class="viewcode-block" id="WLAN.Fetch">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Fetch">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Fetch</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The Fetch commands retrieve WLAN demodulation metrics.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WLAN.Fetch.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Fetch.__init__">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
 
+
+<div class="viewcode-block" id="WLAN.Fetch.fetch">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.Fetch.fetch">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metrics</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot; Fetch WLAN demodulation metrics. The integer parameter specifies</span>
 <span class="sd">            the metric to retrieve. Possible integer values can be printed with print_fetch_WLAN. Can specify a list of metrics</span>
@@ -9278,7 +9491,11 @@
                 <span class="n">metrics_str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;metrics must be an int or list/tuple of ints&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:FETCh:WLAN? </span><span class="si">{</span><span class="n">metrics_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:FETCh:WLAN? </span><span class="si">{</span><span class="n">metrics_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+<div class="viewcode-block" id="WLAN.print_fetch_WLAN">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.WLAN.html#Instruments.spectrum_analyzer_signal_hound.WLAN.print_fetch_WLAN">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">print_fetch_WLAN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Print the list of available WLAN fetch metrics.</span>
@@ -9324,15 +9541,24 @@
             <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="s2">&quot;Crest factor&quot;</span><span class="p">),</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">wlan_b_metrics</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:&lt;3}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">desc</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:&lt;3}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">desc</span><span class="p">))</span></div>
+</div>
+
+<div class="viewcode-block" id="Trace">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Trace</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Trace commands control the user configurable traces for sweep mode.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Trace.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pnoise</span> <span class="o">=</span> <span class="n">Trace_PNoise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pnoise</span> <span class="o">=</span> <span class="n">Trace_PNoise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Trace.select">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.select">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace_num</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Specify a trace index [1,6]. All future operations occur on this trace.</span>
@@ -9344,8 +9570,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace_num</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">trace_num</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;trace_num must be an integer between 1 and 6&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:SELect </span><span class="si">{</span><span class="n">trace_num</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:SELect </span><span class="si">{</span><span class="n">trace_num</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.get_selected">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.get_selected">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the currently selected trace index.</span>
@@ -9355,8 +9584,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            int: The currently selected trace index.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:SELect?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:SELect?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="Trace.set_type">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.set_type">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">typ</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Specify the behavior of the trace.</span>
@@ -9369,8 +9601,11 @@
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;OFF&quot;</span><span class="p">,</span> <span class="s2">&quot;WRITE&quot;</span><span class="p">,</span> <span class="s2">&quot;AVERAGE&quot;</span><span class="p">,</span> <span class="s2">&quot;MAXHOLD&quot;</span><span class="p">,</span> <span class="s2">&quot;MINHOLD&quot;</span><span class="p">,</span> <span class="s2">&quot;MINMAX&quot;</span><span class="p">}</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">typ</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;typ must be one of &#39;OFF&#39;, &#39;WRITE&#39;, &#39;AVERAGE&#39;, &#39;MAXHOLD&#39;, &#39;MINHOLD&#39;, or &#39;MINMAX&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:TYPE </span><span class="si">{</span><span class="n">typ</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:TYPE </span><span class="si">{</span><span class="n">typ</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.get_type">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.get_type">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the current trace type.</span>
@@ -9380,8 +9615,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            str: The current trace type.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:TYPE?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:TYPE?&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.set_average_count">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.set_average_count">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_average_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Specify the number of traces that are averaged together to create the final sweep.</span>
@@ -9393,8 +9631,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;count must be a positive integer&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:AVERage:COUNt </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:AVERage:COUNt </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.get_average_count">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.get_average_count">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_average_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the number of traces averaged together.</span>
@@ -9404,8 +9645,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            int: The number of traces averaged together.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:AVERage:COUNt?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:AVERage:COUNt?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="Trace.get_average_current">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.get_average_current">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_average_current</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the current number of traces that have been averaged together to create the final sweep.</span>
@@ -9415,8 +9659,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            int: The current number of traces averaged together.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:AVERage:CURRent?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:AVERage:CURRent?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="Trace.copy">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.copy">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest_trace_num</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Copy the currently selected trace to the trace specified by the supplied parameter.</span>
@@ -9430,8 +9677,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_trace_num</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">dest_trace_num</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;dest_trace_num must be an integer between 1 and 6&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:COPY </span><span class="si">{</span><span class="n">dest_trace_num</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:COPY </span><span class="si">{</span><span class="n">dest_trace_num</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.set_update_state">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.set_update_state">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Specify if the trace updates when a new sweep is acquired from the device.</span>
@@ -9448,8 +9698,11 @@
             <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;ON&quot;</span> <span class="k">else</span> <span class="mi">0</span>
         <span class="k">elif</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;state must be 1, 0, &#39;ON&#39;, or &#39;OFF&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:UPDate:STATe </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:UPDate:STATe </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.is_update_enabled">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.is_update_enabled">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_update_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query if trace update is enabled.</span>
@@ -9460,8 +9713,11 @@
 <span class="sd">            bool: True if trace update is enabled, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:UPDate:STATe?&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span></div>
 
+
+<div class="viewcode-block" id="Trace.set_display_state">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.set_display_state">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_display_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Specify if the trace is hidden.</span>
@@ -9478,8 +9734,11 @@
             <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;ON&quot;</span> <span class="k">else</span> <span class="mi">0</span>
         <span class="k">elif</span> <span class="n">state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;state must be 1, 0, &#39;ON&#39;, or &#39;OFF&#39;&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:DISPlay:STATe </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRACe:DISPlay:STATe </span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.is_displayed">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.is_displayed">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_displayed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query if trace is displayed.</span>
@@ -9490,8 +9749,11 @@
 <span class="sd">            bool: True if trace is displayed, False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:DISPlay:STATe?&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span></div>
 
+
+<div class="viewcode-block" id="Trace.clear">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.clear">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear the selected trace. For example, if the current sweep is a max hold sweep and is cleared, the trace will be replaced with the next sweep from the device.</span>
@@ -9501,8 +9763,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:TRACe:CLEar&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:TRACe:CLEar&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.clear_all">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.clear_all">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear all the traces.</span>
@@ -9512,8 +9777,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:TRACe:CLEar:ALL&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:TRACe:CLEar:ALL&quot;</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="Trace.get_xstart">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.get_xstart">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_xstart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the frequency of the first point in the sweep as Hz.</span>
@@ -9524,8 +9792,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            float: Frequency of the first point in the sweep (Hz).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:XSTARt?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:XSTARt?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="Trace.get_xincrement">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.get_xincrement">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_xincrement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve the frequency step between two points in the trace data as Hz.</span>
@@ -9536,8 +9807,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            float: Frequency step between two points in the trace data (Hz).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:XINCrement?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:XINCrement?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="Trace.get_points_count">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.get_points_count">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_points_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the number of points in the trace data.</span>
@@ -9547,8 +9821,11 @@
 <span class="sd">        Return:</span>
 <span class="sd">            int: Number of points in the trace data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:POINts?&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:POINts?&quot;</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="Trace.get_data">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Trace.html#Instruments.spectrum_analyzer_signal_hound.Trace.get_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the trace data.</span>
@@ -9561,7 +9838,9 @@
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRACe:DATA?&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">is_auto_saving_data_enabled</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;TRACE_DATA&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">file_type</span> <span class="o">=</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">response</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+</div>
+
 <span class="k">class</span><span class="w"> </span><span class="nc">Trace_PNoise</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The PNoise commands control the user configurable traces for phase noise measurements.</span>
@@ -9882,15 +10161,21 @@
         <span class="k">return</span> <span class="n">response</span>
 
     
+<div class="viewcode-block" id="Record">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Record.html#Instruments.spectrum_analyzer_signal_hound.Record">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Record</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Record commands control the Sweep Recording control panel in Swept Analysis mode.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Record.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Record.html#Instruments.spectrum_analyzer_signal_hound.Record.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span> <span class="o">=</span> <span class="n">Record_Sweep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span> <span class="o">=</span> <span class="n">Record_Trigger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span> <span class="o">=</span> <span class="n">Record_Trigger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
+</div>
+
 <span class="k">class</span><span class="w"> </span><span class="nc">Record_Sweep</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">data_handler</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
@@ -10549,7 +10834,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">sphinxtest</a></h1>
+<h1 class="logo"><a href="../../index.html">Instruments</a></h1>
 
 
 

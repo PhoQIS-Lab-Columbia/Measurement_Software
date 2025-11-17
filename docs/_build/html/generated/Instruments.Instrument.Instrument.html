@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Instruments.Instrument.Instrument Class &#8212; Instruments 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DC Power Supply" href="../dcpowersupply.html" />
+    <link rel="prev" title="Instrument" href="../instrument.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="instruments-instrument-instrument-class">
+<h1>Instruments.Instrument.Instrument Class<a class="headerlink" href="#instruments-instrument-instrument-class" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.Instrument.</span></span><span class="sig-name descname"><span class="pre">Instrument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_files_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Generic Instrument class meant to contain required functionality of all IEEE 488.2 instruments</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_files_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.clear_event_registers">
+<span class="sig-name descname"><span class="pre">clear_event_registers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.clear_event_registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.clear_event_registers" title="Link to this definition">¶</a></dt>
+<dd><p>Clear all the event registers and clear the error queue.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.disconnect" title="Link to this definition">¶</a></dt>
+<dd><p>Disconnect from instrument and shut down all data reading and controls.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.get_and_clear_standard_event_status_register">
+<span class="sig-name descname"><span class="pre">get_and_clear_standard_event_status_register</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.get_and_clear_standard_event_status_register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.get_and_clear_standard_event_status_register" title="Link to this definition">¶</a></dt>
+<dd><p>Query and clear the event register for the standard event status register.</p>
+<p>Returns:
+int: An integer which equals the sum of the weights of all the bits in the register.
+The value of the register is set to 0 after this command is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.get_enable_service_request">
+<span class="sig-name descname"><span class="pre">get_enable_service_request</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.get_enable_service_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.get_enable_service_request" title="Link to this definition">¶</a></dt>
+<dd><p>Query the enable register for the status byte register set.</p>
+<p>Returns:
+int: An integer which equals the sum of the weights of all the bits that have already been set in the register.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.get_id">
+<span class="sig-name descname"><span class="pre">get_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.get_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.get_id" title="Link to this definition">¶</a></dt>
+<dd><p>Query the ID string of the instrument.</p>
+<p>Returns:
+str: The ID string in the format “RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial number&gt;,&lt;software version&gt;”.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.get_standard_event_status_enable">
+<span class="sig-name descname"><span class="pre">get_standard_event_status_enable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.get_standard_event_status_enable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.get_standard_event_status_enable" title="Link to this definition">¶</a></dt>
+<dd><p>Query the enable register for the standard event status register set.</p>
+<p>Returns:
+int: An integer which equals the sum of the weights of all the bits that have
+already been set in the register.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.get_status_operation_enable">
+<span class="sig-name descname"><span class="pre">get_status_operation_enable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.get_status_operation_enable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.get_status_operation_enable" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the contents of the enable mask for the OPERation register.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.get_system_error">
+<span class="sig-name descname"><span class="pre">get_system_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.get_system_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.get_system_error" title="Link to this definition">¶</a></dt>
+<dd><p>Queries the next error from the error queue, returning its code and message.
+Notes: Query only.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.get_system_version">
+<span class="sig-name descname"><span class="pre">get_system_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.get_system_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.get_system_version" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the SCPI version supported by the instrument.
+Notes: Query only.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.is_operation_complete">
+<span class="sig-name descname"><span class="pre">is_operation_complete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.is_operation_complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.is_operation_complete" title="Link to this definition">¶</a></dt>
+<dd><p>Query whether the current operation is finished.</p>
+<p>Returns:
+bool: True (1) if the current operation is finished; False (0) otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.read_status_byte">
+<span class="sig-name descname"><span class="pre">read_status_byte</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.read_status_byte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.read_status_byte" title="Link to this definition">¶</a></dt>
+<dd><p>Query the event register for the status byte register.
+The value of the status byte register is set to 0 after this command is executed.</p>
+<p>Returns:
+int: An integer which equals the sum of the weights of all the bits in the register.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.reset_instrument">
+<span class="sig-name descname"><span class="pre">reset_instrument</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.reset_instrument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.reset_instrument" title="Link to this definition">¶</a></dt>
+<dd><p>Restore the instrument to the default state .</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.save_data">
+<span class="sig-name descname"><span class="pre">save_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">EFileType.CSV</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.save_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.save_data" title="Link to this definition">¶</a></dt>
+<dd><p>Save data to a file in the specified save path.</p>
+<p>Parameters:
+data (dict): The data to be saved.
+filename (str): The name of the file to save the data in.
+format (EFileType): The format in which to save the data. Default is EFileType.CSV.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.self_test">
+<span class="sig-name descname"><span class="pre">self_test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.self_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.self_test" title="Link to this definition">¶</a></dt>
+<dd><p>Perform a self-test and then return the self-test results.</p>
+<p>Returns:
+int: A decimal integer representing the self-test results.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.set_enable_event_status">
+<span class="sig-name descname"><span class="pre">set_enable_event_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.set_enable_event_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.set_enable_event_status" title="Link to this definition">¶</a></dt>
+<dd><p>Set the enable register for the standard event status register set.</p>
+<p>Parameters:
+value (int): An integer value where bit 1 and bit 6 are not used (always 0).
+The range corresponds to binary numbers X0XXXX0X.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.set_enable_service_request">
+<span class="sig-name descname"><span class="pre">set_enable_service_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.set_enable_service_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.set_enable_service_request" title="Link to this definition">¶</a></dt>
+<dd><p>Set the enable register for the status byte register set.</p>
+<p>Parameters:
+value (int): An integer value from 0 to 255. Bit 0 and bit 1 of the status byte register are not used and are always treated as 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.set_operation_complete">
+<span class="sig-name descname"><span class="pre">set_operation_complete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.set_operation_complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.set_operation_complete" title="Link to this definition">¶</a></dt>
+<dd><p>Set the Operation Complete bit (bit 0) in the standard event status register to 1
+after the current operation is finished.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.set_status_operation_enable">
+<span class="sig-name descname"><span class="pre">set_status_operation_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.set_status_operation_enable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.set_status_operation_enable" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the enable mask for the OPERation register.
+:param value: The integer value of the enable mask (range: 0 through 65535).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.Instrument.Instrument.wait_for_operation_finish">
+<span class="sig-name descname"><span class="pre">wait_for_operation_finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/Instrument.html#Instrument.wait_for_operation_finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.Instrument.Instrument.wait_for_operation_finish" title="Link to this definition">¶</a></dt>
+<dd><p>Wait for the current operation to finish.
+The subsequent command can only be carried out after the current command has been executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Instruments</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api.html">API</a><ul>
+  <li><a href="../instrument.html">Instrument</a><ul>
+      <li>Previous: <a href="../instrument.html" title="previous chapter">Instrument</a></li>
+      <li>Next: <a href="../dcpowersupply.html" title="next chapter">DC Power Supply</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Grace.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/generated/Instruments.Instrument.Instrument.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
