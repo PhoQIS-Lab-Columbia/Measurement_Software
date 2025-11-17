@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instruments.Instrument &#8212; Instruments 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Instruments.Instrument</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">Instruments.data_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataHandler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Instruments.EFileType</span><span class="w"> </span><span class="kn">import</span> <span class="n">EFileType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Instruments.EFileType</span><span class="w"> </span><span class="kn">import</span> <span class="n">EFileType</span>
+<div class="viewcode-block" id="Instrument">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Instrument</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generic Instrument class meant to contain required functionality of all IEEE 488.2 instruments&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Instrument.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">save_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">if</span> <span class="n">save_files_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">DataHandler</span><span class="p">()</span>  <span class="c1"># Default format set to JSON</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">DataHandler</span><span class="p">(</span><span class="n">save_files_path</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="Instrument.disconnect">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.disconnect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect from instrument and shut down all data reading and controls.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Disconnected from &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="Instrument.save_data">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.save_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save data to a file in the specified save path.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters:</span>
+<span class="sd">        data (dict): The data to be saved.</span>
+<span class="sd">        filename (str): The name of the file to save the data in.</span>
+<span class="sd">        format (EFileType): The format in which to save the data. Default is EFileType.CSV.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Instrument.clear_event_registers">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.clear_event_registers">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_event_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all the event registers and clear the error queue.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;*CLS&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Instrument.set_enable_event_status">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.set_enable_event_status">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_enable_event_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the enable register for the standard event status register set.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        value (int): An integer value where bit 1 and bit 6 are not used (always 0).</span>
+<span class="sd">        The range corresponds to binary numbers X0XXXX0X.&quot;&quot;&quot;</span>
+        <span class="c1"># Basic validation for the value based on the description</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span> <span class="c1"># Max 255 for an 8-bit register</span>
+            <span class="c1"># Further validation for bits 1 and 6 being 0 could be added:</span>
+            <span class="c1"># if (value &amp; 0b01000010) == 0: # Check if bit 1 (0b00000010) or bit 6 (0b01000000) are set</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;*ESE </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value (</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">). Must be an integer between 0 and 255 (with bits 1 and 6 effectively 0).&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Instrument.get_standard_event_status_enable">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_standard_event_status_enable">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_standard_event_status_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the enable register for the standard event status register set.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        int: An integer which equals the sum of the weights of all the bits that have</span>
+<span class="sd">        already been set in the register.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*ESE?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
+
+    
+<div class="viewcode-block" id="Instrument.get_and_clear_standard_event_status_register">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_and_clear_standard_event_status_register">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_and_clear_standard_event_status_register</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query and clear the event register for the standard event status register.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        int: An integer which equals the sum of the weights of all the bits in the register.</span>
+<span class="sd">        The value of the register is set to 0 after this command is executed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*ESR?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
+
+    
+<div class="viewcode-block" id="Instrument.get_id">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_id">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the ID string of the instrument.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        str: The ID string in the format &quot;RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial number&gt;,&lt;software version&gt;&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*IDN?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="Instrument.set_operation_complete">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.set_operation_complete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_operation_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the Operation Complete bit (bit 0) in the standard event status register to 1</span>
+<span class="sd">        after the current operation is finished.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;*OPC&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Instrument.is_operation_complete">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.is_operation_complete">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_operation_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query whether the current operation is finished.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        bool: True (1) if the current operation is finished; False (0) otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*OPC?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span></div>
+
+
+
+<div class="viewcode-block" id="Instrument.reset_instrument">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.reset_instrument">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Restore the instrument to the default state .</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;*RST&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Instrument.set_enable_service_request">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.set_enable_service_request">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_enable_service_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the enable register for the status byte register set.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        value (int): An integer value from 0 to 255. Bit 0 and bit 1 of the status byte register are not used and are always treated as 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Basic validation for the value</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span>
+            <span class="c1"># Further validation for bits 0 and 1 being 0 could be added:</span>
+            <span class="c1"># if (value &amp; 0b00000011) == 0: # Check if bit 0 (0b00000001) or bit 1 (0b00000010) are set</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;*SRE </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value (</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">). Must be an integer between 0 and 255 (with bits 0 and 1 effectively 0).&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Instrument.get_enable_service_request">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_enable_service_request">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_enable_service_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the enable register for the status byte register set.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        int: An integer which equals the sum of the weights of all the bits that have already been set in the register.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*SRE?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
+
+    
+<div class="viewcode-block" id="Instrument.read_status_byte">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.read_status_byte">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_status_byte</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the event register for the status byte register.</span>
+<span class="sd">        The value of the status byte register is set to 0 after this command is executed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        int: An integer which equals the sum of the weights of all the bits in the register.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*STB?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="Instrument.self_test">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.self_test">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">self_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a self-test and then return the self-test results.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        int: A decimal integer representing the self-test results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*TST?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="Instrument.wait_for_operation_finish">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.wait_for_operation_finish">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wait_for_operation_finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wait for the current operation to finish.</span>
+<span class="sd">        The subsequent command can only be carried out after the current command has been executed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;*WAI&quot;</span><span class="p">)</span></div>
+
+    
+    <span class="c1">#Required commands</span>
+<div class="viewcode-block" id="Instrument.get_system_error">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_system_error">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_system_error</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Queries the next error from the error queue, returning its code and message.</span>
+<span class="sd">        Notes: Query only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYST:ERR:NEXT?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+    
+<div class="viewcode-block" id="Instrument.get_system_version">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_system_version">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_system_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the SCPI version supported by the instrument.</span>
+<span class="sd">        Notes: Query only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYST:VERS?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+    
+<div class="viewcode-block" id="Instrument.set_status_operation_enable">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.set_status_operation_enable">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_status_operation_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the enable mask for the OPERation register.</span>
+<span class="sd">        :param value: The integer value of the enable mask (range: 0 through 65535).</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#TODO: Fix value to be boolean?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_status_enable</span><span class="p">(</span><span class="s2">&quot;:STAT:OPER:ENAB&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Instrument.get_status_operation_enable">
+<a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_status_operation_enable">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_status_operation_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the contents of the enable mask for the OPERation register.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_status_enable</span><span class="p">(</span><span class="s2">&quot;:STAT:OPER:ENAB?&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Instruments</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Grace.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

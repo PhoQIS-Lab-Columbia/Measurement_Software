@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Instruments.oscilloscope_rigol.LAN Class &#8212; Instruments 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Instruments.oscilloscope_rigol.Math Class" href="Instruments.oscilloscope_rigol.Math.html" />
+    <link rel="prev" title="Instruments.oscilloscope_rigol.Function Class" href="Instruments.oscilloscope_rigol.Function.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="instruments-oscilloscope-rigol-lan-class">
+<h1>Instruments.oscilloscope_rigol.LAN Class<a class="headerlink" href="#instruments-oscilloscope-rigol-lan-class" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.oscilloscope_rigol.</span></span><span class="sig-name descname"><span class="pre">LAN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The LAN commands are used to set/query network parameters.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.apply" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the network configuration.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_autoip">
+<span class="sig-name descname"><span class="pre">get_autoip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_autoip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_autoip" title="Link to this definition">¶</a></dt>
+<dd><p>Query the on/off status of the current Auto IP configuration mode.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>int: 1 (on) or 0 (off)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_dhcp">
+<span class="sig-name descname"><span class="pre">get_dhcp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_dhcp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_dhcp" title="Link to this definition">¶</a></dt>
+<dd><p>Query the on/off status of the current DHCP configuration mode.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>int: 1 (on) or 0 (off)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_dns">
+<span class="sig-name descname"><span class="pre">get_dns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_dns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_dns" title="Link to this definition">¶</a></dt>
+<dd><p>Query the DNS address.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>str: Current DNS address</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_gateway">
+<span class="sig-name descname"><span class="pre">get_gateway</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_gateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_gateway" title="Link to this definition">¶</a></dt>
+<dd><p>Query the default gateway.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>str: Current gateway</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_ipaddress">
+<span class="sig-name descname"><span class="pre">get_ipaddress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_ipaddress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_ipaddress" title="Link to this definition">¶</a></dt>
+<dd><p>Query the IP address of the instrument.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>str: Current IP address</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_mac">
+<span class="sig-name descname"><span class="pre">get_mac</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_mac"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_mac" title="Link to this definition">¶</a></dt>
+<dd><p>Query the MAC address of the instrument.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>str: MAC address</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_manual">
+<span class="sig-name descname"><span class="pre">get_manual</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_manual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_manual" title="Link to this definition">¶</a></dt>
+<dd><p>Query the on/off status of the static IP configuration mode.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>int: 1 (on) or 0 (off)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_smask">
+<span class="sig-name descname"><span class="pre">get_smask</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_smask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_smask" title="Link to this definition">¶</a></dt>
+<dd><p>Query the subnet mask.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>str: Current subnet mask</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_status">
+<span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_status" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current network configuration status.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>str: One of “UNLINK”, “INIT”, “IPCONFLICT”, “CONFIGURED”, “DHCPFAILED”</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.get_visa">
+<span class="sig-name descname"><span class="pre">get_visa</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.get_visa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.get_visa" title="Link to this definition">¶</a></dt>
+<dd><p>Query the VISA address of the instrument.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>str: VISA address</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.initiate">
+<span class="sig-name descname"><span class="pre">initiate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.initiate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.initiate" title="Link to this definition">¶</a></dt>
+<dd><p>Initiate the network parameters.
+Parameter:</p>
+<blockquote>
+<div><p>None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.set_autoip">
+<span class="sig-name descname"><span class="pre">set_autoip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.set_autoip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.set_autoip" title="Link to this definition">¶</a></dt>
+<dd><p>Turn on or off the Auto IP configuration mode.
+Parameter:</p>
+<blockquote>
+<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.set_dhcp">
+<span class="sig-name descname"><span class="pre">set_dhcp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.set_dhcp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.set_dhcp" title="Link to this definition">¶</a></dt>
+<dd><p>Turn on or off the DHCP configuration mode.
+Parameter:</p>
+<blockquote>
+<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.set_dns">
+<span class="sig-name descname"><span class="pre">set_dns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.set_dns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.set_dns" title="Link to this definition">¶</a></dt>
+<dd><p>Set the DNS address.
+Parameter:</p>
+<blockquote>
+<div><p>dns (str): IP address in nnn,nnn,nnn,nnn format</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.set_gateway">
+<span class="sig-name descname"><span class="pre">set_gateway</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gateway</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.set_gateway"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.set_gateway" title="Link to this definition">¶</a></dt>
+<dd><p>Set the default gateway.
+Parameter:</p>
+<blockquote>
+<div><p>gateway (str): IP address in nnn,nnn,nnn,nnn format</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.set_ipaddress">
+<span class="sig-name descname"><span class="pre">set_ipaddress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.set_ipaddress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.set_ipaddress" title="Link to this definition">¶</a></dt>
+<dd><p>Set the IP address of the instrument.
+Parameter:</p>
+<blockquote>
+<div><p>ip (str): IP address in nnn,nnn,nnn,nnn format</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.set_manual">
+<span class="sig-name descname"><span class="pre">set_manual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.set_manual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.set_manual" title="Link to this definition">¶</a></dt>
+<dd><p>Turn on or off the static IP configuration mode.
+Parameter:</p>
+<blockquote>
+<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.LAN.set_smask">
+<span class="sig-name descname"><span class="pre">set_smask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#LAN.set_smask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.LAN.set_smask" title="Link to this definition">¶</a></dt>
+<dd><p>Set the subnet mask.
+Parameter:</p>
+<blockquote>
+<div><p>mask (str): Subnet mask in nnn,nnn,nnn,nnn format</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Return:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Instruments</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../api.html">API</a><ul>
+  <li><a href="../oscilloscope.html">OScilloscope</a><ul>
+      <li>Previous: <a href="Instruments.oscilloscope_rigol.Function.html" title="previous chapter">Instruments.oscilloscope_rigol.Function Class</a></li>
+      <li>Next: <a href="Instruments.oscilloscope_rigol.Math.html" title="next chapter">Instruments.oscilloscope_rigol.Math Class</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Grace.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/generated/Instruments.oscilloscope_rigol.LAN.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
