@@ -76,8 +76,8 @@ trace data transfer.
         self.instrument = instrument
         self.data_handler = data_handler
         self.channel  = channel
-        self.balanced_port_1 = Calc_Balanced(self.instrument, self.data_handler, self.channel, bport=1)
-        self.balanced_port_2 = Calc_Balanced(self.instrument, self.data_handler, self.channel, bport=2)
+        self.balanced_port_1 = self.Calc_Balanced(self.instrument, self.data_handler, self.channel, bport=1)
+        self.balanced_port_2 = self.Calc_Balanced(self.instrument, self.data_handler, self.channel, bport=2)
         self.marker = Calc_Marker(self.instrument, self.data_handler, channel)
         self.math = Calc_Math(self.instrument, self.data_handler, channel)
         self.mst = Calc_MST(self.instrument, self.data_handler, channel)
@@ -387,539 +387,539 @@ trace data transfer.
             bool: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:STAT?")))
-class Calc_Balanced:
-    """Commands to modify balanced fixture simulation parameters."""
-    def __init__(self, instrument, data_handler, channel, bport):
-        self.channel = channel
-        self.bport = bport
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.DMC = Calc_Balanced_DMC(self.instrument, self.data_handler, channel, bport)
-    # CALC:FSIM:BAL:CZC:BPOR:Z0 - Set/read common impedance for balanced port
-    def set_balanced_port_common_impedance(self,value: float):
-        """
-        Set the impedance value for the common impedance conversion function of the balanced port.
+    class Calc_Balanced:
+        """Commands to modify balanced fixture simulation parameters."""
+        def __init__(self, instrument, data_handler, channel, bport):
+            self.channel = channel
+            self.bport = bport
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.DMC = Calc_Balanced_DMC(self.instrument, self.data_handler, channel, bport)
+        # CALC:FSIM:BAL:CZC:BPOR:Z0 - Set/read common impedance for balanced port
+        def set_balanced_port_common_impedance(self,value: float):
+            """
+            Set the impedance value for the common impedance conversion function of the balanced port.
 
-        Description:
-            Sets the real impedance value for the common impedance conversion function of the balanced port.
-            The value is limited to the range 0.001 to 10_000_000 Ohms (1 mΩ to 10 MΩ).
-            The default value is 25 Ohms.
+            Description:
+                Sets the real impedance value for the common impedance conversion function of the balanced port.
+                The value is limited to the range 0.001 to 10_000_000 Ohms (1 mΩ to 10 MΩ).
+                The default value is 25 Ohms.
 
-        Parameters:
-            value (float): Impedance value in Ohms
+            Parameters:
+                value (float): Impedance value in Ohms
 
-        Returns:
-            None
-        """
-        value = max(0.001, min(10_000_000, value))
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:BPOR{self.bport}:Z0 {value}")
+            Returns:
+                None
+            """
+            value = max(0.001, min(10_000_000, value))
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:BPOR{self.bport}:Z0 {value}")
 
-    def get_balanced_port_common_impedance(self, bport: int) -> float:
-        """
-        Read out the impedance value for the common impedance conversion function of the balanced port.
+        def get_balanced_port_common_impedance(self, bport: int) -> float:
+            """
+            Read out the impedance value for the common impedance conversion function of the balanced port.
 
-        Description:
-            Reads the real impedance value for the common impedance conversion function of the balanced port.
+            Description:
+                Reads the real impedance value for the common impedance conversion function of the balanced port.
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2 for Bal-Bal topology, 1 for others)
+            Parameters:
+                bport (int): Balanced port number (1 or 2 for Bal-Bal topology, 1 for others)
 
-        Returns:
-            float: Impedance value in Ohms
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:CZC:BPOR{bport}:Z0?"))
-    # CALC:FSIM:BAL:CZC:STAT - Common impedance conversion ON/OFF
-    def enable_common_impedance_conversion(self):
-        """
-        Turns ON the common impedance conversion function of the balanced port.
-
-
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:STAT 1")
-
-    def disable_common_impedance_conversion(self):
-        """
-        Turns OFF the common impedance conversion function of the balanced port.
+            Returns:
+                float: Impedance value in Ohms
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:CZC:BPOR{bport}:Z0?"))
+        # CALC:FSIM:BAL:CZC:STAT - Common impedance conversion ON/OFF
+        def enable_common_impedance_conversion(self):
+            """
+            Turns ON the common impedance conversion function of the balanced port.
 
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:STAT 0")
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:STAT 1")
 
-    def is_common_impedance_conversion_enabled(self) -> bool:
-        """
-        Query if the common impedance conversion function of the balanced port is enabled.
+        def disable_common_impedance_conversion(self):
+            """
+            Turns OFF the common impedance conversion function of the balanced port.
 
-        Returns:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:CZC:STAT?")))
 
-    # CALC:FSIM:BAL:DEV - Select type of balanced device
-    def set_balanced_device_type(self, device_type: str):
-        """
-        Selects the type of balanced device of the balance-unbalance fixture simulation function.
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:STAT 0")
 
-        Parameters:
-            device_type (str): Type of balanced device, one of ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
+        def is_common_impedance_conversion_enabled(self) -> bool:
+            """
+            Query if the common impedance conversion function of the balanced port is enabled.
 
-        Returns:
-            None
-        """
-        allowed = ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
-        if device_type not in allowed:
-            raise ValueError(f"device_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DEV {device_type}")
+            Returns:
+                bool: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:CZC:STAT?")))
 
-    def get_balanced_device_type(self) -> str:
-        """
-        Reads out the type of balanced device of the balance-unbalance fixture simulation function.
+        # CALC:FSIM:BAL:DEV - Select type of balanced device
+        def set_balanced_device_type(self, device_type: str):
+            """
+            Selects the type of balanced device of the balance-unbalance fixture simulation function.
 
-        Returns:
-            str: Type of balanced device
-        """
-        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DEV?").strip()
+            Parameters:
+                device_type (str): Type of balanced device, one of ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
 
-    # CALC:FSIM:BAL:DMC:BPOR:PAR:C - Capacitance value of C element
-    def set_dmc_c(self, bport: int, value: float):
-        """
-        Sets the capacitance value of the C element of the differential matching circuit.
+            Returns:
+                None
+            """
+            allowed = ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
+            if device_type not in allowed:
+                raise ValueError(f"device_type must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DEV {device_type}")
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2)
-            value (float): Capacitance value in Farads (1e-18 to 1e18)
+        def get_balanced_device_type(self) -> str:
+            """
+            Reads out the type of balanced device of the balance-unbalance fixture simulation function.
 
-        Returns:
-            None
-        """
-        value = max(1e-18, min(1e18, value))
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:C {value}")
+            Returns:
+                str: Type of balanced device
+            """
+            return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DEV?").strip()
 
-    def get_dmc_c(self, bport: int) -> float:
-        """
-        Reads out the capacitance value of the C element of the differential matching circuit.
+        # CALC:FSIM:BAL:DMC:BPOR:PAR:C - Capacitance value of C element
+        def set_dmc_c(self, bport: int, value: float):
+            """
+            Sets the capacitance value of the C element of the differential matching circuit.
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2)
+            Parameters:
+                bport (int): Balanced port number (1 or 2)
+                value (float): Capacitance value in Farads (1e-18 to 1e18)
 
-        Returns:
-            float: Capacitance value in Farads
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:C?"))
+            Returns:
+                None
+            """
+            value = max(1e-18, min(1e18, value))
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:C {value}")
 
-    # CALC:FSIM:BAL:DMC:BPOR:PAR:G - Conductance value of G element
-    def set_dmc_g(self, bport: int, value: float):
-        """
-        Sets the conductance value of the G element of the differential matching circuit.
+        def get_dmc_c(self, bport: int) -> float:
+            """
+            Reads out the capacitance value of the C element of the differential matching circuit.
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2)
-            value (float): Conductance value in Siemens (1e-18 to 1e18)
+            Parameters:
+                bport (int): Balanced port number (1 or 2)
 
-        Returns:
-            None
-        """
-        value = max(1e-18, min(1e18, value))
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:G {value}")
+            Returns:
+                float: Capacitance value in Farads
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:C?"))
 
-    def get_dmc_g(self, bport: int) -> float:
-        """
-        Reads out the conductance value of the G element of the differential matching circuit.
+        # CALC:FSIM:BAL:DMC:BPOR:PAR:G - Conductance value of G element
+        def set_dmc_g(self, bport: int, value: float):
+            """
+            Sets the conductance value of the G element of the differential matching circuit.
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2)
+            Parameters:
+                bport (int): Balanced port number (1 or 2)
+                value (float): Conductance value in Siemens (1e-18 to 1e18)
 
-        Returns:
-            float: Conductance value in Siemens
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:G?"))
+            Returns:
+                None
+            """
+            value = max(1e-18, min(1e18, value))
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:G {value}")
 
-    # CALC:FSIM:BAL:DMC:BPOR:PAR:L - Inductance value of L element
-    def set_dmc_l(self, bport: int, value: float):
-        """
-        Sets the inductance value of the L element of the differential matching circuit.
+        def get_dmc_g(self, bport: int) -> float:
+            """
+            Reads out the conductance value of the G element of the differential matching circuit.
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2)
-            value (float): Inductance value in Henry (1e-18 to 1e18)
+            Parameters:
+                bport (int): Balanced port number (1 or 2)
 
-        Returns:
-            None
-        """
-        value = max(1e-18, min(1e18, value))
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:L {value}")
+            Returns:
+                float: Conductance value in Siemens
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:G?"))
 
-    def get_dmc_l(self, bport: int) -> float:
-        """
-        Reads out the inductance value of the L element of the differential matching circuit.
+        # CALC:FSIM:BAL:DMC:BPOR:PAR:L - Inductance value of L element
+        def set_dmc_l(self, bport: int, value: float):
+            """
+            Sets the inductance value of the L element of the differential matching circuit.
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2)
+            Parameters:
+                bport (int): Balanced port number (1 or 2)
+                value (float): Inductance value in Henry (1e-18 to 1e18)
 
-        Returns:
-            float: Inductance value in Henry
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:L?"))
-    
-    # CALC:FSIM:BAL:DZC:BPOR:Z0 - Set/read DMC differential impedance
-    def set_dzconversion_impedance(self, bport: int, value: float):
-        """
-        Set the impedance value for the differential impedance conversion function of the balanced port.
+            Returns:
+                None
+            """
+            value = max(1e-18, min(1e18, value))
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:L {value}")
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2)
-            value (float): Impedance value in Ohms (0.001 to 10_000_000)
+        def get_dmc_l(self, bport: int) -> float:
+            """
+            Reads out the inductance value of the L element of the differential matching circuit.
 
-        Returns:
-            None
-        """
-        value = max(0.001, min(10_000_000, value))
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:BPOR{bport}:Z0 {value}")
+            Parameters:
+                bport (int): Balanced port number (1 or 2)
 
-    def get_dzconversion_impedance(self, bport: int) -> float:
-        """
-        Get the impedance value for the differential impedance conversion function of the balanced port.
+            Returns:
+                float: Inductance value in Henry
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:L?"))
+        
+        # CALC:FSIM:BAL:DZC:BPOR:Z0 - Set/read DMC differential impedance
+        def set_dzconversion_impedance(self, bport: int, value: float):
+            """
+            Set the impedance value for the differential impedance conversion function of the balanced port.
 
-        Parameters:
-            bport (int): Balanced port number (1 or 2)
+            Parameters:
+                bport (int): Balanced port number (1 or 2)
+                value (float): Impedance value in Ohms (0.001 to 10_000_000)
 
-        Returns:
-            float: Impedance value in Ohms
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DZC:BPOR{bport}:Z0?"))
+            Returns:
+                None
+            """
+            value = max(0.001, min(10_000_000, value))
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:BPOR{bport}:Z0 {value}")
 
-    # CALC:FSIM:BAL:DZC:STAT - Enable/disable DMC differential impedance conversion
-    def enable_dzconversion(self):
-        """
-        Enable the differential impedance conversion function of the balanced port.
+        def get_dzconversion_impedance(self, bport: int) -> float:
+            """
+            Get the impedance value for the differential impedance conversion function of the balanced port.
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:STAT 1")
+            Parameters:
+                bport (int): Balanced port number (1 or 2)
 
-    def disable_dzconversion(self):
-        """
-        Disable the differential impedance conversion function of the balanced port.
+            Returns:
+                float: Impedance value in Ohms
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DZC:BPOR{bport}:Z0?"))
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:STAT 0")
+        # CALC:FSIM:BAL:DZC:STAT - Enable/disable DMC differential impedance conversion
+        def enable_dzconversion(self):
+            """
+            Enable the differential impedance conversion function of the balanced port.
 
-    def is_dzconversion_enabled(self) -> bool:
-        """
-        Query if the differential impedance conversion function of the balanced port is enabled.
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:STAT 1")
 
-        Returns:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DZC:STAT?")))
+        def disable_dzconversion(self):
+            """
+            Disable the differential impedance conversion function of the balanced port.
 
-    # CALC:FSIM:BAL:PAR:BAL - Set/read measurement parameter for BALanced device type
-    def set_balanced_measurement_parameter(self, trace: int, param: str):
-        """
-        Set the measurement parameter of the fixture simulation function for BALanced device type.
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:STAT 0")
 
-        Parameters:
-            trace (int): Trace number (1-16)
-            param (str): Measurement parameter ('SDD11', 'SCD11', 'SDC11', 'SCC11')
+        def is_dzconversion_enabled(self) -> bool:
+            """
+            Query if the differential impedance conversion function of the balanced port is enabled.
 
-        Returns:
-            None
-        """
-        allowed = ['SDD11', 'SCD11', 'SDC11', 'SCC11']
-        if param not in allowed:
-            raise ValueError(f"param must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BAL:DEF {param}")
+            Returns:
+                bool: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DZC:STAT?")))
 
-    def get_balanced_measurement_parameter(self, trace: int) -> str:
-        """
-        Get the measurement parameter of the fixture simulation function for BALanced device type.
+        # CALC:FSIM:BAL:PAR:BAL - Set/read measurement parameter for BALanced device type
+        def set_balanced_measurement_parameter(self, trace: int, param: str):
+            """
+            Set the measurement parameter of the fixture simulation function for BALanced device type.
 
-        Parameters:
-            trace (int): Trace number (1-16)
+            Parameters:
+                trace (int): Trace number (1-16)
+                param (str): Measurement parameter ('SDD11', 'SCD11', 'SDC11', 'SCC11')
 
-        Returns:
-            str: Measurement parameter
-        """
-        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BAL:DEF?").strip()
+            Returns:
+                None
+            """
+            allowed = ['SDD11', 'SCD11', 'SDC11', 'SCC11']
+            if param not in allowed:
+                raise ValueError(f"param must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BAL:DEF {param}")
 
-    # CALC:FSIM:BAL:PAR:BBAL - Set/read measurement parameter for BBALanced device type
-    def set_bbalanced_measurement_parameter(self, trace: int, param: str):
-        """
-        Set the measurement parameter of the fixture simulation function for BBALanced device type.
+        def get_balanced_measurement_parameter(self, trace: int) -> str:
+            """
+            Get the measurement parameter of the fixture simulation function for BALanced device type.
 
-        Parameters:
-            trace (int): Trace number (1-16)
-            param (str): Measurement parameter (see allowed list)
+            Parameters:
+                trace (int): Trace number (1-16)
 
-        Returns:
-            None
-        """
-        allowed = [
-            'SDD11', 'SDD21', 'SDD12', 'SDD22',
-            'SCD11', 'SCD21', 'SCD12', 'SCD22',
-            'SDC11', 'SDC21', 'SDC12', 'SDC22',
-            'SCC11', 'SCC21', 'SCC12', 'SCC22',
-            'IMB1', 'IMB2', 'CMRR'
-        ]
-        if param not in allowed:
-            raise ValueError(f"param must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BBAL:DEF {param}")
+            Returns:
+                str: Measurement parameter
+            """
+            return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BAL:DEF?").strip()
 
-    def get_bbalanced_measurement_parameter(self, trace: int) -> str:
-        """
-        Get the measurement parameter of the fixture simulation function for BBALanced device type.
+        # CALC:FSIM:BAL:PAR:BBAL - Set/read measurement parameter for BBALanced device type
+        def set_bbalanced_measurement_parameter(self, trace: int, param: str):
+            """
+            Set the measurement parameter of the fixture simulation function for BBALanced device type.
 
-        Parameters:
-            trace (int): Trace number (1-16)
+            Parameters:
+                trace (int): Trace number (1-16)
+                param (str): Measurement parameter (see allowed list)
 
-        Returns:
-            str: Measurement parameter
-        """
-        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BBAL:DEF?").strip()
-    # CALC:FSIM:BAL:PAR:SBAL - Set/read measurement parameter for SBALanced device type
-    def set_sbalanced_measurement_parameter(self, trace: int, param: str):
-        """
-        Set the measurement parameter of the fixture simulation function for SBALanced device type.
+            Returns:
+                None
+            """
+            allowed = [
+                'SDD11', 'SDD21', 'SDD12', 'SDD22',
+                'SCD11', 'SCD21', 'SCD12', 'SCD22',
+                'SDC11', 'SDC21', 'SDC12', 'SDC22',
+                'SCC11', 'SCC21', 'SCC12', 'SCC22',
+                'IMB1', 'IMB2', 'CMRR'
+            ]
+            if param not in allowed:
+                raise ValueError(f"param must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BBAL:DEF {param}")
 
-        Parameters:
-            trace (int): Trace number (1-16)
-            param (str): Measurement parameter, one of [
+        def get_bbalanced_measurement_parameter(self, trace: int) -> str:
+            """
+            Get the measurement parameter of the fixture simulation function for BBALanced device type.
+
+            Parameters:
+                trace (int): Trace number (1-16)
+
+            Returns:
+                str: Measurement parameter
+            """
+            return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BBAL:DEF?").strip()
+        # CALC:FSIM:BAL:PAR:SBAL - Set/read measurement parameter for SBALanced device type
+        def set_sbalanced_measurement_parameter(self, trace: int, param: str):
+            """
+            Set the measurement parameter of the fixture simulation function for SBALanced device type.
+
+            Parameters:
+                trace (int): Trace number (1-16)
+                param (str): Measurement parameter, one of [
+                    'SSS11', 'SDS21', 'SSD12', 'SCS21', 'SSC12', 'SDD22', 'SCD22', 'SDC22', 'SCC22',
+                    'IMB', 'CMRR1', 'CMRR2'
+                ]
+
+            Returns:
+                None
+            """
+            allowed = [
                 'SSS11', 'SDS21', 'SSD12', 'SCS21', 'SSC12', 'SDD22', 'SCD22', 'SDC22', 'SCC22',
                 'IMB', 'CMRR1', 'CMRR2'
             ]
+            if param not in allowed:
+                raise ValueError(f"param must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SBAL:DEF {param}")
 
-        Returns:
-            None
-        """
-        allowed = [
-            'SSS11', 'SDS21', 'SSD12', 'SCS21', 'SSC12', 'SDD22', 'SCD22', 'SDC22', 'SCC22',
-            'IMB', 'CMRR1', 'CMRR2'
-        ]
-        if param not in allowed:
-            raise ValueError(f"param must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SBAL:DEF {param}")
+        def get_sbalanced_measurement_parameter(self, trace: int) -> str:
+            """
+            Get the measurement parameter of the fixture simulation function for SBALanced device type.
 
-    def get_sbalanced_measurement_parameter(self, trace: int) -> str:
-        """
-        Get the measurement parameter of the fixture simulation function for SBALanced device type.
+            Parameters:
+                trace (int): Trace number (1-16)
 
-        Parameters:
-            trace (int): Trace number (1-16)
+            Returns:
+                str: Measurement parameter
+            """
+            return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SBAL:DEF?").strip()
 
-        Returns:
-            str: Measurement parameter
-        """
-        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SBAL:DEF?").strip()
+        # CALC:FSIM:BAL:PAR:SSB - Set/read measurement parameter for SSBalanced device type
+        def set_ssbalanced_measurement_parameter(self, trace: int, param: str):
+            """
+            Set the measurement parameter of the fixture simulation function for SSBalanced device type.
 
-    # CALC:FSIM:BAL:PAR:SSB - Set/read measurement parameter for SSBalanced device type
-    def set_ssbalanced_measurement_parameter(self, trace: int, param: str):
-        """
-        Set the measurement parameter of the fixture simulation function for SSBalanced device type.
+            Parameters:
+                trace (int): Trace number (1-16)
+                param (str): Measurement parameter, one of [
+                    'SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23',
+                    'SCS31', 'SCS32', 'SSC13', 'SSC23', 'SDD33', 'SCD33', 'SDC33', 'SCC33',
+                    'IMB1', 'IMB2', 'IMB3', 'IMB4', 'CMRR1', 'CMRR2'
+                ]
 
-        Parameters:
-            trace (int): Trace number (1-16)
-            param (str): Measurement parameter, one of [
+            Returns:
+                None
+            """
+            allowed = [
                 'SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23',
                 'SCS31', 'SCS32', 'SSC13', 'SSC23', 'SDD33', 'SCD33', 'SDC33', 'SCC33',
                 'IMB1', 'IMB2', 'IMB3', 'IMB4', 'CMRR1', 'CMRR2'
             ]
+            if param not in allowed:
+                raise ValueError(f"param must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SSB:DEF {param}")
 
-        Returns:
-            None
-        """
-        allowed = [
-            'SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23',
-            'SCS31', 'SCS32', 'SSC13', 'SSC23', 'SDD33', 'SCD33', 'SDC33', 'SCC33',
-            'IMB1', 'IMB2', 'IMB3', 'IMB4', 'CMRR1', 'CMRR2'
-        ]
-        if param not in allowed:
-            raise ValueError(f"param must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SSB:DEF {param}")
+        def get_ssbalanced_measurement_parameter(self, trace: int) -> str:
+            """
+            Get the measurement parameter of the fixture simulation function for SSBalanced device type.
 
-    def get_ssbalanced_measurement_parameter(self, trace: int) -> str:
-        """
-        Get the measurement parameter of the fixture simulation function for SSBalanced device type.
+            Parameters:
+                trace (int): Trace number (1-16)
 
-        Parameters:
-            trace (int): Trace number (1-16)
+            Returns:
+                str: Measurement parameter
+            """
+            return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SSB:DEF?").strip()
 
-        Returns:
-            str: Measurement parameter
-        """
-        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SSB:DEF?").strip()
+        # CALC:FSIM:BAL:PAR:STAT - Enable/disable BalUn function for the specified trace
+        def enable_balun_function(self, trace: int):
+            """
+            Turn ON the BalUn function for the specified trace.
 
-    # CALC:FSIM:BAL:PAR:STAT - Enable/disable BalUn function for the specified trace
-    def enable_balun_function(self, trace: int):
-        """
-        Turn ON the BalUn function for the specified trace.
+            Parameters:
+                trace (int): Trace number (1-16)
 
-        Parameters:
-            trace (int): Trace number (1-16)
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT 1")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT 1")
+        def disable_balun_function(self, trace: int):
+            """
+            Turn OFF the BalUn function for the specified trace.
 
-    def disable_balun_function(self, trace: int):
-        """
-        Turn OFF the BalUn function for the specified trace.
+            Parameters:
+                trace (int): Trace number (1-16)
 
-        Parameters:
-            trace (int): Trace number (1-16)
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT 0")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT 0")
+        def is_balun_function_enabled(self, trace: int) -> bool:
+            """
+            Query if the BalUn function is enabled for the specified trace.
 
-    def is_balun_function_enabled(self, trace: int) -> bool:
-        """
-        Query if the BalUn function is enabled for the specified trace.
+            Parameters:
+                trace (int): Trace number (1-16)
 
-        Parameters:
-            trace (int): Trace number (1-16)
+            Returns:
+                bool: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT?")))
 
-        Returns:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT?")))
+        # CALC:FSIM:BAL:TOP:BAL - Set/read ports assigned to BALanced device type
+        def set_balanced_device_ports(self, port1: int, port2: int):
+            """
+            Set the ports assigned to the balanced device when its type is "BALance".
 
-    # CALC:FSIM:BAL:TOP:BAL - Set/read ports assigned to BALanced device type
-    def set_balanced_device_ports(self, port1: int, port2: int):
-        """
-        Set the ports assigned to the balanced device when its type is "BALance".
+            Parameters:
+                port1 (int): First port number
+                port2 (int): Second port number
 
-        Parameters:
-            port1 (int): First port number
-            port2 (int): Second port number
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:BAL:PPOR {port1},{port2}")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:BAL:PPOR {port1},{port2}")
+        def get_balanced_device_ports(self):
+            """
+            Get the ports assigned to the balanced device when its type is "BALance".
 
-    def get_balanced_device_ports(self):
-        """
-        Get the ports assigned to the balanced device when its type is "BALance".
+            Returns:
+                tuple: (port1, port2)
+            """
+            resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:BAL:PPOR?").strip()
+            return tuple(map(int, resp.split(',')))
 
-        Returns:
-            tuple: (port1, port2)
-        """
-        resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:BAL:PPOR?").strip()
-        return tuple(map(int, resp.split(',')))
+        # CALC:FSIM:BAL:TOP:BBAL - Set/read ports assigned to BBALanced device type
+        def set_bbalanced_device_ports(self, port1: int, port2: int, port3: int, port4: int):
+            """
+            Set the ports assigned to the balanced device when its type is "BBALance".
 
-    # CALC:FSIM:BAL:TOP:BBAL - Set/read ports assigned to BBALanced device type
-    def set_bbalanced_device_ports(self, port1: int, port2: int, port3: int, port4: int):
-        """
-        Set the ports assigned to the balanced device when its type is "BBALance".
+            Parameters:
+                port1 (int): First port number
+                port2 (int): Second port number
+                port3 (int): Third port number
+                port4 (int): Fourth port number
 
-        Parameters:
-            port1 (int): First port number
-            port2 (int): Second port number
-            port3 (int): Third port number
-            port4 (int): Fourth port number
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:BBAL:PPOR {port1},{port2},{port3},{port4}")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:BBAL:PPOR {port1},{port2},{port3},{port4}")
+        def get_bbalanced_device_ports(self):
+            """
+            Get the ports assigned to the balanced device when its type is "BBALance".
 
-    def get_bbalanced_device_ports(self):
-        """
-        Get the ports assigned to the balanced device when its type is "BBALance".
+            Returns:
+                tuple: (port1, port2, port3, port4)
+            """
+            resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:BBAL:PPOR?").strip()
+            return tuple(map(int, resp.split(',')))
+        # CALC:FSIM:BAL:TOP:SBAL:PPOR - Set ports for SBALanced device type
+        def set_sbalanced_device_ports(self, port1: int, port2: int, port3: int):
+            """
+            Set the ports assigned to the balanced device when its type is "SBALanced".
 
-        Returns:
-            tuple: (port1, port2, port3, port4)
-        """
-        resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:BBAL:PPOR?").strip()
-        return tuple(map(int, resp.split(',')))
-    # CALC:FSIM:BAL:TOP:SBAL:PPOR - Set ports for SBALanced device type
-    def set_sbalanced_device_ports(self, port1: int, port2: int, port3: int):
-        """
-        Set the ports assigned to the balanced device when its type is "SBALanced".
+            Parameters:
+                port1 (int): First port number
+                port2 (int): Second port number
+                port3 (int): Third port number
 
-        Parameters:
-            port1 (int): First port number
-            port2 (int): Second port number
-            port3 (int): Third port number
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:SBAL:PPOR {port1},{port2},{port3}")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:SBAL:PPOR {port1},{port2},{port3}")
+        def get_sbalanced_device_ports(self):
+            """
+            Get the ports assigned to the balanced device when its type is "SBALanced".
 
-    def get_sbalanced_device_ports(self):
-        """
-        Get the ports assigned to the balanced device when its type is "SBALanced".
+            Returns:
+                tuple: (port1, port2, port3)
+            """
+            resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:SBAL:PPOR?").strip()
+            return tuple(map(int, resp.split(',')))
 
-        Returns:
-            tuple: (port1, port2, port3)
-        """
-        resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:SBAL:PPOR?").strip()
-        return tuple(map(int, resp.split(',')))
+        # CALC:FSIM:BAL:TOP:SSB:PPOR - Set ports for SSBalanced device type
+        def set_ssbalanced_device_ports(self, port1: int, port2: int, port3: int, port4: int):
+            """
+            Set the ports assigned to the balanced device when its type is "SSBalanced".
 
-    # CALC:FSIM:BAL:TOP:SSB:PPOR - Set ports for SSBalanced device type
-    def set_ssbalanced_device_ports(self, port1: int, port2: int, port3: int, port4: int):
-        """
-        Set the ports assigned to the balanced device when its type is "SSBalanced".
+            Parameters:
+                port1 (int): First port number
+                port2 (int): Second port number
+                port3 (int): Third port number
+                port4 (int): Fourth port number
 
-        Parameters:
-            port1 (int): First port number
-            port2 (int): Second port number
-            port3 (int): Third port number
-            port4 (int): Fourth port number
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:SSB:PPOR {port1},{port2},{port3},{port4}")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:SSB:PPOR {port1},{port2},{port3},{port4}")
+        def get_ssbalanced_device_ports(self):
+            """
+            Get the ports assigned to the balanced device when its type is "SSBalanced".
 
-    def get_ssbalanced_device_ports(self):
-        """
-        Get the ports assigned to the balanced device when its type is "SSBalanced".
+            Returns:
+                tuple: (port1, port2, port3, port4)
+            """
+            resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:SSB:PPOR?").strip()
+            return tuple(map(int, resp.split(',')))
 
-        Returns:
-            tuple: (port1, port2, port3, port4)
-        """
-        resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:SSB:PPOR?").strip()
-        return tuple(map(int, resp.split(',')))
+        # CALC:FSIM:BAL:TOP:PROP:STAT - Enable/disable BalUn property indication
+        def enable_balun_property_indication(self):
+            """
+            Turn ON the BalUn property indication on the screen.
 
-    # CALC:FSIM:BAL:TOP:PROP:STAT - Enable/disable BalUn property indication
-    def enable_balun_property_indication(self):
-        """
-        Turn ON the BalUn property indication on the screen.
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT 1")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT 1")
+        def disable_balun_property_indication(self):
+            """
+            Turn OFF the BalUn property indication on the screen.
 
-    def disable_balun_property_indication(self):
-        """
-        Turn OFF the BalUn property indication on the screen.
+            Returns:
+                None
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT 0")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT 0")
+        def is_balun_property_indication_enabled(self) -> bool:
+            """
+            Query if the BalUn property indication is enabled on the screen.
 
-    def is_balun_property_indication_enabled(self) -> bool:
-        """
-        Query if the BalUn property indication is enabled on the screen.
+            Returns:
+                bool: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT?")))
 
-        Returns:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT?")))
-
-    
+        
 class Calc_Balanced_DMC:
     """
     Commands to modify differential matching circuit (DMC) parameters for balanced ports.

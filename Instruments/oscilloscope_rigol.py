@@ -1650,10 +1650,12 @@ class Parallel:
     def enable_plot(self, enable):
         """
         Turn on or off the curve function of parallel decoding.
+        
         Parameter:
-            enable (int or str): 1/0 or "ON"/"OFF"
+        enable (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if enable in [1, 0]:
             val = enable
@@ -1667,10 +1669,12 @@ class Parallel:
     def is_plot_enabled(self):
         """
         Query the status of the curve function of parallel decoding.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         return int(self.instrument.query(f":DECoder{self.n}:PARallel:PLOT?"))
 
@@ -1687,8 +1691,10 @@ class Display:
     def clear(self):
         """
         Clear all the waveforms on the screen.
+        
         Parameter:
             None
+        
         Return:
             None
         """
@@ -1697,14 +1703,15 @@ class Display:
     def get_data(self, color=None, invert=None, fmt=None):
         """
         Read the data stream of the image currently displayed on the screen. If autosave is on, then also saves them to a png file.
+        
         Parameter:
-            color (str or None): "ON" or "OFF" (default ON)
-            invert (int/str or None): 1/"ON" or 0/"OFF" (default 0)
-            fmt (str or None): "BMP24", "BMP8", "PNG", "JPEG", "TIFF" (default BMP24)
+        color (str or None): "ON" or "OFF" (default ON)
+        invert (int/str or None): 1/"ON" or 0/"OFF" (default 0)
+        fmt (str or None): "BMP24", "BMP8", "PNG", "JPEG", "TIFF" (default BMP24)
             
         Return:
-            bytes: Raw image data (TMC header included)
-            Image: If auto save enabled, return PIL Image object, if not set to save return None
+        bytes: Raw image data (TMC header included)
+        Image: If auto save enabled, return PIL Image object, if not set to save return None
         """
         cmd = ":DISPlay:DATA?"
         args = []
@@ -1740,10 +1747,12 @@ class Display:
     def set_type(self, disp_type):
         """
         Set the waveform display mode.
+        
         Parameter:
-            disp_type (str): Allowed values depend on instrument, e.g., "VECTor", "DOTS"
+        disp_type (str): Allowed values depend on instrument, e.g., "VECTor", "DOTS"
+        
         Return:
-            None
+        None
         """
         allowed = {"VECTOR", "DOTS"}
         disp_type = disp_type.upper()
@@ -1755,20 +1764,24 @@ class Display:
     def get_type(self):
         """
         Query the waveform display mode.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Display type
+        str: Display type
         """
         return self.instrument.query(":DISPlay:TYPE?")
 
     def set_grading_time(self, time):
         """
         Set the persistence time of the waveform.
+        
         Parameter:
-            time (float): Persistence time in seconds
+        time (float): Persistence time in seconds
+        
         Return:
-            None
+        None
         """
         if isinstance(time, (float, int)) and time >= 0:
             self.instrument.write(f":DISPlay:GRADing:TIME {time}")
@@ -1778,10 +1791,12 @@ class Display:
     def get_grading_time(self):
         """
         Query the persistence time of the waveform.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Persistence time in seconds
+        float: Persistence time in seconds
         """
         resp = self.instrument.query(":DISPlay:GRADing:TIME?")
         try:
@@ -1792,10 +1807,12 @@ class Display:
     def set_waveform_brightness(self, val):
         """
         Set the waveform intensity.
+        
         Parameter:
-            val (int): 0 to 100
+        val (int): 0 to 100
+        
         Return:
-            None
+        None
         """
         if isinstance(val, int) and 0 <= val <= 100:
             self.instrument.write(f":DISPlay:WBRightness {val}")
@@ -1805,10 +1822,12 @@ class Display:
     def get_waveform_brightness(self):
         """
         Query the waveform intensity.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Brightness (0 to 100)
+        int: Brightness (0 to 100)
         """
         resp = self.instrument.query(":DISPlay:WBRightness?")
         try:
@@ -1819,10 +1838,12 @@ class Display:
     def set_grid(self, grid_type):
         """
         Set the screen grid type.
+        
         Parameter:
-            grid_type (str): "FULL", "HALF", "NONE"
+        grid_type (str): "FULL", "HALF", "NONE"
+        
         Return:
-            None
+        None
         """
         allowed = {"FULL", "HALF", "NONE"}
         grid_type = grid_type.upper()
@@ -1834,20 +1855,24 @@ class Display:
     def get_grid(self):
         """
         Query the screen grid type.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Grid type
+        str: Grid type
         """
         return self.instrument.query(":DISPlay:GRID?")
 
     def set_grid_brightness(self, val):
         """
         Set the grid brightness.
+        
         Parameter:
-            val (int): 0 to 100
+        val (int): 0 to 100
+        
         Return:
-            None
+        None
         """
         if isinstance(val, int) and 0 <= val <= 100:
             self.instrument.write(f":DISPlay:GBRightness {val}")
@@ -1857,10 +1882,12 @@ class Display:
     def get_grid_brightness(self):
         """
         Query the grid brightness.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Grid brightness (0 to 100)
+        int: Grid brightness (0 to 100)
         """
         resp = self.instrument.query(":DISPlay:GBRightness?")
         try:
@@ -1881,10 +1908,12 @@ class ETable:
     def set_disp(self, state):
         """
         Turn on or off the decoding event table.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -1898,20 +1927,24 @@ class ETable:
     def get_disp(self):
         """
         Query the status of the decoding event table.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         return int(self.instrument.query(f":ETABle{self.n}:DISP?"))
 
     def set_format(self, fmt):
         """
         Set the data display format of the event table.
+        
         Parameter:
-            fmt (str): "HEX", "ASCII", or "DEC"
+        fmt (str): "HEX", "ASCII", or "DEC"
+        
         Return:
-            None
+        None
         """
         allowed = {"HEX", "ASCII", "DEC"}
         fmt = fmt.upper()
@@ -1923,20 +1956,24 @@ class ETable:
     def get_format(self):
         """
         Query the data display format of the event table.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "HEX", "ASC", or "DEC"
+        str: "HEX", "ASC", or "DEC"
         """
         return self.instrument.query(f":ETABle{self.n}:FORMat?")
 
     def set_view(self, view):
         """
         Set the display mode of the event table.
+        
         Parameter:
-            view (str): "PACKAGE", "DETAIL", or "PAYLOAD"
+        view (str): "PACKAGE", "DETAIL", or "PAYLOAD"
+        
         Return:
-            None
+        None
         """
         allowed = {"PACKAGE", "DETAIL", "PAYLOAD"}
         view = view.upper()
@@ -1948,20 +1985,24 @@ class ETable:
     def get_view(self):
         """
         Query the display mode of the event table.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "PACK", "DET", or "PAYL"
+        str: "PACK", "DET", or "PAYL"
         """
         return self.instrument.query(f":ETABle{self.n}:VIEW?")
 
     def set_column(self, col):
         """
         Set the current column of the event table.
+        
         Parameter:
-            col (str): "DATA", "TX", "RX", "MISO", or "MOSI"
+        col (str): "DATA", "TX", "RX", "MISO", or "MOSI"
+        
         Return:
-            None
+        None
         """
         allowed = {"DATA", "TX", "RX", "MISO", "MOSI"}
         col = col.upper()
@@ -1973,20 +2014,24 @@ class ETable:
     def get_column(self):
         """
         Query the current column of the event table.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "DATA", "TX", "RX", "MISO", or "MOSI"
+        str: "DATA", "TX", "RX", "MISO", or "MOSI"
         """
         return self.instrument.query(f":ETABle{self.n}:COLumn?")
 
     def set_row(self, row):
         """
         Set the current row of the event table.
+        
         Parameter:
-            row (int): Row number (1 to max rows)
+        row (int): Row number (1 to max rows)
+        
         Return:
-            None
+        None
         """
         if isinstance(row, int) and row >= 1:
             self.instrument.write(f":ETABle{self.n}:ROW {row}")
@@ -1996,10 +2041,12 @@ class ETable:
     def get_row(self):
         """
         Query the current row of the event table.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Current row, or 0 if table is empty
+        int: Current row, or 0 if table is empty
         """
         resp = self.instrument.query(f":ETABle{self.n}:ROW?")
         try:
@@ -2010,10 +2057,12 @@ class ETable:
     def set_sort(self, sort):
         """
         Set the display type of the decoding results in the event table.
+        
         Parameter:
-            sort (str): "ASCEND" or "DESCEND"
+        sort (str): "ASCEND" or "DESCEND"
+        
         Return:
-            None
+        None
         """
         allowed = {"ASCEND", "DESCEND"}
         sort = sort.upper()
@@ -2035,10 +2084,12 @@ class ETable:
     def get_data(self):
         """
         Read the current event table data. If auto save is on, then also saves them to a csv file.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            bytes: Raw event table data (TMC header included)
+        bytes: Raw event table data (TMC header included)
         """
         data = self.instrument.query_binary_values(f":ETABle{self.n}:DATA?", datatype='B', container=bytes)
         if data and data[0] == ord('#'):  # Check for TMC header
@@ -2065,10 +2116,12 @@ class WRecord:
     def set_wrecord_fend(self, frame):
         """
         Set the end frame of waveform recording.
+        
         Parameter:
-            frame (int): 1 to max frames (use get_wrecord_fmax to query max)
+        frame (int): 1 to max frames (use get_wrecord_fmax to query max)
+        
         Return:
-            None
+        None
         """
         if isinstance(frame, int) and frame >= 1:
             self.instrument.write(f":FUNCtion:WRECord:FEND {frame}")
@@ -2078,10 +2131,12 @@ class WRecord:
     def get_wrecord_fend(self):
         """
         Query the end frame of waveform recording.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Current end frame
+        int: Current end frame
         """
         resp = self.instrument.query(":FUNCtion:WRECord:FEND?")
         try:
@@ -2092,10 +2147,12 @@ class WRecord:
     def get_wrecord_fmax(self):
         """
         Query the maximum number of frames that can be recorded currently.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Maximum number of frames
+        int: Maximum number of frames
         """
         resp = self.instrument.query(":FUNCtion:WRECord:FMAX?")
         try:
@@ -2106,10 +2163,12 @@ class WRecord:
     def set_wrecord_finterval(self, interval):
         """
         Set the time interval between frames in waveform recording.
+        
         Parameter:
-            interval (float): 100e-9 to 10.0 (seconds)
+        interval (float): 100e-9 to 10.0 (seconds)
+        
         Return:
-            None
+        None
         """
         if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
             self.instrument.write(f":FUNCtion:WRECord:FINTerval {interval}")
@@ -2119,10 +2178,12 @@ class WRecord:
     def get_wrecord_finterval(self):
         """
         Query the time interval between frames in waveform recording.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Time interval in seconds
+        float: Time interval in seconds
         """
         resp = self.instrument.query(":FUNCtion:WRECord:FINTerval?")
         try:
@@ -2133,10 +2194,12 @@ class WRecord:
     def set_wrecord_prompt(self, state):
         """
         Turn on or off the sound prompt when recording finishes.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -2150,10 +2213,12 @@ class WRecord:
     def get_wrecord_prompt(self):
         """
         Query the status of the sound prompt when recording finishes.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         resp = self.instrument.query(":FUNCtion:WRECord:PROMpt?")
         try:
@@ -2164,10 +2229,12 @@ class WRecord:
     def set_wrecord_operate(self, opt):
         """
         Start or stop the waveform recording.
+        
         Parameter:
-            opt (str): "RUN" or "STOP"
-        Return:
-            None
+        opt (str): "RUN" or "STOP"
+        
+        Return: 
+        None
         """
         allowed = {"RUN", "STOP"}
         opt = opt.upper()
@@ -2179,20 +2246,24 @@ class WRecord:
     def get_wrecord_operate(self):
         """
         Query the status of the waveform recording.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "RUN" or "STOP"
+        str: "RUN" or "STOP"
         """
         return self.instrument.query(":FUNCtion:WRECord:OPERate?")
 
     def set_wrecord_enable(self, state):
         """
         Turn on or off the waveform recording function.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -2206,10 +2277,12 @@ class WRecord:
     def get_wrecord_enable(self):
         """
         Query the status of the waveform recording function.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         resp = self.instrument.query(":FUNCtion:WRECord:ENABle?")
         try:
@@ -2224,10 +2297,12 @@ class WReplay:
     def set_wreplay_fstart(self, frame):
         """
         Set the start frame of waveform playback.
+        
         Parameter:
-            frame (int): 1 to max frames recorded
+        frame (int): 1 to max frames recorded
+        
         Return:
-            None
+        None
         """
         if isinstance(frame, int) and frame >= 1:
             self.instrument.write(f":FUNCtion:WREPlay:FSTart {frame}")
@@ -2237,10 +2312,12 @@ class WReplay:
     def get_wreplay_fstart(self):
         """
         Query the start frame of waveform playback.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Start frame
+        int: Start frame
         """
         resp = self.instrument.query(":FUNCtion:WREPlay:FSTart?")
         try:
@@ -2251,10 +2328,12 @@ class WReplay:
     def set_wreplay_fend(self, frame):
         """
         Set the end frame of waveform playback.
+        
         Parameter:
-            frame (int): 1 to max frames recorded
+        frame (int): 1 to max frames recorded
+        
         Return:
-            None
+        None
         """
         if isinstance(frame, int) and frame >= 1:
             self.instrument.write(f":FUNCtion:WREPlay:FEND {frame}")
@@ -2264,10 +2343,12 @@ class WReplay:
     def get_wreplay_fend(self):
         """
         Query the end frame of waveform playback.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: End frame
+        int: End frame
         """
         resp = self.instrument.query(":FUNCtion:WREPlay:FEND?")
         try:
@@ -2278,10 +2359,12 @@ class WReplay:
     def get_wreplay_fmax(self):
         """
         Query the maximum number of frames that can be played (max frames recorded).
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Maximum number of frames
+        int: Maximum number of frames
         """
         resp = self.instrument.query(":FUNCtion:WREPlay:FMAX?")
         try:
@@ -2292,10 +2375,12 @@ class WReplay:
     def set_wreplay_finterval(self, interval):
         """
         Set the time interval between frames in waveform playback.
+        
         Parameter:
-            interval (float): 100e-9 to 10.0 (seconds)
+        interval (float): 100e-9 to 10.0 (seconds)
+        
         Return:
-            None
+        None
         """
         if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
             self.instrument.write(f":FUNCtion:WREPlay:FINTerval {interval}")
@@ -2305,10 +2390,12 @@ class WReplay:
     def get_wreplay_finterval(self):
         """
         Query the time interval between frames in waveform playback.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Time interval in seconds
+        float: Time interval in seconds
         """
         resp = self.instrument.query(":FUNCtion:WREPlay:FINTerval?")
         try:
@@ -2319,10 +2406,12 @@ class WReplay:
     def set_wreplay_mode(self, mode):
         """
         Set the waveform playback mode.
+        
         Parameter:
-            mode (str): "REPEAT" or "SINGLE"
+        mode (str): "REPEAT" or "SINGLE"
+        
         Return:
-            None
+        None
         """
         allowed = {"REPEAT", "SINGLE"}
         mode = mode.upper()
@@ -2334,20 +2423,24 @@ class WReplay:
     def get_wreplay_mode(self):
         """
         Query the waveform playback mode.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "REP" or "SING"
+        str: "REP" or "SING"
         """
         return self.instrument.query(":FUNCtion:WREPlay:MODE?")
 
     def set_wreplay_direction(self, direction):
         """
         Set the waveform playback direction.
+        
         Parameter:
-            direction (str): "FORWARD" or "BACKWARD"
+        direction (str): "FORWARD" or "BACKWARD"
+        
         Return:
-            None
+        None
         """
         allowed = {"FORWARD", "BACKWARD"}
         direction = direction.upper()
@@ -2359,20 +2452,24 @@ class WReplay:
     def get_wreplay_direction(self):
         """
         Query the waveform playback direction.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "FORW" or "BACK"
+        str: "FORW" or "BACK"
         """
         return self.instrument.query(":FUNCtion:WREPlay:DIRection?")
 
     def set_wreplay_operate(self, opt):
         """
         Start, pause, or stop the waveform playback.
+        
         Parameter:
-            opt (str): "PLAY", "PAUSE", or "STOP"
+        opt (str): "PLAY", "PAUSE", or "STOP"
+        
         Return:
-            None
+        None
         """
         allowed = {"PLAY", "PAUSE", "STOP"}
         opt = opt.upper()
@@ -2384,20 +2481,24 @@ class WReplay:
     def get_wreplay_operate(self):
         """
         Query the status of the waveform playback.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "PLAY", "PAUS", or "STOP"
+        str: "PLAY", "PAUS", or "STOP"
         """
         return self.instrument.query(":FUNCtion:WREPlay:OPERate?")
 
     def set_wreplay_fcurrent(self, frame):
         """
         Set the current frame in waveform playback.
+        
         Parameter:
-            frame (int): 1 to max frames recorded
+        frame (int): 1 to max frames recorded
+        
         Return:
-            None
+        None
         """
         if isinstance(frame, int) and frame >= 1:
             self.instrument.write(f":FUNCtion:WREPlay:FCURrent {frame}")
@@ -2407,10 +2508,12 @@ class WReplay:
     def get_wreplay_fcurrent(self):
         """
         Query the current frame in waveform playback.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Current frame
+        int: Current frame
         """
         resp = self.instrument.query(":FUNCtion:WREPlay:FCURrent?")
         try:
@@ -2429,10 +2532,12 @@ class LAN:
     def set_dhcp(self, state):
         """
         Turn on or off the DHCP configuration mode.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -2446,10 +2551,12 @@ class LAN:
     def get_dhcp(self):
         """
         Query the on/off status of the current DHCP configuration mode.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         resp = self.instrument.query(":LAN:DHCP?")
         try:
@@ -2460,10 +2567,12 @@ class LAN:
     def set_autoip(self, state):
         """
         Turn on or off the Auto IP configuration mode.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -2477,10 +2586,12 @@ class LAN:
     def get_autoip(self):
         """
         Query the on/off status of the current Auto IP configuration mode.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         resp = self.instrument.query(":LAN:AUT?")
         try:
@@ -2491,60 +2602,72 @@ class LAN:
     def set_gateway(self, gateway):
         """
         Set the default gateway.
+        
         Parameter:
-            gateway (str): IP address in nnn,nnn,nnn,nnn format
+        gateway (str): IP address in nnn,nnn,nnn,nnn format
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":LAN:GATeway {gateway}")
 
     def get_gateway(self):
         """
         Query the default gateway.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Current gateway
+        str: Current gateway
         """
         return self.instrument.query(":LAN:GATeway?")
 
     def set_dns(self, dns):
         """
         Set the DNS address.
+        
         Parameter:
-            dns (str): IP address in nnn,nnn,nnn,nnn format
+        dns (str): IP address in nnn,nnn,nnn,nnn format
+       
         Return:
-            None
+        None
         """
         self.instrument.write(f":LAN:DNS {dns}")
 
     def get_dns(self):
         """
         Query the DNS address.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Current DNS address
+        str: Current DNS address
         """
         return self.instrument.query(":LAN:DNS?")
 
     def get_mac(self):
         """
         Query the MAC address of the instrument.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: MAC address
+        str: MAC address
         """
         return self.instrument.query(":LAN:MAC?")
 
     def set_manual(self, state):
         """
         Turn on or off the static IP configuration mode.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+       
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -2558,10 +2681,12 @@ class LAN:
     def get_manual(self):
         """
         Query the on/off status of the static IP configuration mode.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         resp = self.instrument.query(":LAN:MANual?")
         try:
@@ -2572,80 +2697,96 @@ class LAN:
     def initiate(self):
         """
         Initiate the network parameters.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            None
+        None
         """
         self.instrument.write(":LAN:INITiate")
 
     def set_ipaddress(self, ip):
         """
         Set the IP address of the instrument.
+        
         Parameter:
-            ip (str): IP address in nnn,nnn,nnn,nnn format
+        ip (str): IP address in nnn,nnn,nnn,nnn format
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":LAN:IPADdress {ip}")
 
     def get_ipaddress(self):
         """
         Query the IP address of the instrument.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Current IP address
+        str: Current IP address
         """
         return self.instrument.query(":LAN:IPADdress?")
 
     def set_smask(self, mask):
         """
         Set the subnet mask.
+        
         Parameter:
-            mask (str): Subnet mask in nnn,nnn,nnn,nnn format
+        mask (str): Subnet mask in nnn,nnn,nnn,nnn format
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":LAN:SMASk {mask}")
 
     def get_smask(self):
         """
         Query the subnet mask.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Current subnet mask
+        str: Current subnet mask
         """
         return self.instrument.query(":LAN:SMASk?")
 
     def get_status(self):
         """
         Query the current network configuration status.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: One of "UNLINK", "INIT", "IPCONFLICT", "CONFIGURED", "DHCPFAILED"
+        str: One of "UNLINK", "INIT", "IPCONFLICT", "CONFIGURED", "DHCPFAILED"
         """
         return self.instrument.query(":LAN:STATus?")
 
     def get_visa(self):
         """
         Query the VISA address of the instrument.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: VISA address
+        str: VISA address
         """
         return self.instrument.query(":LAN:VISA?")
 
     def apply(self):
         """
         Apply the network configuration.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            None
+        None
         """
         self.instrument.write(":LAN:APPLy")
 
@@ -2660,10 +2801,12 @@ class Math:
     def set_display(self, state):
         """
         Turn on or off the math waveform display.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -2677,10 +2820,12 @@ class Math:
     def get_display(self):
         """
         Query the math waveform display status.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         resp = self.instrument.query(":MATH:DISPlay?")
         try:
@@ -2691,10 +2836,12 @@ class Math:
     def set_operator(self, op):
         """
         Set the math operation type.
+        
         Parameter:
-            op (str): Allowed values include "ADD", "SUB", "MUL", "DIV", "FFT", "AND", "OR", "XOR", "NOT", "INTG", "DIFF", "SQRT", "LG", "LN", "EXP", "ABS", "LPF", "HPF", "BPF", "BSF"
+        op (str): Allowed values include "ADD", "SUB", "MUL", "DIV", "FFT", "AND", "OR", "XOR", "NOT", "INTG", "DIFF", "SQRT", "LG", "LN", "EXP", "ABS", "LPF", "HPF", "BPF", "BSF"
+        
         Return:
-            None
+        None
         """
         allowed = {"ADD", "SUB", "MUL", "DIV", "FFT", "AND", "OR", "XOR", "NOT", "INTG", "DIFF", "SQRT", "LG", "LN", "EXP", "ABS", "LPF", "HPF", "BPF", "BSF"}
         op = op.upper()
@@ -2716,10 +2863,12 @@ class Math:
     def set_source1(self, src):
         """
         Set the source 1 for the math operation.
+        
         Parameter:
-            src (str): "CHAN1", "CHAN2", "FX", etc.
+        src (str): "CHAN1", "CHAN2", "FX", etc.
+        
         Return:
-            None
+        None
         """
         allowed = {"CHAN1", "CHAN2", "FX"}
         src = src.upper()
@@ -2731,20 +2880,24 @@ class Math:
     def get_source1(self):
         """
         Query the source 1 for the math operation.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Source 1
+        str: Source 1
         """
         return self.instrument.query(":MATH:SOURce1?")
 
     def set_source2(self, src):
         """
         Set the source 2 for the math operation.
+        
         Parameter:
-            src (str): "CHAN1", "CHAN2", "FX", etc.
+        src (str): "CHAN1", "CHAN2", "FX", etc.
+        
         Return:
-            None
+        None
         """
         allowed = {"CHAN1", "CHAN2", "FX"}
         src = src.upper()
@@ -2756,30 +2909,36 @@ class Math:
     def get_source2(self):
         """
         Query the source 2 for the math operation.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Source 2
+        str: Source 2
         """
         return self.instrument.query(":MATH:SOURce2?")
 
     def set_scale(self, scale):
         """
         Set the vertical scale of the math waveform.
+        
         Parameter:
-            scale (float): Vertical scale in V/div
+        scale (float): Vertical scale in V/div
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MATH:SCALe {scale}")
 
     def get_scale(self):
         """
         Query the vertical scale of the math waveform.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Vertical scale in V/div
+        float: Vertical scale in V/div
         """
         resp = self.instrument.query(":MATH:SCALe?")
         try:
@@ -2790,20 +2949,24 @@ class Math:
     def set_offset(self, offset):
         """
         Set the vertical offset of the math waveform.
+        
         Parameter:
-            offset (float): Vertical offset in V
+        offset (float): Vertical offset in V
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MATH:OFFSet {offset}")
 
     def get_offset(self):
         """
         Query the vertical offset of the math waveform.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Vertical offset in V
+        float: Vertical offset in V
         """
         resp = self.instrument.query(":MATH:OFFSet?")
         try:
@@ -2814,10 +2977,12 @@ class Math:
     def set_invert(self, state):
         """
         Enable or disable math waveform inversion.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -2831,10 +2996,12 @@ class Math:
     def get_invert(self):
         """
         Query the math waveform inversion status.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (on) or 0 (off)
+        int: 1 (on) or 0 (off)
         """
         resp = self.instrument.query(":MATH:INVert?")
         try:
@@ -2845,17 +3012,21 @@ class Math:
     def reset(self):
         """
         Reset the math operation settings to default.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            None
+        None
         """
         self.instrument.write(":MATH:RESet")
     def set_fft_source(self, src):
         """
         Set the source of FFT operation/filter.
+        
         Parameter:
         src (str): "CHANnel1" or "CHANnel2"
+        
         Return:
         None
         """
@@ -2870,8 +3041,10 @@ class Math:
     def get_fft_source(self):
         """
         Query the source of FFT operation/filter.
+        
         Parameter:
         None
+        
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -2880,8 +3053,10 @@ class Math:
     def set_fft_window(self, wnd):
         """
         Set the window function of the FFT operation.
+        
         Parameter:
         wnd (str): One of {"RECTangle", "BLACkman", "HANNing", "HAMMing", "FLATtop", "TRIangle"}
+        
         Return:
         None
         """
@@ -2895,8 +3070,10 @@ class Math:
     def get_fft_window(self):
         """
         Query the window function of the FFT operation.
+        
         Parameter:
         None
+        
         Return:
         str: "RECT", "BLAC", "HANN", "HAMM", "FLAT", or "TRI"
         """
@@ -2905,8 +3082,10 @@ class Math:
     def enable_fft_split(self, enable):
         """
         Enable or disable the half-screen display mode of the FFT operation.
+        
         Parameter:
         enable (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
         None
         """
@@ -2922,8 +3101,10 @@ class Math:
     def is_fft_split_enabled(self):
         """
         Query the status of the half-screen display mode of the FFT operation.
+        
         Parameter:
         None
+        
         Return:
         int: 1 (enabled) or 0 (disabled)
         """
@@ -2936,8 +3117,10 @@ class Math:
     def set_fft_unit(self, unit):
         """
         Set the vertical unit of the FFT operation result.
+        
         Parameter:
         unit (str): "VRMS" or "DB"
+        
         Return:
         None
         """
@@ -2951,8 +3134,10 @@ class Math:
     def get_fft_unit(self):
         """
         Query the vertical unit of the FFT operation result.
+        
         Parameter:
         None
+        
         Return:
         str: "VRMS" or "DB"
         """
@@ -2961,8 +3146,10 @@ class Math:
     def set_fft_hscale(self, hsc):
         """
         Set the horizontal scale of the FFT operation result (Hz).
+        
         Parameter:
         hsc (float): Horizontal scale in Hz
+        
         Return:
         None
         """
@@ -2971,8 +3158,10 @@ class Math:
     def get_fft_hscale(self):
         """
         Query the horizontal scale of the FFT operation result (Hz).
+        
         Parameter:
         None
+        
         Return:
         float: Horizontal scale in Hz
         """
@@ -2985,8 +3174,10 @@ class Math:
     def set_fft_hcenter(self, cent):
         """
         Set the center frequency of the FFT operation result (Hz).
+        
         Parameter:
         cent (float): Center frequency in Hz
+        
         Return:
         None
         """
@@ -2995,8 +3186,10 @@ class Math:
     def get_fft_hcenter(self):
         """
         Query the center frequency of the FFT operation result (Hz).
+        
         Parameter:
         None
+        
         Return:
         float: Center frequency in Hz
         """
@@ -3009,8 +3202,10 @@ class Math:
     def set_fft_mode(self, mode):
         """
         Set the FFT mode.
+        
         Parameter:
         mode (str): "TRACe" or "MEMory"
+        
         Return:
         None
         """
@@ -3025,8 +3220,10 @@ class Math:
     def get_fft_mode(self):
         """
         Query the FFT mode.
+        
         Parameter:
         None
+        
         Return:
         str: "TRAC" or "MEM"
         """
@@ -3035,8 +3232,10 @@ class Math:
     def set_filter_type(self, ftype):
         """
         Set the filter type for math filter operation.
+        
         Parameter:
         ftype (str): "LPASs", "HPASs", "BPASs", or "BSTOP"
+        
         Return:
         None
         """
@@ -3051,8 +3250,10 @@ class Math:
     def get_filter_type(self):
         """
         Query the filter type for math filter operation.
+        
         Parameter:
         None
+        
         Return:
         str: "LPAS", "HPAS", "BPAS", or "BSTO"
         """
@@ -3061,8 +3262,10 @@ class Math:
     def set_filter_w1(self, freq1):
         """
         Set the cutoff frequency 1 (ωc1) for filter operation (Hz).
+        
         Parameter:
         freq1 (float): Cutoff frequency 1 in Hz
+        
         Return:
         None
         """
@@ -3071,8 +3274,10 @@ class Math:
     def get_filter_w1(self):
         """
         Query the cutoff frequency 1 (ωc1) for filter operation (Hz).
+        
         Parameter:
         None
+        
         Return:
         float: Cutoff frequency 1 in Hz
         """
@@ -3085,8 +3290,10 @@ class Math:
     def set_filter_w2(self, freq2):
         """
         Set the cutoff frequency 2 (ωc2) for filter operation (Hz).
+        
         Parameter:
         freq2 (float): Cutoff frequency 2 in Hz
+        
         Return:
         None
         """
@@ -3095,8 +3302,10 @@ class Math:
     def get_filter_w2(self):
         """
         Query the cutoff frequency 2 (ωc2) for filter operation (Hz).
+        
         Parameter:
         None
+        
         Return:
         float: Cutoff frequency 2 in Hz
         """
@@ -3109,8 +3318,10 @@ class Math:
     def set_option_start(self, sta):
         """
         Set the start point of the waveform math operation.
+        
         Parameter:
         sta (int): Start point (0 to end-1)
+        
         Return:
         None
         """
@@ -3119,8 +3330,10 @@ class Math:
     def get_option_start(self):
         """
         Query the start point of the waveform math operation.
+        
         Parameter:
         None
+        
         Return:
         int: Start point
         """
@@ -3133,8 +3346,10 @@ class Math:
     def set_option_end(self, end):
         """
         Set the end point of the waveform math operation.
+        
         Parameter:
         end (int): End point (start+1 to 1199)
+        
         Return:
         None
         """
@@ -3143,8 +3358,10 @@ class Math:
     def get_option_end(self):
         """
         Query the end point of the waveform math operation.
+        
         Parameter:
         None
+        
         Return:
         int: End point
         """
@@ -3157,8 +3374,10 @@ class Math:
     def enable_option_invert(self, enable):
         """
         Enable or disable the inverted display mode of the operation result.
+        
         Parameter:
         enable (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
         None
         """
@@ -3174,8 +3393,10 @@ class Math:
     def is_option_invert_enabled(self):
         """
         Query the inverted display mode status of the operation result.
+        
         Parameter:
         None
+        
         Return:
         int: 1 (enabled) or 0 (disabled)
         """
@@ -3188,8 +3409,10 @@ class Math:
     def set_option_sensitivity(self, sens):
         """
         Set the sensitivity of the logic operation.
+        
         Parameter:
         sens (float): Sensitivity (0 to 0.96, step 0.08)
+        
         Return:
         None
         """
@@ -3198,8 +3421,10 @@ class Math:
     def get_option_sensitivity(self):
         """
         Query the sensitivity of the logic operation.
+        
         Parameter:
         None
+        
         Return:
         float: Sensitivity
         """
@@ -3212,8 +3437,10 @@ class Math:
     def set_option_distance(self, dist):
         """
         Set the smoothing window width of differential operation.
+        
         Parameter:
         dist (int): Window width (3 to 201)
+        
         Return:
         None
         """
@@ -3222,8 +3449,10 @@ class Math:
     def get_option_distance(self):
         """
         Query the smoothing window width of differential operation.
+        
         Parameter:
         None
+        
         Return:
         int: Window width
         """
@@ -3236,8 +3465,10 @@ class Math:
     def enable_option_ascale(self, enable):
         """
         Enable or disable the auto scale setting of the operation result.
+        
         Parameter:
         enable (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
         None
         """
@@ -3253,8 +3484,10 @@ class Math:
     def is_option_ascale_enabled(self):
         """
         Query the status of the auto scale setting of the operation result.
+        
         Parameter:
         None
+        
         Return:
         int: 1 (enabled) or 0 (disabled)
         """
@@ -3267,8 +3500,10 @@ class Math:
     def set_option_threshold1(self, thre):
         """
         Set the threshold level of source A in logic operations.
+        
         Parameter:
         thre (float): Threshold level in V
+        
         Return:
         None
         """
@@ -3277,8 +3512,10 @@ class Math:
     def get_option_threshold1(self):
         """
         Query the threshold level of source A in logic operations.
+        
         Parameter:
         None
+        
         Return:
         float: Threshold level in V
         """
@@ -3291,8 +3528,10 @@ class Math:
     def set_option_threshold2(self, thre):
         """
         Set the threshold level of source B in logic operations.
+        
         Parameter:
         thre (float): Threshold level in V
+        
         Return:
         None
         """
@@ -3301,8 +3540,10 @@ class Math:
     def get_option_threshold2(self):
         """
         Query the threshold level of source B in logic operations.
+        
         Parameter:
         None
+        
         Return:
         float: Threshold level in V
         """
@@ -3315,8 +3556,10 @@ class Math:
     def set_option_fx_source1(self, src):
         """
         Set source A of the inner layer operation of compound operation.
+        
         Parameter:
         src (str): "CHANnel1" or "CHANnel2"
+        
         Return:
         None
         """
@@ -3331,8 +3574,10 @@ class Math:
     def get_option_fx_source1(self):
         """
         Query source A of the inner layer operation of compound operation.
+        
         Parameter:
         None
+        
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -3341,8 +3586,10 @@ class Math:
     def set_option_fx_source2(self, src):
         """
         Set source B of the inner layer operation of compound operation.
+        
         Parameter:
         src (str): "CHANnel1" or "CHANnel2"
+        
         Return:
         None
         """
@@ -3357,8 +3604,10 @@ class Math:
     def get_option_fx_source2(self):
         """
         Query source B of the inner layer operation of compound operation.
+        
         Parameter:
         None
+        
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -3367,8 +3616,10 @@ class Math:
     def set_option_fx_operator(self, op):
         """
         Set the operator of the inner layer operation of compound operation.
+        
         Parameter:
         op (str): "ADD", "SUBTract", "MULTiply", or "DIVision"
+        
         Return:
         None
         """
@@ -3383,8 +3634,10 @@ class Math:
     def get_option_fx_operator(self):
         """
         Query the operator of the inner layer operation of compound operation.
+        
         Parameter:
         None
+        
         Return:
         str: "ADD", "SUBT", "MULT", or "DIV"
         """
@@ -3400,10 +3653,12 @@ class Mask:
     def enable(self, state):
         """
         Enable or disable the pass/fail test.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -3417,10 +3672,12 @@ class Mask:
     def is_enabled(self):
         """
         Query the status of the pass/fail test.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":MASK:ENABle?")
         try:
@@ -3431,10 +3688,12 @@ class Mask:
     def set_source(self, source):
         """
         Set the source of the pass/fail test.
+        
         Parameter:
-            source (str): "CHANnel1" or "CHANnel2"
+        source (str): "CHANnel1" or "CHANnel2"
+        
         Return:
-            None
+        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         src_up = source.upper()
@@ -3447,20 +3706,24 @@ class Mask:
     def get_source(self):
         """
         Query the source of the pass/fail test.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "CHAN1" or "CHAN2"
+        str: "CHAN1" or "CHAN2"
         """
         return self.instrument.query(":MASK:SOURce?")
 
     def operate(self, oper):
         """
         Run or stop the pass/fail test.
+        
         Parameter:
-            oper (str): "RUN" or "STOP"
+        oper (str): "RUN" or "STOP"
+        
         Return:
-            None
+        None
         """
         allowed = {"RUN", "STOP"}
         oper_up = oper.upper()
@@ -3472,20 +3735,24 @@ class Mask:
     def get_operate(self):
         """
         Query the status of the pass/fail test.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "RUN" or "STOP"
+        str: "RUN" or "STOP"
         """
         return self.instrument.query(":MASK:OPERate?")
 
     def enable_display(self, state):
         """
         Enable or disable the statistic information when the pass/fail test is enabled.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -3499,10 +3766,12 @@ class Mask:
     def is_display_enabled(self):
         """
         Query the status of the statistic information.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":MASK:MDISplay?")
         try:
@@ -3513,10 +3782,12 @@ class Mask:
     def enable_stop_on_fail(self, state):
         """
         Turn the "Stop on Fail" function on or off.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -3530,10 +3801,12 @@ class Mask:
     def is_stop_on_fail_enabled(self):
         """
         Query the status of the "Stop on Fail" function.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":MASK:SOOutput?")
         try:
@@ -3544,10 +3817,12 @@ class Mask:
     def enable_sound(self, state):
         """
         Enable or disable the sound prompt when failed waveforms are detected.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -3561,10 +3836,12 @@ class Mask:
     def is_sound_enabled(self):
         """
         Query the status of the sound prompt when failed waveforms are detected.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":MASK:OUTPut?")
         try:
@@ -3574,8 +3851,10 @@ class Mask:
     def set_x(self, x):
         """
         Set the horizontal adjustment parameter in the pass/fail test mask.
+        
         Parameter:
         x (float): Value between 0.02 and 4 (step 0.02)
+        
         Return:
         None
         """
@@ -3587,8 +3866,10 @@ class Mask:
     def get_x(self):
         """
         Query the horizontal adjustment parameter in the pass/fail test mask.
+        
         Parameter:
         None
+        
         Return:
         float: Horizontal adjustment parameter
         """
@@ -3614,8 +3895,10 @@ class Mask:
     def get_y(self):
         """
         Query the vertical adjustment parameter in the pass/fail test mask.
+        
         Parameter:
         None
+        
         Return:
         float: Vertical adjustment parameter
         """
@@ -3628,8 +3911,10 @@ class Mask:
     def create(self):
         """
         Create the pass/fail test mask using the current horizontal and vertical adjustment parameters.
+        
         Parameter:
         None
+        
         Return:
         None
         """
@@ -3638,8 +3923,10 @@ class Mask:
     def get_passed(self):
         """
         Query the number of passed frames in the pass/fail test.
+        
         Parameter:
         None
+        
         Return:
         int: Number of passed frames
         """
@@ -3652,8 +3939,10 @@ class Mask:
     def get_failed(self):
         """
         Query the number of failed frames in the pass/fail test.
+        
         Parameter:
         None
+        
         Return:
         int: Number of failed frames
         """
@@ -3666,8 +3955,10 @@ class Mask:
     def get_total(self):
         """
         Query the total number of frames in the pass/fail test.
+        
         Parameter:
         None
+        
         Return:
         int: Total number of frames
         """
@@ -3680,8 +3971,10 @@ class Mask:
     def reset(self):
         """
         Reset the numbers of passed, failed, and total frames in the pass/fail test to 0.
+        
         Parameter:
         None
+        
         Return:
         None
         """
@@ -3698,10 +3991,12 @@ class Measure:
     def set_source(self, source):
         """
         Set the source for measurement.
+        
         Parameter:
-            source (str): "CHAN1", "CHAN2", "MATH", etc.
+        source (str): "CHAN1", "CHAN2", "MATH", etc.
+        
         Return:
-            None
+        None
         """
         allowed = {"CHAN1", "CHAN2", "MATH"}
         src = source.upper()
@@ -3713,40 +4008,48 @@ class Measure:
     def get_source(self):
         """
         Query the source for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Current source
+        str: Current source
         """
         return self.instrument.query(":MEAS:SOUR?")
 
     def clear(self):
         """
         Clear all measurement results.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            None
+        None
         """
         self.instrument.write(":MEAS:CLE")
 
     def recover(self):
         """
         Recover the last measurement result.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            None
+        None
         """
         self.instrument.write(":MEAS:REC")
 
     def set_display(self, state):
         """
         Enable or disable the measurement result display.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -3760,10 +4063,12 @@ class Measure:
     def is_display_enabled(self):
         """
         Query if the measurement result display is enabled.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":MEAS:ADIS?")
         try:
@@ -3774,10 +4079,12 @@ class Measure:
     def set_auto_measure_source(self, source):
         """
         Set the source for auto measurement.
+        
         Parameter:
-            source (str): "CHAN1", "CHAN2", "MATH"
+        source (str): "CHAN1", "CHAN2", "MATH"
+        
         Return:
-            None
+        None
         """
         allowed = {"CHAN1", "CHAN2", "MATH"}
         src = source.upper()
@@ -3789,30 +4096,36 @@ class Measure:
     def get_auto_measure_source(self):
         """
         Query the source for auto measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Current source
+        str: Current source
         """
         return self.instrument.query(":MEAS:AMS?")
 
     def set_setup_max(self, value):
         """
         Set the maximum threshold for measurement.
+        
         Parameter:
-            value (float): Threshold value
+        value (float): Threshold value
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MEAS:SET:MAX {value}")
 
     def get_setup_max(self):
         """
         Query the maximum threshold for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Threshold value
+        float: Threshold value
         """
         resp = self.instrument.query(":MEAS:SET:MAX?")
         try:
@@ -3823,20 +4136,24 @@ class Measure:
     def set_setup_mid(self, value):
         """
         Set the middle threshold for measurement.
+        
         Parameter:
-            value (float): Threshold value
+        value (float): Threshold value
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MEAS:SET:MID {value}")
 
     def get_setup_mid(self):
         """
         Query the middle threshold for measurement.
-        Parameter:
-            None
+        
+        Parameter:  
+        None
+        
         Return:
-            float: Threshold value
+        float: Threshold value
         """
         resp = self.instrument.query(":MEAS:SET:MID?")
         try:
@@ -3847,20 +4164,24 @@ class Measure:
     def set_setup_min(self, value):
         """
         Set the minimum threshold for measurement.
+        
         Parameter:
-            value (float): Threshold value
+        value (float): Threshold value
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MEAS:SET:MIN {value}")
 
     def get_setup_min(self):
         """
         Query the minimum threshold for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Threshold value
+        float: Threshold value
         """
         resp = self.instrument.query(":MEAS:SET:MIN?")
         try:
@@ -3871,20 +4192,24 @@ class Measure:
     def set_setup_psa(self, value):
         """
         Set the positive slope threshold A for measurement.
+        
         Parameter:
-            value (float): Threshold value
+        value (float): Threshold value
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MEAS:SET:PSA {value}")
 
     def get_setup_psa(self):
         """
         Query the positive slope threshold A for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Threshold value
+        float: Threshold value
         """
         resp = self.instrument.query(":MEAS:SET:PSA?")
         try:
@@ -3895,20 +4220,24 @@ class Measure:
     def set_setup_psb(self, value):
         """
         Set the positive slope threshold B for measurement.
+        
         Parameter:
-            value (float): Threshold value
+        value (float): Threshold value
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MEAS:SET:PSB {value}")
 
     def get_setup_psb(self):
         """
         Query the positive slope threshold B for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Threshold value
+        float: Threshold value
         """
         resp = self.instrument.query(":MEAS:SET:PSB?")
         try:
@@ -3919,20 +4248,24 @@ class Measure:
     def set_setup_dsa(self, value):
         """
         Set the negative slope threshold A for measurement.
+        
         Parameter:
-            value (float): Threshold value
+        value (float): Threshold value
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MEAS:SET:DSA {value}")
 
     def get_setup_dsa(self):
         """
         Query the negative slope threshold A for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Threshold value
+        float: Threshold value
         """
         resp = self.instrument.query(":MEAS:SET:DSA?")
         try:
@@ -3943,20 +4276,24 @@ class Measure:
     def set_setup_dsb(self, value):
         """
         Set the negative slope threshold B for measurement.
+        
         Parameter:
-            value (float): Threshold value
+        value (float): Threshold value
+        
         Return:
-            None
+        None
         """
         self.instrument.write(f":MEAS:SET:DSB {value}")
 
     def get_setup_dsb(self):
         """
         Query the negative slope threshold B for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            float: Threshold value
+        float: Threshold value
         """
         resp = self.instrument.query(":MEAS:SET:DSB?")
         try:
@@ -3967,10 +4304,12 @@ class Measure:
     def set_statistic_display(self, state):
         """
         Enable or disable the statistic display for measurement.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -3984,10 +4323,12 @@ class Measure:
     def is_statistic_display_enabled(self):
         """
         Query if the statistic display for measurement is enabled.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":MEAS:STAT:DISP?")
         try:
@@ -3998,10 +4339,12 @@ class Measure:
     def set_statistic_mode(self, mode):
         """
         Set the statistic mode for measurement.
+        
         Parameter:
-            mode (str): "ALL" or "CURR"
+        mode (str): "ALL" or "CURR"
+        
         Return:
-            None
+        None
         """
         allowed = {"ALL", "CURR"}
         m = mode.upper()
@@ -4013,20 +4356,24 @@ class Measure:
     def get_statistic_mode(self):
         """
         Query the statistic mode for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "ALL" or "CURR"
+        str: "ALL" or "CURR"
         """
         return self.instrument.query(":MEAS:STAT:MODE?")
 
     def reset_statistic(self):
         """
         Reset the measurement statistics.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            None
+        None
         """
         self.instrument.write(":MEAS:STAT:RES")
 
@@ -4053,20 +4400,24 @@ class Measure:
     def get_statistic_item(self):
         """
         Query the statistic item for measurement.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Measurement item name
+        str: Measurement item name
         """
         return self.instrument.query(":MEAS:STAT:ITEM?")
 
     def set_item(self, item):
         """
         Set the measurement item.
+        
         Parameter:
-            item (str): Measurement item name (e.g., "VPP", "VRMS", etc.)
+        item (str): Measurement item name (e.g., "VPP", "VRMS", etc.)
+        
         Return:
-            None
+        None
         """
         allowed = {
             "VMAX", "VMIN", "VPP", "VTOP", "VBASE", "VAMP", "VUPPER", "VMID", "VLOWER",
@@ -4083,20 +4434,24 @@ class Measure:
     def get_item(self):
         """
         Query the measurement item.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Measurement item name
+        str: Measurement item name
         """
         return self.instrument.query(":MEAS:ITEM?")
 
     def set_counter_source(self, source):
         """
         Set the source for the measurement counter.
+        
         Parameter:
-            source (str): "CHAN1", "CHAN2", "MATH"
+        source (str): "CHAN1", "CHAN2", "MATH"
+        
         Return:
-            None
+        None
         """
         allowed = {"CHAN1", "CHAN2", "MATH"}
         src = source.upper()
@@ -4108,20 +4463,24 @@ class Measure:
     def get_counter_source(self):
         """
         Query the source for the measurement counter.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Current source
+        str: Current source
         """
         return self.instrument.query(":MEAS:COUN:SOUR?")
 
     def get_counter_value(self):
         """
         Query the value of the measurement counter.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Counter value
+        int: Counter value
         """
         resp = self.instrument.query(":MEAS:COUN:VAL?")
         try:
@@ -4139,10 +4498,12 @@ class Reference:
     def set_display(self, state):
         """
         Enable or disable the REF function.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -4156,10 +4517,12 @@ class Reference:
     def get_display(self):
         """
         Query the status of the REF function.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":REF:DISP?")
         try:
@@ -4170,11 +4533,13 @@ class Reference:
     def set_enable(self, n, state):
         """
         Enable or disable the specified reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
-            state (int or str): 1/0 or "ON"/"OFF"
+        n (int): Reference channel number (1-10)
+        state (int or str): 1/0 or "ON"/"OFF"
+       
         Return:
-            None
+        None
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4191,10 +4556,12 @@ class Reference:
     def get_enable(self, n):
         """
         Query the status of the specified reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
+        n (int): Reference channel number (1-10)
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4208,11 +4575,13 @@ class Reference:
     def set_source(self, n, source):
         """
         Set the source of the current reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
-            source (str): "CHANNEL1", "CHANNEL2", or "MATH"
+        n (int): Reference channel number (1-10)
+        source (str): "CHANNEL1", "CHANNEL2", or "MATH"
+        
         Return:
-            None
+        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "MATH", "CHAN1", "CHAN2"}
         if n not in range(1, 11):
@@ -4228,10 +4597,12 @@ class Reference:
     def get_source(self, n):
         """
         Query the source of the current reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
+        n (int): Reference channel number (1-10)
+        
         Return:
-            str: "CHAN1", "CHAN2", or "MATH"
+        str: "CHAN1", "CHAN2", or "MATH"
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4241,11 +4612,13 @@ class Reference:
     def set_vscale(self, n, scale):
         """
         Set the vertical scale of the specified reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
-            scale (float): Vertical scale value
+        n (int): Reference channel number (1-10)
+        scale (float): Vertical scale value
+        
         Return:
-            None
+        None
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4255,10 +4628,12 @@ class Reference:
     def get_vscale(self, n):
         """
         Query the vertical scale of the specified reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
+        n (int): Reference channel number (1-10)
+        
         Return:
-            float: Vertical scale value
+        float: Vertical scale value
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4272,11 +4647,13 @@ class Reference:
     def set_voffset(self, n, offset):
         """
         Set the vertical offset of the specified reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
-            offset (float): Vertical offset value
+        n (int): Reference channel number (1-10)
+        offset (float): Vertical offset value
+        
         Return:
-            None
+        None
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4286,10 +4663,12 @@ class Reference:
     def get_voffset(self, n):
         """
         Query the vertical offset of the specified reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
+        n (int): Reference channel number (1-10)
+        
         Return:
-            float: Vertical offset value
+        float: Vertical offset value
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4303,10 +4682,12 @@ class Reference:
     def reset(self, n):
         """
         Reset the vertical scale and vertical offset of the specified reference channel to default.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
+        n (int): Reference channel number (1-10)
+        
         Return:
-            None
+        None
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4316,10 +4697,12 @@ class Reference:
     def set_current(self, n):
         """
         Select the current reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
+        n (int): Reference channel number (1-10)
+        
         Return:
-            None
+        None
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4329,10 +4712,12 @@ class Reference:
     def save(self, n):
         """
         Store the waveform of the current reference channel to internal memory.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
+        n (int): Reference channel number (1-10)
+        
         Return:
-            None
+        None
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4342,11 +4727,13 @@ class Reference:
     def set_color(self, n, color):
         """
         Set the display color of the current reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
-            color (str): "GRAY", "GREEN", "LBLUE", "MAGENTA", "ORANGE"
-        Return:
-            None
+        n (int): Reference channel number (1-10)
+        color (str): "GRAY", "GREEN", "LBLUE", "MAGENTA", "ORANGE"
+        
+        Return: 
+        None
         """
         allowed = {"GRAY", "GREEN", "LBLUE", "MAGENTA", "ORANGE"}
         if n not in range(1, 11):
@@ -4362,10 +4749,12 @@ class Reference:
     def get_color(self, n):
         """
         Query the display color of the current reference channel.
+        
         Parameter:
-            n (int): Reference channel number (1-10)
+        n (int): Reference channel number (1-10)
+        
         Return:
-            str: Color name
+        str: Color name
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4382,10 +4771,12 @@ class Storage:
     def set_image_type(self, img_type):
         """
         Set the image type when storing images.
+        
         Parameter:
-            img_type (str): "PNG", "BMP8", "BMP24", "JPEG", "TIFF"
+        img_type (str): "PNG", "BMP8", "BMP24", "JPEG", "TIFF"
+        
         Return:
-            None
+        None
         """
         allowed = {"PNG", "BMP8", "BMP24", "JPEG", "TIFF"}
         t = img_type.upper()
@@ -4397,20 +4788,24 @@ class Storage:
     def get_image_type(self):
         """
         Query the image type when storing images.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Image type
+        str: Image type
         """
         return self.instrument.query(":STOR:IMAG:TYPE?")
 
     def set_image_invert(self, state):
         """
         Turn on or off the invert function when storing images.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -4424,20 +4819,24 @@ class Storage:
     def get_image_invert(self):
         """
         Query the status of the invert function when storing images.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "ON" or "OFF"
+        str: "ON" or "OFF"
         """
         return self.instrument.query(":STOR:IMAG:INVERT?")
 
     def set_image_color(self, state):
         """
         Set the image color when storing images to color (ON) or intensity graded color (OFF).
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = "ON" if state == 1 else "OFF"
@@ -4451,10 +4850,12 @@ class Storage:
     def get_image_color(self):
         """
         Query the image color when storing images.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: "ON" or "OFF"
+        str: "ON" or "OFF"
         """
         return self.instrument.query(":STOR:IMAG:COLor?")
 
@@ -4469,10 +4870,12 @@ class System:
     def set_autoscale(self, state):
         """
         Enable or disable the AUTO key on the front panel.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = 1 if state == 1 else 0
@@ -4486,10 +4889,12 @@ class System:
     def get_autoscale(self):
         """
         Query the status of the AUTO key on the front panel.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":SYST:AUToscale?")
         try:
@@ -4500,10 +4905,12 @@ class System:
     def set_beeper(self, state):
         """
         Enable or disable the beeper.
+        
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+        
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = 1 if state == 1 else 0
@@ -4517,10 +4924,12 @@ class System:
     def get_beeper(self):
         """
         Query the status of the beeper.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":SYST:BEEPer?")
         try:
@@ -4531,20 +4940,24 @@ class System:
     def get_error(self):
         """
         Query and delete the last system error message.
+       
         Parameter:
-            None
+        None
+        
         Return:
-            str: Error message in "<number>,<content>" format
+        str: Error message in "<number>,<content>" format
         """
         return self.instrument.query(":SYST:ERRor?")
 
     def get_grid_count(self):
         """
         Query the number of grids in the horizontal direction of the instrument screen.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: Always returns 12
+        int: Always returns 12
         """
         resp = self.instrument.query(":SYST:GAM?")
         try:
@@ -4555,10 +4968,12 @@ class System:
     def set_language(self, lang):
         """
         Set the system language.
+        
         Parameter:
-            lang (str): "SCHINESE", "TCHINESE", "ENGLISH", "PORTUGUESE", "GERMAN", "POLISH", "KOREAN", "JAPANESE", "FRENCH", "RUSSIAN"
+        lang (str): "SCHINESE", "TCHINESE", "ENGLISH", "PORTUGUESE", "GERMAN", "POLISH", "KOREAN", "JAPANESE", "FRENCH", "RUSSIAN"
+        
         Return:
-            None
+        None
         """
         allowed = {"SCHINESE", "TCHINESE", "ENGLISH", "PORTUGUESE", "GERMAN", "POLISH", "KOREAN", "JAPANESE", "FRENCH", "RUSSIAN"}
         l = lang.upper()
@@ -4570,10 +4985,12 @@ class System:
     def get_language(self):
         """
         Query the system language.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Language code
+        str: Language code
         """
         return self.instrument.query(":SYST:LANG?")
 
@@ -4597,10 +5014,12 @@ class System:
     def get_locked(self):
         """
         Query the status of the keyboard lock function.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            int: 1 (locked) or 0 (unlocked)
+        int: 1 (locked) or 0 (unlocked)
         """
         resp = self.instrument.query(":SYST:LOCKed?")
         try:
@@ -4611,10 +5030,12 @@ class System:
     def set_pon(self, pon):
         """
         Set the system configuration to be recalled at power-on.
+        
         Parameter:
-            pon (str): "LATEST" or "DEFAULT"
+        pon (str): "LATEST" or "DEFAULT"
+        
         Return:
-            None
+        None
         """
         allowed = {"LATEST", "DEFAULT", "LAT", "DEF"}
         p = pon.upper()
@@ -4626,20 +5047,24 @@ class System:
     def get_pon(self):
         """
         Query the system configuration to be recalled at power-on.
+        
         Parameter:
-            None
+        None
+
         Return:
-            str: "LAT" or "DEF"
+        str: "LAT" or "DEF"
         """
         return self.instrument.query(":SYST:PON?")
 
     def install_option(self, license_code):
         """
         Install an option license.
+
         Parameter:
-            license_code (str): 28-byte license string (uppercase letters and numbers)
+        license_code (str): 28-byte license string (uppercase letters and numbers)
+        
         Return:
-            None
+        None
         """
         if isinstance(license_code, str) and len(license_code) == 28 and license_code.isalnum() and license_code.isupper():
             self.instrument.write(f":SYST:OPT:INST {license_code}")
@@ -4649,20 +5074,24 @@ class System:
     def uninstall_option(self):
         """
         Uninstall all installed options.
+
         Parameter:
-            None
+        None
+
         Return:
-            None
+        None
         """
         self.instrument.write(":SYST:OPT:UNINST")
 
     def get_ram(self):
         """
         Query the number of analog channels of the instrument.
+        
         Parameter:
-            None
+        None
+
         Return:
-            int: Always returns 2
+        int: Always returns 2
         """
         resp = self.instrument.query(":SYST:RAM?")
         try:
@@ -4673,10 +5102,12 @@ class System:
     def get_setup(self):
         """
         Query the setting of the oscilloscope (returns binary data with TMC header). If autosave is on, then also saves them to a bin file.
+        
         Parameter:
-            None
+        None
+
         Return:
-            bytes: Setup data
+        bytes: Setup data
         """
         data = self.instrument.query_binary_values(":SYST:SETup?", datatype='B', container=bytes)
         """if data and data[0] == ord('#'):  # Check for TMC header
@@ -4688,10 +5119,12 @@ class System:
     def set_setup(self, setup_stream):
         """
         Import the setting parameters of the oscilloscope.
+
         Parameter:
-            setup_stream (bytes): Setup data (must be from get_setup)
+        setup_stream (bytes): Setup data (must be from get_setup)
+
         Return:
-            None
+        None
         """
         self.instrument.write(":SYST:SETup", setup_stream)
 
@@ -4706,10 +5139,12 @@ class Timebase:
     def set_delay_enable(self, state):
         """
         Enable or disable the delayed sweep.
+
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = 1 if state == 1 else 0
@@ -4723,10 +5158,12 @@ class Timebase:
     def get_delay_enable(self):
         """
         Query the status of the delayed sweep.
+
         Parameter:
-            None
+        None
+
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":TIM:DEL:ENAB?")
         try:
@@ -4737,20 +5174,24 @@ class Timebase:
     def set_delay_offset(self, offset):
         """
         Set the delayed timebase offset (in seconds).
+
         Parameter:
-            offset (float): Offset value in seconds
+        offset (float): Offset value in seconds
+
         Return:
-            None
+        None
         """
         self.instrument.write(f":TIM:DEL:OFFS {offset}")
 
     def get_delay_offset(self):
         """
         Query the delayed timebase offset (in seconds).
+
         Parameter:
-            None
+        None
+
         Return:
-            float: Offset value in seconds
+        float: Offset value in seconds
         """
         resp = self.instrument.query(":TIM:DEL:OFFS?")
         try:
@@ -4761,20 +5202,24 @@ class Timebase:
     def set_delay_scale(self, scale):
         """
         Set the delayed timebase scale (in s/div).
+
         Parameter:
-            scale (float): Scale value in seconds/div
+        scale (float): Scale value in seconds/div
+
         Return:
-            None
+        None
         """
         self.instrument.write(f":TIM:DEL:SCAL {scale}")
 
     def get_delay_scale(self):
         """
         Query the delayed timebase scale (in s/div).
+
         Parameter:
-            None
+        None
+
         Return:
-            float: Scale value in seconds/div
+        float: Scale value in seconds/div
         """
         resp = self.instrument.query(":TIM:DEL:SCAL?")
         try:
@@ -4785,20 +5230,24 @@ class Timebase:
     def set_main_offset(self, offset):
         """
         Set the main timebase offset (in seconds).
+
         Parameter:
-            offset (float): Offset value in seconds
+        offset (float): Offset value in seconds
+
         Return:
-            None
+        None
         """
         self.instrument.write(f":TIM:MAIN:OFFS {offset}")
 
     def get_main_offset(self):
         """
         Query the main timebase offset (in seconds).
-        Parameter:
-            None
+
+        Parameter:  
+        None
+
         Return:
-            float: Offset value in seconds
+        float: Offset value in seconds
         """
         resp = self.instrument.query(":TIM:MAIN:OFFS?")
         try:
@@ -4809,20 +5258,24 @@ class Timebase:
     def set_main_scale(self, scale):
         """
         Set the main timebase scale (in s/div).
+
         Parameter:
-            scale (float): Scale value in seconds/div
+        scale (float): Scale value in seconds/div
+
         Return:
-            None
+        None
         """
         self.instrument.write(f":TIM:MAIN:SCAL {scale}")
 
     def get_main_scale(self):
         """
         Query the main timebase scale (in s/div).
+
         Parameter:
-            None
+        None
+
         Return:
-            float: Scale value in seconds/div
+        float: Scale value in seconds/div
         """
         resp = self.instrument.query(":TIM:MAIN:SCAL?")
         try:
@@ -4833,10 +5286,12 @@ class Timebase:
     def set_mode(self, mode):
         """
         Set the mode of the horizontal timebase.
+
         Parameter:
-            mode (str): "MAIN", "XY", or "ROLL"
+        mode (str): "MAIN", "XY", or "ROLL"
+
         Return:
-            None
+        None
         """
         allowed = {"MAIN", "XY", "ROLL"}
         m = mode.upper()
@@ -4848,10 +5303,12 @@ class Timebase:
     def get_mode(self):
         """
         Query the mode of the horizontal timebase.
+
         Parameter:
-            None
+        None
+
         Return:
-            str: "MAIN", "XY", or "ROLL"
+        str: "MAIN", "XY", or "ROLL"
         """
         return self.instrument.query(":TIM:MODE?")
 class Trigger:
@@ -4868,10 +5325,12 @@ class Trigger:
     def set_mode(self, mode):
         """
         Set the trigger type.
+
         Parameter:
-            mode (str): One of {"EDGE", "PULSE", "RUNT", "WIND", "NEDG", "SLOPE", "VIDEO", "PATTERN", "DELAY", "TIMEOUT", "DURATION", "SHOLD", "RS232", "IIC", "SPI"}
+        mode (str): One of {"EDGE", "PULSE", "RUNT", "WIND", "NEDG", "SLOPE", "VIDEO", "PATTERN", "DELAY", "TIMEOUT", "DURATION", "SHOLD", "RS232", "IIC", "SPI"}
+        
         Return:
-            None
+        None
         """
         allowed = {"EDGE", "PULSE", "RUNT", "WIND", "NEDG", "SLOPE", "VIDEO", "PATTERN", "DELAY", "TIMEOUT", "DURATION", "SHOLD", "RS232", "IIC", "SPI"}
         m = mode.upper()
@@ -4883,20 +5342,24 @@ class Trigger:
     def get_mode(self):
         """
         Query the trigger type.
+
         Parameter:
-            None
+        None
+
         Return:
-            str: Trigger mode
+        str: Trigger mode
         """
         return self.instrument.query(":TRIG:MODE?")
 
     def set_coupling(self, coupling):
         """
         Set the trigger coupling type.
+
         Parameter:
-            coupling (str): One of {"AC", "DC", "LFREJECT", "HFREJECT"}
+        coupling (str): One of {"AC", "DC", "LFREJECT", "HFREJECT"}
+        
         Return:
-            None
+        None
         """
         allowed = {"AC", "DC", "LFREJECT", "HFREJECT"}
         c = coupling.upper()
@@ -4908,30 +5371,36 @@ class Trigger:
     def get_coupling(self):
         """
         Query the trigger coupling type.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: Coupling type
+        str: Coupling type
         """
         return self.instrument.query(":TRIG:COUP?")
 
     def get_status(self):
         """
         Query the current trigger status.
+        
         Parameter:
-            None
+        None
+        
         Return:
-            str: One of "TD", "WAIT", "RUN", "AUTO", "STOP"
+        str: One of "TD", "WAIT", "RUN", "AUTO", "STOP"
         """
         return self.instrument.query(":TRIG:STAT?")
 
     def set_sweep(self, sweep):
         """
         Set the trigger mode (sweep).
+        
         Parameter:
-            sweep (str): One of {"AUTO", "NORMAL", "SINGLE"}
+        sweep (str): One of {"AUTO", "NORMAL", "SINGLE"}
+        
         Return:
-            None
+        None
         """
         allowed = {"AUTO", "NORMAL", "SINGLE"}
         s = sweep.upper()
@@ -4943,20 +5412,24 @@ class Trigger:
     def get_sweep(self):
         """
         Query the trigger mode (sweep).
+        
         Parameter:
-            None
+        None
+
         Return:
-            str: "AUTO", "NORM", or "SING"
+        str: "AUTO", "NORM", or "SING"
         """
         return self.instrument.query(":TRIG:SWEE?")
 
     def set_holdoff(self, value):
         """
         Set the trigger holdoff time (in seconds).
+
         Parameter:
-            value (float): Holdoff time, 16e-9 to 10
+        value (float): Holdoff time, 16e-9 to 10
+
         Return:
-            None
+        None
         """
         if isinstance(value, (float, int)) and 16e-9 <= value <= 10:
             self.instrument.write(f":TRIG:HOLD {value}")
@@ -4966,10 +5439,12 @@ class Trigger:
     def get_holdoff(self):
         """
         Query the trigger holdoff time (in seconds).
+
         Parameter:
-            None
+        None
+
         Return:
-            float: Holdoff time
+        float: Holdoff time
         """
         resp = self.instrument.query(":TRIG:HOLD?")
         try:
@@ -4980,10 +5455,12 @@ class Trigger:
     def enable_noise_rejection(self, state):
         """
         Enable or disable noise rejection for trigger.
+
         Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
+        state (int or str): 1/0 or "ON"/"OFF"
+
         Return:
-            None
+        None
         """
         if state in [1, 0]:
             val = state
@@ -4997,10 +5474,12 @@ class Trigger:
     def is_noise_rejection_enabled(self):
         """
         Query the status of noise rejection for trigger.
+
         Parameter:
-            None
+        None
+
         Return:
-            int: 1 (enabled) or 0 (disabled)
+        int: 1 (enabled) or 0 (disabled)
         """
         resp = self.instrument.query(":TRIG:NREJ?")
         try:
@@ -5011,10 +5490,12 @@ class Trigger:
     def get_position(self):
         """
         Query the position in the internal memory that corresponds to the waveform trigger position.
+        
         Parameter:
-            None
+        None
+
         Return:
-            int: -2 (not triggered), -1 (triggered outside memory), or >0 (position)
+        int: -2 (not triggered), -1 (triggered outside memory), or >0 (position)
         """
         resp = self.instrument.query(":TRIG:POS?")
         try:
@@ -5026,10 +5507,12 @@ class Trigger:
     def set_edge_source(self, source):
         """
         Set the trigger source in edge trigger.
+
         Parameter:
-            source (str): "CHANNEL1", "CHANNEL2", "AC", "EXT"
+        source (str): "CHANNEL1", "CHANNEL2", "AC", "EXT"
+
         Return:
-            None
+        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "AC", "EXT", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -5042,20 +5525,24 @@ class Trigger:
     def get_edge_source(self):
         """
         Query the trigger source in edge trigger.
+
         Parameter:
-            None
+        None
+
         Return:
-            str: "CHAN1", "CHAN2", "AC", or "EXT"
+        str: "CHAN1", "CHAN2", "AC", or "EXT"
         """
         return self.instrument.query(":TRIG:EDGE:SOUR?")
 
     def set_edge_slope(self, slope):
         """
         Set the edge type in edge trigger.
+
         Parameter:
-            slope (str): "POSITIVE", "NEGATIVE", "RFALL"
+        slope (str): "POSITIVE", "NEGATIVE", "RFALL"
+
         Return:
-            None
+        None
         """
         allowed = {"POSITIVE", "NEGATIVE", "RFALL", "POS", "NEG"}
         s = slope.upper()
@@ -5068,30 +5555,36 @@ class Trigger:
     def get_edge_slope(self):
         """
         Query the edge type in edge trigger.
+
         Parameter:
-            None
+        None
+
         Return:
-            str: "POS", "NEG", or "RFAL"
+        str: "POS", "NEG", or "RFAL"
         """
         return self.instrument.query(":TRIG:EDGE:SLOP?")
 
     def set_edge_level(self, level):
         """
         Set the trigger level in edge trigger.
+
         Parameter:
-            level (float): Level value
+        level (float): Level value
+
         Return:
-            None
+        None
         """
         self.instrument.write(f":TRIG:EDGE:LEV {level}")
 
     def get_edge_level(self):
         """
         Query the trigger level in edge trigger.
+
         Parameter:
-            None
+        None
+        
         Return:
-            float: Level value
+        float: Level value
         """
         resp = self.instrument.query(":TRIG:EDGE:LEV?")
         try:
@@ -5102,8 +5595,10 @@ class Trigger:
     def set_pulse_source(self, source):
         """
         Set the trigger source in pulse width trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -5118,8 +5613,10 @@ class Trigger:
     def get_pulse_source(self):
         """
         Query the trigger source in pulse width trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -5128,8 +5625,10 @@ class Trigger:
     def set_pulse_when(self, when):
         """
         Set the trigger condition in pulse width trigger.
+
         Parameter:
         when (str): "PGREATER", "PLESS", "NGREATER", "NLESS", "PGLESS", "NGLess"
+
         Return:
         None
         """
@@ -5143,8 +5642,10 @@ class Trigger:
     def get_pulse_when(self):
         """
         Query the trigger condition in pulse width trigger.
+
         Parameter:
         None
+
         Return:
         str: Condition code
         """
@@ -5153,8 +5654,10 @@ class Trigger:
     def set_pulse_width(self, width):
         """
         Set the pulse width in pulse width trigger (seconds).
+
         Parameter:
         width (float): 8e-9 to 10
+
         Return:
         None
         """
@@ -5166,8 +5669,10 @@ class Trigger:
     def get_pulse_width(self):
         """
         Query the pulse width in pulse width trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Pulse width
         """
@@ -5180,8 +5685,10 @@ class Trigger:
     def set_pulse_uwidth(self, width):
         """
         Set the upper pulse width in pulse width trigger (seconds).
+
         Parameter:
         width (float): 16e-9 to 10
+
         Return:
         None
         """
@@ -5193,8 +5700,10 @@ class Trigger:
     def get_pulse_uwidth(self):
         """
         Query the upper pulse width in pulse width trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Upper pulse width
         """
@@ -5207,8 +5716,10 @@ class Trigger:
     def set_pulse_lwidth(self, width):
         """
         Set the lower pulse width in pulse width trigger (seconds).
+
         Parameter:
         width (float): 8e-9 to 9.99
+
         Return:
         None
         """
@@ -5220,8 +5731,10 @@ class Trigger:
     def get_pulse_lwidth(self):
         """
         Query the lower pulse width in pulse width trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Lower pulse width
         """
@@ -5234,8 +5747,10 @@ class Trigger:
     def set_pulse_level(self, level):
         """
         Set the trigger level in pulse width trigger.
+
         Parameter:
         level (float): Level value
+
         Return:
         None
         """
@@ -5244,8 +5759,10 @@ class Trigger:
     def get_pulse_level(self):
         """
         Query the trigger level in pulse width trigger.
+
         Parameter:
         None
+
         Return:
         float: Level value
         """
@@ -5255,12 +5772,14 @@ class Trigger:
         except Exception:
             return resp
 
-    # SLOPE Subtree
+        # SLOPE Subtree
     def set_slope_source(self, source):
         """
         Set the trigger source in slope trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -5275,8 +5794,10 @@ class Trigger:
     def get_slope_source(self):
         """
         Query the trigger source in slope trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -5285,8 +5806,10 @@ class Trigger:
     def set_slope_when(self, when):
         """
         Set the trigger condition in slope trigger.
+
         Parameter:
         when (str): "PGREATER", "PLESS", "NGREATER", "NLESS", "PGLESS", "NGLess"
+
         Return:
         None
         """
@@ -5300,8 +5823,10 @@ class Trigger:
     def get_slope_when(self):
         """
         Query the trigger condition in slope trigger.
+
         Parameter:
         None
+
         Return:
         str: Condition code
         """
@@ -5310,8 +5835,10 @@ class Trigger:
     def set_slope_time(self, time):
         """
         Set the time value in slope trigger (seconds).
+
         Parameter:
         time (float): 8e-9 to 10
+
         Return:
         None
         """
@@ -5323,8 +5850,10 @@ class Trigger:
     def get_slope_time(self):
         """
         Query the time value in slope trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Time value
         """
@@ -5337,8 +5866,10 @@ class Trigger:
     def set_slope_tupper(self, time):
         """
         Set the upper limit of the time in slope trigger (seconds).
+
         Parameter:
         time (float): 16e-9 to 10
+
         Return:
         None
         """
@@ -5350,8 +5881,10 @@ class Trigger:
     def get_slope_tupper(self):
         """
         Query the upper limit of the time in slope trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Upper time value
         """
@@ -5364,8 +5897,10 @@ class Trigger:
     def set_slope_tlower(self, time):
         """
         Set the lower limit of the time in slope trigger (seconds).
+
         Parameter:
         time (float): 8e-9 to 9.99
+
         Return:
         None
         """
@@ -5377,8 +5912,10 @@ class Trigger:
     def get_slope_tlower(self):
         """
         Query the lower limit of the time in slope trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Lower time value
         """
@@ -5391,8 +5928,10 @@ class Trigger:
     def set_slope_window(self, window):
         """
         Set the vertical window type in slope trigger.
+        
         Parameter:
         window (str): "TA", "TB", or "TAB"
+        
         Return:
         None
         """
@@ -5406,8 +5945,10 @@ class Trigger:
     def get_slope_window(self):
         """
         Query the vertical window type in slope trigger.
+        
         Parameter:
         None
+        
         Return:
         str: Window type
         """
@@ -5416,8 +5957,10 @@ class Trigger:
     def set_slope_alevel(self, level):
         """
         Set the upper limit of the trigger level in slope trigger.
+        
         Parameter:
         level (float): Level value
+        
         Return:
         None
         """
@@ -5426,8 +5969,10 @@ class Trigger:
     def get_slope_alevel(self):
         """
         Query the upper limit of the trigger level in slope trigger.
+        
         Parameter:
         None
+        
         Return:
         float: Level value
         """
@@ -5440,8 +5985,10 @@ class Trigger:
     def set_slope_blevel(self, level):
         """
         Set the lower limit of the trigger level in slope trigger.
+        
         Parameter:
         level (float): Level value
+        
         Return:
         None
         """
@@ -5450,8 +5997,10 @@ class Trigger:
     def get_slope_blevel(self):
         """
         Query the lower limit of the trigger level in slope trigger.
+        
         Parameter:
         None
+        
         Return:
         float: Level value
         """
@@ -5465,8 +6014,10 @@ class Trigger:
     def set_video_source(self, source):
         """
         Set the trigger source in video trigger.
+        
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+        
         Return:
         None
         """
@@ -5481,8 +6032,10 @@ class Trigger:
     def get_video_source(self):
         """
         Query the trigger source in video trigger.
+        
         Parameter:
         None
+        
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -5491,8 +6044,10 @@ class Trigger:
     def set_video_polarity(self, polarity):
         """
         Set the video polarity in video trigger.
+        
         Parameter:
         polarity (str): "POSITIVE" or "NEGATIVE"
+        
         Return:
         None
         """
@@ -5507,8 +6062,10 @@ class Trigger:
     def get_video_polarity(self):
         """
         Query the video polarity in video trigger.
+        
         Parameter:
         None
+        
         Return:
         str: "POS" or "NEG"
         """
@@ -5517,8 +6074,10 @@ class Trigger:
     def set_video_mode(self, mode):
         """
         Set the sync type in video trigger.
+        
         Parameter:
         mode (str): "ODDFIELD", "EVENFIELD", "LINE", or "ALINES"
+        
         Return:
         None
         """
@@ -5533,8 +6092,10 @@ class Trigger:
     def get_video_mode(self):
         """
         Query the sync type in video trigger.
+        
         Parameter:
         None
+        
         Return:
         str: "ODDF", "EVEN", "LINE", or "ALIN"
         """
@@ -5543,8 +6104,10 @@ class Trigger:
     def set_video_line(self, line):
         """
         Set the line number when the sync type in video trigger is LINE.
+        
         Parameter:
         line (int): Line number (see documentation for valid range)
+        
         Return:
         None
         """
@@ -5556,8 +6119,10 @@ class Trigger:
     def get_video_line(self):
         """
         Query the line number when the sync type in video trigger is LINE.
+        
         Parameter:
         None
+        
         Return:
         int: Line number
         """
@@ -5570,8 +6135,10 @@ class Trigger:
     def set_video_standard(self, standard):
         """
         Set the video standard in video trigger.
+        
         Parameter:
         standard (str): "PALSECAM", "NTSC", "480P", or "576P"
+        
         Return:
         None
         """
@@ -5585,8 +6152,10 @@ class Trigger:
     def get_video_standard(self):
         """
         Query the video standard in video trigger.
+        
         Parameter:
         None
+        
         Return:
         str: "PALS", "NTSC", "480P", or "576P"
         """
@@ -5595,8 +6164,10 @@ class Trigger:
     def set_video_level(self, level):
         """
         Set the trigger level in video trigger.
+        
         Parameter:
         level (float): Level value
+        
         Return:
         None
         """
@@ -5605,8 +6176,10 @@ class Trigger:
     def get_video_level(self):
         """
         Query the trigger level in video trigger.
+        
         Parameter:
         None
+        
         Return:
         float: Level value
         """
@@ -5620,8 +6193,10 @@ class Trigger:
     def set_pattern_source(self, source):
         """
         Set the trigger source in pattern trigger.
+        
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+        
         Return:
         None
         """
@@ -5636,8 +6211,10 @@ class Trigger:
     def get_pattern_source(self):
         """
         Query the trigger source in pattern trigger.
+        
         Parameter:
         None
+        
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -5646,8 +6223,10 @@ class Trigger:
     def set_pattern_condition(self, cond):
         """
         Set the pattern condition in pattern trigger.
+        
         Parameter:
         cond (str): "AND", "OR", "NAND", "NOR"
+        
         Return:
         None
         """
@@ -5661,8 +6240,10 @@ class Trigger:
     def get_pattern_condition(self):
         """
         Query the pattern condition in pattern trigger.
+        
         Parameter:
         None
+        
         Return:
         str: Condition code
         """
@@ -5671,8 +6252,10 @@ class Trigger:
     def set_pattern_level(self, level):
         """
         Set the trigger level in pattern trigger.
+        
         Parameter:
         level (float): Level value
+        
         Return:
         None
         """
@@ -5681,8 +6264,10 @@ class Trigger:
     def get_pattern_level(self):
         """
         Query the trigger level in pattern trigger.
+        
         Parameter:
         None
+        
         Return:
         float: Level value
         """
@@ -5696,8 +6281,10 @@ class Trigger:
     def set_duration_source(self, source):
         """
         Set the trigger source in duration trigger.
+        
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+        
         Return:
         None
         """
@@ -5712,8 +6299,10 @@ class Trigger:
     def get_duration_source(self):
         """
         Query the trigger source in duration trigger.
+        
         Parameter:
         None
+        
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -5722,8 +6311,10 @@ class Trigger:
     def set_duration_when(self, when):
         """
         Set the trigger condition in duration trigger.
+        
         Parameter:
         when (str): "GREATER", "LESS"
+        
         Return:
         None
         """
@@ -5737,8 +6328,10 @@ class Trigger:
     def get_duration_when(self):
         """
         Query the trigger condition in duration trigger.
+
         Parameter:
         None
+
         Return:
         str: Condition code
         """
@@ -5747,8 +6340,10 @@ class Trigger:
     def set_duration_time(self, time):
         """
         Set the time value in duration trigger (seconds).
+
         Parameter:
         time (float): 8e-9 to 10
+
         Return:
         None
         """
@@ -5760,8 +6355,10 @@ class Trigger:
     def get_duration_time(self):
         """
         Query the time value in duration trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Time value
         """
@@ -5775,8 +6372,10 @@ class Trigger:
     def set_timeout_source(self, source):
         """
         Set the trigger source in timeout trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -5791,8 +6390,10 @@ class Trigger:
     def get_timeout_source(self):
         """
         Query the trigger source in timeout trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -5801,8 +6402,10 @@ class Trigger:
     def set_timeout_when(self, when):
         """
         Set the trigger condition in timeout trigger.
+
         Parameter:
         when (str): "GREATER", "LESS"
+
         Return:
         None
         """
@@ -5816,8 +6419,10 @@ class Trigger:
     def get_timeout_when(self):
         """
         Query the trigger condition in timeout trigger.
+
         Parameter:
         None
+
         Return:
         str: Condition code
         """
@@ -5826,8 +6431,10 @@ class Trigger:
     def set_timeout_time(self, time):
         """
         Set the time value in timeout trigger (seconds).
+
         Parameter:
         time (float): 8e-9 to 10
+
         Return:
         None
         """
@@ -5839,8 +6446,10 @@ class Trigger:
     def get_timeout_time(self):
         """
         Query the time value in timeout trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Time value
         """
@@ -5853,8 +6462,10 @@ class Trigger:
     def set_runt_source(self, source):
         """
         Set the trigger source in runt trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -5869,8 +6480,10 @@ class Trigger:
     def get_runt_source(self):
         """
         Query the trigger source in runt trigger.
+        
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -5879,8 +6492,10 @@ class Trigger:
     def set_runt_polarity(self, polarity):
         """
         Set the pulse polarity in runt trigger.
+
         Parameter:
         polarity (str): "POSITIVE" or "NEGATIVE"
+
         Return:
         None
         """
@@ -5895,8 +6510,10 @@ class Trigger:
     def get_runt_polarity(self):
         """
         Query the pulse polarity in runt trigger.
+
         Parameter:
         None
+
         Return:
         str: "POS" or "NEG"
         """
@@ -5905,8 +6522,10 @@ class Trigger:
     def set_runt_when(self, when):
         """
         Set the qualifier in runt trigger.
+
         Parameter:
         when (str): "NONE", "GREATER", "LESS", "GLESS"
+
         Return:
         None
         """
@@ -5921,8 +6540,10 @@ class Trigger:
     def get_runt_when(self):
         """
         Query the qualifier in runt trigger.
+
         Parameter:
         None
+
         Return:
         str: Qualifier code
         """
@@ -5931,8 +6552,10 @@ class Trigger:
     def set_runt_wupper(self, upper):
         """
         Set the pulse width upper limit in runt trigger (seconds).
+
         Parameter:
         upper (float): Upper limit, 16e-9 to 10
+
         Return:
         None
         """
@@ -5944,8 +6567,10 @@ class Trigger:
     def get_runt_wupper(self):
         """
         Query the pulse width upper limit in runt trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Upper limit
         """
@@ -5958,8 +6583,10 @@ class Trigger:
     def set_runt_wlower(self, lower):
         """
         Set the pulse width lower limit in runt trigger (seconds).
+
         Parameter:
         lower (float): Lower limit, 8e-9 to 9.99
+
         Return:
         None
         """
@@ -5971,8 +6598,10 @@ class Trigger:
     def get_runt_wlower(self):
         """
         Query the pulse width lower limit in runt trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Lower limit
         """
@@ -5985,8 +6614,10 @@ class Trigger:
     def set_runt_alevel(self, level):
         """
         Set the trigger level upper limit in runt trigger.
+
         Parameter:
         level (float): Level value
+
         Return:
         None
         """
@@ -5995,8 +6626,10 @@ class Trigger:
     def get_runt_alevel(self):
         """
         Query the trigger level upper limit in runt trigger.
+
         Parameter:
         None
+
         Return:
         float: Level value
         """
@@ -6009,8 +6642,10 @@ class Trigger:
     def set_runt_blevel(self, level):
         """
         Set the trigger level lower limit in runt trigger.
+
         Parameter:
         level (float): Level value
+
         Return:
         None
         """
@@ -6019,8 +6654,10 @@ class Trigger:
     def get_runt_blevel(self):
         """
         Query the trigger level lower limit in runt trigger.
+
         Parameter:
         None
+
         Return:
         float: Level value
         """
@@ -6034,8 +6671,10 @@ class Trigger:
     def set_windows_source(self, source):
         """
         Set the trigger source in windows trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -6050,8 +6689,10 @@ class Trigger:
     def get_windows_source(self):
         """
         Query the trigger source in windows trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -6060,8 +6701,10 @@ class Trigger:
     def set_windows_slope(self, slope):
         """
         Set the windows type in windows trigger.
+
         Parameter:
         slope (str): "POSITIVE", "NEGATIVE", "RFALL"
+
         Return:
         None
         """
@@ -6076,8 +6719,10 @@ class Trigger:
     def get_windows_slope(self):
         """
         Query the windows type in windows trigger.
+
         Parameter:
         None
+
         Return:
         str: "POS", "NEG", or "RFAL"
         """
@@ -6086,8 +6731,10 @@ class Trigger:
     def set_windows_position(self, pos):
         """
         Set the trigger position in windows trigger.
+
         Parameter:
         pos (str): "EXIT", "ENTER", "TIME"
+
         Return:
         None
         """
@@ -6102,8 +6749,10 @@ class Trigger:
     def get_windows_position(self):
         """
         Query the trigger position in windows trigger.
+
         Parameter:
         None
+
         Return:
         str: "EXIT", "ENTER", or "TIM"
         """
@@ -6112,8 +6761,10 @@ class Trigger:
     def set_windows_time(self, time):
         """
         Set the hold time in windows trigger (seconds).
+
         Parameter:
         time (float): 8e-9 to 10
+
         Return:
         None
         """
@@ -6125,8 +6776,10 @@ class Trigger:
     def get_windows_time(self):
         """
         Query the hold time in windows trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Hold time
         """
@@ -6139,8 +6792,10 @@ class Trigger:
     def set_windows_alevel(self, level):
         """
         Set the trigger level upper limit in windows trigger.
+
         Parameter:
         level (float): Level value
+
         Return:
         None
         """
@@ -6149,8 +6804,10 @@ class Trigger:
     def get_windows_alevel(self):
         """
         Query the trigger level upper limit in windows trigger.
+
         Parameter:
         None
+
         Return:
         float: Level value
         """
@@ -6163,8 +6820,10 @@ class Trigger:
     def set_windows_blevel(self, level):
         """
         Set the trigger level lower limit in windows trigger.
+
         Parameter:
         level (float): Level value
+
         Return:
         None
         """
@@ -6188,8 +6847,10 @@ class Trigger:
     def set_delay_sa(self, source):
         """
         Set the trigger source A in delay trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -6204,8 +6865,10 @@ class Trigger:
     def get_delay_sa(self):
         """
         Query the trigger source A in delay trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -6214,8 +6877,10 @@ class Trigger:
     def set_delay_slopa(self, slope):
         """
         Set the edge type of edge A in delay trigger.
+
         Parameter:
         slope (str): "POSITIVE" or "NEGATIVE"
+
         Return:
         None
         """
@@ -6230,8 +6895,10 @@ class Trigger:
     def get_delay_slopa(self):
         """
         Query the edge type of edge A in delay trigger.
+
         Parameter:
         None
+
         Return:
         str: "POS" or "NEG"
         """
@@ -6240,8 +6907,10 @@ class Trigger:
     def set_delay_sb(self, source):
         """
         Set the trigger source B in delay trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -6256,8 +6925,10 @@ class Trigger:
     def get_delay_sb(self):
         """
         Query the trigger source B in delay trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -6266,8 +6937,10 @@ class Trigger:
     def set_delay_slopb(self, slope):
         """
         Set the edge type of edge B in delay trigger.
+
         Parameter:
         slope (str): "POSITIVE" or "NEGATIVE"
+
         Return:
         None
         """
@@ -6282,8 +6955,10 @@ class Trigger:
     def get_delay_slopb(self):
         """
         Query the edge type of edge B in delay trigger.
+
         Parameter:
         None
+
         Return:
         str: "POS" or "NEG"
         """
@@ -6292,8 +6967,10 @@ class Trigger:
     def set_delay_type(self, dtype):
         """
         Set the delay type in delay trigger.
+
         Parameter:
         dtype (str): "GREATER", "LESS", "GLESS", "GOUT"
+
         Return:
         None
         """
@@ -6308,8 +6985,8 @@ class Trigger:
     def get_delay_type(self):
         """
         Query the delay type in delay trigger.
-        Parameter:
-        None
+
+        
         Return:
         str: Delay type code
         """
@@ -6318,8 +6995,10 @@ class Trigger:
     def set_delay_tupper(self, upper):
         """
         Set the upper limit of the delay time in delay trigger (seconds).
+
         Parameter:
         upper (float): 16e-9 to 10
+
         Return:
         None
         """
@@ -6331,8 +7010,10 @@ class Trigger:
     def get_delay_tupper(self):
         """
         Query the upper limit of the delay time in delay trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Upper limit
         """
@@ -6345,8 +7026,10 @@ class Trigger:
     def set_delay_tlower(self, lower):
         """
         Set the lower limit of the delay time in delay trigger (seconds).
+
         Parameter:
         lower (float): 8e-9 to 9.99
+
         Return:
         None
         """
@@ -6358,8 +7041,10 @@ class Trigger:
     def get_delay_tlower(self):
         """
         Query the lower limit of the delay time in delay trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Lower limit
         """
@@ -6373,8 +7058,10 @@ class Trigger:
     def set_shold_dsrc(self, source):
         """
         Set the data source in setup/hold trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -6389,8 +7076,10 @@ class Trigger:
     def get_shold_dsrc(self):
         """
         Query the data source in setup/hold trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -6399,8 +7088,10 @@ class Trigger:
     def set_shold_csrc(self, source):
         """
         Set the clock source in setup/hold trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -6415,8 +7106,10 @@ class Trigger:
     def get_shold_csrc(self):
         """
         Query the clock source in setup/hold trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -6425,8 +7118,10 @@ class Trigger:
     def set_shold_slope(self, slope):
         """
         Set the edge type of the clock in setup/hold trigger.
+
         Parameter:
         slope (str): "POSITIVE" or "NEGATIVE"
+
         Return:
         None
         """
@@ -6441,8 +7136,10 @@ class Trigger:
     def get_shold_slope(self):
         """
         Query the edge type of the clock in setup/hold trigger.
+
         Parameter:
         None
+
         Return:
         str: "POS" or "NEG"
         """
@@ -6451,8 +7148,10 @@ class Trigger:
     def set_shold_pattern(self, pattern):
         """
         Set the pattern in setup/hold trigger.
+
         Parameter:
         pattern (str): "SETUP" or "HOLD"
+
         Return:
         None
         """
@@ -6466,8 +7165,10 @@ class Trigger:
     def get_shold_pattern(self):
         """
         Query the pattern in setup/hold trigger.
+
         Parameter:
         None
+
         Return:
         str: "SETU" or "HOLD"
         """
@@ -6476,8 +7177,10 @@ class Trigger:
     def set_shold_type(self, typ):
         """
         Set the trigger type in setup/hold trigger.
+
         Parameter:
         typ (str): "GREATER" or "LESS"
+
         Return:
         None
         """
@@ -6491,8 +7194,10 @@ class Trigger:
     def get_shold_type(self):
         """
         Query the trigger type in setup/hold trigger.
+
         Parameter:
         None
+
         Return:
         str: "GREA" or "LESS"
         """
@@ -6501,8 +7206,10 @@ class Trigger:
     def set_shold_stime(self, time):
         """
         Set the setup time in setup/hold trigger (seconds).
+
         Parameter:
         time (float): Setup time in seconds
+
         Return:
         None
         """
@@ -6511,8 +7218,10 @@ class Trigger:
     def get_shold_stime(self):
         """
         Query the setup time in setup/hold trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Setup time in seconds
         """
@@ -6525,8 +7234,10 @@ class Trigger:
     def set_shold_htime(self, time):
         """
         Set the hold time in setup/hold trigger (seconds).
+
         Parameter:
         time (float): Hold time in seconds
+
         Return:
         None
         """
@@ -6535,8 +7246,10 @@ class Trigger:
     def get_shold_htime(self):
         """
         Query the hold time in setup/hold trigger (seconds).
+
         Parameter:
         None
+
         Return:
         float: Hold time in seconds
         """
@@ -6551,8 +7264,10 @@ class Trigger:
     def set_nedg_source(self, source):
         """
         Set the trigger source in noise edge trigger.
+
         Parameter:
         source (str): "CHANNEL1" or "CHANNEL2"
+
         Return:
         None
         """
@@ -6567,8 +7282,10 @@ class Trigger:
     def get_nedg_source(self):
         """
         Query the trigger source in noise edge trigger.
+
         Parameter:
         None
+
         Return:
         str: "CHAN1" or "CHAN2"
         """
@@ -6577,8 +7294,10 @@ class Trigger:
     def set_nedg_slope(self, slope):
         """
         Set the edge type in noise edge trigger.
+
         Parameter:
         slope (str): "POSITIVE", "NEGATIVE", "RFALL"
+
         Return:
         None
         """
@@ -6593,8 +7312,10 @@ class Trigger:
     def get_nedg_slope(self):
         """
         Query the edge type in noise edge trigger.
+
         Parameter:
         None
+
         Return:
         str: "POS", "NEG", or "RFAL"
         """
@@ -6603,8 +7324,10 @@ class Trigger:
     def set_nedg_level(self, level):
         """
         Set the trigger level in noise edge trigger.
+
         Parameter:
         level (float): Level value
+
         Return:
         None
         """
@@ -6613,8 +7336,10 @@ class Trigger:
     def get_nedg_level(self):
         """
         Query the trigger level in noise edge trigger.
+
         Parameter:
         None
+
         Return:
         float: Level value
         """
@@ -6627,8 +7352,10 @@ class Trigger:
     def set_nedg_idle(self, noise):
         """
         The query returns the idle time in scientific notation
+
         Parameter:
         noise (float): Noise value
+
         Return:
         None
         """
@@ -6637,8 +7364,7 @@ class Trigger:
     def get_nedg_idle(self):
         """
         Query the noise tolerance in noise edge trigger.
-        Parameter:
-        None
+       
         Return:
         float: Noise value
         """
@@ -6660,8 +7386,9 @@ class RS232:
     def set_source(self, source):
         """
         Set the trigger source in RS232 trigger.
+
         Parameter:
-            source (str): "CHANNEL1" or "CHANNEL2"
+        source (str): "CHANNEL1" or "CHANNEL2"
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6674,16 +7401,18 @@ class RS232:
     def get_source(self):
         """
         Query the trigger source in RS232 trigger.
+
         Returns:
-            str: "CHAN1" or "CHAN2"
+        str: "CHAN1" or "CHAN2"
         """
         return self.instrument.query(":TRIG:RS232:SOUR?")
 
     def set_when(self, when):
         """
         Set the trigger condition in RS232 trigger.
+
         Parameter:
-            when (str): "START", "STOP", "DATA", "PARITY", "ERROR"
+        when (str): "START", "STOP", "DATA", "PARITY", "ERROR"
         """
         allowed = {"START", "STOP", "DATA", "PARITY", "ERROR"}
         w = when.upper()
@@ -6695,16 +7424,18 @@ class RS232:
     def get_when(self):
         """
         Query the trigger condition in RS232 trigger.
+
         Returns:
-            str: Condition
+        str: Condition
         """
         return self.instrument.query(":TRIG:RS232:WHEN?")
 
     def set_parity(self, parity):
         """
         Set the parity in RS232 trigger.
+
         Parameter:
-            parity (str): "NONE", "EVEN", or "ODD"
+        parity (str): "NONE", "EVEN", or "ODD"
         """
         allowed = {"NONE", "EVEN", "ODD"}
         p = parity.upper()
@@ -6716,16 +7447,18 @@ class RS232:
     def get_parity(self):
         """
         Query the parity in RS232 trigger.
+
         Returns:
-            str: Parity
+        str: Parity
         """
         return self.instrument.query(":TRIG:RS232:PAR?")
 
     def set_stop(self, stop):
         """
         Set the stop bit in RS232 trigger.
+
         Parameter:
-            stop (float): Stop bit, one of 1, 1.5, or 2
+        stop (float): Stop bit, one of 1, 1.5, or 2
         """
         allowed = {1, 1.5, 2}
         if stop in allowed:
@@ -6736,8 +7469,9 @@ class RS232:
     def get_stop(self):
         """
         Query the stop bit in RS232 trigger.
+
         Returns:
-            float: Stop bit
+        float: Stop bit
         """
         resp = self.instrument.query(":TRIG:RS232:STOP?")
         try:
@@ -6748,8 +7482,9 @@ class RS232:
     def set_data(self, data):
         """
         Set the data width in RS232 trigger.
+        
         Parameter:
-            data (int): Data width, 5 to 8
+        data (int): Data width, 5 to 8
         """
         if isinstance(data, int) and 5 <= data <= 8:
             self.instrument.write(f":TRIG:RS232:DATA {data}")
@@ -6759,8 +7494,9 @@ class RS232:
     def get_data(self):
         """
         Query the data width in RS232 trigger.
+        
         Returns:
-            int: Data width
+        int: Data width
         """
         resp = self.instrument.query(":TRIG:RS232:DATA?")
         try:
@@ -6771,8 +7507,9 @@ class RS232:
     def set_width(self, width):
         """
         Set the width in RS232 trigger.
+        
         Parameter:
-            width (int): Data width, 5 to 8
+        width (int): Data width, 5 to 8
         """
         if isinstance(width, int) and 5 <= width <= 8:
             self.instrument.write(f":TRIG:RS232:WIDT {width}")
@@ -6782,8 +7519,9 @@ class RS232:
     def get_width(self):
         """
         Query the width in RS232 trigger.
+        
         Returns:
-            int: Data width
+        int: Data width
         """
         resp = self.instrument.query(":TRIG:RS232:WIDT?")
         try:
@@ -6794,8 +7532,9 @@ class RS232:
     def set_baud(self, baud):
         """
         Set the baud rate in RS232 trigger.
+        
         Parameter:
-            baud (int): Baud rate, 110 to 20000000
+        baud (int): Baud rate, 110 to 20000000
         """
         if isinstance(baud, int) and 110 <= baud <= 20000000:
             self.instrument.write(f":TRIG:RS232:BAUD {baud}")
@@ -6805,8 +7544,9 @@ class RS232:
     def get_baud(self):
         """
         Query the baud rate in RS232 trigger.
+        
         Returns:
-            int: Baud rate
+        int: Baud rate
         """
         resp = self.instrument.query(":TRIG:RS232:BAUD?")
         try:
@@ -6817,8 +7557,9 @@ class RS232:
     def set_buser(self, buser):
         """
         Set the bus user value in RS232 trigger.
+        
         Parameter:
-            buser (int): User value (see instrument documentation for valid range)
+        buser (int): User value (see instrument documentation for valid range)
         """
         if isinstance(buser, int):
             self.instrument.write(f":TRIG:RS232:BUS {buser}")
@@ -6828,8 +7569,9 @@ class RS232:
     def get_buser(self):
         """
         Query the bus user value in RS232 trigger.
+        
         Returns:
-            int: Bus user value
+        int: Bus user value
         """
         resp = self.instrument.query(":TRIG:RS232:BUS?")
         try:
@@ -6840,16 +7582,18 @@ class RS232:
     def set_level(self, level):
         """
         Set the trigger level in RS232 trigger.
+        
         Parameter:
-            level (float): Level value
+        level (float): Level value
         """
         self.instrument.write(f":TRIG:RS232:LEV {level}")
 
     def get_level(self):
         """
         Query the trigger level in RS232 trigger.
-        Returns:
-            float: Level value
+        
+        Returns: 
+        float: Level value
         """
         resp = self.instrument.query(":TRIG:RS232:LEV?")
         try:
@@ -6868,7 +7612,8 @@ class IIC_Trigger:
     def set_scl(self, source):
         """
         Set the channel source of SCL in I2C trigger.
-        source (str): "CHANNEL1" or "CHANNEL2"
+
+        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6881,6 +7626,7 @@ class IIC_Trigger:
     def get_scl(self):
         """
         Query the channel source of SCL in I2C trigger.
+
         Returns: str: "CHAN1" or "CHAN2"
         """
         return self.instrument.query(":TRIG:IIC:SCL?")
@@ -6888,7 +7634,8 @@ class IIC_Trigger:
     def set_sda(self, source):
         """
         Set the channel source of SDA in I2C trigger.
-        source (str): "CHANNEL1" or "CHANNEL2"
+        
+        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6901,6 +7648,7 @@ class IIC_Trigger:
     def get_sda(self):
         """
         Query the channel source of SDA in I2C trigger.
+        
         Returns: str: "CHAN1" or "CHAN2"
         """
         return self.instrument.query(":TRIG:IIC:SDA?")
@@ -6929,6 +7677,7 @@ class IIC_Trigger:
     def get_when(self):
         """
         Query the trigger condition in I2C trigger.
+
         Returns: str
         """
         return self.instrument.query(":TRIG:IIC:WHEN?")
@@ -6946,6 +7695,7 @@ class IIC_Trigger:
     def get_awidth(self):
         """
         Query the address bits for I2C trigger.
+
         Returns: int
         """
         resp = self.instrument.query(":TRIG:IIC:AWIDth?")
@@ -6967,6 +7717,7 @@ class IIC_Trigger:
     def get_address(self):
         """
         Query the address for I2C trigger.
+
         Returns: int
         """
         resp = self.instrument.query(":TRIG:IIC:ADDRess?")
@@ -6991,6 +7742,7 @@ class IIC_Trigger:
     def get_direction(self):
         """
         Query the data direction for I2C trigger.
+        
         Returns: str
         """
         return self.instrument.query(":TRIG:IIC:DIRection?")
@@ -6998,7 +7750,8 @@ class IIC_Trigger:
     def set_data(self, data):
         """
         Set the data for DATA or ADATA trigger.
-        data (int): 0 to 2^40-1 (max 40 bits)
+        
+        Parameters: data (int): 0 to 2^40-1 (max 40 bits)
         """
         if isinstance(data, int) and 0 <= data < 2**40:
             self.instrument.write(f":TRIG:IIC:DATA {data}")
@@ -7008,6 +7761,7 @@ class IIC_Trigger:
     def get_data(self):
         """
         Query the data for I2C trigger.
+        
         Returns: int
         """
         resp = self.instrument.query(":TRIG:IIC:DATA?")
@@ -7019,13 +7773,15 @@ class IIC_Trigger:
     def set_clevel(self, level):
         """
         Set the trigger level of SCL in I2C trigger.
-        level (float): Level value
+        
+        Parameters: level (float): Level value
         """
         self.instrument.write(f":TRIG:IIC:CLEVel {level}")
 
     def get_clevel(self):
         """
         Query the trigger level of SCL in I2C trigger.
+        
         Returns: float
         """
         resp = self.instrument.query(":TRIG:IIC:CLEVel?")
@@ -7037,13 +7793,15 @@ class IIC_Trigger:
     def set_dlevel(self, level):
         """
         Set the trigger level of SDA in I2C trigger.
-        level (float): Level value
+        
+        Parameters: level (float): Level value
         """
         self.instrument.write(f":TRIG:IIC:DLEVel {level}")
 
     def get_dlevel(self):
         """
         Query the trigger level of SDA in I2C trigger.
+        
         Returns: float
         """
         resp = self.instrument.query(":TRIG:IIC:DLEVel?")
@@ -7063,7 +7821,8 @@ class SPI_Trigger:
     def set_scl(self, source):
         """
         Set the channel source of SCL in SPI trigger.
-        source (str): "CHANNEL1" or "CHANNEL2"
+        
+        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -7076,6 +7835,7 @@ class SPI_Trigger:
     def get_scl(self):
         """
         Query the channel source of SCL in SPI trigger.
+        
         Returns: str: "CHAN1" or "CHAN2"
         """
         return self.instrument.query(":TRIG:SPI:SCL?")
@@ -7083,7 +7843,8 @@ class SPI_Trigger:
     def set_sda(self, source):
         """
         Set the channel source of SDA in SPI trigger.
-        source (str): "CHANNEL1" or "CHANNEL2"
+        
+        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -7096,6 +7857,7 @@ class SPI_Trigger:
     def get_sda(self):
         """
         Query the channel source of SDA in SPI trigger.
+        
         Returns: str: "CHAN1" or "CHAN2"
         """
         return self.instrument.query(":TRIG:SPI:SDA?")
@@ -7103,7 +7865,8 @@ class SPI_Trigger:
     def set_when(self, trig_type):
         """
         Set the trigger condition in SPI trigger.
-        trig_type (str): "CS" or "TIMEOUT"
+        
+        Parameters: trig_type (str): "CS" or "TIMEOUT"
         """
         allowed = {"CS", "TIMEOUT"}
         t = trig_type.upper()
@@ -7116,6 +7879,7 @@ class SPI_Trigger:
     def get_when(self):
         """
         Query the trigger condition in SPI trigger.
+        
         Returns: str
         """
         return self.instrument.query(":TRIG:SPI:WHEN?")
@@ -7123,7 +7887,8 @@ class SPI_Trigger:
     def set_width(self, width):
         """
         Set the data bits of the SDA channel in SPI trigger.
-        width (int): 4 to 32
+        
+        Parameters: width (int): 4 to 32
         """
         if isinstance(width, int) and 4 <= width <= 32:
             self.instrument.write(f":TRIG:SPI:WIDTh {width}")
@@ -7133,6 +7898,7 @@ class SPI_Trigger:
     def get_width(self):
         """
         Query the data bits of the SDA channel in SPI trigger.
+        
         Returns: int
         """
         resp = self.instrument.query(":TRIG:SPI:WIDTh?")
@@ -7144,7 +7910,8 @@ class SPI_Trigger:
     def set_data(self, data):
         """
         Set the data in SPI trigger.
-        data (int): 0 to 2^32-1
+
+        Parameters: data (int): 0 to 2^32-1
         """
         if isinstance(data, int) and 0 <= data < 2**32:
             self.instrument.write(f":TRIG:SPI:DATA {data}")
@@ -7154,6 +7921,7 @@ class SPI_Trigger:
     def get_data(self):
         """
         Query the data in SPI trigger.
+
         Returns: int
         """
         resp = self.instrument.query(":TRIG:SPI:DATA?")
@@ -7165,7 +7933,8 @@ class SPI_Trigger:
     def set_timeout(self, time_value):
         """
         Set the timeout value in SPI trigger (seconds).
-        time_value (float): 100e-9 to 1
+
+        Parameters:  time_value (float): 100e-9 to 1
         """
         if isinstance(time_value, (float, int)) and 1e-7 <= time_value <= 1:
             self.instrument.write(f":TRIG:SPI:TIMeout {time_value}")
@@ -7175,7 +7944,8 @@ class SPI_Trigger:
     def get_timeout(self):
         """
         Query the timeout value in SPI trigger.
-        Returns: float
+        
+        Parameters: Returns: float
         """
         resp = self.instrument.query(":TRIG:SPI:TIMeout?")
         try:
@@ -7186,7 +7956,8 @@ class SPI_Trigger:
     def set_slope(self, slope):
         """
         Set the clock edge in SPI trigger.
-        slope (str): "POSITIVE" or "NEGATIVE"
+        
+        Parameters: slope (str): "POSITIVE" or "NEGATIVE"
         """
         allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
         s = slope.upper()
@@ -7199,13 +7970,16 @@ class SPI_Trigger:
     def get_slope(self):
         """
         Query the clock edge in SPI trigger.
-        Returns: str: "POS" or "NEG"
+        
+        Parameters: Returns: str: "POS" or "NEG"
         """
         return self.instrument.query(":TRIG:SPI:SLOPe?")
 
     def set_clevel(self, level):
         """
         Set the trigger level of the SCL channel in SPI trigger.
+
+        Parameters:
         level (float): Level value
         """
         self.instrument.write(f":TRIG:SPI:CLEVel {level}")
@@ -7213,6 +7987,7 @@ class SPI_Trigger:
     def get_clevel(self):
         """
         Query the trigger level of the SCL channel in SPI trigger.
+        
         Returns: float
         """
         resp = self.instrument.query(":TRIG:SPI:CLEVel?")
@@ -7224,6 +7999,8 @@ class SPI_Trigger:
     def set_dlevel(self, level):
         """
         Set the trigger level of the SDA channel in SPI trigger.
+
+        Parameters: 
         level (float): Level value
         """
         self.instrument.write(f":TRIG:SPI:DLEVel {level}")
@@ -7231,6 +8008,7 @@ class SPI_Trigger:
     def get_dlevel(self):
         """
         Query the trigger level of the SDA channel in SPI trigger.
+        
         Returns: float
         """
         resp = self.instrument.query(":TRIG:SPI:DLEVel?")
@@ -7242,13 +8020,15 @@ class SPI_Trigger:
     def set_slevel(self, level):
         """
         Set the trigger level of the CS channel in SPI trigger.
-        level (float): Level value
+
+        Parameters: level (float): Level value
         """
         self.instrument.write(f":TRIG:SPI:SLEVel {level}")
 
     def get_slevel(self):
         """
         Query the trigger level of the CS channel in SPI trigger.
+
         Returns: float
         """
         resp = self.instrument.query(":TRIG:SPI:SLEVel?")
@@ -7260,7 +8040,8 @@ class SPI_Trigger:
     def set_mode(self, mode):
         """
         Set the CS mode when trigger condition is CS in SPI trigger.
-        mode (str): "HIGH" or "LOW"
+
+        Parameters: mode (str): "HIGH" or "LOW"
         """
         allowed = {"HIGH", "LOW"}
         m = mode.upper()
@@ -7272,6 +8053,7 @@ class SPI_Trigger:
     def get_mode(self):
         """
         Query the CS mode when trigger condition is CS in SPI trigger.
+
         Returns: str: "HIGH" or "LOW"
         """
         return self.instrument.query(":TRIG:SPI:MODE?")
@@ -7279,7 +8061,8 @@ class SPI_Trigger:
     def set_cs(self, source):
         """
         Set the data source of the CS signal in SPI trigger.
-        source (str): "CHANNEL1" or "CHANNEL2"
+
+        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -7292,24 +8075,23 @@ class SPI_Trigger:
     def get_cs(self):
         """
         Query the data source of the CS signal in SPI trigger.
+
         Returns: str: "CHAN1" or "CHAN2"
         """
         return self.instrument.query(":TRIG:SPI:CS?")
 class Waveform:
-    """
-    The Waveform commands are used to read the waveform data and its related settings.
+    """The Waveform commands are used to read the waveform data and its related settings.
     """
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
 
     def set_source(self, source):
-        """
-        Set the channel of which the waveform data will be read.
-        Parameter:
-            source (str): "CHANnel1", "CHANnel2", or "MATH"
-        Return:
-            None
+        """Set the channel of which the waveform data will be read.
+
+        Parameter: source (str): "CHANnel1", "CHANnel2", or "MATH"
+
+        Return: None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "MATH", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -7320,22 +8102,21 @@ class Waveform:
             print("Invalid source. Allowed: CHANnel1, CHANnel2, MATH.")
 
     def get_source(self):
-        """
-        Query the channel of which the waveform data will be read.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1", "CHAN2", or "MATH"
+        """Query the channel of which the waveform data will be read.
+
+        Parameter: None
+
+        Return: str: "CHAN1", "CHAN2", or "MATH"
         """
         return self.instrument.query(":WAVeform:SOURce?")
 
     def set_mode(self, mode):
         """
         Set the reading mode used by :WAVeform:DATA?.
-        Parameter:
-            mode (str): "NORMal", "MAXimum", or "RAW"
-        Return:
-            None
+
+        Parameter: mode (str): "NORMal", "MAXimum", or "RAW"
+
+        Return: None
         """
         allowed = {"NORMAL", "MAXIMUM", "RAW", "NORMal", "MAXimum"}
         m = mode.upper()
@@ -7351,22 +8132,20 @@ class Waveform:
         self.instrument.write(f":WAVeform:MODE {val}")
 
     def get_mode(self):
-        """
-        Query the reading mode used by :WAVeform:DATA?.
-        Parameter:
-            None
-        Return:
-            str: "NORM", "MAX", or "RAW"
+        """Query the reading mode used by :WAVeform:DATA?.
+        
+        Parameter: None
+        
+        Return: str: "NORM", "MAX", or "RAW"
         """
         return self.instrument.query(":WAVeform:MODE?")
 
     def set_format(self, fmt):
-        """
-        Set the return format of the waveform data.
-        Parameter:
-            fmt (str): "WORD", "BYTE", or "ASCii"
-        Return:
-            None
+        """Set the return format of the waveform data.
+        
+        Parameter: fmt (str): "WORD", "BYTE", or "ASCii"
+        
+        Return: None
         """
         allowed = {"WORD", "BYTE", "ASCII", "ASCii"}
         f = fmt.upper()
@@ -7384,20 +8163,19 @@ class Waveform:
     def get_format(self):
         """
         Query the return format of the waveform data.
-        Parameter:
-            None
-        Return:
-            str: "WORD", "BYTE", or "ASC"
+
+        Parameter: None
+
+        Return: str: "WORD", "BYTE", or "ASC"
         """
         return self.instrument.query(":WAVeform:FORMat?")
 
     def get_data(self):
-        """
-        Read the waveform data. If autosave is on, then also saves them to a csv file.
-        Parameter:
-            None
-        Return:
-            bytes or str: Raw waveform data (format depends on :WAVeform:FORMat)
+        """Read the waveform data. If autosave is on, then also saves them to a csv file.
+        
+        Parameter: None
+        
+        Return: bytes or str: Raw waveform data (format depends on :WAVeform:FORMat)
         """
         fmt = self.get_format()
         if fmt == "ASC":
@@ -7412,12 +8190,11 @@ class Waveform:
             self.data_handler.write_to_file("Waveform_Data", data, EFileType.CSV)  
 
     def set_start(self, sta):
-        """
-        Set the start point of waveform data reading.
-        Parameter:
-            sta (int): Start point (see documentation for valid range)
-        Return:
-            None
+        """Set the start point of waveform data reading.
+        
+        Parameter: sta (int): Start point (see documentation for valid range)
+        
+        Return: None
         """
         if isinstance(sta, int) and sta >= 1:
             self.instrument.write(f":WAVeform:STARt {sta}")
@@ -7425,12 +8202,11 @@ class Waveform:
             print("Invalid start point. Must be integer >= 1.")
 
     def get_start(self):
-        """
-        Query the start point of waveform data reading.
-        Parameter:
-            None
-        Return:
-            int: Start point
+        """Query the start point of waveform data reading.
+        
+        Parameter: None
+        
+        Return: int: Start point
         """
         resp = self.instrument.query(":WAVeform:STARt?")
         try:
@@ -7439,26 +8215,22 @@ class Waveform:
             return resp
 
     def set_stop(self, stop):
-        """
-        Set the stop point of waveform data reading.
-        Parameter:
-            stop (int): Stop point (see documentation for valid range)
-        Return:
-            None
-        """
+        """Set the stop point of waveform data reading.
+        
+        Parameter: stop (int): Stop point (see documentation for valid range)
+        
+        Return: None"""
         if isinstance(stop, int) and stop >= 1:
             self.instrument.write(f":WAVeform:STOP {stop}")
         else:
             print("Invalid stop point. Must be integer >= 1.")
 
     def get_stop(self):
-        """
-        Query the stop point of waveform data reading.
-        Parameter:
-            None
-        Return:
-            int: Stop point
-        """
+        """Query the stop point of waveform data reading.
+        
+        Parameter: None
+        
+        Return: int: Stop point"""
         resp = self.instrument.query(":WAVeform:STOP?")
         try:
             return int(resp)
@@ -7466,12 +8238,11 @@ class Waveform:
             return resp
 
     def get_xincrement(self):
-        """
-        Query the time difference between two neighboring points of the specified channel source in the X direction.
-        Parameter:
-            None
-        Return:
-            float: X increment (seconds or Hz)
+        """Query the time difference between two neighboring points of the specified channel source in the X direction.
+        
+        Parameter: None
+        
+        Return:float: X increment (seconds or Hz)
         """
         resp = self.instrument.query(":WAVeform:XINCrement?")
         try:
@@ -7480,12 +8251,11 @@ class Waveform:
             return resp
 
     def get_xorigin(self):
-        """
-        Query the start time of the waveform data of the channel source currently selected in the X direction.
-        Parameter:
-            None
-        Return:
-            float: X origin (seconds or Hz)
+        """Query the start time of the waveform data of the channel source currently selected in the X direction.
+        
+        Parameter: None
+        
+        Return: float: X origin (seconds or Hz)
         """
         resp = self.instrument.query(":WAVeform:XORigin?")
         try:
@@ -7494,12 +8264,12 @@ class Waveform:
             return resp
 
     def get_xreference(self):
-        """
-        Query the reference time of the specified channel source in the X direction.
-        Parameter:
-            None
-        Return:
-            int: X reference (usually 0)
+        """Query the reference time of the specified channel source in the X direction.
+        
+        Parameter: None
+        
+        Return: 
+        int: X reference (usually 0)
         """
         resp = self.instrument.query(":WAVeform:XREFerence?")
         try:
@@ -7508,12 +8278,12 @@ class Waveform:
             return resp
 
     def get_yincrement(self):
-        """
-        Query the waveform increment of the specified channel source in the Y direction.
-        Parameter:
-            None
-        Return:
-            float: Y increment (amplitude unit)
+        """Query the waveform increment of the specified channel source in the Y direction.
+        
+        Parameter: None
+        
+        Return: 
+        float: Y increment (amplitude unit)
         """
         resp = self.instrument.query(":WAVeform:YINCrement?")
         try:
@@ -7524,10 +8294,11 @@ class Waveform:
     def get_yorigin(self):
         """
         Query the vertical offset relative to the vertical reference position of the specified channel source in the Y direction.
-        Parameter:
-            None
-        Return:
-            int: Y origin
+        
+        Parameter: None
+        
+        Return: 
+        int: Y origin
         """
         resp = self.instrument.query(":WAVeform:YORigin?")
         try:
@@ -7536,12 +8307,12 @@ class Waveform:
             return resp
 
     def get_yreference(self):
-        """
-        Query the vertical reference position of the specified channel source in the Y direction.
-        Parameter:
-            None
-        Return:
-            int: Y reference (usually 127)
+        """Query the vertical reference position of the specified channel source in the Y direction.
+        
+        Parameter: None
+        
+        Return: 
+        int: Y reference (usually 127)
         """
         resp = self.instrument.query(":WAVeform:YREFerence?")
         try:
@@ -7550,11 +8321,11 @@ class Waveform:
             return resp
 
     def get_preamble(self):
-        """
-        Query and return all the waveform parameters.
-        Parameter:
-            None
-        Return:
-            str: 10 waveform parameters separated by commas
+        """Query and return all the waveform parameters.
+        
+        Parameter: None
+        
+        Return: 
+        str: 10 waveform parameters separated by commas
         """
         return self.instrument.query(":WAVeform:PREamble?")

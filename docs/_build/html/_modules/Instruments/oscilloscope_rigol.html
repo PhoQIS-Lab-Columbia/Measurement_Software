@@ -8266,7 +8266,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger source in RS232 trigger.</span>
 <span class="sd">        Parameter:</span>
-<span class="sd">            source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
+<span class="sd">        source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CHANNEL1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHANNEL2&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN2&quot;</span><span class="p">}</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8280,15 +8280,16 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger source in RS232 trigger.</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            str: &quot;CHAN1&quot; or &quot;CHAN2&quot;</span>
+<span class="sd">        str: &quot;CHAN1&quot; or &quot;CHAN2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:SOUR?&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">set_when</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">when</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger condition in RS232 trigger.</span>
+
 <span class="sd">        Parameter:</span>
-<span class="sd">            when (str): &quot;START&quot;, &quot;STOP&quot;, &quot;DATA&quot;, &quot;PARITY&quot;, &quot;ERROR&quot;</span>
+<span class="sd">        when (str): &quot;START&quot;, &quot;STOP&quot;, &quot;DATA&quot;, &quot;PARITY&quot;, &quot;ERROR&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;START&quot;</span><span class="p">,</span> <span class="s2">&quot;STOP&quot;</span><span class="p">,</span> <span class="s2">&quot;DATA&quot;</span><span class="p">,</span> <span class="s2">&quot;PARITY&quot;</span><span class="p">,</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">}</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">when</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8300,16 +8301,19 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_when</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger condition in RS232 trigger.</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            str: Condition</span>
+<span class="sd">        str: Condition</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:WHEN?&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">set_parity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parity</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the parity in RS232 trigger.</span>
+
 <span class="sd">        Parameter:</span>
-<span class="sd">            parity (str): &quot;NONE&quot;, &quot;EVEN&quot;, or &quot;ODD&quot;</span>
+
+<span class="sd">        parity (str): &quot;NONE&quot;, &quot;EVEN&quot;, or &quot;ODD&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;NONE&quot;</span><span class="p">,</span> <span class="s2">&quot;EVEN&quot;</span><span class="p">,</span> <span class="s2">&quot;ODD&quot;</span><span class="p">}</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">parity</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8321,16 +8325,20 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_parity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the parity in RS232 trigger.</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            str: Parity</span>
+
+<span class="sd">        str: Parity</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:PAR?&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">set_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the stop bit in RS232 trigger.</span>
+
 <span class="sd">        Parameter:</span>
-<span class="sd">            stop (float): Stop bit, one of 1, 1.5, or 2</span>
+
+<span class="sd">        stop (float): Stop bit, one of 1, 1.5, or 2</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
         <span class="k">if</span> <span class="n">stop</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
@@ -8341,8 +8349,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the stop bit in RS232 trigger.</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            float: Stop bit</span>
+
+<span class="sd">        float: Stop bit</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:STOP?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -8353,8 +8363,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the data width in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Parameter:</span>
-<span class="sd">            data (int): Data width, 5 to 8</span>
+
+<span class="sd">        data (int): Data width, 5 to 8</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">5</span> <span class="o">&lt;=</span> <span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:RS232:DATA </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8364,8 +8376,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the data width in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            int: Data width</span>
+<span class="sd">        int: Data width</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:DATA?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -8376,8 +8389,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the width in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Parameter:</span>
-<span class="sd">            width (int): Data width, 5 to 8</span>
+<span class="sd">        width (int): Data width, 5 to 8</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">5</span> <span class="o">&lt;=</span> <span class="n">width</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:RS232:WIDT </span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8387,8 +8401,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the width in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            int: Data width</span>
+<span class="sd">        int: Data width</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:WIDT?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -8399,8 +8414,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_baud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baud</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the baud rate in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Parameter:</span>
-<span class="sd">            baud (int): Baud rate, 110 to 20000000</span>
+<span class="sd">        baud (int): Baud rate, 110 to 20000000</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">baud</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">110</span> <span class="o">&lt;=</span> <span class="n">baud</span> <span class="o">&lt;=</span> <span class="mi">20000000</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:RS232:BAUD </span><span class="si">{</span><span class="n">baud</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8410,8 +8426,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_baud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the baud rate in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            int: Baud rate</span>
+<span class="sd">        int: Baud rate</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:BAUD?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -8422,8 +8439,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_buser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buser</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the bus user value in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Parameter:</span>
-<span class="sd">            buser (int): User value (see instrument documentation for valid range)</span>
+<span class="sd">        buser (int): User value (see instrument documentation for valid range)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">buser</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:RS232:BUS </span><span class="si">{</span><span class="n">buser</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8433,8 +8451,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_buser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the bus user value in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            int: Bus user value</span>
+<span class="sd">        int: Bus user value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:BUS?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -8445,16 +8464,18 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger level in RS232 trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Parameter:</span>
-<span class="sd">            level (float): Level value</span>
+<span class="sd">        level (float): Level value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:RS232:LEV </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger level in RS232 trigger.</span>
-<span class="sd">        Returns:</span>
-<span class="sd">            float: Level value</span>
+<span class="sd">        </span>
+<span class="sd">        Returns: </span>
+<span class="sd">        float: Level value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:RS232:LEV?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -8473,6 +8494,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_scl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the channel source of SCL in I2C trigger.</span>
+
 <span class="sd">        source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CHANNEL1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHANNEL2&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN2&quot;</span><span class="p">}</span>
@@ -8486,6 +8508,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_scl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the channel source of SCL in I2C trigger.</span>
+
 <span class="sd">        Returns: str: &quot;CHAN1&quot; or &quot;CHAN2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:IIC:SCL?&quot;</span><span class="p">)</span>
@@ -8596,6 +8619,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the data direction for I2C trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:IIC:DIRection?&quot;</span><span class="p">)</span>
@@ -8603,7 +8627,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the data for DATA or ADATA trigger.</span>
-<span class="sd">        data (int): 0 to 2^40-1 (max 40 bits)</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: data (int): 0 to 2^40-1 (max 40 bits)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">data</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">40</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:IIC:DATA </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8613,6 +8638,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the data for I2C trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:IIC:DATA?&quot;</span><span class="p">)</span>
@@ -8624,13 +8650,15 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_clevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger level of SCL in I2C trigger.</span>
-<span class="sd">        level (float): Level value</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: level (float): Level value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:IIC:CLEVel </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_clevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger level of SCL in I2C trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:IIC:CLEVel?&quot;</span><span class="p">)</span>
@@ -8642,13 +8670,15 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_dlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger level of SDA in I2C trigger.</span>
-<span class="sd">        level (float): Level value</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: level (float): Level value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:IIC:DLEVel </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger level of SDA in I2C trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:IIC:DLEVel?&quot;</span><span class="p">)</span>
@@ -8668,7 +8698,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_scl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the channel source of SCL in SPI trigger.</span>
-<span class="sd">        source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CHANNEL1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHANNEL2&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN2&quot;</span><span class="p">}</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8681,6 +8712,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_scl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the channel source of SCL in SPI trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: str: &quot;CHAN1&quot; or &quot;CHAN2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:SCL?&quot;</span><span class="p">)</span>
@@ -8688,7 +8720,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_sda</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the channel source of SDA in SPI trigger.</span>
-<span class="sd">        source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CHANNEL1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHANNEL2&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN2&quot;</span><span class="p">}</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8701,6 +8734,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_sda</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the channel source of SDA in SPI trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: str: &quot;CHAN1&quot; or &quot;CHAN2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:SDA?&quot;</span><span class="p">)</span>
@@ -8708,7 +8742,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_when</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trig_type</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger condition in SPI trigger.</span>
-<span class="sd">        trig_type (str): &quot;CS&quot; or &quot;TIMEOUT&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: trig_type (str): &quot;CS&quot; or &quot;TIMEOUT&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CS&quot;</span><span class="p">,</span> <span class="s2">&quot;TIMEOUT&quot;</span><span class="p">}</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">trig_type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8721,6 +8756,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_when</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger condition in SPI trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:WHEN?&quot;</span><span class="p">)</span>
@@ -8728,7 +8764,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the data bits of the SDA channel in SPI trigger.</span>
-<span class="sd">        width (int): 4 to 32</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: width (int): 4 to 32</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">4</span> <span class="o">&lt;=</span> <span class="n">width</span> <span class="o">&lt;=</span> <span class="mi">32</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:SPI:WIDTh </span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8738,6 +8775,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the data bits of the SDA channel in SPI trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:WIDTh?&quot;</span><span class="p">)</span>
@@ -8749,7 +8787,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the data in SPI trigger.</span>
-<span class="sd">        data (int): 0 to 2^32-1</span>
+
+<span class="sd">        Parameters: data (int): 0 to 2^32-1</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">data</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:SPI:DATA </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8759,6 +8798,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the data in SPI trigger.</span>
+
 <span class="sd">        Returns: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:DATA?&quot;</span><span class="p">)</span>
@@ -8770,7 +8810,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the timeout value in SPI trigger (seconds).</span>
-<span class="sd">        time_value (float): 100e-9 to 1</span>
+
+<span class="sd">        Parameters:  time_value (float): 100e-9 to 1</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time_value</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span> <span class="ow">and</span> <span class="mf">1e-7</span> <span class="o">&lt;=</span> <span class="n">time_value</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:SPI:TIMeout </span><span class="si">{</span><span class="n">time_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8780,7 +8821,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the timeout value in SPI trigger.</span>
-<span class="sd">        Returns: float</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: Returns: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:TIMeout?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -8791,7 +8833,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_slope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slope</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the clock edge in SPI trigger.</span>
-<span class="sd">        slope (str): &quot;POSITIVE&quot; or &quot;NEGATIVE&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: slope (str): &quot;POSITIVE&quot; or &quot;NEGATIVE&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;POSITIVE&quot;</span><span class="p">,</span> <span class="s2">&quot;NEGATIVE&quot;</span><span class="p">,</span> <span class="s2">&quot;POS&quot;</span><span class="p">,</span> <span class="s2">&quot;NEG&quot;</span><span class="p">}</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">slope</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8804,13 +8847,16 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the clock edge in SPI trigger.</span>
-<span class="sd">        Returns: str: &quot;POS&quot; or &quot;NEG&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters: Returns: str: &quot;POS&quot; or &quot;NEG&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:SLOPe?&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">set_clevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger level of the SCL channel in SPI trigger.</span>
+
+<span class="sd">        Parameters:</span>
 <span class="sd">        level (float): Level value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:SPI:CLEVel </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8818,6 +8864,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_clevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger level of the SCL channel in SPI trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:CLEVel?&quot;</span><span class="p">)</span>
@@ -8829,6 +8876,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_dlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger level of the SDA channel in SPI trigger.</span>
+
+<span class="sd">        Parameters: </span>
 <span class="sd">        level (float): Level value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:SPI:DLEVel </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -8836,6 +8885,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger level of the SDA channel in SPI trigger.</span>
+<span class="sd">        </span>
 <span class="sd">        Returns: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:DLEVel?&quot;</span><span class="p">)</span>
@@ -8847,13 +8897,15 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_slevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the trigger level of the CS channel in SPI trigger.</span>
-<span class="sd">        level (float): Level value</span>
+
+<span class="sd">        Parameters: level (float): Level value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIG:SPI:SLEVel </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_slevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the trigger level of the CS channel in SPI trigger.</span>
+
 <span class="sd">        Returns: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:SLEVel?&quot;</span><span class="p">)</span>
@@ -8865,7 +8917,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the CS mode when trigger condition is CS in SPI trigger.</span>
-<span class="sd">        mode (str): &quot;HIGH&quot; or &quot;LOW&quot;</span>
+
+<span class="sd">        Parameters: mode (str): &quot;HIGH&quot; or &quot;LOW&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;HIGH&quot;</span><span class="p">,</span> <span class="s2">&quot;LOW&quot;</span><span class="p">}</span>
         <span class="n">m</span> <span class="o">=</span> <span class="n">mode</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8877,6 +8930,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the CS mode when trigger condition is CS in SPI trigger.</span>
+
 <span class="sd">        Returns: str: &quot;HIGH&quot; or &quot;LOW&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:MODE?&quot;</span><span class="p">)</span>
@@ -8884,7 +8938,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_cs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the data source of the CS signal in SPI trigger.</span>
-<span class="sd">        source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
+
+<span class="sd">        Parameters: source (str): &quot;CHANNEL1&quot; or &quot;CHANNEL2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CHANNEL1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHANNEL2&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN2&quot;</span><span class="p">}</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8897,14 +8952,14 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_cs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the data source of the CS signal in SPI trigger.</span>
+
 <span class="sd">        Returns: str: &quot;CHAN1&quot; or &quot;CHAN2&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIG:SPI:CS?&quot;</span><span class="p">)</span>
 <div class="viewcode-block" id="Waveform">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Waveform</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The Waveform commands are used to read the waveform data and its related settings.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The Waveform commands are used to read the waveform data and its related settings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="Waveform.__init__">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.__init__">[docs]</a>
@@ -8916,12 +8971,11 @@
 <div class="viewcode-block" id="Waveform.set_source">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.set_source">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the channel of which the waveform data will be read.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            source (str): &quot;CHANnel1&quot;, &quot;CHANnel2&quot;, or &quot;MATH&quot;</span>
-<span class="sd">        Return:</span>
-<span class="sd">            None</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the channel of which the waveform data will be read.</span>
+
+<span class="sd">        Parameter: source (str): &quot;CHANnel1&quot;, &quot;CHANnel2&quot;, or &quot;MATH&quot;</span>
+
+<span class="sd">        Return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CHANNEL1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHANNEL2&quot;</span><span class="p">,</span> <span class="s2">&quot;MATH&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN1&quot;</span><span class="p">,</span> <span class="s2">&quot;CHAN2&quot;</span><span class="p">}</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8935,12 +8989,11 @@
 <div class="viewcode-block" id="Waveform.get_source">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_source">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the channel of which the waveform data will be read.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            str: &quot;CHAN1&quot;, &quot;CHAN2&quot;, or &quot;MATH&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the channel of which the waveform data will be read.</span>
+
+<span class="sd">        Parameter: None</span>
+
+<span class="sd">        Return: str: &quot;CHAN1&quot;, &quot;CHAN2&quot;, or &quot;MATH&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:SOURce?&quot;</span><span class="p">)</span></div>
 
@@ -8950,10 +9003,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the reading mode used by :WAVeform:DATA?.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            mode (str): &quot;NORMal&quot;, &quot;MAXimum&quot;, or &quot;RAW&quot;</span>
-<span class="sd">        Return:</span>
-<span class="sd">            None</span>
+
+<span class="sd">        Parameter: mode (str): &quot;NORMal&quot;, &quot;MAXimum&quot;, or &quot;RAW&quot;</span>
+
+<span class="sd">        Return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;NORMAL&quot;</span><span class="p">,</span> <span class="s2">&quot;MAXIMUM&quot;</span><span class="p">,</span> <span class="s2">&quot;RAW&quot;</span><span class="p">,</span> <span class="s2">&quot;NORMal&quot;</span><span class="p">,</span> <span class="s2">&quot;MAXimum&quot;</span><span class="p">}</span>
         <span class="n">m</span> <span class="o">=</span> <span class="n">mode</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -8972,12 +9025,11 @@
 <div class="viewcode-block" id="Waveform.get_mode">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_mode">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the reading mode used by :WAVeform:DATA?.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            str: &quot;NORM&quot;, &quot;MAX&quot;, or &quot;RAW&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the reading mode used by :WAVeform:DATA?.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: str: &quot;NORM&quot;, &quot;MAX&quot;, or &quot;RAW&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:MODE?&quot;</span><span class="p">)</span></div>
 
@@ -8985,12 +9037,11 @@
 <div class="viewcode-block" id="Waveform.set_format">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.set_format">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the return format of the waveform data.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            fmt (str): &quot;WORD&quot;, &quot;BYTE&quot;, or &quot;ASCii&quot;</span>
-<span class="sd">        Return:</span>
-<span class="sd">            None</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the return format of the waveform data.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: fmt (str): &quot;WORD&quot;, &quot;BYTE&quot;, or &quot;ASCii&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;WORD&quot;</span><span class="p">,</span> <span class="s2">&quot;BYTE&quot;</span><span class="p">,</span> <span class="s2">&quot;ASCII&quot;</span><span class="p">,</span> <span class="s2">&quot;ASCii&quot;</span><span class="p">}</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">fmt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
@@ -9011,10 +9062,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the return format of the waveform data.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            str: &quot;WORD&quot;, &quot;BYTE&quot;, or &quot;ASC&quot;</span>
+
+<span class="sd">        Parameter: None</span>
+
+<span class="sd">        Return: str: &quot;WORD&quot;, &quot;BYTE&quot;, or &quot;ASC&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:FORMat?&quot;</span><span class="p">)</span></div>
 
@@ -9022,12 +9073,11 @@
 <div class="viewcode-block" id="Waveform.get_data">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Read the waveform data. If autosave is on, then also saves them to a csv file.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            bytes or str: Raw waveform data (format depends on :WAVeform:FORMat)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read the waveform data. If autosave is on, then also saves them to a csv file.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: bytes or str: Raw waveform data (format depends on :WAVeform:FORMat)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_format</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">&quot;ASC&quot;</span><span class="p">:</span>
@@ -9045,12 +9095,11 @@
 <div class="viewcode-block" id="Waveform.set_start">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.set_start">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sta</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the start point of waveform data reading.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            sta (int): Start point (see documentation for valid range)</span>
-<span class="sd">        Return:</span>
-<span class="sd">            None</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the start point of waveform data reading.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: sta (int): Start point (see documentation for valid range)</span>
+<span class="sd">        </span>
+<span class="sd">        Return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">sta</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:WAVeform:STARt </span><span class="si">{</span><span class="n">sta</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -9061,12 +9110,11 @@
 <div class="viewcode-block" id="Waveform.get_start">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_start">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the start point of waveform data reading.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            int: Start point</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the start point of waveform data reading.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: int: Start point</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:STARt?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -9078,13 +9126,11 @@
 <div class="viewcode-block" id="Waveform.set_stop">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.set_stop">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the stop point of waveform data reading.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            stop (int): Stop point (see documentation for valid range)</span>
-<span class="sd">        Return:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the stop point of waveform data reading.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: stop (int): Stop point (see documentation for valid range)</span>
+<span class="sd">        </span>
+<span class="sd">        Return: None&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stop</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">stop</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:WAVeform:STOP </span><span class="si">{</span><span class="n">stop</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -9094,13 +9140,11 @@
 <div class="viewcode-block" id="Waveform.get_stop">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_stop">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the stop point of waveform data reading.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            int: Stop point</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the stop point of waveform data reading.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: int: Stop point&quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:STOP?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
@@ -9111,12 +9155,11 @@
 <div class="viewcode-block" id="Waveform.get_xincrement">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_xincrement">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_xincrement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the time difference between two neighboring points of the specified channel source in the X direction.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            float: X increment (seconds or Hz)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the time difference between two neighboring points of the specified channel source in the X direction.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return:float: X increment (seconds or Hz)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:XINCrement?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -9128,12 +9171,11 @@
 <div class="viewcode-block" id="Waveform.get_xorigin">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_xorigin">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_xorigin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the start time of the waveform data of the channel source currently selected in the X direction.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            float: X origin (seconds or Hz)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the start time of the waveform data of the channel source currently selected in the X direction.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: float: X origin (seconds or Hz)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:XORigin?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -9145,12 +9187,12 @@
 <div class="viewcode-block" id="Waveform.get_xreference">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_xreference">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_xreference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the reference time of the specified channel source in the X direction.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            int: X reference (usually 0)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the reference time of the specified channel source in the X direction.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: </span>
+<span class="sd">        int: X reference (usually 0)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:XREFerence?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -9162,12 +9204,12 @@
 <div class="viewcode-block" id="Waveform.get_yincrement">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_yincrement">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_yincrement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the waveform increment of the specified channel source in the Y direction.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            float: Y increment (amplitude unit)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the waveform increment of the specified channel source in the Y direction.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: </span>
+<span class="sd">        float: Y increment (amplitude unit)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:YINCrement?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -9181,10 +9223,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_yorigin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the vertical offset relative to the vertical reference position of the specified channel source in the Y direction.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            int: Y origin</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: </span>
+<span class="sd">        int: Y origin</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:YORigin?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -9196,12 +9239,12 @@
 <div class="viewcode-block" id="Waveform.get_yreference">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_yreference">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_yreference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the vertical reference position of the specified channel source in the Y direction.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            int: Y reference (usually 127)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the vertical reference position of the specified channel source in the Y direction.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: </span>
+<span class="sd">        int: Y reference (usually 127)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:YREFerence?&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
@@ -9213,12 +9256,12 @@
 <div class="viewcode-block" id="Waveform.get_preamble">
 <a class="viewcode-back" href="../../generated/Instruments.oscilloscope_rigol.Waveform.html#Instruments.oscilloscope_rigol.Waveform.get_preamble">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_preamble</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query and return all the waveform parameters.</span>
-<span class="sd">        Parameter:</span>
-<span class="sd">            None</span>
-<span class="sd">        Return:</span>
-<span class="sd">            str: 10 waveform parameters separated by commas</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query and return all the waveform parameters.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameter: None</span>
+<span class="sd">        </span>
+<span class="sd">        Return: </span>
+<span class="sd">        str: 10 waveform parameters separated by commas</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:WAVeform:PREamble?&quot;</span><span class="p">)</span></div>
 </div>
