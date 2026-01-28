@@ -130,8 +130,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">channel</span>  <span class="o">=</span> <span class="n">channel</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">balanced_port_1</span> <span class="o">=</span> <span class="n">Calc_Balanced</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">bport</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">balanced_port_2</span> <span class="o">=</span> <span class="n">Calc_Balanced</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">bport</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balanced_port_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Calc_Balanced</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">bport</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balanced_port_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Calc_Balanced</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">bport</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">marker</span> <span class="o">=</span> <span class="n">Calc_Marker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">math</span> <span class="o">=</span> <span class="n">Calc_Math</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mst</span> <span class="o">=</span> <span class="n">Calc_MST</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
@@ -441,539 +441,539 @@
 <span class="sd">            bool: True if enabled, False otherwise</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:STAT?&quot;</span><span class="p">)))</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Calc_Balanced</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Commands to modify balanced fixture simulation parameters.&quot;&quot;&quot;</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">bport</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bport</span> <span class="o">=</span> <span class="n">bport</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">DMC</span> <span class="o">=</span> <span class="n">Calc_Balanced_DMC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">bport</span><span class="p">)</span>
-    <span class="c1"># CALC:FSIM:BAL:CZC:BPOR:Z0 - Set/read common impedance for balanced port</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_balanced_port_common_impedance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the impedance value for the common impedance conversion function of the balanced port.</span>
-
-<span class="sd">        Description:</span>
-<span class="sd">            Sets the real impedance value for the common impedance conversion function of the balanced port.</span>
-<span class="sd">            The value is limited to the range 0.001 to 10_000_000 Ohms (1 mΩ to 10 MΩ).</span>
-<span class="sd">            The default value is 25 Ohms.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            value (float): Impedance value in Ohms</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">10_000_000</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:BPOR</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bport</span><span class="si">}</span><span class="s2">:Z0 </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_balanced_port_common_impedance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Read out the impedance value for the common impedance conversion function of the balanced port.</span>
-
-<span class="sd">        Description:</span>
-<span class="sd">            Reads the real impedance value for the common impedance conversion function of the balanced port.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2 for Bal-Bal topology, 1 for others)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: Impedance value in Ohms</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:Z0?&quot;</span><span class="p">))</span>
-    <span class="c1"># CALC:FSIM:BAL:CZC:STAT - Common impedance conversion ON/OFF</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">enable_common_impedance_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Turns ON the common impedance conversion function of the balanced port.</span>
-
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:STAT 1&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">disable_common_impedance_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Turns OFF the common impedance conversion function of the balanced port.</span>
-
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:STAT 0&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">is_common_impedance_conversion_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query if the common impedance conversion function of the balanced port is enabled.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if enabled, False otherwise</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:STAT?&quot;</span><span class="p">)))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:DEV - Select type of balanced device</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_balanced_device_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Selects the type of balanced device of the balance-unbalance fixture simulation function.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            device_type (str): Type of balanced device, one of [&#39;SBALanced&#39;, &#39;BBALanced&#39;, &#39;SSBalanced&#39;, &#39;BALanced&#39;]</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SBALanced&#39;</span><span class="p">,</span> <span class="s1">&#39;BBALanced&#39;</span><span class="p">,</span> <span class="s1">&#39;SSBalanced&#39;</span><span class="p">,</span> <span class="s1">&#39;BALanced&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">device_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;device_type must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DEV </span><span class="si">{</span><span class="n">device_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_balanced_device_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads out the type of balanced device of the balance-unbalance fixture simulation function.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            str: Type of balanced device</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DEV?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-    <span class="c1"># CALC:FSIM:BAL:DMC:BPOR:PAR:C - Capacitance value of C element</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_dmc_c</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the capacitance value of the C element of the differential matching circuit.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2)</span>
-<span class="sd">            value (float): Capacitance value in Farads (1e-18 to 1e18)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-18</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1e18</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:C </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_dmc_c</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads out the capacitance value of the C element of the differential matching circuit.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: Capacitance value in Farads</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:C?&quot;</span><span class="p">))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:DMC:BPOR:PAR:G - Conductance value of G element</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_dmc_g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the conductance value of the G element of the differential matching circuit.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2)</span>
-<span class="sd">            value (float): Conductance value in Siemens (1e-18 to 1e18)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-18</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1e18</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:G </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_dmc_g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads out the conductance value of the G element of the differential matching circuit.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: Conductance value in Siemens</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:G?&quot;</span><span class="p">))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:DMC:BPOR:PAR:L - Inductance value of L element</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_dmc_l</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the inductance value of the L element of the differential matching circuit.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2)</span>
-<span class="sd">            value (float): Inductance value in Henry (1e-18 to 1e18)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-18</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1e18</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:L </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_dmc_l</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads out the inductance value of the L element of the differential matching circuit.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: Inductance value in Henry</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:L?&quot;</span><span class="p">))</span>
-    
-    <span class="c1"># CALC:FSIM:BAL:DZC:BPOR:Z0 - Set/read DMC differential impedance</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_dzconversion_impedance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the impedance value for the differential impedance conversion function of the balanced port.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2)</span>
-<span class="sd">            value (float): Impedance value in Ohms (0.001 to 10_000_000)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">10_000_000</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:Z0 </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_dzconversion_impedance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the impedance value for the differential impedance conversion function of the balanced port.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            bport (int): Balanced port number (1 or 2)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            float: Impedance value in Ohms</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:Z0?&quot;</span><span class="p">))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:DZC:STAT - Enable/disable DMC differential impedance conversion</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">enable_dzconversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Enable the differential impedance conversion function of the balanced port.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:STAT 1&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">disable_dzconversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Disable the differential impedance conversion function of the balanced port.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:STAT 0&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">is_dzconversion_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query if the differential impedance conversion function of the balanced port is enabled.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if enabled, False otherwise</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:STAT?&quot;</span><span class="p">)))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:PAR:BAL - Set/read measurement parameter for BALanced device type</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_balanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the measurement parameter of the fixture simulation function for BALanced device type.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-<span class="sd">            param (str): Measurement parameter (&#39;SDD11&#39;, &#39;SCD11&#39;, &#39;SDC11&#39;, &#39;SCC11&#39;)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SDD11&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD11&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC11&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC11&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;param must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:BAL:DEF </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_balanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the measurement parameter of the fixture simulation function for BALanced device type.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            str: Measurement parameter</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:BAL:DEF?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-    <span class="c1"># CALC:FSIM:BAL:PAR:BBAL - Set/read measurement parameter for BBALanced device type</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_bbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the measurement parameter of the fixture simulation function for BBALanced device type.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-<span class="sd">            param (str): Measurement parameter (see allowed list)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;SDD11&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD21&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD12&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD22&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;SCD11&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD21&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD12&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD22&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;SDC11&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC21&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC12&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC22&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;SCC11&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC21&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC12&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC22&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;IMB1&#39;</span><span class="p">,</span> <span class="s1">&#39;IMB2&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR&#39;</span>
-        <span class="p">]</span>
-        <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;param must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:BBAL:DEF </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_bbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the measurement parameter of the fixture simulation function for BBALanced device type.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            str: Measurement parameter</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:BBAL:DEF?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="c1"># CALC:FSIM:BAL:PAR:SBAL - Set/read measurement parameter for SBALanced device type</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_sbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the measurement parameter of the fixture simulation function for SBALanced device type.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-<span class="sd">            param (str): Measurement parameter, one of [</span>
-<span class="sd">                &#39;SSS11&#39;, &#39;SDS21&#39;, &#39;SSD12&#39;, &#39;SCS21&#39;, &#39;SSC12&#39;, &#39;SDD22&#39;, &#39;SCD22&#39;, &#39;SDC22&#39;, &#39;SCC22&#39;,</span>
-<span class="sd">                &#39;IMB&#39;, &#39;CMRR1&#39;, &#39;CMRR2&#39;</span>
-<span class="sd">            ]</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;SSS11&#39;</span><span class="p">,</span> <span class="s1">&#39;SDS21&#39;</span><span class="p">,</span> <span class="s1">&#39;SSD12&#39;</span><span class="p">,</span> <span class="s1">&#39;SCS21&#39;</span><span class="p">,</span> <span class="s1">&#39;SSC12&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD22&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD22&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC22&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC22&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;IMB&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR1&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR2&#39;</span>
-        <span class="p">]</span>
-        <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;param must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:SBAL:DEF </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_sbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the measurement parameter of the fixture simulation function for SBALanced device type.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            str: Measurement parameter</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:SBAL:DEF?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-    <span class="c1"># CALC:FSIM:BAL:PAR:SSB - Set/read measurement parameter for SSBalanced device type</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_ssbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the measurement parameter of the fixture simulation function for SSBalanced device type.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-<span class="sd">            param (str): Measurement parameter, one of [</span>
-<span class="sd">                &#39;SSS11&#39;, &#39;SSS21&#39;, &#39;SSS12&#39;, &#39;SSS22&#39;, &#39;SDS31&#39;, &#39;SDS32&#39;, &#39;SSD13&#39;, &#39;SSD23&#39;,</span>
-<span class="sd">                &#39;SCS31&#39;, &#39;SCS32&#39;, &#39;SSC13&#39;, &#39;SSC23&#39;, &#39;SDD33&#39;, &#39;SCD33&#39;, &#39;SDC33&#39;, &#39;SCC33&#39;,</span>
-<span class="sd">                &#39;IMB1&#39;, &#39;IMB2&#39;, &#39;IMB3&#39;, &#39;IMB4&#39;, &#39;CMRR1&#39;, &#39;CMRR2&#39;</span>
-<span class="sd">            ]</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;SSS11&#39;</span><span class="p">,</span> <span class="s1">&#39;SSS21&#39;</span><span class="p">,</span> <span class="s1">&#39;SSS12&#39;</span><span class="p">,</span> <span class="s1">&#39;SSS22&#39;</span><span class="p">,</span> <span class="s1">&#39;SDS31&#39;</span><span class="p">,</span> <span class="s1">&#39;SDS32&#39;</span><span class="p">,</span> <span class="s1">&#39;SSD13&#39;</span><span class="p">,</span> <span class="s1">&#39;SSD23&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;SCS31&#39;</span><span class="p">,</span> <span class="s1">&#39;SCS32&#39;</span><span class="p">,</span> <span class="s1">&#39;SSC13&#39;</span><span class="p">,</span> <span class="s1">&#39;SSC23&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD33&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD33&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC33&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC33&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;IMB1&#39;</span><span class="p">,</span> <span class="s1">&#39;IMB2&#39;</span><span class="p">,</span> <span class="s1">&#39;IMB3&#39;</span><span class="p">,</span> <span class="s1">&#39;IMB4&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR1&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR2&#39;</span>
-        <span class="p">]</span>
-        <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;param must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:SSB:DEF </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_ssbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the measurement parameter of the fixture simulation function for SSBalanced device type.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            str: Measurement parameter</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:SSB:DEF?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-    <span class="c1"># CALC:FSIM:BAL:PAR:STAT - Enable/disable BalUn function for the specified trace</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">enable_balun_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Turn ON the BalUn function for the specified trace.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:STAT 1&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">disable_balun_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Turn OFF the BalUn function for the specified trace.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:STAT 0&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">is_balun_function_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query if the BalUn function is enabled for the specified trace.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            trace (int): Trace number (1-16)</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if enabled, False otherwise</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:STAT?&quot;</span><span class="p">)))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:TOP:BAL - Set/read ports assigned to BALanced device type</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_balanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port2</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the ports assigned to the balanced device when its type is &quot;BALance&quot;.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            port1 (int): First port number</span>
-<span class="sd">            port2 (int): Second port number</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:BAL:PPOR </span><span class="si">{</span><span class="n">port1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_balanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the ports assigned to the balanced device when its type is &quot;BALance&quot;.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            tuple: (port1, port2)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:BAL:PPOR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:TOP:BBAL - Set/read ports assigned to BBALanced device type</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_bbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port3</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port4</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the ports assigned to the balanced device when its type is &quot;BBALance&quot;.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            port1 (int): First port number</span>
-<span class="sd">            port2 (int): Second port number</span>
-<span class="sd">            port3 (int): Third port number</span>
-<span class="sd">            port4 (int): Fourth port number</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:BBAL:PPOR </span><span class="si">{</span><span class="n">port1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port3</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_bbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the ports assigned to the balanced device when its type is &quot;BBALance&quot;.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            tuple: (port1, port2, port3, port4)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:BBAL:PPOR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
-    <span class="c1"># CALC:FSIM:BAL:TOP:SBAL:PPOR - Set ports for SBALanced device type</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_sbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port3</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the ports assigned to the balanced device when its type is &quot;SBALanced&quot;.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            port1 (int): First port number</span>
-<span class="sd">            port2 (int): Second port number</span>
-<span class="sd">            port3 (int): Third port number</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:SBAL:PPOR </span><span class="si">{</span><span class="n">port1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_sbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the ports assigned to the balanced device when its type is &quot;SBALanced&quot;.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            tuple: (port1, port2, port3)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:SBAL:PPOR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:TOP:SSB:PPOR - Set ports for SSBalanced device type</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_ssbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port3</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port4</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the ports assigned to the balanced device when its type is &quot;SSBalanced&quot;.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            port1 (int): First port number</span>
-<span class="sd">            port2 (int): Second port number</span>
-<span class="sd">            port3 (int): Third port number</span>
-<span class="sd">            port4 (int): Fourth port number</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:SSB:PPOR </span><span class="si">{</span><span class="n">port1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port3</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_ssbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the ports assigned to the balanced device when its type is &quot;SSBalanced&quot;.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            tuple: (port1, port2, port3, port4)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:SSB:PPOR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
-
-    <span class="c1"># CALC:FSIM:BAL:TOP:PROP:STAT - Enable/disable BalUn property indication</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">enable_balun_property_indication</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Turn ON the BalUn property indication on the screen.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:PROP:STAT 1&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">disable_balun_property_indication</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Turn OFF the BalUn property indication on the screen.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:PROP:STAT 0&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">is_balun_property_indication_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query if the BalUn property indication is enabled on the screen.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if enabled, False otherwise</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:PROP:STAT?&quot;</span><span class="p">)))</span>
-
-    
+    <span class="k">class</span><span class="w"> </span><span class="nc">Calc_Balanced</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Commands to modify balanced fixture simulation parameters.&quot;&quot;&quot;</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">bport</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bport</span> <span class="o">=</span> <span class="n">bport</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">DMC</span> <span class="o">=</span> <span class="n">Calc_Balanced_DMC</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">bport</span><span class="p">)</span>
+        <span class="c1"># CALC:FSIM:BAL:CZC:BPOR:Z0 - Set/read common impedance for balanced port</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_balanced_port_common_impedance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the impedance value for the common impedance conversion function of the balanced port.</span>
+
+<span class="sd">            Description:</span>
+<span class="sd">                Sets the real impedance value for the common impedance conversion function of the balanced port.</span>
+<span class="sd">                The value is limited to the range 0.001 to 10_000_000 Ohms (1 mΩ to 10 MΩ).</span>
+<span class="sd">                The default value is 25 Ohms.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                value (float): Impedance value in Ohms</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">10_000_000</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:BPOR</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bport</span><span class="si">}</span><span class="s2">:Z0 </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_balanced_port_common_impedance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Read out the impedance value for the common impedance conversion function of the balanced port.</span>
+
+<span class="sd">            Description:</span>
+<span class="sd">                Reads the real impedance value for the common impedance conversion function of the balanced port.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2 for Bal-Bal topology, 1 for others)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                float: Impedance value in Ohms</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:Z0?&quot;</span><span class="p">))</span>
+        <span class="c1"># CALC:FSIM:BAL:CZC:STAT - Common impedance conversion ON/OFF</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">enable_common_impedance_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Turns ON the common impedance conversion function of the balanced port.</span>
+
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:STAT 1&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">disable_common_impedance_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Turns OFF the common impedance conversion function of the balanced port.</span>
+
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:STAT 0&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">is_common_impedance_conversion_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Query if the common impedance conversion function of the balanced port is enabled.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True if enabled, False otherwise</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:CZC:STAT?&quot;</span><span class="p">)))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:DEV - Select type of balanced device</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_balanced_device_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Selects the type of balanced device of the balance-unbalance fixture simulation function.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                device_type (str): Type of balanced device, one of [&#39;SBALanced&#39;, &#39;BBALanced&#39;, &#39;SSBalanced&#39;, &#39;BALanced&#39;]</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SBALanced&#39;</span><span class="p">,</span> <span class="s1">&#39;BBALanced&#39;</span><span class="p">,</span> <span class="s1">&#39;SSBalanced&#39;</span><span class="p">,</span> <span class="s1">&#39;BALanced&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">device_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;device_type must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DEV </span><span class="si">{</span><span class="n">device_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_balanced_device_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Reads out the type of balanced device of the balance-unbalance fixture simulation function.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                str: Type of balanced device</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DEV?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># CALC:FSIM:BAL:DMC:BPOR:PAR:C - Capacitance value of C element</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_dmc_c</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Sets the capacitance value of the C element of the differential matching circuit.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2)</span>
+<span class="sd">                value (float): Capacitance value in Farads (1e-18 to 1e18)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-18</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1e18</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:C </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_dmc_c</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Reads out the capacitance value of the C element of the differential matching circuit.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                float: Capacitance value in Farads</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:C?&quot;</span><span class="p">))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:DMC:BPOR:PAR:G - Conductance value of G element</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_dmc_g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Sets the conductance value of the G element of the differential matching circuit.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2)</span>
+<span class="sd">                value (float): Conductance value in Siemens (1e-18 to 1e18)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-18</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1e18</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:G </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_dmc_g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Reads out the conductance value of the G element of the differential matching circuit.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                float: Conductance value in Siemens</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:G?&quot;</span><span class="p">))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:DMC:BPOR:PAR:L - Inductance value of L element</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_dmc_l</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Sets the inductance value of the L element of the differential matching circuit.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2)</span>
+<span class="sd">                value (float): Inductance value in Henry (1e-18 to 1e18)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-18</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1e18</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:L </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_dmc_l</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Reads out the inductance value of the L element of the differential matching circuit.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                float: Inductance value in Henry</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DMC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:PAR:L?&quot;</span><span class="p">))</span>
+        
+        <span class="c1"># CALC:FSIM:BAL:DZC:BPOR:Z0 - Set/read DMC differential impedance</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_dzconversion_impedance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the impedance value for the differential impedance conversion function of the balanced port.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2)</span>
+<span class="sd">                value (float): Impedance value in Ohms (0.001 to 10_000_000)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">10_000_000</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:Z0 </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_dzconversion_impedance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bport</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the impedance value for the differential impedance conversion function of the balanced port.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                bport (int): Balanced port number (1 or 2)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                float: Impedance value in Ohms</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:BPOR</span><span class="si">{</span><span class="n">bport</span><span class="si">}</span><span class="s2">:Z0?&quot;</span><span class="p">))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:DZC:STAT - Enable/disable DMC differential impedance conversion</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">enable_dzconversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Enable the differential impedance conversion function of the balanced port.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:STAT 1&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">disable_dzconversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Disable the differential impedance conversion function of the balanced port.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:STAT 0&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">is_dzconversion_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Query if the differential impedance conversion function of the balanced port is enabled.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True if enabled, False otherwise</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:DZC:STAT?&quot;</span><span class="p">)))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:PAR:BAL - Set/read measurement parameter for BALanced device type</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_balanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the measurement parameter of the fixture simulation function for BALanced device type.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+<span class="sd">                param (str): Measurement parameter (&#39;SDD11&#39;, &#39;SCD11&#39;, &#39;SDC11&#39;, &#39;SCC11&#39;)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SDD11&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD11&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC11&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC11&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;param must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:BAL:DEF </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_balanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the measurement parameter of the fixture simulation function for BALanced device type.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                str: Measurement parameter</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:BAL:DEF?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># CALC:FSIM:BAL:PAR:BBAL - Set/read measurement parameter for BBALanced device type</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_bbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the measurement parameter of the fixture simulation function for BBALanced device type.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+<span class="sd">                param (str): Measurement parameter (see allowed list)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s1">&#39;SDD11&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD21&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD12&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD22&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SCD11&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD21&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD12&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD22&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SDC11&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC21&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC12&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC22&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SCC11&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC21&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC12&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC22&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;IMB1&#39;</span><span class="p">,</span> <span class="s1">&#39;IMB2&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR&#39;</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;param must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:BBAL:DEF </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_bbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the measurement parameter of the fixture simulation function for BBALanced device type.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                str: Measurement parameter</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:BBAL:DEF?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="c1"># CALC:FSIM:BAL:PAR:SBAL - Set/read measurement parameter for SBALanced device type</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_sbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the measurement parameter of the fixture simulation function for SBALanced device type.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+<span class="sd">                param (str): Measurement parameter, one of [</span>
+<span class="sd">                    &#39;SSS11&#39;, &#39;SDS21&#39;, &#39;SSD12&#39;, &#39;SCS21&#39;, &#39;SSC12&#39;, &#39;SDD22&#39;, &#39;SCD22&#39;, &#39;SDC22&#39;, &#39;SCC22&#39;,</span>
+<span class="sd">                    &#39;IMB&#39;, &#39;CMRR1&#39;, &#39;CMRR2&#39;</span>
+<span class="sd">                ]</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s1">&#39;SSS11&#39;</span><span class="p">,</span> <span class="s1">&#39;SDS21&#39;</span><span class="p">,</span> <span class="s1">&#39;SSD12&#39;</span><span class="p">,</span> <span class="s1">&#39;SCS21&#39;</span><span class="p">,</span> <span class="s1">&#39;SSC12&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD22&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD22&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC22&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC22&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;IMB&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR1&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR2&#39;</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;param must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:SBAL:DEF </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_sbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the measurement parameter of the fixture simulation function for SBALanced device type.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                str: Measurement parameter</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:SBAL:DEF?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># CALC:FSIM:BAL:PAR:SSB - Set/read measurement parameter for SSBalanced device type</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_ssbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the measurement parameter of the fixture simulation function for SSBalanced device type.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+<span class="sd">                param (str): Measurement parameter, one of [</span>
+<span class="sd">                    &#39;SSS11&#39;, &#39;SSS21&#39;, &#39;SSS12&#39;, &#39;SSS22&#39;, &#39;SDS31&#39;, &#39;SDS32&#39;, &#39;SSD13&#39;, &#39;SSD23&#39;,</span>
+<span class="sd">                    &#39;SCS31&#39;, &#39;SCS32&#39;, &#39;SSC13&#39;, &#39;SSC23&#39;, &#39;SDD33&#39;, &#39;SCD33&#39;, &#39;SDC33&#39;, &#39;SCC33&#39;,</span>
+<span class="sd">                    &#39;IMB1&#39;, &#39;IMB2&#39;, &#39;IMB3&#39;, &#39;IMB4&#39;, &#39;CMRR1&#39;, &#39;CMRR2&#39;</span>
+<span class="sd">                ]</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">allowed</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s1">&#39;SSS11&#39;</span><span class="p">,</span> <span class="s1">&#39;SSS21&#39;</span><span class="p">,</span> <span class="s1">&#39;SSS12&#39;</span><span class="p">,</span> <span class="s1">&#39;SSS22&#39;</span><span class="p">,</span> <span class="s1">&#39;SDS31&#39;</span><span class="p">,</span> <span class="s1">&#39;SDS32&#39;</span><span class="p">,</span> <span class="s1">&#39;SSD13&#39;</span><span class="p">,</span> <span class="s1">&#39;SSD23&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SCS31&#39;</span><span class="p">,</span> <span class="s1">&#39;SCS32&#39;</span><span class="p">,</span> <span class="s1">&#39;SSC13&#39;</span><span class="p">,</span> <span class="s1">&#39;SSC23&#39;</span><span class="p">,</span> <span class="s1">&#39;SDD33&#39;</span><span class="p">,</span> <span class="s1">&#39;SCD33&#39;</span><span class="p">,</span> <span class="s1">&#39;SDC33&#39;</span><span class="p">,</span> <span class="s1">&#39;SCC33&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;IMB1&#39;</span><span class="p">,</span> <span class="s1">&#39;IMB2&#39;</span><span class="p">,</span> <span class="s1">&#39;IMB3&#39;</span><span class="p">,</span> <span class="s1">&#39;IMB4&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR1&#39;</span><span class="p">,</span> <span class="s1">&#39;CMRR2&#39;</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;param must be one of </span><span class="si">{</span><span class="n">allowed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:SSB:DEF </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_ssbalanced_measurement_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the measurement parameter of the fixture simulation function for SSBalanced device type.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                str: Measurement parameter</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:SSB:DEF?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># CALC:FSIM:BAL:PAR:STAT - Enable/disable BalUn function for the specified trace</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">enable_balun_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Turn ON the BalUn function for the specified trace.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:STAT 1&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">disable_balun_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Turn OFF the BalUn function for the specified trace.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:STAT 0&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">is_balun_function_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Query if the BalUn function is enabled for the specified trace.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                trace (int): Trace number (1-16)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True if enabled, False otherwise</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:PAR</span><span class="si">{</span><span class="n">trace</span><span class="si">}</span><span class="s2">:STAT?&quot;</span><span class="p">)))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:TOP:BAL - Set/read ports assigned to BALanced device type</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_balanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port2</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the ports assigned to the balanced device when its type is &quot;BALance&quot;.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                port1 (int): First port number</span>
+<span class="sd">                port2 (int): Second port number</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:BAL:PPOR </span><span class="si">{</span><span class="n">port1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_balanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the ports assigned to the balanced device when its type is &quot;BALance&quot;.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                tuple: (port1, port2)</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:BAL:PPOR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:TOP:BBAL - Set/read ports assigned to BBALanced device type</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_bbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port3</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port4</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the ports assigned to the balanced device when its type is &quot;BBALance&quot;.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                port1 (int): First port number</span>
+<span class="sd">                port2 (int): Second port number</span>
+<span class="sd">                port3 (int): Third port number</span>
+<span class="sd">                port4 (int): Fourth port number</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:BBAL:PPOR </span><span class="si">{</span><span class="n">port1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port3</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_bbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the ports assigned to the balanced device when its type is &quot;BBALance&quot;.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                tuple: (port1, port2, port3, port4)</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:BBAL:PPOR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+        <span class="c1"># CALC:FSIM:BAL:TOP:SBAL:PPOR - Set ports for SBALanced device type</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_sbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port3</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the ports assigned to the balanced device when its type is &quot;SBALanced&quot;.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                port1 (int): First port number</span>
+<span class="sd">                port2 (int): Second port number</span>
+<span class="sd">                port3 (int): Third port number</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:SBAL:PPOR </span><span class="si">{</span><span class="n">port1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_sbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the ports assigned to the balanced device when its type is &quot;SBALanced&quot;.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                tuple: (port1, port2, port3)</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:SBAL:PPOR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:TOP:SSB:PPOR - Set ports for SSBalanced device type</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">set_ssbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port3</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">port4</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Set the ports assigned to the balanced device when its type is &quot;SSBalanced&quot;.</span>
+
+<span class="sd">            Parameters:</span>
+<span class="sd">                port1 (int): First port number</span>
+<span class="sd">                port2 (int): Second port number</span>
+<span class="sd">                port3 (int): Third port number</span>
+<span class="sd">                port4 (int): Fourth port number</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:SSB:PPOR </span><span class="si">{</span><span class="n">port1</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port2</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port3</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">port4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_ssbalanced_device_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the ports assigned to the balanced device when its type is &quot;SSBalanced&quot;.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                tuple: (port1, port2, port3, port4)</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:SSB:PPOR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+
+        <span class="c1"># CALC:FSIM:BAL:TOP:PROP:STAT - Enable/disable BalUn property indication</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">enable_balun_property_indication</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Turn ON the BalUn property indication on the screen.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:PROP:STAT 1&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">disable_balun_property_indication</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Turn OFF the BalUn property indication on the screen.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:PROP:STAT 0&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">is_balun_property_indication_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Query if the BalUn property indication is enabled on the screen.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True if enabled, False otherwise</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:FSIM:BAL:TOP:PROP:STAT?&quot;</span><span class="p">)))</span>
+
+        
 <span class="k">class</span><span class="w"> </span><span class="nc">Calc_Balanced_DMC</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Commands to modify differential matching circuit (DMC) parameters for balanced ports.</span>

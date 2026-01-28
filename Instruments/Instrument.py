@@ -100,6 +100,7 @@ class Instrument():
         """Set the enable register for the status byte register set.
 
         Parameters:
+        
         value (int): An integer value from 0 to 255. Bit 0 and bit 1 of the status byte register are not used and are always treated as 0.
         """
         # Basic validation for the value

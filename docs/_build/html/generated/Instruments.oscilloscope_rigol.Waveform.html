@@ -48,253 +48,150 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_data">
 <span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_data" title="Link to this definition">¶</a></dt>
-<dd><p>Read the waveform data. If autosave is on, then also saves them to a csv file.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>bytes or str: Raw waveform data (format depends on :WAVeform:FORMat)</p>
-</dd>
-</dl>
+<dd><p>Read the waveform data. If autosave is on, then also saves them to a csv file.</p>
+<p>Parameter: None</p>
+<p>Return: bytes or str: Raw waveform data (format depends on :WAVeform:FORMat)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_format">
 <span class="sig-name descname"><span class="pre">get_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_format" title="Link to this definition">¶</a></dt>
-<dd><p>Query the return format of the waveform data.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: “WORD”, “BYTE”, or “ASC”</p>
-</dd>
-</dl>
+<dd><p>Query the return format of the waveform data.</p>
+<p>Parameter: None</p>
+<p>Return: str: “WORD”, “BYTE”, or “ASC”</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_mode">
 <span class="sig-name descname"><span class="pre">get_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_mode" title="Link to this definition">¶</a></dt>
-<dd><p>Query the reading mode used by :WAVeform:DATA?.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: “NORM”, “MAX”, or “RAW”</p>
-</dd>
-</dl>
+<dd><p>Query the reading mode used by :WAVeform:DATA?.</p>
+<p>Parameter: None</p>
+<p>Return: str: “NORM”, “MAX”, or “RAW”</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_preamble">
 <span class="sig-name descname"><span class="pre">get_preamble</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_preamble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_preamble" title="Link to this definition">¶</a></dt>
-<dd><p>Query and return all the waveform parameters.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: 10 waveform parameters separated by commas</p>
-</dd>
-</dl>
+<dd><p>Query and return all the waveform parameters.</p>
+<p>Parameter: None</p>
+<p>Return: 
+str: 10 waveform parameters separated by commas</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_source">
 <span class="sig-name descname"><span class="pre">get_source</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_source" title="Link to this definition">¶</a></dt>
-<dd><p>Query the channel of which the waveform data will be read.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: “CHAN1”, “CHAN2”, or “MATH”</p>
-</dd>
-</dl>
+<dd><p>Query the channel of which the waveform data will be read.</p>
+<p>Parameter: None</p>
+<p>Return: str: “CHAN1”, “CHAN2”, or “MATH”</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_start">
 <span class="sig-name descname"><span class="pre">get_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_start" title="Link to this definition">¶</a></dt>
-<dd><p>Query the start point of waveform data reading.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: Start point</p>
-</dd>
-</dl>
+<dd><p>Query the start point of waveform data reading.</p>
+<p>Parameter: None</p>
+<p>Return: int: Start point</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_stop">
 <span class="sig-name descname"><span class="pre">get_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_stop" title="Link to this definition">¶</a></dt>
-<dd><p>Query the stop point of waveform data reading.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: Stop point</p>
-</dd>
-</dl>
+<dd><p>Query the stop point of waveform data reading.</p>
+<p>Parameter: None</p>
+<p>Return: int: Stop point</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_xincrement">
 <span class="sig-name descname"><span class="pre">get_xincrement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_xincrement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_xincrement" title="Link to this definition">¶</a></dt>
-<dd><p>Query the time difference between two neighboring points of the specified channel source in the X direction.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>float: X increment (seconds or Hz)</p>
-</dd>
-</dl>
+<dd><p>Query the time difference between two neighboring points of the specified channel source in the X direction.</p>
+<p>Parameter: None</p>
+<p>Return:float: X increment (seconds or Hz)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_xorigin">
 <span class="sig-name descname"><span class="pre">get_xorigin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_xorigin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_xorigin" title="Link to this definition">¶</a></dt>
-<dd><p>Query the start time of the waveform data of the channel source currently selected in the X direction.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>float: X origin (seconds or Hz)</p>
-</dd>
-</dl>
+<dd><p>Query the start time of the waveform data of the channel source currently selected in the X direction.</p>
+<p>Parameter: None</p>
+<p>Return: float: X origin (seconds or Hz)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_xreference">
 <span class="sig-name descname"><span class="pre">get_xreference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_xreference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_xreference" title="Link to this definition">¶</a></dt>
-<dd><p>Query the reference time of the specified channel source in the X direction.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: X reference (usually 0)</p>
-</dd>
-</dl>
+<dd><p>Query the reference time of the specified channel source in the X direction.</p>
+<p>Parameter: None</p>
+<p>Return: 
+int: X reference (usually 0)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_yincrement">
 <span class="sig-name descname"><span class="pre">get_yincrement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_yincrement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_yincrement" title="Link to this definition">¶</a></dt>
-<dd><p>Query the waveform increment of the specified channel source in the Y direction.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>float: Y increment (amplitude unit)</p>
-</dd>
-</dl>
+<dd><p>Query the waveform increment of the specified channel source in the Y direction.</p>
+<p>Parameter: None</p>
+<p>Return: 
+float: Y increment (amplitude unit)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_yorigin">
 <span class="sig-name descname"><span class="pre">get_yorigin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_yorigin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_yorigin" title="Link to this definition">¶</a></dt>
-<dd><p>Query the vertical offset relative to the vertical reference position of the specified channel source in the Y direction.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: Y origin</p>
-</dd>
-</dl>
+<dd><p>Query the vertical offset relative to the vertical reference position of the specified channel source in the Y direction.</p>
+<p>Parameter: None</p>
+<p>Return: 
+int: Y origin</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.get_yreference">
 <span class="sig-name descname"><span class="pre">get_yreference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.get_yreference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.get_yreference" title="Link to this definition">¶</a></dt>
-<dd><p>Query the vertical reference position of the specified channel source in the Y direction.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: Y reference (usually 127)</p>
-</dd>
-</dl>
+<dd><p>Query the vertical reference position of the specified channel source in the Y direction.</p>
+<p>Parameter: None</p>
+<p>Return: 
+int: Y reference (usually 127)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.set_format">
 <span class="sig-name descname"><span class="pre">set_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.set_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.set_format" title="Link to this definition">¶</a></dt>
-<dd><p>Set the return format of the waveform data.
-Parameter:</p>
-<blockquote>
-<div><p>fmt (str): “WORD”, “BYTE”, or “ASCii”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the return format of the waveform data.</p>
+<p>Parameter: fmt (str): “WORD”, “BYTE”, or “ASCii”</p>
+<p>Return: None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.set_mode">
 <span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.set_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.set_mode" title="Link to this definition">¶</a></dt>
-<dd><p>Set the reading mode used by :WAVeform:DATA?.
-Parameter:</p>
-<blockquote>
-<div><p>mode (str): “NORMal”, “MAXimum”, or “RAW”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the reading mode used by :WAVeform:DATA?.</p>
+<p>Parameter: mode (str): “NORMal”, “MAXimum”, or “RAW”</p>
+<p>Return: None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.set_source">
 <span class="sig-name descname"><span class="pre">set_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.set_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.set_source" title="Link to this definition">¶</a></dt>
-<dd><p>Set the channel of which the waveform data will be read.
-Parameter:</p>
-<blockquote>
-<div><p>source (str): “CHANnel1”, “CHANnel2”, or “MATH”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the channel of which the waveform data will be read.</p>
+<p>Parameter: source (str): “CHANnel1”, “CHANnel2”, or “MATH”</p>
+<p>Return: None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.set_start">
 <span class="sig-name descname"><span class="pre">set_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.set_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.set_start" title="Link to this definition">¶</a></dt>
-<dd><p>Set the start point of waveform data reading.
-Parameter:</p>
-<blockquote>
-<div><p>sta (int): Start point (see documentation for valid range)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the start point of waveform data reading.</p>
+<p>Parameter: sta (int): Start point (see documentation for valid range)</p>
+<p>Return: None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Waveform.set_stop">
 <span class="sig-name descname"><span class="pre">set_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stop</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Waveform.set_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Waveform.set_stop" title="Link to this definition">¶</a></dt>
-<dd><p>Set the stop point of waveform data reading.
-Parameter:</p>
-<blockquote>
-<div><p>stop (int): Stop point (see documentation for valid range)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the stop point of waveform data reading.</p>
+<p>Parameter: stop (int): Stop point (see documentation for valid range)</p>
+<p>Return: None</p>
 </dd></dl>
 
 </dd></dl>
