@@ -48,71 +48,51 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.get_column">
 <span class="sig-name descname"><span class="pre">get_column</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.get_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.get_column" title="Link to this definition">¶</a></dt>
-<dd><p>Query the current column of the event table.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: “DATA”, “TX”, “RX”, “MISO”, or “MOSI”</p>
-</dd>
-</dl>
+<dd><p>Query the current column of the event table.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: “DATA”, “TX”, “RX”, “MISO”, or “MOSI”</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.get_data">
 <span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.get_data" title="Link to this definition">¶</a></dt>
-<dd><p>Read the current event table data. If auto save is on, then also saves them to a csv file.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>bytes: Raw event table data (TMC header included)</p>
-</dd>
-</dl>
+<dd><p>Read the current event table data. If auto save is on, then also saves them to a csv file.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+bytes: Raw event table data (TMC header included)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.get_disp">
 <span class="sig-name descname"><span class="pre">get_disp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.get_disp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.get_disp" title="Link to this definition">¶</a></dt>
-<dd><p>Query the status of the decoding event table.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: 1 (on) or 0 (off)</p>
-</dd>
-</dl>
+<dd><p>Query the status of the decoding event table.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: 1 (on) or 0 (off)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.get_format">
 <span class="sig-name descname"><span class="pre">get_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.get_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.get_format" title="Link to this definition">¶</a></dt>
-<dd><p>Query the data display format of the event table.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: “HEX”, “ASC”, or “DEC”</p>
-</dd>
-</dl>
+<dd><p>Query the data display format of the event table.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: “HEX”, “ASC”, or “DEC”</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.get_row">
 <span class="sig-name descname"><span class="pre">get_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.get_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.get_row" title="Link to this definition">¶</a></dt>
-<dd><p>Query the current row of the event table.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: Current row, or 0 if table is empty</p>
-</dd>
-</dl>
+<dd><p>Query the current row of the event table.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: Current row, or 0 if table is empty</p>
 </dd></dl>
 
 <dl class="py method">
@@ -132,99 +112,71 @@ Parameter:</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.get_view">
 <span class="sig-name descname"><span class="pre">get_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.get_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.get_view" title="Link to this definition">¶</a></dt>
-<dd><p>Query the display mode of the event table.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: “PACK”, “DET”, or “PAYL”</p>
-</dd>
-</dl>
+<dd><p>Query the display mode of the event table.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: “PACK”, “DET”, or “PAYL”</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.set_column">
 <span class="sig-name descname"><span class="pre">set_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.set_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.set_column" title="Link to this definition">¶</a></dt>
-<dd><p>Set the current column of the event table.
-Parameter:</p>
-<blockquote>
-<div><p>col (str): “DATA”, “TX”, “RX”, “MISO”, or “MOSI”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the current column of the event table.</p>
+<p>Parameter:
+col (str): “DATA”, “TX”, “RX”, “MISO”, or “MOSI”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.set_disp">
 <span class="sig-name descname"><span class="pre">set_disp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.set_disp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.set_disp" title="Link to this definition">¶</a></dt>
-<dd><p>Turn on or off the decoding event table.
-Parameter:</p>
-<blockquote>
-<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Turn on or off the decoding event table.</p>
+<p>Parameter:
+state (int or str): 1/0 or “ON”/”OFF”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.set_format">
 <span class="sig-name descname"><span class="pre">set_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.set_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.set_format" title="Link to this definition">¶</a></dt>
-<dd><p>Set the data display format of the event table.
-Parameter:</p>
-<blockquote>
-<div><p>fmt (str): “HEX”, “ASCII”, or “DEC”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the data display format of the event table.</p>
+<p>Parameter:
+fmt (str): “HEX”, “ASCII”, or “DEC”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.set_row">
 <span class="sig-name descname"><span class="pre">set_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.set_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.set_row" title="Link to this definition">¶</a></dt>
-<dd><p>Set the current row of the event table.
-Parameter:</p>
-<blockquote>
-<div><p>row (int): Row number (1 to max rows)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the current row of the event table.</p>
+<p>Parameter:
+row (int): Row number (1 to max rows)</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.set_sort">
 <span class="sig-name descname"><span class="pre">set_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.set_sort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.set_sort" title="Link to this definition">¶</a></dt>
-<dd><p>Set the display type of the decoding results in the event table.
-Parameter:</p>
-<blockquote>
-<div><p>sort (str): “ASCEND” or “DESCEND”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the display type of the decoding results in the event table.</p>
+<p>Parameter:
+sort (str): “ASCEND” or “DESCEND”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.ETable.set_view">
 <span class="sig-name descname"><span class="pre">set_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">view</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#ETable.set_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.ETable.set_view" title="Link to this definition">¶</a></dt>
-<dd><p>Set the display mode of the event table.
-Parameter:</p>
-<blockquote>
-<div><p>view (str): “PACKAGE”, “DETAIL”, or “PAYLOAD”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the display mode of the event table.</p>
+<p>Parameter:
+view (str): “PACKAGE”, “DETAIL”, or “PAYLOAD”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 </dd></dl>
@@ -260,7 +212,20 @@ Parameter:</p>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#managers">Managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dcpowersupply.html">DC Power Supply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../digitalattenuator.html">DigitalAttenuator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flowmeter.html">Flowmeter</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../oscilloscope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rfswitch.html">RF Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spectrumanalyzer.html">Spectrum Analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vectornetworkanalyzer.html">Vector Network Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#enumerated-types">Enumerated Types</a></li>
 </ul>
 </li>
 </ul>
@@ -270,7 +235,7 @@ Parameter:</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="../api.html">API</a><ul>
-  <li><a href="../oscilloscope.html">OScilloscope</a><ul>
+  <li><a href="../oscilloscope.html">Oscilloscope</a><ul>
       <li>Previous: <a href="Instruments.oscilloscope_rigol.Display.html" title="previous chapter">Instruments.oscilloscope_rigol.Display Class</a></li>
       <li>Next: <a href="Instruments.oscilloscope_rigol.Function.html" title="next chapter">Instruments.oscilloscope_rigol.Function Class</a></li>
   </ul></li>

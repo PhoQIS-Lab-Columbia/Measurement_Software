@@ -40,6 +40,17 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.oscilloscope_rigol.</span></span><span class="sig-name descname"><span class="pre">Channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Channel commands are used to control and query channel-specific settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instrument</strong> (<em>pyvisa.Resource</em>) – The instrument to control.</p></li>
+<li><p><strong>data_handler</strong> (<a class="reference internal" href="Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler" title="Instruments.data_handler.DataHandler"><em>DataHandler</em></a>) – The data handler for processing data.</p></li>
+<li><p><strong>channel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The channel number, either 1 or 2.</p></li>
+<li><p><strong>decoder</strong> (<a class="reference internal" href="Instruments.oscilloscope_rigol.Decoder.html#Instruments.oscilloscope_rigol.Decoder" title="Instruments.oscilloscope_rigol.Decoder"><em>Decoder</em></a>) – The Decoder object for the channel.</p></li>
+<li><p><strong>etable</strong> (<a class="reference internal" href="Instruments.oscilloscope_rigol.ETable.html#Instruments.oscilloscope_rigol.ETable" title="Instruments.oscilloscope_rigol.ETable"><em>ETable</em></a>) – The ETable object for the channel.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.__init__" title="Link to this definition">¶</a></dt>
@@ -123,10 +134,12 @@ Returns value in scientific notation as float.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_bandwidth_limit">
 <span class="sig-name descname"><span class="pre">set_bandwidth_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_bandwidth_limit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_bandwidth_limit" title="Link to this definition">¶</a></dt>
-<dd><p>Set or query the bandwidth limit parameter of the specified channel.
-Parameters:
-channel (int): The channel number, either 1 or 2.
-bw (str): The bandwidth limit, either “20M” or “OFF”.</p>
+<dd><p>Set bandwidth limit of the specified channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bw</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Bandwidth limit to set. Allowed values: “20M” or “OFF”.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -211,7 +224,20 @@ val: delay time in seconds (e.g., 20e-9 for 20ns). Valid range: -100e-9 to 100e-
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#managers">Managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dcpowersupply.html">DC Power Supply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../digitalattenuator.html">DigitalAttenuator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flowmeter.html">Flowmeter</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../oscilloscope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rfswitch.html">RF Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spectrumanalyzer.html">Spectrum Analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vectornetworkanalyzer.html">Vector Network Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#enumerated-types">Enumerated Types</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +247,7 @@ val: delay time in seconds (e.g., 20e-9 for 20ns). Valid range: -100e-9 to 100e-
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="../api.html">API</a><ul>
-  <li><a href="../oscilloscope.html">OScilloscope</a><ul>
+  <li><a href="../oscilloscope.html">Oscilloscope</a><ul>
       <li>Previous: <a href="Instruments.oscilloscope_rigol.Acquisition.html" title="previous chapter">Instruments.oscilloscope_rigol.Acquisition Class</a></li>
       <li>Next: <a href="Instruments.oscilloscope_rigol.Cursor.html" title="next chapter">Instruments.oscilloscope_rigol.Cursor Class</a></li>
   </ul></li>

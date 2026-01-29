@@ -6,7 +6,7 @@ import psutil
 from Instruments.EInstrument import EInstrument
 class Flowmeter:
     def __init__(self, csv_files, default_csv_save_path = "C:/Users/phoqi/Documents/NQ Sensor Monitor/",program_open = False):
-        #TODO Add pop up about how experiemtn must be set up in flowmeter, but if project already set up (check if can do,) the ndo not need to set blah blah blah
+        """Initializes the Flowmeter class and opens the NQ Sensor Monitor software."""
         self.name = EInstrument.FLOW_METER
         with open('program_paths.json') as file:
             p = json.load(file)
@@ -23,6 +23,12 @@ class Flowmeter:
         print("The flowmeter will open a pop up window. Press start to begin monitoring. When enough time has passed, collect a csv using the NQ software. Copy the file path and load ")
     
     def process_exists(self, process_name): 
+        """Check if there is any running process that contains the given name processName.
+        
+        :param process_name: Name of the process to check.
+        :type process_name: str
+        :return: True if the process is running, False otherwise.
+        :rtype: bool"""
         call = 'TASKLIST', '/FI', f'imagename eq {process_name}'
         output = subprocess.check_output(call).decode()
         last_line = output.strip().split('\r\n')[-1]
@@ -34,17 +40,22 @@ class Flowmeter:
                 return proc  # This is a psutil.Process object
         return None
     def add_csv(self, flowmeter_ports, new_files):
-        """Add a new csv path for a specfic flowmeter in a particular NQ port."
-        Parameters:
-        flowmeter_port (int): The port number of the flowmeter (0-indexed).
-        new_path (str): The file path to the csv file."""
+        """Add a new csv path for a specfic flowmeter in a particular NQ port.
+
+        :param flowmeter_port: The port number of the flowmeter (0-indexed).
+        :type flowmeter_port: int
+        :param new_path: The file path to the csv file.
+        :type new_path: str
+        """
         self.csv_paths[flowmeter_ports] = new_files
     def load_csv(self, folder_path = None):
-        """Load csv data into a lsit of dictionaries.
-        Parameters:
-        (optional) folder_path (str): The folder path where the csv files are located. If None, uses default path.
-        Returns:
-        list: A list of dictionaries containing the csv data for each flowmeter."""
+        """Load csv data into a list of dictionaries.
+
+        :param folder_path: The folder path where the csv files are located. If None, uses default path.
+        :type folder_path: str
+        :return: A list of dictionaries containing the csv data for each flowmeter.
+        :rtype: list
+        """
         data = []
         if folder_path is None:
             folder_path = self.default_csv_path

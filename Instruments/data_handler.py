@@ -6,6 +6,7 @@ from PIL import Image
 from Instruments.EFileType import EFileType
 
 class DataHandler():
+    """Class for handling data reading and writing in various formats."""
     def __init__(self, file_path = "~/Measurement_Software/Experiments/Outputs/" ):
         self.format = EFileType.CSV
         self.default_save_path = file_path 
@@ -16,18 +17,18 @@ class DataHandler():
     def get_save_path(self):
         """
         Get the current folder where data is saved.
-        
-        Returns:
-        str: The current save path.
+
+        :returns: The current save path.
+        :rtype: str
         """
         return self.file_path
     
     def is_auto_saving_data_enabled(self):
         """
         Check if auto-saving of data is enabled.
-        
-        Returns:
-        bool: True if auto-saving is enabled, False otherwise.
+
+        :returns: True if auto-saving is enabled, False otherwise.
+        :rtype: bool
         """
         return self.auto_save
     
@@ -35,8 +36,8 @@ class DataHandler():
         """
         Enable the automatic saving of data to a specified path.
         
-        Parameters:
-        save_path (str): The path where data will be saved. If None, auto-saving is disabled.
+        :param save_path: The path where data will be saved. If None, auto-saving is disabled.
+        :type save_path: str
         """
         self.auto_save = True
        
@@ -47,14 +48,18 @@ class DataHandler():
         """
         Disable the automatic saving of data to a specified path.
         
-        Parameters:
-        save_path (str): The path where data will be saved.
+        :param save_path: The path where data will be saved.
+        :type save_path: str
         """
         self.auto_save = False
         print("Auto-saving disabled.")
 
     def remove_tmc_header(self, bytes):
-        """Removes TMC header from image bytes"""
+        """Removes TMC header from image bytes
+        :param bytes: bytes containing image information with TMC header
+        :type bytes: bytes
+        :returns: bytes without TMC header
+        :rtype: bytes"""
         #First byte is #, ignore
         size_count = 0 
         print(bytes[1])
@@ -63,10 +68,12 @@ class DataHandler():
 
     def bytes_to_image(self, bytes, image_name = "Image", format=EFileType.PNG):
         """Converts bytes to image object
-        Parameters: 
-        bytes (bytes): bytes containing image information
-        image_name (str): name of file
-        format (EFileType): file type used for saving"""
+        :param bytes: bytes containing image information
+        :type bytes: bytes
+        :param image_name: name of file
+        :type image_name: str
+        :param format: file type used for saving
+        :type format: EFileType"""
         #if bytes and bytes[0] == ord('#'):
                 #Remove TMC header if present
                 #bytes = self.remove_image_tmc_header(bytes)
@@ -77,7 +84,9 @@ class DataHandler():
         return im, bytes
     
     def set_default_file_type(self, format):
-        """"Sets default file type for reading and writing files."""
+        """"Sets default file type for reading and writing files.
+        :param format: file type to set as default
+        :type format: EFileType or str"""
         if type(format) is str:
             format = EFileType(format).name
         self.format = format
@@ -85,7 +94,11 @@ class DataHandler():
     #TODO Add update_file
 
     def read_file(self, file_name, format = None):
-        """Reads file and returns data"""
+        """Reads file and returns data
+        :param file_path: path to file
+        :type file_path: str
+        :param format: file type to read, if None then uses default format
+        :type format: EFileType"""
         
         if format is not None:  
             fmt = format
@@ -115,11 +128,14 @@ class DataHandler():
         
     def write_to_file(self, file_name, data, file_type = None, headers = None):
         """Writes data to file
-        params: file_path: str - path to file
-                data: list or dict - data to write to file
-                file_type: EFileType - type of file to write to, if None then uses default format
-                headers: list - headers for file, if None then numerical headers are used. Only used if data is not a dictionary.
-                If file already exists, headers are not written again."""
+        :param file_path: path to file
+        :type file_path: str
+        :param data: data to write to file
+        :type data: list, dict, bytes, Image.Image
+        :param file_type: type of file to write to, if None then uses default format
+        :type file_type: EFileType
+        :param headers: headers for file, if None then numerical headers are used. Only used if data is not a dictionary. If file already exists, headers are not written again.
+        :type headers: list"""
         file_path = self.file_path+file_name
         format = self.format
         if file_type is not None:

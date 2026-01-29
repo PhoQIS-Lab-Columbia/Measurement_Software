@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Flowmeter" href="../flowmeter.html" />
-    <link rel="prev" title="DigitalAttenuator``" href="../digitalattenuator.html" />
+    <link rel="prev" title="DigitalAttenuator" href="../digitalattenuator.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -39,6 +39,7 @@
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.digital_attenuator_vanuix.</span></span><span class="sig-name descname"><span class="pre">DigitalAttenuator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_files_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument" title="Instruments.Instrument.Instrument"><code class="xref py py-class docutils literal notranslate"><span class="pre">Instrument</span></code></a></p>
+<p>Class to control Vanuix Digital Attenuators via their DLL API.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_files_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.__init__" title="Link to this definition">¶</a></dt>
@@ -59,31 +60,63 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.enable_testing">
 <span class="sig-name descname"><span class="pre">enable_testing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.enable_testing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.enable_testing" title="Link to this definition">¶</a></dt>
-<dd><p>Enables testting mode for the digital attenuator.</p>
+<dd><p>Enables testing mode for the digital attenuator.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_attenuation">
 <span class="sig-name descname"><span class="pre">get_attenuation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_attenuation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_attenuation" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation setting of the selected device (in dB, 0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_attenuation_hr">
 <span class="sig-name descname"><span class="pre">get_attenuation_hr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_attenuation_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_attenuation_hr" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation setting of the selected device (in dB, 0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_attenuation_step">
 <span class="sig-name descname"><span class="pre">get_attenuation_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_attenuation_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_attenuation_step" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation step size (in dB, 0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation step size in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_attenuation_step_hr">
 <span class="sig-name descname"><span class="pre">get_attenuation_step_hr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_attenuation_step_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_attenuation_step_hr" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation step size (in dB, 0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation step size in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -96,72 +129,148 @@
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_dwell_time">
 <span class="sig-name descname"><span class="pre">get_dwell_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_dwell_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_dwell_time" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current dwell time for each step on the attenuation ramp (in milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dwell time in milliseconds.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_hold_time">
 <span class="sig-name descname"><span class="pre">get_hold_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_hold_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_hold_time" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the hold time between attenuation ramps in bidirectional ramp mode (in milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Hold time in milliseconds.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_idle_time">
 <span class="sig-name descname"><span class="pre">get_idle_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_idle_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_idle_time" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the idle time between attenuation ramps in repeating ramp mode (in milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Idle time in milliseconds.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_max_attenuation">
 <span class="sig-name descname"><span class="pre">get_max_attenuation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_max_attenuation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_max_attenuation" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the maximum attenuation value that the device can provide (in dB).
-Returns: Maximum attenuation in dB (float)</p>
+:return: Maximum attenuation in dB 
+:rtype: float</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_max_attenuation_hr">
 <span class="sig-name descname"><span class="pre">get_max_attenuation_hr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_max_attenuation_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_max_attenuation_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the maximum attenuation value that the device can provide (in dB, 0.05 dB steps).
-Returns: Maximum attenuation in dB (float)</p>
+<dd><p>Gets the maximum attenuation value that the device can provide (in dB, 0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximum attenuation in dB</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_max_attenuation_step_hr">
 <span class="sig-name descname"><span class="pre">get_max_attenuation_step_hr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_max_attenuation_step_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_max_attenuation_step_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the maximum attenuation step size that the device can provide (in dB, 0.05 dB steps).
-Returns: Maximum attenuation step size in dB (float)</p>
+<dd><p>Gets the maximum attenuation step size that the device can provide (in dB, 0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximum attenuation step size in dB</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_max_working_frequency">
 <span class="sig-name descname"><span class="pre">get_max_working_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_max_working_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_max_working_frequency" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the maximum working frequency of the selected device (in MHz).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximum working frequency in MHz.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_min_attenuation">
 <span class="sig-name descname"><span class="pre">get_min_attenuation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_min_attenuation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_min_attenuation" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the minimum attenuation value that the device can provide (in dB, 0.25 dB steps).
-Returns: Minimum attenuation in dB (float)</p>
+<dd><p>Gets the minimum attenuation value that the device can provide (in dB, 0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Minimum attenuation in dB</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_min_attenuation_hr">
 <span class="sig-name descname"><span class="pre">get_min_attenuation_hr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_min_attenuation_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_min_attenuation_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the minimum attenuation value that the device can provide (in dB, 0.05 dB steps).
-Returns: Minimum attenuation in dB (float)</p>
+<dd><p>Gets the minimum attenuation value that the device can provide (in dB, 0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Minimum attenuation in dB</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_min_attenuation_step">
 <span class="sig-name descname"><span class="pre">get_min_attenuation_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_min_attenuation_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_min_attenuation_step" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the minimum attenuation step size that the device can provide (in dB).
-Returns: Minimum attenuation step size in dB (float)</p>
+<dd><p>Gets the minimum attenuation step size that the device can provide (in dB).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Minimum attenuation step size in dB</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_min_working_frequency">
 <span class="sig-name descname"><span class="pre">get_min_working_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_min_working_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_min_working_frequency" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the minimum working frequency of the selected device (in MHz).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Minimum working frequency in MHz.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -173,93 +282,197 @@ Returns: Minimum attenuation step size in dB (float)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_count">
 <span class="sig-name descname"><span class="pre">get_profile_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_profile_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_count" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the number of elements in the profile that will be used.
-Returns: Number of elements (int)</p>
+<dd><p>Gets the number of elements in the profile that will be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of elements</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_dwell_time">
 <span class="sig-name descname"><span class="pre">get_profile_dwell_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_profile_dwell_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_dwell_time" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the time duration of each element in the profile during playback (in ms).
-Returns: Dwell time in milliseconds (int)</p>
+<dd><p>Gets the time duration of each element in the profile during playback (in ms).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dwell time in milliseconds</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_element">
 <span class="sig-name descname"><span class="pre">get_profile_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_profile_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_element" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the value of a profile element (0.25 dB steps).
-index: Index of the profile element (0 to PROFILE_MAX-1)
-Returns: Attenuation in dB</p>
+<dd><p>Gets the value of a profile element (0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Index of the profile element (0 to PROFILE_MAX-1)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Attenuation in dB</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_element_hr">
 <span class="sig-name descname"><span class="pre">get_profile_element_hr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_profile_element_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_element_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the value of a profile element (0.05 dB steps).
-index: Index of the profile element (0 to PROFILE_MAX-1)
-Returns: Attenuation in dB</p>
+<dd><p>Gets the value of a profile element (0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Index of the profile element (0 to PROFILE_MAX-1)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Attenuation in dB</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_idle_time">
 <span class="sig-name descname"><span class="pre">get_profile_idle_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_profile_idle_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_idle_time" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the idle time after a profile is played before repeating (in ms).
-Returns: Idle time in milliseconds (int)</p>
+<dd><p>Gets the idle time after a profile is played before repeating (in ms).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Idle time in milliseconds</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_index">
 <span class="sig-name descname"><span class="pre">get_profile_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_profile_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_profile_index" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the current profile index.
-Returns: Profile index (int)</p>
+<dd><p>Gets the current profile index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Profile index</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_ramp_end">
 <span class="sig-name descname"><span class="pre">get_ramp_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_ramp_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_ramp_end" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation ramp end value (in dB, 0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_ramp_end_hr">
 <span class="sig-name descname"><span class="pre">get_ramp_end_hr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_ramp_end_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_ramp_end_hr" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation ramp end value (in dB, 0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_ramp_start">
 <span class="sig-name descname"><span class="pre">get_ramp_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_ramp_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_ramp_start" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation ramp start value (in dB, 0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_ramp_start_hr">
 <span class="sig-name descname"><span class="pre">get_ramp_start_hr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_ramp_start_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_ramp_start_hr" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation ramp start value (in dB, 0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_rf_on">
 <span class="sig-name descname"><span class="pre">get_rf_on</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_rf_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_rf_on" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the RF on/off state. Returns 1 if on, 0 if off.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>RF state (1 = on, 0 = off).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_second_attenuation_step">
 <span class="sig-name descname"><span class="pre">get_second_attenuation_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_second_attenuation_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_second_attenuation_step" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the current attenuation step size for the second phase of a bidirectional sweep (in dB, 0.25 dB steps).</p>
+<dd><p>Gets the current attenuation step size for the second phase of a bidirectional sweep (in dB, 0.25 dB steps).
+:return: Attenuation step size in dB.
+:rtype: float</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_second_attenuation_step_hr">
 <span class="sig-name descname"><span class="pre">get_second_attenuation_step_hr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_second_attenuation_step_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_second_attenuation_step_hr" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current attenuation step size for the second phase of a bidirectional sweep (in dB, 0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attenuation step size in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_second_dwell_time">
 <span class="sig-name descname"><span class="pre">get_second_dwell_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_second_dwell_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_second_dwell_time" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current dwell time for each step on the second phase of a bidirectional attenuation ramp (in milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dwell time in milliseconds.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -272,48 +485,110 @@ Returns: Profile index (int)</p>
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_working_frequency">
 <span class="sig-name descname"><span class="pre">get_working_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.get_working_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_working_frequency" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the current working frequency of the selected device (in MHz).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Working frequency in MHz.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.save_settings">
 <span class="sig-name descname"><span class="pre">save_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.save_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.save_settings" title="Link to this definition">¶</a></dt>
 <dd><p>Saves the current settings to the device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation">
 <span class="sig-name descname"><span class="pre">set_attenuation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_attenuation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the attenuation level for 0.25 dB step attenuators.
-attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</p>
+<dd><p>Sets the attenuation level for 0.25 dB step attenuators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB (e.g., 10 for 10 dB)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation_hr">
 <span class="sig-name descname"><span class="pre">set_attenuation_hr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_attenuation_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the attenuation level for 0.05 dB step attenuators.
-attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</p>
+<dd><p>Sets the attenuation level for 0.05 dB step attenuators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB (e.g., 5 for 5 dB)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation_hrq">
 <span class="sig-name descname"><span class="pre">set_attenuation_hrq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_attenuation_hrq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation_hrq" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the attenuation level for 0.05 dB step attenuators on a specific channel.
-attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)
-channel: Channel number (1 to 4)</p>
+<dd><p>Sets the attenuation level for 0.05 dB step attenuators on a specific channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB (e.g., 5 for 5 dB)</p></li>
+<li><p><strong>channel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Channel number (1 to 4)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation_step">
 <span class="sig-name descname"><span class="pre">set_attenuation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_attenuation_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation_step" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the size of the attenuation step for ramp/sweep (0.25 dB steps).
-step_db: Step size in dB (e.g., 2 for 2 dB)</p>
+<dd><p>Sets the size of the attenuation step for ramp/sweep (0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>step_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Step size in dB (e.g., 2 for 2 dB)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation_step_hr">
 <span class="sig-name descname"><span class="pre">set_attenuation_step_hr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_attenuation_step_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_attenuation_step_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the size of the attenuation step for ramp/sweep (0.05 dB steps).
-step_db: Step size in dB (e.g., 2 for 2 dB)</p>
+<dd><p>Sets the size of the attenuation step for ramp/sweep (0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>step_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Step size in dB (e.g., 2 for 2 dB)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -325,157 +600,375 @@ step_db: Step size in dB (e.g., 2 for 2 dB)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_first_dwell_time">
 <span class="sig-name descname"><span class="pre">set_first_dwell_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dwell_time_ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_first_dwell_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_first_dwell_time" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the dwell time at each attenuation step during a ramp (in milliseconds).
-dwell_time_ms: Dwell time in milliseconds (minimum 1 ms)</p>
+<dd><p>Sets the dwell time at each attenuation step during a ramp (in milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dwell_time_ms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Dwell time in milliseconds (minimum 1 ms)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_hold_time">
 <span class="sig-name descname"><span class="pre">set_hold_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hold_time_ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_hold_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_hold_time" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the time delay between the first and second phases of a ramp (in milliseconds).
-hold_time_ms: Hold time in milliseconds (minimum 0 ms)</p>
+<dd><p>Sets the time delay between the first and second phases of a ramp (in milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hold_time_ms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Hold time in milliseconds (minimum 0 ms)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_idle_time">
 <span class="sig-name descname"><span class="pre">set_idle_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idle_time_ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_idle_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_idle_time" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the idle time at the end of an attenuation ramp before repeating (in milliseconds).
-idle_time_ms: Idle time in milliseconds (minimum 0 ms)</p>
+<dd><p>Sets the idle time at the end of an attenuation ramp before repeating (in milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idle_time_ms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Idle time in milliseconds (minimum 0 ms)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_count">
 <span class="sig-name descname"><span class="pre">set_profile_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile_count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_profile_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_count" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the number of elements in the profile to be used.
-profile_count: Number of elements (1 to PROFILE_MAX-1)</p>
+<dd><p>Sets the number of elements in the profile to be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>profile_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of elements (1 to PROFILE_MAX-1)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_dwell_time">
 <span class="sig-name descname"><span class="pre">set_profile_dwell_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dwell_time_ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_profile_dwell_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_dwell_time" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the time duration of each element in the profile during playback (in ms).
-dwell_time_ms: Dwell time in milliseconds</p>
+<dd><p>Sets the time duration of each element in the profile during playback (in ms).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dwell_time_ms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Dwell time in milliseconds</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_element">
 <span class="sig-name descname"><span class="pre">set_profile_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_profile_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_element" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the value of a profile element (0.25 dB steps).
-index: Index of the profile element (0 to PROFILE_MAX-1)
-attenuation_db: Desired attenuation in dB</p>
+<dd><p>Sets the value of a profile element (0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Index of the profile element (0 to PROFILE_MAX-1)</p></li>
+<li><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_element_hr">
 <span class="sig-name descname"><span class="pre">set_profile_element_hr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_profile_element_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_element_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the value of a profile element (0.05 dB steps).
-index: Index of the profile element (0 to PROFILE_MAX-1)
-attenuation_db: Desired attenuation in dB</p>
+<dd><p>Sets the value of a profile element (0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Index of the profile element (0 to PROFILE_MAX-1)</p></li>
+<li><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_idle_time">
 <span class="sig-name descname"><span class="pre">set_profile_idle_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idle_time_ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_profile_idle_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_profile_idle_time" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the idle time after a profile is played before repeating (in ms).
-idle_time_ms: Idle time in milliseconds</p>
+<dd><p>Sets the idle time after a profile is played before repeating (in ms).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idle_time_ms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Idle time in milliseconds</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_bidirectional">
 <span class="sig-name descname"><span class="pre">set_ramp_bidirectional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bidir_enable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_ramp_bidirectional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_bidirectional" title="Link to this definition">¶</a></dt>
-<dd><p>Enables or disables bidirectional ramp.
-bidir_enable: True to enable, False to disable.</p>
+<dd><p>Enables or disables bidirectional ramp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bidir_enable</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – True to enable, False to disable.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_direction">
 <span class="sig-name descname"><span class="pre">set_ramp_direction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">up</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_ramp_direction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_direction" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the direction of the attenuation ramp.
-up: True for increasing attenuation, False for decreasing.</p>
+<dd><p>Sets the direction of the attenuation ramp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>up</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – True for increasing attenuation, False for decreasing.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_end">
 <span class="sig-name descname"><span class="pre">set_ramp_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_ramp_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_end" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the attenuation level at the end of an attenuation ramp (0.25 dB steps).
-attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</p>
+<dd><p>Sets the attenuation level at the end of an attenuation ramp (0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB (e.g., 10 for 10 dB)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_end_hr">
 <span class="sig-name descname"><span class="pre">set_ramp_end_hr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_ramp_end_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_end_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the attenuation level at the end of an attenuation ramp (0.05 dB steps).
-attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</p>
+<dd><p>Sets the attenuation level at the end of an attenuation ramp (0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB (e.g., 5 for 5 dB)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_mode">
 <span class="sig-name descname"><span class="pre">set_ramp_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repeat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_ramp_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_mode" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the ramp mode.
-repeat: True for repeated ramp, False for single ramp.</p>
+<dd><p>Sets the ramp mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repeat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – True for repeated ramp, False for single ramp.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_start">
 <span class="sig-name descname"><span class="pre">set_ramp_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_ramp_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_start" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the attenuation level at the beginning of an attenuation ramp (0.25 dB steps).
-attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</p>
+<dd><p>Sets the attenuation level at the beginning of an attenuation ramp (0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB (e.g., 10 for 10 dB)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_start_hr">
 <span class="sig-name descname"><span class="pre">set_ramp_start_hr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attenuation_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_ramp_start_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_ramp_start_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the attenuation level at the beginning of an attenuation ramp (0.05 dB steps).
-attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</p>
+<dd><p>Sets the attenuation level at the beginning of an attenuation ramp (0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attenuation_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Desired attenuation in dB (e.g., 5 for 5 dB)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_rf_on">
 <span class="sig-name descname"><span class="pre">set_rf_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_rf_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_rf_on" title="Link to this definition">¶</a></dt>
-<dd><p>Rapidly switches the attenuator from its set value (“on”=True) to max attenuation (“on”=False).
-on: Boolean value</p>
+<dd><p>Rapidly switches the attenuator from its set value (“on”=True) to max attenuation (“on”=False).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>on</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Boolean value indicating whether to turn RF on (True) or off (False).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_second_attenuation_step">
 <span class="sig-name descname"><span class="pre">set_second_attenuation_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_second_attenuation_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_second_attenuation_step" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the size of the attenuation step for the second phase of a bidirectional sweep (0.25 dB steps).
-step_db: Step size in dB (e.g., 2 for 2 dB)</p>
+<dd><p>Sets the size of the attenuation step for the second phase of a bidirectional sweep (0.25 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>step_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Step size in dB (e.g., 2 for 2 dB)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_second_attenuation_step_hr">
 <span class="sig-name descname"><span class="pre">set_second_attenuation_step_hr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_second_attenuation_step_hr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_second_attenuation_step_hr" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the size of the attenuation step for the second phase of a bidirectional sweep (0.05 dB steps).
-step_db: Step size in dB (e.g., 2 for 2 dB)</p>
+<dd><p>Sets the size of the attenuation step for the second phase of a bidirectional sweep (0.05 dB steps).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>step_db</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Step size in dB (e.g., 2 for 2 dB)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_second_dwell_time">
 <span class="sig-name descname"><span class="pre">set_second_dwell_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dwell_time_ms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_second_dwell_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_second_dwell_time" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the dwell time at each attenuation step during the second phase of a ramp (in milliseconds).
-dwell_time_ms: Dwell time in milliseconds (minimum 1 ms)</p>
+<dd><p>Sets the dwell time at each attenuation step during the second phase of a ramp (in milliseconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dwell_time_ms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Dwell time in milliseconds (minimum 1 ms)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_working_frequency">
 <span class="sig-name descname"><span class="pre">set_working_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency_mhz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.set_working_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_working_frequency" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the midband working frequency of the attenuator.
-frequency_mhz: Frequency in MHz (e.g., 1500 for 1.5 GHz)</p>
+<dd><p>Sets the midband working frequency of the attenuator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>frequency_mhz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Frequency in MHz (e.g., 1500 for 1.5 GHz)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.start_profile">
 <span class="sig-name descname"><span class="pre">start_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.start_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.start_profile" title="Link to this definition">¶</a></dt>
-<dd><p>Starts the playback of a profile.
-mode: 1 = play once, 2 = play repeatedly</p>
+<dd><p>Starts the playback of a profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 1 = play once, 2 = play repeatedly</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.digital_attenuator_vanuix.DigitalAttenuator.start_ramp">
 <span class="sig-name descname"><span class="pre">start_ramp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">go</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/digital_attenuator_vanuix.html#DigitalAttenuator.start_ramp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.digital_attenuator_vanuix.DigitalAttenuator.start_ramp" title="Link to this definition">¶</a></dt>
-<dd><p>Starts or stops the attenuation ramp.
-go: True to start, False to stop.</p>
+<dd><p>Starts or stops the attenuation ramp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>go</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – True to start, False to stop.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status code from the DLL function call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -511,7 +1004,20 @@ go: True to start, False to stop.</p>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#managers">Managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dcpowersupply.html">DC Power Supply</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../digitalattenuator.html">DigitalAttenuator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flowmeter.html">Flowmeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../oscilloscope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rfswitch.html">RF Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spectrumanalyzer.html">Spectrum Analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vectornetworkanalyzer.html">Vector Network Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#enumerated-types">Enumerated Types</a></li>
 </ul>
 </li>
 </ul>
@@ -521,8 +1027,8 @@ go: True to start, False to stop.</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="../api.html">API</a><ul>
-  <li><a href="../digitalattenuator.html">DigitalAttenuator``</a><ul>
-      <li>Previous: <a href="../digitalattenuator.html" title="previous chapter">DigitalAttenuator``</a></li>
+  <li><a href="../digitalattenuator.html">DigitalAttenuator</a><ul>
+      <li>Previous: <a href="../digitalattenuator.html" title="previous chapter">DigitalAttenuator</a></li>
       <li>Next: <a href="../flowmeter.html" title="next chapter">Flowmeter</a></li>
   </ul></li>
   </ul></li>

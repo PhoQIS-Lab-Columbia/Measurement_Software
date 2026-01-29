@@ -21,11 +21,14 @@ class Instrument():
 
     def save_data(self, data, file_name = "data", format = EFileType.CSV):
         """Save data to a file in the specified save path.
-        
-        Parameters:
-        data (dict): The data to be saved.
-        filename (str): The name of the file to save the data in.
-        format (EFileType): The format in which to save the data. Default is EFileType.CSV."""
+
+        :param data: The data to be saved.
+        :type data: dict
+        :param filename: The name of the file to save the data in.
+        :type filename: str
+        :param format: The format in which to save the data. Default is EFileType.CSV.
+        :type format: EFileType
+        """
         self.data_handler.write_to_file(file_name, data, format)
 
     def clear_event_registers(self):
@@ -35,9 +38,8 @@ class Instrument():
     def set_enable_event_status(self, value):
         """Set the enable register for the standard event status register set.
 
-        Parameters:
-        value (int): An integer value where bit 1 and bit 6 are not used (always 0).
-        The range corresponds to binary numbers X0XXXX0X."""
+        :param value: An integer value where bit 1 and bit 6 are not used (always 0). The range corresponds to binary numbers X0XXXX0X.
+        :type value: int"""
         # Basic validation for the value based on the description
         if isinstance(value, int) and 0 <= value <= 255: # Max 255 for an 8-bit register
             # Further validation for bits 1 and 6 being 0 could be added:
@@ -49,9 +51,8 @@ class Instrument():
     def get_standard_event_status_enable(self):
         """Query the enable register for the standard event status register set.
 
-        Returns:
-        int: An integer which equals the sum of the weights of all the bits that have
-        already been set in the register.
+        :return: An integer which equals the sum of the weights of all the bits that have already been set in the register.
+        :rtype: int
         """
         response = self.instrument.query("*ESE?")
         return int(response.strip())
@@ -59,9 +60,8 @@ class Instrument():
     def get_and_clear_standard_event_status_register(self):
         """Query and clear the event register for the standard event status register.
 
-        Returns:
-        int: An integer which equals the sum of the weights of all the bits in the register.
-        The value of the register is set to 0 after this command is executed.
+        :return: An integer which equals the sum of the weights of all the bits in the register. The value of the register is set to 0 after this command is executed.
+        :rtype: int
         """
         response = self.instrument.query("*ESR?")
         return int(response.strip())
@@ -69,8 +69,8 @@ class Instrument():
     def get_id(self):
         """Query the ID string of the instrument.
 
-        Returns:
-        str: The ID string in the format "RIGOL TECHNOLOGIES,<model>,<serial number>,<software version>".
+        :returns: The ID string in the format "RIGOL TECHNOLOGIES,<model>,<serial number>,<software version>".
+        :rtype: str
         """
         response = self.instrument.query("*IDN?")
         return response.strip()
@@ -84,8 +84,8 @@ class Instrument():
     def is_operation_complete(self):
         """Query whether the current operation is finished.
 
-        Returns:
-        bool: True (1) if the current operation is finished; False (0) otherwise.
+        :returns: True (1) if the current operation is finished; False (0) otherwise.
+        :rtype: bool
         """
         response = self.instrument.query("*OPC?")
         return bool(int(response.strip()))
@@ -99,9 +99,8 @@ class Instrument():
     def set_enable_service_request(self, value):
         """Set the enable register for the status byte register set.
 
-        Parameters:
-        
-        value (int): An integer value from 0 to 255. Bit 0 and bit 1 of the status byte register are not used and are always treated as 0.
+        :param value: An integer value from 0 to 255. Bit 0 and bit 1 of the status byte register are not used and are always treated as 0.
+        :type value: int
         """
         # Basic validation for the value
         if isinstance(value, int) and 0 <= value <= 255:
@@ -114,8 +113,8 @@ class Instrument():
     def get_enable_service_request(self):
         """Query the enable register for the status byte register set.
 
-        Returns:
-        int: An integer which equals the sum of the weights of all the bits that have already been set in the register.
+        :returns: An integer which equals the sum of the weights of all the bits that have already been set in the register.
+        :rtype: int
         """
         response = self.instrument.query("*SRE?")
         return int(response.strip())
@@ -124,8 +123,8 @@ class Instrument():
         """Query the event register for the status byte register.
         The value of the status byte register is set to 0 after this command is executed.
 
-        Returns:
-        int: An integer which equals the sum of the weights of all the bits in the register.
+        :returns: An integer which equals the sum of the weights of all the bits in the register.
+        :rtype: int
         """
         response = self.instrument.query("*STB?")
         return int(response.strip())
@@ -133,8 +132,8 @@ class Instrument():
     def self_test(self):
         """Perform a self-test and then return the self-test results.
 
-        Returns:
-        int: A decimal integer representing the self-test results.
+        :returns: A decimal integer representing the self-test results.
+        :rtype: int
         """
         response = self.instrument.query("*TST?")
         return int(response.strip())
@@ -154,8 +153,8 @@ class Instrument():
         return response
     
     def get_system_version(self) -> str:
-        """Returns the SCPI version supported by the instrument.
-        Notes: Query only.
+        """:return: the SCPI version supported by the instrument.
+        :rtype: str
         """
         response = self.instrument.query(":SYST:VERS?").strip()
         return response
@@ -163,12 +162,13 @@ class Instrument():
     def set_status_operation_enable(self, value: int):
         """Sets the enable mask for the OPERation register.
         :param value: The integer value of the enable mask (range: 0 through 65535).
-        
+        :type value: int
         """
         #TODO: Fix value to be boolean?
         self._set_status_enable(":STAT:OPER:ENAB", value)
 
     def get_status_operation_enable(self) -> int:
-        """Returns the contents of the enable mask for the OPERation register.
+        """:return: the contents of the enable mask for the OPERation register.
+        :rtype: int
         """
         return self._get_status_enable(":STAT:OPER:ENAB?")

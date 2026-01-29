@@ -1,4 +1,4 @@
-OScilloscope
+Oscilloscope
 ===============
 This is the Oscilloscope class and all relevant subclasses.
 

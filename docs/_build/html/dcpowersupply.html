@@ -35,22 +35,22 @@
             
   <section id="dc-power-supply">
 <h1>DC Power Supply<a class="headerlink" href="#dc-power-supply" title="Link to this heading">¶</a></h1>
-<p>This is the DC Power Supply class and all relevant subclasses.</p>
+<p>This is the DC Power Supply class for the Siglent power supplies and all relevant subclasses.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.DCPowerSupply.html#Instruments.dc_power_supply_siglent.DCPowerSupply" title="Instruments.dc_power_supply_siglent.DCPowerSupply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dc_power_supply_siglent.DCPowerSupply</span></code></a>(instrument)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.DCPowerSupply.html#Instruments.dc_power_supply_siglent.DCPowerSupply" title="Instruments.dc_power_supply_siglent.DCPowerSupply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DCPowerSupply</span></code></a>(instrument[, save_files_path])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.Channel.html#Instruments.dc_power_supply_siglent.Channel" title="Instruments.dc_power_supply_siglent.Channel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dc_power_supply_siglent.Channel</span></code></a>(instrument, ...)</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.Channel.html#Instruments.dc_power_supply_siglent.Channel" title="Instruments.dc_power_supply_siglent.Channel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Channel</span></code></a>(instrument, data_handler, channel)</p></td>
+<td><p>Channel to be selected.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.Current.html#Instruments.dc_power_supply_siglent.Current" title="Instruments.dc_power_supply_siglent.Current"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dc_power_supply_siglent.Current</span></code></a>(instrument, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.Current.html#Instruments.dc_power_supply_siglent.Current" title="Instruments.dc_power_supply_siglent.Current"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Current</span></code></a>(instrument, data_handler, channel)</p></td>
 <td><p>Change and get the current of the selected channel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.Voltage.html#Instruments.dc_power_supply_siglent.Voltage" title="Instruments.dc_power_supply_siglent.Voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dc_power_supply_siglent.Voltage</span></code></a>(instrument, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.Voltage.html#Instruments.dc_power_supply_siglent.Voltage" title="Instruments.dc_power_supply_siglent.Voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Voltage</span></code></a>(instrument, data_handler, channel)</p></td>
 <td><p>Change and get the voltage of the selected channel.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.Power.html#Instruments.dc_power_supply_siglent.Power" title="Instruments.dc_power_supply_siglent.Power"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dc_power_supply_siglent.Power</span></code></a>(instrument, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/Instruments.dc_power_supply_siglent.Power.html#Instruments.dc_power_supply_siglent.Power" title="Instruments.dc_power_supply_siglent.Power"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Power</span></code></a>(instrument, data_handler, channel)</p></td>
 <td><p>Change and get the power of the selected channel.</p></td>
 </tr>
 </tbody>
@@ -86,7 +86,20 @@
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="api.html#instruments">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#managers">Managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="api.html#instruments">Instruments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="instrument.html">Instrument</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">DC Power Supply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="digitalattenuator.html">DigitalAttenuator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="flowmeter.html">Flowmeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="oscilloscope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rfswitch.html">RF Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spectrumanalyzer.html">Spectrum Analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vectornetworkanalyzer.html">Vector Network Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#enumerated-types">Enumerated Types</a></li>
 </ul>
 </li>
 </ul>

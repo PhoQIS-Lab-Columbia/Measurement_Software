@@ -64,11 +64,14 @@
 <a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.save_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save data to a file in the specified save path.</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters:</span>
-<span class="sd">        data (dict): The data to be saved.</span>
-<span class="sd">        filename (str): The name of the file to save the data in.</span>
-<span class="sd">        format (EFileType): The format in which to save the data. Default is EFileType.CSV.&quot;&quot;&quot;</span>
+
+<span class="sd">        :param data: The data to be saved.</span>
+<span class="sd">        :type data: dict</span>
+<span class="sd">        :param filename: The name of the file to save the data in.</span>
+<span class="sd">        :type filename: str</span>
+<span class="sd">        :param format: The format in which to save the data. Default is EFileType.CSV.</span>
+<span class="sd">        :type format: EFileType</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span></div>
 
 
@@ -84,9 +87,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_enable_event_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the enable register for the standard event status register set.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">        value (int): An integer value where bit 1 and bit 6 are not used (always 0).</span>
-<span class="sd">        The range corresponds to binary numbers X0XXXX0X.&quot;&quot;&quot;</span>
+<span class="sd">        :param value: An integer value where bit 1 and bit 6 are not used (always 0). The range corresponds to binary numbers X0XXXX0X.</span>
+<span class="sd">        :type value: int&quot;&quot;&quot;</span>
         <span class="c1"># Basic validation for the value based on the description</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span> <span class="c1"># Max 255 for an 8-bit register</span>
             <span class="c1"># Further validation for bits 1 and 6 being 0 could be added:</span>
@@ -101,9 +103,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_standard_event_status_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the enable register for the standard event status register set.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        int: An integer which equals the sum of the weights of all the bits that have</span>
-<span class="sd">        already been set in the register.</span>
+<span class="sd">        :return: An integer which equals the sum of the weights of all the bits that have already been set in the register.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*ESE?&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
@@ -114,9 +115,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_and_clear_standard_event_status_register</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Query and clear the event register for the standard event status register.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        int: An integer which equals the sum of the weights of all the bits in the register.</span>
-<span class="sd">        The value of the register is set to 0 after this command is executed.</span>
+<span class="sd">        :return: An integer which equals the sum of the weights of all the bits in the register. The value of the register is set to 0 after this command is executed.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*ESR?&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
@@ -127,8 +127,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the ID string of the instrument.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        str: The ID string in the format &quot;RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial number&gt;,&lt;software version&gt;&quot;.</span>
+<span class="sd">        :returns: The ID string in the format &quot;RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial number&gt;,&lt;software version&gt;&quot;.</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*IDN?&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
@@ -148,8 +148,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">is_operation_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Query whether the current operation is finished.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        bool: True (1) if the current operation is finished; False (0) otherwise.</span>
+<span class="sd">        :returns: True (1) if the current operation is finished; False (0) otherwise.</span>
+<span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*OPC?&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span></div>
@@ -169,8 +169,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_enable_service_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the enable register for the status byte register set.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">        value (int): An integer value from 0 to 255. Bit 0 and bit 1 of the status byte register are not used and are always treated as 0.</span>
+<span class="sd">        :param value: An integer value from 0 to 255. Bit 0 and bit 1 of the status byte register are not used and are always treated as 0.</span>
+<span class="sd">        :type value: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Basic validation for the value</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span>
@@ -186,8 +186,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_enable_service_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the enable register for the status byte register set.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        int: An integer which equals the sum of the weights of all the bits that have already been set in the register.</span>
+<span class="sd">        :returns: An integer which equals the sum of the weights of all the bits that have already been set in the register.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*SRE?&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
@@ -199,8 +199,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the event register for the status byte register.</span>
 <span class="sd">        The value of the status byte register is set to 0 after this command is executed.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        int: An integer which equals the sum of the weights of all the bits in the register.</span>
+<span class="sd">        :returns: An integer which equals the sum of the weights of all the bits in the register.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*STB?&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
@@ -211,8 +211,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">self_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a self-test and then return the self-test results.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        int: A decimal integer representing the self-test results.</span>
+<span class="sd">        :returns: A decimal integer representing the self-test results.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*TST?&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
@@ -241,8 +241,8 @@
 <div class="viewcode-block" id="Instrument.get_system_version">
 <a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_system_version">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_system_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the SCPI version supported by the instrument.</span>
-<span class="sd">        Notes: Query only.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;:return: the SCPI version supported by the instrument.</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYST:VERS?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">response</span></div>
@@ -253,7 +253,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_status_operation_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the enable mask for the OPERation register.</span>
 <span class="sd">        :param value: The integer value of the enable mask (range: 0 through 65535).</span>
-<span class="sd">        </span>
+<span class="sd">        :type value: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">#TODO: Fix value to be boolean?</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_status_enable</span><span class="p">(</span><span class="s2">&quot;:STAT:OPER:ENAB&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
@@ -262,7 +262,8 @@
 <div class="viewcode-block" id="Instrument.get_status_operation_enable">
 <a class="viewcode-back" href="../../generated/Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument.get_status_operation_enable">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_status_operation_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the contents of the enable mask for the OPERation register.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;:return: the contents of the enable mask for the OPERation register.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_status_enable</span><span class="p">(</span><span class="s2">&quot;:STAT:OPER:ENAB?&quot;</span><span class="p">)</span></div>
 </div>

@@ -48,33 +48,51 @@
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.disable_output_channel">
 <span class="sig-name descname"><span class="pre">disable_output_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.disable_output_channel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.disable_output_channel" title="Link to this definition">¶</a></dt>
 <dd><p>Turn off the specified channel.</p>
-<p>Parameters:
-source (str): Channel to control (‘CH1’, ‘CH2’, ‘CH3’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Channel to control (‘CH1’, ‘CH2’, ‘CH3’).</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.enable_output_channel">
 <span class="sig-name descname"><span class="pre">enable_output_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.enable_output_channel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.enable_output_channel" title="Link to this definition">¶</a></dt>
 <dd><p>Turn on the specified channel.</p>
-<p>Parameters:
-source (str): Channel to control (‘CH1’, ‘CH2’, ‘CH3’).
-state (str): Output state (‘ON’, ‘OFF’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Channel to control (‘CH1’, ‘CH2’, ‘CH3’).</p></li>
+<li><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Output state (‘ON’, ‘OFF’).</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.get_id">
 <span class="sig-name descname"><span class="pre">get_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.get_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.get_id" title="Link to this definition">¶</a></dt>
 <dd><p>Query the ID string of the instrument.</p>
-<p>Returns:
-str: The ID string in the format “RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial number&gt;,&lt;software version&gt;”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID string in the format “RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial number&gt;,&lt;software version&gt;”.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.get_status">
 <span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.get_status" title="Link to this definition">¶</a></dt>
 <dd><p>Query the current working state and decode the status bits.</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>dict: Decoded status information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Decoded status information.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -82,8 +100,9 @@ str: The ID string in the format “RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.get_system_error">
 <span class="sig-name descname"><span class="pre">get_system_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.get_system_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.get_system_error" title="Link to this definition">¶</a></dt>
-<dd><p>Queries the next error from the error queue, returning its code and message.
-Notes: Query only.</p>
+<dd><p>Query the system error queue.   
+:return: The error code and message in the format “&lt;code&gt;,&lt;message&gt;”.
+:rtype: str</p>
 </dd></dl>
 
 <dl class="py method">
@@ -96,32 +115,41 @@ Notes: Query only.</p>
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.recall">
 <span class="sig-name descname"><span class="pre">recall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.recall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.recall" title="Link to this definition">¶</a></dt>
 <dd><p>Recall the state previously saved with the specified name.</p>
-<p>Parameters:
-name (str): The name of the state to recall.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The name of the state to recall.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.save">
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.save" title="Link to this definition">¶</a></dt>
-<dd><p>Save the current state in nonvolatile memory with the specified name.</p>
-<p>Parameters:
-name (str): The name to save the state under.</p>
+<dd><p>Save the current state in nonvolatile memory with the specified name.  
+:param name: The name to save the state under.
+:type name: str</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.set_output_mode">
 <span class="sig-name descname"><span class="pre">set_output_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.set_output_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.set_output_mode" title="Link to this definition">¶</a></dt>
 <dd><p>Select the operation mode.</p>
-<p>Parameters:
-mode (int): 0 for Independent, 1 for Series, 2 for Parallel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 0 for Independent, 1 for Series, 2 for Parallel.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.dc_power_supply_siglent.DCPowerSupply.set_work_operation">
 <span class="sig-name descname"><span class="pre">set_work_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/dc_power_supply_siglent.html#DCPowerSupply.set_work_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.dc_power_supply_siglent.DCPowerSupply.set_work_operation" title="Link to this definition">¶</a></dt>
 <dd><p>Set the work operation mode to 2-wire or 4-wire.</p>
-<p>Parameters:
-mode (str): ‘2W’ for 2-wire, ‘4W’ for 4-wire.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – ‘2W’ for 2-wire, ‘4W’ for 4-wire.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -163,7 +191,20 @@ mode (str): ‘2W’ for 2-wire, ‘4W’ for 4-wire.</p>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#managers">Managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../instrument.html">Instrument</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../dcpowersupply.html">DC Power Supply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../digitalattenuator.html">DigitalAttenuator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flowmeter.html">Flowmeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../oscilloscope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rfswitch.html">RF Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spectrumanalyzer.html">Spectrum Analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vectornetworkanalyzer.html">Vector Network Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#enumerated-types">Enumerated Types</a></li>
 </ul>
 </li>
 </ul>
