@@ -14,7 +14,7 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="OScilloscope" href="../oscilloscope.html" />
+    <link rel="next" title="Oscilloscope" href="../oscilloscope.html" />
     <link rel="prev" title="Flowmeter" href="../flowmeter.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -42,15 +42,21 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.flowmeter_keyence.Flowmeter.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_csv_save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C:/Users/phoqi/Documents/NQ</span> <span class="pre">Sensor</span> <span class="pre">Monitor/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/flowmeter_keyence.html#Flowmeter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.flowmeter_keyence.Flowmeter.__init__" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Initializes the Flowmeter class and opens the NQ Sensor Monitor software.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.flowmeter_keyence.Flowmeter.add_csv">
 <span class="sig-name descname"><span class="pre">add_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowmeter_ports</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_files</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/flowmeter_keyence.html#Flowmeter.add_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.flowmeter_keyence.Flowmeter.add_csv" title="Link to this definition">¶</a></dt>
-<dd><p>Add a new csv path for a specfic flowmeter in a particular NQ port.”
-Parameters:
-flowmeter_port (int): The port number of the flowmeter (0-indexed).
-new_path (str): The file path to the csv file.</p>
+<dd><p>Add a new csv path for a specfic flowmeter in a particular NQ port.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flowmeter_port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The port number of the flowmeter (0-indexed).</p></li>
+<li><p><strong>new_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The file path to the csv file.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -68,17 +74,36 @@ new_path (str): The file path to the csv file.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.flowmeter_keyence.Flowmeter.load_csv">
 <span class="sig-name descname"><span class="pre">load_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/flowmeter_keyence.html#Flowmeter.load_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.flowmeter_keyence.Flowmeter.load_csv" title="Link to this definition">¶</a></dt>
-<dd><p>Load csv data into a lsit of dictionaries.
-Parameters:
-(optional) folder_path (str): The folder path where the csv files are located. If None, uses default path.
-Returns:
-list: A list of dictionaries containing the csv data for each flowmeter.</p>
+<dd><p>Load csv data into a list of dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>folder_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The folder path where the csv files are located. If None, uses default path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of dictionaries containing the csv data for each flowmeter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.flowmeter_keyence.Flowmeter.process_exists">
 <span class="sig-name descname"><span class="pre">process_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/flowmeter_keyence.html#Flowmeter.process_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.flowmeter_keyence.Flowmeter.process_exists" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Check if there is any running process that contains the given name processName.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>process_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the process to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the process is running, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -113,7 +138,20 @@ list: A list of dictionaries containing the csv data for each flowmeter.</p>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#managers">Managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dcpowersupply.html">DC Power Supply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../digitalattenuator.html">DigitalAttenuator</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../flowmeter.html">Flowmeter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../oscilloscope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rfswitch.html">RF Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spectrumanalyzer.html">Spectrum Analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vectornetworkanalyzer.html">Vector Network Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#enumerated-types">Enumerated Types</a></li>
 </ul>
 </li>
 </ul>
@@ -125,7 +163,7 @@ list: A list of dictionaries containing the csv data for each flowmeter.</p>
   <li><a href="../api.html">API</a><ul>
   <li><a href="../flowmeter.html">Flowmeter</a><ul>
       <li>Previous: <a href="../flowmeter.html" title="previous chapter">Flowmeter</a></li>
-      <li>Next: <a href="../oscilloscope.html" title="next chapter">OScilloscope</a></li>
+      <li>Next: <a href="../oscilloscope.html" title="next chapter">Oscilloscope</a></li>
   </ul></li>
   </ul></li>
   </ul></li>

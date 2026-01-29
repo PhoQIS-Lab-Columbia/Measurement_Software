@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instruments.data_handler &#8212; Instruments 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Instruments.data_handler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Instruments.EFileType</span><span class="w"> </span><span class="kn">import</span> <span class="n">EFileType</span>
+
+<div class="viewcode-block" id="DataHandler">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataHandler</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for handling data reading and writing in various formats.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DataHandler.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;~/Measurement_Software/Experiments/Outputs/&quot;</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_save_path</span> <span class="o">=</span> <span class="n">file_path</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_save_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_save</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="DataHandler.parse_array">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.parse_array">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="DataHandler.get_save_path">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.get_save_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_save_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current folder where data is saved.</span>
+
+<span class="sd">        :returns: The current save path.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span></div>
+
+    
+<div class="viewcode-block" id="DataHandler.is_auto_saving_data_enabled">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.is_auto_saving_data_enabled">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_auto_saving_data_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if auto-saving of data is enabled.</span>
+
+<span class="sd">        :returns: True if auto-saving is enabled, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_save</span></div>
+
+    
+<div class="viewcode-block" id="DataHandler.enable_auto_saving_data">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.enable_auto_saving_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enable_auto_saving_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enable the automatic saving of data to a specified path.</span>
+<span class="sd">        </span>
+<span class="sd">        :param save_path: The path where data will be saved. If None, auto-saving is disabled.</span>
+<span class="sd">        :type save_path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_save</span> <span class="o">=</span> <span class="kc">True</span>
+       
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Auto-saving enabled. Data will be saved to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">save_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+            
+<div class="viewcode-block" id="DataHandler.disable_auto_saving_data">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.disable_auto_saving_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_auto_saving_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disable the automatic saving of data to a specified path.</span>
+<span class="sd">        </span>
+<span class="sd">        :param save_path: The path where data will be saved.</span>
+<span class="sd">        :type save_path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_save</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Auto-saving disabled.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DataHandler.remove_tmc_header">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.remove_tmc_header">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_tmc_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes TMC header from image bytes</span>
+<span class="sd">        :param bytes: bytes containing image information with TMC header</span>
+<span class="sd">        :type bytes: bytes</span>
+<span class="sd">        :returns: bytes without TMC header</span>
+<span class="sd">        :rtype: bytes&quot;&quot;&quot;</span>
+        <span class="c1">#First byte is #, ignore</span>
+        <span class="n">size_count</span> <span class="o">=</span> <span class="mi">0</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="nb">bytes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1">#size_count = int.from_bytes(bytes[1]</span>
+        <span class="k">return</span> <span class="nb">bytes</span><span class="p">[</span><span class="mi">2</span><span class="o">+</span><span class="n">size_count</span><span class="p">:]</span></div>
+
+
+<div class="viewcode-block" id="DataHandler.bytes_to_image">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.bytes_to_image">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bytes_to_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">image_name</span> <span class="o">=</span> <span class="s2">&quot;Image&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">EFileType</span><span class="o">.</span><span class="n">PNG</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Converts bytes to image object</span>
+<span class="sd">        :param bytes: bytes containing image information</span>
+<span class="sd">        :type bytes: bytes</span>
+<span class="sd">        :param image_name: name of file</span>
+<span class="sd">        :type image_name: str</span>
+<span class="sd">        :param format: file type used for saving</span>
+<span class="sd">        :type format: EFileType&quot;&quot;&quot;</span>
+        <span class="c1">#if bytes and bytes[0] == ord(&#39;#&#39;):</span>
+                <span class="c1">#Remove TMC header if present</span>
+                <span class="c1">#bytes = self.remove_image_tmc_header(bytes)</span>
+
+        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="nb">bytes</span><span class="p">))</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nb">format</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">im</span><span class="p">,</span> <span class="nb">bytes</span></div>
+
+    
+<div class="viewcode-block" id="DataHandler.set_default_file_type">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.set_default_file_type">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Sets default file type for reading and writing files.</span>
+<span class="sd">        :param format: file type to set as default</span>
+<span class="sd">        :type format: EFileType or str&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="nb">format</span> <span class="o">=</span> <span class="n">EFileType</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span></div>
+
+        <span class="c1">#TODO Change readers and writers</span>
+    <span class="c1">#TODO Add update_file</span>
+
+<div class="viewcode-block" id="DataHandler.read_file">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.read_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads file and returns data</span>
+<span class="sd">        :param file_path: path to file</span>
+<span class="sd">        :type file_path: str</span>
+<span class="sd">        :param format: file type to read, if None then uses default format</span>
+<span class="sd">        :type format: EFileType&quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="nb">format</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  
+            <span class="n">fmt</span> <span class="o">=</span> <span class="nb">format</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="o">+</span><span class="n">file_name</span> <span class="o">+</span> <span class="nb">format</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="nb">format</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">else</span> <span class="n">file_path</span>
+        <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                <span class="k">return</span> <span class="n">data</span>
+        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">JSON</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">jsonfile</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">jsonfile</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">TXT</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">txtfile</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">txtfile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">BIN</span><span class="p">:</span>  
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">binfile</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">binfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">PNG</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported file format: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DataHandler.write_to_file">
+<a class="viewcode-back" href="../../generated/Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler.write_to_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">file_type</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes data to file</span>
+<span class="sd">        :param file_path: path to file</span>
+<span class="sd">        :type file_path: str</span>
+<span class="sd">        :param data: data to write to file</span>
+<span class="sd">        :type data: list, dict, bytes, Image.Image</span>
+<span class="sd">        :param file_type: type of file to write to, if None then uses default format</span>
+<span class="sd">        :type file_type: EFileType</span>
+<span class="sd">        :param headers: headers for file, if None then numerical headers are used. Only used if data is not a dictionary. If file already exists, headers are not written again.</span>
+<span class="sd">        :type headers: list&quot;&quot;&quot;</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="o">+</span><span class="n">file_name</span>
+        <span class="nb">format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span>
+        <span class="k">if</span> <span class="n">file_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">format</span> <span class="o">=</span> <span class="n">file_type</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span> <span class="o">+</span> <span class="nb">format</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="nb">format</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">else</span> <span class="n">file_path</span>
+        <span class="n">file_exists</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file_exists</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>  
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="n">m</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span>
+            <span class="k">if</span> <span class="n">headers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">headers</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+        <span class="c1">#TODO Check data formatting possibilities</span>
+
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">m</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                    <span class="n">headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="k">elif</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">file_exists</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">JSON</span><span class="p">:</span>
+            <span class="n">already_in_file</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+                    <span class="n">data_dict</span><span class="p">[</span><span class="n">headers</span><span class="p">[</span><span class="n">d</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data_dict</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="k">if</span> <span class="n">file_exists</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">jsonfile</span><span class="p">:</span>
+                    <span class="n">already_in_file</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">jsonfile</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">already_in_file</span><span class="p">,</span> <span class="o">**</span><span class="n">data_dict</span><span class="p">}</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">jsonfile</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">jsonfile</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">TXT</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="k">as</span> <span class="n">txtfile</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">file_exists</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                        <span class="n">txtfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="n">txtfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Data must be a list or dictionary for TXT format.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">BIN</span><span class="p">:</span>   
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">binfile</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+                    <span class="n">binfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">):</span>
+                    <span class="n">binfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Data must be bytes or bytearray for BIN format.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">PNG</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+                <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Data must be an Image object or bytes for PNG format.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported file format: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Instruments</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Grace.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

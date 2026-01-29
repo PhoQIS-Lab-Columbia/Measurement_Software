@@ -10,6 +10,13 @@ from PIL import Image
 class Oscilloscope(Instrument):
 
     def __init__(self, instrument, save_files_path=None):
+        """Initialize the Oscilloscope class.
+
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+        :param save_files_path: Path to save files for the oscilloscope.
+        :type save_files_path: str
+        """
         super().__init__(instrument, EInstrument.OSCILLOSCOPE, save_files_path)
 
         self.acquisition = Acquisition(self.instrument,self.data_handler)
@@ -32,14 +39,12 @@ class Oscilloscope(Instrument):
         self.trigger = Trigger(self.instrument,self.data_handler)
 
     def autoscale(self):
-        """Enable the waveform auto setting function. The oscilloscope will automatically adjust the
-vertical scale, horizontal timebase, and trigger mode according to the input signal to
-realize optimum waveform display"""
+        """Enable the waveform auto setting function. The oscilloscope will automatically adjust the vertical scale, horizontal timebase, and trigger mode according to the input signal to realize optimum waveform display.
+        """
         self.instrument.write(":AUT")
     
     def clear(self):
-        """Clear all the waveforms on the screen. If the oscilloscope is in the RUN state, waveform
-will still be displayed."""
+        """Clear all the waveforms on the screen. If the oscilloscope is in the RUN state, waveform will still be displayed."""
         self.instrument.write(":CLE")
         #instrument.clear_display_window_graphics()
     def run(self):
@@ -50,36 +55,35 @@ will still be displayed."""
         self.instrument.write(":STOP")
  #Acquisition Commands
 class Acquisition:
-    """The Aquire commands are used to set and query the memory depth, acquisition mode and the number of
-averages as well as query the current sample rate of the oscilloscope."""
+    
     def __init__(self, instrument,data_handler):
+        """The Aquire commands are used to set and query the memory depth, acquisition mode and the number of averages as well as query the current sample rate of the oscilloscope.
+        
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+        :param data_handler: The data handler for processing data.
+        :type data_handler: DataHandler"""
         self.instrument = instrument
         self.data_handler = data_handler
     def set_mode(self, mode):
         """Set acquisition mode. 
-        Mode Options - Normal:  Samples the signal at equal time interval to
-rebuild the waveform. Averages:  Averages the waveforms from multiple
-samples to reduce the random noise of the input signal. Peak: Acquires the maximum and
-minimum values of the signal within the sample interval to get the envelope of the
-signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise
-on the input signal and generate much smoother waveforms """
+
+        :param mode: Mode Options - Normal:  Samples the signal at equal time interval to rebuild the waveform. Averages:  Averages the waveforms from multiple samples to reduce the random noise of the input signal. Peak: Acquires the maximum and minimum values of the signal within the sample interval to get the envelope of the signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise on the input signal and generate much smoother waveforms.
+        :type mode: str"""
+
         comm_mode = ":ACQuire:TYPE "+mode
         self.instrument.write(comm_mode)
 
     def get_mode(self):
-        """Get acquisition mode. Normal:  Samples the signal at equal time interval to
-rebuild the waveform. Averages:  Averages the waveforms from multiple
-samples to reduce the random noise of the input signal. Peak: Acquires the maximum and
-minimum values of the signal within the sample interval to get the envelope of the
-signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise
-on the input signal and generate much smoother waveforms """
+        """Get acquisition mode. Normal:  Samples the signal at equal time interval to rebuild the waveform. Averages:  Averages the waveforms from multiple samples to reduce the random noise of the input signal. Peak: Acquires the maximum and minimum values of the signal within the sample interval to get the envelope of the signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise on the input signal and generate much smoother waveforms """
         comm_mode = ":ACQuire:TYPE?"
         return self.instrument.query(comm_mode)
 
     def set_number_of_averages(self, avg):
-        """In the average acquisition mode, greater number of averages can lower the noise
-        and increase the vertical resolution, but will also slow the response of the displayed
-        waveform to the waveform changes. Avg: 2 to 1024"""
+        """In the average acquisition mode, greater number of averages can lower the noise and increase the vertical resolution, but will also slow the response of the displayed waveform to the waveform changes. 
+        
+        :param avg: 2 to 1024
+        :type avg: int"""
         if avg<2 or avg>1024:
             print("Average is an invalid value. Please enter a number between 2 and 1024")
         else:
@@ -87,17 +91,18 @@ on the input signal and generate much smoother waveforms """
             self.instrument.write(comm_mode)
 
     def get_number_of_averages(self):
-        """In the average acquisition mode, greater number of averages can lower the noise
-        and increase the vertical resolution."""
+        """In the average acquisition mode, greater number of averages can lower the noise and increase the vertical resolution."""
         comm_mode = ":ACQuire:AVERages?"
         return self.instrument.query(comm_mode)
     
     def set_memory_depth(self, mdpth):
-        """ Set memory depth of the oscilloscope (namely the number of waveform
-points that can be stored in a single trigger sample). Single Channel: AUTO|12000|
-120000|1200000|12000000|24000000. Dual Channel:  {AUTO|6000|60000|
-600000|6000000|12000000}."""
-#TODO: Add in check of channel status
+        """Set memory depth of the oscilloscope.
+
+        :param mdpth: Memory depth to set. Allowed values for single-channel: 'AUTO', 12000, 120000, 1200000, 12000000, 24000000. Allowed values for dual-channel: 'AUTO', 6000, 60000, 600000, 6000000, 12000000. The value may be provided as a string (e.g. "AUTO") or an integer.
+        :type mdpth: str or int
+        """
+        
+
         sc_allowed_values = ["AUTO",12000,120000,1200000,12000000,24000000]
         dc_allowed_values = ["AUTO",6000,60000,600000,6000000,12000000]
         if mdpth in sc_allowed_values or mdpth in dc_allowed_values:
@@ -107,8 +112,7 @@ points that can be stored in a single trigger sample). Single Channel: AUTO|1200
             print("Invalid memory depth.")
 
     def get_memory_depth(self):
-        """ Get memory depth of the oscilloscope (namely the number of waveform
-points that can be stored in a single trigger sample)."""
+        """ Get memory depth of the oscilloscope (namely the number of waveform points that can be stored in a single trigger sample)."""
         comm_mode = ":ACQuire:MDEPth?"
         return self.instrument.query(comm_mode)
 
@@ -139,7 +143,19 @@ class Calibrate:
         self.instrument.write(":CALibrate:QUIT")
 
 class Channel:
-    """The Channel commands are used to control and query channel-specific settings."""
+    """The Channel commands are used to control and query channel-specific settings.
+    
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+        :param data_handler: The data handler for processing data.
+        :type data_handler: DataHandler
+        :param channel: The channel number, either 1 or 2.
+        :type channel: int
+        :param decoder: The Decoder object for the channel.
+        :type decoder: Decoder
+        :param etable: The ETable object for the channel.
+        :type etable: ETable
+        """
     def __init__(self, instrument,data_handler, channel):
         self.instrument = instrument
         self.data_handler = data_handler
@@ -148,11 +164,11 @@ class Channel:
         self.etable = ETable(self.instrument,self.data_handler, channel)
 
     def set_bandwidth_limit(self,  bw):
-        """Set or query the bandwidth limit parameter of the specified channel.
-        Parameters:
-        channel (int): The channel number, either 1 or 2.
-        bw (str): The bandwidth limit, either "20M" or "OFF".
-        """
+        """Set bandwidth limit of the specified channel.
+
+            :param bw: Bandwidth limit to set. Allowed values: "20M" or "OFF".
+            :type bw: str
+            """
         allowed_chnl_values = [1, 2]
         allowed_type_values = ["20M", "OFF"]
         if self.channel in allowed_chnl_values and bw in allowed_type_values:
@@ -163,15 +179,20 @@ class Channel:
 
     def get_bandwidth_limit(self, channel):
         """Query the bandwidth limit parameter of the specified channel.
-        Parameters:
-        channel (int): The channel number, either 1 or 2.
-        Returns:
-        str: The bandwidth limit, either "20M" or "OFF"."""
+
+        :param channel: The channel number, either 1 or 2.
+        :type channel: int
+        :return: The bandwidth limit, either "20M" or "OFF".
+        :rtype: str"""
         comm_mode = f":CHANnel{self.channel}:BWLimit?"
         return self.instrument.query(comm_mode)
 
     def set_coupling_mode(self,  coupling_mode):
-        """Set the coupling mode of the specified channel."""
+        """Set the coupling mode of the instrument for the channel specified by self.channel.
+
+        :param coupling_mode: The coupling mode to set for the current channel. Must be one of "AC", "DC", or "GND".
+        :type coupling_mode: str"""
+        
         allowed_chnl_values = [1, 2]
         allowed_type_values = ["AC", "DC", "GND"]
         if self.channel in allowed_chnl_values and coupling_mode in allowed_type_values:
@@ -181,27 +202,53 @@ class Channel:
             print("Invalid channel or coupling mode.")
 
     def get_coupling_mode(self, channel):
-        """Query the coupling mode of the specified channel."""
+        """Query the coupling mode of the specified channel.
+
+            :param channel: The channel to query (e.g., channel number or identifier).
+            :type channel: int
+            :return: The coupling mode reported by the instrument (for example 'DC', 'AC', or 'GND').
+            :rtype: str"""
+        
         comm_mode = f":CHANnel{self.channel}:COUPling?"
         return self.instrument.query(comm_mode)
 
-    def invert_waveform(self,  param1):
-        """Set the invert mode of the specified channel."""
+    def invert_waveform(self,  type):
+        """Set the invert mode of the specified channel.
+
+        :param type: The invert mode to apply to the channel. Allowed values are "ON" or "OFF" (strings) or 1 or 2 (integers). The channel affected is taken from self.channel and must be 1 or 2.
+        :type type: str or int
+        """
+       
         allowed_chnl_values = [1, 2]
         allowed_type_values = ["ON", "OFF", 1, 2]
-        if self.channel in allowed_chnl_values and param1 in allowed_type_values:
-            comm = f":CHANnel{self.channel}:INVert {param1}"
+        if self.channel in allowed_chnl_values and type in allowed_type_values:
+            comm = f":CHANnel{self.channel}:INVert {type}"
             self.instrument.write(comm)
         else:
             print("Invalid channel or invert parameter.")
 
     def is_inverted(self, channel):
-        """Query the invert mode of the specified channel."""
+        """
+        Query the invert mode of the specified channel.
+
+        :param channel: The channel to query.
+        :type channel: int
+        :return: The invert mode reported by the instrument for the given channel (e.g., '1'/'0' or 'ON'/'OFF').
+        :rtype: str
+        """
+       
         comm_mode = f":CHANnel{self.channel}:INVert?"
         return self.instrument.query(comm_mode)
 
     def set_offset(self,  param1):
-        """Set the vertical offset of the specified channel. The default unit is V."""
+        """Set the vertical offset of the specified channel (in volts).
+
+        The method sets the vertical offset for self.channel by sending the appropriate command to the instrument. Valid channel values are 1 and 2; if self.channel is not valid, the method prints "Invalid channel." and does not send a command.
+
+        :param param1: The offset value to set, in volts.
+        :type param1: float
+        """
+        
         allowed_chnl_values = [1, 2]
         if self.channel in allowed_chnl_values:
             comm = f":CHANnel{self.channel}:OFFSet {param1}"
@@ -211,10 +258,11 @@ class Channel:
 
     def get_offset(self, channel):
         """Query the vertical offset of the specified channel. The default unit is V.
-        Parameters:
-        channel (int): The channel number, either 1 or 2.
-        Returns:
-        str: The vertical offset value in volts."""
+
+            :param channel: The channel number, either 1 or 2.
+            :type channel: int
+            :return: The vertical offset value in volts.
+            :rtype: str"""
         comm_mode = f":CHANnel{self.channel}:OFFSet?"
         return self.instrument.query(comm_mode)
 

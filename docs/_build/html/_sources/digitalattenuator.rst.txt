@@ -1,5 +1,5 @@
-DigitalAttenuator``
-===============
+DigitalAttenuator
+==================
 This is the Digital Attenuator class and all relevant subclasses.
 
 .. currentmodule:: Instruments

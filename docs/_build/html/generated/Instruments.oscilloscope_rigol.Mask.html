@@ -48,248 +48,200 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.create">
 <span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.create" title="Link to this definition">¶</a></dt>
-<dd><p>Create the pass/fail test mask using the current horizontal and vertical adjustment parameters.
-Parameter:
-None
-Return:
+<dd><p>Create the pass/fail test mask using the current horizontal and vertical adjustment parameters.</p>
+<p>Parameter:
+None</p>
+<p>Return:
 None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.enable">
 <span class="sig-name descname"><span class="pre">enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.enable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.enable" title="Link to this definition">¶</a></dt>
-<dd><p>Enable or disable the pass/fail test.
-Parameter:</p>
-<blockquote>
-<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Enable or disable the pass/fail test.</p>
+<p>Parameter:
+state (int or str): 1/0 or “ON”/”OFF”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.enable_display">
 <span class="sig-name descname"><span class="pre">enable_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.enable_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.enable_display" title="Link to this definition">¶</a></dt>
-<dd><p>Enable or disable the statistic information when the pass/fail test is enabled.
-Parameter:</p>
-<blockquote>
-<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Enable or disable the statistic information when the pass/fail test is enabled.</p>
+<p>Parameter:
+state (int or str): 1/0 or “ON”/”OFF”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.enable_sound">
 <span class="sig-name descname"><span class="pre">enable_sound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.enable_sound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.enable_sound" title="Link to this definition">¶</a></dt>
-<dd><p>Enable or disable the sound prompt when failed waveforms are detected.
-Parameter:</p>
-<blockquote>
-<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Enable or disable the sound prompt when failed waveforms are detected.</p>
+<p>Parameter:
+state (int or str): 1/0 or “ON”/”OFF”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.enable_stop_on_fail">
 <span class="sig-name descname"><span class="pre">enable_stop_on_fail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.enable_stop_on_fail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.enable_stop_on_fail" title="Link to this definition">¶</a></dt>
-<dd><p>Turn the “Stop on Fail” function on or off.
-Parameter:</p>
-<blockquote>
-<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Turn the “Stop on Fail” function on or off.</p>
+<p>Parameter:
+state (int or str): 1/0 or “ON”/”OFF”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.get_failed">
 <span class="sig-name descname"><span class="pre">get_failed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.get_failed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.get_failed" title="Link to this definition">¶</a></dt>
-<dd><p>Query the number of failed frames in the pass/fail test.
-Parameter:
-None
-Return:
+<dd><p>Query the number of failed frames in the pass/fail test.</p>
+<p>Parameter:
+None</p>
+<p>Return:
 int: Number of failed frames</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.get_operate">
 <span class="sig-name descname"><span class="pre">get_operate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.get_operate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.get_operate" title="Link to this definition">¶</a></dt>
-<dd><p>Query the status of the pass/fail test.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: “RUN” or “STOP”</p>
-</dd>
-</dl>
+<dd><p>Query the status of the pass/fail test.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: “RUN” or “STOP”</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.get_passed">
 <span class="sig-name descname"><span class="pre">get_passed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.get_passed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.get_passed" title="Link to this definition">¶</a></dt>
-<dd><p>Query the number of passed frames in the pass/fail test.
-Parameter:
-None
-Return:
+<dd><p>Query the number of passed frames in the pass/fail test.</p>
+<p>Parameter:
+None</p>
+<p>Return:
 int: Number of passed frames</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.get_source">
 <span class="sig-name descname"><span class="pre">get_source</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.get_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.get_source" title="Link to this definition">¶</a></dt>
-<dd><p>Query the source of the pass/fail test.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: “CHAN1” or “CHAN2”</p>
-</dd>
-</dl>
+<dd><p>Query the source of the pass/fail test.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: “CHAN1” or “CHAN2”</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.get_total">
 <span class="sig-name descname"><span class="pre">get_total</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.get_total"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.get_total" title="Link to this definition">¶</a></dt>
-<dd><p>Query the total number of frames in the pass/fail test.
-Parameter:
-None
-Return:
+<dd><p>Query the total number of frames in the pass/fail test.</p>
+<p>Parameter:
+None</p>
+<p>Return:
 int: Total number of frames</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.get_x">
 <span class="sig-name descname"><span class="pre">get_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.get_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.get_x" title="Link to this definition">¶</a></dt>
-<dd><p>Query the horizontal adjustment parameter in the pass/fail test mask.
-Parameter:
-None
-Return:
+<dd><p>Query the horizontal adjustment parameter in the pass/fail test mask.</p>
+<p>Parameter:
+None</p>
+<p>Return:
 float: Horizontal adjustment parameter</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.get_y">
 <span class="sig-name descname"><span class="pre">get_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.get_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.get_y" title="Link to this definition">¶</a></dt>
-<dd><p>Query the vertical adjustment parameter in the pass/fail test mask.
-Parameter:
-None
-Return:
+<dd><p>Query the vertical adjustment parameter in the pass/fail test mask.</p>
+<p>Parameter:
+None</p>
+<p>Return:
 float: Vertical adjustment parameter</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.is_display_enabled">
 <span class="sig-name descname"><span class="pre">is_display_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.is_display_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.is_display_enabled" title="Link to this definition">¶</a></dt>
-<dd><p>Query the status of the statistic information.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: 1 (enabled) or 0 (disabled)</p>
-</dd>
-</dl>
+<dd><p>Query the status of the statistic information.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: 1 (enabled) or 0 (disabled)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.is_enabled">
 <span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.is_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.is_enabled" title="Link to this definition">¶</a></dt>
-<dd><p>Query the status of the pass/fail test.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: 1 (enabled) or 0 (disabled)</p>
-</dd>
-</dl>
+<dd><p>Query the status of the pass/fail test.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: 1 (enabled) or 0 (disabled)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.is_sound_enabled">
 <span class="sig-name descname"><span class="pre">is_sound_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.is_sound_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.is_sound_enabled" title="Link to this definition">¶</a></dt>
-<dd><p>Query the status of the sound prompt when failed waveforms are detected.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: 1 (enabled) or 0 (disabled)</p>
-</dd>
-</dl>
+<dd><p>Query the status of the sound prompt when failed waveforms are detected.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: 1 (enabled) or 0 (disabled)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.is_stop_on_fail_enabled">
 <span class="sig-name descname"><span class="pre">is_stop_on_fail_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.is_stop_on_fail_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.is_stop_on_fail_enabled" title="Link to this definition">¶</a></dt>
-<dd><p>Query the status of the “Stop on Fail” function.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: 1 (enabled) or 0 (disabled)</p>
-</dd>
-</dl>
+<dd><p>Query the status of the “Stop on Fail” function.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: 1 (enabled) or 0 (disabled)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.operate">
 <span class="sig-name descname"><span class="pre">operate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.operate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.operate" title="Link to this definition">¶</a></dt>
-<dd><p>Run or stop the pass/fail test.
-Parameter:</p>
-<blockquote>
-<div><p>oper (str): “RUN” or “STOP”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Run or stop the pass/fail test.</p>
+<p>Parameter:
+oper (str): “RUN” or “STOP”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.reset">
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.reset" title="Link to this definition">¶</a></dt>
-<dd><p>Reset the numbers of passed, failed, and total frames in the pass/fail test to 0.
-Parameter:
-None
-Return:
+<dd><p>Reset the numbers of passed, failed, and total frames in the pass/fail test to 0.</p>
+<p>Parameter:
+None</p>
+<p>Return:
 None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.set_source">
 <span class="sig-name descname"><span class="pre">set_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.set_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.set_source" title="Link to this definition">¶</a></dt>
-<dd><p>Set the source of the pass/fail test.
-Parameter:</p>
-<blockquote>
-<div><p>source (str): “CHANnel1” or “CHANnel2”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the source of the pass/fail test.</p>
+<p>Parameter:
+source (str): “CHANnel1” or “CHANnel2”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Mask.set_x">
 <span class="sig-name descname"><span class="pre">set_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Mask.set_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Mask.set_x" title="Link to this definition">¶</a></dt>
-<dd><p>Set the horizontal adjustment parameter in the pass/fail test mask.
-Parameter:
-x (float): Value between 0.02 and 4 (step 0.02)
-Return:
+<dd><p>Set the horizontal adjustment parameter in the pass/fail test mask.</p>
+<p>Parameter:
+x (float): Value between 0.02 and 4 (step 0.02)</p>
+<p>Return:
 None</p>
 </dd></dl>
 
@@ -336,7 +288,20 @@ None</p>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#managers">Managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dcpowersupply.html">DC Power Supply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../digitalattenuator.html">DigitalAttenuator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flowmeter.html">Flowmeter</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../oscilloscope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rfswitch.html">RF Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spectrumanalyzer.html">Spectrum Analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vectornetworkanalyzer.html">Vector Network Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#enumerated-types">Enumerated Types</a></li>
 </ul>
 </li>
 </ul>
@@ -346,7 +311,7 @@ None</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="../api.html">API</a><ul>
-  <li><a href="../oscilloscope.html">OScilloscope</a><ul>
+  <li><a href="../oscilloscope.html">Oscilloscope</a><ul>
       <li>Previous: <a href="Instruments.oscilloscope_rigol.Math.html" title="previous chapter">Instruments.oscilloscope_rigol.Math Class</a></li>
       <li>Next: <a href="Instruments.oscilloscope_rigol.Measure.html" title="next chapter">Instruments.oscilloscope_rigol.Measure Class</a></li>
   </ul></li>

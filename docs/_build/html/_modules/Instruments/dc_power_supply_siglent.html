@@ -60,8 +60,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the ID string of the instrument.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        str: The ID string in the format &quot;RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial number&gt;,&lt;software version&gt;&quot;.</span>
+<span class="sd">        :return: The ID string in the format &quot;RIGOL TECHNOLOGIES,&lt;model&gt;,&lt;serial number&gt;,&lt;software version&gt;&quot;.</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;*IDN?&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
@@ -71,10 +71,9 @@
 <a class="viewcode-back" href="../../generated/Instruments.dc_power_supply_siglent.DCPowerSupply.html#Instruments.dc_power_supply_siglent.DCPowerSupply.save">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Save the current state in nonvolatile memory with the specified name.</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters:</span>
-<span class="sd">        name (str): The name to save the state under.</span>
+<span class="sd">        Save the current state in nonvolatile memory with the specified name.  </span>
+<span class="sd">        :param name: The name to save the state under.</span>
+<span class="sd">        :type name: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;*SAV </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -85,9 +84,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">recall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Recall the state previously saved with the specified name.</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters:</span>
-<span class="sd">        name (str): The name of the state to recall.</span>
+
+<span class="sd">        :param name: The name of the state to recall.</span>
+<span class="sd">        :type name: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;*RCL </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -97,8 +96,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the work operation mode to 2-wire or 4-wire.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">        mode (str): &#39;2W&#39; for 2-wire, &#39;4W&#39; for 4-wire.</span>
+<span class="sd">        :param mode: &#39;2W&#39; for 2-wire, &#39;4W&#39; for 4-wire.</span>
+<span class="sd">        :type mode: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;2W&#39;</span><span class="p">,</span> <span class="s1">&#39;4W&#39;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid mode. Must be &#39;2W&#39; or &#39;4W&#39;.&quot;</span><span class="p">)</span>
@@ -109,8 +108,9 @@
 <a class="viewcode-back" href="../../generated/Instruments.dc_power_supply_siglent.DCPowerSupply.html#Instruments.dc_power_supply_siglent.DCPowerSupply.get_system_error">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_system_error</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Queries the next error from the error queue, returning its code and message.</span>
-<span class="sd">        Notes: Query only.</span>
+<span class="sd">        Query the system error queue.   </span>
+<span class="sd">        :return: The error code and message in the format &quot;&lt;code&gt;,&lt;message&gt;&quot;.</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYST:ERR?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">response</span></div>
@@ -122,9 +122,10 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Turn on the specified channel.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">        source (str): Channel to control (&#39;CH1&#39;, &#39;CH2&#39;, &#39;CH3&#39;).</span>
-<span class="sd">        state (str): Output state (&#39;ON&#39;, &#39;OFF&#39;).</span>
+<span class="sd">        :param source: Channel to control (&#39;CH1&#39;, &#39;CH2&#39;, &#39;CH3&#39;).</span>
+<span class="sd">        :type source: str</span>
+<span class="sd">        :param state: Output state (&#39;ON&#39;, &#39;OFF&#39;).</span>
+<span class="sd">        :type state: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CH1&#39;</span><span class="p">,</span> <span class="s1">&#39;CH2&#39;</span><span class="p">,</span> <span class="s1">&#39;CH3&#39;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid source. Must be &#39;CH1&#39;, &#39;CH2&#39;, or &#39;CH3&#39;.&quot;</span><span class="p">)</span>
@@ -138,8 +139,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Turn off the specified channel.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">        source (str): Channel to control (&#39;CH1&#39;, &#39;CH2&#39;, &#39;CH3&#39;).</span>
+<span class="sd">        :param source: Channel to control (&#39;CH1&#39;, &#39;CH2&#39;, &#39;CH3&#39;).</span>
+<span class="sd">        :type source: str</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CH1&#39;</span><span class="p">,</span> <span class="s1">&#39;CH2&#39;</span><span class="p">,</span> <span class="s1">&#39;CH3&#39;</span><span class="p">]:</span>
@@ -154,8 +155,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Select the operation mode.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">        mode (int): 0 for Independent, 1 for Series, 2 for Parallel.</span>
+<span class="sd">        :param mode: 0 for Independent, 1 for Series, 2 for Parallel.</span>
+<span class="sd">        :type mode: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid mode. Must be 0 (Independent), 1 (Series), or 2 (Parallel).&quot;</span><span class="p">)</span>
@@ -168,8 +169,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the current working state and decode the status bits.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Decoded status information.</span>
+<span class="sd">        :return: Decoded status information.</span>
+<span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">hex_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;SYSTem:STATus?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="c1"># Remove &#39;0x&#39; if present and convert to int</span>
@@ -215,6 +216,7 @@
 <div class="viewcode-block" id="Channel">
 <a class="viewcode-back" href="../../generated/Instruments.dc_power_supply_siglent.Channel.html#Instruments.dc_power_supply_siglent.Channel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Channel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Channel to be selected.&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="Channel.__init__">
 <a class="viewcode-back" href="../../generated/Instruments.dc_power_supply_siglent.Channel.html#Instruments.dc_power_supply_siglent.Channel.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">):</span>
@@ -225,6 +227,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">voltage</span> <span class="o">=</span> <span class="n">Voltage</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="n">data_handler</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="o">=</span> <span class="n">Power</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">,</span><span class="n">channel</span><span class="p">)</span></div>
 </div>
+
 
 <div class="viewcode-block" id="Current">
 <a class="viewcode-back" href="../../generated/Instruments.dc_power_supply_siglent.Current.html#Instruments.dc_power_supply_siglent.Current">[docs]</a>
@@ -243,9 +246,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the current value.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        float: The current value in Amperes.</span>
+
+<span class="sd">        :return: The current value in Amperes.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSTrument </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MEASure:CURRent? </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -264,8 +267,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the over-current protection (OCP) value for the current channel.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">        value (float): The OCP value to set (in Amperes).</span>
+<span class="sd">        :param value: The OCP value to set (in Amperes).</span>
+<span class="sd">        :type value: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSTrument </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:OCP </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -277,8 +280,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the over-current protection (OCP) value for the current channel.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        float: The OCP value in Amperes.</span>
+<span class="sd">        :return: The OCP value in Amperes.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSTrument </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:OCP?&quot;</span><span class="p">)</span>
@@ -302,9 +305,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the voltage value.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        float: The current value in Amperes.</span>
+
+<span class="sd">        :return: The current value in Volts.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSTrument </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MEASure:VOLTage? </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -324,8 +327,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the over-voltage protection (OVP) value for the current channel.</span>
 
-<span class="sd">        Parameters:</span>
-<span class="sd">        value (float): The OVP value to set (in Volts).</span>
+<span class="sd">        :param value: The OVP value to set (in Volts).</span>
+<span class="sd">        :type value: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSTrument </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:OVP </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -337,8 +340,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the over-voltage protection (OVP) value for the current channel.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">        float: The OVP value in Volts.</span>
+<span class="sd">        :return: The OVP value in Volts.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSTrument </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">:OVP?&quot;</span><span class="p">)</span>
@@ -363,9 +366,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the power value.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        float: The power value in watt.</span>
+
+<span class="sd">        :return: The power value in watt.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSTrument </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MEASure:POWEr? </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -375,7 +378,9 @@
 <div class="viewcode-block" id="Power.set">
 <a class="viewcode-back" href="../../generated/Instruments.dc_power_supply_siglent.Power.html#Instruments.dc_power_supply_siglent.Power.set">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voltage</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set power value for the current channel&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set power value for the current channel</span>
+<span class="sd">        :param voltage: The power value to set (in watt).</span>
+<span class="sd">        :type voltage: float&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSTrument </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="o">+</span><span class="s2">&quot;:POWEr &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">voltage</span><span class="p">))</span></div>
 </div>

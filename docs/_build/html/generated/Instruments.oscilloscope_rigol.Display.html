@@ -48,12 +48,10 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.clear">
 <span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.clear" title="Link to this definition">¶</a></dt>
-<dd><p>Clear all the waveforms on the screen.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
+<dd><p>Clear all the waveforms on the screen.</p>
 <dl class="simple">
+<dt>Parameter:</dt><dd><p>None</p>
+</dd>
 <dt>Return:</dt><dd><p>None</p>
 </dd>
 </dl>
@@ -62,158 +60,114 @@ Parameter:</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.get_data">
 <span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.get_data" title="Link to this definition">¶</a></dt>
-<dd><p>Read the data stream of the image currently displayed on the screen. If autosave is on, then also saves them to a png file.
-Parameter:</p>
-<blockquote>
-<div><p>color (str or None): “ON” or “OFF” (default ON)
+<dd><p>Read the data stream of the image currently displayed on the screen. If autosave is on, then also saves them to a png file.</p>
+<p>Parameter:
+color (str or None): “ON” or “OFF” (default ON)
 invert (int/str or None): 1/”ON” or 0/”OFF” (default 0)
 fmt (str or None): “BMP24”, “BMP8”, “PNG”, “JPEG”, “TIFF” (default BMP24)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>bytes: Raw image data (TMC header included)
+<p>Return:
+bytes: Raw image data (TMC header included)
 Image: If auto save enabled, return PIL Image object, if not set to save return None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.get_grading_time">
 <span class="sig-name descname"><span class="pre">get_grading_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.get_grading_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.get_grading_time" title="Link to this definition">¶</a></dt>
-<dd><p>Query the persistence time of the waveform.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>float: Persistence time in seconds</p>
-</dd>
-</dl>
+<dd><p>Query the persistence time of the waveform.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+float: Persistence time in seconds</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.get_grid">
 <span class="sig-name descname"><span class="pre">get_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.get_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.get_grid" title="Link to this definition">¶</a></dt>
-<dd><p>Query the screen grid type.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: Grid type</p>
-</dd>
-</dl>
+<dd><p>Query the screen grid type.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: Grid type</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.get_grid_brightness">
 <span class="sig-name descname"><span class="pre">get_grid_brightness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.get_grid_brightness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.get_grid_brightness" title="Link to this definition">¶</a></dt>
-<dd><p>Query the grid brightness.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: Grid brightness (0 to 100)</p>
-</dd>
-</dl>
+<dd><p>Query the grid brightness.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: Grid brightness (0 to 100)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.get_type">
 <span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.get_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.get_type" title="Link to this definition">¶</a></dt>
-<dd><p>Query the waveform display mode.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: Display type</p>
-</dd>
-</dl>
+<dd><p>Query the waveform display mode.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+str: Display type</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.get_waveform_brightness">
 <span class="sig-name descname"><span class="pre">get_waveform_brightness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.get_waveform_brightness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.get_waveform_brightness" title="Link to this definition">¶</a></dt>
-<dd><p>Query the waveform intensity.
-Parameter:</p>
-<blockquote>
-<div><p>None</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: Brightness (0 to 100)</p>
-</dd>
-</dl>
+<dd><p>Query the waveform intensity.</p>
+<p>Parameter:
+None</p>
+<p>Return:
+int: Brightness (0 to 100)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.set_grading_time">
 <span class="sig-name descname"><span class="pre">set_grading_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.set_grading_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.set_grading_time" title="Link to this definition">¶</a></dt>
-<dd><p>Set the persistence time of the waveform.
-Parameter:</p>
-<blockquote>
-<div><p>time (float): Persistence time in seconds</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the persistence time of the waveform.</p>
+<p>Parameter:
+time (float): Persistence time in seconds</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.set_grid">
 <span class="sig-name descname"><span class="pre">set_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.set_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.set_grid" title="Link to this definition">¶</a></dt>
-<dd><p>Set the screen grid type.
-Parameter:</p>
-<blockquote>
-<div><p>grid_type (str): “FULL”, “HALF”, “NONE”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the screen grid type.</p>
+<p>Parameter:
+grid_type (str): “FULL”, “HALF”, “NONE”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.set_grid_brightness">
 <span class="sig-name descname"><span class="pre">set_grid_brightness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.set_grid_brightness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.set_grid_brightness" title="Link to this definition">¶</a></dt>
-<dd><p>Set the grid brightness.
-Parameter:</p>
-<blockquote>
-<div><p>val (int): 0 to 100</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the grid brightness.</p>
+<p>Parameter:
+val (int): 0 to 100</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.set_type">
 <span class="sig-name descname"><span class="pre">set_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">disp_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.set_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.set_type" title="Link to this definition">¶</a></dt>
-<dd><p>Set the waveform display mode.
-Parameter:</p>
-<blockquote>
-<div><p>disp_type (str): Allowed values depend on instrument, e.g., “VECTor”, “DOTS”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the waveform display mode.</p>
+<p>Parameter:
+disp_type (str): Allowed values depend on instrument, e.g., “VECTor”, “DOTS”</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Display.set_waveform_brightness">
 <span class="sig-name descname"><span class="pre">set_waveform_brightness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Display.set_waveform_brightness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Display.set_waveform_brightness" title="Link to this definition">¶</a></dt>
-<dd><p>Set the waveform intensity.
-Parameter:</p>
-<blockquote>
-<div><p>val (int): 0 to 100</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Set the waveform intensity.</p>
+<p>Parameter:
+val (int): 0 to 100</p>
+<p>Return:
+None</p>
 </dd></dl>
 
 </dd></dl>
@@ -249,7 +203,20 @@ Parameter:</p>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#managers">Managers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#instruments">Instruments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../dcpowersupply.html">DC Power Supply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../digitalattenuator.html">DigitalAttenuator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flowmeter.html">Flowmeter</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../oscilloscope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rfswitch.html">RF Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spectrumanalyzer.html">Spectrum Analyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vectornetworkanalyzer.html">Vector Network Analyzer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#helpers">Helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#enumerated-types">Enumerated Types</a></li>
 </ul>
 </li>
 </ul>
@@ -259,7 +226,7 @@ Parameter:</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="../api.html">API</a><ul>
-  <li><a href="../oscilloscope.html">OScilloscope</a><ul>
+  <li><a href="../oscilloscope.html">Oscilloscope</a><ul>
       <li>Previous: <a href="Instruments.oscilloscope_rigol.Parallel.html" title="previous chapter">Instruments.oscilloscope_rigol.Parallel Class</a></li>
       <li>Next: <a href="Instruments.oscilloscope_rigol.ETable.html" title="next chapter">Instruments.oscilloscope_rigol.ETable Class</a></li>
   </ul></li>

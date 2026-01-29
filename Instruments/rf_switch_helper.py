@@ -1,5 +1,5 @@
 import json
-class InstrumentHelper:
+class RFSwitchHelper:
     def __init__(self, inst):
         self.instrument = inst
 

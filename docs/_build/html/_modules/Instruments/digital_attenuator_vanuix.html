@@ -42,7 +42,7 @@
 <div class="viewcode-block" id="DigitalAttenuator">
 <a class="viewcode-back" href="../../generated/Instruments.digital_attenuator_vanuix.DigitalAttenuator.html#Instruments.digital_attenuator_vanuix.DigitalAttenuator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DigitalAttenuator</span><span class="p">(</span><span class="n">Instrument</span><span class="p">):</span>
-
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to control Vanuix Digital Attenuators via their DLL API.&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="DigitalAttenuator.__init__">
 <a class="viewcode-back" href="../../generated/Instruments.digital_attenuator_vanuix.DigitalAttenuator.html#Instruments.digital_attenuator_vanuix.DigitalAttenuator.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">devid</span><span class="p">,</span> <span class="n">save_files_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -65,7 +65,7 @@
 <div class="viewcode-block" id="DigitalAttenuator.enable_testing">
 <a class="viewcode-back" href="../../generated/Instruments.digital_attenuator_vanuix.DigitalAttenuator.html#Instruments.digital_attenuator_vanuix.DigitalAttenuator.enable_testing">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">enable_testing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enables testting mode for the digital attenuator.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enables testing mode for the digital attenuator.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetTestMode</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DigitalAttenuator.disable_testing">
@@ -125,7 +125,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_working_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency_mhz</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the midband working frequency of the attenuator.</span>
-<span class="sd">        frequency_mhz: Frequency in MHz (e.g., 1500 for 1.5 GHz)</span>
+<span class="sd">        </span>
+<span class="sd">        :param frequency_mhz: Frequency in MHz (e.g., 1500 for 1.5 GHz)</span>
+<span class="sd">        :type frequency_mhz: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">freq_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frequency_mhz</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># Convert MHz to 100 kHz units</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetWorkingFrequency</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">freq_code</span><span class="p">)</span>
@@ -137,7 +141,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the attenuation level for 0.25 dB step attenuators.</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</span>
+<span class="sd">        :type attenuation_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.25</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetAttenuation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">att_code</span><span class="p">)</span>
@@ -149,7 +157,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_attenuation_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the attenuation level for 0.05 dB step attenuators.</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</span>
+<span class="sd">        :type attenuation_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetAttenuationHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">att_code</span><span class="p">)</span>
@@ -160,8 +172,13 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_attenuation_hrq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">,</span> <span class="n">channel</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the attenuation level for 0.05 dB step attenuators on a specific channel.</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</span>
-<span class="sd">        channel: Channel number (1 to 4)</span>
+<span class="sd">        </span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</span>
+<span class="sd">        :type attenuation_db: float</span>
+<span class="sd">        :param channel: Channel number (1 to 4)</span>
+<span class="sd">        :type channel: int</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetAttenuationHRQ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">att_code</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">channel</span><span class="p">))</span>
@@ -173,7 +190,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ramp_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the attenuation level at the beginning of an attenuation ramp (0.25 dB steps).</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</span>
+<span class="sd">        :type attenuation_db: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.25</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetRampStart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">att_code</span><span class="p">)</span>
@@ -185,7 +204,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ramp_start_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the attenuation level at the beginning of an attenuation ramp (0.05 dB steps).</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</span>
+<span class="sd">        :type attenuation_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetRampStartHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">att_code</span><span class="p">)</span>
@@ -196,7 +219,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ramp_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the attenuation level at the end of an attenuation ramp (0.25 dB steps).</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB (e.g., 10 for 10 dB)</span>
+<span class="sd">        :type attenuation_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.25</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetRampEnd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">att_code</span><span class="p">)</span>
@@ -208,7 +235,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ramp_end_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the attenuation level at the end of an attenuation ramp (0.05 dB steps).</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB (e.g., 5 for 5 dB)</span>
+<span class="sd">        :type attenuation_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetRampEndHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">att_code</span><span class="p">)</span>
@@ -220,7 +251,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_attenuation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the size of the attenuation step for ramp/sweep (0.25 dB steps).</span>
-<span class="sd">        step_db: Step size in dB (e.g., 2 for 2 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param step_db: Step size in dB (e.g., 2 for 2 dB)</span>
+<span class="sd">        :type step_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">step_db</span> <span class="o">/</span> <span class="mf">0.25</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetAttenuationStep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">step_code</span><span class="p">)</span>
@@ -232,7 +267,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_attenuation_step_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the size of the attenuation step for ramp/sweep (0.05 dB steps).</span>
-<span class="sd">        step_db: Step size in dB (e.g., 2 for 2 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param step_db: Step size in dB (e.g., 2 for 2 dB)</span>
+<span class="sd">        :type step_db: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">step_db</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetAttenuationStepHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">step_code</span><span class="p">)</span>
@@ -243,7 +280,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_second_attenuation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the size of the attenuation step for the second phase of a bidirectional sweep (0.25 dB steps).</span>
-<span class="sd">        step_db: Step size in dB (e.g., 2 for 2 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param step_db: Step size in dB (e.g., 2 for 2 dB)</span>
+<span class="sd">        :type step_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">step_db</span> <span class="o">/</span> <span class="mf">0.25</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetAttenuationStepTwo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">step_code</span><span class="p">)</span>
@@ -255,7 +296,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_second_attenuation_step_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the size of the attenuation step for the second phase of a bidirectional sweep (0.05 dB steps).</span>
-<span class="sd">        step_db: Step size in dB (e.g., 2 for 2 dB)</span>
+<span class="sd">        </span>
+<span class="sd">        :param step_db: Step size in dB (e.g., 2 for 2 dB)</span>
+<span class="sd">        :type step_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">step_db</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetAttenuationStepTwoHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="n">step_code</span><span class="p">)</span>
@@ -267,7 +312,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_first_dwell_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dwell_time_ms</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the dwell time at each attenuation step during a ramp (in milliseconds).</span>
-<span class="sd">        dwell_time_ms: Dwell time in milliseconds (minimum 1 ms)</span>
+<span class="sd">        </span>
+<span class="sd">        :param dwell_time_ms: Dwell time in milliseconds (minimum 1 ms)</span>
+<span class="sd">        :type dwell_time_ms: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetDwellTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">dwell_time_ms</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -278,7 +327,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_second_dwell_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dwell_time_ms</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the dwell time at each attenuation step during the second phase of a ramp (in milliseconds).</span>
-<span class="sd">        dwell_time_ms: Dwell time in milliseconds (minimum 1 ms)</span>
+<span class="sd">        </span>
+<span class="sd">        :param dwell_time_ms: Dwell time in milliseconds (minimum 1 ms)</span>
+<span class="sd">        :type dwell_time_ms: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetDwellTimetwo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">dwell_time_ms</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -289,7 +342,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_idle_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idle_time_ms</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the idle time at the end of an attenuation ramp before repeating (in milliseconds).</span>
-<span class="sd">        idle_time_ms: Idle time in milliseconds (minimum 0 ms)</span>
+<span class="sd">        </span>
+<span class="sd">        :param idle_time_ms: Idle time in milliseconds (minimum 0 ms)</span>
+<span class="sd">        :type idle_time_ms: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetIdleTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">idle_time_ms</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -300,7 +357,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_hold_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hold_time_ms</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the time delay between the first and second phases of a ramp (in milliseconds).</span>
-<span class="sd">        hold_time_ms: Hold time in milliseconds (minimum 0 ms)</span>
+<span class="sd">        </span>
+<span class="sd">        :param hold_time_ms: Hold time in milliseconds (minimum 0 ms)</span>
+<span class="sd">        :type hold_time_ms: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetHoldTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">hold_time_ms</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -310,8 +371,13 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_profile_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the value of a profile element (0.25 dB steps).</span>
-<span class="sd">        index: Index of the profile element (0 to PROFILE_MAX-1)</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB</span>
+<span class="sd">        </span>
+<span class="sd">        :param index: Index of the profile element (0 to PROFILE_MAX-1)</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB</span>
+<span class="sd">        :type attenuation_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.25</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetProfileElement</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">att_code</span><span class="p">)</span>
@@ -323,8 +389,13 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_profile_element_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">attenuation_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the value of a profile element (0.05 dB steps).</span>
-<span class="sd">        index: Index of the profile element (0 to PROFILE_MAX-1)</span>
-<span class="sd">        attenuation_db: Desired attenuation in dB</span>
+<span class="sd">        </span>
+<span class="sd">        :param index: Index of the profile element (0 to PROFILE_MAX-1)</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :param attenuation_db: Desired attenuation in dB</span>
+<span class="sd">        :type attenuation_db: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">attenuation_db</span> <span class="o">/</span> <span class="mf">0.05</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetProfileElementHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">att_code</span><span class="p">)</span>
@@ -336,7 +407,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_profile_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile_count</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the number of elements in the profile to be used.</span>
-<span class="sd">        profile_count: Number of elements (1 to PROFILE_MAX-1)</span>
+<span class="sd">        </span>
+<span class="sd">        :param profile_count: Number of elements (1 to PROFILE_MAX-1)</span>
+<span class="sd">        :type profile_count: int</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetProfileCount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">profile_count</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -347,7 +422,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_profile_idle_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idle_time_ms</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the idle time after a profile is played before repeating (in ms).</span>
-<span class="sd">        idle_time_ms: Idle time in milliseconds</span>
+<span class="sd">        </span>
+<span class="sd">        :param idle_time_ms: Idle time in milliseconds</span>
+<span class="sd">        :type idle_time_ms: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetProfileIdleTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">idle_time_ms</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -358,7 +437,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_profile_dwell_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dwell_time_ms</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the time duration of each element in the profile during playback (in ms).</span>
-<span class="sd">        dwell_time_ms: Dwell time in milliseconds</span>
+<span class="sd">        </span>
+<span class="sd">        :param dwell_time_ms: Dwell time in milliseconds</span>
+<span class="sd">        :type dwell_time_ms: float</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetProfileDwellTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">dwell_time_ms</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -369,7 +452,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">start_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Starts the playback of a profile.</span>
-<span class="sd">        mode: 1 = play once, 2 = play repeatedly</span>
+<span class="sd">        </span>
+<span class="sd">        :param mode: 1 = play once, 2 = play repeatedly</span>
+<span class="sd">        :type mode: int</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_StartProfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -380,7 +467,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_rf_on</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Rapidly switches the attenuator from its set value (&quot;on&quot;=True) to max attenuation (&quot;on&quot;=False).</span>
-<span class="sd">        on: Boolean value</span>
+<span class="sd">        </span>
+<span class="sd">        :param on: Boolean value indicating whether to turn RF on (True) or off (False).</span>
+<span class="sd">        :type on: bool</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetRFOn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">on</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -390,7 +481,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ramp_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">up</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the direction of the attenuation ramp.</span>
-<span class="sd">        up: True for increasing attenuation, False for decreasing.</span>
+<span class="sd">        </span>
+<span class="sd">        :param up: True for increasing attenuation, False for decreasing.</span>
+<span class="sd">        :type up: bool</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetRampDirection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">up</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -401,7 +496,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ramp_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repeat</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the ramp mode.</span>
-<span class="sd">        repeat: True for repeated ramp, False for single ramp.</span>
+<span class="sd">        </span>
+<span class="sd">        :param repeat: True for repeated ramp, False for single ramp.</span>
+<span class="sd">        :type repeat: bool</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetRampMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">repeat</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -412,7 +511,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ramp_bidirectional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bidir_enable</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Enables or disables bidirectional ramp.</span>
-<span class="sd">        bidir_enable: True to enable, False to disable.</span>
+<span class="sd">        </span>
+<span class="sd">        :param bidir_enable: True to enable, False to disable.</span>
+<span class="sd">        :type bidir_enable: bool</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetRampBidirectional</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">bidir_enable</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -423,7 +526,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">start_ramp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">go</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Starts or stops the attenuation ramp.</span>
-<span class="sd">        go: True to start, False to stop.</span>
+<span class="sd">        </span>
+<span class="sd">        :param go: True to start, False to stop.</span>
+<span class="sd">        :type go: bool</span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_StartRamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">go</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -434,6 +541,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">save_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Saves the current settings to the device.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Status code from the DLL function call.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SaveSettings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">status</span></div>
@@ -443,6 +553,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_working_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current working frequency of the selected device (in MHz).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Working frequency in MHz.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">freq_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetWorkingFrequency</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="c1"># freq_code is in 100 kHz units, convert to MHz</span>
@@ -454,6 +567,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_min_working_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the minimum working frequency of the selected device (in MHz).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Minimum working frequency in MHz.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">freq_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetMinWorkingFrequency</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="c1"># freq_code is in 100 kHz units, convert to MHz</span>
@@ -464,6 +580,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_max_working_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the maximum working frequency of the selected device (in MHz).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Maximum working frequency in MHz.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">freq_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetMaxWorkingFrequency</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="c1"># freq_code is in 100 kHz units, convert to MHz</span>
@@ -475,6 +594,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation setting of the selected device (in dB, 0.25 dB steps).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Attenuation in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetAttenuation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -485,6 +607,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_attenuation_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation setting of the selected device (in dB, 0.05 dB steps).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Attenuation in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetAttenuationHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>
@@ -495,6 +620,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ramp_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation ramp start value (in dB, 0.25 dB steps).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Attenuation in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetRampStart</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -505,6 +633,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ramp_start_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation ramp start value (in dB, 0.05 dB steps).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Attenuation in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetRampStartHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>
@@ -515,6 +646,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ramp_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation ramp end value (in dB, 0.25 dB steps).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Attenuation in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetRampEnd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -525,6 +659,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ramp_end_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation ramp end value (in dB, 0.05 dB steps).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Attenuation in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetRampEndHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>
@@ -535,6 +672,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_attenuation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation step size (in dB, 0.25 dB steps).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Attenuation step size in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetAttenuationStep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">step_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -544,6 +684,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_attenuation_step_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation step size (in dB, 0.05 dB steps).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Attenuation step size in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetAttenuationStepHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">step_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>
@@ -554,6 +697,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_second_attenuation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation step size for the second phase of a bidirectional sweep (in dB, 0.25 dB steps).</span>
+<span class="sd">        :return: Attenuation step size in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetAttenuationStepTwo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">step_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -564,6 +709,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_second_attenuation_step_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current attenuation step size for the second phase of a bidirectional sweep (in dB, 0.05 dB steps).</span>
+
+<span class="sd">        :return: Attenuation step size in dB.</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetAttenuationStepTwoHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">step_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>
@@ -572,8 +720,10 @@
 <div class="viewcode-block" id="DigitalAttenuator.get_dwell_time">
 <a class="viewcode-back" href="../../generated/Instruments.digital_attenuator_vanuix.DigitalAttenuator.html#Instruments.digital_attenuator_vanuix.DigitalAttenuator.get_dwell_time">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dwell_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current dwell time for each step on the attenuation ramp (in milliseconds).</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the current dwell time for each step on the attenuation ramp (in milliseconds).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Dwell time in milliseconds.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetDwellTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -583,6 +733,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_second_dwell_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current dwell time for each step on the second phase of a bidirectional attenuation ramp (in milliseconds).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Dwell time in milliseconds.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetDwellTimeTwo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -592,6 +745,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_idle_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the idle time between attenuation ramps in repeating ramp mode (in milliseconds).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Idle time in milliseconds.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetIdleTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -601,6 +757,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_hold_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the hold time between attenuation ramps in bidirectional ramp mode (in milliseconds).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Hold time in milliseconds.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetHoldTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -610,6 +769,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_rf_on</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the RF on/off state. Returns 1 if on, 0 if off.</span>
+<span class="sd">       </span>
+<span class="sd">        :return: RF state (1 = on, 0 = off).</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetRF_On</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -619,8 +781,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_profile_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the value of a profile element (0.25 dB steps).</span>
-<span class="sd">        index: Index of the profile element (0 to PROFILE_MAX-1)</span>
-<span class="sd">        Returns: Attenuation in dB</span>
+<span class="sd">        </span>
+<span class="sd">        :param index: Index of the profile element (0 to PROFILE_MAX-1)</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :return: Attenuation in dB</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetProfileElement</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -631,8 +796,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_profile_element_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the value of a profile element (0.05 dB steps).</span>
-<span class="sd">        index: Index of the profile element (0 to PROFILE_MAX-1)</span>
-<span class="sd">        Returns: Attenuation in dB</span>
+<span class="sd">        </span>
+<span class="sd">        :param index: Index of the profile element (0 to PROFILE_MAX-1)</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :return: Attenuation in dB</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetProfileElementHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>
@@ -643,7 +811,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_profile_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the number of elements in the profile that will be used.</span>
-<span class="sd">        Returns: Number of elements (int)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Number of elements </span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetProfileCount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -653,7 +823,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_profile_dwell_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the time duration of each element in the profile during playback (in ms).</span>
-<span class="sd">        Returns: Dwell time in milliseconds (int)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Dwell time in milliseconds </span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetProfileDwellTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -663,7 +835,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_profile_idle_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the idle time after a profile is played before repeating (in ms).</span>
-<span class="sd">        Returns: Idle time in milliseconds (int)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Idle time in milliseconds </span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetProfileIdleTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -673,7 +847,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_profile_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the current profile index.</span>
-<span class="sd">        Returns: Profile index (int)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Profile index </span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetProfileIndex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span></div>
 
@@ -683,7 +859,8 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_max_attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the maximum attenuation value that the device can provide (in dB).</span>
-<span class="sd">        Returns: Maximum attenuation in dB (float)</span>
+<span class="sd">        :return: Maximum attenuation in dB </span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetMaxAttenuation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -694,7 +871,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_max_attenuation_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the maximum attenuation value that the device can provide (in dB, 0.05 dB steps).</span>
-<span class="sd">        Returns: Maximum attenuation in dB (float)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Maximum attenuation in dB </span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetMaxAttenuationHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>
@@ -705,7 +884,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_min_attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the minimum attenuation value that the device can provide (in dB, 0.25 dB steps).</span>
-<span class="sd">        Returns: Minimum attenuation in dB (float)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Minimum attenuation in dB </span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetMinAttenuation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -716,7 +897,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_min_attenuation_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the minimum attenuation value that the device can provide (in dB, 0.05 dB steps).</span>
-<span class="sd">        Returns: Minimum attenuation in dB (float)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Minimum attenuation in dB </span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">att_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetMinAttenuationHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">att_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>
@@ -727,7 +910,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_min_attenuation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the minimum attenuation step size that the device can provide (in dB).</span>
-<span class="sd">        Returns: Minimum attenuation step size in dB (float)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Minimum attenuation step size in dB</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetMinAttenuationStep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">step_code</span> <span class="o">*</span> <span class="mf">0.25</span></div>
@@ -738,7 +923,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_max_attenuation_step_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the maximum attenuation step size that the device can provide (in dB, 0.05 dB steps).</span>
-<span class="sd">        Returns: Maximum attenuation step size in dB (float)</span>
+<span class="sd">        </span>
+<span class="sd">        :return: Maximum attenuation step size in dB</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">step_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_GetMaxAttenuationStepHR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">step_code</span> <span class="o">*</span> <span class="mf">0.05</span></div>

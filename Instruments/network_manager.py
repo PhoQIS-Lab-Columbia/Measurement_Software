@@ -20,14 +20,14 @@ import psutil
 
 class NetworkManager:
     def __init__(self, non_default_program_path = None, non_default_instrument_ports=None,rm = pyvisa.ResourceManager()):
-        '''Initialize the NetworkManager with a VISA Resource Manager.
-        params: non_default_program_path: string - path to a json file containing non-default program paths for instruments.
-            If None, internal default will be used
-            non_default_instrument_ports: string - path to a json file containing non-default instrument ports.
-            If None, internal default will be used
-            rm: pyvisa.ResourceManager - Resource manager to use for instrument connections.
-            If None, a new resource manager will be created.
-        '''
+        """Initialize the NetworkManager to handle setting up instruments and establishing VISA connections.
+            
+            :params non_default_program_path: path to a json file containing non-default program paths for instruments. If None, internal default will be used
+            :type non_default_program_path: string
+            :param non_default_instrument_ports: string - path to a json file containing non-default instrument ports. If None, internal default will be used
+            :type non_default_instrument_ports: string
+            :param rm: pyvisa.ResourceManager - Resource manager to use for instrument connections. If None, a new resource manager will be created.
+            :type rm: pyvisa.ResourceManager"""
         self.rm = rm
         if non_default_program_path is None:
             self.program_path = 'program_paths.json'
@@ -41,6 +41,12 @@ class NetworkManager:
         
 
     def process_exists(self, process_name): 
+        """Check if there is any running process that contains the given name process_name.
+        
+        :param process_name: Name of the process to check.
+        :type process_name: str
+        :return: True if the process is running, False otherwise.
+        :rtype: bool"""
         pieces = process_name.split('/')
         process_name = pieces[len(pieces)-1]
         call = 'TASKLIST', '/FI', f'imagename eq {process_name}'
@@ -49,7 +55,11 @@ class NetworkManager:
         return last_line.lower().startswith(process_name.lower())
     
     def get_process_by_name(self,process_name):
-        """Return the first psutil.Process object matching the process name."""
+        """Return the first psutil.Process object matching the process name.
+        :param process_name: Name of the process to find.
+        :type process_name: str
+        :return: psutil.Process object if found, None otherwise.
+        :rtype: psutil.Process or None"""
         
         pieces = process_name.split('/')
         name = pieces[len(pieces)-1]
@@ -60,9 +70,14 @@ class NetworkManager:
     
     def create_instrument(self, name, instrument,saved_files_path):
         """Create new instrument object based on the name using the selected port.
-        params: name: EInstrument - name of the instrument
-                instrument_ports: string 
-            Returns: Instrument object"""
+        :param name: name of the instrument
+        :type name: EInstrument
+        :param instrument: the instrument to create
+        :type instrument: pyvisa.Resource
+        :param saved_files_path: path to the saved files
+        :type saved_files_path: str
+        :return: created instrument
+        :rtype: Instrument"""
         
         if name == EInstrument.OSCILLOSCOPE.value or name == EInstrument.OSCILLOSCOPE:
             return Oscilloscope(instrument,saved_files_path)
@@ -84,8 +99,12 @@ class NetworkManager:
     def connect_instruments(self, instrument_list = [], saved_files_path = None):
         """Connects and creates instrument objects from list of names. If no list is provided, then connects 
         and creates instrument for all detected instruments.
-        params: instrument_list: list - list of instrument Enum names to connect to.
-        Returns: list of instrument objects"""
+        :param instrument_list: list of instrument Enum names to connect to.
+        :type instrument_list: list of EInstrument
+        :param saved_files_path: path to save files for the instruments.
+        :type saved_files_path: str
+        :return: list of instrument objects
+        :rtype: list of Instrument"""
 
         resources = self.rm.list_resources()
         
@@ -167,7 +186,13 @@ class NetworkManager:
     
     def connect_vector_network_analyzer(self,saved_files_path = None) -> VNA:
         #try: 
-            
+        """
+        Connect to the Copper Mountain Technologies S4VNA software and return a VNA object.
+        
+        :param saved_files_path: Path to save files for the VNA.
+        :type saved_files_path: str
+        :return: VNA object connected to the S4VNA software.
+        :rtype: VNA"""
         '''with importlib.resources.open_text('Instruments.data','program_paths.json') as file:
             p = json.load(file)'''
         program_path = "C:/VNA/S4VNA/S4VNA.exe"#p[EInstrument.VECTOR_NETWORK_ANALYZER.value]
@@ -189,15 +214,33 @@ class NetworkManager:
         return VNA(inst,app, program_path,saved_files_path)
         
     def connect_flow_meter(self,saved_files = []) -> Flowmeter:
+        """Connect to the Keyence NQ Sensor Monitor software and return a Flowmeter object.
+        
+        :param saved_files: List of CSV file paths for the flowmeter data.
+        :type saved_files: list of str
+        :return: Flowmeter object connected to the NQ Sensor Monitor software.
+        :rtype: Flowmeter"""
         return Flowmeter(saved_files)
     
     def connect_dc_power_supply(self,saved_files_path = None) -> DCPowerSupply:
+        """Connect to the DC Power Supply and return a DCPowerSupply object.
+        
+        :param saved_files_path: Path to save files for the DC Power Supply.
+        :type saved_files_path: str
+        :return: DCPowerSupply object connected to the DC Power Supply.
+        :rtype: DCPowerSupply"""
         dc_power = self.connect_instruments([EInstrument.DC_POWER_SUPPLY],saved_files_path)
         if dc_power == None:
             raise ValueError("DC Power Supply failed to connect.")
         return dc_power[0]
     def connect_rf_switch(self,saved_files_path = None) -> RF_Switch:
+        """Connect to the RF Switch and return a RF_Switch object.
         
+        :param saved_files_path: Path to save files for the RF Switch.
+        :type saved_files_path: str
+        :return: RF_Switch object connected to the RF Switch.
+        :rtype: RF_Switch"""
+
         port = "TCPIP0::192.168.0.8::8249::SOCKET"#ip[EInstrument.RF_SWITCH.value]
         inst = self.rm.open_resource(port)
 
@@ -208,6 +251,12 @@ class NetworkManager:
 
         return RF_Switch(inst,saved_files_path)
     def connect_digital_attenuators(self,saved_files_path = None):
+        """Connect to the Vanuix Digital Attenuator and return a DigitalAttenuator object.
+        
+        :param saved_files_path: Path to save files for the Digital Attenuator.
+        :type saved_files_path: str
+        :return: DigitalAttenuator object connected to the Vanuix Digital Attenuator.
+        :rtype: DigitalAttenuator"""
         #os.add_dll_directory(os.getcwd())
         #TODO Add an add digital attnuator and have it take device id as param, only return that one, call that function in here recursively
         if struct.calcsize("P") * 8 == 32:
@@ -256,7 +305,10 @@ class NetworkManager:
         
             
     def disconnect(self, instruments):
+        """Disconnects and cleans up all instrument objects from memory.
         
+        :param instruments: Instrument object or list of Instrument objects to disconnect.
+        :type instruments: Instrument or list of Instrument"""
         if type(instruments) is not list:
             instruments = [instruments]
         for i in instruments:

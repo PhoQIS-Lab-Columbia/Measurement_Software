@@ -20,18 +20,17 @@ class DCPowerSupply():
         """
         Query the ID string of the instrument.
 
-        Returns:
-        str: The ID string in the format "RIGOL TECHNOLOGIES,<model>,<serial number>,<software version>".
+        :return: The ID string in the format "RIGOL TECHNOLOGIES,<model>,<serial number>,<software version>".
+        :rtype: str
         """
         response = self.instrument.query("*IDN?")
         return response.strip()
 
     def save(self, name):
         """
-        Save the current state in nonvolatile memory with the specified name.
-        
-        Parameters:
-        name (str): The name to save the state under.
+        Save the current state in nonvolatile memory with the specified name.  
+        :param name: The name to save the state under.
+        :type name: str
         """
         self.instrument.write(f"*SAV {name}")
 
@@ -39,17 +38,17 @@ class DCPowerSupply():
     def recall(self, name):
         """
         Recall the state previously saved with the specified name.
-        
-        Parameters:
-        name (str): The name of the state to recall.
+
+        :param name: The name of the state to recall.
+        :type name: str
         """
         return self.instrument.write(f"*RCL {name}")
     def set_work_operation(self, mode: str):
         """
         Set the work operation mode to 2-wire or 4-wire.
 
-        Parameters:
-        mode (str): '2W' for 2-wire, '4W' for 4-wire.
+        :param mode: '2W' for 2-wire, '4W' for 4-wire.
+        :type mode: str
         """
         if mode not in ['2W', '4W']:
             raise ValueError("Invalid mode. Must be '2W' or '4W'.")
@@ -57,8 +56,9 @@ class DCPowerSupply():
 
     def get_system_error(self) -> str:
         """
-        Queries the next error from the error queue, returning its code and message.
-        Notes: Query only.
+        Query the system error queue.   
+        :return: The error code and message in the format "<code>,<message>".
+        :rtype: str
         """
         response = self.instrument.query(":SYST:ERR?").strip()
         return response
@@ -67,9 +67,10 @@ class DCPowerSupply():
         """
         Turn on the specified channel.
 
-        Parameters:
-        source (str): Channel to control ('CH1', 'CH2', 'CH3').
-        state (str): Output state ('ON', 'OFF').
+        :param source: Channel to control ('CH1', 'CH2', 'CH3').
+        :type source: str
+        :param state: Output state ('ON', 'OFF').
+        :type state: str
         """
         if source not in ['CH1', 'CH2', 'CH3']:
             raise ValueError("Invalid source. Must be 'CH1', 'CH2', or 'CH3'.")
@@ -80,8 +81,8 @@ class DCPowerSupply():
         """
         Turn off the specified channel.
 
-        Parameters:
-        source (str): Channel to control ('CH1', 'CH2', 'CH3').
+        :param source: Channel to control ('CH1', 'CH2', 'CH3').
+        :type source: str
         
         """
         if source not in ['CH1', 'CH2', 'CH3']:
@@ -93,8 +94,8 @@ class DCPowerSupply():
         """
         Select the operation mode.
 
-        Parameters:
-        mode (int): 0 for Independent, 1 for Series, 2 for Parallel.
+        :param mode: 0 for Independent, 1 for Series, 2 for Parallel.
+        :type mode: int
         """
         if mode not in [0, 1, 2]:
             raise ValueError("Invalid mode. Must be 0 (Independent), 1 (Series), or 2 (Parallel).")
@@ -104,8 +105,8 @@ class DCPowerSupply():
         """
         Query the current working state and decode the status bits.
 
-        Returns:
-            dict: Decoded status information.
+        :return: Decoded status information.
+        :rtype: dict
         """
         hex_status = self.instrument.query("SYSTem:STATus?").strip()
         # Remove '0x' if present and convert to int
@@ -141,6 +142,7 @@ class DCPowerSupply():
         self.instrument.write("*UNLOCK")
         
 class Channel:
+    """Channel to be selected."""
     def __init__(self, instrument, data_handler, channel):
         self.instrument = instrument
         self.data_handler = data_handler
@@ -148,6 +150,7 @@ class Channel:
         self.current = Current(instrument, data_handler, channel)
         self.voltage = Voltage(instrument, data_handler, channel)
         self.power = Power(instrument,data_handler,channel)
+
 class Current:
     """Change and get the current of the selected channel."""
     def __init__(self, instrument, data_handler, channel):
@@ -158,9 +161,9 @@ class Current:
     def get(self):
         """
         Query the current value.
-        
-        Returns:
-        float: The current value in Amperes.
+
+        :return: The current value in Amperes.
+        :rtype: float
         """
         self.instrument.write(f"INSTrument {self.channel}")
         response = self.instrument.query(f"MEASure:CURRent? {self.channel}")
@@ -173,8 +176,8 @@ class Current:
         """
         Set the over-current protection (OCP) value for the current channel.
 
-        Parameters:
-        value (float): The OCP value to set (in Amperes).
+        :param value: The OCP value to set (in Amperes).
+        :type value: float
         """
         self.instrument.write(f"INSTrument {self.channel}")
         self.instrument.write(f"{self.channel}:OCP {value}")
@@ -183,8 +186,8 @@ class Current:
         """
         Query the over-current protection (OCP) value for the current channel.
 
-        Returns:
-        float: The OCP value in Amperes.
+        :return: The OCP value in Amperes.
+        :rtype: float
         """
         self.instrument.write(f"INSTrument {self.channel}")
         response = self.instrument.query(f"{self.channel}:OCP?")
@@ -199,9 +202,9 @@ class Voltage:
     def get(self):
         """
         Query the voltage value.
-        
-        Returns:
-        float: The current value in Amperes.
+
+        :return: The current value in Volts.
+        :rtype: float
         """
         self.instrument.write(f"INSTrument {self.channel}")
         response = self.instrument.query(f"MEASure:VOLTage? {self.channel}")
@@ -215,8 +218,8 @@ class Voltage:
         """
         Set the over-voltage protection (OVP) value for the current channel.
 
-        Parameters:
-        value (float): The OVP value to set (in Volts).
+        :param value: The OVP value to set (in Volts).
+        :type value: float
         """
         self.instrument.write(f"INSTrument {self.channel}")
         self.instrument.write(f"{self.channel}:OVP {value}")
@@ -225,8 +228,8 @@ class Voltage:
         """
         Query the over-voltage protection (OVP) value for the current channel.
 
-        Returns:
-        float: The OVP value in Volts.
+        :return: The OVP value in Volts.
+        :rtype: float
         """
         self.instrument.write(f"INSTrument {self.channel}")
         response = self.instrument.query(f"{self.channel}:OVP?")
@@ -242,15 +245,17 @@ class Power:
     def get(self):
         """
         Query the power value.
-        
-        Returns:
-        float: The power value in watt.
+
+        :return: The power value in watt.
+        :rtype: float
         """
         self.instrument.write(f"INSTrument {self.channel}")
         response = self.instrument.query(f"MEASure:POWEr? {self.channel}")
         return response
         
     def set(self, voltage):
-        """Set power value for the current channel"""
+        """Set power value for the current channel
+        :param voltage: The power value to set (in watt).
+        :type voltage: float"""
         self.instrument.write(f"INSTrument {self.channel}")
         self.instrument.write(self.channel+":POWEr "+str(voltage))
