@@ -2,14 +2,14 @@ DC Power Supply
 =================
 This is the DC Power Supply class for the Siglent power supplies and all relevant subclasses.
 
-.. currentmodule:: Instruments.dc_power_supply_siglent
+.. currentmodule:: Instruments
 
 .. autosummary::
     :toctree: generated/
     :template: class.rst
     
-    DCPowerSupply
-    Channel
-    Current
-    Voltage
-    Power    
+    dc_power_supply_siglent.DCPowerSupply
+    dc_power_supply_siglent.Channel
+    dc_power_supply_siglent.Current
+    dc_power_supply_siglent.Voltage
+    dc_power_supply_siglent.Power    

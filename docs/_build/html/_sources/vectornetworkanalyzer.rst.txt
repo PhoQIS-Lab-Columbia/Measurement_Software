@@ -10,6 +10,7 @@ This is the Vector Network Analyzer class and all relevant subclasses.
     
     vector_network_analyzer_copper_mountain.VNA
     vector_network_analyzer_copper_mountain.Channel
+    vector_network_analyzer_copper_mountain.Calculate
     vector_network_analyzer_copper_mountain.Display
     vector_network_analyzer_copper_mountain.Format
     vector_network_analyzer_copper_mountain.HCopy

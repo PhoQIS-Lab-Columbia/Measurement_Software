@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.spectrum_analyzer_signal_hound.Display Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.spectrum_analyzer_signal_hound.Display Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -43,29 +43,34 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Display.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Display.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Display.__init__" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Display.clear_title">
-<span class="sig-name descname"><span class="pre">clear_title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Display.clear_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Display.clear_title" title="Link to this definition">¶</a></dt>
-<dd><p>CLEar - Remove the measurement title.</p>
-<p>Remove the title. Has the same effect as setting the title with an empty string.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dd><p>Initalize Display class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instrument</strong> (<em>pyvisa.resources.Resource</em>) – The pyvisa instrument instance.</p></li>
+<li><p><strong>data_handler</strong> (<a class="reference internal" href="Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler" title="Instruments.data_handler.DataHandler"><em>DataHandler</em></a>) – Data handler instance.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Display.clear_title">
+<span class="sig-name descname"><span class="pre">clear_title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Display.clear_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Display.clear_title" title="Link to this definition">¶</a></dt>
+<dd><p>Remove the measurement title.</p>
+<p>Remove the title. Has the same effect as setting the title with an empty string.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Display.get_title">
 <span class="sig-name descname"><span class="pre">get_title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Display.get_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Display.get_title" title="Link to this definition">¶</a></dt>
-<dd><p>TITLe? - Query the measurement title.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
+<dd><p>Query the measurement title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current measurement title.</p>
 </dd>
-<dt>Return:</dt><dd><p>str: The current measurement title.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -73,27 +78,24 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Display.hide">
 <span class="sig-name descname"><span class="pre">hide</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Display.hide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Display.hide" title="Link to this definition">¶</a></dt>
-<dd><p>HIDE - Hide Spike’s window.</p>
+<dd><p>Hide Spike’s window.</p>
 <p>When set to true, hides the Spike application. The application will be hidden
 in the taskbar but will continue to be visible in the task manager. The SCPI lockout
 dialog, device connecting progress dialog, no device connected alert dialog and
 multiple devices connected alert dialog will be hidden, overriding related settings in
 the preferences menu.</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Display.is_hidden">
 <span class="sig-name descname"><span class="pre">is_hidden</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Display.is_hidden"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Display.is_hidden" title="Link to this definition">¶</a></dt>
-<dd><p>HIDE? - Query if Spike’s window is hidden.</p>
-<p>Returns true when the application is not visible.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
+<dd><p>Query if Spike’s window is hidden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if display is hidden, False otherwise.</p>
 </dd>
-<dt>Return:</dt><dd><p>bool: True if display is hidden, False otherwise.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -101,11 +103,10 @@ the preferences menu.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Display.set_title">
 <span class="sig-name descname"><span class="pre">set_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Display.set_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Display.set_title" title="Link to this definition">¶</a></dt>
-<dd><p>TITLe - Set the measurement title.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>title (str): The measurement title. Empty string to clear.</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dd><p>Set the measurement title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The measurement title. Empty string to clear.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -113,12 +114,7 @@ the preferences menu.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Display.show">
 <span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Display.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Display.show" title="Link to this definition">¶</a></dt>
-<dd><p>Show Spike’s window.</p>
-<p>When set to false, shows the Spike application window.</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
+<dd><p>Show Spike’s window. When set to false, shows the Spike application window.</p>
 </dd></dl>
 
 </dd></dl>

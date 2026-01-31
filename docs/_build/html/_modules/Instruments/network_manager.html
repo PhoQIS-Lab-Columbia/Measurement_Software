@@ -4,11 +4,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instruments.network_manager &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.network_manager &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
-    <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -98,7 +98,8 @@
 <div class="viewcode-block" id="NetworkManager.get_process_by_name">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.get_process_by_name">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_process_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">process_name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the first psutil.Process object matching the process name.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the first psutil. Process object matching the process name.</span>
+<span class="sd">        </span>
 <span class="sd">        :param process_name: Name of the process to find.</span>
 <span class="sd">        :type process_name: str</span>
 <span class="sd">        :return: psutil.Process object if found, None otherwise.</span>
@@ -116,6 +117,7 @@
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.create_instrument">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">create_instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">saved_files_path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create new instrument object based on the name using the selected port.</span>
+<span class="sd">        </span>
 <span class="sd">        :param name: name of the instrument</span>
 <span class="sd">        :type name: EInstrument</span>
 <span class="sd">        :param instrument: the instrument to create</span>
@@ -148,6 +150,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">connect_instruments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connects and creates instrument objects from list of names. If no list is provided, then connects </span>
 <span class="sd">        and creates instrument for all detected instruments.</span>
+
 <span class="sd">        :param instrument_list: list of instrument Enum names to connect to.</span>
 <span class="sd">        :type instrument_list: list of EInstrument</span>
 <span class="sd">        :param saved_files_path: path to save files for the instruments.</span>
@@ -203,12 +206,24 @@
 <div class="viewcode-block" id="NetworkManager.connect_flowmeter">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.connect_flowmeter">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">connect_flowmeter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">saved_files</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">Flowmeter</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to the Keyence NQ Sensor Monitor software and return a Flowmeter object.</span>
+<span class="sd">        </span>
+<span class="sd">        :param saved_files: List of CSV file paths for the flowmeter data.</span>
+<span class="sd">        :type saved_files: list of str</span>
+<span class="sd">        :return: Flowmeter object connected to the NQ Sensor Monitor software.</span>
+<span class="sd">        :rtype: Flowmeter&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Flowmeter</span><span class="p">(</span><span class="n">saved_files</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="NetworkManager.connect_oscilloscope">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.connect_oscilloscope">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">connect_oscilloscope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Oscilloscope</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to the Rigol Oscilloscope and return an Oscilloscope object.</span>
+<span class="sd">        </span>
+<span class="sd">        :param saved_files_path: Path to save files for the Oscilloscope.</span>
+<span class="sd">        :type saved_files_path: str</span>
+<span class="sd">        :return: Oscilloscope object connected to the Rigol Oscilloscope.</span>
+<span class="sd">        :rtype: Oscilloscope&quot;&quot;&quot;</span>
         <span class="n">osc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_instruments</span><span class="p">([</span><span class="n">EInstrument</span><span class="o">.</span><span class="n">OSCILLOSCOPE</span><span class="p">],</span><span class="n">saved_files_path</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">osc</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">osc</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
@@ -220,7 +235,13 @@
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.connect_spectrum_analyzer">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">connect_spectrum_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SpectrumAnalyzer</span><span class="p">:</span>
         <span class="c1">#try: </span>
-<span class="w">            </span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to the Signal Hound Spike software and return a SpectrumAnalyzer object.</span>
+
+<span class="sd">        :param saved_files_path: Path to save files for the Spectrum Analyzer.</span>
+<span class="sd">        :type saved_files_path: str</span>
+<span class="sd">        :return: SpectrumAnalyzer object connected to the Spike software.</span>
+<span class="sd">        :rtype: SpectrumAnalyzer&quot;&quot;&quot;</span>
+<span class="w">        </span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;with importlib.resources.open_text(&#39;Instruments.data&#39;,&#39;program_paths.json&#39;) as file:</span>
 <span class="sd">            p = json.load(file)&#39;&#39;&#39;</span>
         <span class="n">program_path</span> <span class="o">=</span> <span class="s2">&quot;C:/Program Files/Signal Hound/Spike/Spike.exe&quot;</span><span class="c1">#p[EInstrument.SPECTRUM_ANALYZER.value]</span>

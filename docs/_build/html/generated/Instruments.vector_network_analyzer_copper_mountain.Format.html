@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.vector_network_analyzer_copper_mountain.Format Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.vector_network_analyzer_copper_mountain.Format Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -49,10 +49,9 @@
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Format.get_byte_order">
 <span class="sig-name descname"><span class="pre">get_byte_order</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Format.get_byte_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Format.get_byte_order" title="Link to this definition">¶</a></dt>
 <dd><p>Get the transfer order of each byte in binary data transfer format.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>str: Byte order (‘NORM’ or ‘SWAP’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Byte order (‘NORM’ or ‘SWAP’)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -61,10 +60,9 @@
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Format.get_data_format">
 <span class="sig-name descname"><span class="pre">get_data_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Format.get_data_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Format.get_data_format" title="Link to this definition">¶</a></dt>
 <dd><p>Get the data transfer format for binary or ASCII data.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>str: Data format (‘ASC’, ‘REAL’, or ‘REAL32’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Data format (‘ASC’, ‘REAL’, or ‘REAL32’)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -73,23 +71,16 @@
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Format.pop_format">
 <span class="sig-name descname"><span class="pre">pop_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Format.pop_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Format.pop_format" title="Link to this definition">¶</a></dt>
 <dd><p>Restore the settings for the data transfer format and byte order saved by the preceding FORM:PUSH command.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Format.push_format">
 <span class="sig-name descname"><span class="pre">push_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Format.push_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Format.push_format" title="Link to this definition">¶</a></dt>
 <dd><p>Save current settings and set new values for data transfer format and byte order.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>fmt (str): Data format, one of [‘ASC’, ‘REAL’, ‘REAL32’]
-border (str): Byte order, one of [‘NORM’, ‘SWAP’]</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fmt</strong> – Data format, one of [‘ASC’, ‘REAL’, ‘REAL32’]
+border: Byte order, one of [‘NORM’, ‘SWAP’]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -98,10 +89,9 @@ border (str): Byte order, one of [‘NORM’, ‘SWAP’]</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Format.set_byte_order">
 <span class="sig-name descname"><span class="pre">set_byte_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Format.set_byte_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Format.set_byte_order" title="Link to this definition">¶</a></dt>
 <dd><p>Set the transfer order of each byte in binary data transfer format.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>order (str): Byte order, one of [‘NORM’, ‘SWAP’]</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>order</strong> – Byte order, one of [‘NORM’, ‘SWAP’]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -110,10 +100,9 @@ border (str): Byte order, one of [‘NORM’, ‘SWAP’]</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Format.set_data_format">
 <span class="sig-name descname"><span class="pre">set_data_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Format.set_data_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Format.set_data_format" title="Link to this definition">¶</a></dt>
 <dd><p>Set the data transfer format for binary or ASCII data.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>fmt (str): Data format, one of [‘ASC’, ‘REAL’, ‘REAL32’]</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fmt</strong> – Data format, one of [‘ASC’, ‘REAL’, ‘REAL32’]</p>
 </dd>
 </dl>
 </dd></dl>

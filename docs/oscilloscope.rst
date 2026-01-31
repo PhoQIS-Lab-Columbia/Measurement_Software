@@ -13,10 +13,6 @@ This is the Oscilloscope class and all relevant subclasses.
     oscilloscope_rigol.Channel
     oscilloscope_rigol.Cursor
     oscilloscope_rigol.Decoder
-    oscilloscope_rigol.UART
-    oscilloscope_rigol.IIC_Decoder
-    oscilloscope_rigol.SPI_Decoder
-    oscilloscope_rigol.Parallel
     oscilloscope_rigol.Display
     oscilloscope_rigol.ETable
     oscilloscope_rigol.Function

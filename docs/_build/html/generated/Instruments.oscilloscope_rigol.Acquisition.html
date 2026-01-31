@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.oscilloscope_rigol.Acquisition Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.oscilloscope_rigol.Acquisition Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -39,6 +39,7 @@
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Acquisition">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.oscilloscope_rigol.</span></span><span class="sig-name descname"><span class="pre">Acquisition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Acquisition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Acquisition" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The Aquire commands are used to set and query the memory depth, acquisition mode and the number of averages as well as query the current sample rate of the oscilloscope.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Acquisition.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Acquisition.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Acquisition.__init__" title="Link to this definition">¶</a></dt>
@@ -57,24 +58,56 @@
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Acquisition.get_memory_depth">
 <span class="sig-name descname"><span class="pre">get_memory_depth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Acquisition.get_memory_depth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Acquisition.get_memory_depth" title="Link to this definition">¶</a></dt>
 <dd><p>Get memory depth of the oscilloscope (namely the number of waveform points that can be stored in a single trigger sample).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Memory depth</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Acquisition.get_mode">
 <span class="sig-name descname"><span class="pre">get_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Acquisition.get_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Acquisition.get_mode" title="Link to this definition">¶</a></dt>
 <dd><p>Get acquisition mode. Normal:  Samples the signal at equal time interval to rebuild the waveform. Averages:  Averages the waveforms from multiple samples to reduce the random noise of the input signal. Peak: Acquires the maximum and minimum values of the signal within the sample interval to get the envelope of the signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise on the input signal and generate much smoother waveforms</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Acquisition mode</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Acquisition.get_number_of_averages">
 <span class="sig-name descname"><span class="pre">get_number_of_averages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Acquisition.get_number_of_averages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Acquisition.get_number_of_averages" title="Link to this definition">¶</a></dt>
-<dd><p>In the average acquisition mode, greater number of averages can lower the noise and increase the vertical resolution.</p>
+<dd><p>In the average acquisition mode, a greater number of averages can reduce noise and increase vertical resolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of averages (2 to 1024)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Acquisition.get_sample_rate">
 <span class="sig-name descname"><span class="pre">get_sample_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Acquisition.get_sample_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Acquisition.get_sample_rate" title="Link to this definition">¶</a></dt>
 <dd><p>Query the current sample rate. The default unit is Sa/s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sample rate</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

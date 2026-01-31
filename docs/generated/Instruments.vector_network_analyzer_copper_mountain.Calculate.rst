@@ -1,7 +1,7 @@
-﻿Instruments.oscilloscope_rigol.Parallel Class
+﻿Instruments.vector_network_analyzer_copper_mountain.Calculate Class
 ==========================================================================
 
-.. autoclass:: Instruments.oscilloscope_rigol.Parallel
+.. autoclass:: Instruments.vector_network_analyzer_copper_mountain.Calculate
    :members:
    :undoc-members:
    :show-inheritance:

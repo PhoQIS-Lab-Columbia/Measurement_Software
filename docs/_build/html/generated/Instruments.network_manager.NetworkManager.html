@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.network_manager.NetworkManager Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.network_manager.NetworkManager Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -37,11 +37,11 @@
 <h1>Instruments.network_manager.NetworkManager Class<a class="headerlink" href="#instruments-network-manager-networkmanager-class" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.network_manager.</span></span><span class="sig-name descname"><span class="pre">NetworkManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">non_default_program_path=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_default_instrument_ports=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm=&lt;ResourceManager(&lt;PyVisaLibrary('py')&gt;)&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.network_manager.</span></span><span class="sig-name descname"><span class="pre">NetworkManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">non_default_program_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_default_instrument_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">pyvisa.ResourceManager</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">non_default_program_path=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_default_instrument_ports=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm=&lt;ResourceManager(&lt;PyVisaLibrary('py')&gt;)&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">non_default_program_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_default_instrument_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">pyvisa.ResourceManager</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize the NetworkManager to handle setting up instruments and establishing VISA connections.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Params non_default_program_path<span class="colon">:</span></dt>
@@ -110,25 +110,57 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager.connect_flowmeter">
 <span class="sig-name descname"><span class="pre">connect_flowmeter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">saved_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="Instruments.flowmeter_keyence.Flowmeter.html#Instruments.flowmeter_keyence.Flowmeter" title="Instruments.flowmeter_keyence.Flowmeter"><span class="pre">Flowmeter</span></a></span></span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.connect_flowmeter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.connect_flowmeter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Connect to the Keyence NQ Sensor Monitor software and return a Flowmeter object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>saved_files</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – List of CSV file paths for the flowmeter data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Flowmeter object connected to the NQ Sensor Monitor software.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Instruments.flowmeter_keyence.Flowmeter.html#Instruments.flowmeter_keyence.Flowmeter" title="Instruments.flowmeter_keyence.Flowmeter">Flowmeter</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager.connect_instruments">
 <span class="sig-name descname"><span class="pre">connect_instruments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saved_files_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.connect_instruments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.connect_instruments" title="Link to this definition">¶</a></dt>
 <dd><p>Connects and creates instrument objects from list of names. If no list is provided, then connects 
-and creates instrument for all detected instruments.
-:param instrument_list: list of instrument Enum names to connect to.
-:type instrument_list: list of EInstrument
-:param saved_files_path: path to save files for the instruments.
-:type saved_files_path: str
-:return: list of instrument objects
-:rtype: list of Instrument</p>
+and creates instrument for all detected instruments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instrument_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><a class="reference internal" href="Instruments.EInstrument.EInstrument.html#Instruments.EInstrument.EInstrument" title="Instruments.EInstrument.EInstrument"><em>EInstrument</em></a>) – list of instrument Enum names to connect to.</p></li>
+<li><p><strong>saved_files_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – path to save files for the instruments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of instrument objects</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a> of <a class="reference internal" href="Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument" title="Instruments.Instrument.Instrument">Instrument</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager.connect_oscilloscope">
 <span class="sig-name descname"><span class="pre">connect_oscilloscope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">saved_files_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="Instruments.oscilloscope_rigol.Oscilloscope.html#Instruments.oscilloscope_rigol.Oscilloscope" title="Instruments.oscilloscope_rigol.Oscilloscope"><span class="pre">Oscilloscope</span></a></span></span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.connect_oscilloscope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.connect_oscilloscope" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Connect to the Rigol Oscilloscope and return an Oscilloscope object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>saved_files_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to save files for the Oscilloscope.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Oscilloscope object connected to the Rigol Oscilloscope.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Instruments.oscilloscope_rigol.Oscilloscope.html#Instruments.oscilloscope_rigol.Oscilloscope" title="Instruments.oscilloscope_rigol.Oscilloscope">Oscilloscope</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager.connect_rf_switch">
@@ -150,8 +182,18 @@ and creates instrument for all detected instruments.
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager.connect_spectrum_analyzer">
 <span class="sig-name descname"><span class="pre">connect_spectrum_analyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">saved_files_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="Instruments.spectrum_analyzer_signal_hound.SpectrumAnalyzer.html#Instruments.spectrum_analyzer_signal_hound.SpectrumAnalyzer" title="Instruments.spectrum_analyzer_signal_hound.SpectrumAnalyzer"><span class="pre">SpectrumAnalyzer</span></a></span></span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.connect_spectrum_analyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.connect_spectrum_analyzer" title="Link to this definition">¶</a></dt>
-<dd><p>with importlib.resources.open_text(‘Instruments.data’,’program_paths.json’) as file:
-p = json.load(file)</p>
+<dd><p>Connect to the Signal Hound Spike software and return a SpectrumAnalyzer object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>saved_files_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to save files for the Spectrum Analyzer.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SpectrumAnalyzer object connected to the Spike software.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Instruments.spectrum_analyzer_signal_hound.SpectrumAnalyzer.html#Instruments.spectrum_analyzer_signal_hound.SpectrumAnalyzer" title="Instruments.spectrum_analyzer_signal_hound.SpectrumAnalyzer">SpectrumAnalyzer</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -174,15 +216,22 @@ p = json.load(file)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager.create_instrument">
 <span class="sig-name descname"><span class="pre">create_instrument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saved_files_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.create_instrument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.create_instrument" title="Link to this definition">¶</a></dt>
-<dd><p>Create new instrument object based on the name using the selected port.
-:param name: name of the instrument
-:type name: EInstrument
-:param instrument: the instrument to create
-:type instrument: pyvisa.Resource
-:param saved_files_path: path to the saved files
-:type saved_files_path: str
-:return: created instrument
-:rtype: Instrument</p>
+<dd><p>Create new instrument object based on the name using the selected port.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference internal" href="Instruments.EInstrument.EInstrument.html#Instruments.EInstrument.EInstrument" title="Instruments.EInstrument.EInstrument"><em>EInstrument</em></a>) – name of the instrument</p></li>
+<li><p><strong>instrument</strong> (<em>pyvisa.Resource</em>) – the instrument to create</p></li>
+<li><p><strong>saved_files_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – path to the saved files</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>created instrument</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="Instruments.Instrument.Instrument.html#Instruments.Instrument.Instrument" title="Instruments.Instrument.Instrument">Instrument</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -199,11 +248,18 @@ p = json.load(file)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.network_manager.NetworkManager.get_process_by_name">
 <span class="sig-name descname"><span class="pre">get_process_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.get_process_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.get_process_by_name" title="Link to this definition">¶</a></dt>
-<dd><p>Return the first psutil.Process object matching the process name.
-:param process_name: Name of the process to find.
-:type process_name: str
-:return: psutil.Process object if found, None otherwise.
-:rtype: psutil.Process or None</p>
+<dd><p>Return the first psutil. Process object matching the process name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>process_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the process to find.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>psutil.Process object if found, None otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>psutil.Process or None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.spectrum_analyzer_signal_hound.Calculate Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.spectrum_analyzer_signal_hound.Calculate Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -40,10 +40,1231 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.spectrum_analyzer_signal_hound.</span></span><span class="sig-name descname"><span class="pre">Calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Calculate commands control the limit lines in measurement modes.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LimitLine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>LimitLine commands for a specific limit line number (1-6).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.build" title="Link to this definition">¶</a></dt>
+<dd><p>Build limit line points from trace, max holding across frequency sections.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Resets the selected limit line. Removes all points stored.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.clear_all_limit_lines">
+<span class="sig-name descname"><span class="pre">clear_all_limit_lines</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.clear_all_limit_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.clear_all_limit_lines" title="Link to this definition">¶</a></dt>
+<dd><p>Resets all limit lines. Removes all points stored.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.disable_display_result">
+<span class="sig-name descname"><span class="pre">disable_display_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.disable_display_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.disable_display_result" title="Link to this definition">¶</a></dt>
+<dd><p>When disabled, the limit line pass/fail result will not be
+visible on the graticule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.disable_pause">
+<span class="sig-name descname"><span class="pre">disable_pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.disable_pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.disable_pause" title="Link to this definition">¶</a></dt>
+<dd><p>When enabled, a failure of this limit will pause the sweep update.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.disable_testing">
+<span class="sig-name descname"><span class="pre">disable_testing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.disable_testing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.disable_testing" title="Link to this definition">¶</a></dt>
+<dd><p>Disable testing of this limit line. If there are not at least 2 points in
+the limit line, testing doesn’t occur despite being enabled.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.enable_display_result">
+<span class="sig-name descname"><span class="pre">enable_display_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.enable_display_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.enable_display_result" title="Link to this definition">¶</a></dt>
+<dd><p>When enabled, the limit line pass/fail result will be
+visible on the graticule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.enable_pause">
+<span class="sig-name descname"><span class="pre">enable_pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.enable_pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.enable_pause" title="Link to this definition">¶</a></dt>
+<dd><p>When enabled, a failure of this limit will pause the sweep update.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.enable_testing">
+<span class="sig-name descname"><span class="pre">enable_testing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.enable_testing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.enable_testing" title="Link to this definition">¶</a></dt>
+<dd><p>Enable testing of this limit line. If there are not at least 2 points in
+the limit line, testing doesn’t occur despite being enabled.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_build_points">
+<span class="sig-name descname"><span class="pre">get_build_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_build_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_build_points" title="Link to this definition">¶</a></dt>
+<dd><p>Query the number of points used when building limit line from trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of points used when building limit line from trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_data" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the points in the limit line. Points are returned as freq/amplitude
+pairs where the frequencies are specified as Hz and the amplitudes as dBm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The points in the limit line as freq/ampl pairs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_interpolate">
+<span class="sig-name descname"><span class="pre">get_interpolate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_interpolate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_interpolate" title="Link to this definition">¶</a></dt>
+<dd><p>Query the interpolation type of the limit line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The interpolation type of the limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_offset_y">
+<span class="sig-name descname"><span class="pre">get_offset_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_offset_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_offset_y" title="Link to this definition">¶</a></dt>
+<dd><p>Query the dB offset of the limit line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The dB offset of the limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_points_count">
+<span class="sig-name descname"><span class="pre">get_points_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_points_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_points_count" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of points in the limit line as an integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of points in the limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_reference">
+<span class="sig-name descname"><span class="pre">get_reference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_reference" title="Link to this definition">¶</a></dt>
+<dd><p>Query the reference type of the limit line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reference type of the limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_title">
+<span class="sig-name descname"><span class="pre">get_title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_title" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current name of the limit line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current name of the limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_trace">
+<span class="sig-name descname"><span class="pre">get_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trace number tested against this limit line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trace number tested against this limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.get_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.get_type" title="Link to this definition">¶</a></dt>
+<dd><p>Query the type of the limit line (‘UPPER’ or ‘LOWER’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The type of the limit line (‘UPPER’ or ‘LOWER’).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_display_line_enabled">
+<span class="sig-name descname"><span class="pre">is_display_line_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.is_display_line_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_display_line_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if line display is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if line display is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_display_result_enabled">
+<span class="sig-name descname"><span class="pre">is_display_result_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.is_display_result_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_display_result_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if result display is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if result display is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_enabled">
+<span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.is_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if limit line testing is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if limit line testing is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_failed">
+<span class="sig-name descname"><span class="pre">is_failed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.is_failed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_failed" title="Link to this definition">¶</a></dt>
+<dd><p>Returns 1 when the limit test has failed, 0 if passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the limit test has failed, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_pause_enabled">
+<span class="sig-name descname"><span class="pre">is_pause_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.is_pause_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.is_pause_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if pause on failure is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if pause on failure is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_build_points">
+<span class="sig-name descname"><span class="pre">set_build_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_points</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.set_build_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_build_points" title="Link to this definition">¶</a></dt>
+<dd><p>Specify how many points to use when building limit line from trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_points</strong> – Number of points to use when building limit line from trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_data">
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_data" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the points in the limit line, will override any existing points. Points are
+specified as freq/amplitude pairs where the amplitude is specified as dBm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tuple</strong><strong>)</strong> (<em>points</em><em> (</em><em>list of</em>) – List of (freq, ampl) pairs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_interpolate">
+<span class="sig-name descname"><span class="pre">set_interpolate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.set_interpolate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_interpolate" title="Link to this definition">¶</a></dt>
+<dd><p>Specify whether the limit line uses linear or logarithmic interpolation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>interp</strong> – ‘LINEAR’ or ‘LOGARITHMIC’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_offset_y">
+<span class="sig-name descname"><span class="pre">set_offset_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.set_offset_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_offset_y" title="Link to this definition">¶</a></dt>
+<dd><p>Specify a dB offset to the limit line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>offset</strong> – dB offset to the limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_reference">
+<span class="sig-name descname"><span class="pre">set_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.set_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_reference" title="Link to this definition">¶</a></dt>
+<dd><p>Specify whether the limit line values are fixed/absolute or relative to the
+center frequency and ref level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ref</strong> – ‘FIXED’ or ‘RELATIVE’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_title">
+<span class="sig-name descname"><span class="pre">set_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.set_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_title" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the name of the limit line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>title</strong> – The name of the limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_trace">
+<span class="sig-name descname"><span class="pre">set_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.set_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Specify which trace is tested against this limit line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> – The trace number to test against this limit line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_type">
+<span class="sig-name descname"><span class="pre">set_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.set_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.set_type" title="Link to this definition">¶</a></dt>
+<dd><p>Specify whether the limit line is tested as an upper bound or lower bound.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>typ</strong> – ‘UPPER’ or ‘LOWER’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.transform_reference">
+<span class="sig-name descname"><span class="pre">transform_reference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.LimitLine.transform_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.LimitLine.transform_reference" title="Link to this definition">¶</a></dt>
+<dd><p>Convert the limit line reference type between fixed and
+relative by recalculating points based on the current configuration.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Marker_Calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The Marker commands control the sweep markers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initalize Marker_Calc class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instrument</strong> (<em>pyvisa.resources.Resource</em>) – The pyvisa instrument instance.</p></li>
+<li><p><strong>data_handler</strong> (<a class="reference internal" href="Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler" title="Instruments.data_handler.DataHandler"><em>DataHandler</em></a>) – Data handler instance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.disable_all">
+<span class="sig-name descname"><span class="pre">disable_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.disable_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.disable_all" title="Link to this definition">¶</a></dt>
+<dd><p>Disables all markers. All other configuration parameters of the markers remain the same.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_chpower_width">
+<span class="sig-name descname"><span class="pre">get_chpower_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_chpower_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_chpower_width" title="Link to this definition">¶</a></dt>
+<dd><p>Query the channel power marker width.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The channel power marker width (Hz).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_mode">
+<span class="sig-name descname"><span class="pre">get_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_mode" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current marker mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current marker mode.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_ndb_bandwidth">
+<span class="sig-name descname"><span class="pre">get_ndb_bandwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_ndb_bandwidth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_ndb_bandwidth" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the width of the N dB band.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The width of the N dB band (Hz).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_ndb_offset">
+<span class="sig-name descname"><span class="pre">get_ndb_offset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_ndb_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_ndb_offset" title="Link to this definition">¶</a></dt>
+<dd><p>Query the N dB marker offset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The N dB marker offset (dB).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_ndb_rleft">
+<span class="sig-name descname"><span class="pre">get_ndb_rleft</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_ndb_rleft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_ndb_rleft" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the left edge frequency of the N dB band.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The left edge frequency of the N dB band (Hz).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_ndb_rright">
+<span class="sig-name descname"><span class="pre">get_ndb_rright</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_ndb_rright"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_ndb_rright" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the right edge frequency of the N dB band.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The right edge frequency of the N dB band (Hz).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_peak_excursion">
+<span class="sig-name descname"><span class="pre">get_peak_excursion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_peak_excursion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_peak_excursion" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current peak excursion in dB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current peak excursion in dB.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_peak_threshold">
+<span class="sig-name descname"><span class="pre">get_peak_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_peak_threshold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_peak_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the current threshold as dBm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current peak threshold in dBm.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_selected">
+<span class="sig-name descname"><span class="pre">get_selected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_selected" title="Link to this definition">¶</a></dt>
+<dd><p>Query the currently selected marker index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The currently selected marker index.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_trace">
+<span class="sig-name descname"><span class="pre">get_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trace index the marker is placed on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trace index the marker is placed on.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_x">
+<span class="sig-name descname"><span class="pre">get_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_x" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the marker position frequency as Hz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The marker position frequency (Hz).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_y">
+<span class="sig-name descname"><span class="pre">get_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.get_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.get_y" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the marker position amplitude according to marker type. Position and channel power markers return dBm, and noise markers return dBm/Hz. N dB markers also return the amplitude at their position in dBm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The marker position amplitude.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.is_delta_enabled">
+<span class="sig-name descname"><span class="pre">is_delta_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.is_delta_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.is_delta_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if delta mode is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if delta mode is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.is_enabled">
+<span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.is_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.is_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if marker is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if marker is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.is_peak_track_enabled">
+<span class="sig-name descname"><span class="pre">is_peak_track_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.is_peak_track_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.is_peak_track_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if peak tracking is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if peak tracking is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.is_update_enabled">
+<span class="sig-name descname"><span class="pre">is_update_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.is_update_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.is_update_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if marker update is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if marker update is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.maximum">
+<span class="sig-name descname"><span class="pre">maximum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.maximum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.maximum" title="Link to this definition">¶</a></dt>
+<dd><p>Perform a peak search.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.maximum_left">
+<span class="sig-name descname"><span class="pre">maximum_left</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.maximum_left"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.maximum_left" title="Link to this definition">¶</a></dt>
+<dd><p>Move the marker to the next peak to the left of its current position. Only peaks that meet the peak criteria are considered.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.maximum_next">
+<span class="sig-name descname"><span class="pre">maximum_next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.maximum_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.maximum_next" title="Link to this definition">¶</a></dt>
+<dd><p>Move the marker to the next highest peak. Only peaks that meet the peak criteria are considered.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.maximum_right">
+<span class="sig-name descname"><span class="pre">maximum_right</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.maximum_right"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.maximum_right" title="Link to this definition">¶</a></dt>
+<dd><p>Move the marker to the next peak to the right of its current position (higher frequency). Only peaks that meet the peak criteria are considered.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.minimum">
+<span class="sig-name descname"><span class="pre">minimum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.minimum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.minimum" title="Link to this definition">¶</a></dt>
+<dd><p>Perform a minimum peak search.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.select" title="Link to this definition">¶</a></dt>
+<dd><p>Select the active marker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>marker_num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Marker index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_center">
+<span class="sig-name descname"><span class="pre">set_center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_center" title="Link to this definition">¶</a></dt>
+<dd><p>Set the sweep center frequency to the current marker frequency.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_chpower_width">
+<span class="sig-name descname"><span class="pre">set_chpower_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_chpower_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_chpower_width" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the width of the channel power marker measurement as a frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Channel power marker width (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_delta">
+<span class="sig-name descname"><span class="pre">set_delta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_delta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_delta" title="Link to this definition">¶</a></dt>
+<dd><p>When delta is enabled, the delta reference takes the current marker position and the marker measurement returns the delta frequency and amplitude between the current marker position and the delta reference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or ‘ON’/’OFF’ to enable/disable delta mode.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_mode">
+<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_mode" title="Link to this definition">¶</a></dt>
+<dd><p>Switch between positional and noise marker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – ‘POSITION’, ‘NOISE’, ‘CHPOWER’, or ‘NDB’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_ndb_offset">
+<span class="sig-name descname"><span class="pre">set_ndb_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_ndb_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_ndb_offset" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the offset of the N dB marker measurement in dB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – N dB marker offset (dB).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_peak_excursion">
+<span class="sig-name descname"><span class="pre">set_peak_excursion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_peak_excursion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_peak_excursion" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the peak excursion in dB. How many dB above surrounding points the point must be before being considered a peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Peak excursion in dB.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_peak_threshold">
+<span class="sig-name descname"><span class="pre">set_peak_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_peak_threshold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_peak_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the peak threshold. A point must exceed this amount before being considered as a peak. Once the threshold test is met, then the excursion test is ran. If it meets both, then a point is considered a peak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Peak threshold in dBm.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_peak_track">
+<span class="sig-name descname"><span class="pre">set_peak_track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_peak_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_peak_track" title="Link to this definition">¶</a></dt>
+<dd><p>When enabled, the marker performs a peak search on each new trace update.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or ‘ON’/’OFF’ to enable/disable peak tracking.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_rlevel">
+<span class="sig-name descname"><span class="pre">set_rlevel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_rlevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_rlevel" title="Link to this definition">¶</a></dt>
+<dd><p>Set the sweep reference level to the current marker amplitude.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_state">
+<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_state" title="Link to this definition">¶</a></dt>
+<dd><p>Turn the marker on/off.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or ‘ON’/’OFF’ to enable/disable marker.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_trace">
+<span class="sig-name descname"><span class="pre">set_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Specify which trace to place the marker on. The trace must also be active to retrieve marker measurements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Trace index to place marker on.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_update">
+<span class="sig-name descname"><span class="pre">set_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_update" title="Link to this definition">¶</a></dt>
+<dd><p>When update is disabled, the marker will hold its current position and will not update on future sweep updates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or ‘ON’/’OFF’ to enable/disable marker update.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_x">
+<span class="sig-name descname"><span class="pre">set_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Marker_Calc.set_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Marker_Calc.set_x" title="Link to this definition">¶</a></dt>
+<dd><p>Move the marker position to the specified frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Frequency to move marker to (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Math_Calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The CalculateMath commands control trace math functions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_first">
+<span class="sig-name descname"><span class="pre">get_first</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.get_first"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_first" title="Link to this definition">¶</a></dt>
+<dd><p>Query the first operand trace in the selected trace math function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The first operand trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_offset">
+<span class="sig-name descname"><span class="pre">get_offset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.get_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_offset" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current offset for logarithm trace math functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current offset for logarithm trace math functions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_operation">
+<span class="sig-name descname"><span class="pre">get_operation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.get_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_operation" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current trace math operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current trace math operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_result">
+<span class="sig-name descname"><span class="pre">get_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.get_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_result" title="Link to this definition">¶</a></dt>
+<dd><p>Query the result trace in the selected trace math function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The result trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_second">
+<span class="sig-name descname"><span class="pre">get_second</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.get_second"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.get_second" title="Link to this definition">¶</a></dt>
+<dd><p>Query the second operand trace in the selected trace math function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The second operand trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.is_enabled">
+<span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.is_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.is_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if trace math is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if trace math is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_first">
+<span class="sig-name descname"><span class="pre">set_first</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.set_first"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_first" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the first operand trace in the selected trace math function.
+Valid values are [1,6].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> – First operand trace [1,6].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_offset">
+<span class="sig-name descname"><span class="pre">set_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.set_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_offset" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the offset to use in the logarithm trace math functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Offset for logarithm trace math functions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_operation">
+<span class="sig-name descname"><span class="pre">set_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.set_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_operation" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the trace math function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>op</strong> – ‘PDIFF’, ‘PSUM’, ‘LOFFSET’, or ‘LDIFF’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_result">
+<span class="sig-name descname"><span class="pre">set_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.set_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_result" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the result trace in the selected trace math function.
+Valid values are [1,6].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> – Result trace [1,6].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_second">
+<span class="sig-name descname"><span class="pre">set_second</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.set_second"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_second" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the second operand trace in the selected trace math function.
+Valid values are [1,6].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> – Second operand trace [1,6].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_state">
+<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.Math_Calc.set_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.Math_Calc.set_state" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the trace math function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to enable/disable trace math.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PNoise_Calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The PNoise commands control phase noise marker and jitter configuration.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Jitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The Jitter commands control the jitter measurement configuration.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_phase">
+<span class="sig-name descname"><span class="pre">get_phase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.get_phase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_phase" title="Link to this definition">¶</a></dt>
+<dd><p>Query the Phase Jitter of the measurement in radians.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Phase jitter in radians.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_rms">
+<span class="sig-name descname"><span class="pre">get_rms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.get_rms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_rms" title="Link to this definition">¶</a></dt>
+<dd><p>Query the RMS Jitter of the measurement in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>RMS jitter in seconds.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_start">
+<span class="sig-name descname"><span class="pre">get_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.get_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_start" title="Link to this definition">¶</a></dt>
+<dd><p>Query the start frequency offset from carrier for jitter measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Start frequency offset from carrier (Hz).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_stop">
+<span class="sig-name descname"><span class="pre">get_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.get_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_stop" title="Link to this definition">¶</a></dt>
+<dd><p>Query the stop frequency offset from carrier for jitter measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Stop frequency offset from carrier (Hz).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_trace">
+<span class="sig-name descname"><span class="pre">get_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.get_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.get_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trace index used for jitter measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trace index used for jitter measurement.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.is_enabled">
+<span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.is_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.is_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if jitter measurement is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if jitter measurement is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.set_start">
+<span class="sig-name descname"><span class="pre">set_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.set_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.set_start" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the start frequency of the jitter measurement as an offset from the carrier frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Start frequency offset from carrier (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.set_state">
+<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.set_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.set_state" title="Link to this definition">¶</a></dt>
+<dd><p>Enable/disable the jitter measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or ‘ON’/’OFF’ to enable/disable jitter measurement.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.set_stop">
+<span class="sig-name descname"><span class="pre">set_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.set_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.set_stop" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the stop frequency of the jitter measurement as an offset from the carrier frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Stop frequency offset from carrier (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.set_trace">
+<span class="sig-name descname"><span class="pre">set_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Jitter.set_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Jitter.set_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the target trace of the jitter measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Trace index [1-3].</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Marker_PN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The Marker commands control the phase noise markers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initalize Marker_PN class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instrument</strong> (<em>pyvisa.resources.Resource</em>) – The pyvisa instrument instance.</p></li>
+<li><p><strong>data_handler</strong> (<a class="reference internal" href="Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler" title="Instruments.data_handler.DataHandler"><em>DataHandler</em></a>) – Data handler instance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.get_selected">
+<span class="sig-name descname"><span class="pre">get_selected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.get_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.get_selected" title="Link to this definition">¶</a></dt>
+<dd><p>Query the currently selected marker index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The currently selected marker index.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.get_trace">
+<span class="sig-name descname"><span class="pre">get_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.get_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.get_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trace index the marker is placed on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trace index the marker is placed on.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.get_x">
+<span class="sig-name descname"><span class="pre">get_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.get_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.get_x" title="Link to this definition">¶</a></dt>
+<dd><p>Query the frequency of the marker as a frequency offset from the carrier.
+If the reference marker is active, returns the difference between reference and current position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The marker frequency offset from carrier (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.get_y">
+<span class="sig-name descname"><span class="pre">get_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.get_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.get_y" title="Link to this definition">¶</a></dt>
+<dd><p>Query the amplitude of the marker as dBc/Hz.
+If the reference marker is active, returns the dB difference between reference and current position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The marker amplitude as dBc/Hz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.is_delta_enabled">
+<span class="sig-name descname"><span class="pre">is_delta_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.is_delta_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.is_delta_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if delta marker is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if delta marker is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.is_enabled">
+<span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.is_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.is_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if marker is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if marker is enabled, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.select" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the active marker index. All future operations will occur on this marker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>marker_num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Marker index [1-6].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.set_delta">
+<span class="sig-name descname"><span class="pre">set_delta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.set_delta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.set_delta" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the delta marker. A reference marker is created when enabled.
+Updating delta again updates the reference marker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or ‘ON’/’OFF’ to enable/disable delta marker.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.set_state">
+<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.set_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.set_state" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the marker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or ‘ON’/’OFF’ to enable/disable the marker.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.set_trace">
+<span class="sig-name descname"><span class="pre">set_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.set_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.set_trace" title="Link to this definition">¶</a></dt>
+<dd><p>Select which trace the marker is placed on. The marker is updated immediately.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Trace index [1-3].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.set_x">
+<span class="sig-name descname"><span class="pre">set_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.Marker_PN.set_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.Marker_PN.set_x" title="Link to this definition">¶</a></dt>
+<dd><p>Set the marker frequency as an offset from the carrier frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Marker frequency offset from carrier (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.PNoise_Calc.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.PNoise_Calc.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initalize PNoise_Calc class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instrument</strong> (<em>pyvisa.resources.Resource</em>) – The pyvisa instrument instance.</p></li>
+<li><p><strong>data_handler</strong> (<a class="reference internal" href="Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler" title="Instruments.data_handler.DataHandler"><em>DataHandler</em></a>) – Data handler instance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Calculate.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Calculate.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Calculate.__init__" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Initalize Calculate class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instrument</strong> (<em>pyvisa.resources.Resource</em>) – The pyvisa instrument instance.</p></li>
+<li><p><strong>data_handler</strong> (<a class="reference internal" href="Instruments.data_handler.DataHandler.html#Instruments.data_handler.DataHandler" title="Instruments.data_handler.DataHandler"><em>DataHandler</em></a>) – Data handler instance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

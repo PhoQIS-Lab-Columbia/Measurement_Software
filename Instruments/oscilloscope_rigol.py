@@ -8,12 +8,14 @@ from Instruments.EInstrument import EInstrument
 from PIL import Image
 
 class Oscilloscope(Instrument):
-
+    """The main Rigol Oscillscope."""
     def __init__(self, instrument, save_files_path=None):
         """Initialize the Oscilloscope class.
 
+
         :param instrument: The instrument to control.
         :type instrument: pyvisa.Resource
+
         :param save_files_path: Path to save files for the oscilloscope.
         :type save_files_path: str
         """
@@ -55,18 +57,21 @@ class Oscilloscope(Instrument):
         self.instrument.write(":STOP")
  #Acquisition Commands
 class Acquisition:
-    
+    """The Aquire commands are used to set and query the memory depth, acquisition mode and the number of averages as well as query the current sample rate of the oscilloscope."""
     def __init__(self, instrument,data_handler):
         """The Aquire commands are used to set and query the memory depth, acquisition mode and the number of averages as well as query the current sample rate of the oscilloscope.
         
+
         :param instrument: The instrument to control.
         :type instrument: pyvisa.Resource
+
         :param data_handler: The data handler for processing data.
         :type data_handler: DataHandler"""
         self.instrument = instrument
         self.data_handler = data_handler
     def set_mode(self, mode):
         """Set acquisition mode. 
+
 
         :param mode: Mode Options - Normal:  Samples the signal at equal time interval to rebuild the waveform. Averages:  Averages the waveforms from multiple samples to reduce the random noise of the input signal. Peak: Acquires the maximum and minimum values of the signal within the sample interval to get the envelope of the signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise on the input signal and generate much smoother waveforms.
         :type mode: str"""
@@ -75,13 +80,17 @@ class Acquisition:
         self.instrument.write(comm_mode)
 
     def get_mode(self):
-        """Get acquisition mode. Normal:  Samples the signal at equal time interval to rebuild the waveform. Averages:  Averages the waveforms from multiple samples to reduce the random noise of the input signal. Peak: Acquires the maximum and minimum values of the signal within the sample interval to get the envelope of the signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise on the input signal and generate much smoother waveforms """
+        """Get acquisition mode. Normal:  Samples the signal at equal time interval to rebuild the waveform. Averages:  Averages the waveforms from multiple samples to reduce the random noise of the input signal. Peak: Acquires the maximum and minimum values of the signal within the sample interval to get the envelope of the signal. HRESolution:  ultra-sample technique to average the neighboring points of the sample waveform to reduce the random noise on the input signal and generate much smoother waveforms 
+        
+        :return: Acquisition mode
+        :rtype: str"""
         comm_mode = ":ACQuire:TYPE?"
         return self.instrument.query(comm_mode)
 
     def set_number_of_averages(self, avg):
         """In the average acquisition mode, greater number of averages can lower the noise and increase the vertical resolution, but will also slow the response of the displayed waveform to the waveform changes. 
         
+
         :param avg: 2 to 1024
         :type avg: int"""
         if avg<2 or avg>1024:
@@ -91,12 +100,16 @@ class Acquisition:
             self.instrument.write(comm_mode)
 
     def get_number_of_averages(self):
-        """In the average acquisition mode, greater number of averages can lower the noise and increase the vertical resolution."""
+        """In the average acquisition mode, a greater number of averages can reduce noise and increase vertical resolution.
+        
+        :return: Number of averages (2 to 1024)
+        :rtype: str"""
         comm_mode = ":ACQuire:AVERages?"
         return self.instrument.query(comm_mode)
     
     def set_memory_depth(self, mdpth):
         """Set memory depth of the oscilloscope.
+
 
         :param mdpth: Memory depth to set. Allowed values for single-channel: 'AUTO', 12000, 120000, 1200000, 12000000, 24000000. Allowed values for dual-channel: 'AUTO', 6000, 60000, 600000, 6000000, 12000000. The value may be provided as a string (e.g. "AUTO") or an integer.
         :type mdpth: str or int
@@ -112,21 +125,36 @@ class Acquisition:
             print("Invalid memory depth.")
 
     def get_memory_depth(self):
-        """ Get memory depth of the oscilloscope (namely the number of waveform points that can be stored in a single trigger sample)."""
+        """ Get memory depth of the oscilloscope (namely the number of waveform points that can be stored in a single trigger sample).
+        
+        :return: Memory depth
+        :rtype: str"""
         comm_mode = ":ACQuire:MDEPth?"
         return self.instrument.query(comm_mode)
 
 
     def get_sample_rate(self):
-        """ Query the current sample rate. The default unit is Sa/s."""
+        """ Query the current sample rate. The default unit is Sa/s.
+        
+        :return: Sample rate
+        :rtype: str"""
         comm_mode = ":ACQuire:SRATe?"
         return self.instrument.query(comm_mode)
         # Calibration Commands
 class Calibrate:
     """
-    The Calibrate commands are used to control the oscilloscope's self-calibration process.
+    The calibrate commands are used to control the oscilloscope's self-calibration process.
     """
     def __init__(self, instrument,data_handler):
+        """The calibrate class is used to control the oscilloscope's self-calibration process.
+        
+
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+
+        :param data_handler: The data handler for processing data.
+        :type data_handler: DataHandler"""
+
         self.instrument = instrument
         self.data_handler = data_handler
     
@@ -144,19 +172,26 @@ class Calibrate:
 
 class Channel:
     """The Channel commands are used to control and query channel-specific settings.
-    
+        """
+    def __init__(self, instrument,data_handler, channel):
+        """Initalize the channel class.
+        
+
         :param instrument: The instrument to control.
         :type instrument: pyvisa.Resource
+
         :param data_handler: The data handler for processing data.
         :type data_handler: DataHandler
+
         :param channel: The channel number, either 1 or 2.
         :type channel: int
+
         :param decoder: The Decoder object for the channel.
         :type decoder: Decoder
+
         :param etable: The ETable object for the channel.
         :type etable: ETable
         """
-    def __init__(self, instrument,data_handler, channel):
         self.instrument = instrument
         self.data_handler = data_handler
         self.channel = channel
@@ -165,6 +200,7 @@ class Channel:
 
     def set_bandwidth_limit(self,  bw):
         """Set bandwidth limit of the specified channel.
+
 
             :param bw: Bandwidth limit to set. Allowed values: "20M" or "OFF".
             :type bw: str
@@ -180,6 +216,7 @@ class Channel:
     def get_bandwidth_limit(self, channel):
         """Query the bandwidth limit parameter of the specified channel.
 
+
         :param channel: The channel number, either 1 or 2.
         :type channel: int
         :return: The bandwidth limit, either "20M" or "OFF".
@@ -189,6 +226,7 @@ class Channel:
 
     def set_coupling_mode(self,  coupling_mode):
         """Set the coupling mode of the instrument for the channel specified by self.channel.
+
 
         :param coupling_mode: The coupling mode to set for the current channel. Must be one of "AC", "DC", or "GND".
         :type coupling_mode: str"""
@@ -204,16 +242,19 @@ class Channel:
     def get_coupling_mode(self, channel):
         """Query the coupling mode of the specified channel.
 
-            :param channel: The channel to query (e.g., channel number or identifier).
-            :type channel: int
-            :return: The coupling mode reported by the instrument (for example 'DC', 'AC', or 'GND').
-            :rtype: str"""
+
+        :param channel: The channel to query (e.g., channel number or identifier).
+        :type channel: int
+        :return: The coupling mode reported by the instrument (for example 'DC', 'AC', or 'GND').
+        :rtype: str"""
         
         comm_mode = f":CHANnel{self.channel}:COUPling?"
         return self.instrument.query(comm_mode)
 
     def invert_waveform(self,  type):
-        """Set the invert mode of the specified channel.
+        """
+        Set the invert mode of the specified channel.
+
 
         :param type: The invert mode to apply to the channel. Allowed values are "ON" or "OFF" (strings) or 1 or 2 (integers). The channel affected is taken from self.channel and must be 1 or 2.
         :type type: str or int
@@ -231,6 +272,7 @@ class Channel:
         """
         Query the invert mode of the specified channel.
 
+
         :param channel: The channel to query.
         :type channel: int
         :return: The invert mode reported by the instrument for the given channel (e.g., '1'/'0' or 'ON'/'OFF').
@@ -243,6 +285,7 @@ class Channel:
     def set_offset(self,  param1):
         """Set the vertical offset of the specified channel (in volts).
 
+
         :param param1: The offset value to set, in volts.
         :type param1: float
         """
@@ -254,18 +297,21 @@ class Channel:
         else:
             print("Invalid channel.")
 
-    def get_offset(self, channel):
-        """Query the vertical offset of the specified channel. The default unit is V.
+    def get_offset(self):
+        """
+        Query the vertical offset of the specified channel. The default unit is V.
 
-            :param channel: The channel number, either 1 or 2.
-            :type channel: int
-            :return: The vertical offset value in volts.
-            :rtype: str"""
+        :return: The vertical offset value in volts.
+        :rtype: str"""
         comm_mode = f":CHANnel{self.channel}:OFFSet?"
         return self.instrument.query(comm_mode)
 
     def set_range(self,  param1):
-        """Set the vertical range of the specified channel. The default unit is V."""
+        """Set the vertical range of the specified channel. The default unit is V.
+        
+
+        :param param1: The vertical range value to set, in volts.
+        :type param1: float"""
         allowed_chnl_values = [1, 2]
         if self.channel in allowed_chnl_values:
             comm = f":CHANnel{self.channel}:RANGe {param1}"
@@ -273,25 +319,34 @@ class Channel:
         else:
             print("Invalid channel.")
 
-    def get_range(self, channel):
-        """Query the vertical range of the specified channel. The default unit is V."""
+    def get_range(self):
+        """Query the vertical range of the specified channel. The default unit is V.
+
+        :return: The vertical range value in volts.
+        :rtype: str
+        """
         comm_mode = f":CHANnel{self.channel}:RANGe?"
         return self.instrument.query(comm_mode)
 
     def set_tcal(self,  val):
         """
         Set delay calibration time for the specified channel.
-        val: delay time in seconds (e.g., 20e-9 for 20ns). Valid range: -100e-9 to 100e-9.
+
+
+        :param val: delay time in seconds (e.g., 20e-9 for 20ns). Valid range: -100e-9 to 100e-9.
+        :type val: float
         """
         if self.channel in [1, 2] and isinstance(val, (float, int)) and -100e-9 <= val <= 100e-9:
             self.instrument.write(f":CHANnel{self.channel}:TCAL {val}")
         else:
             print("Invalid channel or value (must be float between -100e-9 and 100e-9)")
 
-    def get_tcal(self, channel):
+    def get_tcal(self):
         """
         Query delay calibration time for the specified channel (in seconds).
-        Returns value in scientific notation as float.
+        
+        :return: value in scientific notation as float.
+        :rtype: float
         """
         if self.channel in [1, 2]:
             response = self.instrument.query(f":CHANnel{self.channel}:TCAL?")
@@ -301,40 +356,74 @@ class Channel:
             return None
 
     def set_scale(self,  scale):
-        """Set vertical scale of the channel (in V/div)."""
+        """Set vertical scale of the channel (in V/div).
+        
+
+        :param scale: Vertical scale value to set, in volts per division.
+        :type scale: float"""
         self.instrument.write(f":CHANnel{self.channel}:SCALe {scale}")
 
-    def get_scale(self, channel):
-        """Query vertical scale of the channel."""
+    def get_scale(self):
+        """Query vertical scale of the channel.
+        
+        :return: Vertical scale value in volts per division.
+        :rtype: str"""
         return self.instrument.query(f":CHANnel{self.channel}:SCALe?")
 
     def set_probe_ratio(self,  ratio):
-        """Set the probe attenuation ratio for a channel."""
+        """Set the probe attenuation ratio for a channel.
+        
+
+        :param ratio: Probe attenuation ratio to set.
+        :type ratio: float"""
         self.instrument.write(f":CHANnel{self.channel}:PROBe {ratio}")
 
-    def get_probe_ratio(self, channel):
-        """Query the probe attenuation ratio for a channel."""
+    def get_probe_ratio(self):
+        """Query the probe attenuation ratio for a channel.
+        
+        :return: Probe attenuation ratio.
+        :rtype: str"""
         return self.instrument.query(f":CHANnel{self.channel}:PROBe?")
 
     def set_units(self,  unit):
-        """Set the amplitude display unit for a channel. Options: VOLTage, WATT, AMPere, UNKNown."""
+        """Set the amplitude display unit for a channel. 
+        
+
+        :param unit: Options: VOLTage, WATT, AMPere, UNKNown.
+        :type unit: str"""
         self.instrument.write(f":CHANnel{self.channel}:UNITs {unit}")
 
-    def get_units(self, channel):
-        """Query the amplitude display unit for a channel."""
+    def get_units(self):
+        """Query the amplitude display unit for a channel.
+        
+        :return: Amplitude display unit.
+        :rtype: str"""
         return self.instrument.query(f":CHANnel{self.channel}:UNITs?")
 
     def set_vernier(self,  state):
-        """Enable or disable fine adjustment (vernier) for vertical scale."""
+        """Enable or disable fine adjustment (vernier) for vertical scale.
+        
+
+        :param state: "ON" to enable vernier, "OFF" to disable.
+        :type state: str"""
+
         self.instrument.write(f":CHANnel{self.channel}:VERNier {state}")
 
-    def get_vernier(self, channel):
-        """Query vernier setting."""
+    def get_vernier(self):
+        """Query vernier setting.
+        
+        :return: "ON" if vernier is enabled, "OFF" if disabled.
+        :rtype: str"""
         return self.instrument.query(f":CHANnel{self.channel}:VERNier?")
                     
 class Cursor:
     """The Cursor commands are used to control and query cursor-specific settings."""
     def __init__(self, instrument,data_handler):
+        """Initalize the Cursor class.
+        
+
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource"""
         self.instrument = instrument
         self.data_handler = data_handler
     
@@ -342,9 +431,9 @@ class Cursor:
         """
         Set cursor measurement mode.
 
-        Parameters:
-        mode (str): One of {"OFF", "MANual", "TRACk", "AUTO", "XY"}
-        Note: XY mode only valid when timebase mode is also XY.
+
+        :param mode: One of {"OFF", "MANual", "TRACk", "AUTO", "XY"} Note: XY mode only valid when timebase mode is also XY.
+        :type mode: str
         """
         valid_modes = {"OFF", "MANual", "TRACk", "AUTO", "XY"}
         mode = mode.upper()
@@ -357,8 +446,8 @@ class Cursor:
         """
         Query the current cursor measurement mode.
 
-        Returns:
-        str: One of {"OFF", "MAN", "TRAC", "AUTO", "XY"}
+        :returns: One of {"OFF", "MAN", "TRAC", "AUTO", "XY"}
+        :rtype: str
         """
         return self.instrument.query(":CURSor:MODE?")
 
@@ -366,8 +455,9 @@ class Cursor:
         """
         Set the type of manual cursor.
 
-        Parameters:
-        cursor_type (str): Either "X" for vertical cursors (time) or "Y" for horizontal cursors (voltage).
+
+        :param cursor_type: Either "X" for vertical cursors (time) or "Y" for horizontal cursors (voltage).
+        :type cursor_type: str
         """
         cursor_type = cursor_type.upper()
         if cursor_type in ["X", "Y"]:
@@ -379,8 +469,8 @@ class Cursor:
         """
         Query the current manual cursor type.
 
-        Returns:
-        str: "X" or "Y"
+        :return: "X" or "Y"
+        :rtype: str 
         """
         return self.instrument.query(":CURSor:MANual:TYPE?")
 
@@ -388,9 +478,9 @@ class Cursor:
         """
         Set the source for manual cursor measurement.
 
-        Parameters:
-        source (str): Channel or source name. Valid options include:
-                    "CHAN1", "CHAN2", "MATH", "REF1", "REF2", "REF3", "REF4"
+
+        :param source: Channel or source name. Valid options include: "CHAN1", "CHAN2", "MATH", "REF1", "REF2", "REF3", "REF4"
+        :type source: str
         """
         source = source.upper()
         valid_sources = {"CHAN1", "CHAN2", "MATH"}
@@ -403,15 +493,17 @@ class Cursor:
         """
         Query the current source for manual cursor measurement.
 
-        Returns:
-        str: Current source, such as "CHAN1", "CHAN2", "MATH", etc.
+        :return: Current source, such as "CHAN1", "CHAN2", "MATH", etc.
+        :rtype: str
         """
         return self.instrument.query(":CURSor:MANual:SOURce?")
 
     def set_manual_tunit(self, unit):
         """ Set the horizontal unit for manual cursor measurement. 
-        Parameters:
-        unit (str): The unit to set, such as "S", "HZ", "DEGREE", "PERCENT".
+
+
+        :param unit: The unit to set, such as "S", "HZ", "DEGREE", "PERCENT".
+        :type unit: str
         """
         valid_units = ["S", "HZ", "DEGREE", "PERCENT"]
         unit = unit.upper()
@@ -422,15 +514,18 @@ class Cursor:
 
     def get_manual_tunit(self):
         """ Query the current horizontal unit in the manual cursor measurement mode. 
-        Returns:
-        str: The current horizontal unit, such as "S", "HZ", "DEGREE", "PERCENT".
+
+        :return: The current horizontal unit, such as "S", "HZ", "DEGREE", "PERCENT".
+        :rtype: str
         """
         return self.instrument.query(":CURSor:MANual:TUNit?")
 
     def set_manual_vunit(self, unit):
         """ Set the vertical unit for manual cursor measurement. 
-        Parameters:
-        unit (str): The unit to set, such as "PERCENT", "SOURCE".
+
+
+        :param unit: The unit to set, such as "PERCENT", "SOURCE".
+        :type unit: str
         """
         valid_units = ["PERCENT", "SOURCE"]
         unit = unit.upper()
@@ -441,16 +536,24 @@ class Cursor:
 
     def get_manual_vunit(self):
         """ Query the current vertical unit in the manual cursor measurement mode. 
-        Returns:
-        str: The current vertical unit, such as "PERCENT", "SOURCE".
+
+        :return: The current vertical unit, such as "PERCENT", "SOURCE".
+        :rtype: str
         """
         return self.instrument.query(":CURSor:MANual:VUNit?")
 
     def set_manual(self, cursor, x, y):
         """ Set the horizontal position of cursor A or B in the manual cursor measurement mode. 
-        Parameters:
-        cursor (str): Cursor identifier, either "A" or "B".
-        
+
+
+        :param cursor: Cursor identifier, either "A" or "B".
+        :type cursor: str
+
+        :param x: Horizontal position, must be between 5 and 594.
+        :type x: int
+
+        :param y: Vertical position, must be between 5 and 394.
+        :type y: int
         """
         if 5 <= x <= 594:
             self.instrument.write(f":CURSor:MANual:{cursor}X {x}")
@@ -463,33 +566,39 @@ class Cursor:
 
     def get_manual(self, cursor):
         """ Query the horizontal position of cursor A or B in the manual cursor measurement mode. 
-        Parameters:
-        cursor (str): Cursor identifier, either "A" or "B".
-        Returns:
-        str: The x and y coordinates of the cursor in the format "x;y".
+
+
+        :param cursor: Cursor identifier, either "A" or "B".
+        :type cursor: str
+        :return: The x and y coordinates of the cursor in the format "x;y".
+        :rtype: str
         """
         return self.instrument.query(f":CURSor:MANual:{cursor}X?;{cursor}Y?")
 
     def get_manual_xdelta(self):
         """ Query the difference between the X values of cursor A and cursor B (BX - AX) in the manual cursor measurement mode. 
-        Returns:
-        float: The difference in X values (BX - AX) in scientific notation.
+        
+        :return: The difference in X values (BX - AX) in scientific notation.
+        :rtype: float
         """
         response = self.instrument.query(":CURSor:MANual:XDELta?")
         return float(response)
 
     def get_manual_ixdelta(self):
-        """ Query the reciprocal of the absolute value of the difference between the X values of cursor A and cursor B (1/|dX|). 
-        Returns:
-        float: The reciprocal of the difference in X values (1/|dX|) in scientific notation.
+        """ 
+        Query the reciprocal of the absolute value of the difference between the X values of cursor A and cursor B (1/dX). 
+        
+        :return: The reciprocal of the difference in X values (1/dX) in scientific notation.
+        :rtype: float
         """
         response = self.instrument.query(":CURSor:MANual:IXDELta?")
         return float(response)
 
     def get_manual_ydelta(self):
         """ Query the difference between the Y values of cursor A and cursor B (BY - AY) in the manual cursor measurement mode. 
-        Returns:
-        float: The difference in Y values (BY - AY) in scientific notation.
+        
+        :return: The difference in Y values (BY - AY) in scientific notation.
+        :rtype: float
         """
         response = self.instrument.query(":CURSor:MANual:YDELta?")
         return float(response)
@@ -498,12 +607,12 @@ class Cursor:
         """
         Set the channel source of cursor A in the track cursor measurement mode.
 
-        Parameters:
-            source (str): The source to set for the cursor. Must be one of "OFF", "CHANNEL1", "CHANNEL2", or "MATH".
-            n (str): The cursor A|B.
 
-        Returns:
-            None
+        :param source: The source to set for the cursor. Must be one of "OFF", "CHANNEL1", "CHANNEL2", or "MATH".
+        :type source: str
+
+        :param n: The cursor A|B.
+        :type n: str
         """
         
         valid_sources = ["OFF", "CHANNEL1", "CHANNEL2", "MATH"]
@@ -515,19 +624,27 @@ class Cursor:
 
     def get_track_source(self, cursor):
         """ Query the channel source of cursor A or B in the track cursor measurement mode. 
-        Parameters: 
-        cursor (str): Cursor identifier, either "A" or "B".
-        Returns:
-        int: The channel source of cursor A or B, such as "CHAN1", "CHAN2", "MATH", etc.
+
+
+        :param cursor: Cursor identifier, either "A" or "B".
+        :type cursor: str
+        :return: The channel source of cursor A or B, such as "CHAN1", "CHAN2", "MATH", etc.
+        :rtype: str
         """
         return self.instrument.query(f":CURSor:TRACk:SOURce{n}?")
 
     def set_xy(self, cursor, x, y):
         """ Set the horizontal position of cursor A or B in the XY cursor measurement mode. 
-        Parameters:
-        cursor (str): Cursor identifier, either "A" or "B".
-        x (int): Horizontal position, must be between 5 and 394.
-        y (int): Vertical position, must be between 5 and 394.
+
+
+        :param cursor: Cursor identifier, either "A" or "B".
+        :type cursor: str
+
+        :param x: Horizontal position, must be between 5 and 394.
+        :type x: int
+
+        :param y: Vertical position, must be between 5 and 394.
+        :type y: int
         """
         if 5 <= x <= 394 and 5 <= y <= 394:
             self.instrument.write(f":CURSor:XY:{cursor}X {x};{cursor}Y {y};")
@@ -535,11 +652,12 @@ class Cursor:
             print("Invalid x or y position. Must be between 5 and 394.")
 
     def get_xy(self, cursor):
-        """ Query the horizontal position of cursor A in the XY cursor measurement mode. 
-        Parameters:
-        cursor (str): Cursor identifier, either "A" or "B".
-        Returns:
-        str: The x and y coordinates of the cursor in the format "x;y".
+        """ Query the horizontal position of cursor A in the XY cursor measurement mode.
+
+        :param cursor: Cursor identifier, either "A" or "B".
+        :type cursor: str
+        :return: The x and y coordinates of the cursor in the format "x;y".
+        :rtype: str
         """
         response = self.instrument.query(f":CURSor:XY:{cursor}X?;{cursor}Y?")
         return response  # Returns an integer between 5 and 394
@@ -547,41 +665,59 @@ class Decoder:
     """
     The Decoder commands are used to execute decoding settings and operations.
     """
-    def __init__(self, instrument,data_handler,n):
+    def __init__(self, instrument,data_handler,n=1):
+        """The Decoder class is used to execute decoding settings and operations. The default decoder mode is Parallel.
+
+
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+
+        :param data_handler: The data handler for processing data.
+        :type data_handler: DataHandler
+
+        :param n: The decoder number (1 or 2).
+        :type n: int
+        """
         self.instrument = instrument
         self.data_handler = data_handler
+
         if n not in [1, 2]:
             raise ValueError("Parameter n must be 1 or 2.")
         self.n = n
-        self.uart = UART(instrument, data_handler, n)
-        self.iic = IIC_Decoder(instrument, data_handler, n)
-        self.spi = SPI_Decoder(instrument, data_handler, n)
-        self.parallel = Parallel(instrument, data_handler, n)
+        self.uart = self.UART(instrument, data_handler, n)
+        self.iic = self.IIC_Decoder(instrument, data_handler, n)
+        self.spi = self.SPI_Decoder(instrument, data_handler, n)
+        self.parallel = self.Parallel(instrument, data_handler, n)
 
     def get_current_decoder(self):
         """Query which decoder you are currently using.
-        Returns:
-            int: The decoder number (1 or 2).
+
+        :return: The decoder number (1 or 2).
+        :rtype: int
         """
         return self.n
     def switch_decoder(self, n):
         """Set the current decoder number.
-        Parameters:
-            n (int): The decoder number to set (1 or 2).
-        Returns:
-            None
+
+        :param n: The decoder number to set (1 or 2).
+        :type n: int
         """
         if n in [1, 2]:
             self.n = n
+            self.uart.n = n
+            self.iic.n = n
+            self.spi.n = n
+            self.parallel.n = n
         else:
             print("Invalid decoder number. Use 1 or 2.")
+
     def set_mode(self, mode):
         """
         Set the decoder type.
-        Parameter:
-            mode (str): One of {"PARALLEL", "UART", "SPI", "IIC"}
-        Return:
-            None
+
+
+        :param mode: One of {"PARALLEL", "UART", "SPI", "IIC"}
+        :type mode: str
         """
         allowed = {"PARALLEL", "UART", "SPI", "IIC"}
         mode = mode.upper()
@@ -593,20 +729,19 @@ class Decoder:
     def get_mode(self):
         """
         Query the decoder type.
-        Parameter:
-            None
-        Return:
-            str: One of {"PAR", "UART", "SPI", "IIC"}
+
+        :return: One of {"PAR", "UART", "SPI", "IIC"}
+        :rtype: str
         """
         return self.instrument.query(f":DECoder{self.n}:MODE?")
 
     def enable_display(self, state):
         """
         Turn on or off the decoder display.
-        Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
+
+
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -620,20 +755,19 @@ class Decoder:
     def is_display_enabled(self):
         """
         Query the decoder display status.
-        Parameter:
-            None
-        Return:
-            int: 1 (on) or 0 (off)
+
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         return int(self.instrument.query(f":DECoder{self.n}:DISPlay?"))
 
     def set_format(self, fmt):
         """
         Set the bus display format.
-        Parameter:
-            fmt (str): One of {"HEX", "ASCII", "DEC", "BIN", "LINE"}
-        Return:
-            None
+
+
+        :param fmt: One of {"HEX", "ASCII", "DEC", "BIN", "LINE"}
+        :type fmt: str
         """
         allowed = {"HEX", "ASCII", "DEC", "BIN", "LINE"}
         fmt = fmt.upper()
@@ -645,20 +779,19 @@ class Decoder:
     def get_format(self):
         """
         Query the bus display format.
-        Parameter:
-            None
-        Return:
-            str: Format string
+
+        :return: Format string
+        :rtype: str
         """
         return self.instrument.query(f":DECoder{self.n}:FORMat?")
 
     def set_position(self, pos):
         """
         Set the vertical position of the bus on the screen.
-        Parameter:
-            pos (int): 50 to 350
-        Return:
-            None
+
+
+        :param pos: 50 to 350
+        :type pos: int
         """
         if 50 <= pos <= 350:
             self.instrument.write(f":DECoder{self.n}:POSition {pos}")
@@ -668,34 +801,34 @@ class Decoder:
     def get_position(self):
         """
         Query the vertical position of the bus.
-        Parameter:
-            None
-        Return:
-            int: Position value
+
+        :return: Position value
+        :rtype: int
         """
         return int(self.instrument.query(f":DECoder{self.n}:POSition?"))
 
     def set_threshold_channel(self,  threshold):
         """
         Set the threshold level of the specified analog channel.
-        Parameter:
-            channel (int): 1 or 2
-            threshold (float): Threshold value
-        Return:
-            None
+
+
+        :param channel: 1 or 2
+        :type channel: int
+
+        :param threshold: Threshold value
+        :type threshold: float
         """
         if self.channel not in [1, 2]:
             print("Invalid channel. Use 1 or 2.")
             return
         self.instrument.write(f":DECoder{self.n}:THREshold:CHANnel{self.channel} {threshold}")
 
-    def get_threshold_channel(self, channel):
+    def get_threshold_channel(self):
         """
         Query the threshold level of the specified analog channel.
-        Parameter:
-            channel (int): 1 or 2
-        Return:
-            float: Threshold value
+
+        :return: Threshold value
+        :rtype: float
         """
         if self.channel not in [1, 2]:
             print("Invalid channel. Use 1 or 2.")
@@ -705,10 +838,10 @@ class Decoder:
     def set_threshold_auto(self, state):
         """
         Turn on or off the auto threshold function.
-        Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
+
+
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -722,20 +855,18 @@ class Decoder:
     def get_threshold_auto(self):
         """
         Query the auto threshold function status.
-        Parameter:
-            None
-        Return:
-            int: 1 (on) or 0 (off)
+        
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         return int(self.instrument.query(f":DECoder{self.n}:THREshold:AUTO?"))
 
     def set_config_label(self, state):
         """
         Turn on or off the label display function.
-        Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
+
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -749,20 +880,18 @@ class Decoder:
     def get_config_label(self):
         """
         Query the label display function status.
-        Parameter:
-            None
-        Return:
-            int: 1 (on) or 0 (off)
+        
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         return int(self.instrument.query(f":DECoder{self.n}:CONFig:LABel?"))
 
     def set_config_line(self, state):
         """
         Turn on or off the bus display function.
-        Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
+
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -776,20 +905,18 @@ class Decoder:
     def get_config_line(self):
         """
         Query the bus display function status.
-        Parameter:
-            None
-        Return:
-            int: 1 (on) or 0 (off)
+        
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         return int(self.instrument.query(f":DECoder{self.n}:CONFig:LINE?"))
 
     def set_config_format(self, state):
         """
         Turn on or off the format display function.
-        Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
+
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -803,20 +930,18 @@ class Decoder:
     def get_config_format(self):
         """
         Query the format display function status.
-        Parameter:
-            None
-        Return:
-            int: 1 (on) or 0 (off)
+        
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         return int(self.instrument.query(f":DECoder{self.n}:CONFig:FORMat?"))
 
     def set_config_endian(self, state):
         """
         Turn on or off the endian display function in serial bus decoding.
-        Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
+
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -830,20 +955,18 @@ class Decoder:
     def get_config_endian(self):
         """
         Query the endian display function status.
-        Parameter:
-            None
-        Return:
-            int: 1 (on) or 0 (off)
+        
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         return int(self.instrument.query(f":DECoder{self.n}:CONFig:ENDian?"))
 
     def set_config_width(self, state):
         """
         Turn on or off the width display function.
-        Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
+
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -857,872 +980,834 @@ class Decoder:
     def get_config_width(self):
         """
         Query the width display function status.
-        Parameter:
-            None
-        Return:
-            int: 1 (on) or 0 (off)
+        
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         return int(self.instrument.query(f":DECoder{self.n}:CONFig:WIDth?"))
 
-class UART:
-    """
-    The UART commands are used to set the RS232 decoding parameters.
-    """
-    def __init__(self, instrument,data_handler,n):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        if n not in [1, 2]:
-            raise ValueError("Parameter n must be 1 or 2.")
-        self.n = n
-
-    def set_tx(self, tx):
-        """
-        Set the TX channel source of RS232 decoding.
-        Parameter:
-            tx (str): "CHANNEL1", "CHANNEL2", or "OFF"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-        tx = tx.upper()
-        if tx in allowed:
-            self.instrument.write(f":DECoder{self.n}:UART:TX {tx}")
-        else:
-            print(f"Invalid TX source. Allowed: {allowed}")
-
-    def get_tx(self):
-        """
-        Query the TX channel source of RS232 decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1", "CHAN2", or "OFF"
-        """
-        return self.instrument.query(f":DECoder{self.n}:UART:TX?")
-
-    def set_rx(self, rx):
-        """
-        Set the RX channel source of RS232 decoding.
-        Parameter:
-            rx (str): "CHANNEL1", "CHANNEL2", or "OFF"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-        rx = rx.upper()
-        if rx in allowed:
-            self.instrument.write(f":DECoder{self.n}:UART:RX {rx}")
-        else:
-            print(f"Invalid RX source. Allowed: {allowed}")
-
-    def get_rx(self):
-        """
-        Query the RX channel source of RS232 decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1", "CHAN2", or "OFF"
-        """
-        return self.instrument.query(f":DECoder{self.n}:UART:RX?")
-
-    def set_polarity(self, polarity):
-        """
-        Set the polarity of RS232 decoding.
-        Parameter:
-            polarity (str): "NEGATIVE" or "POSITIVE"
-        Return:
-            None
-        """
-        allowed = {"NEGATIVE", "POSITIVE"}
-        polarity = polarity.upper()
-        if polarity in allowed:
-            self.instrument.write(f":DECoder{self.n}:UART:POLarity {polarity}")
-        else:
-            print(f"Invalid polarity. Allowed: {allowed}")
-
-    def get_polarity(self):
-        """
-        Query the polarity of RS232 decoding.
-        Parameter:
-            None
-        Return:
-            str: "NEG" or "POS"
-        """
-        return self.instrument.query(f":DECoder{self.n}:UART:POLarity?")
-
-    def set_endian(self, endian):
-        """
-        Set the endian of RS232 decoding.
-        Parameter:
-            endian (str): "LSB" or "MSB"
-        Return:
-            None
-        """
-        allowed = {"LSB", "MSB"}
-        endian = endian.upper()
-        if endian in allowed:
-            self.instrument.write(f":DECoder{self.n}:UART:ENDian {endian}")
-        else:
-            print(f"Invalid endian. Allowed: {allowed}")
-
-    def get_endian(self):
-        """
-        Query the endian of RS232 decoding.
-        Parameter:
-            None
-        Return:
-            str: "LSB" or "MSB"
-        """
-        return self.instrument.query(f":DECoder{self.n}:UART:ENDian?")
-    def set_baud(self, baud):
-        """
-        Set the baud rate of RS232 decoding.
-        Parameter:
-            baud (int): Baud rate, 110 to 20000000
-        Return:
-            None
-        """
-        if isinstance(baud, int) and 110 <= baud <= 20000000:
-            self.instrument.write(f":DECoder{self.n}:UART:BAUD {baud}")
-        else:
-            print("Invalid baud rate. Must be integer between 110 and 20000000.")
-
-    def get_baud(self):
-        """
-        Query the baud rate of RS232 decoding.
-        Parameter:
-            None
-        Return:
-            int: Current baud rate
-        """
-        return int(self.instrument.query(f":DECoder{self.n}:UART:BAUD?"))
-
-    def set_width(self, width):
-        """
-        Set the width of each frame of data in RS232 decoding.
-        Parameter:
-            width (int): Data width, 5 to 8
-        Return:
-            None
-        """
-        if isinstance(width, int) and 5 <= width <= 8:
-            self.instrument.write(f":DECoder{self.n}:UART:WIDTh {width}")
-        else:
-            print("Invalid width. Must be integer between 5 and 8.")
-
-    def get_width(self):
-        """
-        Query the width of each frame of data in RS232 decoding.
-        Parameter:
-            None
-        Return:
-            int: Data width (5 to 8)
-        """
-        return int(self.instrument.query(f":DECoder{self.n}:UART:WIDTh?"))
-
-    def set_stop(self, stop):
-        """
-        Set the stop bit after each frame of data in RS232 decoding.
-        Parameter:
-            stop (float): Stop bit, one of 1, 1.5, or 2
-        Return:
-            None
-        """
-        allowed = {1, 1.5, 2}
-        if stop in allowed:
-            self.instrument.write(f":DECoder{self.n}:UART:STOP {stop}")
-        else:
-            print("Invalid stop bit. Allowed: 1, 1.5, 2.")
-
-    def get_stop(self):
-        """
-        Query the stop bit after each frame of data in RS232 decoding.
-        Parameter:
-            None
-        Return:
-            float: Stop bit (1, 1.5, or 2)
-        """
-        resp = self.instrument.query(f":DECoder{self.n}:UART:STOP?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_parity(self, parity):
-        """
-        Set the even-odd check mode of the data transmission in RS232 decoding.
-        Parameter:
-            parity (str): "NONE", "EVEN", or "ODD"
-        Return:
-            None
-        """
-        allowed = {"NONE", "EVEN", "ODD"}
-        parity = parity.upper()
-        if parity in allowed:
-            self.instrument.write(f":DECoder{self.n}:UART:PARity {parity}")
-        else:
-            print("Invalid parity. Allowed: NONE, EVEN, ODD.")
-
-    def get_parity(self):
-        """
-        Query the even-odd check mode of the data transmission in RS232 decoding.
-        Parameter:
-            None
-        Return:
-            str: "NONE", "EVEN", or "ODD"
-        """
-        return self.instrument.query(f":DECoder{self.n}:UART:PARity?")
-
-class IIC_Decoder:
-    """
-    The IIC commands are used to set the I2C decoding parameters.
-    """
-    def __init__(self, instrument,data_handler,n):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        if n not in [1, 2]:
-            raise ValueError("Parameter n must be 1 or 2.")
-        self.n = n
-
-    def set_clk(self, clk):
-        """
-        Set the signal source of the clock channel in I2C decoding.
-        Parameter:
-            clk (str): "CHANNEL1" or "CHANNEL2"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2"}
-        clk = clk.upper()
-        if clk in allowed:
-            self.instrument.write(f":DECoder{self.n}:IIC:CLK {clk}")
-        else:
-            print("Invalid clock channel. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_clk(self):
-        """
-        Query the signal source of the clock channel in I2C decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(f":DECoder{self.n}:IIC:CLK?")
-
-    def set_data(self, data):
-        """
-        Set the signal source of the data channel in I2C decoding.
-        Parameter:
-            data (str): "CHANNEL1" or "CHANNEL2"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2"}
-        data = data.upper()
-        if data in allowed:
-            self.instrument.write(f":DECoder{self.n}:IIC:DATA {data}")
-        else:
-            print("Invalid data channel. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_data(self):
-        """
-        Query the signal source of the data channel in I2C decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(f":DECoder{self.n}:IIC:DATA?")
-
-    def set_address(self, addr):
-        """
-        Set the address mode of I2C decoding.
-        Parameter:
-            addr (str): "NORMAL" or "RW"
-        Return:
-            None
-        """
-        allowed = {"NORMAL", "RW"}
-        addr = addr.upper()
-        if addr in allowed:
-            self.instrument.write(f":DECoder{self.n}:IIC:ADDRess {addr}")
-        else:
-            print("Invalid address mode. Allowed: NORMAL, RW.")
-
-    def get_address(self):
-        """
-        Query the address mode of I2C decoding.
-        Parameter:
-            None
-        Return:
-            str: "NORM" or "RW"
-        """
-        return self.instrument.query(f":DECoder{self.n}:IIC:ADDRess?")
-
-class SPI_Decoder:
-    """
-    The SPI commands are used to set the SPI decoding parameters.
-    """
-    def __init__(self, instrument,data_handler,n):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        if n not in [1, 2]:
-            raise ValueError("Parameter n must be 1 or 2.")
-        self.n = n
-
-    def set_clk(self, clk):
-        """
-        Set the signal source of the clock channel in SPI decoding.
-        Parameter:
-            clk (str): "CHANNEL1" or "CHANNEL2"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2"}
-        clk = clk.upper()
-        if clk in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:CLK {clk}")
-        else:
-            print("Invalid clock channel. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_clk(self):
-        """
-        Query the signal source of the clock channel in SPI decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:CLK?")
-
-    def set_miso(self, miso):
-        """
-        Set the MISO channel source in SPI decoding.
-        Parameter:
-            miso (str): "CHANNEL1", "CHANNEL2", or "OFF"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-        miso = miso.upper()
-        if miso in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:MISO {miso}")
-        else:
-            print("Invalid MISO channel. Allowed: CHANNEL1, CHANNEL2, OFF.")
-
-    def get_miso(self):
-        """
-        Query the MISO channel source in SPI decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1", "CHAN2", or "OFF"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:MISO?")
-    def set_mosi(self, mosi):
-        """
-        Set the MOSI channel source in SPI decoding.
-        Parameter:
-            mosi (str): "CHANNEL1", "CHANNEL2", or "OFF"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-        mosi = mosi.upper()
-        if mosi in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:MOSI {mosi}")
-        else:
-            print("Invalid MOSI channel. Allowed: CHANNEL1, CHANNEL2, OFF.")
-
-    def get_mosi(self):
-        """
-        Query the MOSI channel source in SPI decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1", "CHAN2", or "OFF"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:MOSI?")
-
-    def set_cs(self, cs):
-        """
-        Set the CS channel source in SPI decoding.
-        Parameter:
-            cs (str): "CHANNEL1" or "CHANNEL2"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2"}
-        cs = cs.upper()
-        if cs in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:CS {cs}")
-        else:
-            print("Invalid CS channel. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_cs(self):
-        """
-        Query the CS channel source in SPI decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:CS?")
-
-    def set_select(self, csncs):
-        """
-        Set the CS polarity in SPI decoding.
-        Parameter:
-            csncs (str): "NCS" or "CS"
-        Return:
-            None
-        """
-        allowed = {"NCS", "CS"}
-        csncs = csncs.upper()
-        if csncs in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:SELect {csncs}")
-        else:
-            print("Invalid CS polarity. Allowed: NCS, CS.")
-
-    def get_select(self):
-        """
-        Query the CS polarity in SPI decoding.
-        Parameter:
-            None
-        Return:
-            str: "NCS" or "CS"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:SELect?")
-
-    def set_mode(self, mode):
-        """
-        Set the frame synchronization mode of SPI decoding.
-        Parameter:
-            mode (str): "CS" or "TIMEOUT"
-        Return:
-            None
-        """
-        allowed = {"CS", "TIMEOUT"}
-        mode = mode.upper()
-        if mode in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:MODE {mode}")
-        else:
-            print("Invalid mode. Allowed: CS, TIMEOUT.")
-
-    def get_mode(self):
-        """
-        Query the frame synchronization mode of SPI decoding.
-        Parameter:
-            None
-        Return:
-            str: "CS" or "TIM"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:MODE?")
-
-    def set_timeout(self, tmo):
-        """
-        Set the timeout time in the timeout mode of SPI decoding.
-        Parameter:
-            tmo (float): Timeout time in seconds (e.g., 1e-6)
-        Return:
-            None
-        """
-        if isinstance(tmo, (float, int)) and tmo > 0:
-            self.instrument.write(f":DECoder{self.n}:SPI:TIMeout {tmo}")
-        else:
-            print("Invalid timeout value. Must be a positive number.")
-
-    def get_timeout(self):
-        """
-        Query the timeout time in the timeout mode of SPI decoding.
-        Parameter:
-            None
-        Return:
-            float: Timeout time in seconds
-        """
-        resp = self.instrument.query(f":DECoder{self.n}:SPI:TIMeout?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_polarity(self, pol):
-        """
-        Set the polarity of the SDA data line in SPI decoding.
-        Parameter:
-            pol (str): "NEGATIVE" or "POSITIVE"
-        Return:
-            None
-        """
-        allowed = {"NEGATIVE", "POSITIVE"}
-        pol = pol.upper()
-        if pol in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:POLarity {pol}")
-        else:
-            print("Invalid polarity. Allowed: NEGATIVE, POSITIVE.")
-
-    def get_polarity(self):
-        """
-        Query the polarity of the SDA data line in SPI decoding.
-        Parameter:
-            None
-        Return:
-            str: "NEG" or "POS"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:POLarity?")
-
-    def set_edge(self, edge):
-        """
-        Set the clock type when the instrument samples the data line in SPI decoding.
-        Parameter:
-            edge (str): "RISE" or "FALL"
-        Return:
-            None
-        """
-        allowed = {"RISE", "FALL"}
-        edge = edge.upper()
-        if edge in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:EDGE {edge}")
-        else:
-            print("Invalid edge. Allowed: RISE, FALL.")
-
-    def get_edge(self):
-        """
-        Query the clock type when the instrument samples the data line in SPI decoding.
-        Parameter:
-            None
-        Return:
-            str: "RISE" or "FALL"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:EDGE?")
-
-    def set_endian(self, endian):
-        """
-        Set the endian of the SPI decoding data.
-        Parameter:
-            endian (str): "LSB" or "MSB"
-        Return:
-            None
-        """
-        allowed = {"LSB", "MSB"}
-        endian = endian.upper()
-        if endian in allowed:
-            self.instrument.write(f":DECoder{self.n}:SPI:ENDian {endian}")
-        else:
-            print("Invalid endian. Allowed: LSB, MSB.")
-
-    def get_endian(self):
-        """
-        Query the endian of the SPI decoding data.
-        Parameter:
-            None
-        Return:
-            str: "LSB" or "MSB"
-        """
-        return self.instrument.query(f":DECoder{self.n}:SPI:ENDian?")
-
-    def set_width(self, wid):
-        """
-        Set the number of bits of each frame of data in SPI decoding.
-        Parameter:
-            wid (int): Data width, 4 to 32
-        Return:
-            None
-        """
-        if isinstance(wid, int) and 4 <= wid <= 32:
-            self.instrument.write(f":DECoder{self.n}:SPI:WIDTh {wid}")
-        else:
-            print("Invalid width. Must be integer between 4 and 32.")
-
-    def get_width(self):
-        """
-        Query the number of bits of each frame of data in SPI decoding.
-        Parameter:
-            None
-        Return:
-            int: Data width (4 to 32)
-        """
-        resp = self.instrument.query(f":DECoder{self.n}:SPI:WIDTh?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-class Parallel:
-    """
-    The Parallel commands are used to set the parallel decoding parameters.
-    """
-    def __init__(self, instrument,data_handler,n):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        if n not in [1, 2]:
-            raise ValueError("Parameter n must be 1 or 2.")
-        self.n = n
-
-    def set_clk(self, clk):
-        """
-        Set the CLK channel source of parallel decoding.
-        Parameter:
-            clk (str): "CHANNEL1", "CHANNEL2", or "OFF"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
-        clk = clk.upper()
-        if clk in allowed:
-            self.instrument.write(f":DECoder{self.n}:PARallel:CLK {clk}")
-        else:
-            print("Invalid clk. Allowed: CHANNEL1, CHANNEL2, OFF.")
-
-    def get_clk(self):
-        """
-        Query the CLK channel source of parallel decoding.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1", "CHAN2", or "OFF"
-        """
-        return self.instrument.query(f":DECoder{self.n}:PARallel:CLK?")
-
-    def set_edge(self, edge):
-        """
-        Set the edge type of the clock channel for parallel decoding.
-        Parameter:
-            edge (str): "RISE", "FALL", or "BOTH"
-        Return:
-            None
-        """
-        allowed = {"RISE", "FALL", "BOTH"}
-        edge = edge.upper()
-        if edge in allowed:
-            self.instrument.write(f":DECoder{self.n}:PARallel:EDGE {edge}")
-        else:
-            print("Invalid edge. Allowed: RISE, FALL, BOTH.")
-
-    def get_edge(self):
-        """
-        Query the edge type of the clock channel for parallel decoding.
-        Parameter:
-            None
-        Return:
-            str: "RISE", "FALL", or "BOTH"
-        """
-        return self.instrument.query(f":DECoder{self.n}:PARallel:EDGE?")
-
-    def set_width(self, wid):
-        """
-        Set the data width (number of bits per frame) for parallel decoding.
-        Parameter:
-            wid (int): Data width, 1 to 2
-        Return:
-            None
-        """
-        if isinstance(wid, int) and 1 <= wid <= 2:
-            self.instrument.write(f":DECoder{self.n}:PARallel:WIDTh {wid}")
-        else:
-            print("Invalid width. Must be integer between 1 and 2.")
-
-    def get_width(self):
-        """
-        Query the data width for parallel decoding.
-        Parameter:
-            None
-        Return:
-            int: Data width (1 to 2)
-        """
-        resp = self.instrument.query(f":DECoder{self.n}:PARallel:WIDTh?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_bitx(self, bit):
-        """
-        Set the data bit that requires a channel source on the parallel bus.
-        Parameter:
-            bit (int): Bit index, 0 to (data width - 1)
-        Return:
-            None
-        """
-        if isinstance(bit, int) and bit >= 0:
-            self.instrument.write(f":DECoder{self.n}:PARallel:BITX {bit}")
-        else:
-            print("Invalid bit index.")
-
-    def get_bitx(self):
-        """
-        Query the current data bit selected on the parallel bus.
-        Parameter:
-            None
-        Return:
-            int: Current bit index
-        """
-        resp = self.instrument.query(f":DECoder{self.n}:PARallel:BITX?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_source(self, src):
-        """
-        Set the channel source of the data bit currently selected.
-        Parameter:
-            src (str): "CHANNEL1" or "CHANNEL2"
-        Return:
-            None
-        """
-        allowed = {"CHANNEL1", "CHANNEL2"}
-        src = src.upper()
-        if src in allowed:
-            self.instrument.write(f":DECoder{self.n}:PARallel:SOURce {src}")
-        else:
-            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_source(self):
-        """
-        Query the channel source of the data bit currently selected.
-        Parameter:
-            None
-        Return:
-            str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(f":DECoder{self.n}:PARallel:SOURce?")
-
-    def set_polarity(self, pol):
-        """
-        Set the data polarity of parallel decoding.
-        Parameter:
-            pol (str): "NEGATIVE" or "POSITIVE"
-        Return:
-            None
-        """
-        allowed = {"NEGATIVE", "POSITIVE"}
-        pol = pol.upper()
-        if pol in allowed:
-            self.instrument.write(f":DECoder{self.n}:PARallel:POLarity {pol}")
-        else:
-            print("Invalid polarity. Allowed: NEGATIVE, POSITIVE.")
-
-    def get_polarity(self):
-        """
-        Query the data polarity of parallel decoding.
-        Parameter:
-            None
-        Return:
-            str: "NEG" or "POS"
-        """
-        return self.instrument.query(f":DECoder{self.n}:PARallel:POLarity?")
-
-    def enable_noise_rejection(self, enable):
-        """
-        Turn on or off the noise rejection function of parallel decoding.
-        Parameter:
-            enable (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
-        """
-        if enable in [1, 0]:
-            val = enable
-        elif isinstance(enable, str) and enable.upper() in {"ON", "OFF"}:
-            val = 1 if enable.upper() == "ON" else 0
-        else:
-            print("Invalid enable value. Use 1, 0, 'ON', or 'OFF'.")
-            return
-        self.instrument.write(f":DECoder{self.n}:PARallel:NREJect {val}")
-
-    def is_noise_rejection_enabled(self):
-        """
-        Query the status of the noise rejection function of parallel decoding.
-        Parameter:
-            None
-        Return:
-            int: 1 (on) or 0 (off)
-        """
-        return int(self.instrument.query(f":DECoder{self.n}:PARallel:NREJect?"))
-
-    def set_noise_rejection_time(self, time):
-        """
-        Set the noise rejection time of parallel decoding (in seconds).
-        Parameter:
-            time (float): 0.00s to 0.1s (100ms)
-        Return:
-            None
-        """
-        if isinstance(time, (float, int)) and 0.0 <= time <= 0.1:
-            self.instrument.write(f":DECoder{self.n}:PARallel:NRTime {time}")
-        else:
-            print("Invalid time. Must be between 0.00 and 0.1 seconds.")
-
-    def get_noise_rejection_time(self):
-        """
-        Query the noise rejection time of parallel decoding.
-        Parameter:
-            None
-        Return:
-            float: Noise rejection time in seconds
-        """
-        resp = self.instrument.query(f":DECoder{self.n}:PARallel:NRTime?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_compensation(self, comp):
-        """
-        Set the clock compensation time of parallel decoding (in seconds).
-        Parameter:
-            comp (float): -0.1s to 0.1s (-100ms to 100ms)
-        Return:
-            None
-        """
-        if isinstance(comp, (float, int)) and -0.1 <= comp <= 0.1:
-            self.instrument.write(f":DECoder{self.n}:PARallel:CCOMpensation {comp}")
-        else:
-            print("Invalid compensation. Must be between -0.1 and 0.1 seconds.")
-
-    def get_compensation(self):
-        """
-        Query the clock compensation time of parallel decoding.
-        Parameter:
-            None
-        Return:
-            float: Compensation time in seconds
-        """
-        resp = self.instrument.query(f":DECoder{self.n}:PARallel:CCOMpensation?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def enable_plot(self, enable):
-        """
-        Turn on or off the curve function of parallel decoding.
-        
-        Parameter:
-        enable (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
-        """
-        if enable in [1, 0]:
-            val = enable
-        elif isinstance(enable, str) and enable.upper() in {"ON", "OFF"}:
-            val = 1 if enable.upper() == "ON" else 0
-        else:
-            print("Invalid enable value. Use 1, 0, 'ON', or 'OFF'.")
-            return
-        self.instrument.write(f":DECoder{self.n}:PARallel:PLOT {val}")
-
-    def is_plot_enabled(self):
-        """
-        Query the status of the curve function of parallel decoding.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
-        """
-        return int(self.instrument.query(f":DECoder{self.n}:PARallel:PLOT?"))
+    class UART:
+        """
+        The UART commands are used to set the RS232 decoding parameters.
+        """
+        def __init__(self, instrument,data_handler,n):
+            """The UART class is used to set the RS232 decoding parameters.
+            
+
+            :param instrument: The instrument to control.
+            :type instrument: pyvisa.Resource
+
+            :param data_handler: The data handler for processing data.
+            :type data_handler: DataHandler"""
+
+            self.instrument = instrument
+            self.data_handler = data_handler
+            if n not in [1, 2]:
+                raise ValueError("Parameter n must be 1 or 2.")
+            self.n = n
+
+        def set_tx(self, tx):
+            """
+            Set the TX channel source of RS232 decoding.
+
+            :param tx: "CHANNEL1", "CHANNEL2", or "OFF"
+            :type tx: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+            tx = tx.upper()
+            if tx in allowed:
+                self.instrument.write(f":DECoder{self.n}:UART:TX {tx}")
+            else:
+                print(f"Invalid TX source. Allowed: {allowed}")
+
+        def get_tx(self):
+            """
+            Query the TX channel source of RS232 decoding.
+            
+            :return: "CHAN1", "CHAN2", or "OFF"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:UART:TX?")
+
+        def set_rx(self, rx):
+            """
+            Set the RX channel source of RS232 decoding.
+
+            :param rx: "CHANNEL1", "CHANNEL2", or "OFF"
+            :type rx: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+            rx = rx.upper()
+            if rx in allowed:
+                self.instrument.write(f":DECoder{self.n}:UART:RX {rx}")
+            else:
+                print(f"Invalid RX source. Allowed: {allowed}")
+
+        def get_rx(self):
+            """
+            Query the RX channel source of RS232 decoding.
+            
+            :return: "CHAN1", "CHAN2", or "OFF"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:UART:RX?")
+
+        def set_polarity(self, polarity):
+            """
+            Set the polarity of RS232 decoding.
+
+            :param polarity: "NEGATIVE" or "POSITIVE"
+            :type polarity: str
+            """
+            allowed = {"NEGATIVE", "POSITIVE"}
+            polarity = polarity.upper()
+            if polarity in allowed:
+                self.instrument.write(f":DECoder{self.n}:UART:POLarity {polarity}")
+            else:
+                print(f"Invalid polarity. Allowed: {allowed}")
+
+        def get_polarity(self):
+            """
+            Query the polarity of RS232 decoding.
+            
+            :return: "NEG" or "POS"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:UART:POLarity?")
+
+        def set_endian(self, endian):
+            """
+            Set the endian of RS232 decoding.
+
+            :param endian: "LSB" or "MSB"
+            :type endian: str
+            """
+            allowed = {"LSB", "MSB"}
+            endian = endian.upper()
+            if endian in allowed:
+                self.instrument.write(f":DECoder{self.n}:UART:ENDian {endian}")
+            else:
+                print(f"Invalid endian. Allowed: {allowed}")
+
+        def get_endian(self):
+            """
+            Query the endian of RS232 decoding.
+            
+            :return: "LSB" or "MSB"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:UART:ENDian?")
+        def set_baud(self, baud):
+            """
+            Set the baud rate of RS232 decoding.
+
+            :param baud: Baud rate, 110 to 20000000
+            :type baud: int
+            """
+            if isinstance(baud, int) and 110 <= baud <= 20000000:
+                self.instrument.write(f":DECoder{self.n}:UART:BAUD {baud}")
+            else:
+                print("Invalid baud rate. Must be integer between 110 and 20000000.")
+
+        def get_baud(self):
+            """
+            Query the baud rate of RS232 decoding.
+            
+            :return: Current baud rate
+            :rtype: int
+            """
+            return int(self.instrument.query(f":DECoder{self.n}:UART:BAUD?"))
+
+        def set_width(self, width):
+            """
+            Set the width of each frame of data in RS232 decoding.
+
+            :param width: Data width, 5 to 8
+            :type width: int
+            """
+            if isinstance(width, int) and 5 <= width <= 8:
+                self.instrument.write(f":DECoder{self.n}:UART:WIDTh {width}")
+            else:
+                print("Invalid width. Must be integer between 5 and 8.")
+
+        def get_width(self):
+            """
+            Query the width of each frame of data in RS232 decoding.
+            
+            :return: Data width (5 to 8)
+            :rtype: int
+            """
+            return int(self.instrument.query(f":DECoder{self.n}:UART:WIDTh?"))
+
+        def set_stop(self, stop):
+            """
+            Set the stop bit after each frame of data in RS232 decoding.
+
+            :param stop: Stop bit, one of 1, 1.5, or 2
+            :type stop: float
+            """
+            allowed = {1, 1.5, 2}
+            if stop in allowed:
+                self.instrument.write(f":DECoder{self.n}:UART:STOP {stop}")
+            else:
+                print("Invalid stop bit. Allowed: 1, 1.5, 2.")
+
+        def get_stop(self):
+            """
+            Query the stop bit after each frame of data in RS232 decoding.
+            
+            :return: Stop bit (1, 1.5, or 2)
+            :rtype: float or str
+            """
+            resp = self.instrument.query(f":DECoder{self.n}:UART:STOP?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_parity(self, parity):
+            """
+            Set the even-odd check mode of the data transmission in RS232 decoding.
+
+            :param parity: "NONE", "EVEN", or "ODD"
+            :type parity: str
+            """
+            allowed = {"NONE", "EVEN", "ODD"}
+            parity = parity.upper()
+            if parity in allowed:
+                self.instrument.write(f":DECoder{self.n}:UART:PARity {parity}")
+            else:
+                print("Invalid parity. Allowed: NONE, EVEN, ODD.")
+
+        def get_parity(self):
+            """
+            Query the even-odd check mode of the data transmission in RS232 decoding.
+            
+            :return: "NONE", "EVEN", or "ODD"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:UART:PARity?")
+
+    class IIC_Decoder:
+        """
+        The IIC commands are used to set the I2C decoding parameters.
+        """
+        def __init__(self, instrument,data_handler,n):
+            """The IIC_Decoder class is used to set the I2C decoding parameters.
+            
+            :param instrument: The instrument to control.
+            :type instrument: pyvisa.Resource
+            :param data_handler: The data handler for processing data.
+            :type data_handler: DataHandler"""
+            self.instrument = instrument
+            self.data_handler = data_handler
+            if n not in [1, 2]:
+                raise ValueError("Parameter n must be 1 or 2.")
+            self.n = n
+
+        def set_clk(self, clk):
+            """
+            Set the signal source of the clock channel in I2C decoding.
+
+            :param clk: "CHANNEL1" or "CHANNEL2"
+            :type clk: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2"}
+            clk = clk.upper()
+            if clk in allowed:
+                self.instrument.write(f":DECoder{self.n}:IIC:CLK {clk}")
+            else:
+                print("Invalid clock channel. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_clk(self):
+            """
+            Query the signal source of the clock channel in I2C decoding.
+            
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:IIC:CLK?")
+
+        def set_data(self, data):
+            """
+            Set the signal source of the data channel in I2C decoding.
+
+            :param data: "CHANNEL1" or "CHANNEL2"
+            :type data: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2"}
+            data = data.upper()
+            if data in allowed:
+                self.instrument.write(f":DECoder{self.n}:IIC:DATA {data}")
+            else:
+                print("Invalid data channel. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_data(self):
+            """
+            Query the signal source of the data channel in I2C decoding.
+            
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:IIC:DATA?")
+
+        def set_address(self, addr):
+            """
+            Set the address mode of I2C decoding.
+
+            :param addr: "NORMAL" or "RW"
+            :type addr: str
+            """
+            allowed = {"NORMAL", "RW"}
+            addr = addr.upper()
+            if addr in allowed:
+                self.instrument.write(f":DECoder{self.n}:IIC:ADDRess {addr}")
+            else:
+                print("Invalid address mode. Allowed: NORMAL, RW.")
+
+        def get_address(self):
+            """
+            Query the address mode of I2C decoding.
+            
+            :return: "NORM" or "RW"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:IIC:ADDRess?")
+
+    class SPI_Decoder:
+        """
+        The SPI commands are used to set the SPI decoding parameters.
+        """
+        def __init__(self, instrument,data_handler,n):
+            """The SPI_Decoder class is used to set the SPI decoding parameters.
+            
+            :param instrument: The instrument to control.
+            :type instrument: pyvisa.Resource
+            :param data_handler: The data handler for processing data.
+            :type data_handler: DataHandler"""
+            self.instrument = instrument
+            self.data_handler = data_handler
+            if n not in [1, 2]:
+                raise ValueError("Parameter n must be 1 or 2.")
+            self.n = n
+
+        def set_clk(self, clk):
+            """
+            Set the signal source of the clock channel in SPI decoding.
+
+            :param clk: "CHANNEL1" or "CHANNEL2"
+            :type clk: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2"}
+            clk = clk.upper()
+            if clk in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:CLK {clk}")
+            else:
+                print("Invalid clock channel. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_clk(self):
+            """
+            Query the signal source of the clock channel in SPI decoding.
+            
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:CLK?")
+
+        def set_miso(self, miso):
+            """
+            Set the MISO channel source in SPI decoding.
+
+            :param miso: "CHANNEL1", "CHANNEL2", or "OFF"
+            :type miso: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+            miso = miso.upper()
+            if miso in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:MISO {miso}")
+            else:
+                print("Invalid MISO channel. Allowed: CHANNEL1, CHANNEL2, OFF.")
+
+        def get_miso(self):
+            """
+            Query the MISO channel source in SPI decoding.
+            
+            :return: "CHAN1", "CHAN2", or "OFF"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:MISO?")
+        def set_mosi(self, mosi):
+            """
+            Set the MOSI channel source in SPI decoding.
+
+            :param mosi: "CHANNEL1", "CHANNEL2", or "OFF"
+            :type mosi: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+            mosi = mosi.upper()
+            if mosi in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:MOSI {mosi}")
+            else:
+                print("Invalid MOSI channel. Allowed: CHANNEL1, CHANNEL2, OFF.")
+
+        def get_mosi(self):
+            """
+            Query the MOSI channel source in SPI decoding.
+            
+            :return: "CHAN1", "CHAN2", or "OFF"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:MOSI?")
+
+        def set_cs(self, cs):
+            """
+            Set the CS channel source in SPI decoding.
+
+            :param cs: "CHANNEL1" or "CHANNEL2"
+            :type cs: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2"}
+            cs = cs.upper()
+            if cs in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:CS {cs}")
+            else:
+                print("Invalid CS channel. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_cs(self):
+            """
+            Query the CS channel source in SPI decoding.
+            
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:CS?")
+
+        def set_select(self, csncs):
+            """
+            Set the CS polarity in SPI decoding.
+
+            :param csncs: "NCS" or "CS"
+            :type csncs: str
+            """
+            allowed = {"NCS", "CS"}
+            csncs = csncs.upper()
+            if csncs in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:SELect {csncs}")
+            else:
+                print("Invalid CS polarity. Allowed: NCS, CS.")
+
+        def get_select(self):
+            """
+            Query the CS polarity in SPI decoding.
+            
+            :return: "NCS" or "CS"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:SELect?")
+
+        def set_mode(self, mode):
+            """
+            Set the frame synchronization mode of SPI decoding.
+
+            :param mode: "CS" or "TIMEOUT"
+            :type mode: str
+            """
+            allowed = {"CS", "TIMEOUT"}
+            mode = mode.upper()
+            if mode in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:MODE {mode}")
+            else:
+                print("Invalid mode. Allowed: CS, TIMEOUT.")
+
+        def get_mode(self):
+            """
+            Query the frame synchronization mode of SPI decoding.
+            
+            :return: "CS" or "TIM"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:MODE?")
+
+        def set_timeout(self, tmo):
+            """
+            Set the timeout time in the timeout mode of SPI decoding.
+
+            :param tmo: Timeout time in seconds (e.g., 1e-6)
+            :type tmo: float
+            """
+            if isinstance(tmo, (float, int)) and tmo > 0:
+                self.instrument.write(f":DECoder{self.n}:SPI:TIMeout {tmo}")
+            else:
+                print("Invalid timeout value. Must be a positive number.")
+
+        def get_timeout(self):
+            """
+            Query the timeout time in the timeout mode of SPI decoding.
+            
+            :return: Timeout time in seconds
+            :rtype: float or str
+            """
+            resp = self.instrument.query(f":DECoder{self.n}:SPI:TIMeout?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_polarity(self, pol):
+            """
+            Set the polarity of the SDA data line in SPI decoding.
+
+            :param pol: "NEGATIVE" or "POSITIVE"
+            :type pol: str
+            """
+            allowed = {"NEGATIVE", "POSITIVE"}
+            pol = pol.upper()
+            if pol in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:POLarity {pol}")
+            else:
+                print("Invalid polarity. Allowed: NEGATIVE, POSITIVE.")
+
+        def get_polarity(self):
+            """
+            Query the polarity of the SDA data line in SPI decoding.
+            
+            :return: "NEG" or "POS"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:POLarity?")
+
+        def set_edge(self, edge):
+            """
+            Set the clock type when the instrument samples the data line in SPI decoding.
+
+            :param edge: "RISE" or "FALL"
+            :type edge: str
+            """
+            allowed = {"RISE", "FALL"}
+            edge = edge.upper()
+            if edge in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:EDGE {edge}")
+            else:
+                print("Invalid edge. Allowed: RISE, FALL.")
+
+        def get_edge(self):
+            """
+            Query the clock type when the instrument samples the data line in SPI decoding.
+            
+            :return: "RISE" or "FALL"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:EDGE?")
+
+        def set_endian(self, endian):
+            """
+            Set the endian of the SPI decoding data.
+
+            :param endian: "LSB" or "MSB"
+            :type endian: str
+            """
+            allowed = {"LSB", "MSB"}
+            endian = endian.upper()
+            if endian in allowed:
+                self.instrument.write(f":DECoder{self.n}:SPI:ENDian {endian}")
+            else:
+                print("Invalid endian. Allowed: LSB, MSB.")
+
+        def get_endian(self):
+            """
+            Query the endian of the SPI decoding data.
+            
+            :return: "LSB" or "MSB"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:SPI:ENDian?")
+
+        def set_width(self, wid):
+            """
+            Set the number of bits of each frame of data in SPI decoding.
+
+            :param wid: Data width, 4 to 32
+            :type wid: int
+            """
+            if isinstance(wid, int) and 4 <= wid <= 32:
+                self.instrument.write(f":DECoder{self.n}:SPI:WIDTh {wid}")
+            else:
+                print("Invalid width. Must be integer between 4 and 32.")
+
+        def get_width(self):
+            """
+            Query the number of bits of each frame of data in SPI decoding.
+            
+            :return: Data width (4 to 32)
+            :rtype: int
+            """
+            resp = self.instrument.query(f":DECoder{self.n}:SPI:WIDTh?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+    class Parallel:
+        """
+        The Parallel commands are used to set the parallel decoding parameters.
+        """
+        def __init__(self, instrument,data_handler,n):
+            """The Parallel class is used to set the parallel decoding parameters.
+            
+            :param instrument: The instrument to control.
+            :type instrument: pyvisa.Resource
+            :param data_handler: The data handler for processing data.
+            :type data_handler: DataHandler
+            :param n: Decoder number (1 or 2)
+            :type n: int"""
+
+            self.instrument = instrument
+            self.data_handler = data_handler
+            if n not in [1, 2]:
+                raise ValueError("Parameter n must be 1 or 2.")
+            self.n = n
+
+        def set_clk(self, clk):
+            """
+            Set the CLK channel source of parallel decoding.
+
+            :param clk: "CHANNEL1", "CHANNEL2", or "OFF"
+            :type clk: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "OFF"}
+            clk = clk.upper()
+            if clk in allowed:
+                self.instrument.write(f":DECoder{self.n}:PARallel:CLK {clk}")
+            else:
+                print("Invalid clk. Allowed: CHANNEL1, CHANNEL2, OFF.")
+
+        def get_clk(self):
+            """
+            Query the CLK channel source of parallel decoding.
+            
+            :return: "CHAN1", "CHAN2", or "OFF"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:PARallel:CLK?")
+
+        def set_edge(self, edge):
+            """
+            Set the edge type of the clock channel for parallel decoding.
+
+            :param edge: "RISE", "FALL", or "BOTH"
+            :type edge: str
+            """
+            allowed = {"RISE", "FALL", "BOTH"}
+            edge = edge.upper()
+            if edge in allowed:
+                self.instrument.write(f":DECoder{self.n}:PARallel:EDGE {edge}")
+            else:
+                print("Invalid edge. Allowed: RISE, FALL, BOTH.")
+
+        def get_edge(self):
+            """
+            Query the edge type of the clock channel for parallel decoding.
+            
+            :return: "RISE", "FALL", or "BOTH"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:PARallel:EDGE?")
+
+        def set_width(self, wid):
+            """
+            Set the data width (number of bits per frame) for parallel decoding.
+
+            :param wid: Data width, 1 to 2
+            :type wid: int
+            """
+            if isinstance(wid, int) and 1 <= wid <= 2:
+                self.instrument.write(f":DECoder{self.n}:PARallel:WIDTh {wid}")
+            else:
+                print("Invalid width. Must be integer between 1 and 2.")
+
+        def get_width(self):
+            """
+            Query the data width for parallel decoding.
+            
+            :return: Data width (1 to 2)
+            :rtype: int
+            """
+            resp = self.instrument.query(f":DECoder{self.n}:PARallel:WIDTh?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_bitx(self, bit):
+            """
+            Set the data bit that requires a channel source on the parallel bus.
+
+            :param bit: Bit index, 0 to (data width - 1)
+            :type bit: int
+            """
+            if isinstance(bit, int) and bit >= 0:
+                self.instrument.write(f":DECoder{self.n}:PARallel:BITX {bit}")
+            else:
+                print("Invalid bit index.")
+
+        def get_bitx(self):
+            """
+            Query the current data bit selected on the parallel bus.
+            
+            :return: Current bit index
+            :rtype: int
+            """
+            resp = self.instrument.query(f":DECoder{self.n}:PARallel:BITX?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_source(self, src):
+            """
+            Set the channel source of the data bit currently selected.
+
+            :param src: "CHANNEL1" or "CHANNEL2"
+            :type src: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2"}
+            src = src.upper()
+            if src in allowed:
+                self.instrument.write(f":DECoder{self.n}:PARallel:SOURce {src}")
+            else:
+                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_source(self):
+            """
+            Query the channel source of the data bit currently selected.
+            
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:PARallel:SOURce?")
+
+        def set_polarity(self, pol):
+            """
+            Set the data polarity of parallel decoding.
+
+            :param pol: "NEGATIVE" or "POSITIVE"
+            :type pol: str
+            """
+            allowed = {"NEGATIVE", "POSITIVE"}
+            pol = pol.upper()
+            if pol in allowed:
+                self.instrument.write(f":DECoder{self.n}:PARallel:POLarity {pol}")
+            else:
+                print("Invalid polarity. Allowed: NEGATIVE, POSITIVE.")
+
+        def get_polarity(self):
+            """
+            Query the data polarity of parallel decoding.
+            
+            :return: "NEG" or "POS"
+            :rtype: str
+            """
+            return self.instrument.query(f":DECoder{self.n}:PARallel:POLarity?")
+
+        def enable_noise_rejection(self, enable):
+            """
+            Turn on or off the noise rejection function of parallel decoding.
+
+            :param enable: 1/0 or "ON"/"OFF"
+            :type enable: int or str
+            """
+            if enable in [1, 0]:
+                val = enable
+            elif isinstance(enable, str) and enable.upper() in {"ON", "OFF"}:
+                val = 1 if enable.upper() == "ON" else 0
+            else:
+                print("Invalid enable value. Use 1, 0, 'ON', or 'OFF'.")
+                return
+            self.instrument.write(f":DECoder{self.n}:PARallel:NREJect {val}")
+
+        def is_noise_rejection_enabled(self):
+            """
+            Query the status of the noise rejection function of parallel decoding.
+            
+            :return: 1 (on) or 0 (off)
+            :rtype: int
+            """
+            return int(self.instrument.query(f":DECoder{self.n}:PARallel:NREJect?"))
+
+        def set_noise_rejection_time(self, time):
+            """
+            Set the noise rejection time of parallel decoding (in seconds).
+
+            :param time: 0.00s to 0.1s (100ms)
+            :type time: float
+            """
+            if isinstance(time, (float, int)) and 0.0 <= time <= 0.1:
+                self.instrument.write(f":DECoder{self.n}:PARallel:NRTime {time}")
+            else:
+                print("Invalid time. Must be between 0.00 and 0.1 seconds.")
+
+        def get_noise_rejection_time(self):
+            """
+            Query the noise rejection time of parallel decoding.
+            
+            :return: Noise rejection time in seconds
+            :rtype: float or str
+            """
+            resp = self.instrument.query(f":DECoder{self.n}:PARallel:NRTime?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_compensation(self, comp):
+            """
+            Set the clock compensation time of parallel decoding (in seconds).
+
+            :param comp: -0.1s to 0.1s (-100ms to 100ms)
+            :type comp: float
+            """
+            if isinstance(comp, (float, int)) and -0.1 <= comp <= 0.1:
+                self.instrument.write(f":DECoder{self.n}:PARallel:CCOMpensation {comp}")
+            else:
+                print("Invalid compensation. Must be between -0.1 and 0.1 seconds.")
+
+        def get_compensation(self):
+            """
+            Query the clock compensation time of parallel decoding.
+            
+            :return: Compensation time in seconds
+            :rtype: float or str
+            """
+            resp = self.instrument.query(f":DECoder{self.n}:PARallel:CCOMpensation?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def enable_plot(self, enable):
+            """
+            Turn on or off the curve function of parallel decoding.
+            
+
+            :param enable: 1/0 or "ON"/"OFF"
+            :type enable: int or str
+            """
+            if enable in [1, 0]:
+                val = enable
+            elif isinstance(enable, str) and enable.upper() in {"ON", "OFF"}:
+                val = 1 if enable.upper() == "ON" else 0
+            else:
+                print("Invalid enable value. Use 1, 0, 'ON', or 'OFF'.")
+                return
+            self.instrument.write(f":DECoder{self.n}:PARallel:PLOT {val}")
+
+        def is_plot_enabled(self):
+            """
+            Query the status of the curve function of parallel decoding.
+            
+            :return: 1 (on) or 0 (off)
+            :rtype: int
+            """
+            return int(self.instrument.query(f":DECoder{self.n}:PARallel:PLOT?"))
 
 
 
@@ -1731,18 +1816,18 @@ class Display:
     The Display commands are used to set the waveform display mode, persistence time, waveform intensity, screen grid type and grid brightness.
     """
     def __init__(self, instrument,data_handler):
+            """The Display class is used to set the waveform display mode, persistence time, waveform intensity, screen grid type and grid brightness.
+            
+            :param instrument: The instrument to control.
+            :type instrument: pyvisa.Resource
+            :param data_handler: The data handler for processing data.
+            :type data_handler: DataHandler"""
             self.instrument = instrument
             self.data_handler = data_handler
 
     def clear(self):
         """
         Clear all the waveforms on the screen.
-        
-        Parameter:
-            None
-        
-        Return:
-            None
         """
         self.instrument.write(":DISPlay:CLEar")
 
@@ -1750,14 +1835,12 @@ class Display:
         """
         Read the data stream of the image currently displayed on the screen. If autosave is on, then also saves them to a png file.
         
-        Parameter:
-        color (str or None): "ON" or "OFF" (default ON)
-        invert (int/str or None): 1/"ON" or 0/"OFF" (default 0)
-        fmt (str or None): "BMP24", "BMP8", "PNG", "JPEG", "TIFF" (default BMP24)
+        :param color: "ON" or "OFF" (default ON)
+        :param invert: 1/"ON" or 0/"OFF" (default 0)
+        :param fmt: "BMP24", "BMP8", "PNG", "JPEG", "TIFF" (default BMP24)
             
-        Return:
-        bytes: Raw image data (TMC header included)
-        Image: If auto save enabled, return PIL Image object, if not set to save return None
+        :return: Raw image data (TMC header included)
+        :rtype Image: If auto save enabled, return PIL Image object, if not set to save return None
         """
         cmd = ":DISPlay:DATA?"
         args = []
@@ -1794,11 +1877,8 @@ class Display:
         """
         Set the waveform display mode.
         
-        Parameter:
-        disp_type (str): Allowed values depend on instrument, e.g., "VECTor", "DOTS"
-        
-        Return:
-        None
+        :param disp_type: Allowed values depend on instrument, e.g., "VECTor", "DOTS"
+        :type disp_type: str
         """
         allowed = {"VECTOR", "DOTS"}
         disp_type = disp_type.upper()
@@ -1811,11 +1891,8 @@ class Display:
         """
         Query the waveform display mode.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Display type
+        :return: Display type
+        :rtype: str
         """
         return self.instrument.query(":DISPlay:TYPE?")
 
@@ -1823,11 +1900,8 @@ class Display:
         """
         Set the persistence time of the waveform.
         
-        Parameter:
-        time (float): Persistence time in seconds
-        
-        Return:
-        None
+        :param time: Persistence time in seconds
+        :type time: float
         """
         if isinstance(time, (float, int)) and time >= 0:
             self.instrument.write(f":DISPlay:GRADing:TIME {time}")
@@ -1838,11 +1912,8 @@ class Display:
         """
         Query the persistence time of the waveform.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Persistence time in seconds
+        :return: Persistence time in seconds
+        :rtype: float or str
         """
         resp = self.instrument.query(":DISPlay:GRADing:TIME?")
         try:
@@ -1854,11 +1925,8 @@ class Display:
         """
         Set the waveform intensity.
         
-        Parameter:
-        val (int): 0 to 100
-        
-        Return:
-        None
+        :param val: 0 to 100
+        :type val: int
         """
         if isinstance(val, int) and 0 <= val <= 100:
             self.instrument.write(f":DISPlay:WBRightness {val}")
@@ -1869,11 +1937,8 @@ class Display:
         """
         Query the waveform intensity.
         
-        Parameter:
-        None
-        
-        Return:
-        int: Brightness (0 to 100)
+        :return: Brightness (0 to 100)
+        :rtype: int or str
         """
         resp = self.instrument.query(":DISPlay:WBRightness?")
         try:
@@ -1885,11 +1950,8 @@ class Display:
         """
         Set the screen grid type.
         
-        Parameter:
-        grid_type (str): "FULL", "HALF", "NONE"
-        
-        Return:
-        None
+        :param grid_type: "FULL", "HALF", "NONE"
+        :type grid_type: str
         """
         allowed = {"FULL", "HALF", "NONE"}
         grid_type = grid_type.upper()
@@ -1902,11 +1964,8 @@ class Display:
         """
         Query the screen grid type.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Grid type
+        :return: Grid type
+        :rtype: str
         """
         return self.instrument.query(":DISPlay:GRID?")
 
@@ -1914,11 +1973,8 @@ class Display:
         """
         Set the grid brightness.
         
-        Parameter:
-        val (int): 0 to 100
-        
-        Return:
-        None
+        :param val: 0 to 100
+        :type val: int
         """
         if isinstance(val, int) and 0 <= val <= 100:
             self.instrument.write(f":DISPlay:GBRightness {val}")
@@ -1929,11 +1985,8 @@ class Display:
         """
         Query the grid brightness.
         
-        Parameter:
-        None
-        
-        Return:
-        int: Grid brightness (0 to 100)
+        :return: Grid brightness (0 to 100)
+        :rtype: int or str
         """
         resp = self.instrument.query(":DISPlay:GBRightness?")
         try:
@@ -1945,6 +1998,12 @@ class ETable:
     The ETable commands are used to set the parameters related to the decoding event table.
     """
     def __init__(self, instrument,data_handler,n):
+        """The ETable class is used to set the parameters related to the decoding event table.
+        
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+        :param data_handler: The data handler for processing data.
+        :type data_handler: DataHandler"""
         self.instrument = instrument
         self.data_handler = data_handler
         if n not in [1, 2]:
@@ -1955,11 +2014,8 @@ class ETable:
         """
         Turn on or off the decoding event table.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -1974,11 +2030,8 @@ class ETable:
         """
         Query the status of the decoding event table.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         return int(self.instrument.query(f":ETABle{self.n}:DISP?"))
 
@@ -1986,11 +2039,8 @@ class ETable:
         """
         Set the data display format of the event table.
         
-        Parameter:
-        fmt (str): "HEX", "ASCII", or "DEC"
-        
-        Return:
-        None
+        :param fmt: "HEX", "ASCII", or "DEC"
+        :type fmt: str
         """
         allowed = {"HEX", "ASCII", "DEC"}
         fmt = fmt.upper()
@@ -2003,11 +2053,8 @@ class ETable:
         """
         Query the data display format of the event table.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "HEX", "ASC", or "DEC"
+        :return: "HEX", "ASC", or "DEC"
+        :rtype: str
         """
         return self.instrument.query(f":ETABle{self.n}:FORMat?")
 
@@ -2015,11 +2062,8 @@ class ETable:
         """
         Set the display mode of the event table.
         
-        Parameter:
-        view (str): "PACKAGE", "DETAIL", or "PAYLOAD"
-        
-        Return:
-        None
+        :param view: "PACKAGE", "DETAIL", or "PAYLOAD"
+        :type view: str
         """
         allowed = {"PACKAGE", "DETAIL", "PAYLOAD"}
         view = view.upper()
@@ -2032,11 +2076,8 @@ class ETable:
         """
         Query the display mode of the event table.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "PACK", "DET", or "PAYL"
+        :return: "PACK", "DET", or "PAYL"
+        :rtype: str
         """
         return self.instrument.query(f":ETABle{self.n}:VIEW?")
 
@@ -2044,11 +2085,8 @@ class ETable:
         """
         Set the current column of the event table.
         
-        Parameter:
-        col (str): "DATA", "TX", "RX", "MISO", or "MOSI"
-        
-        Return:
-        None
+        :param col: "DATA", "TX", "RX", "MISO", or "MOSI"
+        :type col: str
         """
         allowed = {"DATA", "TX", "RX", "MISO", "MOSI"}
         col = col.upper()
@@ -2061,11 +2099,8 @@ class ETable:
         """
         Query the current column of the event table.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "DATA", "TX", "RX", "MISO", or "MOSI"
+        :return: "DATA", "TX", "RX", "MISO", or "MOSI"
+        :rtype: str
         """
         return self.instrument.query(f":ETABle{self.n}:COLumn?")
 
@@ -2073,11 +2108,8 @@ class ETable:
         """
         Set the current row of the event table.
         
-        Parameter:
-        row (int): Row number (1 to max rows)
-        
-        Return:
-        None
+        :param row: Row number (1 to max rows)
+        :type row: int
         """
         if isinstance(row, int) and row >= 1:
             self.instrument.write(f":ETABle{self.n}:ROW {row}")
@@ -2088,11 +2120,8 @@ class ETable:
         """
         Query the current row of the event table.
         
-        Parameter:
-        None
-        
-        Return:
-        int: Current row, or 0 if table is empty
+        :return: Current row, or 0 if table is empty
+        :rtype: int or str
         """
         resp = self.instrument.query(f":ETABle{self.n}:ROW?")
         try:
@@ -2104,11 +2133,8 @@ class ETable:
         """
         Set the display type of the decoding results in the event table.
         
-        Parameter:
-        sort (str): "ASCEND" or "DESCEND"
-        
-        Return:
-        None
+        :param sort: "ASCEND" or "DESCEND"
+        :type sort: str
         """
         allowed = {"ASCEND", "DESCEND"}
         sort = sort.upper()
@@ -2120,10 +2146,9 @@ class ETable:
     def get_sort(self):
         """
         Query the display type of the decoding results in the event table.
-        Parameter:
-            None
-        Return:
-            str: "ASC" or "DESC"
+        
+        :return: "ASC" or "DESC"
+        :rtype: str
         """
         return self.instrument.query(f":ETABle{self.n}:SORT?")
 
@@ -2131,11 +2156,8 @@ class ETable:
         """
         Read the current event table data. If auto save is on, then also saves them to a csv file.
         
-        Parameter:
-        None
-        
-        Return:
-        bytes: Raw event table data (TMC header included)
+        :return: Raw event table data (TMC header included)
+        :rtype: bytes
         """
         data = self.instrument.query_binary_values(f":ETABle{self.n}:DATA?", datatype='B', container=bytes)
         if data and data[0] == ord('#'):  # Check for TMC header
@@ -2150,428 +2172,373 @@ class Function:
     The Function commands are used to set the waveform recording and playback parameters.
     """
     def __init__(self, instrument,data_handler):
+        """The Function class is used to set the waveform recording and playback parameters.
+        
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+        :param data_handler: The data handler for processing data.
+        :type data_handler: DataHandler"""
+
         self.instrument = instrument
         self.data_handler = data_handler
-        self.WRecord = WRecord(instrument, data_handler)
-        self.WReplay = WReplay(instrument, data_handler)
+        self.WRecord = self.WRecord(instrument, data_handler)
+        self.WReplay = self.WReplay(instrument, data_handler)
 
-class WRecord:
-    def __init__(self, instrument,data_handler):
-        self.instrument = instrument
-        self.data_handler = data_handler
-    def set_wrecord_fend(self, frame):
-        """
-        Set the end frame of waveform recording.
-        
-        Parameter:
-        frame (int): 1 to max frames (use get_wrecord_fmax to query max)
-        
-        Return:
-        None
-        """
-        if isinstance(frame, int) and frame >= 1:
-            self.instrument.write(f":FUNCtion:WRECord:FEND {frame}")
-        else:
-            print("Invalid frame value.")
+    class WRecord:
+        """Waveform Record commands."""
+        def __init__(self, instrument,data_handler):
+            """Initialize WRecord class.
+            
+            :param instrument: The instrument to control.
+            :type instrument: pyvisa.Resource
+            :param data_handler: The data handler for processing data.
+            :type data_handler: DataHandler"""
 
-    def get_wrecord_fend(self):
-        """
-        Query the end frame of waveform recording.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: Current end frame
-        """
-        resp = self.instrument.query(":FUNCtion:WRECord:FEND?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
+            self.instrument = instrument
+            self.data_handler = data_handler
+        def set_wrecord_fend(self, frame):
+            """
+            Set the end frame of waveform recording.
+            
+            :param frame: 1 to max frames (use get_wrecord_fmax to query max)
+            :type frame: int
+            """
+            if isinstance(frame, int) and frame >= 1:
+                self.instrument.write(f":FUNCtion:WRECord:FEND {frame}")
+            else:
+                print("Invalid frame value.")
 
-    def get_wrecord_fmax(self):
-        """
-        Query the maximum number of frames that can be recorded currently.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: Maximum number of frames
-        """
-        resp = self.instrument.query(":FUNCtion:WRECord:FMAX?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
+        def get_wrecord_fend(self):
+            """
+            Query the end frame of waveform recording.
+            
+            :return: Current end frame
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":FUNCtion:WRECord:FEND?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
 
-    def set_wrecord_finterval(self, interval):
-        """
-        Set the time interval between frames in waveform recording.
-        
-        Parameter:
-        interval (float): 100e-9 to 10.0 (seconds)
-        
-        Return:
-        None
-        """
-        if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
-            self.instrument.write(f":FUNCtion:WRECord:FINTerval {interval}")
-        else:
-            print("Invalid interval. Must be between 100ns and 10s.")
+        def get_wrecord_fmax(self):
+            """
+            Query the maximum number of frames that can be recorded currently.
+            
+            :return: Maximum number of frames
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":FUNCtion:WRECord:FMAX?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
 
-    def get_wrecord_finterval(self):
-        """
-        Query the time interval between frames in waveform recording.
-        
-        Parameter:
-        None
-        
-        Return:
-        float: Time interval in seconds
-        """
-        resp = self.instrument.query(":FUNCtion:WRECord:FINTerval?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
+        def set_wrecord_finterval(self, interval):
+            """
+            Set the time interval between frames in waveform recording.
+            
+            :param interval: 100e-9 to 10.0 (seconds)
+            :type interval: float
+            """
+            if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
+                self.instrument.write(f":FUNCtion:WRECord:FINTerval {interval}")
+            else:
+                print("Invalid interval. Must be between 100ns and 10s.")
 
-    def set_wrecord_prompt(self, state):
-        """
-        Turn on or off the sound prompt when recording finishes.
-        
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
-        """
-        if state in [1, 0]:
-            val = state
-        elif isinstance(state, str) and state.upper() in {"ON", "OFF"}:
-            val = 1 if state.upper() == "ON" else 0
-        else:
-            print("Invalid state. Use 1, 0, 'ON', or 'OFF'.")
-            return
-        self.instrument.write(f":FUNCtion:WRECord:PROMpt {val}")
+        def get_wrecord_finterval(self):
+            """
+            Query the time interval between frames in waveform recording.
+            
+            :return: Time interval in seconds
+            :rtype: float or str
+            """
+            resp = self.instrument.query(":FUNCtion:WRECord:FINTerval?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
 
-    def get_wrecord_prompt(self):
-        """
-        Query the status of the sound prompt when recording finishes.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
-        """
-        resp = self.instrument.query(":FUNCtion:WRECord:PROMpt?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
+        def set_wrecord_prompt(self, state):
+            """
+            Turn on or off the sound prompt when recording finishes.
+            
+            :param state: 1/0 or "ON"/"OFF"
+            :type state: int or str
 
-    def set_wrecord_operate(self, opt):
-        """
-        Start or stop the waveform recording.
-        
-        Parameter:
-        opt (str): "RUN" or "STOP"
-        
-        Return: 
-        None
-        """
-        allowed = {"RUN", "STOP"}
-        opt = opt.upper()
-        if opt in allowed:
-            self.instrument.write(f":FUNCtion:WRECord:OPERate {opt}")
-        else:
-            print("Invalid option. Allowed: RUN, STOP.")
+            """
+            if state in [1, 0]:
+                val = state
+            elif isinstance(state, str) and state.upper() in {"ON", "OFF"}:
+                val = 1 if state.upper() == "ON" else 0
+            else:
+                print("Invalid state. Use 1, 0, 'ON', or 'OFF'.")
+                return
+            self.instrument.write(f":FUNCtion:WRECord:PROMpt {val}")
 
-    def get_wrecord_operate(self):
-        """
-        Query the status of the waveform recording.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: "RUN" or "STOP"
-        """
-        return self.instrument.query(":FUNCtion:WRECord:OPERate?")
+        def get_wrecord_prompt(self):
+            """
+            Query the status of the sound prompt when recording finishes.
+            
+            :return: 1 (on) or 0 (off)
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":FUNCtion:WRECord:PROMpt?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
 
-    def set_wrecord_enable(self, state):
-        """
-        Turn on or off the waveform recording function.
-        
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
-        """
-        if state in [1, 0]:
-            val = state
-        elif isinstance(state, str) and state.upper() in {"ON", "OFF"}:
-            val = 1 if state.upper() == "ON" else 0
-        else:
-            print("Invalid state. Use 1, 0, 'ON', or 'OFF'.")
-            return
-        self.instrument.write(f":FUNCtion:WRECord:ENABle {val}")
+        def set_wrecord_operate(self, opt):
+            """
+            Start or stop the waveform recording.
+            
+            :param opt: "RUN" or "STOP"
+            :type opt: str
+            """
+            allowed = {"RUN", "STOP"}
+            opt = opt.upper()
+            if opt in allowed:
+                self.instrument.write(f":FUNCtion:WRECord:OPERate {opt}")
+            else:
+                print("Invalid option. Allowed: RUN, STOP.")
 
-    def get_wrecord_enable(self):
-        """
-        Query the status of the waveform recording function.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
-        """
-        resp = self.instrument.query(":FUNCtion:WRECord:ENABle?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
+        def get_wrecord_operate(self):
+            """
+            Query the status of the waveform recording.
+            
+            :return: "RUN" or "STOP"
+            :rtype: str
+            """
+            return self.instrument.query(":FUNCtion:WRECord:OPERate?")
 
-class WReplay:
-    def __init__(self, instrument,data_handler):
-        self.instrument = instrument
-        self.data_handler = data_handler
-    def set_wreplay_fstart(self, frame):
-        """
-        Set the start frame of waveform playback.
-        
-        Parameter:
-        frame (int): 1 to max frames recorded
-        
-        Return:
-        None
-        """
-        if isinstance(frame, int) and frame >= 1:
-            self.instrument.write(f":FUNCtion:WREPlay:FSTart {frame}")
-        else:
-            print("Invalid frame value.")
+        def set_wrecord_enable(self, state):
+            """
+            Turn on or off the waveform recording function.
+            
+            :param state: 1/0 or "ON"/"OFF"
+            :type state: int or str
+            """
 
-    def get_wreplay_fstart(self):
-        """
-        Query the start frame of waveform playback.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: Start frame
-        """
-        resp = self.instrument.query(":FUNCtion:WREPlay:FSTart?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
+            if state in [1, 0]:
+                val = state
+            elif isinstance(state, str) and state.upper() in {"ON", "OFF"}:
+                val = 1 if state.upper() == "ON" else 0
+            else:
+                print("Invalid state. Use 1, 0, 'ON', or 'OFF'.")
+                return
+            self.instrument.write(f":FUNCtion:WRECord:ENABle {val}")
 
-    def set_wreplay_fend(self, frame):
-        """
-        Set the end frame of waveform playback.
-        
-        Parameter:
-        frame (int): 1 to max frames recorded
-        
-        Return:
-        None
-        """
-        if isinstance(frame, int) and frame >= 1:
-            self.instrument.write(f":FUNCtion:WREPlay:FEND {frame}")
-        else:
-            print("Invalid frame value.")
+        def get_wrecord_enable(self):
+            """
+            Query the status of the waveform recording function.
 
-    def get_wreplay_fend(self):
-        """
-        Query the end frame of waveform playback.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: End frame
-        """
-        resp = self.instrument.query(":FUNCtion:WREPlay:FEND?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
+            :return: 1 (on) or 0 (off)
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":FUNCtion:WRECord:ENABle?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
 
-    def get_wreplay_fmax(self):
-        """
-        Query the maximum number of frames that can be played (max frames recorded).
-        
-        Parameter:
-        None
-        
-        Return:
-        int: Maximum number of frames
-        """
-        resp = self.instrument.query(":FUNCtion:WREPlay:FMAX?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
+    class WReplay:
+        def __init__(self, instrument,data_handler):
+            self.instrument = instrument
+            self.data_handler = data_handler
+        def set_wreplay_fstart(self, frame):
+            """
+            Set the start frame of waveform playback.
+            
+            :param frame: 1 to max frames recorded
+            :type frame: int
+            """
+            if isinstance(frame, int) and frame >= 1:
+                self.instrument.write(f":FUNCtion:WREPlay:FSTart {frame}")
+            else:
+                print("Invalid frame value.")
 
-    def set_wreplay_finterval(self, interval):
-        """
-        Set the time interval between frames in waveform playback.
-        
-        Parameter:
-        interval (float): 100e-9 to 10.0 (seconds)
-        
-        Return:
-        None
-        """
-        if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
-            self.instrument.write(f":FUNCtion:WREPlay:FINTerval {interval}")
-        else:
-            print("Invalid interval. Must be between 100ns and 10s.")
+        def get_wreplay_fstart(self):
+            """
+            Query the start frame of waveform playback.
+            
+            :return: Start frame
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":FUNCtion:WREPlay:FSTart?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
 
-    def get_wreplay_finterval(self):
-        """
-        Query the time interval between frames in waveform playback.
-        
-        Parameter:
-        None
-        
-        Return:
-        float: Time interval in seconds
-        """
-        resp = self.instrument.query(":FUNCtion:WREPlay:FINTerval?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
+        def set_wreplay_fend(self, frame):
+            """
+            Set the end frame of waveform playback.
+            
+            :param frame: 1 to max frames recorded
+            :type frame: int
+            """
+            if isinstance(frame, int) and frame >= 1:
+                self.instrument.write(f":FUNCtion:WREPlay:FEND {frame}")
+            else:
+                print("Invalid frame value.")
 
-    def set_wreplay_mode(self, mode):
-        """
-        Set the waveform playback mode.
-        
-        Parameter:
-        mode (str): "REPEAT" or "SINGLE"
-        
-        Return:
-        None
-        """
-        allowed = {"REPEAT", "SINGLE"}
-        mode = mode.upper()
-        if mode in allowed:
-            self.instrument.write(f":FUNCtion:WREPlay:MODE {mode}")
-        else:
-            print("Invalid mode. Allowed: REPEAT, SINGLE.")
+        def get_wreplay_fend(self):
+            """
+            Query the end frame of waveform playback.
+            
+            :return: End frame
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":FUNCtion:WREPlay:FEND?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
 
-    def get_wreplay_mode(self):
-        """
-        Query the waveform playback mode.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: "REP" or "SING"
-        """
-        return self.instrument.query(":FUNCtion:WREPlay:MODE?")
+        def get_wreplay_fmax(self):
+            """
+            Query the maximum number of frames that can be played (max frames recorded).
+            
+            :return: Maximum number of frames
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":FUNCtion:WREPlay:FMAX?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
 
-    def set_wreplay_direction(self, direction):
-        """
-        Set the waveform playback direction.
-        
-        Parameter:
-        direction (str): "FORWARD" or "BACKWARD"
-        
-        Return:
-        None
-        """
-        allowed = {"FORWARD", "BACKWARD"}
-        direction = direction.upper()
-        if direction in allowed:
-            self.instrument.write(f":FUNCtion:WREPlay:DIRection {direction}")
-        else:
-            print("Invalid direction. Allowed: FORWARD, BACKWARD.")
+        def set_wreplay_finterval(self, interval):
+            """
+            Set the time interval between frames in waveform playback.
+            
+            :param interval: 100e-9 to 10.0 (seconds)
+            :type interval: float
+            """
+            if isinstance(interval, (float, int)) and 1e-7 <= interval <= 10.0:
+                self.instrument.write(f":FUNCtion:WREPlay:FINTerval {interval}")
+            else:
+                print("Invalid interval. Must be between 100ns and 10s.")
 
-    def get_wreplay_direction(self):
-        """
-        Query the waveform playback direction.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: "FORW" or "BACK"
-        """
-        return self.instrument.query(":FUNCtion:WREPlay:DIRection?")
+        def get_wreplay_finterval(self):
+            """
+            Query the time interval between frames in waveform playback.
+            
+            :return: Time interval in seconds
+            :rtype: float or str
+            """
+            resp = self.instrument.query(":FUNCtion:WREPlay:FINTerval?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
 
-    def set_wreplay_operate(self, opt):
-        """
-        Start, pause, or stop the waveform playback.
-        
-        Parameter:
-        opt (str): "PLAY", "PAUSE", or "STOP"
-        
-        Return:
-        None
-        """
-        allowed = {"PLAY", "PAUSE", "STOP"}
-        opt = opt.upper()
-        if opt in allowed:
-            self.instrument.write(f":FUNCtion:WREPlay:OPERate {opt}")
-        else:
-            print("Invalid option. Allowed: PLAY, PAUSE, STOP.")
+        def set_wreplay_mode(self, mode):
+            """
+            Set the waveform playback mode.
+            
+            :param mode: "REPEAT" or "SINGLE"
+            :type mode: str
+            """
+            allowed = {"REPEAT", "SINGLE"}
+            mode = mode.upper()
+            if mode in allowed:
+                self.instrument.write(f":FUNCtion:WREPlay:MODE {mode}")
+            else:
+                print("Invalid mode. Allowed: REPEAT, SINGLE.")
 
-    def get_wreplay_operate(self):
-        """
-        Query the status of the waveform playback.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: "PLAY", "PAUS", or "STOP"
-        """
-        return self.instrument.query(":FUNCtion:WREPlay:OPERate?")
+        def get_wreplay_mode(self):
+            """
+            Query the waveform playback mode.
+            
+            :return: "REP" or "SING"
+            :rtype: str
+            """
+            return self.instrument.query(":FUNCtion:WREPlay:MODE?")
 
-    def set_wreplay_fcurrent(self, frame):
-        """
-        Set the current frame in waveform playback.
-        
-        Parameter:
-        frame (int): 1 to max frames recorded
-        
-        Return:
-        None
-        """
-        if isinstance(frame, int) and frame >= 1:
-            self.instrument.write(f":FUNCtion:WREPlay:FCURrent {frame}")
-        else:
-            print("Invalid frame value.")
+        def set_wreplay_direction(self, direction):
+            """
+            Set the waveform playback direction.
+            
+            :param direction: "FORWARD" or "BACKWARD"
+            :type direction: str
+            """
+            allowed = {"FORWARD", "BACKWARD"}
+            direction = direction.upper()
+            if direction in allowed:
+                self.instrument.write(f":FUNCtion:WREPlay:DIRection {direction}")
+            else:
+                print("Invalid direction. Allowed: FORWARD, BACKWARD.")
 
-    def get_wreplay_fcurrent(self):
-        """
-        Query the current frame in waveform playback.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: Current frame
-        """
-        resp = self.instrument.query(":FUNCtion:WREPlay:FCURrent?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
+        def get_wreplay_direction(self):
+            """
+            Query the waveform playback direction.
+            
+            :return: "FORW" or "BACK"
+            :rtype: str
+            """
+            return self.instrument.query(":FUNCtion:WREPlay:DIRection?")
+
+        def set_wreplay_operate(self, opt):
+            """
+            Start, pause, or stop the waveform playback.
+            
+            :param opt: "PLAY", "PAUSE", or "STOP"
+            :type opt: str
+            """
+            allowed = {"PLAY", "PAUSE", "STOP"}
+            opt = opt.upper()
+            if opt in allowed:
+                self.instrument.write(f":FUNCtion:WREPlay:OPERate {opt}")
+            else:
+                print("Invalid option. Allowed: PLAY, PAUSE, STOP.")
+
+        def get_wreplay_operate(self):
+            """
+            Query the status of the waveform playback.
+            
+            :return: "PLAY", "PAUS", or "STOP"
+            :rtype: str
+            """
+            return self.instrument.query(":FUNCtion:WREPlay:OPERate?")
+
+        def set_wreplay_fcurrent(self, frame):
+            """
+            Set the current frame in waveform playback.
+            
+            :param frame: 1 to max frames recorded
+            :type frame: int
+            """
+            if isinstance(frame, int) and frame >= 1:
+                self.instrument.write(f":FUNCtion:WREPlay:FCURrent {frame}")
+            else:
+                print("Invalid frame value.")
+
+        def get_wreplay_fcurrent(self):
+            """
+            Query the current frame in waveform playback.
+            
+            :return: Current frame
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":FUNCtion:WREPlay:FCURrent?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
 
 class LAN:
     """
     The LAN commands are used to set/query network parameters.
     """
     def __init__(self, instrument,data_handler):
+        """The LAN class is used to set/query network parameters.
+        
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+        :param data_handler: The data handler for processing data.
+        :type data_handler: DataHandler"""
         self.instrument = instrument
         self.data_handler = data_handler
 
@@ -2579,11 +2546,8 @@ class LAN:
         """
         Turn on or off the DHCP configuration mode.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -2598,11 +2562,8 @@ class LAN:
         """
         Query the on/off status of the current DHCP configuration mode.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         resp = self.instrument.query(":LAN:DHCP?")
         try:
@@ -2614,11 +2575,8 @@ class LAN:
         """
         Turn on or off the Auto IP configuration mode.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -2632,12 +2590,9 @@ class LAN:
     def get_autoip(self):
         """
         Query the on/off status of the current Auto IP configuration mode.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
+
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         resp = self.instrument.query(":LAN:AUT?")
         try:
@@ -2649,11 +2604,8 @@ class LAN:
         """
         Set the default gateway.
         
-        Parameter:
-        gateway (str): IP address in nnn,nnn,nnn,nnn format
-        
-        Return:
-        None
+        :param gateway: IP address in nnn,nnn,nnn,nnn format
+        :type gateway: str
         """
         self.instrument.write(f":LAN:GATeway {gateway}")
 
@@ -2661,11 +2613,8 @@ class LAN:
         """
         Query the default gateway.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Current gateway
+        :return: Current gateway
+        :rtype: str
         """
         return self.instrument.query(":LAN:GATeway?")
 
@@ -2673,23 +2622,17 @@ class LAN:
         """
         Set the DNS address.
         
-        Parameter:
-        dns (str): IP address in nnn,nnn,nnn,nnn format
-       
-        Return:
-        None
+        :param dns: IP address in nnn,nnn,nnn,nnn format
+        :type dns: str
         """
         self.instrument.write(f":LAN:DNS {dns}")
 
     def get_dns(self):
         """
         Query the DNS address.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: Current DNS address
+
+        :return: Current DNS address
+        :rtype: str
         """
         return self.instrument.query(":LAN:DNS?")
 
@@ -2697,11 +2640,8 @@ class LAN:
         """
         Query the MAC address of the instrument.
         
-        Parameter:
-        None
-        
-        Return:
-        str: MAC address
+        :return: MAC address
+        :rtype: str
         """
         return self.instrument.query(":LAN:MAC?")
 
@@ -2709,11 +2649,8 @@ class LAN:
         """
         Turn on or off the static IP configuration mode.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-       
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -2727,12 +2664,9 @@ class LAN:
     def get_manual(self):
         """
         Query the on/off status of the static IP configuration mode.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
+
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         resp = self.instrument.query(":LAN:MANual?")
         try:
@@ -2743,12 +2677,6 @@ class LAN:
     def initiate(self):
         """
         Initiate the network parameters.
-        
-        Parameter:
-        None
-        
-        Return:
-        None
         """
         self.instrument.write(":LAN:INITiate")
 
@@ -2756,11 +2684,9 @@ class LAN:
         """
         Set the IP address of the instrument.
         
-        Parameter:
-        ip (str): IP address in nnn,nnn,nnn,nnn format
-        
-        Return:
-        None
+        :param ip: IP address in nnn,nnn,nnn,nnn format
+        :type ip: str
+
         """
         self.instrument.write(f":LAN:IPADdress {ip}")
 
@@ -2768,11 +2694,8 @@ class LAN:
         """
         Query the IP address of the instrument.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Current IP address
+        :return: Current IP address
+        :rtype: str
         """
         return self.instrument.query(":LAN:IPADdress?")
 
@@ -2780,11 +2703,9 @@ class LAN:
         """
         Set the subnet mask.
         
-        Parameter:
-        mask (str): Subnet mask in nnn,nnn,nnn,nnn format
-        
-        Return:
-        None
+        :param mask: Subnet mask in nnn,nnn,nnn,nnn format
+        :type mask: str
+
         """
         self.instrument.write(f":LAN:SMASk {mask}")
 
@@ -2792,11 +2713,8 @@ class LAN:
         """
         Query the subnet mask.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Current subnet mask
+        :return: Current subnet mask
+        :rtype: str
         """
         return self.instrument.query(":LAN:SMASk?")
 
@@ -2804,11 +2722,9 @@ class LAN:
         """
         Query the current network configuration status.
         
-        Parameter:
-        None
         
-        Return:
-        str: One of "UNLINK", "INIT", "IPCONFLICT", "CONFIGURED", "DHCPFAILED"
+        :return: One of "UNLINK", "INIT", "IPCONFLICT", "CONFIGURED", "DHCPFAILED"
+        :rtype: str
         """
         return self.instrument.query(":LAN:STATus?")
 
@@ -2816,11 +2732,10 @@ class LAN:
         """
         Query the VISA address of the instrument.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: VISA address
+        :return: VISA address
+        :rtype: str
         """
         return self.instrument.query(":LAN:VISA?")
 
@@ -2828,11 +2743,6 @@ class LAN:
         """
         Apply the network configuration.
         
-        Parameter:
-        None
-        
-        Return:
-        None
         """
         self.instrument.write(":LAN:APPLy")
 
@@ -2841,6 +2751,12 @@ class Math:
     The Math commands are used to set the operations between the waveforms of multiple channels.
     """
     def __init__(self, instrument,data_handler):
+        """The Math class is used to set the operations between the waveforms of multiple channels.
+        
+        :param instrument: The instrument to control.
+        :type instrument: pyvisa.Resource
+        :param data_handler: The data handler for processing data.
+        :type data_handler: DataHandler"""
         self.instrument = instrument
         self.data_handler = data_handler
 
@@ -2848,11 +2764,8 @@ class Math:
         """
         Turn on or off the math waveform display.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -2867,11 +2780,8 @@ class Math:
         """
         Query the math waveform display status.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         resp = self.instrument.query(":MATH:DISPlay?")
         try:
@@ -2883,11 +2793,9 @@ class Math:
         """
         Set the math operation type.
         
-        Parameter:
-        op (str): Allowed values include "ADD", "SUB", "MUL", "DIV", "FFT", "AND", "OR", "XOR", "NOT", "INTG", "DIFF", "SQRT", "LG", "LN", "EXP", "ABS", "LPF", "HPF", "BPF", "BSF"
-        
-        Return:
-        None
+        :param op: Allowed values include "ADD", "SUB", "MUL", "DIV", "FFT", "AND", "OR", "XOR", "NOT", "INTG", "DIFF", "SQRT", "LG", "LN", "EXP", "ABS", "LPF", "HPF", "BPF", "BSF"
+        :type op: str
+
         """
         allowed = {"ADD", "SUB", "MUL", "DIV", "FFT", "AND", "OR", "XOR", "NOT", "INTG", "DIFF", "SQRT", "LG", "LN", "EXP", "ABS", "LPF", "HPF", "BPF", "BSF"}
         op = op.upper()
@@ -2899,10 +2807,9 @@ class Math:
     def get_operator(self):
         """
         Query the math operation type.
-        Parameter:
-            None
-        Return:
-            str: Operator
+        
+        :return: Operator
+        :rtype: str
         """
         return self.instrument.query(":MATH:OPERator?")
 
@@ -2910,11 +2817,9 @@ class Math:
         """
         Set the source 1 for the math operation.
         
-        Parameter:
-        src (str): "CHAN1", "CHAN2", "FX", etc.
-        
-        Return:
-        None
+        :param src: "CHAN1", "CHAN2", "FX", etc.
+        :type src: str
+
         """
         allowed = {"CHAN1", "CHAN2", "FX"}
         src = src.upper()
@@ -2927,11 +2832,10 @@ class Math:
         """
         Query the source 1 for the math operation.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: Source 1
+        :return: Source 1
+        :rtype: str
         """
         return self.instrument.query(":MATH:SOURce1?")
 
@@ -2939,11 +2843,8 @@ class Math:
         """
         Set the source 2 for the math operation.
         
-        Parameter:
-        src (str): "CHAN1", "CHAN2", "FX", etc.
-        
-        Return:
-        None
+        :param src: "CHAN1", "CHAN2", "FX", etc.
+        :type src: str
         """
         allowed = {"CHAN1", "CHAN2", "FX"}
         src = src.upper()
@@ -2956,11 +2857,8 @@ class Math:
         """
         Query the source 2 for the math operation.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Source 2
+        :return: Source 2
+        :rtype: str
         """
         return self.instrument.query(":MATH:SOURce2?")
 
@@ -2968,11 +2866,9 @@ class Math:
         """
         Set the vertical scale of the math waveform.
         
-        Parameter:
-        scale (float): Vertical scale in V/div
-        
-        Return:
-        None
+        :param scale: Vertical scale in V/div
+        :type scale: float
+
         """
         self.instrument.write(f":MATH:SCALe {scale}")
 
@@ -2980,11 +2876,8 @@ class Math:
         """
         Query the vertical scale of the math waveform.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Vertical scale in V/div
+        :return: Vertical scale in V/div
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:SCALe?")
         try:
@@ -2996,11 +2889,8 @@ class Math:
         """
         Set the vertical offset of the math waveform.
         
-        Parameter:
-        offset (float): Vertical offset in V
-        
-        Return:
-        None
+        :param offset: Vertical offset in V
+        :type offset: float
         """
         self.instrument.write(f":MATH:OFFSet {offset}")
 
@@ -3008,11 +2898,8 @@ class Math:
         """
         Query the vertical offset of the math waveform.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Vertical offset in V
+        :return: Vertical offset in V
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:OFFSet?")
         try:
@@ -3024,11 +2911,8 @@ class Math:
         """
         Enable or disable math waveform inversion.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = state
@@ -3043,11 +2927,8 @@ class Math:
         """
         Query the math waveform inversion status.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (on) or 0 (off)
+        :return: 1 (on) or 0 (off)
+        :rtype: int
         """
         resp = self.instrument.query(":MATH:INVert?")
         try:
@@ -3058,23 +2939,15 @@ class Math:
     def reset(self):
         """
         Reset the math operation settings to default.
-        
-        Parameter:
-        None
-        
-        Return:
-        None
         """
         self.instrument.write(":MATH:RESet")
     def set_fft_source(self, src):
         """
         Set the source of FFT operation/filter.
         
-        Parameter:
-        src (str): "CHANnel1" or "CHANnel2"
-        
-        Return:
-        None
+        :param src: "CHANnel1" or "CHANnel2"
+        :type src: str
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         src_up = src.upper()
@@ -3087,12 +2960,9 @@ class Math:
     def get_fft_source(self):
         """
         Query the source of FFT operation/filter.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: "CHAN1" or "CHAN2"
+   
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":MATH:FFT:SOURce?")
 
@@ -3100,11 +2970,8 @@ class Math:
         """
         Set the window function of the FFT operation.
         
-        Parameter:
-        wnd (str): One of {"RECTangle", "BLACkman", "HANNing", "HAMMing", "FLATtop", "TRIangle"}
-        
-        Return:
-        None
+        :param wnd: One of {"RECTangle", "BLACkman", "HANNing", "HAMMing", "FLATtop", "TRIangle"}
+        :type wnd: str
         """
         allowed = {"RECTANGLE", "BLACKMAN", "HANNING", "HAMMING", "FLATTOP", "TRIANGLE"}
         wnd_up = wnd.upper()
@@ -3117,11 +2984,8 @@ class Math:
         """
         Query the window function of the FFT operation.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "RECT", "BLAC", "HANN", "HAMM", "FLAT", or "TRI"
+        :return: "RECT", "BLAC", "HANN", "HAMM", "FLAT", or "TRI"
+        :rtype: str
         """
         return self.instrument.query(":MATH:FFT:WINDow?")
 
@@ -3129,11 +2993,9 @@ class Math:
         """
         Enable or disable the half-screen display mode of the FFT operation.
         
-        Parameter:
-        enable (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param enable: 1/0 or "ON"/"OFF"
+        :type enable: int or str
+
         """
         if enable in [1, 0]:
             val = enable
@@ -3148,11 +3010,8 @@ class Math:
         """
         Query the status of the half-screen display mode of the FFT operation.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MATH:FFT:SPLit?")
         try:
@@ -3164,11 +3023,8 @@ class Math:
         """
         Set the vertical unit of the FFT operation result.
         
-        Parameter:
-        unit (str): "VRMS" or "DB"
-        
-        Return:
-        None
+        :param unit: "VRMS" or "DB"
+        :type unit: str
         """
         allowed = {"VRMS", "DB"}
         unit_up = unit.upper()
@@ -3180,12 +3036,9 @@ class Math:
     def get_fft_unit(self):
         """
         Query the vertical unit of the FFT operation result.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: "VRMS" or "DB"
+          
+        :return: "VRMS" or "DB"
+        :rtype: str 
         """
         return self.instrument.query(":MATH:FFT:UNIT?")
 
@@ -3193,11 +3046,9 @@ class Math:
         """
         Set the horizontal scale of the FFT operation result (Hz).
         
-        Parameter:
-        hsc (float): Horizontal scale in Hz
-        
-        Return:
-        None
+        :param hsc: Horizontal scale in Hz
+        :type hsc: float
+
         """
         self.instrument.write(f":MATH:FFT:HSCale {hsc}")
 
@@ -3205,11 +3056,8 @@ class Math:
         """
         Query the horizontal scale of the FFT operation result (Hz).
         
-        Parameter:
-        None
-        
-        Return:
-        float: Horizontal scale in Hz
+        :return: Horizontal scale in Hz
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:FFT:HSCale?")
         try:
@@ -3221,11 +3069,8 @@ class Math:
         """
         Set the center frequency of the FFT operation result (Hz).
         
-        Parameter:
-        cent (float): Center frequency in Hz
-        
-        Return:
-        None
+        :param cent: Center frequency in Hz
+        :type cent: float
         """
         self.instrument.write(f":MATH:FFT:HCENter {cent}")
 
@@ -3233,11 +3078,8 @@ class Math:
         """
         Query the center frequency of the FFT operation result (Hz).
         
-        Parameter:
-        None
-        
-        Return:
-        float: Center frequency in Hz
+        :return: Center frequency in Hz
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:FFT:HCENter?")
         try:
@@ -3249,11 +3091,9 @@ class Math:
         """
         Set the FFT mode.
         
-        Parameter:
-        mode (str): "TRACe" or "MEMory"
-        
-        Return:
-        None
+        :param mode: "TRACe" or "MEMory"
+        :type mode: str
+
         """
         allowed = {"TRACE", "MEMORY", "TRACe", "MEMory"}
         mode_up = mode.upper()
@@ -3266,12 +3106,9 @@ class Math:
     def get_fft_mode(self):
         """
         Query the FFT mode.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: "TRAC" or "MEM"
+         
+        :return: "TRAC" or "MEM"
+        :rtype: str
         """
         return self.instrument.query(":MATH:FFT:MODE?")
 
@@ -3279,11 +3116,9 @@ class Math:
         """
         Set the filter type for math filter operation.
         
-        Parameter:
-        ftype (str): "LPASs", "HPASs", "BPASs", or "BSTOP"
-        
-        Return:
-        None
+        :param ftype: "LPASs", "HPASs", "BPASs", or "BSTOP"
+        :type ftype: str
+
         """
         allowed = {"LPASS", "HPASS", "BPASS", "BSTOP", "LPASs", "HPASs", "BPASs", "BSTOP"}
         ftype_up = ftype.upper()
@@ -3297,11 +3132,8 @@ class Math:
         """
         Query the filter type for math filter operation.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "LPAS", "HPAS", "BPAS", or "BSTO"
+        :return: "LPAS", "HPAS", "BPAS", or "BSTO"
+        :rtype: str
         """
         return self.instrument.query(":MATH:FILTer:TYPE?")
 
@@ -3309,11 +3141,9 @@ class Math:
         """
         Set the cutoff frequency 1 (ωc1) for filter operation (Hz).
         
-        Parameter:
-        freq1 (float): Cutoff frequency 1 in Hz
-        
-        Return:
-        None
+        :param freq1: Cutoff frequency 1 in Hz
+        :type freq1: float
+
         """
         self.instrument.write(f":MATH:FILTer:W1 {freq1}")
 
@@ -3321,11 +3151,8 @@ class Math:
         """
         Query the cutoff frequency 1 (ωc1) for filter operation (Hz).
         
-        Parameter:
-        None
-        
-        Return:
-        float: Cutoff frequency 1 in Hz
+        :return: Cutoff frequency 1 in Hz
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:FILTer:W1?")
         try:
@@ -3337,11 +3164,9 @@ class Math:
         """
         Set the cutoff frequency 2 (ωc2) for filter operation (Hz).
         
-        Parameter:
-        freq2 (float): Cutoff frequency 2 in Hz
-        
-        Return:
-        None
+        :param freq2: Cutoff frequency 2 in Hz
+        :type freq2: float
+
         """
         self.instrument.write(f":MATH:FILTer:W2 {freq2}")
 
@@ -3349,11 +3174,8 @@ class Math:
         """
         Query the cutoff frequency 2 (ωc2) for filter operation (Hz).
         
-        Parameter:
-        None
-        
-        Return:
-        float: Cutoff frequency 2 in Hz
+        :return: Cutoff frequency 2 in Hz
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:FILTer:W2?")
         try:
@@ -3365,11 +3187,8 @@ class Math:
         """
         Set the start point of the waveform math operation.
         
-        Parameter:
-        sta (int): Start point (0 to end-1)
-        
-        Return:
-        None
+        :param sta: Start point (0 to end-1)
+        :type sta: int
         """
         self.instrument.write(f":MATH:OPTion:STARt {sta}")
 
@@ -3377,11 +3196,8 @@ class Math:
         """
         Query the start point of the waveform math operation.
         
-        Parameter:
-        None
-        
-        Return:
-        int: Start point
+        :return: Start point
+        :rtype: int
         """
         resp = self.instrument.query(":MATH:OPTion:STARt?")
         try:
@@ -3393,23 +3209,17 @@ class Math:
         """
         Set the end point of the waveform math operation.
         
-        Parameter:
-        end (int): End point (start+1 to 1199)
-        
-        Return:
-        None
+        :param end: End point (start+1 to 1199)
+        :type end: int
         """
         self.instrument.write(f":MATH:OPTion:END {end}")
 
     def get_option_end(self):
         """
         Query the end point of the waveform math operation.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: End point
+
+        :return: End point
+        :rtype: int
         """
         resp = self.instrument.query(":MATH:OPTion:END?")
         try:
@@ -3421,11 +3231,9 @@ class Math:
         """
         Enable or disable the inverted display mode of the operation result.
         
-        Parameter:
-        enable (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param enable: 1/0 or "ON"/"OFF"
+        :type enable: int or str
+
         """
         if enable in [1, 0]:
             val = enable
@@ -3440,11 +3248,8 @@ class Math:
         """
         Query the inverted display mode status of the operation result.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MATH:OPTion:INVert?")
         try:
@@ -3456,11 +3261,9 @@ class Math:
         """
         Set the sensitivity of the logic operation.
         
-        Parameter:
-        sens (float): Sensitivity (0 to 0.96, step 0.08)
-        
-        Return:
-        None
+        :param sens: Sensitivity (0 to 0.96, step 0.08)
+        :type sens: float
+
         """
         self.instrument.write(f":MATH:OPTion:SENSitivity {sens}")
 
@@ -3468,11 +3271,8 @@ class Math:
         """
         Query the sensitivity of the logic operation.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Sensitivity
+        :return: Sensitivity
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:OPTion:SENSitivity?")
         try:
@@ -3484,11 +3284,9 @@ class Math:
         """
         Set the smoothing window width of differential operation.
         
-        Parameter:
-        dist (int): Window width (3 to 201)
-        
-        Return:
-        None
+        :param dist: Window width (3 to 201)
+        :type dist: int
+
         """
         self.instrument.write(f":MATH:OPTion:DIStance {dist}")
 
@@ -3496,11 +3294,8 @@ class Math:
         """
         Query the smoothing window width of differential operation.
         
-        Parameter:
-        None
-        
-        Return:
-        int: Window width
+        :return: Window width
+        :rtype: int
         """
         resp = self.instrument.query(":MATH:OPTion:DIStance?")
         try:
@@ -3512,11 +3307,9 @@ class Math:
         """
         Enable or disable the auto scale setting of the operation result.
         
-        Parameter:
-        enable (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param enable: 1/0 or "ON"/"OFF"
+        :type enable: int or str
+
         """
         if enable in [1, 0]:
             val = enable
@@ -3531,11 +3324,8 @@ class Math:
         """
         Query the status of the auto scale setting of the operation result.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MATH:OPTion:ASCale?")
         try:
@@ -3547,11 +3337,9 @@ class Math:
         """
         Set the threshold level of source A in logic operations.
         
-        Parameter:
-        thre (float): Threshold level in V
-        
-        Return:
-        None
+        :param thre: Threshold level in V
+        :type thre: float
+
         """
         self.instrument.write(f":MATH:OPTion:THReshold1 {thre}")
 
@@ -3559,11 +3347,8 @@ class Math:
         """
         Query the threshold level of source A in logic operations.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Threshold level in V
+        :return: Threshold level in V
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:OPTion:THReshold1?")
         try:
@@ -3575,11 +3360,9 @@ class Math:
         """
         Set the threshold level of source B in logic operations.
         
-        Parameter:
-        thre (float): Threshold level in V
-        
-        Return:
-        None
+        :param thre: Threshold level in V
+        :type thre: float
+
         """
         self.instrument.write(f":MATH:OPTion:THReshold2 {thre}")
 
@@ -3587,11 +3370,8 @@ class Math:
         """
         Query the threshold level of source B in logic operations.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Threshold level in V
+        :return: Threshold level in V
+        :rtype: float or str
         """
         resp = self.instrument.query(":MATH:OPTion:THReshold2?")
         try:
@@ -3603,11 +3383,9 @@ class Math:
         """
         Set source A of the inner layer operation of compound operation.
         
-        Parameter:
-        src (str): "CHANnel1" or "CHANnel2"
-        
-        Return:
-        None
+        :param src: "CHANnel1" or "CHANnel2"
+        :type src: str
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         src_up = src.upper()
@@ -3621,11 +3399,8 @@ class Math:
         """
         Query source A of the inner layer operation of compound operation.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "CHAN1" or "CHAN2"
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":MATH:OPTion:FX:SOURce1?")
 
@@ -3633,11 +3408,9 @@ class Math:
         """
         Set source B of the inner layer operation of compound operation.
         
-        Parameter:
-        src (str): "CHANnel1" or "CHANnel2"
-        
-        Return:
-        None
+        :param src: "CHANnel1" or "CHANnel2"
+        :type src: str
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         src_up = src.upper()
@@ -3651,11 +3424,8 @@ class Math:
         """
         Query source B of the inner layer operation of compound operation.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "CHAN1" or "CHAN2"
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":MATH:OPTion:FX:SOURce2?")
 
@@ -3663,11 +3433,9 @@ class Math:
         """
         Set the operator of the inner layer operation of compound operation.
         
-        Parameter:
-        op (str): "ADD", "SUBTract", "MULTiply", or "DIVision"
-        
-        Return:
-        None
+        :param op: "ADD", "SUBTract", "MULTiply", or "DIVision"
+        :type op: str
+
         """
         allowed = {"ADD", "SUBTRACT", "MULTIPLY", "DIVISION", "SUBTRACT", "SUBTract", "MULTiply", "DIVision"}
         op_up = op.upper()
@@ -3681,11 +3449,8 @@ class Math:
         """
         Query the operator of the inner layer operation of compound operation.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "ADD", "SUBT", "MULT", or "DIV"
+        :return: "ADD", "SUBT", "MULT", or "DIV"
+        :rtype: str
         """
         return self.instrument.query(":MATH:OPTion:FX:OPERator?")
 class Mask:
@@ -3700,11 +3465,9 @@ class Mask:
         """
         Enable or disable the pass/fail test.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = state
@@ -3719,11 +3482,8 @@ class Mask:
         """
         Query the status of the pass/fail test.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MASK:ENABle?")
         try:
@@ -3735,11 +3495,9 @@ class Mask:
         """
         Set the source of the pass/fail test.
         
-        Parameter:
-        source (str): "CHANnel1" or "CHANnel2"
-        
-        Return:
-        None
+        :param source: "CHANnel1" or "CHANnel2"
+        :type source: str
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         src_up = source.upper()
@@ -3753,11 +3511,8 @@ class Mask:
         """
         Query the source of the pass/fail test.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "CHAN1" or "CHAN2"
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":MASK:SOURce?")
 
@@ -3765,11 +3520,9 @@ class Mask:
         """
         Run or stop the pass/fail test.
         
-        Parameter:
-        oper (str): "RUN" or "STOP"
-        
-        Return:
-        None
+        :param oper: "RUN" or "STOP"
+        :type oper: str
+
         """
         allowed = {"RUN", "STOP"}
         oper_up = oper.upper()
@@ -3782,11 +3535,8 @@ class Mask:
         """
         Query the status of the pass/fail test.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "RUN" or "STOP"
+        :return: "RUN" or "STOP"
+        :rtype: str
         """
         return self.instrument.query(":MASK:OPERate?")
 
@@ -3794,11 +3544,9 @@ class Mask:
         """
         Enable or disable the statistic information when the pass/fail test is enabled.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = state
@@ -3812,12 +3560,9 @@ class Mask:
     def is_display_enabled(self):
         """
         Query the status of the statistic information.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+       
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MASK:MDISplay?")
         try:
@@ -3829,11 +3574,9 @@ class Mask:
         """
         Turn the "Stop on Fail" function on or off.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = state
@@ -3847,12 +3590,9 @@ class Mask:
     def is_stop_on_fail_enabled(self):
         """
         Query the status of the "Stop on Fail" function.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+    
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MASK:SOOutput?")
         try:
@@ -3864,11 +3604,9 @@ class Mask:
         """
         Enable or disable the sound prompt when failed waveforms are detected.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = state
@@ -3883,11 +3621,8 @@ class Mask:
         """
         Query the status of the sound prompt when failed waveforms are detected.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MASK:OUTPut?")
         try:
@@ -3898,11 +3633,8 @@ class Mask:
         """
         Set the horizontal adjustment parameter in the pass/fail test mask.
         
-        Parameter:
-        x (float): Value between 0.02 and 4 (step 0.02)
-        
-        Return:
-        None
+        :param x: Value between 0.02 and 4 (step 0.02)
+        :type x: float
         """
         if isinstance(x, (float, int)) and 0.02 <= x <= 4:
             self.instrument.write(f":MASK:X {x}")
@@ -3912,12 +3644,9 @@ class Mask:
     def get_x(self):
         """
         Query the horizontal adjustment parameter in the pass/fail test mask.
-        
-        Parameter:
-        None
-        
-        Return:
-        float: Horizontal adjustment parameter
+   
+        :return: Horizontal adjustment parameter
+        :rtype: float or str
         """
         resp = self.instrument.query(":MASK:X?")
         try:
@@ -3928,10 +3657,9 @@ class Mask:
     def set_y(self, y):
         """
         Set the vertical adjustment parameter in the pass/fail test mask.
-        Parameter:
-        y (float): Value between 0.04 and 5.12 (step 0.04)
-        Return:
-        None
+
+        :param y: Value between 0.04 and 5.12 (step 0.04)
+        :type y: float
         """
         if isinstance(y, (float, int)) and 0.04 <= y <= 5.12:
             self.instrument.write(f":MASK:Y {y}")
@@ -3942,11 +3670,8 @@ class Mask:
         """
         Query the vertical adjustment parameter in the pass/fail test mask.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Vertical adjustment parameter
+        :return: Vertical adjustment parameter
+        :rtype: float or str
         """
         resp = self.instrument.query(":MASK:Y?")
         try:
@@ -3957,24 +3682,15 @@ class Mask:
     def create(self):
         """
         Create the pass/fail test mask using the current horizontal and vertical adjustment parameters.
-        
-        Parameter:
-        None
-        
-        Return:
-        None
         """
         self.instrument.write(":MASK:CREate")
 
     def get_passed(self):
         """
         Query the number of passed frames in the pass/fail test.
-        
-        Parameter:
-        None
-        
-        Return:
-        int: Number of passed frames
+
+        :return: Number of passed frames
+        :rtype: int
         """
         resp = self.instrument.query(":MASK:PASSed?")
         try:
@@ -3986,11 +3702,8 @@ class Mask:
         """
         Query the number of failed frames in the pass/fail test.
         
-        Parameter:
-        None
-        
-        Return:
-        int: Number of failed frames
+        :return: Number of failed frames
+        :rtype: int
         """
         resp = self.instrument.query(":MASK:FAILed?")
         try:
@@ -4002,11 +3715,8 @@ class Mask:
         """
         Query the total number of frames in the pass/fail test.
         
-        Parameter:
-        None
-        
-        Return:
-        int: Total number of frames
+        :return: Total number of frames
+        :rtype: int
         """
         resp = self.instrument.query(":MASK:TOTal?")
         try:
@@ -4017,12 +3727,7 @@ class Mask:
     def reset(self):
         """
         Reset the numbers of passed, failed, and total frames in the pass/fail test to 0.
-        
-        Parameter:
-        None
-        
-        Return:
-        None
+
         """
         self.instrument.write(":MASK:RESet")
 
@@ -4031,6 +3736,13 @@ class Measure:
     The Measure commands are used to set and query measurement parameters and statistics.
     """
     def __init__(self, instrument,data_handler):
+        """Initialize the Measure class.
+        
+        :param instrument: The instrument instance to communicate with.
+        :type instrument: object
+        :param data_handler: The data handler instance for processing data.
+        :type data_handler: object
+        """
         self.instrument = instrument
         self.data_handler = data_handler
 
@@ -4038,11 +3750,8 @@ class Measure:
         """
         Set the source for measurement.
         
-        Parameter:
-        source (str): "CHAN1", "CHAN2", "MATH", etc.
-        
-        Return:
-        None
+        :param source: "CHAN1", "CHAN2", "MATH", etc.
+        :type source: str
         """
         allowed = {"CHAN1", "CHAN2", "MATH"}
         src = source.upper()
@@ -4055,23 +3764,15 @@ class Measure:
         """
         Query the source for measurement.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Current source
+        :return: Current source
+        :rtype: str
         """
         return self.instrument.query(":MEAS:SOUR?")
 
     def clear(self):
         """
         Clear all measurement results.
-        
-        Parameter:
-        None
-        
-        Return:
-        None
+       
         """
         self.instrument.write(":MEAS:CLE")
 
@@ -4079,11 +3780,6 @@ class Measure:
         """
         Recover the last measurement result.
         
-        Parameter:
-        None
-        
-        Return:
-        None
         """
         self.instrument.write(":MEAS:REC")
 
@@ -4091,11 +3787,9 @@ class Measure:
         """
         Enable or disable the measurement result display.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = state
@@ -4110,11 +3804,8 @@ class Measure:
         """
         Query if the measurement result display is enabled.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MEAS:ADIS?")
         try:
@@ -4126,11 +3817,9 @@ class Measure:
         """
         Set the source for auto measurement.
         
-        Parameter:
-        source (str): "CHAN1", "CHAN2", "MATH"
-        
-        Return:
-        None
+        :param source: "CHAN1", "CHAN2", "MATH"
+        :type source: str
+
         """
         allowed = {"CHAN1", "CHAN2", "MATH"}
         src = source.upper()
@@ -4142,12 +3831,9 @@ class Measure:
     def get_auto_measure_source(self):
         """
         Query the source for auto measurement.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: Current source
+    
+        :return: Current source
+        :rtype: str
         """
         return self.instrument.query(":MEAS:AMS?")
 
@@ -4155,11 +3841,9 @@ class Measure:
         """
         Set the maximum threshold for measurement.
         
-        Parameter:
-        value (float): Threshold value
-        
-        Return:
-        None
+        :param value: Threshold value
+        :type value: float
+
         """
         self.instrument.write(f":MEAS:SET:MAX {value}")
 
@@ -4167,11 +3851,8 @@ class Measure:
         """
         Query the maximum threshold for measurement.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Threshold value
+        :return: Threshold value
+        :rtype: float or str
         """
         resp = self.instrument.query(":MEAS:SET:MAX?")
         try:
@@ -4183,23 +3864,18 @@ class Measure:
         """
         Set the middle threshold for measurement.
         
-        Parameter:
-        value (float): Threshold value
-        
-        Return:
-        None
+        :param value: Threshold value
+        :type value: float
+
         """
         self.instrument.write(f":MEAS:SET:MID {value}")
 
     def get_setup_mid(self):
         """
         Query the middle threshold for measurement.
-        
-        Parameter:  
-        None
-        
-        Return:
-        float: Threshold value
+       
+        :return: Threshold value
+        :rtype: float or str
         """
         resp = self.instrument.query(":MEAS:SET:MID?")
         try:
@@ -4211,11 +3887,9 @@ class Measure:
         """
         Set the minimum threshold for measurement.
         
-        Parameter:
-        value (float): Threshold value
-        
-        Return:
-        None
+        :param value: Threshold value
+        :type value: float
+
         """
         self.instrument.write(f":MEAS:SET:MIN {value}")
 
@@ -4223,11 +3897,10 @@ class Measure:
         """
         Query the minimum threshold for measurement.
         
-        Parameter:
-        None
+
         
-        Return:
-        float: Threshold value
+        :return: Threshold value
+        :rtype: float or str
         """
         resp = self.instrument.query(":MEAS:SET:MIN?")
         try:
@@ -4239,11 +3912,9 @@ class Measure:
         """
         Set the positive slope threshold A for measurement.
         
-        Parameter:
-        value (float): Threshold value
-        
-        Return:
-        None
+        :param value: Threshold value
+        :type value: float
+
         """
         self.instrument.write(f":MEAS:SET:PSA {value}")
 
@@ -4251,11 +3922,8 @@ class Measure:
         """
         Query the positive slope threshold A for measurement.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Threshold value
+        :return: Threshold value
+        :rtype: float or str
         """
         resp = self.instrument.query(":MEAS:SET:PSA?")
         try:
@@ -4267,11 +3935,9 @@ class Measure:
         """
         Set the positive slope threshold B for measurement.
         
-        Parameter:
-        value (float): Threshold value
-        
-        Return:
-        None
+        :param value: Threshold value
+        :type value: float
+
         """
         self.instrument.write(f":MEAS:SET:PSB {value}")
 
@@ -4279,11 +3945,8 @@ class Measure:
         """
         Query the positive slope threshold B for measurement.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Threshold value
+        :return: Threshold value
+        :rtype: float or str
         """
         resp = self.instrument.query(":MEAS:SET:PSB?")
         try:
@@ -4295,11 +3958,9 @@ class Measure:
         """
         Set the negative slope threshold A for measurement.
         
-        Parameter:
-        value (float): Threshold value
-        
-        Return:
-        None
+        :param value: Threshold value
+        :type value: float
+
         """
         self.instrument.write(f":MEAS:SET:DSA {value}")
 
@@ -4307,11 +3968,10 @@ class Measure:
         """
         Query the negative slope threshold A for measurement.
         
-        Parameter:
-        None
+
         
-        Return:
-        float: Threshold value
+        :return: Threshold value
+        :rtype: float or str
         """
         resp = self.instrument.query(":MEAS:SET:DSA?")
         try:
@@ -4323,11 +3983,9 @@ class Measure:
         """
         Set the negative slope threshold B for measurement.
         
-        Parameter:
-        value (float): Threshold value
-        
-        Return:
-        None
+        :param value: Threshold value
+        :type value: float
+
         """
         self.instrument.write(f":MEAS:SET:DSB {value}")
 
@@ -4335,11 +3993,10 @@ class Measure:
         """
         Query the negative slope threshold B for measurement.
         
-        Parameter:
-        None
+
         
-        Return:
-        float: Threshold value
+        :return: Threshold value
+        :rtype: float or str
         """
         resp = self.instrument.query(":MEAS:SET:DSB?")
         try:
@@ -4351,11 +4008,9 @@ class Measure:
         """
         Enable or disable the statistic display for measurement.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = state
@@ -4370,11 +4025,8 @@ class Measure:
         """
         Query if the statistic display for measurement is enabled.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":MEAS:STAT:DISP?")
         try:
@@ -4386,11 +4038,9 @@ class Measure:
         """
         Set the statistic mode for measurement.
         
-        Parameter:
-        mode (str): "ALL" or "CURR"
-        
-        Return:
-        None
+        :param mode: "ALL" or "CURR"
+        :type mode: str
+
         """
         allowed = {"ALL", "CURR"}
         m = mode.upper()
@@ -4403,33 +4053,26 @@ class Measure:
         """
         Query the statistic mode for measurement.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: "ALL" or "CURR"
+        :return: "ALL" or "CURR"
+        :rtype: str
         """
         return self.instrument.query(":MEAS:STAT:MODE?")
 
     def reset_statistic(self):
         """
         Reset the measurement statistics.
-        
-        Parameter:
-        None
-        
-        Return:
-        None
+
         """
         self.instrument.write(":MEAS:STAT:RES")
 
     def set_statistic_item(self, item):
         """
         Set the statistic item for measurement.
-        Parameter:
-            item (str): Measurement item name (e.g., "VPP", "VRMS", etc.)
-        Return:
-            None
+
+        :param item: Measurement item name (e.g., "VPP", "VRMS", etc.)
+        :type item: str
         """
         allowed = {
             "VMAX", "VMIN", "VPP", "VTOP", "VBASE", "VAMP", "VUPPER", "VMID", "VLOWER",
@@ -4447,11 +4090,10 @@ class Measure:
         """
         Query the statistic item for measurement.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: Measurement item name
+        :return: Measurement item name
+        :rtype: str
         """
         return self.instrument.query(":MEAS:STAT:ITEM?")
 
@@ -4459,11 +4101,9 @@ class Measure:
         """
         Set the measurement item.
         
-        Parameter:
-        item (str): Measurement item name (e.g., "VPP", "VRMS", etc.)
-        
-        Return:
-        None
+        :param item: Measurement item name (e.g., "VPP", "VRMS", etc.)
+        :type item: str
+
         """
         allowed = {
             "VMAX", "VMIN", "VPP", "VTOP", "VBASE", "VAMP", "VUPPER", "VMID", "VLOWER",
@@ -4481,11 +4121,10 @@ class Measure:
         """
         Query the measurement item.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: Measurement item name
+        :return: Measurement item name
+        :rtype: str
         """
         return self.instrument.query(":MEAS:ITEM?")
 
@@ -4493,11 +4132,9 @@ class Measure:
         """
         Set the source for the measurement counter.
         
-        Parameter:
-        source (str): "CHAN1", "CHAN2", "MATH"
-        
-        Return:
-        None
+        :param source: "CHAN1", "CHAN2", "MATH"
+        :type source: str
+
         """
         allowed = {"CHAN1", "CHAN2", "MATH"}
         src = source.upper()
@@ -4510,11 +4147,10 @@ class Measure:
         """
         Query the source for the measurement counter.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: Current source
+        :return: Current source
+        :rtype: str
         """
         return self.instrument.query(":MEAS:COUN:SOUR?")
 
@@ -4522,11 +4158,10 @@ class Measure:
         """
         Query the value of the measurement counter.
         
-        Parameter:
-        None
+
         
-        Return:
-        int: Counter value
+        :return: Counter value
+        :rtype: int or str
         """
         resp = self.instrument.query(":MEAS:COUN:VAL?")
         try:
@@ -4538,6 +4173,13 @@ class Reference:
     The Reference commands are used to set the reference waveform parameters.
     """
     def __init__(self, instrument,data_handler):
+        """Initialize the Reference class.
+        
+        :param instrument: The instrument instance to communicate with.
+        :type instrument: object
+        :param data_handler: The data handler instance for processing data.
+        :type data_handler: object
+        """
         self.instrument = instrument
         self.data_handler = data_handler
 
@@ -4545,11 +4187,9 @@ class Reference:
         """
         Enable or disable the REF function.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = state
@@ -4564,11 +4204,8 @@ class Reference:
         """
         Query the status of the REF function.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":REF:DISP?")
         try:
@@ -4580,12 +4217,12 @@ class Reference:
         """
         Enable or disable the specified reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        state (int or str): 1/0 or "ON"/"OFF"
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
        
-        Return:
-        None
+
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4603,11 +4240,10 @@ class Reference:
         """
         Query the status of the specified reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4622,12 +4258,12 @@ class Reference:
         """
         Set the source of the current reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        source (str): "CHANNEL1", "CHANNEL2", or "MATH"
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :param source: "CHANNEL1", "CHANNEL2", or "MATH"
+        :type source: str
         
-        Return:
-        None
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "MATH", "CHAN1", "CHAN2"}
         if n not in range(1, 11):
@@ -4644,11 +4280,10 @@ class Reference:
         """
         Query the source of the current reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        
-        Return:
-        str: "CHAN1", "CHAN2", or "MATH"
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :return: "CHAN1", "CHAN2", or "MATH"
+        :rtype: str
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4659,12 +4294,12 @@ class Reference:
         """
         Set the vertical scale of the specified reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        scale (float): Vertical scale value
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :param scale: Vertical scale value
+        :type scale: float
         
-        Return:
-        None
+
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4675,11 +4310,10 @@ class Reference:
         """
         Query the vertical scale of the specified reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        
-        Return:
-        float: Vertical scale value
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :return: Vertical scale value
+        :rtype: float or str
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4694,12 +4328,11 @@ class Reference:
         """
         Set the vertical offset of the specified reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        offset (float): Vertical offset value
-        
-        Return:
-        None
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :param offset: Vertical offset value
+        :type offset: float
+
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4710,11 +4343,10 @@ class Reference:
         """
         Query the vertical offset of the specified reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        
-        Return:
-        float: Vertical offset value
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :return: Vertical offset value
+        :rtype: float or str
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4729,11 +4361,9 @@ class Reference:
         """
         Reset the vertical scale and vertical offset of the specified reference channel to default.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        
-        Return:
-        None
+        :param n: Reference channel number (1-10)
+        :type n: int
+
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4744,11 +4374,9 @@ class Reference:
         """
         Select the current reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        
-        Return:
-        None
+        :param n: Reference channel number (1-10)
+        :type n: int
+
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4759,11 +4387,9 @@ class Reference:
         """
         Store the waveform of the current reference channel to internal memory.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        
-        Return:
-        None
+        :param n: Reference channel number (1-10)
+        :type n: int
+
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4774,12 +4400,10 @@ class Reference:
         """
         Set the display color of the current reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        color (str): "GRAY", "GREEN", "LBLUE", "MAGENTA", "ORANGE"
-        
-        Return: 
-        None
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :param color: "GRAY", "GREEN", "LBLUE", "MAGENTA", "ORANGE"
+        :type color: str
         """
         allowed = {"GRAY", "GREEN", "LBLUE", "MAGENTA", "ORANGE"}
         if n not in range(1, 11):
@@ -4796,11 +4420,10 @@ class Reference:
         """
         Query the display color of the current reference channel.
         
-        Parameter:
-        n (int): Reference channel number (1-10)
-        
-        Return:
-        str: Color name
+        :param n: Reference channel number (1-10)
+        :type n: int
+        :return: Color name
+        :rtype: str
         """
         if n not in range(1, 11):
             print("Invalid reference channel. Use 1-10.")
@@ -4811,6 +4434,13 @@ class Storage:
     The Storage commands are used to set the related parameters when storing images.
     """
     def __init__(self, instrument,data_handler):
+        """Initialize the Storage class.
+        
+        :param instrument: The instrument instance to communicate with.
+        :type instrument: object
+        :param data_handler: The data handler instance for processing data.
+        :type data_handler: object
+        """
         self.instrument = instrument
         self.data_handler = data_handler
 
@@ -4818,11 +4448,9 @@ class Storage:
         """
         Set the image type when storing images.
         
-        Parameter:
-        img_type (str): "PNG", "BMP8", "BMP24", "JPEG", "TIFF"
+        :param img_type: "PNG", "BMP8", "BMP24", "JPEG", "TIFF"
         
-        Return:
-        None
+
         """
         allowed = {"PNG", "BMP8", "BMP24", "JPEG", "TIFF"}
         t = img_type.upper()
@@ -4834,12 +4462,9 @@ class Storage:
     def get_image_type(self):
         """
         Query the image type when storing images.
-        
-        Parameter:
-        None
-        
-        Return:
-        str: Image type
+         
+        :return: Image type
+        :rtype: str
         """
         return self.instrument.query(":STOR:IMAG:TYPE?")
 
@@ -4847,11 +4472,9 @@ class Storage:
         """
         Turn on or off the invert function when storing images.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = state
@@ -4866,11 +4489,8 @@ class Storage:
         """
         Query the status of the invert function when storing images.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "ON" or "OFF"
+        :return: "ON" or "OFF"
+        :rtype: str
         """
         return self.instrument.query(":STOR:IMAG:INVERT?")
 
@@ -4878,11 +4498,9 @@ class Storage:
         """
         Set the image color when storing images to color (ON) or intensity graded color (OFF).
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = "ON" if state == 1 else "OFF"
@@ -4897,11 +4515,8 @@ class Storage:
         """
         Query the image color when storing images.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "ON" or "OFF"
+        :return: "ON" or "OFF"
+        :rtype: str
         """
         return self.instrument.query(":STOR:IMAG:COLor?")
 
@@ -4910,6 +4525,14 @@ class System:
     The System commands are used to set system-related parameters.
     """
     def __init__(self, instrument,data_handler):
+        """Initialize the System class.
+        
+        :param instrument: The instrument instance to communicate with.
+        :type instrument: object
+        :param data_handler: The data handler instance for processing data.
+        :type data_handler: object
+        """
+
         self.instrument = instrument
         self.data_handler = data_handler
 
@@ -4917,11 +4540,9 @@ class System:
         """
         Enable or disable the AUTO key on the front panel.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = 1 if state == 1 else 0
@@ -4936,11 +4557,8 @@ class System:
         """
         Query the status of the AUTO key on the front panel.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":SYST:AUToscale?")
         try:
@@ -4952,11 +4570,9 @@ class System:
         """
         Enable or disable the beeper.
         
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
-        
-        Return:
-        None
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
+
         """
         if state in [1, 0]:
             val = 1 if state == 1 else 0
@@ -4971,11 +4587,8 @@ class System:
         """
         Query the status of the beeper.
         
-        Parameter:
-        None
-        
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":SYST:BEEPer?")
         try:
@@ -4987,11 +4600,8 @@ class System:
         """
         Query and delete the last system error message.
        
-        Parameter:
-        None
-        
-        Return:
-        str: Error message in "<number>,<content>" format
+        :return: Error message in "<number>,<content>" format
+        :rtype: str
         """
         return self.instrument.query(":SYST:ERRor?")
 
@@ -4999,11 +4609,8 @@ class System:
         """
         Query the number of grids in the horizontal direction of the instrument screen.
         
-        Parameter:
-        None
-        
-        Return:
-        int: Always returns 12
+        :return: Always returns 12
+        :rtype: int
         """
         resp = self.instrument.query(":SYST:GAM?")
         try:
@@ -5015,11 +4622,9 @@ class System:
         """
         Set the system language.
         
-        Parameter:
-        lang (str): "SCHINESE", "TCHINESE", "ENGLISH", "PORTUGUESE", "GERMAN", "POLISH", "KOREAN", "JAPANESE", "FRENCH", "RUSSIAN"
-        
-        Return:
-        None
+        :param lang: "SCHINESE", "TCHINESE", "ENGLISH", "PORTUGUESE", "GERMAN", "POLISH", "KOREAN", "JAPANESE", "FRENCH", "RUSSIAN"
+        :type lang: str
+
         """
         allowed = {"SCHINESE", "TCHINESE", "ENGLISH", "PORTUGUESE", "GERMAN", "POLISH", "KOREAN", "JAPANESE", "FRENCH", "RUSSIAN"}
         l = lang.upper()
@@ -5032,21 +4637,19 @@ class System:
         """
         Query the system language.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: Language code
+        :return: Language code
+        :rtype: str
         """
         return self.instrument.query(":SYST:LANG?")
 
     def set_locked(self, state):
         """
         Enable or disable the keyboard lock function.
-        Parameter:
-            state (int or str): 1/0 or "ON"/"OFF"
-        Return:
-            None
+
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
         """
         if state in [1, 0]:
             val = 1 if state == 1 else 0
@@ -5061,11 +4664,10 @@ class System:
         """
         Query the status of the keyboard lock function.
         
-        Parameter:
-        None
+
         
-        Return:
-        int: 1 (locked) or 0 (unlocked)
+        :return: 1 (locked) or 0 (unlocked)
+        :rtype: int
         """
         resp = self.instrument.query(":SYST:LOCKed?")
         try:
@@ -5077,11 +4679,9 @@ class System:
         """
         Set the system configuration to be recalled at power-on.
         
-        Parameter:
-        pon (str): "LATEST" or "DEFAULT"
-        
-        Return:
-        None
+        :param pon: "LATEST" or "DEFAULT"
+        :type pon: str
+
         """
         allowed = {"LATEST", "DEFAULT", "LAT", "DEF"}
         p = pon.upper()
@@ -5094,11 +4694,10 @@ class System:
         """
         Query the system configuration to be recalled at power-on.
         
-        Parameter:
-        None
 
-        Return:
-        str: "LAT" or "DEF"
+
+        :return: "LAT" or "DEF"
+        :rtype: str
         """
         return self.instrument.query(":SYST:PON?")
 
@@ -5106,11 +4705,9 @@ class System:
         """
         Install an option license.
 
-        Parameter:
-        license_code (str): 28-byte license string (uppercase letters and numbers)
-        
-        Return:
-        None
+        :param license_code: 28-byte license string (uppercase letters and numbers)
+        :type license_code: str
+
         """
         if isinstance(license_code, str) and len(license_code) == 28 and license_code.isalnum() and license_code.isupper():
             self.instrument.write(f":SYST:OPT:INST {license_code}")
@@ -5120,24 +4717,15 @@ class System:
     def uninstall_option(self):
         """
         Uninstall all installed options.
-
-        Parameter:
-        None
-
-        Return:
-        None
         """
         self.instrument.write(":SYST:OPT:UNINST")
 
     def get_ram(self):
         """
         Query the number of analog channels of the instrument.
-        
-        Parameter:
-        None
 
-        Return:
-        int: Always returns 2
+        :return: Always returns 2
+        :rtype: int
         """
         resp = self.instrument.query(":SYST:RAM?")
         try:
@@ -5149,11 +4737,10 @@ class System:
         """
         Query the setting of the oscilloscope (returns binary data with TMC header). If autosave is on, then also saves them to a bin file.
         
-        Parameter:
-        None
 
-        Return:
-        bytes: Setup data
+
+        :return: Setup data
+        :rtype: bytes
         """
         data = self.instrument.query_binary_values(":SYST:SETup?", datatype='B', container=bytes)
         """if data and data[0] == ord('#'):  # Check for TMC header
@@ -5166,11 +4753,9 @@ class System:
         """
         Import the setting parameters of the oscilloscope.
 
-        Parameter:
-        setup_stream (bytes): Setup data (must be from get_setup)
+        :param setup_stream: Setup data (must be from get_setup)
+        :type setup_stream: bytes
 
-        Return:
-        None
         """
         self.instrument.write(":SYST:SETup", setup_stream)
 
@@ -5186,11 +4771,9 @@ class Timebase:
         """
         Enable or disable the delayed sweep.
 
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
 
-        Return:
-        None
         """
         if state in [1, 0]:
             val = 1 if state == 1 else 0
@@ -5205,11 +4788,8 @@ class Timebase:
         """
         Query the status of the delayed sweep.
 
-        Parameter:
-        None
-
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":TIM:DEL:ENAB?")
         try:
@@ -5221,11 +4801,9 @@ class Timebase:
         """
         Set the delayed timebase offset (in seconds).
 
-        Parameter:
-        offset (float): Offset value in seconds
+        :param offset: Offset value in seconds
+        :type offset: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TIM:DEL:OFFS {offset}")
 
@@ -5233,11 +4811,10 @@ class Timebase:
         """
         Query the delayed timebase offset (in seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Offset value in seconds
+
+        :return: Offset value in seconds
+        :rtype: float or str
         """
         resp = self.instrument.query(":TIM:DEL:OFFS?")
         try:
@@ -5249,11 +4826,9 @@ class Timebase:
         """
         Set the delayed timebase scale (in s/div).
 
-        Parameter:
-        scale (float): Scale value in seconds/div
+        :param scale: Scale value in seconds/div
+        :type scale: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TIM:DEL:SCAL {scale}")
 
@@ -5261,11 +4836,10 @@ class Timebase:
         """
         Query the delayed timebase scale (in s/div).
 
-        Parameter:
-        None
 
-        Return:
-        float: Scale value in seconds/div
+
+        :return: Scale value in seconds/div
+        :rtype: float or str
         """
         resp = self.instrument.query(":TIM:DEL:SCAL?")
         try:
@@ -5277,11 +4851,9 @@ class Timebase:
         """
         Set the main timebase offset (in seconds).
 
-        Parameter:
-        offset (float): Offset value in seconds
+        :param offset: Offset value in seconds
+        :type offset: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TIM:MAIN:OFFS {offset}")
 
@@ -5289,11 +4861,10 @@ class Timebase:
         """
         Query the main timebase offset (in seconds).
 
-        Parameter:  
-        None
 
-        Return:
-        float: Offset value in seconds
+
+        :return: Offset value in seconds
+        :rtype: float or str
         """
         resp = self.instrument.query(":TIM:MAIN:OFFS?")
         try:
@@ -5305,11 +4876,9 @@ class Timebase:
         """
         Set the main timebase scale (in s/div).
 
-        Parameter:
-        scale (float): Scale value in seconds/div
+        :param scale: Scale value in seconds/div
+        :type scale: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TIM:MAIN:SCAL {scale}")
 
@@ -5317,11 +4886,10 @@ class Timebase:
         """
         Query the main timebase scale (in s/div).
 
-        Parameter:
-        None
 
-        Return:
-        float: Scale value in seconds/div
+
+        :return: Scale value in seconds/div
+        :rtype: float or str
         """
         resp = self.instrument.query(":TIM:MAIN:SCAL?")
         try:
@@ -5333,11 +4901,9 @@ class Timebase:
         """
         Set the mode of the horizontal timebase.
 
-        Parameter:
-        mode (str): "MAIN", "XY", or "ROLL"
+        :param mode: "MAIN", "XY", or "ROLL"
+        :type mode: str
 
-        Return:
-        None
         """
         allowed = {"MAIN", "XY", "ROLL"}
         m = mode.upper()
@@ -5350,11 +4916,10 @@ class Timebase:
         """
         Query the mode of the horizontal timebase.
 
-        Parameter:
-        None
 
-        Return:
-        str: "MAIN", "XY", or "ROLL"
+
+        :return: "MAIN", "XY", or "ROLL"
+        :rtype: str
         """
         return self.instrument.query(":TIM:MODE?")
 class Trigger:
@@ -5364,19 +4929,16 @@ class Trigger:
     def __init__(self, instrument,data_handler):
         self.instrument = instrument
         self.data_handler = data_handler
-        self.rs232 = RS232(instrument, data_handler)
-        self.iic = IIC_Trigger(instrument, data_handler)
-        self.spi = SPI_Trigger(instrument, data_handler)
+        self.rs232 = self.RS232(instrument, data_handler)
+        self.iic = self.IIC_Trigger(instrument, data_handler)
+        self.spi = self.SPI_Trigger(instrument, data_handler)
 
     def set_mode(self, mode):
         """
         Set the trigger type.
 
-        Parameter:
-        mode (str): One of {"EDGE", "PULSE", "RUNT", "WIND", "NEDG", "SLOPE", "VIDEO", "PATTERN", "DELAY", "TIMEOUT", "DURATION", "SHOLD", "RS232", "IIC", "SPI"}
-        
-        Return:
-        None
+        :param mode: One of {"EDGE", "PULSE", "RUNT", "WIND", "NEDG", "SLOPE", "VIDEO", "PATTERN", "DELAY", "TIMEOUT", "DURATION", "SHOLD", "RS232", "IIC", "SPI"}
+        :type mode: str
         """
         allowed = {"EDGE", "PULSE", "RUNT", "WIND", "NEDG", "SLOPE", "VIDEO", "PATTERN", "DELAY", "TIMEOUT", "DURATION", "SHOLD", "RS232", "IIC", "SPI"}
         m = mode.upper()
@@ -5389,11 +4951,8 @@ class Trigger:
         """
         Query the trigger type.
 
-        Parameter:
-        None
-
-        Return:
-        str: Trigger mode
+        :return: Trigger mode
+        :rtype: str
         """
         return self.instrument.query(":TRIG:MODE?")
 
@@ -5401,11 +4960,8 @@ class Trigger:
         """
         Set the trigger coupling type.
 
-        Parameter:
-        coupling (str): One of {"AC", "DC", "LFREJECT", "HFREJECT"}
-        
-        Return:
-        None
+        :param coupling: One of {"AC", "DC", "LFREJECT", "HFREJECT"}
+        :type coupling: str
         """
         allowed = {"AC", "DC", "LFREJECT", "HFREJECT"}
         c = coupling.upper()
@@ -5418,11 +4974,8 @@ class Trigger:
         """
         Query the trigger coupling type.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Coupling type
+        :return: Coupling type
+        :rtype: str
         """
         return self.instrument.query(":TRIG:COUP?")
 
@@ -5430,11 +4983,10 @@ class Trigger:
         """
         Query the current trigger status.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: One of "TD", "WAIT", "RUN", "AUTO", "STOP"
+        :return: One of "TD", "WAIT", "RUN", "AUTO", "STOP"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:STAT?")
 
@@ -5442,11 +4994,9 @@ class Trigger:
         """
         Set the trigger mode (sweep).
         
-        Parameter:
-        sweep (str): One of {"AUTO", "NORMAL", "SINGLE"}
-        
-        Return:
-        None
+        :param sweep: One of {"AUTO", "NORMAL", "SINGLE"}
+        :type sweep: str
+
         """
         allowed = {"AUTO", "NORMAL", "SINGLE"}
         s = sweep.upper()
@@ -5459,11 +5009,8 @@ class Trigger:
         """
         Query the trigger mode (sweep).
         
-        Parameter:
-        None
-
-        Return:
-        str: "AUTO", "NORM", or "SING"
+        :return: "AUTO", "NORM", or "SING"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SWEE?")
 
@@ -5471,11 +5018,9 @@ class Trigger:
         """
         Set the trigger holdoff time (in seconds).
 
-        Parameter:
-        value (float): Holdoff time, 16e-9 to 10
+        :param value: Holdoff time, 16e-9 to 10
+        :type value: float
 
-        Return:
-        None
         """
         if isinstance(value, (float, int)) and 16e-9 <= value <= 10:
             self.instrument.write(f":TRIG:HOLD {value}")
@@ -5486,11 +5031,8 @@ class Trigger:
         """
         Query the trigger holdoff time (in seconds).
 
-        Parameter:
-        None
-
-        Return:
-        float: Holdoff time
+        :return: Holdoff time
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:HOLD?")
         try:
@@ -5502,11 +5044,9 @@ class Trigger:
         """
         Enable or disable noise rejection for trigger.
 
-        Parameter:
-        state (int or str): 1/0 or "ON"/"OFF"
+        :param state: 1/0 or "ON"/"OFF"
+        :type state: int or str
 
-        Return:
-        None
         """
         if state in [1, 0]:
             val = state
@@ -5521,11 +5061,10 @@ class Trigger:
         """
         Query the status of noise rejection for trigger.
 
-        Parameter:
-        None
 
-        Return:
-        int: 1 (enabled) or 0 (disabled)
+
+        :return: 1 (enabled) or 0 (disabled)
+        :rtype: int
         """
         resp = self.instrument.query(":TRIG:NREJ?")
         try:
@@ -5537,11 +5076,9 @@ class Trigger:
         """
         Query the position in the internal memory that corresponds to the waveform trigger position.
         
-        Parameter:
-        None
 
-        Return:
-        int: -2 (not triggered), -1 (triggered outside memory), or >0 (position)
+        :return: -2 (not triggered), -1 (triggered outside memory), or >0 (position)
+        :rtype: int or str
         """
         resp = self.instrument.query(":TRIG:POS?")
         try:
@@ -5554,11 +5091,9 @@ class Trigger:
         """
         Set the trigger source in edge trigger.
 
-        Parameter:
-        source (str): "CHANNEL1", "CHANNEL2", "AC", "EXT"
+        :param source: "CHANNEL1", "CHANNEL2", "AC", "EXT"
+        :type source: str
 
-        Return:
-        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "AC", "EXT", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -5572,11 +5107,10 @@ class Trigger:
         """
         Query the trigger source in edge trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1", "CHAN2", "AC", or "EXT"
+
+        :return: "CHAN1", "CHAN2", "AC", or "EXT"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:EDGE:SOUR?")
 
@@ -5584,11 +5118,9 @@ class Trigger:
         """
         Set the edge type in edge trigger.
 
-        Parameter:
-        slope (str): "POSITIVE", "NEGATIVE", "RFALL"
+        :param slope: "POSITIVE", "NEGATIVE", "RFALL"
+        :type slope: str
 
-        Return:
-        None
         """
         allowed = {"POSITIVE", "NEGATIVE", "RFALL", "POS", "NEG"}
         s = slope.upper()
@@ -5602,11 +5134,10 @@ class Trigger:
         """
         Query the edge type in edge trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "POS", "NEG", or "RFAL"
+
+        :return: "POS", "NEG", or "RFAL"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:EDGE:SLOP?")
 
@@ -5614,11 +5145,9 @@ class Trigger:
         """
         Set the trigger level in edge trigger.
 
-        Parameter:
-        level (float): Level value
+        :param level: Level value
+        :type level: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TRIG:EDGE:LEV {level}")
 
@@ -5626,11 +5155,8 @@ class Trigger:
         """
         Query the trigger level in edge trigger.
 
-        Parameter:
-        None
-        
-        Return:
-        float: Level value
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:EDGE:LEV?")
         try:
@@ -5642,11 +5168,9 @@ class Trigger:
         """
         Set the trigger source in pulse width trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
 
-        Return:
-        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -5660,11 +5184,8 @@ class Trigger:
         """
         Query the trigger source in pulse width trigger.
 
-        Parameter:
-        None
-
-        Return:
-        str: "CHAN1" or "CHAN2"
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:PULS:SOUR?")
 
@@ -5672,11 +5193,9 @@ class Trigger:
         """
         Set the trigger condition in pulse width trigger.
 
-        Parameter:
-        when (str): "PGREATER", "PLESS", "NGREATER", "NLESS", "PGLESS", "NGLess"
+        :param when: "PGREATER", "PLESS", "NGREATER", "NLESS", "PGLESS", "NGLess"
+        :type when: str
 
-        Return:
-        None
         """
         allowed = {"PGREATER", "PLESS", "NGREATER", "NLESS", "PGLESS", "NGLess"}
         w = when.upper()
@@ -5689,11 +5208,8 @@ class Trigger:
         """
         Query the trigger condition in pulse width trigger.
 
-        Parameter:
-        None
-
-        Return:
-        str: Condition code
+        :return: Condition code
+        :rtype: str
         """
         return self.instrument.query(":TRIG:PULS:WHEN?")
 
@@ -5701,11 +5217,9 @@ class Trigger:
         """
         Set the pulse width in pulse width trigger (seconds).
 
-        Parameter:
-        width (float): 8e-9 to 10
+        :param width: 8e-9 to 10
+        :type width: float
 
-        Return:
-        None
         """
         if isinstance(width, (float, int)) and 8e-9 <= width <= 10:
             self.instrument.write(f":TRIG:PULS:WIDT {width}")
@@ -5716,11 +5230,10 @@ class Trigger:
         """
         Query the pulse width in pulse width trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Pulse width
+
+        :return: Pulse width
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:PULS:WIDT?")
         try:
@@ -5732,11 +5245,9 @@ class Trigger:
         """
         Set the upper pulse width in pulse width trigger (seconds).
 
-        Parameter:
-        width (float): 16e-9 to 10
+        :param width: 16e-9 to 10
+        :type width: float
 
-        Return:
-        None
         """
         if isinstance(width, (float, int)) and 16e-9 <= width <= 10:
             self.instrument.write(f":TRIG:PULS:UWID {width}")
@@ -5747,11 +5258,8 @@ class Trigger:
         """
         Query the upper pulse width in pulse width trigger (seconds).
 
-        Parameter:
-        None
-
-        Return:
-        float: Upper pulse width
+        :return: Upper pulse width
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:PULS:UWID?")
         try:
@@ -5763,11 +5271,8 @@ class Trigger:
         """
         Set the lower pulse width in pulse width trigger (seconds).
 
-        Parameter:
-        width (float): 8e-9 to 9.99
-
-        Return:
-        None
+        :param width: 8e-9 to 9.99
+        :type width: float
         """
         if isinstance(width, (float, int)) and 8e-9 <= width <= 9.99:
             self.instrument.write(f":TRIG:PULS:LWID {width}")
@@ -5778,11 +5283,10 @@ class Trigger:
         """
         Query the lower pulse width in pulse width trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Lower pulse width
+
+        :return: Lower pulse width
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:PULS:LWID?")
         try:
@@ -5794,11 +5298,9 @@ class Trigger:
         """
         Set the trigger level in pulse width trigger.
 
-        Parameter:
-        level (float): Level value
+        :param level: Level value
+        :type level: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TRIG:PULS:LEV {level}")
 
@@ -5806,11 +5308,10 @@ class Trigger:
         """
         Query the trigger level in pulse width trigger.
 
-        Parameter:
-        None
 
-        Return:
-        float: Level value
+
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:PULS:LEV?")
         try:
@@ -5823,11 +5324,9 @@ class Trigger:
         """
         Set the trigger source in slope trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
 
-        Return:
-        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -5841,11 +5340,10 @@ class Trigger:
         """
         Query the trigger source in slope trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1" or "CHAN2"
+
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SLOP:SOUR?")
 
@@ -5853,11 +5351,9 @@ class Trigger:
         """
         Set the trigger condition in slope trigger.
 
-        Parameter:
-        when (str): "PGREATER", "PLESS", "NGREATER", "NLESS", "PGLESS", "NGLess"
+        :param when: "PGREATER", "PLESS", "NGREATER", "NLESS", "PGLESS", "NGLess"
+        :type when: str
 
-        Return:
-        None
         """
         allowed = {"PGREATER", "PLESS", "NGREATER", "NLESS", "PGLESS", "NGLess"}
         w = when.upper()
@@ -5870,11 +5366,10 @@ class Trigger:
         """
         Query the trigger condition in slope trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: Condition code
+
+        :return: Condition code
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SLOP:WHEN?")
 
@@ -5882,11 +5377,9 @@ class Trigger:
         """
         Set the time value in slope trigger (seconds).
 
-        Parameter:
-        time (float): 8e-9 to 10
+        :param time: 8e-9 to 10
+        :type time: float
 
-        Return:
-        None
         """
         if isinstance(time, (float, int)) and 8e-9 <= time <= 10:
             self.instrument.write(f":TRIG:SLOP:TIME {time}")
@@ -5897,11 +5390,10 @@ class Trigger:
         """
         Query the time value in slope trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Time value
+
+        :return: Time value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:SLOP:TIME?")
         try:
@@ -5913,11 +5405,9 @@ class Trigger:
         """
         Set the upper limit of the time in slope trigger (seconds).
 
-        Parameter:
-        time (float): 16e-9 to 10
+        :param time: 16e-9 to 10
+        :type time: float
 
-        Return:
-        None
         """
         if isinstance(time, (float, int)) and 16e-9 <= time <= 10:
             self.instrument.write(f":TRIG:SLOP:TUPP {time}")
@@ -5928,11 +5418,10 @@ class Trigger:
         """
         Query the upper limit of the time in slope trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Upper time value
+
+        :return: Upper time value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:SLOP:TUPP?")
         try:
@@ -5944,11 +5433,9 @@ class Trigger:
         """
         Set the lower limit of the time in slope trigger (seconds).
 
-        Parameter:
-        time (float): 8e-9 to 9.99
+        :param time: 8e-9 to 9.99
+        :type time: float
 
-        Return:
-        None
         """
         if isinstance(time, (float, int)) and 8e-9 <= time <= 9.99:
             self.instrument.write(f":TRIG:SLOP:TLOW {time}")
@@ -5959,11 +5446,10 @@ class Trigger:
         """
         Query the lower limit of the time in slope trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Lower time value
+
+        :return: Lower time value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:SLOP:TLOW?")
         try:
@@ -5975,11 +5461,9 @@ class Trigger:
         """
         Set the vertical window type in slope trigger.
         
-        Parameter:
-        window (str): "TA", "TB", or "TAB"
-        
-        Return:
-        None
+        :param window: "TA", "TB", or "TAB"
+        :type window: str
+
         """
         allowed = {"TA", "TB", "TAB"}
         w = window.upper()
@@ -5992,11 +5476,10 @@ class Trigger:
         """
         Query the vertical window type in slope trigger.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: Window type
+        :return: Window type
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SLOP:WIND?")
 
@@ -6004,11 +5487,9 @@ class Trigger:
         """
         Set the upper limit of the trigger level in slope trigger.
         
-        Parameter:
-        level (float): Level value
-        
-        Return:
-        None
+        :param level: Level value
+        :type level: float
+
         """
         self.instrument.write(f":TRIG:SLOP:ALEV {level}")
 
@@ -6016,11 +5497,10 @@ class Trigger:
         """
         Query the upper limit of the trigger level in slope trigger.
         
-        Parameter:
-        None
+
         
-        Return:
-        float: Level value
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:SLOP:ALEV?")
         try:
@@ -6032,11 +5512,9 @@ class Trigger:
         """
         Set the lower limit of the trigger level in slope trigger.
         
-        Parameter:
-        level (float): Level value
-        
-        Return:
-        None
+        :param level: Level value
+        :type level: float
+
         """
         self.instrument.write(f":TRIG:SLOP:BLEV {level}")
 
@@ -6044,11 +5522,10 @@ class Trigger:
         """
         Query the lower limit of the trigger level in slope trigger.
         
-        Parameter:
-        None
+
         
-        Return:
-        float: Level value
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:SLOP:BLEV?")
         try:
@@ -6061,11 +5538,9 @@ class Trigger:
         """
         Set the trigger source in video trigger.
         
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
-        
-        Return:
-        None
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6079,11 +5554,8 @@ class Trigger:
         """
         Query the trigger source in video trigger.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "CHAN1" or "CHAN2"
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:VID:SOUR?")
 
@@ -6091,11 +5563,8 @@ class Trigger:
         """
         Set the video polarity in video trigger.
         
-        Parameter:
-        polarity (str): "POSITIVE" or "NEGATIVE"
-        
-        Return:
-        None
+        :param polarity: "POSITIVE" or "NEGATIVE"
+        :type polarity: str
         """
         allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
         p = polarity.upper()
@@ -6109,11 +5578,8 @@ class Trigger:
         """
         Query the video polarity in video trigger.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "POS" or "NEG"
+        :return: "POS" or "NEG"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:VID:POL?")
 
@@ -6121,11 +5587,8 @@ class Trigger:
         """
         Set the sync type in video trigger.
         
-        Parameter:
-        mode (str): "ODDFIELD", "EVENFIELD", "LINE", or "ALINES"
-        
-        Return:
-        None
+        :param mode: "ODDFIELD", "EVENFIELD", "LINE", or "ALINES"
+        :type mode: str
         """
         allowed = {"ODDFIELD", "EVENFIELD", "LINE", "ALINES", "ODDF", "EVEN", "ALIN"}
         m = mode.upper()
@@ -6139,11 +5602,8 @@ class Trigger:
         """
         Query the sync type in video trigger.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "ODDF", "EVEN", "LINE", or "ALIN"
+        :return: "ODDF", "EVEN", "LINE", or "ALIN"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:VID:MODE?")
 
@@ -6151,11 +5611,9 @@ class Trigger:
         """
         Set the line number when the sync type in video trigger is LINE.
         
-        Parameter:
-        line (int): Line number (see documentation for valid range)
-        
-        Return:
-        None
+        :param line: Line number (see documentation for valid range)
+        :type line: int
+
         """
         if isinstance(line, int) and line >= 1:
             self.instrument.write(f":TRIG:VID:LINE {line}")
@@ -6166,11 +5624,10 @@ class Trigger:
         """
         Query the line number when the sync type in video trigger is LINE.
         
-        Parameter:
-        None
+
         
-        Return:
-        int: Line number
+        :return: Line number
+        :rtype: int or str
         """
         resp = self.instrument.query(":TRIG:VID:LINE?")
         try:
@@ -6182,11 +5639,9 @@ class Trigger:
         """
         Set the video standard in video trigger.
         
-        Parameter:
-        standard (str): "PALSECAM", "NTSC", "480P", or "576P"
-        
-        Return:
-        None
+        :param standard: "PALSECAM", "NTSC", "480P", or "576P"
+        :type standard: str
+
         """
         allowed = {"PALSECAM", "NTSC", "480P", "576P"}
         s = standard.upper()
@@ -6199,11 +5654,10 @@ class Trigger:
         """
         Query the video standard in video trigger.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: "PALS", "NTSC", "480P", or "576P"
+        :return: "PALS", "NTSC", "480P", or "576P"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:VID:STAN?")
 
@@ -6211,11 +5665,9 @@ class Trigger:
         """
         Set the trigger level in video trigger.
         
-        Parameter:
-        level (float): Level value
-        
-        Return:
-        None
+        :param level: Level value
+        :type level: float
+
         """
         self.instrument.write(f":TRIG:VID:LEV {level}")
 
@@ -6223,11 +5675,8 @@ class Trigger:
         """
         Query the trigger level in video trigger.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Level value
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:VID:LEV?")
         try:
@@ -6240,11 +5689,9 @@ class Trigger:
         """
         Set the trigger source in pattern trigger.
         
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
-        
-        Return:
-        None
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6258,11 +5705,10 @@ class Trigger:
         """
         Query the trigger source in pattern trigger.
         
-        Parameter:
-        None
+
         
-        Return:
-        str: "CHAN1" or "CHAN2"
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:PATT:SOUR?")
 
@@ -6270,11 +5716,8 @@ class Trigger:
         """
         Set the pattern condition in pattern trigger.
         
-        Parameter:
-        cond (str): "AND", "OR", "NAND", "NOR"
-        
-        Return:
-        None
+        :param cond: "AND", "OR", "NAND", "NOR"
+        :type cond: str
         """
         allowed = {"AND", "OR", "NAND", "NOR"}
         c = cond.upper()
@@ -6287,11 +5730,8 @@ class Trigger:
         """
         Query the pattern condition in pattern trigger.
         
-        Parameter:
-        None
-        
-        Return:
-        str: Condition code
+        :return: Condition code
+        :rtype: str
         """
         return self.instrument.query(":TRIG:PATT:COND?")
 
@@ -6299,11 +5739,8 @@ class Trigger:
         """
         Set the trigger level in pattern trigger.
         
-        Parameter:
-        level (float): Level value
-        
-        Return:
-        None
+        :param level: Level value
+        :type level: float
         """
         self.instrument.write(f":TRIG:PATT:LEV {level}")
 
@@ -6311,11 +5748,8 @@ class Trigger:
         """
         Query the trigger level in pattern trigger.
         
-        Parameter:
-        None
-        
-        Return:
-        float: Level value
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:PATT:LEV?")
         try:
@@ -6328,11 +5762,8 @@ class Trigger:
         """
         Set the trigger source in duration trigger.
         
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
-        
-        Return:
-        None
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6346,11 +5777,8 @@ class Trigger:
         """
         Query the trigger source in duration trigger.
         
-        Parameter:
-        None
-        
-        Return:
-        str: "CHAN1" or "CHAN2"
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:DUR:SOUR?")
 
@@ -6358,11 +5786,9 @@ class Trigger:
         """
         Set the trigger condition in duration trigger.
         
-        Parameter:
-        when (str): "GREATER", "LESS"
-        
-        Return:
-        None
+        :param when: "GREATER", "LESS"
+        :type when: str
+
         """
         allowed = {"GREATER", "LESS"}
         w = when.upper()
@@ -6375,11 +5801,8 @@ class Trigger:
         """
         Query the trigger condition in duration trigger.
 
-        Parameter:
-        None
-
-        Return:
-        str: Condition code
+        :return: Condition code
+        :rtype: str
         """
         return self.instrument.query(":TRIG:DUR:WHEN?")
 
@@ -6387,11 +5810,8 @@ class Trigger:
         """
         Set the time value in duration trigger (seconds).
 
-        Parameter:
-        time (float): 8e-9 to 10
-
-        Return:
-        None
+        :param time: 8e-9 to 10
+        :type time: float
         """
         if isinstance(time, (float, int)) and 8e-9 <= time <= 10:
             self.instrument.write(f":TRIG:DUR:TIME {time}")
@@ -6402,11 +5822,10 @@ class Trigger:
         """
         Query the time value in duration trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Time value
+
+        :return: Time value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:DUR:TIME?")
         try:
@@ -6419,11 +5838,9 @@ class Trigger:
         """
         Set the trigger source in timeout trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
 
-        Return:
-        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6437,11 +5854,10 @@ class Trigger:
         """
         Query the trigger source in timeout trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1" or "CHAN2"
+
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:TIME:SOUR?")
 
@@ -6449,11 +5865,9 @@ class Trigger:
         """
         Set the trigger condition in timeout trigger.
 
-        Parameter:
-        when (str): "GREATER", "LESS"
+        :param when: "GREATER", "LESS"
+        :type when: str
 
-        Return:
-        None
         """
         allowed = {"GREATER", "LESS"}
         w = when.upper()
@@ -6466,11 +5880,10 @@ class Trigger:
         """
         Query the trigger condition in timeout trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: Condition code
+
+        :return: Condition code
+        :rtype: str
         """
         return self.instrument.query(":TRIG:TIME:WHEN?")
 
@@ -6478,11 +5891,9 @@ class Trigger:
         """
         Set the time value in timeout trigger (seconds).
 
-        Parameter:
-        time (float): 8e-9 to 10
+        :param time: 8e-9 to 10
+        :type time: float
 
-        Return:
-        None
         """
         if isinstance(time, (float, int)) and 8e-9 <= time <= 10:
             self.instrument.write(f":TRIG:TIME:TIME {time}")
@@ -6493,11 +5904,10 @@ class Trigger:
         """
         Query the time value in timeout trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Time value
+
+        :return: Time value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:TIME:TIME?")
         try:
@@ -6509,11 +5919,9 @@ class Trigger:
         """
         Set the trigger source in runt trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
 
-        Return:
-        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6527,11 +5935,10 @@ class Trigger:
         """
         Query the trigger source in runt trigger.
         
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1" or "CHAN2"
+
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:RUNT:SOUR?")
 
@@ -6539,11 +5946,9 @@ class Trigger:
         """
         Set the pulse polarity in runt trigger.
 
-        Parameter:
-        polarity (str): "POSITIVE" or "NEGATIVE"
+        :param polarity: "POSITIVE" or "NEGATIVE"
+        :type polarity: str
 
-        Return:
-        None
         """
         allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
         p = polarity.upper()
@@ -6557,11 +5962,10 @@ class Trigger:
         """
         Query the pulse polarity in runt trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "POS" or "NEG"
+
+        :return: "POS" or "NEG"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:RUNT:POL?")
 
@@ -6569,11 +5973,9 @@ class Trigger:
         """
         Set the qualifier in runt trigger.
 
-        Parameter:
-        when (str): "NONE", "GREATER", "LESS", "GLESS"
+        :param when: "NONE", "GREATER", "LESS", "GLESS"
+        :type when: str
 
-        Return:
-        None
         """
         allowed = {"NONE", "GREATER", "LESS", "GLESS"}
         w = when.upper()
@@ -6587,11 +5989,10 @@ class Trigger:
         """
         Query the qualifier in runt trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: Qualifier code
+
+        :return: Qualifier code
+        :rtype: str
         """
         return self.instrument.query(":TRIG:RUNT:WHEN?")
 
@@ -6599,11 +6000,9 @@ class Trigger:
         """
         Set the pulse width upper limit in runt trigger (seconds).
 
-        Parameter:
-        upper (float): Upper limit, 16e-9 to 10
+        :param upper: Upper limit, 16e-9 to 10
+        :type upper: float
 
-        Return:
-        None
         """
         if isinstance(upper, (float, int)) and 16e-9 <= upper <= 10:
             self.instrument.write(f":TRIG:RUNT:WUPP {upper}")
@@ -6614,11 +6013,10 @@ class Trigger:
         """
         Query the pulse width upper limit in runt trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Upper limit
+
+        :return: Upper limit
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:RUNT:WUPP?")
         try:
@@ -6630,11 +6028,9 @@ class Trigger:
         """
         Set the pulse width lower limit in runt trigger (seconds).
 
-        Parameter:
-        lower (float): Lower limit, 8e-9 to 9.99
+        :param lower: Lower limit, 8e-9 to 9.99
+        :type lower: float
 
-        Return:
-        None
         """
         if isinstance(lower, (float, int)) and 8e-9 <= lower <= 9.99:
             self.instrument.write(f":TRIG:RUNT:WLOW {lower}")
@@ -6645,11 +6041,8 @@ class Trigger:
         """
         Query the pulse width lower limit in runt trigger (seconds).
 
-        Parameter:
-        None
-
-        Return:
-        float: Lower limit
+        :return: Lower limit
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:RUNT:WLOW?")
         try:
@@ -6661,11 +6054,9 @@ class Trigger:
         """
         Set the trigger level upper limit in runt trigger.
 
-        Parameter:
-        level (float): Level value
+        :param level: Level value
+        :type level: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TRIG:RUNT:ALEV {level}")
 
@@ -6673,11 +6064,8 @@ class Trigger:
         """
         Query the trigger level upper limit in runt trigger.
 
-        Parameter:
-        None
-
-        Return:
-        float: Level value
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:RUNT:ALEV?")
         try:
@@ -6689,11 +6077,9 @@ class Trigger:
         """
         Set the trigger level lower limit in runt trigger.
 
-        Parameter:
-        level (float): Level value
+        :param level: Level value
+        :type level: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TRIG:RUNT:BLEV {level}")
 
@@ -6701,11 +6087,10 @@ class Trigger:
         """
         Query the trigger level lower limit in runt trigger.
 
-        Parameter:
-        None
 
-        Return:
-        float: Level value
+
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:RUNT:BLEV?")
         try:
@@ -6718,11 +6103,9 @@ class Trigger:
         """
         Set the trigger source in windows trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
 
-        Return:
-        None
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6736,11 +6119,10 @@ class Trigger:
         """
         Query the trigger source in windows trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1" or "CHAN2"
+
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:WIND:SOUR?")
 
@@ -6748,11 +6130,8 @@ class Trigger:
         """
         Set the windows type in windows trigger.
 
-        Parameter:
-        slope (str): "POSITIVE", "NEGATIVE", "RFALL"
-
-        Return:
-        None
+        :param slope: "POSITIVE", "NEGATIVE", "RFALL"
+        :type slope: str
         """
         allowed = {"POSITIVE", "NEGATIVE", "RFALL", "POS", "NEG"}
         s = slope.upper()
@@ -6766,11 +6145,8 @@ class Trigger:
         """
         Query the windows type in windows trigger.
 
-        Parameter:
-        None
-
-        Return:
-        str: "POS", "NEG", or "RFAL"
+        :return: "POS", "NEG", or "RFAL"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:WIND:SLOP?")
 
@@ -6778,11 +6154,9 @@ class Trigger:
         """
         Set the trigger position in windows trigger.
 
-        Parameter:
-        pos (str): "EXIT", "ENTER", "TIME"
+        :param pos: "EXIT", "ENTER", "TIME"
+        :type pos: str
 
-        Return:
-        None
         """
         allowed = {"EXIT", "ENTER", "TIME", "TIM"}
         p = pos.upper()
@@ -6796,11 +6170,10 @@ class Trigger:
         """
         Query the trigger position in windows trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "EXIT", "ENTER", or "TIM"
+
+        :return: "EXIT", "ENTER", or "TIM"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:WIND:POS?")
 
@@ -6808,11 +6181,9 @@ class Trigger:
         """
         Set the hold time in windows trigger (seconds).
 
-        Parameter:
-        time (float): 8e-9 to 10
+        :param time: 8e-9 to 10
+        :type time: float
 
-        Return:
-        None
         """
         if isinstance(time, (float, int)) and 8e-9 <= time <= 10:
             self.instrument.write(f":TRIG:WIND:TIME {time}")
@@ -6823,11 +6194,10 @@ class Trigger:
         """
         Query the hold time in windows trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Hold time
+
+        :return: Hold time
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:WIND:TIME?")
         try:
@@ -6839,11 +6209,9 @@ class Trigger:
         """
         Set the trigger level upper limit in windows trigger.
 
-        Parameter:
-        level (float): Level value
+        :param level: Level value
+        :type level: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TRIG:WIND:ALEV {level}")
 
@@ -6851,11 +6219,8 @@ class Trigger:
         """
         Query the trigger level upper limit in windows trigger.
 
-        Parameter:
-        None
-
-        Return:
-        float: Level value
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:WIND:ALEV?")
         try:
@@ -6867,21 +6232,18 @@ class Trigger:
         """
         Set the trigger level lower limit in windows trigger.
 
-        Parameter:
-        level (float): Level value
+        :param level: Level value
+        :type level: float
 
-        Return:
-        None
         """
         self.instrument.write(f":TRIG:WIND:BLEV {level}")
 
     def get_windows_blevel(self):
         """
         Query the trigger level lower limit in windows trigger.
-        Parameter:
-        None
-        Return:
-        float: Level value
+
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:WIND:BLEV?")
         try:
@@ -6894,11 +6256,10 @@ class Trigger:
         """
         Set the trigger source A in delay trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
 
-        Return:
-        None
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6912,11 +6273,10 @@ class Trigger:
         """
         Query the trigger source A in delay trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1" or "CHAN2"
+
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:DEL:SA?")
 
@@ -6924,11 +6284,9 @@ class Trigger:
         """
         Set the edge type of edge A in delay trigger.
 
-        Parameter:
-        slope (str): "POSITIVE" or "NEGATIVE"
+        :param slope: "POSITIVE" or "NEGATIVE"
+        :type slope: str
 
-        Return:
-        None
         """
         allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
         s = slope.upper()
@@ -6942,11 +6300,10 @@ class Trigger:
         """
         Query the edge type of edge A in delay trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "POS" or "NEG"
+
+        :return: "POS" or "NEG"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:DEL:SLOPA?")
 
@@ -6954,11 +6311,8 @@ class Trigger:
         """
         Set the trigger source B in delay trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
-
-        Return:
-        None
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -6972,11 +6326,10 @@ class Trigger:
         """
         Query the trigger source B in delay trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1" or "CHAN2"
+
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:DEL:SB?")
 
@@ -6984,11 +6337,10 @@ class Trigger:
         """
         Set the edge type of edge B in delay trigger.
 
-        Parameter:
-        slope (str): "POSITIVE" or "NEGATIVE"
+        :param slope: "POSITIVE" or "NEGATIVE"
+        :type slope: str
 
-        Return:
-        None
+
         """
         allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
         s = slope.upper()
@@ -7002,11 +6354,10 @@ class Trigger:
         """
         Query the edge type of edge B in delay trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "POS" or "NEG"
+
+        :return: "POS" or "NEG"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:DEL:SLOPB?")
 
@@ -7014,11 +6365,10 @@ class Trigger:
         """
         Set the delay type in delay trigger.
 
-        Parameter:
-        dtype (str): "GREATER", "LESS", "GLESS", "GOUT"
+        :param dtype: "GREATER", "LESS", "GLESS", "GOUT"
+        :type dtype: str
 
-        Return:
-        None
+
         """
         allowed = {"GREATER", "LESS", "GLESS", "GOUT"}
         d = dtype.upper()
@@ -7033,8 +6383,8 @@ class Trigger:
         Query the delay type in delay trigger.
 
         
-        Return:
-        str: Delay type code
+        :return: Delay type code
+        :rtype: str
         """
         return self.instrument.query(":TRIG:DEL:TYPE?")
 
@@ -7042,11 +6392,10 @@ class Trigger:
         """
         Set the upper limit of the delay time in delay trigger (seconds).
 
-        Parameter:
-        upper (float): 16e-9 to 10
+        :param upper: 16e-9 to 10
+        :type upper: float
 
-        Return:
-        None
+
         """
         if isinstance(upper, (float, int)) and 16e-9 <= upper <= 10:
             self.instrument.write(f":TRIG:DEL:TUPP {upper}")
@@ -7057,11 +6406,10 @@ class Trigger:
         """
         Query the upper limit of the delay time in delay trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Upper limit
+
+        :return: Upper limit
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:DEL:TUPP?")
         try:
@@ -7073,11 +6421,10 @@ class Trigger:
         """
         Set the lower limit of the delay time in delay trigger (seconds).
 
-        Parameter:
-        lower (float): 8e-9 to 9.99
+        :param lower: 8e-9 to 9.99
+        :type lower: float
 
-        Return:
-        None
+
         """
         if isinstance(lower, (float, int)) and 8e-9 <= lower <= 9.99:
             self.instrument.write(f":TRIG:DEL:TLOW {lower}")
@@ -7088,11 +6435,10 @@ class Trigger:
         """
         Query the lower limit of the delay time in delay trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Lower limit
+
+        :return: Lower limit
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:DEL:TLOW?")
         try:
@@ -7105,11 +6451,10 @@ class Trigger:
         """
         Set the data source in setup/hold trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
 
-        Return:
-        None
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -7123,11 +6468,10 @@ class Trigger:
         """
         Query the data source in setup/hold trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1" or "CHAN2"
+
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SHOL:DSRC?")
 
@@ -7135,11 +6479,8 @@ class Trigger:
         """
         Set the clock source in setup/hold trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
-
-        Return:
-        None
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -7153,11 +6494,8 @@ class Trigger:
         """
         Query the clock source in setup/hold trigger.
 
-        Parameter:
-        None
-
-        Return:
-        str: "CHAN1" or "CHAN2"
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SHOL:CSRC?")
 
@@ -7165,11 +6503,8 @@ class Trigger:
         """
         Set the edge type of the clock in setup/hold trigger.
 
-        Parameter:
-        slope (str): "POSITIVE" or "NEGATIVE"
-
-        Return:
-        None
+        :param slope: "POSITIVE" or "NEGATIVE"
+        :type slope: str
         """
         allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
         s = slope.upper()
@@ -7183,11 +6518,8 @@ class Trigger:
         """
         Query the edge type of the clock in setup/hold trigger.
 
-        Parameter:
-        None
-
-        Return:
-        str: "POS" or "NEG"
+        :return: "POS" or "NEG"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SHOL:SLOP?")
 
@@ -7195,11 +6527,8 @@ class Trigger:
         """
         Set the pattern in setup/hold trigger.
 
-        Parameter:
-        pattern (str): "SETUP" or "HOLD"
-
-        Return:
-        None
+        :param pattern: "SETUP" or "HOLD"
+        :type pattern: str
         """
         allowed = {"SETUP", "HOLD"}
         p = pattern.upper()
@@ -7212,11 +6541,8 @@ class Trigger:
         """
         Query the pattern in setup/hold trigger.
 
-        Parameter:
-        None
-
-        Return:
-        str: "SETU" or "HOLD"
+        :return: "SETU" or "HOLD"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SHOL:PATT?")
 
@@ -7224,11 +6550,8 @@ class Trigger:
         """
         Set the trigger type in setup/hold trigger.
 
-        Parameter:
-        typ (str): "GREATER" or "LESS"
-
-        Return:
-        None
+        :param typ: "GREATER" or "LESS"
+        :type typ: str
         """
         allowed = {"GREATER", "LESS"}
         t = typ.upper()
@@ -7241,11 +6564,8 @@ class Trigger:
         """
         Query the trigger type in setup/hold trigger.
 
-        Parameter:
-        None
-
-        Return:
-        str: "GREA" or "LESS"
+        :return: "GREA" or "LESS"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:SHOL:TYPE?")
 
@@ -7253,11 +6573,10 @@ class Trigger:
         """
         Set the setup time in setup/hold trigger (seconds).
 
-        Parameter:
-        time (float): Setup time in seconds
+        :param time: Setup time in seconds
+        :type time: float
 
-        Return:
-        None
+
         """
         self.instrument.write(f":TRIG:SHOL:STIM {time}")
 
@@ -7265,11 +6584,10 @@ class Trigger:
         """
         Query the setup time in setup/hold trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Setup time in seconds
+
+        :return: Setup time in seconds
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:SHOL:STIM?")
         try:
@@ -7281,11 +6599,10 @@ class Trigger:
         """
         Set the hold time in setup/hold trigger (seconds).
 
-        Parameter:
-        time (float): Hold time in seconds
+        :param time: Hold time in seconds
+        :type time: float
 
-        Return:
-        None
+
         """
         self.instrument.write(f":TRIG:SHOL:HTIM {time}")
 
@@ -7293,11 +6610,10 @@ class Trigger:
         """
         Query the hold time in setup/hold trigger (seconds).
 
-        Parameter:
-        None
 
-        Return:
-        float: Hold time in seconds
+
+        :return: Hold time in seconds
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:SHOL:HTIM?")
         try:
@@ -7311,11 +6627,10 @@ class Trigger:
         """
         Set the trigger source in noise edge trigger.
 
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
+        :param source: "CHANNEL1" or "CHANNEL2"
+        :type source: str
 
-        Return:
-        None
+
         """
         allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -7329,11 +6644,10 @@ class Trigger:
         """
         Query the trigger source in noise edge trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "CHAN1" or "CHAN2"
+
+        :return: "CHAN1" or "CHAN2"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:NEDG:SOUR?")
 
@@ -7341,11 +6655,10 @@ class Trigger:
         """
         Set the edge type in noise edge trigger.
 
-        Parameter:
-        slope (str): "POSITIVE", "NEGATIVE", "RFALL"
+        :param slope: "POSITIVE", "NEGATIVE", "RFALL"
+        :type slope: str
 
-        Return:
-        None
+
         """
         allowed = {"POSITIVE", "NEGATIVE", "RFALL", "POS", "NEG"}
         s = slope.upper()
@@ -7359,11 +6672,10 @@ class Trigger:
         """
         Query the edge type in noise edge trigger.
 
-        Parameter:
-        None
 
-        Return:
-        str: "POS", "NEG", or "RFAL"
+
+        :return: "POS", "NEG", or "RFAL"
+        :rtype: str
         """
         return self.instrument.query(":TRIG:NEDG:SLOP?")
 
@@ -7371,11 +6683,10 @@ class Trigger:
         """
         Set the trigger level in noise edge trigger.
 
-        Parameter:
-        level (float): Level value
+        :param level: Level value
+        :type level: float
 
-        Return:
-        None
+
         """
         self.instrument.write(f":TRIG:NEDG:LEV {level}")
 
@@ -7383,11 +6694,10 @@ class Trigger:
         """
         Query the trigger level in noise edge trigger.
 
-        Parameter:
-        None
 
-        Return:
-        float: Level value
+
+        :return: Level value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:NEDG:LEV?")
         try:
@@ -7399,11 +6709,10 @@ class Trigger:
         """
         The query returns the idle time in scientific notation
 
-        Parameter:
-        noise (float): Noise value
+        :param noise: Noise value
+        :type noise: float
 
-        Return:
-        None
+
         """
         self.instrument.write(f":TRIG:NEDG:IDLE {noise}")
 
@@ -7411,8 +6720,8 @@ class Trigger:
         """
         Query the noise tolerance in noise edge trigger.
        
-        Return:
-        float: Noise value
+        :return: Noise value
+        :rtype: float or str
         """
         resp = self.instrument.query(":TRIG:NEDG:IDLE?")
         try:
@@ -7420,724 +6729,796 @@ class Trigger:
         except Exception:
             return resp
 
-# RS232 Subtree
-class RS232:
-    """
-    The RS232 trigger commands for the oscilloscope.
-    """
-    def __init__(self, instrument,data_handler):
-        self.instrument = instrument
-        self.data_handler = data_handler
-
-    def set_source(self, source):
-        """
-        Set the trigger source in RS232 trigger.
-
-        Parameter:
-        source (str): "CHANNEL1" or "CHANNEL2"
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-        s = source.upper()
-        if s in allowed:
-            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-            self.instrument.write(f":TRIG:RS232:SOUR {val}")
-        else:
-            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_source(self):
-        """
-        Query the trigger source in RS232 trigger.
-
-        Returns:
-        str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(":TRIG:RS232:SOUR?")
-
-    def set_when(self, when):
-        """
-        Set the trigger condition in RS232 trigger.
-
-        Parameter:
-        when (str): "START", "STOP", "DATA", "PARITY", "ERROR"
-        """
-        allowed = {"START", "STOP", "DATA", "PARITY", "ERROR"}
-        w = when.upper()
-        if w in allowed:
-            self.instrument.write(f":TRIG:RS232:WHEN {w}")
-        else:
-            print("Invalid when. Allowed: START, STOP, DATA, PARITY, ERROR.")
-
-    def get_when(self):
-        """
-        Query the trigger condition in RS232 trigger.
-
-        Returns:
-        str: Condition
-        """
-        return self.instrument.query(":TRIG:RS232:WHEN?")
-
-    def set_parity(self, parity):
-        """
-        Set the parity in RS232 trigger.
-
-        Parameter:
-        parity (str): "NONE", "EVEN", or "ODD"
-        """
-        allowed = {"NONE", "EVEN", "ODD"}
-        p = parity.upper()
-        if p in allowed:
-            self.instrument.write(f":TRIG:RS232:PAR {p}")
-        else:
-            print("Invalid parity. Allowed: NONE, EVEN, ODD.")
-
-    def get_parity(self):
-        """
-        Query the parity in RS232 trigger.
-
-        Returns:
-        str: Parity
-        """
-        return self.instrument.query(":TRIG:RS232:PAR?")
-
-    def set_stop(self, stop):
-        """
-        Set the stop bit in RS232 trigger.
-
-        Parameter:
-        stop (float): Stop bit, one of 1, 1.5, or 2
-        """
-        allowed = {1, 1.5, 2}
-        if stop in allowed:
-            self.instrument.write(f":TRIG:RS232:STOP {stop}")
-        else:
-            print("Invalid stop bit. Allowed: 1, 1.5, 2.")
-
-    def get_stop(self):
-        """
-        Query the stop bit in RS232 trigger.
-
-        Returns:
-        float: Stop bit
-        """
-        resp = self.instrument.query(":TRIG:RS232:STOP?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_data(self, data):
-        """
-        Set the data width in RS232 trigger.
-        
-        Parameter:
-        data (int): Data width, 5 to 8
-        """
-        if isinstance(data, int) and 5 <= data <= 8:
-            self.instrument.write(f":TRIG:RS232:DATA {data}")
-        else:
-            print("Invalid data width. Must be integer between 5 and 8.")
-
-    def get_data(self):
-        """
-        Query the data width in RS232 trigger.
-        
-        Returns:
-        int: Data width
-        """
-        resp = self.instrument.query(":TRIG:RS232:DATA?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_width(self, width):
-        """
-        Set the width in RS232 trigger.
-        
-        Parameter:
-        width (int): Data width, 5 to 8
-        """
-        if isinstance(width, int) and 5 <= width <= 8:
-            self.instrument.write(f":TRIG:RS232:WIDT {width}")
-        else:
-            print("Invalid width. Must be integer between 5 and 8.")
-
-    def get_width(self):
-        """
-        Query the width in RS232 trigger.
-        
-        Returns:
-        int: Data width
-        """
-        resp = self.instrument.query(":TRIG:RS232:WIDT?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_baud(self, baud):
-        """
-        Set the baud rate in RS232 trigger.
-        
-        Parameter:
-        baud (int): Baud rate, 110 to 20000000
-        """
-        if isinstance(baud, int) and 110 <= baud <= 20000000:
-            self.instrument.write(f":TRIG:RS232:BAUD {baud}")
-        else:
-            print("Invalid baud rate. Must be integer between 110 and 20000000.")
-
-    def get_baud(self):
-        """
-        Query the baud rate in RS232 trigger.
-        
-        Returns:
-        int: Baud rate
-        """
-        resp = self.instrument.query(":TRIG:RS232:BAUD?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_buser(self, buser):
-        """
-        Set the bus user value in RS232 trigger.
-        
-        Parameter:
-        buser (int): User value (see instrument documentation for valid range)
-        """
-        if isinstance(buser, int):
-            self.instrument.write(f":TRIG:RS232:BUS {buser}")
-        else:
-            print("Invalid bus user value. Must be integer.")
-
-    def get_buser(self):
-        """
-        Query the bus user value in RS232 trigger.
-        
-        Returns:
-        int: Bus user value
-        """
-        resp = self.instrument.query(":TRIG:RS232:BUS?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_level(self, level):
-        """
-        Set the trigger level in RS232 trigger.
-        
-        Parameter:
-        level (float): Level value
-        """
-        self.instrument.write(f":TRIG:RS232:LEV {level}")
-
-    def get_level(self):
-        """
-        Query the trigger level in RS232 trigger.
-        
-        Returns: 
-        float: Level value
-        """
-        resp = self.instrument.query(":TRIG:RS232:LEV?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-class IIC_Trigger:
-    """
-    The IIC trigger commands for the oscilloscope.
-    """
-    def __init__(self, instrument,data_handler):
-        self.instrument = instrument
-        self.data_handler = data_handler
-
-    def set_scl(self, source):
-        """
-        Set the channel source of SCL in I2C trigger.
-
-        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-        s = source.upper()
-        if s in allowed:
-            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-            self.instrument.write(f":TRIG:IIC:SCL {val}")
-        else:
-            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_scl(self):
-        """
-        Query the channel source of SCL in I2C trigger.
-
-        Returns: str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(":TRIG:IIC:SCL?")
-
-    def set_sda(self, source):
-        """
-        Set the channel source of SDA in I2C trigger.
-        
-        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-        s = source.upper()
-        if s in allowed:
-            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-            self.instrument.write(f":TRIG:IIC:SDA {val}")
-        else:
-            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_sda(self):
-        """
-        Query the channel source of SDA in I2C trigger.
-        
-        Returns: str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(":TRIG:IIC:SDA?")
-
-    def set_when(self, trig_type):
-        """
-        Set the trigger condition in I2C trigger.
-        trig_type (str): "START", "RESTART", "STOP", "NACKNOWLEDGE", "ADDRESS", "DATA", "ADATA"
-        """
-        allowed = {"START", "RESTART", "STOP", "NACKNOWLEDGE", "ADDRESS", "DATA", "ADATA"}
-        t = trig_type.upper()
-        if t in allowed:
-            val = {
-                "START": "STARt",
-                "RESTART": "RESTart",
-                "STOP": "STOP",
-                "NACKNOWLEDGE": "NACKnowledge",
-                "ADDRESS": "ADDRess",
-                "DATA": "DATA",
-                "ADATA": "ADATa"
-            }[t]
-            self.instrument.write(f":TRIG:IIC:WHEN {val}")
-        else:
-            print("Invalid trigger type.")
-
-    def get_when(self):
-        """
-        Query the trigger condition in I2C trigger.
-
-        Returns: str
-        """
-        return self.instrument.query(":TRIG:IIC:WHEN?")
-
-    def set_awidth(self, bits):
-        """
-        Set the address bits when trigger condition is ADDRESS or ADATA.
-        bits (int): 7, 8, or 10
-        """
-        if bits in [7, 8, 10]:
-            self.instrument.write(f":TRIG:IIC:AWIDth {bits}")
-        else:
-            print("Invalid address width. Allowed: 7, 8, 10.")
-
-    def get_awidth(self):
-        """
-        Query the address bits for I2C trigger.
-
-        Returns: int
-        """
-        resp = self.instrument.query(":TRIG:IIC:AWIDth?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_address(self, adr):
-        """
-        Set the address for ADDRESS or ADATA trigger.
-        adr (int): 0 to 1023 (depends on address width)
-        """
-        if isinstance(adr, int) and 0 <= adr <= 1023:
-            self.instrument.write(f":TRIG:IIC:ADDRess {adr}")
-        else:
-            print("Invalid address value.")
-
-    def get_address(self):
-        """
-        Query the address for I2C trigger.
-
-        Returns: int
-        """
-        resp = self.instrument.query(":TRIG:IIC:ADDRess?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_direction(self, direction):
-        """
-        Set the data direction for ADDRESS or ADATA trigger.
-        direction (str): "READ", "WRITE", or "RWRITE"
-        """
-        allowed = {"READ", "WRITE", "RWRITE"}
-        d = direction.upper()
-        if d in allowed:
-            val = {"READ": "READ", "WRITE": "WRITe", "RWRITE": "RWRite"}[d]
-            self.instrument.write(f":TRIG:IIC:DIRection {val}")
-        else:
-            print("Invalid direction. Allowed: READ, WRITE, RWRITE.")
-
-    def get_direction(self):
-        """
-        Query the data direction for I2C trigger.
-        
-        Returns: str
-        """
-        return self.instrument.query(":TRIG:IIC:DIRection?")
-
-    def set_data(self, data):
-        """
-        Set the data for DATA or ADATA trigger.
-        
-        Parameters: data (int): 0 to 2^40-1 (max 40 bits)
-        """
-        if isinstance(data, int) and 0 <= data < 2**40:
-            self.instrument.write(f":TRIG:IIC:DATA {data}")
-        else:
-            print("Invalid data value.")
-
-    def get_data(self):
-        """
-        Query the data for I2C trigger.
-        
-        Returns: int
-        """
-        resp = self.instrument.query(":TRIG:IIC:DATA?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_clevel(self, level):
-        """
-        Set the trigger level of SCL in I2C trigger.
-        
-        Parameters: level (float): Level value
-        """
-        self.instrument.write(f":TRIG:IIC:CLEVel {level}")
-
-    def get_clevel(self):
-        """
-        Query the trigger level of SCL in I2C trigger.
-        
-        Returns: float
-        """
-        resp = self.instrument.query(":TRIG:IIC:CLEVel?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_dlevel(self, level):
-        """
-        Set the trigger level of SDA in I2C trigger.
-        
-        Parameters: level (float): Level value
-        """
-        self.instrument.write(f":TRIG:IIC:DLEVel {level}")
-
-    def get_dlevel(self):
-        """
-        Query the trigger level of SDA in I2C trigger.
-        
-        Returns: float
-        """
-        resp = self.instrument.query(":TRIG:IIC:DLEVel?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-class SPI_Trigger:
-    """
-    The SPI trigger commands for the oscilloscope.
-    """
-    def __init__(self, instrument,data_handler):
-        self.instrument = instrument
-        self.data_handler = data_handler
-
-    def set_scl(self, source):
-        """
-        Set the channel source of SCL in SPI trigger.
-        
-        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-        s = source.upper()
-        if s in allowed:
-            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-            self.instrument.write(f":TRIG:SPI:SCL {val}")
-        else:
-            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_scl(self):
-        """
-        Query the channel source of SCL in SPI trigger.
-        
-        Returns: str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(":TRIG:SPI:SCL?")
-
-    def set_sda(self, source):
-        """
-        Set the channel source of SDA in SPI trigger.
-        
-        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-        s = source.upper()
-        if s in allowed:
-            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-            self.instrument.write(f":TRIG:SPI:SDA {val}")
-        else:
-            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_sda(self):
-        """
-        Query the channel source of SDA in SPI trigger.
-        
-        Returns: str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(":TRIG:SPI:SDA?")
-
-    def set_when(self, trig_type):
-        """
-        Set the trigger condition in SPI trigger.
-        
-        Parameters: trig_type (str): "CS" or "TIMEOUT"
-        """
-        allowed = {"CS", "TIMEOUT"}
-        t = trig_type.upper()
-        if t in allowed:
-            val = "CS" if t == "CS" else "TIMeout"
-            self.instrument.write(f":TRIG:SPI:WHEN {val}")
-        else:
-            print("Invalid trigger type. Allowed: CS, TIMEOUT.")
-
-    def get_when(self):
-        """
-        Query the trigger condition in SPI trigger.
-        
-        Returns: str
-        """
-        return self.instrument.query(":TRIG:SPI:WHEN?")
-
-    def set_width(self, width):
-        """
-        Set the data bits of the SDA channel in SPI trigger.
-        
-        Parameters: width (int): 4 to 32
-        """
-        if isinstance(width, int) and 4 <= width <= 32:
-            self.instrument.write(f":TRIG:SPI:WIDTh {width}")
-        else:
-            print("Invalid width. Must be integer between 4 and 32.")
-
-    def get_width(self):
-        """
-        Query the data bits of the SDA channel in SPI trigger.
-        
-        Returns: int
-        """
-        resp = self.instrument.query(":TRIG:SPI:WIDTh?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_data(self, data):
-        """
-        Set the data in SPI trigger.
-
-        Parameters: data (int): 0 to 2^32-1
-        """
-        if isinstance(data, int) and 0 <= data < 2**32:
-            self.instrument.write(f":TRIG:SPI:DATA {data}")
-        else:
-            print("Invalid data value.")
-
-    def get_data(self):
-        """
-        Query the data in SPI trigger.
-
-        Returns: int
-        """
-        resp = self.instrument.query(":TRIG:SPI:DATA?")
-        try:
-            return int(resp)
-        except Exception:
-            return resp
-
-    def set_timeout(self, time_value):
-        """
-        Set the timeout value in SPI trigger (seconds).
-
-        Parameters:  time_value (float): 100e-9 to 1
-        """
-        if isinstance(time_value, (float, int)) and 1e-7 <= time_value <= 1:
-            self.instrument.write(f":TRIG:SPI:TIMeout {time_value}")
-        else:
-            print("Invalid timeout value. Must be between 100ns and 1s.")
-
-    def get_timeout(self):
-        """
-        Query the timeout value in SPI trigger.
-        
-        Parameters: Returns: float
-        """
-        resp = self.instrument.query(":TRIG:SPI:TIMeout?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_slope(self, slope):
-        """
-        Set the clock edge in SPI trigger.
-        
-        Parameters: slope (str): "POSITIVE" or "NEGATIVE"
-        """
-        allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
-        s = slope.upper()
-        if s in allowed:
-            val = "POSitive" if s.startswith("POS") else "NEGative"
-            self.instrument.write(f":TRIG:SPI:SLOPe {val}")
-        else:
-            print("Invalid slope. Allowed: POSITIVE, NEGATIVE.")
-
-    def get_slope(self):
-        """
-        Query the clock edge in SPI trigger.
-        
-        Parameters: Returns: str: "POS" or "NEG"
-        """
-        return self.instrument.query(":TRIG:SPI:SLOPe?")
-
-    def set_clevel(self, level):
-        """
-        Set the trigger level of the SCL channel in SPI trigger.
-
-        Parameters:
-        level (float): Level value
-        """
-        self.instrument.write(f":TRIG:SPI:CLEVel {level}")
-
-    def get_clevel(self):
-        """
-        Query the trigger level of the SCL channel in SPI trigger.
-        
-        Returns: float
-        """
-        resp = self.instrument.query(":TRIG:SPI:CLEVel?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_dlevel(self, level):
-        """
-        Set the trigger level of the SDA channel in SPI trigger.
-
-        Parameters: 
-        level (float): Level value
-        """
-        self.instrument.write(f":TRIG:SPI:DLEVel {level}")
-
-    def get_dlevel(self):
-        """
-        Query the trigger level of the SDA channel in SPI trigger.
-        
-        Returns: float
-        """
-        resp = self.instrument.query(":TRIG:SPI:DLEVel?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_slevel(self, level):
-        """
-        Set the trigger level of the CS channel in SPI trigger.
-
-        Parameters: level (float): Level value
-        """
-        self.instrument.write(f":TRIG:SPI:SLEVel {level}")
-
-    def get_slevel(self):
-        """
-        Query the trigger level of the CS channel in SPI trigger.
-
-        Returns: float
-        """
-        resp = self.instrument.query(":TRIG:SPI:SLEVel?")
-        try:
-            return float(resp)
-        except Exception:
-            return resp
-
-    def set_mode(self, mode):
-        """
-        Set the CS mode when trigger condition is CS in SPI trigger.
-
-        Parameters: mode (str): "HIGH" or "LOW"
-        """
-        allowed = {"HIGH", "LOW"}
-        m = mode.upper()
-        if m in allowed:
-            self.instrument.write(f":TRIG:SPI:MODE {m}")
-        else:
-            print("Invalid mode. Allowed: HIGH, LOW.")
-
-    def get_mode(self):
-        """
-        Query the CS mode when trigger condition is CS in SPI trigger.
-
-        Returns: str: "HIGH" or "LOW"
-        """
-        return self.instrument.query(":TRIG:SPI:MODE?")
-
-    def set_cs(self, source):
-        """
-        Set the data source of the CS signal in SPI trigger.
-
-        Parameters: source (str): "CHANNEL1" or "CHANNEL2"
-        """
-        allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
-        s = source.upper()
-        if s in allowed:
-            val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
-            self.instrument.write(f":TRIG:SPI:CS {val}")
-        else:
-            print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
-
-    def get_cs(self):
-        """
-        Query the data source of the CS signal in SPI trigger.
-
-        Returns: str: "CHAN1" or "CHAN2"
-        """
-        return self.instrument.query(":TRIG:SPI:CS?")
+    # RS232 Subtree
+    class RS232:
+        """
+        The RS232 trigger commands for the oscilloscope.
+        """
+        def __init__(self, instrument,data_handler):
+            """Initalize RS232 trigger commands.
+            
+            :param instrument: The instrument instance
+            :type instrument: Instrument
+            :param data_handler: The data handler instance
+            :type data_handler: Data_Handler
+            """
+            self.instrument = instrument
+            self.data_handler = data_handler
+
+        def set_source(self, source):
+            """
+            Set the trigger source in RS232 trigger.
+
+            :param source: "CHANNEL1" or "CHANNEL2"
+            :type source: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+            s = source.upper()
+            if s in allowed:
+                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+                self.instrument.write(f":TRIG:RS232:SOUR {val}")
+            else:
+                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_source(self):
+            """
+            Query the trigger source in RS232 trigger.
+
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:RS232:SOUR?")
+
+        def set_when(self, when):
+            """
+            Set the trigger condition in RS232 trigger.
+
+            :param when: "START", "STOP", "DATA", "PARITY", "ERROR"
+            :type when: str
+            """
+            allowed = {"START", "STOP", "DATA", "PARITY", "ERROR"}
+            w = when.upper()
+            if w in allowed:
+                self.instrument.write(f":TRIG:RS232:WHEN {w}")
+            else:
+                print("Invalid when. Allowed: START, STOP, DATA, PARITY, ERROR.")
+
+        def get_when(self):
+            """
+            Query the trigger condition in RS232 trigger.
+
+            :return: Condition
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:RS232:WHEN?")
+
+        def set_parity(self, parity):
+            """
+            Set the parity in RS232 trigger.
+
+            :param parity: "NONE", "EVEN", or "ODD"
+            :type parity: str
+            """
+            allowed = {"NONE", "EVEN", "ODD"}
+            p = parity.upper()
+            if p in allowed:
+                self.instrument.write(f":TRIG:RS232:PAR {p}")
+            else:
+                print("Invalid parity. Allowed: NONE, EVEN, ODD.")
+
+        def get_parity(self):
+            """
+            Query the parity in RS232 trigger.
+
+            :return: Parity
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:RS232:PAR?")
+
+        def set_stop(self, stop):
+            """
+            Set the stop bit in RS232 trigger.
+
+            :param stop: Stop bit, one of 1, 1.5, or 2
+            :type stop: float
+            """
+            allowed = {1, 1.5, 2}
+            if stop in allowed:
+                self.instrument.write(f":TRIG:RS232:STOP {stop}")
+            else:
+                print("Invalid stop bit. Allowed: 1, 1.5, 2.")
+
+        def get_stop(self):
+            """
+            Query the stop bit in RS232 trigger.
+
+            :return: Stop bit
+            :rtype: float or str
+            """
+            resp = self.instrument.query(":TRIG:RS232:STOP?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_data(self, data):
+            """
+            Set the data width in RS232 trigger.
+            
+            :param data: Data width, 5 to 8
+            :type data: int
+            """
+            if isinstance(data, int) and 5 <= data <= 8:
+                self.instrument.write(f":TRIG:RS232:DATA {data}")
+            else:
+                print("Invalid data width. Must be integer between 5 and 8.")
+
+        def get_data(self):
+            """
+            Query the data width in RS232 trigger.
+            
+            :return: Data width
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:RS232:DATA?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_width(self, width):
+            """
+            Set the width in RS232 trigger.
+            
+            :param width: Data width, 5 to 8
+            :type width: int
+            """
+            if isinstance(width, int) and 5 <= width <= 8:
+                self.instrument.write(f":TRIG:RS232:WIDT {width}")
+            else:
+                print("Invalid width. Must be integer between 5 and 8.")
+
+        def get_width(self):
+            """
+            Query the width in RS232 trigger.
+            
+            :return: Data width
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:RS232:WIDT?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_baud(self, baud):
+            """
+            Set the baud rate in RS232 trigger.
+            
+            :param baud: Baud rate, 110 to 20000000
+            :type baud: int
+            """
+            if isinstance(baud, int) and 110 <= baud <= 20000000:
+                self.instrument.write(f":TRIG:RS232:BAUD {baud}")
+            else:
+                print("Invalid baud rate. Must be integer between 110 and 20000000.")
+
+        def get_baud(self):
+            """
+            Query the baud rate in RS232 trigger.
+            
+            :return: Baud rate
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:RS232:BAUD?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_buser(self, buser):
+            """
+            Set the bus user value in RS232 trigger.
+            
+            :param buser: User value (see instrument documentation for valid range)
+            :type buser: int
+            """
+            if isinstance(buser, int):
+                self.instrument.write(f":TRIG:RS232:BUS {buser}")
+            else:
+                print("Invalid bus user value. Must be integer.")
+
+        def get_buser(self):
+            """
+            Query the bus user value in RS232 trigger.
+            
+            :return: Bus user value
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:RS232:BUS?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_level(self, level):
+            """
+            Set the trigger level in RS232 trigger.
+            
+            :param level: Level value
+            :type level: float
+            """
+            self.instrument.write(f":TRIG:RS232:LEV {level}")
+
+        def get_level(self):
+            """
+            Query the trigger level in RS232 trigger.
+            
+            :return: Level value
+            :rtype: float or str
+            """
+            resp = self.instrument.query(":TRIG:RS232:LEV?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+    class IIC_Trigger:
+        """
+        The IIC trigger commands for the oscilloscope.
+        """
+        def __init__(self, instrument,data_handler):
+            """Initalize IIC trigger commands.
+            
+            :param instrument: The instrument instance
+            :type instrument: Instrument
+            :param data_handler: The data handler instance
+            :type data_handler: Data_Handler
+            """
+            self.instrument = instrument
+            self.data_handler = data_handler
+
+        def set_scl(self, source):
+            """
+            Set the channel source of SCL in I2C trigger.
+
+            :param source: "CHANNEL1" or "CHANNEL2"
+            :type source: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+            s = source.upper()
+            if s in allowed:
+                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+                self.instrument.write(f":TRIG:IIC:SCL {val}")
+            else:
+                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_scl(self):
+            """
+            Query the channel source of SCL in I2C trigger.
+
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:IIC:SCL?")
+
+        def set_sda(self, source):
+            """
+            Set the channel source of SDA in I2C trigger.
+            
+            :param source: "CHANNEL1" or "CHANNEL2"
+            :type source: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+            s = source.upper()
+            if s in allowed:
+                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+                self.instrument.write(f":TRIG:IIC:SDA {val}")
+            else:
+                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_sda(self):
+            """
+            Query the channel source of SDA in I2C trigger.
+            
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:IIC:SDA?")
+
+        def set_when(self, trig_type):
+            """
+            Set the trigger condition in I2C trigger.
+
+            :param trig_type: "START", "RESTART", "STOP", "NACKNOWLEDGE", "ADDRESS", "DATA", "ADATA"
+            :type trig_type: str
+            """
+            allowed = {"START", "RESTART", "STOP", "NACKNOWLEDGE", "ADDRESS", "DATA", "ADATA"}
+            t = trig_type.upper()
+            if t in allowed:
+                val = {
+                    "START": "STARt",
+                    "RESTART": "RESTart",
+                    "STOP": "STOP",
+                    "NACKNOWLEDGE": "NACKnowledge",
+                    "ADDRESS": "ADDRess",
+                    "DATA": "DATA",
+                    "ADATA": "ADATa"
+                }[t]
+                self.instrument.write(f":TRIG:IIC:WHEN {val}")
+            else:
+                print("Invalid trigger type.")
+
+        def get_when(self):
+            """
+            Query the trigger condition in I2C trigger.
+
+            :return: when
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:IIC:WHEN?")
+
+        def set_awidth(self, bits):
+            """
+            Set the address bits when trigger condition is ADDRESS or ADATA.
+            
+            :param bits: 7, 8, or 10
+            :type bits: int
+            """
+            if bits in [7, 8, 10]:
+                self.instrument.write(f":TRIG:IIC:AWIDth {bits}")
+            else:
+                print("Invalid address width. Allowed: 7, 8, 10.")
+
+        def get_awidth(self):
+            """
+            Query the address bits for I2C trigger.
+
+            :return: int
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:IIC:AWIDth?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_address(self, adr):
+            """
+            Set the address for ADDRESS or ADATA trigger.
+            
+            :param adr: 0 to 1023 (depends on address width)
+            :type adr: int
+            """
+            if isinstance(adr, int) and 0 <= adr <= 1023:
+                self.instrument.write(f":TRIG:IIC:ADDRess {adr}")
+            else:
+                print("Invalid address value.")
+
+        def get_address(self):
+            """
+            Query the address for I2C trigger.
+
+            :return: int
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:IIC:ADDRess?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_direction(self, direction):
+            """
+            Set the data direction for ADDRESS or ADATA trigger.
+            
+            :param direction: "READ", "WRITE", or "RWRITE"
+            :type direction: str
+            """
+            allowed = {"READ", "WRITE", "RWRITE"}
+            d = direction.upper()
+            if d in allowed:
+                val = {"READ": "READ", "WRITE": "WRITe", "RWRITE": "RWRite"}[d]
+                self.instrument.write(f":TRIG:IIC:DIRection {val}")
+            else:
+                print("Invalid direction. Allowed: READ, WRITE, RWRITE.")
+
+        def get_direction(self):
+            """
+            Query the data direction for I2C trigger.
+            
+            :return: str
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:IIC:DIRection?")
+
+        def set_data(self, data):
+            """
+            Set the data for DATA or ADATA trigger.
+            
+            :param data: 0 to 2^40-1 (max 40 bits)
+            :type data: int
+            """
+            if isinstance(data, int) and 0 <= data < 2**40:
+                self.instrument.write(f":TRIG:IIC:DATA {data}")
+            else:
+                print("Invalid data value.")
+
+        def get_data(self):
+            """
+            Query the data for I2C trigger.
+            
+            :return: int
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:IIC:DATA?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_clevel(self, level):
+            """
+            Set the trigger level of SCL in I2C trigger.
+            
+            :param level: Level value
+            :type level: float
+            """
+            self.instrument.write(f":TRIG:IIC:CLEVel {level}")
+
+        def get_clevel(self):
+            """
+            Query the trigger level of SCL in I2C trigger.
+            
+            :return: float
+            :rtype: float
+            """
+            resp = self.instrument.query(":TRIG:IIC:CLEVel?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_dlevel(self, level):
+            """
+            Set the trigger level of SDA in I2C trigger.
+            
+            :param level: Level value
+            :type level: float
+            """
+            self.instrument.write(f":TRIG:IIC:DLEVel {level}")
+
+        def get_dlevel(self):
+            """
+            Query the trigger level of SDA in I2C trigger.
+            
+            :return: float
+            :rtype: float
+            """
+            resp = self.instrument.query(":TRIG:IIC:DLEVel?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+    class SPI_Trigger:
+        """
+        The SPI trigger commands for the oscilloscope.
+        """
+        def __init__(self, instrument,data_handler):
+            """Initalize SPI trigger commands.
+            
+            :param instrument: The instrument instance
+            :type instrument: Instrument
+            :param data_handler: The data handler instance
+            :type data_handler: Data_Handler
+            """
+            self.instrument = instrument
+            self.data_handler = data_handler
+
+        def set_scl(self, source):
+            """
+            Set the channel source of SCL in SPI trigger.
+            
+            :param source: "CHANNEL1" or "CHANNEL2"
+            :type source: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+            s = source.upper()
+            if s in allowed:
+                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+                self.instrument.write(f":TRIG:SPI:SCL {val}")
+            else:
+                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_scl(self):
+            """
+            Query the channel source of SCL in SPI trigger.
+            
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:SPI:SCL?")
+
+        def set_sda(self, source):
+            """
+            Set the channel source of SDA in SPI trigger.
+            
+            :param source: "CHANNEL1" or "CHANNEL2"
+            :type source: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+            s = source.upper()
+            if s in allowed:
+                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+                self.instrument.write(f":TRIG:SPI:SDA {val}")
+            else:
+                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_sda(self):
+            """
+            Query the channel source of SDA in SPI trigger.
+            
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:SPI:SDA?")
+
+        def set_when(self, trig_type):
+            """
+            Set the trigger condition in SPI trigger.
+            
+            :param trig_type: "CS" or "TIMEOUT"
+            :type trig_type: str
+            """
+            allowed = {"CS", "TIMEOUT"}
+            t = trig_type.upper()
+            if t in allowed:
+                val = "CS" if t == "CS" else "TIMeout"
+                self.instrument.write(f":TRIG:SPI:WHEN {val}")
+            else:
+                print("Invalid trigger type. Allowed: CS, TIMEOUT.")
+
+        def get_when(self):
+            """
+            Query the trigger condition in SPI trigger.
+            
+            :return: str
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:SPI:WHEN?")
+
+        def set_width(self, width):
+            """
+            Set the data bits of the SDA channel in SPI trigger.
+            
+            :param width: 4 to 32
+            :type width: int
+            """
+            if isinstance(width, int) and 4 <= width <= 32:
+                self.instrument.write(f":TRIG:SPI:WIDTh {width}")
+            else:
+                print("Invalid width. Must be integer between 4 and 32.")
+
+        def get_width(self):
+            """
+            Query the data bits of the SDA channel in SPI trigger.
+            
+            :return: int
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:SPI:WIDTh?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_data(self, data):
+            """
+            Set the data in SPI trigger.
+
+            :param data: 0 to 2^32-1
+            :type data: int
+            """
+            if isinstance(data, int) and 0 <= data < 2**32:
+                self.instrument.write(f":TRIG:SPI:DATA {data}")
+            else:
+                print("Invalid data value.")
+
+        def get_data(self):
+            """
+            Query the data in SPI trigger.
+
+            :return: int
+            :rtype: int or str
+            """
+            resp = self.instrument.query(":TRIG:SPI:DATA?")
+            try:
+                return int(resp)
+            except Exception:
+                return resp
+
+        def set_timeout(self, time_value):
+            """
+            Set the timeout value in SPI trigger (seconds).
+
+            :param  time_value: 100e-9 to 1
+            :type time_value: float
+            """
+            if isinstance(time_value, (float, int)) and 1e-7 <= time_value <= 1:
+                self.instrument.write(f":TRIG:SPI:TIMeout {time_value}")
+            else:
+                print("Invalid timeout value. Must be between 100ns and 1s.")
+
+        def get_timeout(self):
+            """
+            Query the timeout value in SPI trigger.
+            
+            :return: Timeout value
+            :rtype: float or str
+            """
+            resp = self.instrument.query(":TRIG:SPI:TIMeout?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_slope(self, slope):
+            """
+            Set the clock edge in SPI trigger.
+            
+            :param slope: "POSITIVE" or "NEGATIVE"
+            :type slope: str
+            """
+            allowed = {"POSITIVE", "NEGATIVE", "POS", "NEG"}
+            s = slope.upper()
+            if s in allowed:
+                val = "POSitive" if s.startswith("POS") else "NEGative"
+                self.instrument.write(f":TRIG:SPI:SLOPe {val}")
+            else:
+                print("Invalid slope. Allowed: POSITIVE, NEGATIVE.")
+
+        def get_slope(self):
+            """
+            Query the clock edge in SPI trigger.
+            
+            :param clockedge: "POS" or "NEG"
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:SPI:SLOPe?")
+
+        def set_clevel(self, level):
+            """
+            Set the trigger level of the SCL channel in SPI trigger.
+
+
+            :param level: Level value
+            :type level: float
+            """
+            self.instrument.write(f":TRIG:SPI:CLEVel {level}")
+
+        def get_clevel(self):
+            """
+            Query the trigger level of the SCL channel in SPI trigger.
+            
+            :return: float
+            :rtype: float
+            """
+            resp = self.instrument.query(":TRIG:SPI:CLEVel?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_dlevel(self, level):
+            """
+            Set the trigger level of the SDA channel in SPI trigger.
+
+            :param level: Level value
+            :type level: float
+            """
+            self.instrument.write(f":TRIG:SPI:DLEVel {level}")
+
+        def get_dlevel(self):
+            """
+            Query the trigger level of the SDA channel in SPI trigger.
+            
+            :return: float
+            :rtype: float
+            """
+            resp = self.instrument.query(":TRIG:SPI:DLEVel?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_slevel(self, level):
+            """
+            Set the trigger level of the CS channel in SPI trigger.
+
+            :param level: Level value
+            :type level: float
+            """
+            self.instrument.write(f":TRIG:SPI:SLEVel {level}")
+
+        def get_slevel(self):
+            """
+            Query the trigger level of the CS channel in SPI trigger.
+
+            :return: float
+            :rtype: float
+            """
+            resp = self.instrument.query(":TRIG:SPI:SLEVel?")
+            try:
+                return float(resp)
+            except Exception:
+                return resp
+
+        def set_mode(self, mode):
+            """
+            Set the CS mode when trigger condition is CS in SPI trigger.
+
+            :param mode: "HIGH" or "LOW"
+            :type mode: str
+            """
+            allowed = {"HIGH", "LOW"}
+            m = mode.upper()
+            if m in allowed:
+                self.instrument.write(f":TRIG:SPI:MODE {m}")
+            else:
+                print("Invalid mode. Allowed: HIGH, LOW.")
+
+        def get_mode(self):
+            """
+            Query the CS mode when trigger condition is CS in SPI trigger.
+
+            :return: "HIGH" or "LOW"
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:SPI:MODE?")
+
+        def set_cs(self, source):
+            """
+            Set the data source of the CS signal in SPI trigger.
+
+            :param source: "CHANNEL1" or "CHANNEL2"
+            :type source: str
+            """
+            allowed = {"CHANNEL1", "CHANNEL2", "CHAN1", "CHAN2"}
+            s = source.upper()
+            if s in allowed:
+                val = "CHANnel1" if s in {"CHANNEL1", "CHAN1"} else "CHANnel2"
+                self.instrument.write(f":TRIG:SPI:CS {val}")
+            else:
+                print("Invalid source. Allowed: CHANNEL1, CHANNEL2.")
+
+        def get_cs(self):
+            """
+            Query the data source of the CS signal in SPI trigger.
+
+            :return: "CHAN1" or "CHAN2"
+            :rtype: str
+            """
+            return self.instrument.query(":TRIG:SPI:CS?")
 class Waveform:
     """The Waveform commands are used to read the waveform data and its related settings.
     """
     def __init__(self, instrument,data_handler):
+        """Initialize Waveform commands.
+        
+        :param instrument: The instrument instance
+        :type instrument: Instrument
+        :param data_handler: The data handler instance
+        :type data_handler: Data_Handler
+        """
         self.instrument = instrument
         self.data_handler = data_handler
 
     def set_source(self, source):
         """Set the channel of which the waveform data will be read.
 
-        Parameter: source (str): "CHANnel1", "CHANnel2", or "MATH"
-
-        Return: None
+        :param source: "CHANnel1", "CHANnel2", or "MATH"
+        :type source: str
         """
         allowed = {"CHANNEL1", "CHANNEL2", "MATH", "CHAN1", "CHAN2"}
         s = source.upper()
@@ -8150,9 +7531,8 @@ class Waveform:
     def get_source(self):
         """Query the channel of which the waveform data will be read.
 
-        Parameter: None
-
-        Return: str: "CHAN1", "CHAN2", or "MATH"
+        :return: "CHAN1", "CHAN2", or "MATH"
+        :rtype: str
         """
         return self.instrument.query(":WAVeform:SOURce?")
 
@@ -8160,9 +7540,9 @@ class Waveform:
         """
         Set the reading mode used by :WAVeform:DATA?.
 
-        Parameter: mode (str): "NORMal", "MAXimum", or "RAW"
-
-        Return: None
+        :param mode: "NORMal", "MAXimum", or "RAW"
+        :type mode: str
+        
         """
         allowed = {"NORMAL", "MAXIMUM", "RAW", "NORMal", "MAXimum"}
         m = mode.upper()
@@ -8180,18 +7560,19 @@ class Waveform:
     def get_mode(self):
         """Query the reading mode used by :WAVeform:DATA?.
         
-        Parameter: None
         
-        Return: str: "NORM", "MAX", or "RAW"
+        
+        :return: "NORM", "MAX", or "RAW"
+        :rtype: str
         """
         return self.instrument.query(":WAVeform:MODE?")
 
     def set_format(self, fmt):
         """Set the return format of the waveform data.
         
-        Parameter: fmt (str): "WORD", "BYTE", or "ASCii"
+        :param fmt: "WORD", "BYTE", or "ASCii"
+        :type fmt: str
         
-        Return: None
         """
         allowed = {"WORD", "BYTE", "ASCII", "ASCii"}
         f = fmt.upper()
@@ -8210,18 +7591,20 @@ class Waveform:
         """
         Query the return format of the waveform data.
 
-        Parameter: None
+        
 
-        Return: str: "WORD", "BYTE", or "ASC"
+        :return: "WORD", "BYTE", or "ASC"
+        :rtype: str
         """
         return self.instrument.query(":WAVeform:FORMat?")
 
     def get_data(self):
         """Read the waveform data. If autosave is on, then also saves them to a csv file.
         
-        Parameter: None
         
-        Return: bytes or str: Raw waveform data (format depends on :WAVeform:FORMat)
+        
+        :return: Raw waveform data (format depends on :WAVeform:FORMat)
+        :rtype: str or bytes
         """
         fmt = self.get_format()
         if fmt == "ASC":
@@ -8238,9 +7621,9 @@ class Waveform:
     def set_start(self, sta):
         """Set the start point of waveform data reading.
         
-        Parameter: sta (int): Start point (see documentation for valid range)
+        :param sta: Start point (see documentation for valid range)
+        :type sta: int
         
-        Return: None
         """
         if isinstance(sta, int) and sta >= 1:
             self.instrument.write(f":WAVeform:STARt {sta}")
@@ -8250,9 +7633,10 @@ class Waveform:
     def get_start(self):
         """Query the start point of waveform data reading.
         
-        Parameter: None
         
-        Return: int: Start point
+        
+        :return: Start point
+        :rtype: int
         """
         resp = self.instrument.query(":WAVeform:STARt?")
         try:
@@ -8263,9 +7647,9 @@ class Waveform:
     def set_stop(self, stop):
         """Set the stop point of waveform data reading.
         
-        Parameter: stop (int): Stop point (see documentation for valid range)
-        
-        Return: None"""
+        :param stop: Stop point (see documentation for valid range)
+        :type stop: int
+        """
         if isinstance(stop, int) and stop >= 1:
             self.instrument.write(f":WAVeform:STOP {stop}")
         else:
@@ -8274,9 +7658,10 @@ class Waveform:
     def get_stop(self):
         """Query the stop point of waveform data reading.
         
-        Parameter: None
         
-        Return: int: Stop point"""
+        
+        :return: Stop point
+        :rtype: int"""
         resp = self.instrument.query(":WAVeform:STOP?")
         try:
             return int(resp)
@@ -8286,9 +7671,10 @@ class Waveform:
     def get_xincrement(self):
         """Query the time difference between two neighboring points of the specified channel source in the X direction.
         
-        Parameter: None
         
-        Return:float: X increment (seconds or Hz)
+        
+        :return: X increment (seconds or Hz)
+        :rtype: float
         """
         resp = self.instrument.query(":WAVeform:XINCrement?")
         try:
@@ -8299,9 +7685,10 @@ class Waveform:
     def get_xorigin(self):
         """Query the start time of the waveform data of the channel source currently selected in the X direction.
         
-        Parameter: None
         
-        Return: float: X origin (seconds or Hz)
+        
+        :return: float: X origin (seconds or Hz)
+        :rtype: float
         """
         resp = self.instrument.query(":WAVeform:XORigin?")
         try:
@@ -8312,10 +7699,10 @@ class Waveform:
     def get_xreference(self):
         """Query the reference time of the specified channel source in the X direction.
         
-        Parameter: None
         
-        Return: 
-        int: X reference (usually 0)
+        
+        :return: X reference (usually 0)
+        :rtype: int
         """
         resp = self.instrument.query(":WAVeform:XREFerence?")
         try:
@@ -8326,10 +7713,8 @@ class Waveform:
     def get_yincrement(self):
         """Query the waveform increment of the specified channel source in the Y direction.
         
-        Parameter: None
-        
-        Return: 
-        float: Y increment (amplitude unit)
+        :return: Y increment (amplitude unit)
+        :rtype: float
         """
         resp = self.instrument.query(":WAVeform:YINCrement?")
         try:
@@ -8341,10 +7726,8 @@ class Waveform:
         """
         Query the vertical offset relative to the vertical reference position of the specified channel source in the Y direction.
         
-        Parameter: None
-        
-        Return: 
-        int: Y origin
+        :return: Y origin
+        :rtype: int
         """
         resp = self.instrument.query(":WAVeform:YORigin?")
         try:
@@ -8355,10 +7738,8 @@ class Waveform:
     def get_yreference(self):
         """Query the vertical reference position of the specified channel source in the Y direction.
         
-        Parameter: None
-        
-        Return: 
-        int: Y reference (usually 127)
+        :return: Y reference (usually 127)
+        :rtype: int
         """
         resp = self.instrument.query(":WAVeform:YREFerence?")
         try:
@@ -8369,9 +7750,7 @@ class Waveform:
     def get_preamble(self):
         """Query and return all the waveform parameters.
         
-        Parameter: None
-        
-        Return: 
-        str: 10 waveform parameters separated by commas
+        :return: 10 waveform parameters separated by commas
+        :rtype: str
         """
         return self.instrument.query(":WAVeform:PREamble?")

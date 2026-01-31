@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'Instruments'
 copyright = '2025, Grace'
 author = 'Grace'
-release = '0.0.1'
+release = '0.0.9'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -25,7 +25,7 @@ extensions = ['sphinx.ext.duration',
     'sphinx.ext.viewcode',]
 
 autosummary_generate = True
-autodoc_mock_imports = ['enum']
+autodoc_mock_imports = ['enum', 'pyvisa', 'numpy']
 
 intersphinx_mapping = {
     "rtd": ("https://docs.readthedocs.io/en/stable/", None),

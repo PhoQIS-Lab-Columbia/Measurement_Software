@@ -5,8 +5,15 @@ import time
 from Instruments.data_handler import DataHandler
  
 class RF_Switch():
+    """Class for controlling an RF Switch instrument."""
 
     def __init__(self, instrument, save_files_path):
+        """Initialize the RF Switch instrument.
+        
+        :param instrument: The pyvisa instrument instance.
+        :type instrument: pyvisa.resources.Resource
+        :param save_files_path: Optional path to save data files. If None, defaults to JSON format.
+        :type save_files_path: str or None"""
         self.instrument = instrument
         self.name = EInstrument.RF_SWITCH
         if save_files_path is None:
@@ -30,6 +37,12 @@ class RF_Switch():
 class Switch:
     """RF Switch class"""
     def __init__(self, instrument, data_handler, switch):
+        """Initialize the RF Switch.
+        
+        :param instrument: The pyvisa instrument instance.
+        :type instrument: pyvisa.resources.Resource
+        :param data_handler: Data handler instance.
+        :type data_handler: DataHandler"""
         self.instrument = instrument
         self.data_handler = data_handler
         self.switch = switch
@@ -43,8 +56,7 @@ class Switch:
         self.list_channels = [self.channel_1, self.channel_2, self.channel_3, self.channel_4, self.channel_5, self.channel_6]
     def enable_auto_disable(self):
         """
-        If on, then if a channel is already enabled when another channel is trying to turn on, 
-        the first channel will be automatically turned off. Otherwise it will not turn on the new channel and jsut issue a warning.
+        If on, then if a channel is already enabled when another channel is trying to turn on, the first channel will be automatically turned off. Otherwise it will not turn on the new channel and jsut issue a warning.
         
         """
         self.auto_disable = True
@@ -53,8 +65,7 @@ class Switch:
 
     def disable_auto_disable(self):
         """
-        If off, it will not turn on the new channel and just issue a warning. Otherwise, if a channel is already enabled when another channel is trying to turn on, 
-        the first channel will be automatically turned off.
+        If off, it will not turn on the new channel and just issue a warning. Otherwise, if a channel is already enabled when another channel is trying to turn on, the first channel will be automatically turned off.
         
         """
         self.auto_disable = False
@@ -63,25 +74,39 @@ class Switch:
     def is_auto_disable_on(self):
         """
         Return true if auto disable is on.
+
+        :return: If auto disable is on.
+        :rtype: bool
         """
         return self.auto_disable
     
     def reset(self):
         """
         Reset the switch to its default state. If successfully returns 000000
+
+        :return: The response from the instrument after resetting.
+        :rtype: str
         """
         res = self.instrument.write(f"{self.switch}_RES")
         return res
     def get_status(self):
         """Get which switch channels are enabled.
-        Returns:
-            str: A string representing the status of the switch channels.
+
+        :return: A string representing the status of the switch channels.
+        :rtype: str
         """
         res = self.instrument.query("Read_Channel_Status?")
         idx = res.find(self.switch) + len(self.switch+"_status:")
         return res[idx:idx+6]
 class Channel:
+    """RF Switch Channel class"""
     def __init__(self, instrument, data_handler, switch, channel):
+        """Initialize the RF Switch Channel.
+        
+        :param instrument: The pyvisa instrument instance.
+        :type instrument: pyvisa.resources.Resource
+        :param data_handler: Data handler instance.
+        :type data_handler: DataHandler"""
         self.instrument = instrument
         self.data_handler = data_handler
         self.switch = switch
@@ -90,6 +115,8 @@ class Channel:
     def enable(self):
         """
         Enable the channel for this switch.
+
+        :raises Exception: If another channel is already enabled and auto_disable is False.
         """
         status = self.get_status()
         if status == '000000':
@@ -111,8 +138,9 @@ class Channel:
 
     def get_status(self):
         """Return true if the channel is enabled.
-        Returns:
-            boolean: True if channel is enable, false otherwise.
+
+        :return: True if channel is enable, false otherwise.
+        :rtype: bool
         """
         
         res = self.instrument.query("Read_Channel_Status?")

@@ -55,7 +55,8 @@ class NetworkManager:
         return last_line.lower().startswith(process_name.lower())
     
     def get_process_by_name(self,process_name):
-        """Return the first psutil.Process object matching the process name.
+        """Return the first psutil. Process object matching the process name.
+        
         :param process_name: Name of the process to find.
         :type process_name: str
         :return: psutil.Process object if found, None otherwise.
@@ -70,6 +71,7 @@ class NetworkManager:
     
     def create_instrument(self, name, instrument,saved_files_path):
         """Create new instrument object based on the name using the selected port.
+        
         :param name: name of the instrument
         :type name: EInstrument
         :param instrument: the instrument to create
@@ -99,6 +101,7 @@ class NetworkManager:
     def connect_instruments(self, instrument_list = [], saved_files_path = None):
         """Connects and creates instrument objects from list of names. If no list is provided, then connects 
         and creates instrument for all detected instruments.
+
         :param instrument_list: list of instrument Enum names to connect to.
         :type instrument_list: list of EInstrument
         :param saved_files_path: path to save files for the instruments.
@@ -151,9 +154,21 @@ class NetworkManager:
         return instruments
     
     def connect_flowmeter(self, saved_files = []) -> Flowmeter:
+        """Connect to the Keyence NQ Sensor Monitor software and return a Flowmeter object.
+        
+        :param saved_files: List of CSV file paths for the flowmeter data.
+        :type saved_files: list of str
+        :return: Flowmeter object connected to the NQ Sensor Monitor software.
+        :rtype: Flowmeter"""
         return Flowmeter(saved_files)
     
     def connect_oscilloscope(self,saved_files_path = None) -> Oscilloscope:
+        """Connect to the Rigol Oscilloscope and return an Oscilloscope object.
+        
+        :param saved_files_path: Path to save files for the Oscilloscope.
+        :type saved_files_path: str
+        :return: Oscilloscope object connected to the Rigol Oscilloscope.
+        :rtype: Oscilloscope"""
         osc = self.connect_instruments([EInstrument.OSCILLOSCOPE],saved_files_path)
         print(osc)
         if osc == None:
@@ -162,7 +177,13 @@ class NetworkManager:
             
     def connect_spectrum_analyzer(self,saved_files_path = None) -> SpectrumAnalyzer:
         #try: 
-            
+        """Connect to the Signal Hound Spike software and return a SpectrumAnalyzer object.
+
+        :param saved_files_path: Path to save files for the Spectrum Analyzer.
+        :type saved_files_path: str
+        :return: SpectrumAnalyzer object connected to the Spike software.
+        :rtype: SpectrumAnalyzer"""
+        
         '''with importlib.resources.open_text('Instruments.data','program_paths.json') as file:
             p = json.load(file)'''
         program_path = "C:/Program Files/Signal Hound/Spike/Spike.exe"#p[EInstrument.SPECTRUM_ANALYZER.value]

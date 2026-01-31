@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.oscilloscope_rigol.Channel Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.oscilloscope_rigol.Channel Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -40,6 +40,10 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.oscilloscope_rigol.</span></span><span class="sig-name descname"><span class="pre">Channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Channel commands are used to control and query channel-specific settings.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initalize the channel class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -51,84 +55,166 @@
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.__init__" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_bandwidth_limit">
 <span class="sig-name descname"><span class="pre">get_bandwidth_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_bandwidth_limit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_bandwidth_limit" title="Link to this definition">¶</a></dt>
-<dd><p>Query the bandwidth limit parameter of the specified channel.
-Parameters:
-channel (int): The channel number, either 1 or 2.
-Returns:
-str: The bandwidth limit, either “20M” or “OFF”.</p>
+<dd><p>Query the bandwidth limit parameter of the specified channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The channel number, either 1 or 2.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The bandwidth limit, either “20M” or “OFF”.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_coupling_mode">
 <span class="sig-name descname"><span class="pre">get_coupling_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_coupling_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_coupling_mode" title="Link to this definition">¶</a></dt>
 <dd><p>Query the coupling mode of the specified channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The channel to query (e.g., channel number or identifier).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The coupling mode reported by the instrument (for example ‘DC’, ‘AC’, or ‘GND’).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_offset">
-<span class="sig-name descname"><span class="pre">get_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_offset" title="Link to this definition">¶</a></dt>
-<dd><p>Query the vertical offset of the specified channel. The default unit is V.
-Parameters:
-channel (int): The channel number, either 1 or 2.
-Returns:
-str: The vertical offset value in volts.</p>
+<span class="sig-name descname"><span class="pre">get_offset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_offset" title="Link to this definition">¶</a></dt>
+<dd><p>Query the vertical offset of the specified channel. The default unit is V.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The vertical offset value in volts.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_probe_ratio">
-<span class="sig-name descname"><span class="pre">get_probe_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_probe_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_probe_ratio" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_probe_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_probe_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_probe_ratio" title="Link to this definition">¶</a></dt>
 <dd><p>Query the probe attenuation ratio for a channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Probe attenuation ratio.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_range">
-<span class="sig-name descname"><span class="pre">get_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_range" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_range" title="Link to this definition">¶</a></dt>
 <dd><p>Query the vertical range of the specified channel. The default unit is V.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The vertical range value in volts.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_scale">
-<span class="sig-name descname"><span class="pre">get_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_scale" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_scale</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_scale" title="Link to this definition">¶</a></dt>
 <dd><p>Query vertical scale of the channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Vertical scale value in volts per division.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_tcal">
-<span class="sig-name descname"><span class="pre">get_tcal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_tcal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_tcal" title="Link to this definition">¶</a></dt>
-<dd><p>Query delay calibration time for the specified channel (in seconds).
-Returns value in scientific notation as float.</p>
+<span class="sig-name descname"><span class="pre">get_tcal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_tcal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_tcal" title="Link to this definition">¶</a></dt>
+<dd><p>Query delay calibration time for the specified channel (in seconds).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>value in scientific notation as float.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_units">
-<span class="sig-name descname"><span class="pre">get_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_units" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_units" title="Link to this definition">¶</a></dt>
 <dd><p>Query the amplitude display unit for a channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Amplitude display unit.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.get_vernier">
-<span class="sig-name descname"><span class="pre">get_vernier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_vernier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_vernier" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_vernier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.get_vernier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.get_vernier" title="Link to this definition">¶</a></dt>
 <dd><p>Query vernier setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>“ON” if vernier is enabled, “OFF” if disabled.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.invert_waveform">
-<span class="sig-name descname"><span class="pre">invert_waveform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.invert_waveform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.invert_waveform" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">invert_waveform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.invert_waveform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.invert_waveform" title="Link to this definition">¶</a></dt>
 <dd><p>Set the invert mode of the specified channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The invert mode to apply to the channel. Allowed values are “ON” or “OFF” (strings) or 1 or 2 (integers). The channel affected is taken from self.channel and must be 1 or 2.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.is_inverted">
 <span class="sig-name descname"><span class="pre">is_inverted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.is_inverted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.is_inverted" title="Link to this definition">¶</a></dt>
 <dd><p>Query the invert mode of the specified channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The channel to query.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The invert mode reported by the instrument for the given channel (e.g., ‘1’/’0’ or ‘ON’/’OFF’).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -145,50 +231,89 @@ Returns value in scientific notation as float.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_coupling_mode">
 <span class="sig-name descname"><span class="pre">set_coupling_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coupling_mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_coupling_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_coupling_mode" title="Link to this definition">¶</a></dt>
-<dd><p>Set the coupling mode of the specified channel.</p>
+<dd><p>Set the coupling mode of the instrument for the channel specified by self.channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coupling_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The coupling mode to set for the current channel. Must be one of “AC”, “DC”, or “GND”.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_offset">
 <span class="sig-name descname"><span class="pre">set_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_offset" title="Link to this definition">¶</a></dt>
-<dd><p>Set the vertical offset of the specified channel. The default unit is V.</p>
+<dd><p>Set the vertical offset of the specified channel (in volts).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>param1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The offset value to set, in volts.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_probe_ratio">
 <span class="sig-name descname"><span class="pre">set_probe_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ratio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_probe_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_probe_ratio" title="Link to this definition">¶</a></dt>
 <dd><p>Set the probe attenuation ratio for a channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ratio</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Probe attenuation ratio to set.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_range">
 <span class="sig-name descname"><span class="pre">set_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_range" title="Link to this definition">¶</a></dt>
 <dd><p>Set the vertical range of the specified channel. The default unit is V.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>param1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The vertical range value to set, in volts.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_scale">
 <span class="sig-name descname"><span class="pre">set_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_scale" title="Link to this definition">¶</a></dt>
 <dd><p>Set vertical scale of the channel (in V/div).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Vertical scale value to set, in volts per division.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_tcal">
 <span class="sig-name descname"><span class="pre">set_tcal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_tcal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_tcal" title="Link to this definition">¶</a></dt>
-<dd><p>Set delay calibration time for the specified channel.
-val: delay time in seconds (e.g., 20e-9 for 20ns). Valid range: -100e-9 to 100e-9.</p>
+<dd><p>Set delay calibration time for the specified channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>val</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – delay time in seconds (e.g., 20e-9 for 20ns). Valid range: -100e-9 to 100e-9.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_units">
 <span class="sig-name descname"><span class="pre">set_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_units" title="Link to this definition">¶</a></dt>
-<dd><p>Set the amplitude display unit for a channel. Options: VOLTage, WATT, AMPere, UNKNown.</p>
+<dd><p>Set the amplitude display unit for a channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Options: VOLTage, WATT, AMPere, UNKNown.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Channel.set_vernier">
 <span class="sig-name descname"><span class="pre">set_vernier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Channel.set_vernier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Channel.set_vernier" title="Link to this definition">¶</a></dt>
 <dd><p>Enable or disable fine adjustment (vernier) for vertical scale.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – “ON” to enable vernier, “OFF” to disable.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
