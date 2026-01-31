@@ -5236,8 +5236,6 @@ class HCopy:
         Parameter:
         mode (str): 'NORM' for normal, 'INV' for inverted
 
-        Return:
-        None
         """
         allowed = ['NORM', 'INV']
         if mode not in allowed:
