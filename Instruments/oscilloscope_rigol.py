@@ -243,8 +243,6 @@ class Channel:
     def set_offset(self,  param1):
         """Set the vertical offset of the specified channel (in volts).
 
-        The method sets the vertical offset for self.channel by sending the appropriate command to the instrument. Valid channel values are 1 and 2; if self.channel is not valid, the method prints "Invalid channel." and does not send a command.
-
         :param param1: The offset value to set, in volts.
         :type param1: float
         """
