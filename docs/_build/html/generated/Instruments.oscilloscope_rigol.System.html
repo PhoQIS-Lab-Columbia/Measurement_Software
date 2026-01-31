@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.oscilloscope_rigol.System Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.oscilloscope_rigol.System Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -43,148 +43,194 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.__init__" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the System class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instrument</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><em>object</em></a>) – The instrument instance to communicate with.</p></li>
+<li><p><strong>data_handler</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><em>object</em></a>) – The data handler instance for processing data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_autoscale">
 <span class="sig-name descname"><span class="pre">get_autoscale</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_autoscale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_autoscale" title="Link to this definition">¶</a></dt>
 <dd><p>Query the status of the AUTO key on the front panel.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-int: 1 (enabled) or 0 (disabled)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1 (enabled) or 0 (disabled)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_beeper">
 <span class="sig-name descname"><span class="pre">get_beeper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_beeper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_beeper" title="Link to this definition">¶</a></dt>
 <dd><p>Query the status of the beeper.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-int: 1 (enabled) or 0 (disabled)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1 (enabled) or 0 (disabled)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_error">
 <span class="sig-name descname"><span class="pre">get_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_error" title="Link to this definition">¶</a></dt>
 <dd><p>Query and delete the last system error message.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-str: Error message in “&lt;number&gt;,&lt;content&gt;” format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Error message in “&lt;number&gt;,&lt;content&gt;” format</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_grid_count">
 <span class="sig-name descname"><span class="pre">get_grid_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_grid_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_grid_count" title="Link to this definition">¶</a></dt>
 <dd><p>Query the number of grids in the horizontal direction of the instrument screen.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-int: Always returns 12</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Always returns 12</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_language">
 <span class="sig-name descname"><span class="pre">get_language</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_language" title="Link to this definition">¶</a></dt>
 <dd><p>Query the system language.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-str: Language code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Language code</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_locked">
 <span class="sig-name descname"><span class="pre">get_locked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_locked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_locked" title="Link to this definition">¶</a></dt>
 <dd><p>Query the status of the keyboard lock function.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-int: 1 (locked) or 0 (unlocked)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1 (locked) or 0 (unlocked)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_pon">
 <span class="sig-name descname"><span class="pre">get_pon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_pon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_pon" title="Link to this definition">¶</a></dt>
 <dd><p>Query the system configuration to be recalled at power-on.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-str: “LAT” or “DEF”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>“LAT” or “DEF”</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_ram">
 <span class="sig-name descname"><span class="pre">get_ram</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_ram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_ram" title="Link to this definition">¶</a></dt>
 <dd><p>Query the number of analog channels of the instrument.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-int: Always returns 2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Always returns 2</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.get_setup">
 <span class="sig-name descname"><span class="pre">get_setup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.get_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.get_setup" title="Link to this definition">¶</a></dt>
 <dd><p>Query the setting of the oscilloscope (returns binary data with TMC header). If autosave is on, then also saves them to a bin file.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-bytes: Setup data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Setup data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)">bytes</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.install_option">
 <span class="sig-name descname"><span class="pre">install_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">license_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.install_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.install_option" title="Link to this definition">¶</a></dt>
 <dd><p>Install an option license.</p>
-<p>Parameter:
-license_code (str): 28-byte license string (uppercase letters and numbers)</p>
-<p>Return:
-None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>license_code</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 28-byte license string (uppercase letters and numbers)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.set_autoscale">
 <span class="sig-name descname"><span class="pre">set_autoscale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.set_autoscale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.set_autoscale" title="Link to this definition">¶</a></dt>
 <dd><p>Enable or disable the AUTO key on the front panel.</p>
-<p>Parameter:
-state (int or str): 1/0 or “ON”/”OFF”</p>
-<p>Return:
-None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or “ON”/”OFF”</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.set_beeper">
 <span class="sig-name descname"><span class="pre">set_beeper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.set_beeper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.set_beeper" title="Link to this definition">¶</a></dt>
 <dd><p>Enable or disable the beeper.</p>
-<p>Parameter:
-state (int or str): 1/0 or “ON”/”OFF”</p>
-<p>Return:
-None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or “ON”/”OFF”</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.set_language">
 <span class="sig-name descname"><span class="pre">set_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lang</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.set_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.set_language" title="Link to this definition">¶</a></dt>
 <dd><p>Set the system language.</p>
-<p>Parameter:
-lang (str): “SCHINESE”, “TCHINESE”, “ENGLISH”, “PORTUGUESE”, “GERMAN”, “POLISH”, “KOREAN”, “JAPANESE”, “FRENCH”, “RUSSIAN”</p>
-<p>Return:
-None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lang</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – “SCHINESE”, “TCHINESE”, “ENGLISH”, “PORTUGUESE”, “GERMAN”, “POLISH”, “KOREAN”, “JAPANESE”, “FRENCH”, “RUSSIAN”</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.set_locked">
 <span class="sig-name descname"><span class="pre">set_locked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.set_locked"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.set_locked" title="Link to this definition">¶</a></dt>
-<dd><p>Enable or disable the keyboard lock function.
-Parameter:</p>
-<blockquote>
-<div><p>state (int or str): 1/0 or “ON”/”OFF”</p>
-</div></blockquote>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
+<dd><p>Enable or disable the keyboard lock function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 1/0 or “ON”/”OFF”</p>
 </dd>
 </dl>
 </dd></dl>
@@ -193,30 +239,28 @@ Parameter:</p>
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.set_pon">
 <span class="sig-name descname"><span class="pre">set_pon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pon</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.set_pon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.set_pon" title="Link to this definition">¶</a></dt>
 <dd><p>Set the system configuration to be recalled at power-on.</p>
-<p>Parameter:
-pon (str): “LATEST” or “DEFAULT”</p>
-<p>Return:
-None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pon</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – “LATEST” or “DEFAULT”</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.set_setup">
 <span class="sig-name descname"><span class="pre">set_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">setup_stream</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.set_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.set_setup" title="Link to this definition">¶</a></dt>
 <dd><p>Import the setting parameters of the oscilloscope.</p>
-<p>Parameter:
-setup_stream (bytes): Setup data (must be from get_setup)</p>
-<p>Return:
-None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>setup_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a>) – Setup data (must be from get_setup)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.System.uninstall_option">
 <span class="sig-name descname"><span class="pre">uninstall_option</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#System.uninstall_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.System.uninstall_option" title="Link to this definition">¶</a></dt>
 <dd><p>Uninstall all installed options.</p>
-<p>Parameter:
-None</p>
-<p>Return:
-None</p>
 </dd></dl>
 
 </dd></dl>

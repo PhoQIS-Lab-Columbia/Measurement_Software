@@ -6,10 +6,15 @@ import subprocess
 import sys
 import json
 class VNA(Instrument):
-
+    """Vector Network Analyzer Copper Mountain."""
     def __init__(self, instrument, app, program_path, save_files_path=None):
         super().__init__(instrument, EInstrument.VECTOR_NETWORK_ANALYZER, save_files_path)
+        """Initialize the VNA instrument.
         
+        :param instrument: The pyvisa instrument instance.
+        :type instrument: pyvisa.resources.Resource
+        :param app: The application process instance.
+        :type app: subprocess.Popen"""
         self.program_path = program_path
         self.app = app
         
@@ -68,9 +73,9 @@ class Channel:
 class Calculate:
     """
     Data processing (conversion, electrical delay, phase offset,
-gating, fixture simulation, trace hold, smoothing, time domain),
-trace analysis, limit tests, markers, trace memory, math, statistic,
-trace data transfer.
+    gating, fixture simulation, trace hold, smoothing, time domain),
+    trace analysis, limit tests, markers, trace memory, math, statistic,
+    trace data transfer.
     """
     def __init__(self, instrument, data_handler,channel):
         self.instrument = instrument
@@ -78,23 +83,23 @@ trace data transfer.
         self.channel  = channel
         self.balanced_port_1 = self.Calc_Balanced(self.instrument, self.data_handler, self.channel, bport=1)
         self.balanced_port_2 = self.Calc_Balanced(self.instrument, self.data_handler, self.channel, bport=2)
-        self.marker = Calc_Marker(self.instrument, self.data_handler, channel)
-        self.math = Calc_Math(self.instrument, self.data_handler, channel)
-        self.mst = Calc_MST(self.instrument, self.data_handler, channel)
-        self.rlim = Calc_RLIM(self.instrument, self.data_handler, channel)
-        self.smo = Calc_SMO(self.instrument, self.data_handler, channel)
-        self.tran = Calc_TRAN(self.instrument, self.data_handler, channel)
-        self.electrical_delay = Calc_ElectricalDelay(self.instrument, self.data_handler,channel)
-        self.filter = Calc_Filter(self.instrument, self.data_handler,channel)
-        self.trace_analysis = Calc_Trace(self.instrument, self.data_handler,channel)
-        self.limit = Calc_Limit(self.instrument, self.data_handler,channel)
+        self.embedded = self.Calc_Embedded(self.instrument, self.data_handler, channel)
+        self.marker = self.Calc_Marker(self.instrument, self.data_handler, channel)
+        self.math = self.Calc_Math(self.instrument, self.data_handler, channel)
+        self.mst = self.Calc_MST(self.instrument, self.data_handler, channel)
+        self.rlim = self.Calc_RLIM(self.instrument, self.data_handler, channel)
+        self.smo = self.Calc_SMO(self.instrument, self.data_handler, channel)
+        self.tran = self.Calc_TRAN(self.instrument, self.data_handler, channel)
+        self.electrical_delay = self.Calc_ElectricalDelay(self.instrument, self.data_handler,channel)
+        self.filter = self.Calc_Filter(self.instrument, self.data_handler,channel)
+        self.trace_analysis = self.Calc_Trace(self.instrument, self.data_handler,channel)
+        self.limit = self.Calc_Limit(self.instrument, self.data_handler,channel)
     # CALC:CONV - S-parameter Conversion ON/OFF
     def enable_conversion(self):
         """
         Enable the S-parameter conversion function.
 
-        Return:
-        None
+
         """
         self.instrument.write(f":CALC{self.channel}:CONV 1")
 
@@ -102,22 +107,16 @@ trace data transfer.
         """
         Disable the S-parameter conversion function.
 
-        Parameter:
-        enable (bool): True to enable, False to disable
+         :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":CALC{self.channel}:CONV 0")
     def is_conversion_enabled(self) -> bool:
         """
         Query if the S-parameter conversion function is enabled.
 
-        Parameter:
-        None
-
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":CALC{self.channel}:CONV?")))
 
@@ -126,14 +125,12 @@ trace data transfer.
         """
         Set the S-parameter conversion function type.
 
-        Parameter:
-        conv_type (str): Conversion type, one of [
+        :param conv_type: Conversion type, one of [
             'ZREF', 'ZTR', 'YREF', 'YTR', 'INV', 'ZTSH', 'YTSH', 'CONJ',
             'ZREFlection', 'ZTRansmit', 'YREFlection', 'YTRansmit', 'INVersion', 'ZTSHunt', 'YTSHunt', 'CONJugation'
         ]
 
-        Return:
-        None
+
         """
         allowed = [
             'ZREF', 'ZTR', 'YREF', 'YTR', 'INV', 'ZTSH', 'YTSH', 'CONJ',
@@ -147,11 +144,9 @@ trace data transfer.
         """
         Get the S-parameter conversion function type.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Current conversion function type
+        :return: Current conversion function type
         """
         return self.instrument.query(f":CALC{self.channel}:CONV:FUNC?").strip()
     # CALC:CORR:OFFS:PHAS - Phase offset
@@ -159,11 +154,9 @@ trace data transfer.
         """
         Set the value of the phase offset.
 
-        Parameter:
-        offset (float): Phase offset value in degrees
+        :param offset: Phase offset value in degrees
 
-        Return:
-        None
+
         """
         self.instrument.write(f":CALC{self.channel}:CORR:OFFS:PHAS {offset}")
 
@@ -171,11 +164,9 @@ trace data transfer.
         """
         Get the value of the phase offset.
 
-        Parameter:
-        None
+        
 
-        Return:
-        float: Phase offset in degrees
+        :return: Phase offset in degrees
         """
         return float(self.instrument.query(f":CALC{self.channel}:CORR:OFFS:PHAS?"))
 
@@ -184,11 +175,9 @@ trace data transfer.
         """
         Read out the interpolation/extrapolation status of the error correction.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Status
+        :return: Status
         """
         return self.instrument.query(f":CALC{self.channel}:CORR:STAT?").strip()
 
@@ -197,11 +186,9 @@ trace data transfer.
         """
         Read out the formatted data array.
 
-        Parameter:
-        None
+        
 
-        Return:
-        list: Formatted data array
+        :return: Formatted data array
         """
         data = self.instrument.query(f":CALC{self.channel}:DATA:FDAT?")
         if self.data_handler.is_auto_saving_data_enabled():
@@ -213,11 +200,9 @@ trace data transfer.
         """
         Read out the formatted memory array.
 
-        Parameter:
-        None
+        
 
-        Return:
-        list: Formatted memory array
+        :return: Formatted memory array
         """
         data = self.instrument.query(f":CALC{self.channel}:DATA:FMEM?")
         if self.data_handler.is_auto_saving_data_enabled():
@@ -229,11 +214,9 @@ trace data transfer.
         """
         Read out the corrected data array.
 
-        Parameter:
-        None
+        
 
-        Return:
-        list: Corrected data array
+        :return: Corrected data array
         """
         data = self.instrument.query(f":CALC{self.channel}:DATA:SDAT?")
         if self.data_handler.is_auto_saving_data_enabled():
@@ -245,11 +228,9 @@ trace data transfer.
         """
         Read out the corrected memory array.
 
-        Parameter:
-        None
+        
 
-        Return:
-        list: Corrected memory array
+        :return: Corrected memory array
         """
         data = self.instrument.query(f":CALC{self.channel}:DATA:SMEM?")
         if self.data_handler.is_auto_saving_data_enabled():
@@ -261,11 +242,9 @@ trace data transfer.
         """
         Read out the X-axis values array.
 
-        Parameter:
-        None
+        
 
-        Return:
-        list: X-axis values
+        :return: X-axis values
         """
         data = self.instrument.query(f":CALC{self.channel}:DATA:XAX?")
         if self.data_handler.is_auto_saving_data_enabled():
@@ -277,11 +256,7 @@ trace data transfer.
         """
         Set the trace format.
 
-        Parameter:
-        fmt (str): Trace format, e.g., 'MLOG', 'PHAS', 'UPH', 'MLIN', etc.
-
-        Return:
-        None
+        :param fmt: Trace format, e.g., 'MLOG', 'PHAS', 'UPH', 'MLIN', etc.
         """
         allowed = ['MLOG', 'PHAS', 'UPH', 'MLIN', 'REAL', 'IMAG', 'POL', 'SMIT', 'SMIC', 'SWR', 'GDEL', 'K']
         if fmt not in allowed:
@@ -292,11 +267,9 @@ trace data transfer.
         """
         Get the trace format.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Trace format
+        :return: Trace format
         """
         return self.instrument.query(f":CALC{self.channel}:FORM?").strip()
 
@@ -305,11 +278,8 @@ trace data transfer.
         """
         Get the number of traces in the channel.
 
-        Parameter:
-        None
 
-        Return:
-        int: Number of traces
+        :return: Number of traces
         """
         return int(self.instrument.query(f":CALC{self.channel}:PAR:COUN?"))
 
@@ -318,11 +288,9 @@ trace data transfer.
         """
         Set the active trace number.
 
-        Parameter:
-        trace_num (int): Trace number
+        :param trace_num: Trace number
 
-        Return:
-        None
+
         """
         self.instrument.write(f":CALC{self.channel}:PAR:SEL {trace_num}")
 
@@ -330,11 +298,7 @@ trace data transfer.
         """
         Get the active trace number.
 
-        Parameter:
-        None
-
-        Return:
-        int: Active trace number
+        :return: Active trace number
         """
         return int(self.instrument.query(f":CALC{self.channel}:PAR:SEL?"))
     
@@ -342,11 +306,9 @@ trace data transfer.
         """
         Query if port Z conversion is enabled.
 
-        Parameter:
-            None
+        
 
-        Return:
-            bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:SEND:ZCON:STAT?")))
 
@@ -355,11 +317,9 @@ trace data transfer.
         """
         Get the theory of port Z conversion.
 
-        Parameter:
-            None
+        
 
-        Return:
-            str: Theory description
+        :return: Theory description
         """
         return self.instrument.query(f":CALC{self.channel}:FSIM:SEND:ZCON:THE?").strip()
 
@@ -368,11 +328,9 @@ trace data transfer.
         """
         Enable or disable fixture simulation function.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+        :param enable: True to enable, False to disable
 
-        Return:
-            None
+
         """
         self.instrument.write(f":CALC{self.channel}:FSIM:STAT {1 if enable else 0}")
 
@@ -380,11 +338,9 @@ trace data transfer.
         """
         Query if fixture simulation function is enabled.
 
-        Parameter:
-            None
+        
 
-        Return:
-            bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:STAT?")))
     class Calc_Balanced:
@@ -394,22 +350,20 @@ trace data transfer.
             self.bport = bport
             self.instrument = instrument
             self.data_handler = data_handler
-            self.DMC = Calc_Balanced_DMC(self.instrument, self.data_handler, channel, bport)
+            self.DMC = self.Calc_Balanced_DMC(self.instrument, self.data_handler, channel, bport)
         # CALC:FSIM:BAL:CZC:BPOR:Z0 - Set/read common impedance for balanced port
         def set_balanced_port_common_impedance(self,value: float):
             """
             Set the impedance value for the common impedance conversion function of the balanced port.
 
-            Description:
-                Sets the real impedance value for the common impedance conversion function of the balanced port.
-                The value is limited to the range 0.001 to 10_000_000 Ohms (1 mΩ to 10 MΩ).
-                The default value is 25 Ohms.
+            
+            Sets the real impedance value for the common impedance conversion function of the balanced port.
+            The value is limited to the range 0.001 to 10_000_000 Ohms (1 mΩ to 10 MΩ).
+            The default value is 25 Ohms.
 
-            Parameters:
-                value (float): Impedance value in Ohms
+            :param value: Impedance value in Ohms
 
-            Returns:
-                None
+
             """
             value = max(0.001, min(10_000_000, value))
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:BPOR{self.bport}:Z0 {value}")
@@ -418,14 +372,12 @@ trace data transfer.
             """
             Read out the impedance value for the common impedance conversion function of the balanced port.
 
-            Description:
-                Reads the real impedance value for the common impedance conversion function of the balanced port.
+            
+            Reads the real impedance value for the common impedance conversion function of the balanced port.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2 for Bal-Bal topology, 1 for others)
+            :param bport: Balanced port number (1 or 2 for Bal-Bal topology, 1 for others)
 
-            Returns:
-                float: Impedance value in Ohms
+            :return: Impedance value in Ohms
             """
             return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:CZC:BPOR{bport}:Z0?"))
         # CALC:FSIM:BAL:CZC:STAT - Common impedance conversion ON/OFF
@@ -434,8 +386,7 @@ trace data transfer.
             Turns ON the common impedance conversion function of the balanced port.
 
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:STAT 1")
 
@@ -444,8 +395,7 @@ trace data transfer.
             Turns OFF the common impedance conversion function of the balanced port.
 
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:CZC:STAT 0")
 
@@ -453,8 +403,7 @@ trace data transfer.
             """
             Query if the common impedance conversion function of the balanced port is enabled.
 
-            Returns:
-                bool: True if enabled, False otherwise
+            :returns: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:CZC:STAT?")))
 
@@ -463,11 +412,9 @@ trace data transfer.
             """
             Selects the type of balanced device of the balance-unbalance fixture simulation function.
 
-            Parameters:
-                device_type (str): Type of balanced device, one of ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
+            :param device_type: Type of balanced device, one of ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
 
-            Returns:
-                None
+
             """
             allowed = ['SBALanced', 'BBALanced', 'SSBalanced', 'BALanced']
             if device_type not in allowed:
@@ -478,8 +425,7 @@ trace data transfer.
             """
             Reads out the type of balanced device of the balance-unbalance fixture simulation function.
 
-            Returns:
-                str: Type of balanced device
+            :returns: Type of balanced device
             """
             return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DEV?").strip()
 
@@ -488,12 +434,10 @@ trace data transfer.
             """
             Sets the capacitance value of the C element of the differential matching circuit.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2)
-                value (float): Capacitance value in Farads (1e-18 to 1e18)
+            :param bport: Balanced port number (1 or 2)
+            :param value: Capacitance value in Farads (1e-18 to 1e18)
 
-            Returns:
-                None
+
             """
             value = max(1e-18, min(1e18, value))
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:C {value}")
@@ -502,11 +446,9 @@ trace data transfer.
             """
             Reads out the capacitance value of the C element of the differential matching circuit.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2)
+            :param bport: Balanced port number (1 or 2)
 
-            Returns:
-                float: Capacitance value in Farads
+            :return: Capacitance value in Farads
             """
             return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:C?"))
 
@@ -515,12 +457,10 @@ trace data transfer.
             """
             Sets the conductance value of the G element of the differential matching circuit.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2)
-                value (float): Conductance value in Siemens (1e-18 to 1e18)
+            :param bport: Balanced port number (1 or 2)
+            :param value: Conductance value in Siemens (1e-18 to 1e18)
 
-            Returns:
-                None
+
             """
             value = max(1e-18, min(1e18, value))
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:G {value}")
@@ -529,11 +469,9 @@ trace data transfer.
             """
             Reads out the conductance value of the G element of the differential matching circuit.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2)
+            :param bport: Balanced port number (1 or 2)
 
-            Returns:
-                float: Conductance value in Siemens
+            :return: Conductance value in Siemens
             """
             return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:G?"))
 
@@ -542,12 +480,10 @@ trace data transfer.
             """
             Sets the inductance value of the L element of the differential matching circuit.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2)
-                value (float): Inductance value in Henry (1e-18 to 1e18)
+            :param bport: Balanced port number (1 or 2)
+            :param value: Inductance value in Henry (1e-18 to 1e18)
 
-            Returns:
-                None
+
             """
             value = max(1e-18, min(1e18, value))
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:L {value}")
@@ -556,11 +492,9 @@ trace data transfer.
             """
             Reads out the inductance value of the L element of the differential matching circuit.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2)
+            :param bport: Balanced port number (1 or 2)
 
-            Returns:
-                float: Inductance value in Henry
+            :return: Inductance value in Henry
             """
             return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{bport}:PAR:L?"))
         
@@ -569,12 +503,10 @@ trace data transfer.
             """
             Set the impedance value for the differential impedance conversion function of the balanced port.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2)
-                value (float): Impedance value in Ohms (0.001 to 10_000_000)
+            :param bport: Balanced port number (1 or 2)
+            :param value: Impedance value in Ohms (0.001 to 10_000_000)
 
-            Returns:
-                None
+
             """
             value = max(0.001, min(10_000_000, value))
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:BPOR{bport}:Z0 {value}")
@@ -583,11 +515,9 @@ trace data transfer.
             """
             Get the impedance value for the differential impedance conversion function of the balanced port.
 
-            Parameters:
-                bport (int): Balanced port number (1 or 2)
+            :param bport: Balanced port number (1 or 2)
 
-            Returns:
-                float: Impedance value in Ohms
+            :return: Impedance value in Ohms
             """
             return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DZC:BPOR{bport}:Z0?"))
 
@@ -596,8 +526,7 @@ trace data transfer.
             """
             Enable the differential impedance conversion function of the balanced port.
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:STAT 1")
 
@@ -605,8 +534,7 @@ trace data transfer.
             """
             Disable the differential impedance conversion function of the balanced port.
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DZC:STAT 0")
 
@@ -614,8 +542,7 @@ trace data transfer.
             """
             Query if the differential impedance conversion function of the balanced port is enabled.
 
-            Returns:
-                bool: True if enabled, False otherwise
+            :returns: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DZC:STAT?")))
 
@@ -624,12 +551,10 @@ trace data transfer.
             """
             Set the measurement parameter of the fixture simulation function for BALanced device type.
 
-            Parameters:
-                trace (int): Trace number (1-16)
-                param (str): Measurement parameter ('SDD11', 'SCD11', 'SDC11', 'SCC11')
+            :param trace: Trace number (1-16)
+            :param param: Measurement parameter ('SDD11', 'SCD11', 'SDC11', 'SCC11')
 
-            Returns:
-                None
+
             """
             allowed = ['SDD11', 'SCD11', 'SDC11', 'SCC11']
             if param not in allowed:
@@ -640,11 +565,9 @@ trace data transfer.
             """
             Get the measurement parameter of the fixture simulation function for BALanced device type.
 
-            Parameters:
-                trace (int): Trace number (1-16)
+            :param trace: Trace number (1-16)
 
-            Returns:
-                str: Measurement parameter
+            :returns: Measurement parameter
             """
             return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BAL:DEF?").strip()
 
@@ -653,12 +576,9 @@ trace data transfer.
             """
             Set the measurement parameter of the fixture simulation function for BBALanced device type.
 
-            Parameters:
-                trace (int): Trace number (1-16)
-                param (str): Measurement parameter (see allowed list)
+            :param trace: Trace number (1-16)
+            :param param: Measurement parameter (see allowed list)
 
-            Returns:
-                None
             """
             allowed = [
                 'SDD11', 'SDD21', 'SDD12', 'SDD22',
@@ -675,11 +595,9 @@ trace data transfer.
             """
             Get the measurement parameter of the fixture simulation function for BBALanced device type.
 
-            Parameters:
-                trace (int): Trace number (1-16)
+            :param trace: Trace number (1-16)
 
-            Returns:
-                str: Measurement parameter
+            :returns: Measurement parameter
             """
             return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:BBAL:DEF?").strip()
         # CALC:FSIM:BAL:PAR:SBAL - Set/read measurement parameter for SBALanced device type
@@ -687,15 +605,10 @@ trace data transfer.
             """
             Set the measurement parameter of the fixture simulation function for SBALanced device type.
 
-            Parameters:
-                trace (int): Trace number (1-16)
-                param (str): Measurement parameter, one of [
-                    'SSS11', 'SDS21', 'SSD12', 'SCS21', 'SSC12', 'SDD22', 'SCD22', 'SDC22', 'SCC22',
-                    'IMB', 'CMRR1', 'CMRR2'
-                ]
+            :param trace: Trace number (1-16)
+            :param param: Measurement parameter, one of ['SSS11', 'SDS21', 'SSD12', 'SCS21', 'SSC12', 'SDD22', 'SCD22', 'SDC22', 'SCC22','IMB', 'CMRR1', 'CMRR2']
 
-            Returns:
-                None
+
             """
             allowed = [
                 'SSS11', 'SDS21', 'SSD12', 'SCS21', 'SSC12', 'SDD22', 'SCD22', 'SDC22', 'SCC22',
@@ -709,11 +622,9 @@ trace data transfer.
             """
             Get the measurement parameter of the fixture simulation function for SBALanced device type.
 
-            Parameters:
-                trace (int): Trace number (1-16)
+            :param trace: Trace number (1-16)
 
-            Returns:
-                str: Measurement parameter
+            :returns: Measurement parameter
             """
             return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SBAL:DEF?").strip()
 
@@ -722,16 +633,14 @@ trace data transfer.
             """
             Set the measurement parameter of the fixture simulation function for SSBalanced device type.
 
-            Parameters:
-                trace (int): Trace number (1-16)
-                param (str): Measurement parameter, one of [
+            :param trace: Trace number (1-16)
+            :param param: Measurement parameter, one of [
                     'SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23',
                     'SCS31', 'SCS32', 'SSC13', 'SSC23', 'SDD33', 'SCD33', 'SDC33', 'SCC33',
                     'IMB1', 'IMB2', 'IMB3', 'IMB4', 'CMRR1', 'CMRR2'
                 ]
 
-            Returns:
-                None
+
             """
             allowed = [
                 'SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23',
@@ -746,11 +655,9 @@ trace data transfer.
             """
             Get the measurement parameter of the fixture simulation function for SSBalanced device type.
 
-            Parameters:
-                trace (int): Trace number (1-16)
+            :param trace: Trace number (1-16)
 
-            Returns:
-                str: Measurement parameter
+            :returns: Measurement parameter
             """
             return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:SSB:DEF?").strip()
 
@@ -759,11 +666,9 @@ trace data transfer.
             """
             Turn ON the BalUn function for the specified trace.
 
-            Parameters:
-                trace (int): Trace number (1-16)
+            :param trace: Trace number (1-16)
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT 1")
 
@@ -771,11 +676,7 @@ trace data transfer.
             """
             Turn OFF the BalUn function for the specified trace.
 
-            Parameters:
-                trace (int): Trace number (1-16)
-
-            Returns:
-                None
+            :param trace: Trace number (1-16)
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT 0")
 
@@ -783,11 +684,9 @@ trace data transfer.
             """
             Query if the BalUn function is enabled for the specified trace.
 
-            Parameters:
-                trace (int): Trace number (1-16)
+            :param trace: Trace number (1-16)
 
-            Returns:
-                bool: True if enabled, False otherwise
+            :returns: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:PAR{trace}:STAT?")))
 
@@ -796,12 +695,8 @@ trace data transfer.
             """
             Set the ports assigned to the balanced device when its type is "BALance".
 
-            Parameters:
-                port1 (int): First port number
-                port2 (int): Second port number
-
-            Returns:
-                None
+            :param port1: First port number
+            :param port2: Second port number
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:BAL:PPOR {port1},{port2}")
 
@@ -809,8 +704,7 @@ trace data transfer.
             """
             Get the ports assigned to the balanced device when its type is "BALance".
 
-            Returns:
-                tuple: (port1, port2)
+            :return: (port1, port2)
             """
             resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:BAL:PPOR?").strip()
             return tuple(map(int, resp.split(',')))
@@ -820,14 +714,12 @@ trace data transfer.
             """
             Set the ports assigned to the balanced device when its type is "BBALance".
 
-            Parameters:
-                port1 (int): First port number
-                port2 (int): Second port number
-                port3 (int): Third port number
-                port4 (int): Fourth port number
+            :param port1: First port number
+            :param port2: Second port number
+            :param port3: Third port number
+            :param port4: Fourth port number
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:BBAL:PPOR {port1},{port2},{port3},{port4}")
 
@@ -835,8 +727,7 @@ trace data transfer.
             """
             Get the ports assigned to the balanced device when its type is "BBALance".
 
-            Returns:
-                tuple: (port1, port2, port3, port4)
+            :return: (port1, port2, port3, port4)
             """
             resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:BBAL:PPOR?").strip()
             return tuple(map(int, resp.split(',')))
@@ -845,13 +736,11 @@ trace data transfer.
             """
             Set the ports assigned to the balanced device when its type is "SBALanced".
 
-            Parameters:
-                port1 (int): First port number
-                port2 (int): Second port number
-                port3 (int): Third port number
+            :param port1: First port number
+            :param port2: Second port number
+            :param port3: Third port number
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:SBAL:PPOR {port1},{port2},{port3}")
 
@@ -859,8 +748,7 @@ trace data transfer.
             """
             Get the ports assigned to the balanced device when its type is "SBALanced".
 
-            Returns:
-                tuple: (port1, port2, port3)
+            :return: (port1, port2, port3)
             """
             resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:SBAL:PPOR?").strip()
             return tuple(map(int, resp.split(',')))
@@ -870,14 +758,12 @@ trace data transfer.
             """
             Set the ports assigned to the balanced device when its type is "SSBalanced".
 
-            Parameters:
-                port1 (int): First port number
-                port2 (int): Second port number
-                port3 (int): Third port number
-                port4 (int): Fourth port number
+            :param port1: First port number
+            :param port2: Second port number
+            :param port3: Third port number
+            :param port4: Fourth port number
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:SSB:PPOR {port1},{port2},{port3},{port4}")
 
@@ -885,8 +771,7 @@ trace data transfer.
             """
             Get the ports assigned to the balanced device when its type is "SSBalanced".
 
-            Returns:
-                tuple: (port1, port2, port3, port4)
+            :return: (port1, port2, port3, port4)
             """
             resp = self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:SSB:PPOR?").strip()
             return tuple(map(int, resp.split(',')))
@@ -896,8 +781,7 @@ trace data transfer.
             """
             Turn ON the BalUn property indication on the screen.
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT 1")
 
@@ -905,8 +789,7 @@ trace data transfer.
             """
             Turn OFF the BalUn property indication on the screen.
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT 0")
 
@@ -914,2759 +797,2218 @@ trace data transfer.
             """
             Query if the BalUn property indication is enabled on the screen.
 
-            Returns:
-                bool: True if enabled, False otherwise
+            :returns: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:TOP:PROP:STAT?")))
 
         
-class Calc_Balanced_DMC:
-    """
-    Commands to modify differential matching circuit (DMC) parameters for balanced ports.
-    """
-    def __init__(self, instrument, data_handler, channel, bport):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-        self.bport = bport
-
-    # CALC:FSIM:BAL:DMC:BPOR:PAR:R - Set/read resistance value of R element
-    def set_dmc_r(self, value: float):
-        """
-        Set the resistance value of the R element of the differential matching circuit.
+        class Calc_Balanced_DMC:
+            """
+            Commands to modify differential matching circuit (DMC) parameters for balanced ports.
+            """
+            def __init__(self, instrument, data_handler, channel, bport):
+                self.instrument = instrument
+                self.data_handler = data_handler
+                self.channel = channel
+                self.bport = bport
+
+            # CALC:FSIM:BAL:DMC:BPOR:PAR:R - Set/read resistance value of R element
+            def set_dmc_r(self, value: float):
+                """
+                Set the resistance value of the R element of the differential matching circuit.
+
+                :param value: Resistance value in Ohms (1e-18 to 1e18)
+
+                
+                """
+                value = max(1e-18, min(1e18, value))
+                self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:PAR:R {value}")
+
+            def get_dmc_r(self) -> float:
+                """
+                Get the resistance value of the R element of the differential matching circuit.
+
+                :return: Resistance value in Ohms
+                """
+                return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:PAR:R?"))
+
+            # CALC:FSIM:BAL:DMC:BPOR:TYPE - Set/read type of DMC
+            def set_dmc_type(self, dmc_type: str):
+                """
+                Set the type of the differential matching circuit for the specified balanced port.
+
+                :param dmc_type: DMC type, one of ['NONE', 'PLPC', 'USER']
+
+                
+                """
+                allowed = ['NONE', 'PLPC', 'USER']
+                if dmc_type not in allowed:
+                    raise ValueError(f"dmc_type must be one of {allowed}")
+                self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:TYPE {dmc_type}")
+
+            def get_dmc_type(self) -> str:
+                """
+                Get the type of the differential matching circuit for the specified balanced port.
+
+                :returns: DMC type ('NONE', 'PLPC', or 'USER')
+                """
+                return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:TYPE?").strip()
+
+            # CALC:FSIM:BAL:DMC:BPOR:USER:FIL - Set/read user-defined DMC file
+            def set_dmc_user_file(self, filename: str):
+                """
+                Set the filename for the user-defined 2-port network for the DMC.
+
+                :param filename: Path to the .s2p Touchstone file (up to 256 characters)
+
+                
+                """
+                if len(filename) > 256:
+                    raise ValueError("filename must be 256 characters or less")
+                self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:USER:FIL \"{filename}\"")
+
+            def get_dmc_user_file(self) -> str:
+                """
+                Get the filename for the user-defined 2-port network for the DMC.
+
+                :returns: Filename
+                """
+                return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:USER:FIL?").strip()
+
+            # CALC:FSIM:BAL:DMC:STAT - Enable/disable DMC function
+            def enable_dmc(self):
+                """
+                Enable the differential matching circuit function.
+
+                
+                """
+                self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:STAT 1")
+
+            def disable_dmc(self):
+                """
+                Disable the differential matching circuit function.
+
+                
+                """
+                self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:STAT 0")
+
+            def is_dmc_enabled(self) -> bool:
+                """
+                Query if the differential matching circuit function is enabled.
+
+                :returns: True if enabled, False otherwise
+                """
+                return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:STAT?")))
+    class Calc_Embedded:
+        """Commands to modify embedding and de-embedding parameters."""
+        def __init__(self, instrument, data_handler, channel):
+            self.channel = channel
+            self.instrument = instrument
+            self.data_handler = data_handler
+        # CALC:FSIM:EMB:NETW<Nk>:FIL - Set/read 4-port Touchstone file for embedding/de-embedding
+        def set_embedded_network_file(self, network: int, filename: str):
+            """
+            Set the name of the 4-port Touchstone file (*.s4p) for the embedding/de-embedding feature.
 
-        Parameters:
-            value (float): Resistance value in Ohms (1e-18 to 1e18)
+            :param network: Network number (1 or 2)
+            :param filename: Path to the .s4p Touchstone file
 
-        Returns:
-            None
-        """
-        value = max(1e-18, min(1e18, value))
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:PAR:R {value}")
 
-    def get_dmc_r(self) -> float:
-        """
-        Get the resistance value of the R element of the differential matching circuit.
+            """
+            if network not in [1, 2]:
+                raise ValueError("network must be 1 or 2")
+            self.instrument.write(f":CALC{self.channel}:FSIM:EMB:NETW{network}:FIL \"{filename}\"")
 
-        Returns:
-            float: Resistance value in Ohms
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:PAR:R?"))
+        def get_embedded_network_file(self, network: int) -> str:
+            """
+            Get the name of the 4-port Touchstone file (*.s4p) for the embedding/de-embedding feature.
 
-    # CALC:FSIM:BAL:DMC:BPOR:TYPE - Set/read type of DMC
-    def set_dmc_type(self, dmc_type: str):
-        """
-        Set the type of the differential matching circuit for the specified balanced port.
+            :param network: Network number (1 or 2)
 
-        Parameters:
-            dmc_type (str): DMC type, one of ['NONE', 'PLPC', 'USER']
+            :returns: Filename
+            """
+            if network not in [1, 2]:
+                raise ValueError("network must be 1 or 2")
+            return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:NETW{network}:FIL?").strip()
+        # CALC:FSIM:EMB:NETW:TYPE - Select processing type for 4-port embedding/de-embedding
+        def set_network_processing_type(self, network: int, proc_type: str):
+            """
+            Select the processing type of the 4-port network embedding/de-embedding feature.
 
-        Returns:
-            None
-        """
-        allowed = ['NONE', 'PLPC', 'USER']
-        if dmc_type not in allowed:
-            raise ValueError(f"dmc_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:TYPE {dmc_type}")
-
-    def get_dmc_type(self) -> str:
-        """
-        Get the type of the differential matching circuit for the specified balanced port.
+            :param network: Network number (1 or 2)
+            :param proc_type: Processing type, one of ['NONE', 'EMBed', 'DEEMbed']
 
-        Returns:
-            str: DMC type ('NONE', 'PLPC', or 'USER')
-        """
-        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:TYPE?").strip()
 
-    # CALC:FSIM:BAL:DMC:BPOR:USER:FIL - Set/read user-defined DMC file
-    def set_dmc_user_file(self, filename: str):
-        """
-        Set the filename for the user-defined 2-port network for the DMC.
+            """
+            allowed = ['NONE', 'EMBed', 'DEEMbed']
+            if network not in [1, 2]:
+                raise ValueError("network must be 1 or 2")
+            if proc_type not in allowed:
+                raise ValueError(f"proc_type must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FSIM:EMB:NETW{network}:TYPE {proc_type}")
 
-        Parameters:
-            filename (str): Path to the .s2p Touchstone file (up to 256 characters)
+        def get_network_processing_type(self, network: int) -> str:
+            """
+            Get the processing type of the 4-port network embedding/de-embedding feature.
 
-        Returns:
-            None
-        """
-        if len(filename) > 256:
-            raise ValueError("filename must be 256 characters or less")
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:USER:FIL \"{filename}\"")
-
-    def get_dmc_user_file(self) -> str:
-        """
-        Get the filename for the user-defined 2-port network for the DMC.
+            :param network: Network number (1 or 2)
 
-        Returns:
-            str: Filename
-        """
-        return self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:BPOR{self.bport}:USER:FIL?").strip()
+            :returns: Processing type ('NONE', 'EMB', or 'DEEM')
+            """
+            if network not in [1, 2]:
+                raise ValueError("network must be 1 or 2")
+            return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:NETW{network}:TYPE?").strip()
 
-    # CALC:FSIM:BAL:DMC:STAT - Enable/disable DMC function
-    def enable_dmc(self):
-        """
-        Enable the differential matching circuit function.
+        # CALC:FSIM:EMB:STATe - Enable/disable 4-port embedding/de-embedding feature
+        def enable_embedding(self):
+            """
+            Turn ON the 4-port network embedding/de-embedding feature.
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:STAT 1")
 
-    def disable_dmc(self):
-        """
-        Disable the differential matching circuit function.
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:EMB:STAT 1")
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:BAL:DMC:STAT 0")
+        def disable_embedding(self):
+            """
+            Turn OFF the 4-port network embedding/de-embedding feature.
 
-    def is_dmc_enabled(self) -> bool:
-        """
-        Query if the differential matching circuit function is enabled.
 
-        Returns:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:BAL:DMC:STAT?")))
-class Calc_Embedded:
-    """Commands to modify embedding and de-embedding parameters."""
-    def __init__(self, instrument, data_handler, channel):
-        self.channel = channel
-        self.instrument = instrument
-        self.data_handler = data_handler
-    # CALC:FSIM:EMB:NETW<Nk>:FIL - Set/read 4-port Touchstone file for embedding/de-embedding
-    def set_embedded_network_file(self, network: int, filename: str):
-        """
-        Set the name of the 4-port Touchstone file (*.s4p) for the embedding/de-embedding feature.
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:EMB:STAT 0")
 
-        Parameters:
-            network (int): Network number (1 or 2)
-            filename (str): Path to the .s4p Touchstone file
+        def is_embedding_enabled(self) -> bool:
+            """
+            Query if the 4-port network embedding/de-embedding feature is enabled.
 
-        Returns:
-            None
-        """
-        if network not in [1, 2]:
-            raise ValueError("network must be 1 or 2")
-        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:NETW{network}:FIL \"{filename}\"")
-
-    def get_embedded_network_file(self, network: int) -> str:
-        """
-        Get the name of the 4-port Touchstone file (*.s4p) for the embedding/de-embedding feature.
+            :returns: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:EMB:STAT?")))
+
+        # CALC:FSIM:EMB:TOP:A:PORTs - Set/read test port assignment for Topology A
+        def set_topology_a_ports(self, port1: int, port2: int):
+            """
+            Set the test port assignment for Topology A in the 4-port embedding/de-embedding feature.
 
-        Parameters:
-            network (int): Network number (1 or 2)
+            :param port1: First port number
+            :param port2: Second port number
 
-        Returns:
-            str: Filename
-        """
-        if network not in [1, 2]:
-            raise ValueError("network must be 1 or 2")
-        return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:NETW{network}:FIL?").strip()
-    # CALC:FSIM:EMB:NETW:TYPE - Select processing type for 4-port embedding/de-embedding
-    def set_network_processing_type(self, network: int, proc_type: str):
-        """
-        Select the processing type of the 4-port network embedding/de-embedding feature.
 
-        Parameters:
-            network (int): Network number (1 or 2)
-            proc_type (str): Processing type, one of ['NONE', 'EMBed', 'DEEMbed']
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:A:PORT {port1},{port2}")
 
-        Returns:
-            None
-        """
-        allowed = ['NONE', 'EMBed', 'DEEMbed']
-        if network not in [1, 2]:
-            raise ValueError("network must be 1 or 2")
-        if proc_type not in allowed:
-            raise ValueError(f"proc_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:NETW{network}:TYPE {proc_type}")
-
-    def get_network_processing_type(self, network: int) -> str:
-        """
-        Get the processing type of the 4-port network embedding/de-embedding feature.
+        def get_topology_a_ports(self):
+            """
+            Get the test port assignment for Topology A in the 4-port embedding/de-embedding feature.
 
-        Parameters:
-            network (int): Network number (1 or 2)
+            :return: (port1, port2)
+            """
+            resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:A:PORT?").strip()
+            return tuple(map(int, resp.split(',')))
 
-        Returns:
-            str: Processing type ('NONE', 'EMB', or 'DEEM')
-        """
-        if network not in [1, 2]:
-            raise ValueError("network must be 1 or 2")
-        return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:NETW{network}:TYPE?").strip()
-
-    # CALC:FSIM:EMB:STATe - Enable/disable 4-port embedding/de-embedding feature
-    def enable_embedding(self):
-        """
-        Turn ON the 4-port network embedding/de-embedding feature.
+        # CALC:FSIM:EMB:TOP:B:PORTs - Set/read test port assignment for Topology B
+        def set_topology_b_ports(self, port1: int, port2: int, port3: int):
+            """
+            Set the test port assignment for Topology B in the 4-port embedding/de-embedding feature.
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:STAT 1")
+            :param port1: First port number
+            :param port2: Second port number
+            :param port3: Third port number
 
-    def disable_embedding(self):
-        """
-        Turn OFF the 4-port network embedding/de-embedding feature.
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:STAT 0")
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:B:PORT {port1},{port2},{port3}")
 
-    def is_embedding_enabled(self) -> bool:
-        """
-        Query if the 4-port network embedding/de-embedding feature is enabled.
+        def get_topology_b_ports(self):
+            """
+            Get the test port assignment for Topology B in the 4-port embedding/de-embedding feature.
 
-        Returns:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FSIM:EMB:STAT?")))
+            :return: (port1, port2, port3)
+            """
+            resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:B:PORT?").strip()
+            return tuple(map(int, resp.split(',')))
 
-    # CALC:FSIM:EMB:TOP:A:PORTs - Set/read test port assignment for Topology A
-    def set_topology_a_ports(self, port1: int, port2: int):
-        """
-        Set the test port assignment for Topology A in the 4-port embedding/de-embedding feature.
+        # CALC:FSIM:EMB:TOP:C:PORTs - Set/read test port assignment for Topology C
+        def set_topology_c_ports(self, port1: int, port2: int, port3: int, port4: int):
+            """
+            Set the test port assignment for Topology C in the 4-port embedding/de-embedding feature.
 
-        Parameters:
-            port1 (int): First port number
-            port2 (int): Second port number
+            :param port1: First port number
+            :param port2: Second port number
+            :param port3: Third port number
+            :param port4: Fourth port number
 
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:A:PORT {port1},{port2}")
 
-    def get_topology_a_ports(self):
-        """
-        Get the test port assignment for Topology A in the 4-port embedding/de-embedding feature.
+            """
+            self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:C:PORT {port1},{port2},{port3},{port4}")
 
-        Returns:
-            tuple: (port1, port2)
-        """
-        resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:A:PORT?").strip()
-        return tuple(map(int, resp.split(',')))
-
-    # CALC:FSIM:EMB:TOP:B:PORTs - Set/read test port assignment for Topology B
-    def set_topology_b_ports(self, port1: int, port2: int, port3: int):
-        """
-        Set the test port assignment for Topology B in the 4-port embedding/de-embedding feature.
-
-        Parameters:
-            port1 (int): First port number
-            port2 (int): Second port number
-            port3 (int): Third port number
-
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:B:PORT {port1},{port2},{port3}")
+        def get_topology_c_ports(self):
+            """
+            Get the test port assignment for Topology C in the 4-port embedding/de-embedding feature.
 
-    def get_topology_b_ports(self):
-        """
-        Get the test port assignment for Topology B in the 4-port embedding/de-embedding feature.
+            :return: (port1, port2, port3, port4)
+            """
+            resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:C:PORT?").strip()
+            return tuple(map(int, resp.split(',')))
 
-        Returns:
-            tuple: (port1, port2, port3)
-        """
-        resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:B:PORT?").strip()
-        return tuple(map(int, resp.split(',')))
-
-    # CALC:FSIM:EMB:TOP:C:PORTs - Set/read test port assignment for Topology C
-    def set_topology_c_ports(self, port1: int, port2: int, port3: int, port4: int):
-        """
-        Set the test port assignment for Topology C in the 4-port embedding/de-embedding feature.
-
-        Parameters:
-            port1 (int): First port number
-            port2 (int): Second port number
-            port3 (int): Third port number
-            port4 (int): Fourth port number
-
-        Returns:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TOP:C:PORT {port1},{port2},{port3},{port4}")
+        # CALC:FSIM:EMB:TYPE - Select topology for 4-port embedding/de-embedding
+        def set_embedding_topology(self, topology: str):
+            """
+            Select the topology for the 4-port network embedding/de-embedding feature.
 
-    def get_topology_c_ports(self):
-        """
-        Get the test port assignment for Topology C in the 4-port embedding/de-embedding feature.
+            :param topology: Topology, one of ['A', 'B', 'C']
 
-        Returns:
-            tuple: (port1, port2, port3, port4)
-        """
-        resp = self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TOP:C:PORT?").strip()
-        return tuple(map(int, resp.split(',')))
-
-    # CALC:FSIM:EMB:TYPE - Select topology for 4-port embedding/de-embedding
-    def set_embedding_topology(self, topology: str):
-        """
-        Select the topology for the 4-port network embedding/de-embedding feature.
 
-        Parameters:
-            topology (str): Topology, one of ['A', 'B', 'C']
+            """
+            allowed = ['A', 'B', 'C']
+            if topology not in allowed:
+                raise ValueError(f"topology must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TYPE {topology}")
 
-        Returns:
-            None
-        """
-        allowed = ['A', 'B', 'C']
-        if topology not in allowed:
-            raise ValueError(f"topology must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FSIM:EMB:TYPE {topology}")
-
-    def get_embedding_topology(self) -> str:
-        """
-        Get the topology for the 4-port network embedding/de-embedding feature.
+        def get_embedding_topology(self) -> str:
+            """
+            Get the topology for the 4-port network embedding/de-embedding feature.
 
-        Returns:
-            str: Topology ('A', 'B', or 'C')
-        """
-        return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TYPE?").strip()
-    
-class Calc_ElectricalDelay:
-    """Commands to modify electrical delay parameters."""
-    def __init__(self, instrument, data_handler, channel):
-        self.channel = channel
-        self.instrument = instrument
-        self.data_handler = data_handler
-
-    # CALC:CORR:EDEL:DIST - Equivalent distance in the electrical delay function
-    def set_equivalent_distance(self, distance: float):
-        """
-        Set the value of the equivalent distance in the electrical delay function.
+            :returns: Topology ('A', 'B', or 'C')
+            """
+            return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:TYPE?").strip()
+        
+    class Calc_ElectricalDelay:
+        """Commands to modify electrical delay parameters."""
+        def __init__(self, instrument, data_handler, channel):
+            self.channel = channel
+            self.instrument = instrument
+            self.data_handler = data_handler
 
-        Parameter:
-            distance (float): Distance value
+        # CALC:CORR:EDEL:DIST - Equivalent distance in the electrical delay function
+        def set_equivalent_distance(self, distance: float):
+            """
+            Set the value of the equivalent distance in the electrical delay function.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:DIST {distance}")
+            :param distance: Distance value
 
-    def get_equivalent_distance(self) -> float:
-        """
-        Get the value of the equivalent distance in the electrical delay function.
 
-        Parameter:
-            None
+            """
+            self.instrument.write(f":CALC{self.channel}:CORR:EDEL:DIST {distance}")
 
-        Return:
-            float: Distance value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:DIST?"))
+        def get_equivalent_distance(self) -> float:
+            """
+            Get the value of the equivalent distance in the electrical delay function.
 
-    # CALC:CORR:EDEL:DIST:UNIT - Distance units in the electrical delay function
-    def set_distance_unit(self, unit: str):
-        """
-        Set the distance units in the electrical delay function.
+            :return: Distance value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:DIST?"))
 
-        Parameter:
-            unit (str): Unit, one of ['MET', 'FEET', 'INCH']
+        # CALC:CORR:EDEL:DIST:UNIT - Distance units in the electrical delay function
+        def set_distance_unit(self, unit: str):
+            """
+            Set the distance units in the electrical delay function.
 
-        Return:
-            None
-        """
-        allowed = ['MET', 'FEET', 'INCH']
-        if unit not in allowed:
-            raise ValueError(f"unit must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:DIST:UNIT {unit}")
-
-    def get_distance_unit(self) -> str:
-        """
-        Get the distance units in the electrical delay function.
+            :param unit: Unit, one of ['MET', 'FEET', 'INCH']
 
-        Parameter:
-            None
 
-        Return:
-            str: Unit
-        """
-        return self.instrument.query(f":CALC{self.channel}:CORR:EDEL:DIST:UNIT?").strip()
+            """
+            allowed = ['MET', 'FEET', 'INCH']
+            if unit not in allowed:
+                raise ValueError(f"unit must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:CORR:EDEL:DIST:UNIT {unit}")
 
-    # CALC:CORR:EDEL:MED - Type of media in the electrical delay function
-    def set_media(self, media: str):
-        """
-        Set the type of media in the electrical delay function.
+        def get_distance_unit(self) -> str:
+            """
+            Get the distance units in the electrical delay function.
 
-        Parameter:
-            media (str): Media type, one of ['COAX', 'WAV']
+            :return: Unit
+            """
+            return self.instrument.query(f":CALC{self.channel}:CORR:EDEL:DIST:UNIT?").strip()
 
-        Return:
-            None
-        """
-        allowed = ['COAX', 'WAV']
-        if media not in allowed:
-            raise ValueError(f"media must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:MED {media}")
-
-    def get_media(self) -> str:
-        """
-        Get the type of media in the electrical delay function.
+        # CALC:CORR:EDEL:MED - Type of media in the electrical delay function
+        def set_media(self, media: str):
+            """
+            Set the type of media in the electrical delay function.
 
-        Parameter:
-            None
+            :param media: Media type, one of ['COAX', 'WAV']
 
-        Return:
-            str: Media type
-        """
-        return self.instrument.query(f":CALC{self.channel}:CORR:EDEL:MED?").strip()
 
-    # CALC:CORR:EDEL:RVEL - Velocity factor used to calculate between delay and distance
-    def set_velocity_factor(self, factor: float):
-        """
-        Set the value of the velocity factor used to calculate between delay and distance.
+            """
+            allowed = ['COAX', 'WAV']
+            if media not in allowed:
+                raise ValueError(f"media must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:CORR:EDEL:MED {media}")
 
-        Parameter:
-            factor (float): Velocity factor (0 to 1)
+        def get_media(self) -> str:
+            """
+            Get the type of media in the electrical delay function.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:RVEL {factor}")
+            :return: Media type
+            """
+            return self.instrument.query(f":CALC{self.channel}:CORR:EDEL:MED?").strip()
 
-    def get_velocity_factor(self) -> float:
-        """
-        Get the value of the velocity factor used to calculate between delay and distance.
+        # CALC:CORR:EDEL:RVEL - Velocity factor used to calculate between delay and distance
+        def set_velocity_factor(self, factor: float):
+            """
+            Set the value of the velocity factor used to calculate between delay and distance.
 
-        Parameter:
-            None
+            :param factor: Velocity factor (0 to 1)
 
-        Return:
-            float: Velocity factor
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:RVEL?"))
 
-    # CALC:CORR:EDEL:TIME - Value of the electrical delay
-    def set_electrical_delay(self, delay: float):
-        """
-        Set the value of the electrical delay.
+            """
+            self.instrument.write(f":CALC{self.channel}:CORR:EDEL:RVEL {factor}")
 
-        Parameter:
-            delay (float): Delay in seconds
+        def get_velocity_factor(self) -> float:
+            """
+            Get the value of the velocity factor used to calculate between delay and distance.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:TIME {delay}")
+            :return: Velocity factor
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:RVEL?"))
 
-    def get_electrical_delay(self) -> float:
-        """
-        Get the value of the electrical delay.
+        # CALC:CORR:EDEL:TIME - Value of the electrical delay
+        def set_electrical_delay(self, delay: float):
+            """
+            Set the value of the electrical delay.
 
-        Parameter:
-            None
+            :param delay: Delay in seconds
 
-        Return:
-            float: Delay in seconds
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:TIME?"))
 
-    # CALC:CORR:EDEL:WAV:CUT - Waveguide cutoff frequency in the electrical delay function
-    def set_waveguide_cutoff(self, freq: float):
-        """
-        Set the value of the waveguide cutoff frequency in the electrical delay function.
+            """
+            self.instrument.write(f":CALC{self.channel}:CORR:EDEL:TIME {delay}")
 
-        Parameter:
-            freq (float): Frequency in Hz
+        def get_electrical_delay(self) -> float:
+            """
+            Get the value of the electrical delay.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:CORR:EDEL:WAV:CUT {freq}")
+            :return: Delay in seconds
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:TIME?"))
 
-    def get_waveguide_cutoff(self) -> float:
-        """
-        Get the value of the waveguide cutoff frequency in the electrical delay function.
+        # CALC:CORR:EDEL:WAV:CUT - Waveguide cutoff frequency in the electrical delay function
+        def set_waveguide_cutoff(self, freq: float):
+            """
+            Set the value of the waveguide cutoff frequency in the electrical delay function.
 
-        Parameter:
-            None
+            :param freq: Frequency in Hz
 
-        Return:
-            float: Frequency in Hz
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:WAV:CUT?"))
-
-class Calc_Filter:
-    """Commands for modifying the gating function parameters."""
-    def __init__(self, instrument, data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-
-    # CALC:FILT:TIME - Gate type of the gating function
-    def set_gate_type(self, gate_type: str):
-        """
-        Set the gate type of the gating function.
 
-        Parameter:
-            gate_type (str): Gate type, one of ['BPAS', 'NOTC']
+            """
+            self.instrument.write(f":CALC{self.channel}:CORR:EDEL:WAV:CUT {freq}")
 
-        Return:
-            None
-        """
-        allowed = ['BPAS', 'NOTC']
-        if gate_type not in allowed:
-            raise ValueError(f"gate_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FILT:TIME {gate_type}")
-
-    def get_gate_type(self) -> str:
-        """
-        Get the gate type of the gating function.
+        def get_waveguide_cutoff(self) -> float:
+            """
+            Get the value of the waveguide cutoff frequency in the electrical delay function.
 
-        Parameter:
-            None
 
-        Return:
-            str: Gate type
-        """
-        return self.instrument.query(f":CALC{self.channel}:FILT:TIME?").strip()
+            :return: Frequency in Hz
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:CORR:EDEL:WAV:CUT?"))
 
-    # CALC:FILT:TIME:CENT - Gate center value of the gating function
-    def set_gate_center(self, center: float):
-        """
-        Set the gate center value of the gating function.
+    class Calc_Filter:
+        """Commands for modifying the gating function parameters."""
+        def __init__(self, instrument, data_handler, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
 
-        Parameter:
-            center (float): Center value
+        # CALC:FILT:TIME - Gate type of the gating function
+        def set_gate_type(self, gate_type: str):
+            """
+            Set the gate type of the gating function.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FILT:TIME:CENT {center}")
+            :param gate_type: Gate type, one of ['BPAS', 'NOTC']
 
-    def get_gate_center(self) -> float:
-        """
-        Get the gate center value of the gating function.
 
-        Parameter:
-            None
+            """
+            allowed = ['BPAS', 'NOTC']
+            if gate_type not in allowed:
+                raise ValueError(f"gate_type must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FILT:TIME {gate_type}")
 
-        Return:
-            float: Center value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:CENT?"))
+        def get_gate_type(self) -> str:
+            """
+            Get the gate type of the gating function.
 
-    # CALC:FILT:TIME:SHAP - Gate shape of the gating function
-    def set_gate_shape(self, shape: str):
-        """
-        Set the gate shape of the gating function.
+            :return: Gate type
+            """
+            return self.instrument.query(f":CALC{self.channel}:FILT:TIME?").strip()
 
-        Parameter:
-            shape (str): Gate shape, one of ['MAX', 'WIDE', 'NORM', 'MIN']
+        # CALC:FILT:TIME:CENT - Gate center value of the gating function
+        def set_gate_center(self, center: float):
+            """
+            Set the gate center value of the gating function.
 
-        Return:
-            None
-        """
-        allowed = ['MAX', 'WIDE', 'NORM', 'MIN']
-        if shape not in allowed:
-            raise ValueError(f"shape must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FILT:TIME:SHAP {shape}")
-
-    def get_gate_shape(self) -> str:
-        """
-        Get the gate shape of the gating function.
+            :param center: Center value
 
-        Parameter:
-            None
 
-        Return:
-            str: Gate shape
-        """
-        return self.instrument.query(f":CALC{self.channel}:FILT:TIME:SHAP?").strip()
+            """
+            self.instrument.write(f":CALC{self.channel}:FILT:TIME:CENT {center}")
 
-    # CALC:FILT:TIME:SPAN - Gate span value of the gating function
-    def set_gate_span(self, span: float):
-        """
-        Set the gate span value of the gating function.
+        def get_gate_center(self) -> float:
+            """
+            Get the gate center value of the gating function.
 
-        Parameter:
-            span (float): Span value
+            :return: Center value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:CENT?"))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FILT:TIME:SPAN {span}")
+        # CALC:FILT:TIME:SHAP - Gate shape of the gating function
+        def set_gate_shape(self, shape: str):
+            """
+            Set the gate shape of the gating function.
 
-    def get_gate_span(self) -> float:
-        """
-        Get the gate span value of the gating function.
+            :param shape: Gate shape, one of ['MAX', 'WIDE', 'NORM', 'MIN']
 
-        Parameter:
-            None
 
-        Return:
-            float: Span value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:SPAN?"))
+            """
+            allowed = ['MAX', 'WIDE', 'NORM', 'MIN']
+            if shape not in allowed:
+                raise ValueError(f"shape must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FILT:TIME:SHAP {shape}")
 
-    # CALC:FILT:TIME:STAR - Gate start value of the gating function
-    def set_gate_start(self, start: float):
-        """
-        Set the gate start value of the gating function.
+        def get_gate_shape(self) -> str:
+            """
+            Get the gate shape of the gating function.
 
-        Parameter:
-            start (float): Start value
+            :return: Gate shape
+            """
+            return self.instrument.query(f":CALC{self.channel}:FILT:TIME:SHAP?").strip()
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FILT:TIME:STAR {start}")
+        # CALC:FILT:TIME:SPAN - Gate span value of the gating function
+        def set_gate_span(self, span: float):
+            """
+            Set the gate span value of the gating function.
 
-    def get_gate_start(self) -> float:
-        """
-        Get the gate start value of the gating function.
+            :param span: Span value
 
-        Parameter:
-            None
 
-        Return:
-            float: Start value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STAR?"))
+            """
+            self.instrument.write(f":CALC{self.channel}:FILT:TIME:SPAN {span}")
 
-    # CALC:FILT:TIME:STAT - Gating function ON/OFF
-    def enable_gating(self, enable: bool):
-        """
-        Enable or disable the gating function.
+        def get_gate_span(self) -> float:
+            """
+            Get the gate span value of the gating function.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+            :return: Span value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:SPAN?"))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FILT:TIME:STAT {1 if enable else 0}")
+        # CALC:FILT:TIME:STAR - Gate start value of the gating function
+        def set_gate_start(self, start: float):
+            """
+            Set the gate start value of the gating function.
 
-    def is_gating_enabled(self) -> bool:
-        """
-        Query if the gating function is enabled.
+            :param start: Start value
 
-        Parameter:
-            None
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STAT?")))
+            """
+            self.instrument.write(f":CALC{self.channel}:FILT:TIME:STAR {start}")
 
-    # CALC:FILT:TIME:STOP - Gate stop value of the gating function
-    def set_gate_stop(self, stop: float):
-        """
-        Set the gate stop value of the gating function.
+        def get_gate_start(self) -> float:
+            """
+            Get the gate start value of the gating function.
 
-        Parameter:
-            stop (float): Stop value
+            :return: Start value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STAR?"))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FILT:TIME:STOP {stop}")
+        # CALC:FILT:TIME:STAT - Gating function ON/OFF
+        def enable_gating(self, enable: bool):
+            """
+            Enable or disable the gating function.
 
-    def get_gate_stop(self) -> float:
-        """
-        Get the gate stop value of the gating function.
+            :param enable: True to enable, False to disable
 
-        Parameter:
-            None
 
-        Return:
-            float: Stop value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STOP?"))
-
-
-class Calc_Trace:
-    """
-    Trace analysis, limit tests, markers, trace memory, math, statistic, trace data transfer.
-    """
-    def __init__(self, instrument, data_handler,channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-        self.hold = Tr_Hold(self.instrument, self.data_handler,channel)
-
-    # CALC:FUNC:DATA? - Analysis result data array
-    def get_analysis_result_data(self):
-        """
-        Get the analysis result data array.
+            """
+            self.instrument.write(f":CALC{self.channel}:FILT:TIME:STAT {1 if enable else 0}")
 
-        Parameter:
-            None
+        def is_gating_enabled(self) -> bool:
+            """
+            Query if the gating function is enabled.
 
-        Return:
-            list: Analysis result data array
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STAT?")))
+
+        # CALC:FILT:TIME:STOP - Gate stop value of the gating function
+        def set_gate_stop(self, stop: float):
+            """
+            Set the gate stop value of the gating function.
+
+            :param stop: Stop value
+
+
+            """
+            self.instrument.write(f":CALC{self.channel}:FILT:TIME:STOP {stop}")
+
+        def get_gate_stop(self) -> float:
+            """
+            Get the gate stop value of the gating function.
+
+            :return: Stop value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FILT:TIME:STOP?"))
+
+
+    class Calc_Trace:
         """
-        data = self.instrument.query(f":CALC{self.channel}:FUNC:DATA?")
-        if self.data_handler.is_auto_saving_data_enabled():
-            self.data_handler.write_to_file(self, "ANALYSIS_RESULT", data, file_type = EFileType.CSV)
-        return data
-
-    # CALC:FUNC:DOM - Arbitrary sweep range ON/OFF
-    def enable_arbitrary_sweep_range(self, enable: bool):
+        Trace analysis, limit tests, markers, trace memory, math, statistic, trace data transfer.
         """
-        Enable or disable arbitrary sweep range.
+        def __init__(self, instrument, data_handler,channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
+            self.hold = self.Tr_Hold(self.instrument, self.data_handler,channel)
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+        # CALC:FUNC:DATA? - Analysis result data array
+        def get_analysis_result_data(self):
+            """
+            Get the analysis result data array.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FUNC:DOM {1 if enable else 0}")
+            :return: Analysis result data array
+            """
+            data = self.instrument.query(f":CALC{self.channel}:FUNC:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "ANALYSIS_RESULT", data, file_type = EFileType.CSV)
+            return data
 
-    def is_arbitrary_sweep_range_enabled(self) -> bool:
-        """
-        Query if arbitrary sweep range is enabled.
+        # CALC:FUNC:DOM - Arbitrary sweep range ON/OFF
+        def enable_arbitrary_sweep_range(self, enable: bool):
+            """
+            Enable or disable arbitrary sweep range.
 
-        Parameter:
-            None
+            :param enable: True to enable, False to disable
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FUNC:DOM?")))
 
-    # CALC:FUNC:DOM:COUP - Coupling range ON/OFF
-    def enable_coupling_range(self, enable: bool):
-        """
-        Enable or disable coupling range.
+            """
+            self.instrument.write(f":CALC{self.channel}:FUNC:DOM {1 if enable else 0}")
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+        def is_arbitrary_sweep_range_enabled(self) -> bool:
+            """
+            Query if arbitrary sweep range is enabled.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FUNC:DOM:COUP {1 if enable else 0}")
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:FUNC:DOM?")))
 
-    def is_coupling_range_enabled(self) -> bool:
-        """
-        Query if coupling range is enabled.
+        # CALC:FUNC:DOM:COUP - Coupling range ON/OFF
+        def enable_coupling_range(self, enable: bool):
+            """
+            Enable or disable coupling range.
 
-        Parameter:
-            None
+            :param enable: True to enable, False to disable
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:COUP?")))
 
-    # CALC:FUNC:DOM:STAR - Analysis range start
-    def set_analysis_range_start(self, value: float):
-        """
-        Set the analysis range start.
+            """
+            self.instrument.write(f":CALC{self.channel}:FUNC:DOM:COUP {1 if enable else 0}")
 
-        Parameter:
-            value (float): Start value
+        def is_coupling_range_enabled(self) -> bool:
+            """
+            Query if coupling range is enabled.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FUNC:DOM:STAR {value}")
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:COUP?")))
 
-    def get_analysis_range_start(self) -> float:
-        """
-        Get the analysis range start.
+        # CALC:FUNC:DOM:STAR - Analysis range start
+        def set_analysis_range_start(self, value: float):
+            """
+            Set the analysis range start.
 
-        Parameter:
-            None
+            :param value: Start value
 
-        Return:
-            float: Start value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:STAR?"))
 
-    # CALC:FUNC:DOM:STOP - Analysis range stop
-    def set_analysis_range_stop(self, value: float):
-        """
-        Set the analysis range stop.
+            """
+            self.instrument.write(f":CALC{self.channel}:FUNC:DOM:STAR {value}")
 
-        Parameter:
-            value (float): Stop value
+        def get_analysis_range_start(self) -> float:
+            """
+            Get the analysis range start.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FUNC:DOM:STOP {value}")
+            :return: Start value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:STAR?"))
 
-    def get_analysis_range_stop(self) -> float:
-        """
-        Get the analysis range stop.
+        # CALC:FUNC:DOM:STOP - Analysis range stop
+        def set_analysis_range_stop(self, value: float):
+            """
+            Set the analysis range stop.
 
-        Parameter:
-            None
+            :param value: Stop value
 
-        Return:
-            float: Stop value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:STOP?"))
 
-    # CALC:FUNC:EXEC - Execute analysis
-    def execute_analysis(self):
-        """
-        Execute analysis.
+            """
+            self.instrument.write(f":CALC{self.channel}:FUNC:DOM:STOP {value}")
 
-        Parameter:
-            None
+        def get_analysis_range_stop(self) -> float:
+            """
+            Get the analysis range stop.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FUNC:EXEC")
+            :return: Stop value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FUNC:DOM:STOP?"))
 
-    # CALC:FUNC:PEXC - Lower limit for the peak excursion value
-    def set_peak_excursion_limit(self, value: float):
-        """
-        Set the lower limit for the peak excursion value.
+        # CALC:FUNC:EXEC - Execute analysis
+        def execute_analysis(self):
+            """
+            Execute analysis.
 
-        Parameter:
-            value (float): Lower limit
+            """
+            self.instrument.write(f":CALC{self.channel}:FUNC:EXEC")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FUNC:PEXC {value}")
+        # CALC:FUNC:PEXC - Lower limit for the peak excursion value
+        def set_peak_excursion_limit(self, value: float):
+            """
+            Set the lower limit for the peak excursion value.
 
-    def get_peak_excursion_limit(self) -> float:
-        """
-        Get the lower limit for the peak excursion value.
+            :param value: Lower limit
 
-        Parameter:
-            None
 
-        Return:
-            float: Lower limit
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FUNC:PEXC?"))
+            """
+            self.instrument.write(f":CALC{self.channel}:FUNC:PEXC {value}")
 
-    # CALC:FUNC:POIN? - Number of points (data pairs)
-    def get_number_of_points(self) -> int:
-        """
-        Get the number of points (data pairs).
+        def get_peak_excursion_limit(self) -> float:
+            """
+            Get the lower limit for the peak excursion value.
 
-        Parameter:
-            None
+            :return: Lower limit
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FUNC:PEXC?"))
 
-        Return:
-            int: Number of points
-        """
-        return int(self.instrument.query(f":CALC{self.channel}:FUNC:POIN?"))
+        # CALC:FUNC:POIN? - Number of points (data pairs)
+        def get_number_of_points(self) -> int:
+            """
+            Get the number of points (data pairs).
 
-    # CALC:FUNC:PPOL - Peak polarity
-    def set_peak_polarity(self, polarity: str):
-        """
-        Set the peak polarity.
+            :return: Number of points
+            """
+            return int(self.instrument.query(f":CALC{self.channel}:FUNC:POIN?"))
 
-        Parameter:
-            polarity (str): One of ['POS', 'NEG', 'BOTH']
+        # CALC:FUNC:PPOL - Peak polarity
+        def set_peak_polarity(self, polarity: str):
+            """
+            Set the peak polarity.
 
-        Return:
-            None
-        """
-        allowed = ['POS', 'NEG', 'BOTH']
-        if polarity not in allowed:
-            raise ValueError(f"polarity must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FUNC:PPOL {polarity}")
-
-    def get_peak_polarity(self) -> str:
-        """
-        Get the peak polarity.
+            :param polarity: One of ['POS', 'NEG', 'BOTH']
 
-        Parameter:
-            None
 
-        Return:
-            str: Peak polarity
-        """
-        return self.instrument.query(f":CALC{self.channel}:FUNC:PPOL?").strip()
+            """
+            allowed = ['POS', 'NEG', 'BOTH']
+            if polarity not in allowed:
+                raise ValueError(f"polarity must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FUNC:PPOL {polarity}")
 
-    # CALC:FUNC:TARG - Target level
-    def set_target_level(self, value: float):
-        """
-        Set the target level.
+        def get_peak_polarity(self) -> str:
+            """
+            Get the peak polarity.
 
-        Parameter:
-            value (float): Target level
+            :return: Peak polarity
+            """
+            return self.instrument.query(f":CALC{self.channel}:FUNC:PPOL?").strip()
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:FUNC:TARG {value}")
+        # CALC:FUNC:TARG - Target level
+        def set_target_level(self, value: float):
+            """
+            Set the target level.
 
-    def get_target_level(self) -> float:
-        """
-        Get the target level.
+            :param value: Target level
 
-        Parameter:
-            None
 
-        Return:
-            float: Target level
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:FUNC:TARG?"))
+            """
+            self.instrument.write(f":CALC{self.channel}:FUNC:TARG {value}")
 
-    # CALC:FUNC:TTR - Transition type
-    def set_transition_type(self, ttype: str):
-        """
-        Set the transition type.
+        def get_target_level(self) -> float:
+            """
+            Get the target level.
 
-        Parameter:
-            ttype (str): One of ['RISE', 'FALL', 'BOTH']
+            :return: Target level
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:FUNC:TARG?"))
 
-        Return:
-            None
-        """
-        allowed = ['RISE', 'FALL', 'BOTH']
-        if ttype not in allowed:
-            raise ValueError(f"ttype must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FUNC:TTR {ttype}")
-
-    def get_transition_type(self) -> str:
-        """
-        Get the transition type.
+        # CALC:FUNC:TTR - Transition type
+        def set_transition_type(self, ttype: str):
+            """
+            Set the transition type.
 
-        Parameter:
-            None
+            :param ttype: One of ['RISE', 'FALL', 'BOTH']
 
-        Return:
-            str: Transition type
-        """
-        return self.instrument.query(f":CALC{self.channel}:FUNC:TTR?").strip()
 
-    # CALC:FUNC:TYPE - Analysis type
-    def set_analysis_type(self, atype: str):
-        """
-        Set the analysis type.
+            """
+            allowed = ['RISE', 'FALL', 'BOTH']
+            if ttype not in allowed:
+                raise ValueError(f"ttype must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FUNC:TTR {ttype}")
 
-        Parameter:
-            atype (str): Analysis type, e.g., 'PEAK', 'VALLEY', etc.
+        def get_transition_type(self) -> str:
+            """
+            Get the transition type.
 
-        Return:
-            None
-        """
-        allowed = ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
-        if atype not in allowed:
-            raise ValueError(f"atype must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:FUNC:TYPE {atype}")
-
-    def get_analysis_type(self) -> str:
-        """
-        Get the analysis type.
+            :return: Transition type
+            """
+            return self.instrument.query(f":CALC{self.channel}:FUNC:TTR?").strip()
 
-        Parameter:
-            None
+        # CALC:FUNC:TYPE - Analysis type
+        def set_analysis_type(self, atype: str):
+            """
+            Set the analysis type.
 
-        Return:
-            str: Analysis type
-        """
-        return self.instrument.query(f":CALC{self.channel}:FUNC:TYPE?").strip()
-
-class Tr_Hold:
-    """
-    Commands for trace hold functionality.
-    """
-    def __init__(self, instrument,data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-    # CALC:HOLD:TYPE - Trace hold type
-    def set_trace_hold_type(self, hold_type: str):
-        """
-        Set the trace hold type.
+            :param atype: Analysis type, e.g., 'PEAK', 'VALLEY', etc.
 
-        Parameter:
-            hold_type (str): Trace hold type, e.g., 'NONE', 'MAX', 'MIN', etc.
 
-        Return:
-            None
-        """
-        allowed = ['NONE', 'MAX', 'MIN', 'AVER']
-        if hold_type not in allowed:
-            raise ValueError(f"hold_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:HOLD:TYPE {hold_type}")
-
-    def get_trace_hold_type(self) -> str:
-        """
-        Get the trace hold type.
+            """
+            allowed = ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
+            if atype not in allowed:
+                raise ValueError(f"atype must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:FUNC:TYPE {atype}")
 
-        Parameter:
-            None
+        def get_analysis_type(self) -> str:
+            """
+            Get the analysis type.
 
-        Return:
-            str: Trace hold type
-        """
-        return self.instrument.query(f":CALC{self.channel}:HOLD:TYPE?").strip()
+            :return: Analysis type
+            """
+            return self.instrument.query(f":CALC{self.channel}:FUNC:TYPE?").strip()
 
-    # CALC:HOLD:CLE - Trace hold restart
-    def restart_trace_hold(self):
-        """
-        Restart trace hold.
+        class Tr_Hold:
+            """
+            Commands for trace hold functionality.
+            """
+            def __init__(self, instrument,data_handler, channel):
+                self.instrument = instrument
+                self.data_handler = data_handler
+                self.channel = channel
+            # CALC:HOLD:TYPE - Trace hold type
+            def set_trace_hold_type(self, hold_type: str):
+                """
+                Set the trace hold type.
 
-        Parameter:
-            None
+                :param hold_type: Trace hold type, e.g., 'NONE', 'MAX', 'MIN', etc.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:HOLD:CLE")
+
+                """
+                allowed = ['NONE', 'MAX', 'MIN', 'AVER']
+                if hold_type not in allowed:
+                    raise ValueError(f"hold_type must be one of {allowed}")
+                self.instrument.write(f":CALC{self.channel}:HOLD:TYPE {hold_type}")
+
+            def get_trace_hold_type(self) -> str:
+                """
+                Get the trace hold type.
+
+                
 
-class Calc_Limit:
-    """
+                :return: Trace hold type
+                """
+                return self.instrument.query(f":CALC{self.channel}:HOLD:TYPE?").strip()
+
+            # CALC:HOLD:CLE - Trace hold restart
+            def restart_trace_hold(self):
+                """
+                Restart trace hold.
+
+                
+
+
+                """
+                self.instrument.write(f":CALC{self.channel}:HOLD:CLE")
+
+    class Calc_Limit:
+        """
         Commands for limit tests, limit line table, limits display, limit test result,
         """
-    def __init__(self, instrument, data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-    # CALC:LIM - Limit test ON/OFF
-    def enable_limit_test(self, enable: bool):
-        """
-        Enable or disable limit test.
+        def __init__(self, instrument, data_handler, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
+        # CALC:LIM - Limit test ON/OFF
+        def enable_limit_test(self, enable: bool):
+            """
+            Enable or disable limit test.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:LIM {1 if enable else 0}")
 
-    def is_limit_test_enabled(self) -> bool:
-        """
-        Query if limit test is enabled.
+            """
+            self.instrument.write(f":CALC{self.channel}:LIM {1 if enable else 0}")
 
-        Parameter:
-            None
+        def is_limit_test_enabled(self) -> bool:
+            """
+            Query if limit test is enabled.
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:LIM?")))
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:LIM?")))
 
-    # CALC:LIM:DATA - Limit line table
-    def set_limit_line_table(self, table: str):
-        """
-        Set the limit line table.
+        # CALC:LIM:DATA - Limit line table
+        def set_limit_line_table(self, table: str):
+            """
+            Set the limit line table.
 
-        Parameter:
-            table (str): Limit line table string
+            :param table: Limit line table string
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:LIM:DATA {table}")
 
-    def get_limit_line_table(self) -> str:
-        """
-        Get the limit line table.
+            """
+            self.instrument.write(f":CALC{self.channel}:LIM:DATA {table}")
 
-        Parameter:
-            None
+        def get_limit_line_table(self) -> str:
+            """
+            Get the limit line table.
 
-        Return:
-            str: Limit line table string
-        """
-        data = self.instrument.query(f":CALC{self.channel}:LIM:DATA?").strip()
-        if self.data_handler.is_auto_saving_data_enabled():
-            self.data_handler.write_to_file(self, "LIMIT_LINE", data, file_type = EFileType.CSV)
-        return data
-    # CALC:LIM:DISP - Limits display ON/OFF
-    def enable_limits_display(self, enable: bool):
-        """
-        Enable or disable limits display.
+            :return: Limit line table string
+            """
+            data = self.instrument.query(f":CALC{self.channel}:LIM:DATA?").strip()
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "LIMIT_LINE", data, file_type = EFileType.CSV)
+            return data
+        # CALC:LIM:DISP - Limits display ON/OFF
+        def enable_limits_display(self, enable: bool):
+            """
+            Enable or disable limits display.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:LIM:DISP {1 if enable else 0}")
 
-    def is_limits_display_enabled(self) -> bool:
-        """
-        Query if limits display is enabled.
+            """
+            self.instrument.write(f":CALC{self.channel}:LIM:DISP {1 if enable else 0}")
 
-        Parameter:
-            None
+        def is_limits_display_enabled(self) -> bool:
+            """
+            Query if limits display is enabled.
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:LIM:DISP?")))
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:LIM:DISP?")))
 
-    # CALC:LIM:FAIL? - Limit test result
-    def get_limit_test_result(self) -> bool:
-        """
-        Get the limit test result.
+        # CALC:LIM:FAIL? - Limit test result
+        def get_limit_test_result(self) -> bool:
+            """
+            Get the limit test result.
 
-        Parameter:
-            None
+            :return: True if test failed, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:LIM:FAIL?")))
 
-        Return:
-            bool: True if test failed, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:LIM:FAIL?")))
+        # CALC:LIM:OFFS:AMPL - Limit line Y-offset
+        def set_limit_line_y_offset(self, value: float):
+            """
+            Set the limit line Y-offset.
 
-    # CALC:LIM:OFFS:AMPL - Limit line Y-offset
-    def set_limit_line_y_offset(self, value: float):
-        """
-        Set the limit line Y-offset.
+            :param value: Y-offset value
 
-        Parameter:
-            value (float): Y-offset value
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:LIM:OFFS:AMPL {value}")
+            """
+            self.instrument.write(f":CALC{self.channel}:LIM:OFFS:AMPL {value}")
 
-    def get_limit_line_y_offset(self) -> float:
-        """
-        Get the limit line Y-offset.
+        def get_limit_line_y_offset(self) -> float:
+            """
+            Get the limit line Y-offset.
 
-        Parameter:
-            None
+            :return: Y-offset value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:AMPL?"))
 
-        Return:
-            float: Y-offset value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:AMPL?"))
+        # CALC:LIM:OFFS:MARK - Limit line Y-offset to active marker value
+        def set_limit_line_y_offset_to_marker(self, value: float):
+            """
+            Set the limit line Y-offset to active marker value.
 
-    # CALC:LIM:OFFS:MARK - Limit line Y-offset to active marker value
-    def set_limit_line_y_offset_to_marker(self, value: float):
-        """
-        Set the limit line Y-offset to active marker value.
+            :param value: Y-offset value
 
-        Parameter:
-            value (float): Y-offset value
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:LIM:OFFS:MARK {value}")
+            """
+            self.instrument.write(f":CALC{self.channel}:LIM:OFFS:MARK {value}")
 
-    def get_limit_line_y_offset_to_marker(self) -> float:
-        """
-        Get the limit line Y-offset to active marker value.
+        def get_limit_line_y_offset_to_marker(self) -> float:
+            """
+            Get the limit line Y-offset to active marker value.
 
-        Parameter:
-            None
+            :return: Y-offset value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:MARK?"))
 
-        Return:
-            float: Y-offset value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:MARK?"))
+        # CALC:LIM:OFFS:STIM - Limit line X-offset
+        def set_limit_line_x_offset(self, value: float):
+            """
+            Set the limit line X-offset.
 
-    # CALC:LIM:OFFS:STIM - Limit line X-offset
-    def set_limit_line_x_offset(self, value: float):
-        """
-        Set the limit line X-offset.
+            :param value: X-offset value
+            """
+            self.instrument.write(f":CALC{self.channel}:LIM:OFFS:STIM {value}")
 
-        Parameter:
-            value (float): X-offset value
+        def get_limit_line_x_offset(self) -> float:
+            """
+            Get the limit line X-offset.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:LIM:OFFS:STIM {value}")
+            :return: X-offset value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:STIM?"))
 
-    def get_limit_line_x_offset(self) -> float:
-        """
-        Get the limit line X-offset.
+        # CALC:LIM:REP:ALL? - Limit test result report
+        def get_limit_test_result_report(self) -> str:
+            """
+            Get the limit test result report.
 
-        Parameter:
-            None
+            :return: Limit test result report
+            """
+            return self.instrument.query(f":CALC{self.channel}:LIM:REP:ALL?").strip()
 
-        Return:
-            float: X-offset value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:LIM:OFFS:STIM?"))
+        # CALC:LIM:REP:POIN? - Failed points
+        def get_failed_points(self) -> str:
+            """
+            Get the failed points.
 
-    # CALC:LIM:REP:ALL? - Limit test result report
-    def get_limit_test_result_report(self) -> str:
-        """
-        Get the limit test result report.
+            :return: Failed points
+            """
+            return self.instrument.query(f":CALC{self.channel}:LIM:REP:POIN?").strip()
 
-        Parameter:
-            None
+        # CALC:LIM:REP? - Stimulus values of failed points
+        def get_failed_points_stimulus_values(self) -> str:
+            """
+            Get the stimulus values of failed points.
 
-        Return:
-            str: Limit test result report
-        """
-        return self.instrument.query(f":CALC{self.channel}:LIM:REP:ALL?").strip()
+            :return: Stimulus values
+            """
+            return self.instrument.query(f":CALC{self.channel}:LIM:REP?").strip()
 
-    # CALC:LIM:REP:POIN? - Failed points
-    def get_failed_points(self) -> str:
+    class Calc_Marker:
         """
-        Get the failed points.
+            Commands for modifying the marker function parameters.
+            """
+        def __init__(self, instrument, data_handler, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
+        # CALC:MARK - Marker ON/OFF
+        def enable_marker(self, marker: int, enable: bool):
+            """
+            Enable or disable marker.
 
-        Parameter:
-            None
+            :param marker: Marker number
+            :param enable: True to enable, False to disable
 
-        Return:
-            str: Failed points
-        """
-        return self.instrument.query(f":CALC{self.channel}:LIM:REP:POIN?").strip()
 
-    # CALC:LIM:REP? - Stimulus values of failed points
-    def get_failed_points_stimulus_values(self) -> str:
-        """
-        Get the stimulus values of failed points.
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker} {1 if enable else 0}")
 
-        Parameter:
-            None
+        def is_marker_enabled(self, marker: int) -> bool:
+            """
+            Query if marker is enabled.
 
-        Return:
-            str: Stimulus values
-        """
-        return self.instrument.query(f":CALC{self.channel}:LIM:REP?").strip()
-
-class Calc_Marker:
-    """
-        Commands for modifying the marker function parameters.
-        """
-    def __init__(self, instrument, data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-    # CALC:MARK - Marker ON/OFF
-    def enable_marker(self, marker: int, enable: bool):
-        """
-        Enable or disable marker.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
-            enable (bool): True to enable, False to disable
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}?")))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker} {1 if enable else 0}")
+        # CALC:MARK:ACT - Sets active marker
+        def set_active_marker(self, marker: int):
+            """
+            Set the active marker.
 
-    def is_marker_enabled(self, marker: int) -> bool:
-        """
-        Query if marker is enabled.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}?")))
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK:ACT {marker}")
 
-    # CALC:MARK:ACT - Sets active marker
-    def set_active_marker(self, marker: int):
-        """
-        Set the active marker.
+        def get_active_marker(self) -> int:
+            """
+            Get the active marker.
 
-        Parameter:
-            marker (int): Marker number
+            :return: Active marker number
+            """
+            return int(self.instrument.query(f":CALC{self.channel}:MARK:ACT?"))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK:ACT {marker}")
+        # CALC:MARK:COUN - Number of markers
+        def set_marker_count(self, count: int):
+            """
+            Set the number of markers.
 
-    def get_active_marker(self) -> int:
-        """
-        Get the active marker.
+            :param count: Number of markers
 
-        Parameter:
-            None
 
-        Return:
-            int: Active marker number
-        """
-        return int(self.instrument.query(f":CALC{self.channel}:MARK:ACT?"))
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK:COUN {count}")
 
-    # CALC:MARK:COUN - Number of markers
-    def set_marker_count(self, count: int):
-        """
-        Set the number of markers.
+        def get_marker_count(self) -> int:
+            """
+            Get the number of markers.
 
-        Parameter:
-            count (int): Number of markers
+            :return: Number of markers
+            """
+            return int(self.instrument.query(f":CALC{self.channel}:MARK:COUN?"))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK:COUN {count}")
+        # CALC:MARK:COUP - Coupling of markers ON/OFF
+        def enable_marker_coupling(self, enable: bool):
+            """
+            Enable or disable coupling of markers.
 
-    def get_marker_count(self) -> int:
-        """
-        Get the number of markers.
+            :param enable: True to enable, False to disable
 
-        Parameter:
-            None
 
-        Return:
-            int: Number of markers
-        """
-        return int(self.instrument.query(f":CALC{self.channel}:MARK:COUN?"))
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK:COUP {1 if enable else 0}")
 
-    # CALC:MARK:COUP - Coupling of markers ON/OFF
-    def enable_marker_coupling(self, enable: bool):
-        """
-        Enable or disable coupling of markers.
+        def is_marker_coupling_enabled(self) -> bool:
+            """
+            Query if coupling of markers is enabled.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK:COUP?")))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK:COUP {1 if enable else 0}")
+        # CALC:MARK:DATA? - Response and stimulus values of all trace marker
+        def get_all_marker_data(self):
+            """
+            Get response and stimulus values of all trace markers.
 
-    def is_marker_coupling_enabled(self) -> bool:
-        """
-        Query if coupling of markers is enabled.
+            :return: Marker data array
+            """
+            data = self.instrument.query(f":CALC{self.channel}:MARK:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "MARKER", data, file_type = EFileType.CSV)
+            return data
 
-        Parameter:
-            None
+        # CALC:MARK:DISC - Marker discrete mode ON/OFF
+        def enable_marker_discrete_mode(self, enable: bool):
+            """
+            Enable or disable marker discrete mode.
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK:COUP?")))
+            :param enable: True to enable, False to disable
 
-    # CALC:MARK:DATA? - Response and stimulus values of all trace marker
-    def get_all_marker_data(self):
-        """
-        Get response and stimulus values of all trace markers.
 
-        Parameter:
-            None
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK:DISC {1 if enable else 0}")
 
-        Return:
-            list: Marker data array
-        """
-        data = self.instrument.query(f":CALC{self.channel}:MARK:DATA?")
-        if self.data_handler.is_auto_saving_data_enabled():
-            self.data_handler.write_to_file(self, "MARKER", data, file_type = EFileType.CSV)
-        return data
-
-    # CALC:MARK:DISC - Marker discrete mode ON/OFF
-    def enable_marker_discrete_mode(self, enable: bool):
-        """
-        Enable or disable marker discrete mode.
+        def is_marker_discrete_mode_enabled(self) -> bool:
+            """
+            Query if marker discrete mode is enabled.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK:DISC?")))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK:DISC {1 if enable else 0}")
+        # CALC:MARK:REF - Reference marker ON/OFF
+        def enable_reference_marker(self, marker: int, enable: bool):
+            """
+            Enable or disable reference marker.
 
-    def is_marker_discrete_mode_enabled(self) -> bool:
-        """
-        Query if marker discrete mode is enabled.
+            :param marker: Marker number
+            :param enable: True to enable, False to disable
 
-        Parameter:
-            None
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK:DISC?")))
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:REF {1 if enable else 0}")
 
-    # CALC:MARK:REF - Reference marker ON/OFF
-    def enable_reference_marker(self, marker: int, enable: bool):
-        """
-        Enable or disable reference marker.
+        def is_reference_marker_enabled(self, marker: int) -> bool:
+            """
+            Query if reference marker is enabled.
 
-        Parameter:
-            marker (int): Marker number
-            enable (bool): True to enable, False to disable
+            :param marker: Marker number
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:REF {1 if enable else 0}")
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:REF?")))
 
-    def is_reference_marker_enabled(self, marker: int) -> bool:
-        """
-        Query if reference marker is enabled.
+        # CALC:MARK:X - Stimulus value of marker
+        def set_marker_x(self, marker: int, value: float):
+            """
+            Set the stimulus value of marker.
 
-        Parameter:
-            marker (int): Marker number
+            :param marker: Marker number
+            :param value: Stimulus value
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:REF?")))
 
-    # CALC:MARK:X - Stimulus value of marker
-    def set_marker_x(self, marker: int, value: float):
-        """
-        Set the stimulus value of marker.
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:X {value}")
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Stimulus value
+        def get_marker_x(self, marker: int) -> float:
+            """
+            Get the stimulus value of marker.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:X {value}")
+            :param marker: Marker number
 
-    def get_marker_x(self, marker: int) -> float:
-        """
-        Get the stimulus value of marker.
+            :return: Stimulus value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:X?"))
 
-        Parameter:
-            marker (int): Marker number
+        # CALC:MARK:Y? - Response value of marker
+        def get_marker_y(self, marker: int) -> float:
+            """
+            Get the response value of marker.
 
-        Return:
-            float: Stimulus value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:X?"))
+            :param marker: Marker number
 
-    # CALC:MARK:Y? - Response value of marker
-    def get_marker_y(self, marker: int) -> float:
-        """
-        Get the response value of marker.
+            :return: Response value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:Y?"))
 
-        Parameter:
-            marker (int): Marker number
+        # CALC:MARK:BWID - Bandwidth search ON/OFF
+        def enable_bandwidth_search(self, marker: int, enable: bool):
+            """
+            Enable or disable bandwidth search for marker.
 
-        Return:
-            float: Response value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:Y?"))
+            :param marker: Marker number
+            :param enable: True to enable, False to disable
 
-    # CALC:MARK:BWID - Bandwidth search ON/OFF
-    def enable_bandwidth_search(self, marker: int, enable: bool):
-        """
-        Enable or disable bandwidth search for marker.
 
-        Parameter:
-            marker (int): Marker number
-            enable (bool): True to enable, False to disable
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID {1 if enable else 0}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID {1 if enable else 0}")
+        def is_bandwidth_search_enabled(self, marker: int) -> bool:
+            """
+            Query if bandwidth search for marker is enabled.
 
-    def is_bandwidth_search_enabled(self, marker: int) -> bool:
-        """
-        Query if bandwidth search for marker is enabled.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID?")))
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID?")))
+        # CALC:MARK:BWID:DATA? - Bandwidth search result
+        def get_bandwidth_search_result(self, marker: int):
+            """
+            Get bandwidth search result for marker.
 
-    # CALC:MARK:BWID:DATA? - Bandwidth search result
-    def get_bandwidth_search_result(self, marker: int):
-        """
-        Get bandwidth search result for marker.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
+            :return: Bandwidth search result array
+            """
+            data = self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "BWDTH_SEARCH", data, file_type = EFileType.CSV)
+            return data
 
-        Return:
-            list: Bandwidth search result array
-        """
-        data = self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:DATA?")
-        if self.data_handler.is_auto_saving_data_enabled():
-            self.data_handler.write_to_file(self, "BWDTH_SEARCH", data, file_type = EFileType.CSV)
-        return data
-
-    # CALC:MARK:BWID:REF - Reference of search
-    def set_bandwidth_search_reference(self, marker: int, value: float):
-        """
-        Set reference of bandwidth search for marker.
+        # CALC:MARK:BWID:REF - Reference of search
+        def set_bandwidth_search_reference(self, marker: int, value: float):
+            """
+            Set reference of bandwidth search for marker.
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Reference value
+            :param marker: Marker number
+            :param value: Reference value
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:REF {value}")
 
-    def get_bandwidth_search_reference(self, marker: int) -> float:
-        """
-        Get reference of bandwidth search for marker.
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:REF {value}")
 
-        Parameter:
-            marker (int): Marker number
+        def get_bandwidth_search_reference(self, marker: int) -> float:
+            """
+            Get reference of bandwidth search for marker.
 
-        Return:
-            float: Reference value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:REF?"))
+            :param marker: Marker number
 
-    # CALC:MARK:BWID:THR - Bandwidth threshold value
-    def set_bandwidth_threshold(self, marker: int, value: float):
-        """
-        Set bandwidth threshold value for marker.
+            :return: Reference value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:REF?"))
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Threshold value
+        # CALC:MARK:BWID:THR - Bandwidth threshold value
+        def set_bandwidth_threshold(self, marker: int, value: float):
+            """
+            Set bandwidth threshold value for marker.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:THR {value}")
+            :param marker: Marker number
+            :param value: Threshold value
 
-    def get_bandwidth_threshold(self, marker: int) -> float:
-        """
-        Get bandwidth threshold value for marker.
 
-        Parameter:
-            marker (int): Marker number
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:THR {value}")
 
-        Return:
-            float: Threshold value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:THR?"))
+        def get_bandwidth_threshold(self, marker: int) -> float:
+            """
+            Get bandwidth threshold value for marker.
 
-    # CALC:MARK:BWID:TYPE - Type of search
-    def set_bandwidth_search_type(self, marker: int, search_type: str):
-        """
-        Set type of bandwidth search for marker.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
-            search_type (str): One of ['3DB', '6DB', 'XDB']
+            :return: Threshold value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:THR?"))
 
-        Return:
-            None
-        """
-        allowed = ['3DB', '6DB', 'XDB']
-        if search_type not in allowed:
-            raise ValueError(f"search_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:TYPE {search_type}")
-
-    def get_bandwidth_search_type(self, marker: int) -> str:
-        """
-        Get type of bandwidth search for marker.
+        # CALC:MARK:BWID:TYPE - Type of search
+        def set_bandwidth_search_type(self, marker: int, search_type: str):
+            """
+            Set type of bandwidth search for marker.
 
-        Parameter:
-            marker (int): Marker number
+            :param marker: Marker number
+            :param search_type: One of ['3DB', '6DB', 'XDB']
 
-        Return:
-            str: Search type
-        """
-        return self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:TYPE?").strip()
 
-    # CALC:MARK:FUNC:DOM - Marker search arbitrary range ON/OFF
-    def enable_marker_search_arbitrary_range(self, marker: int, enable: bool):
-        """
-        Enable or disable marker search arbitrary range.
+            """
+            allowed = ['3DB', '6DB', 'XDB']
+            if search_type not in allowed:
+                raise ValueError(f"search_type must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:BWID:TYPE {search_type}")
 
-        Parameter:
-            marker (int): Marker number
-            enable (bool): True to enable, False to disable
+        def get_bandwidth_search_type(self, marker: int) -> str:
+            """
+            Get type of bandwidth search for marker.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM {1 if enable else 0}")
+            :param marker: Marker number
 
-    def is_marker_search_arbitrary_range_enabled(self, marker: int) -> bool:
-        """
-        Query if marker search arbitrary range is enabled.
+            :return: Search type
+            """
+            return self.instrument.query(f":CALC{self.channel}:MARK{marker}:BWID:TYPE?").strip()
 
-        Parameter:
-            marker (int): Marker number
+        # CALC:MARK:FUNC:DOM - Marker search arbitrary range ON/OFF
+        def enable_marker_search_arbitrary_range(self, marker: int, enable: bool):
+            """
+            Enable or disable marker search arbitrary range.
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM?")))
+            :param marker: Marker number
+            :param enable: True to enable, False to disable
 
-    # CALC:MARK:FUNC:DOM:COUP - Coupling of marker search ranges ON/OFF
-    def enable_marker_search_range_coupling(self, marker: int, enable: bool):
-        """
-        Enable or disable coupling of marker search ranges.
 
-        Parameter:
-            marker (int): Marker number
-            enable (bool): True to enable, False to disable
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM {1 if enable else 0}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:COUP {1 if enable else 0}")
+        def is_marker_search_arbitrary_range_enabled(self, marker: int) -> bool:
+            """
+            Query if marker search arbitrary range is enabled.
 
-    def is_marker_search_range_coupling_enabled(self, marker: int) -> bool:
-        """
-        Query if coupling of marker search ranges is enabled.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM?")))
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:COUP?")))
+        # CALC:MARK:FUNC:DOM:COUP - Coupling of marker search ranges ON/OFF
+        def enable_marker_search_range_coupling(self, marker: int, enable: bool):
+            """
+            Enable or disable coupling of marker search ranges.
 
-    # CALC:MARK:FUNC:DOM:STAR - Start of the marker search range
-    def set_marker_search_range_start(self, marker: int, value: float):
-        """
-        Set start of the marker search range.
+            :param marker: Marker number
+            :param enable: True to enable, False to disable
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Start value
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STAR {value}")
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:COUP {1 if enable else 0}")
 
-    def get_marker_search_range_start(self, marker: int) -> float:
-        """
-        Get start of the marker search range.
+        def is_marker_search_range_coupling_enabled(self, marker: int) -> bool:
+            """
+            Query if coupling of marker search ranges is enabled.
 
-        Parameter:
-            marker (int): Marker number
+            :param marker: Marker number
 
-        Return:
-            float: Start value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STAR?"))
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:COUP?")))
 
-    # CALC:MARK:FUNC:DOM:STOP - Stop of the marker search range
-    def set_marker_search_range_stop(self, marker: int, value: float):
-        """
-        Set stop of the marker search range.
+        # CALC:MARK:FUNC:DOM:STAR - Start of the marker search range
+        def set_marker_search_range_start(self, marker: int, value: float):
+            """
+            Set start of the marker search range.
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Stop value
+            :param marker: Marker number
+            :param value: Start value
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STOP {value}")
 
-    def get_marker_search_range_stop(self, marker: int) -> float:
-        """
-        Get stop of the marker search range.
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STAR {value}")
 
-        Parameter:
-            marker (int): Marker number
+        def get_marker_search_range_start(self, marker: int) -> float:
+            """
+            Get start of the marker search range.
 
-        Return:
-            float: Stop value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STOP?"))
+            :param marker: Marker number
 
-    # CALC:MARK:FUNC:EXEC - Executes search
-    def execute_marker_search(self, marker: int):
-        """
-        Execute marker search.
+            :return: Start value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STAR?"))
 
-        Parameter:
-            marker (int): Marker number
+        # CALC:MARK:FUNC:DOM:STOP - Stop of the marker search range
+        def set_marker_search_range_stop(self, marker: int, value: float):
+            """
+            Set stop of the marker search range.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:EXEC")
+            :param marker: Marker number
+            :param value: Stop value
 
-    # CALC:MARK:FUNC:PEXC - Peak excursion value
-    def set_marker_peak_excursion(self, marker: int, value: float):
-        """
-        Set peak excursion value for marker.
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Peak excursion value
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STOP {value}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:PEXC {value}")
+        def get_marker_search_range_stop(self, marker: int) -> float:
+            """
+            Get stop of the marker search range.
 
-    def get_marker_peak_excursion(self, marker: int) -> float:
-        """
-        Get peak excursion value for marker.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
+            :return: Stop value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:DOM:STOP?"))
 
-        Return:
-            float: Peak excursion value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:PEXC?"))
+        # CALC:MARK:FUNC:EXEC - Executes search
+        def execute_marker_search(self, marker: int):
+            """
+            Execute marker search.
 
-    # CALC:MARK:FUNC:PPOL - Peak polarity
-    def set_marker_peak_polarity(self, marker: int, polarity: str):
-        """
-        Set peak polarity for marker.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
-            polarity (str): One of ['POS', 'NEG', 'BOTH']
 
-        Return:
-            None
-        """
-        allowed = ['POS', 'NEG', 'BOTH']
-        if polarity not in allowed:
-            raise ValueError(f"polarity must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:PPOL {polarity}")
-
-    def get_marker_peak_polarity(self, marker: int) -> str:
-        """
-        Get peak polarity for marker.
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:EXEC")
 
-        Parameter:
-            marker (int): Marker number
+        # CALC:MARK:FUNC:PEXC - Peak excursion value
+        def set_marker_peak_excursion(self, marker: int, value: float):
+            """
+            Set peak excursion value for marker.
 
-        Return:
-            str: Peak polarity
-        """
-        return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:PPOL?").strip()
+            :param marker: Marker number
+            :param value: Peak excursion value
 
-    # CALC:MARK:FUNC:TARG - Target value
-    def set_marker_target_value(self, marker: int, value: float):
-        """
-        Set target value for marker.
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Target value
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:PEXC {value}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TARG {value}")
+        def get_marker_peak_excursion(self, marker: int) -> float:
+            """
+            Get peak excursion value for marker.
 
-    def get_marker_target_value(self, marker: int) -> float:
-        """
-        Get target value for marker.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
+            :return: Peak excursion value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:PEXC?"))
 
-        Return:
-            float: Target value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TARG?"))
+        # CALC:MARK:FUNC:PPOL - Peak polarity
+        def set_marker_peak_polarity(self, marker: int, polarity: str):
+            """
+            Set peak polarity for marker.
 
-    # CALC:MARK:FUNC:TRAC - Marker search tracking ON/OFF
-    def enable_marker_search_tracking(self, marker: int, enable: bool):
-        """
-        Enable or disable marker search tracking.
+            :param marker: Marker number
+            :param polarity: One of ['POS', 'NEG', 'BOTH']
 
-        Parameter:
-            marker (int): Marker number
-            enable (bool): True to enable, False to disable
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TRAC {1 if enable else 0}")
+            """
+            allowed = ['POS', 'NEG', 'BOTH']
+            if polarity not in allowed:
+                raise ValueError(f"polarity must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:PPOL {polarity}")
 
-    def is_marker_search_tracking_enabled(self, marker: int) -> bool:
-        """
-        Query if marker search tracking is enabled.
+        def get_marker_peak_polarity(self, marker: int) -> str:
+            """
+            Get peak polarity for marker.
 
-        Parameter:
-            marker (int): Marker number
+            :param marker: Marker number
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TRAC?")))
+            :return: Peak polarity
+            """
+            return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:PPOL?").strip()
 
-    # CALC:MARK:FUNC:TTR - Type of target transition
-    def set_marker_target_transition_type(self, marker: int, ttype: str):
-        """
-        Set type of target transition for marker.
+        # CALC:MARK:FUNC:TARG - Target value
+        def set_marker_target_value(self, marker: int, value: float):
+            """
+            Set target value for marker.
 
-        Parameter:
-            marker (int): Marker number
-            ttype (str): One of ['RISE', 'FALL', 'BOTH']
+            :param marker: Marker number
+            :param value: Target value
 
-        Return:
-            None
-        """
-        allowed = ['RISE', 'FALL', 'BOTH']
-        if ttype not in allowed:
-            raise ValueError(f"ttype must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TTR {ttype}")
-
-    def get_marker_target_transition_type(self, marker: int) -> str:
-        """
-        Get type of target transition for marker.
 
-        Parameter:
-            marker (int): Marker number
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TARG {value}")
 
-        Return:
-            str: Transition type
-        """
-        return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TTR?").strip()
+        def get_marker_target_value(self, marker: int) -> float:
+            """
+            Get target value for marker.
 
-    # CALC:MARK:FUNC:TYPE - Search type
-    def set_marker_search_type(self, marker: int, search_type: str):
-        """
-        Set search type for marker.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
-            search_type (str): One of ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
+            :return: Target value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TARG?"))
 
-        Return:
-            None
-        """
-        allowed = ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
-        if search_type not in allowed:
-            raise ValueError(f"search_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TYPE {search_type}")
-
-    def get_marker_search_type(self, marker: int) -> str:
-        """
-        Get search type for marker.
+        # CALC:MARK:FUNC:TRAC - Marker search tracking ON/OFF
+        def enable_marker_search_tracking(self, marker: int, enable: bool):
+            """
+            Enable or disable marker search tracking.
 
-        Parameter:
-            marker (int): Marker number
+            :param marker: Marker number
+            :param enable: True to enable, False to disable
 
-        Return:
-            str: Search type
-        """
-        return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TYPE?").strip()
 
-    # CALC:MARK:MATH:FLAT:DATA? - Flatness function data
-    def get_marker_flatness_data(self, marker: int):
-        """
-        Get flatness function data for marker.
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TRAC {1 if enable else 0}")
 
-        Parameter:
-            marker (int): Marker number
+        def is_marker_search_tracking_enabled(self, marker: int) -> bool:
+            """
+            Query if marker search tracking is enabled.
 
-        Return:
-            list: Flatness data array
-        """
-        data = self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DATA?")
-        if self.data_handler.is_auto_saving_data_enabled():
-            self.data_handler.write_to_file(self, "MARKER_FLATNESS", data, file_type = EFileType.CSV)
-        return data
-
-    # CALC:MARK:MATH:FLAT:STAT - Marker flatness ON/OFF
-    def enable_marker_flatness(self, marker: int, enable: bool):
-        """
-        Enable or disable marker flatness.
+            :param marker: Marker number
 
-        Parameter:
-            marker (int): Marker number
-            enable (bool): True to enable, False to disable
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TRAC?")))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:STAT {1 if enable else 0}")
+        # CALC:MARK:FUNC:TTR - Type of target transition
+        def set_marker_target_transition_type(self, marker: int, ttype: str):
+            """
+            Set type of target transition for marker.
 
-    def is_marker_flatness_enabled(self, marker: int) -> bool:
-        """
-        Query if marker flatness is enabled.
+            :param marker: Marker number
+            :param ttype: One of ['RISE', 'FALL', 'BOTH']
 
-        Parameter:
-            marker (int): Marker number
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:STAT?")))
+            """
+            allowed = ['RISE', 'FALL', 'BOTH']
+            if ttype not in allowed:
+                raise ValueError(f"ttype must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TTR {ttype}")
 
-    # CALC:MARK:MATH:FLAT:DOM:STAR - Marker specifying start of frequency range
-    def set_marker_flatness_range_start(self, marker: int, value: float):
-        """
-        Set marker specifying start of frequency range for flatness.
+        def get_marker_target_transition_type(self, marker: int) -> str:
+            """
+            Get type of target transition for marker.
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Start value
+            :param marker: Marker number
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STAR {value}")
+            :return: Transition type
+            """
+            return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TTR?").strip()
 
-    def get_marker_flatness_range_start(self, marker: int) -> float:
-        """
-        Get marker specifying start of frequency range for flatness.
+        # CALC:MARK:FUNC:TYPE - Search type
+        def set_marker_search_type(self, marker: int, search_type: str):
+            """
+            Set search type for marker.
 
-        Parameter:
-            marker (int): Marker number
+            :param marker: Marker number
+            :param search_type: One of ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
 
-        Return:
-            float: Start value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STAR?"))
 
-    # CALC:MARK:MATH:FLAT:DOM:STOP - Marker specifying stop of frequency range
-    def set_marker_flatness_range_stop(self, marker: int, value: float):
-        """
-        Set marker specifying stop of frequency range for flatness.
+            """
+            allowed = ['PEAK', 'VALLEY', 'EDGE', 'LEVEL', 'BWID', 'FLAT', 'TTR']
+            if search_type not in allowed:
+                raise ValueError(f"search_type must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:FUNC:TYPE {search_type}")
 
-        Parameter:
-            marker (int): Marker number
-            value (float): Stop value
+        def get_marker_search_type(self, marker: int) -> str:
+            """
+            Get search type for marker.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STOP {value}")
+            :param marker: Marker number
 
-    def get_marker_flatness_range_stop(self, marker: int) -> float:
-        """
-        Get marker specifying stop of frequency range for flatness.
+            :return: Search type
+            """
+            return self.instrument.query(f":CALC{self.channel}:MARK{marker}:FUNC:TYPE?").strip()
 
-        Parameter:
-            marker (int): Marker number
+        # CALC:MARK:MATH:FLAT:DATA? - Flatness function data
+        def get_marker_flatness_data(self, marker: int):
+            """
+            Get flatness function data for marker.
 
-        Return:
-            float: Stop value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STOP?"))
+            :param marker: Marker number
 
-    # CALC:MARK:SET - Sets item value according to the position of the marker
-    def set_item_value_by_marker(self, marker: int):
-        """
-        Set item value according to the position of the marker.
+            :return: Flatness data array
+            """
+            data = self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "MARKER_FLATNESS", data, file_type = EFileType.CSV)
+            return data
 
-        Parameter:
-            marker (int): Marker number
+        # CALC:MARK:MATH:FLAT:STAT - Marker flatness ON/OFF
+        def enable_marker_flatness(self, marker: int, enable: bool):
+            """
+            Enable or disable marker flatness.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MARK{marker}:SET")
-
-class Calc_Math:
-    """
-    Memory Trace Function, Math operation, statistics, smoothing, ripple limit, and time domain.
-    """
-    def __init__(self, instrument, data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-    # CALC:MATH:FUNC - Math operation
-    def set_math_operation(self, operation: str):
-        """
-        Set the math operation for memory trace.
+            :param marker: Marker number
+            :param enable: True to enable, False to disable
 
-        Parameter:
-            operation (str): Math operation, e.g., 'ADD', 'SUB', 'MUL', 'DIV', etc.
 
-        Return:
-            None
-        """
-        allowed = ['ADD', 'SUB', 'MUL', 'DIV', 'NONE']
-        if operation not in allowed:
-            raise ValueError(f"operation must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:MATH:FUNC {operation}")
-
-    def get_math_operation(self) -> str:
-        """
-        Get the current math operation for memory trace.
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:STAT {1 if enable else 0}")
 
-        Parameter:
-            None
+        def is_marker_flatness_enabled(self, marker: int) -> bool:
+            """
+            Query if marker flatness is enabled.
 
-        Return:
-            str: Math operation
-        """
-        return self.instrument.query(f":CALC{self.channel}:MATH:FUNC?").strip()
+            :param marker: Marker number
 
-    # CALC:MATH:MEM - Data => Memory
-    def store_data_to_memory(self):
-        """
-        Store current data to memory.
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:STAT?")))
+
+        # CALC:MARK:MATH:FLAT:DOM:STAR - Marker specifying start of frequency range
+        def set_marker_flatness_range_start(self, marker: int, value: float):
+            """
+            Set marker specifying start of frequency range for flatness.
+
+            :param marker: Marker number
+            :param value: Start value
+
+
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STAR {value}")
+
+        def get_marker_flatness_range_start(self, marker: int) -> float:
+            """
+            Get marker specifying start of frequency range for flatness.
+
+            :param marker: Marker number
+
+            :return: Start value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STAR?"))
+
+        # CALC:MARK:MATH:FLAT:DOM:STOP - Marker specifying stop of frequency range
+        def set_marker_flatness_range_stop(self, marker: int, value: float):
+            """
+            Set marker specifying stop of frequency range for flatness.
+
+            :param marker: Marker number
+            :param value: Stop value
+
+
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STOP {value}")
+
+        def get_marker_flatness_range_stop(self, marker: int) -> float:
+            """
+            Get marker specifying stop of frequency range for flatness.
+
+            :param marker: Marker number
 
-        Parameter:
-            None
+            :return: Stop value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MARK{marker}:MATH:FLAT:DOM:STOP?"))
 
-        Return:
-            None
+        # CALC:MARK:SET - Sets item value according to the position of the marker
+        def set_item_value_by_marker(self, marker: int):
+            """
+            Set item value according to the position of the marker.
+
+            :param marker: Marker number
+
+
+            """
+            self.instrument.write(f":CALC{self.channel}:MARK{marker}:SET")
+
+    class Calc_Math:
         """
-        self.instrument.write(f":CALC{self.channel}:MATH:MEM")
-
-class Calc_MST:
-    """
-        Commands math statistics commands.
-    """
-    def __init__(self, instrument, data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-    # CALC:MST - Math statistics ON/OFF
-    def enable_statistics(self, enable: bool):
+        Memory Trace Function, Math operation, statistics, smoothing, ripple limit, and time domain.
         """
-        Enable or disable math statistics.
+        def __init__(self, instrument, data_handler, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
+        # CALC:MATH:FUNC - Math operation
+        def set_math_operation(self, operation: str):
+            """
+            Set the math operation for memory trace.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+            :param operation: Math operation, e.g., 'ADD', 'SUB', 'MUL', 'DIV', etc.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MST {1 if enable else 0}")
 
-    def is_statistics_enabled(self) -> bool:
-        """
-        Query if math statistics is enabled.
+            """
+            allowed = ['ADD', 'SUB', 'MUL', 'DIV', 'NONE']
+            if operation not in allowed:
+                raise ValueError(f"operation must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:MATH:FUNC {operation}")
 
-        Parameter:
-            None
+        def get_math_operation(self) -> str:
+            """
+            Get the current math operation for memory trace.
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MST?")))
+            :return: Math operation
+            """
+            return self.instrument.query(f":CALC{self.channel}:MATH:FUNC?").strip()
 
-    # CALC:MST:DATA? - Math statistics data
-    def get_statistics_data(self):
-        """
-        Get math statistics data.
+        # CALC:MATH:MEM - Data => Memory
+        def store_data_to_memory(self):
+            """
+            Store current data to memory.
 
-        Parameter:
-            None
+            """
+            self.instrument.write(f":CALC{self.channel}:MATH:MEM")
 
-        Return:
-            list: Statistics data array
+    class Calc_MST:
         """
-        data = self.instrument.query(f":CALC{self.channel}:MST:DATA?")
-        if self.data_handler.is_auto_saving_data_enabled():
-            self.data_handler.write_to_file(self, "MSTH_STATS", data, file_type = EFileType.CSV)
-        return data
-
-    # CALC:MST:DOM - Partial frequency range ON/OFF
-    def enable_partial_frequency_range(self, enable: bool):
+            Commands math statistics commands.
         """
-        Enable or disable partial frequency range for statistics.
+        def __init__(self, instrument, data_handler, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
+        # CALC:MST - Math statistics ON/OFF
+        def enable_statistics(self, enable: bool):
+            """
+            Enable or disable math statistics.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MST:DOM {1 if enable else 0}")
 
-    def is_partial_frequency_range_enabled(self) -> bool:
-        """
-        Query if partial frequency range is enabled for statistics.
+            """
+            self.instrument.write(f":CALC{self.channel}:MST {1 if enable else 0}")
 
-        Parameter:
-            None
+        def is_statistics_enabled(self) -> bool:
+            """
+            Query if math statistics is enabled.
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:MST:DOM?")))
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MST?")))
 
-    # CALC:MST:DOM:STAR - Marker specifying start of frequency range
-    def set_statistics_range_start(self, value: float):
-        """
-        Set marker specifying start of frequency range for statistics.
+        # CALC:MST:DATA? - Math statistics data
+        def get_statistics_data(self):
+            """
+            Get math statistics data.
 
-        Parameter:
-            value (float): Start value
+            :return: Statistics data array
+            """
+            data = self.instrument.query(f":CALC{self.channel}:MST:DATA?")
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "MSTH_STATS", data, file_type = EFileType.CSV)
+            return data
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MST:DOM:STAR {value}")
+        # CALC:MST:DOM - Partial frequency range ON/OFF
+        def enable_partial_frequency_range(self, enable: bool):
+            """
+            Enable or disable partial frequency range for statistics.
 
-    def get_statistics_range_start(self) -> float:
-        """
-        Get marker specifying start of frequency range for statistics.
+            :param enable: True to enable, False to disable
 
-        Parameter:
-            None
 
-        Return:
-            float: Start value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MST:DOM:STAR?"))
+            """
+            self.instrument.write(f":CALC{self.channel}:MST:DOM {1 if enable else 0}")
 
-    # CALC:MST:DOM:STOP - Marker specifying stop of frequency range
-    def set_statistics_range_stop(self, value: float):
-        """
-        Set marker specifying stop of frequency range for statistics.
+        def is_partial_frequency_range_enabled(self) -> bool:
+            """
+            Query if partial frequency range is enabled for statistics.
 
-        Parameter:
-            value (float): Stop value
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:MST:DOM?")))
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:MST:DOM:STOP {value}")
+        # CALC:MST:DOM:STAR - Marker specifying start of frequency range
+        def set_statistics_range_start(self, value: float):
+            """
+            Set marker specifying start of frequency range for statistics.
 
-    def get_statistics_range_stop(self) -> float:
-        """
-        Get marker specifying stop of frequency range for statistics.
+            :param value: Start value
 
-        Parameter:
-            None
 
-        Return:
-            float: Stop value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:MST:DOM:STOP?"))
-# CALC:PAR:DEF - Define a new trace
-def define_trace(self, trace_name: str, parameter: str):
-    """
-    Define a new trace with the given name and parameter.
-
-    Parameter:
-    trace_name (str): Name of the trace
-    parameter (str): S-parameter (e.g., 'S11', 'S21', etc.)
-
-    Return:
-    None
-    """
-    self.instrument.write(f":CALC{self.channel}:PAR:DEF '{trace_name}',{parameter}")
-
-# CALC:PAR:SPOR - Select trace by name
-def select_trace_by_name(self, trace_name: str):
-    """
-    Select the trace by its name.
-
-    Parameter:
-    trace_name (str): Name of the trace
-
-    Return:
-    None
-    """
-    self.instrument.write(f":CALC{self.channel}:PAR:SPOR '{trace_name}'")
-
-class Calc_RLIM:
-    """
-    Ripple Limit Test commands.
-    """
-    def __init__(self, instrument, data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-    # CALC:RLIM - Ripple limit test ON/OFF
-    def enable_ripple_limit_test(self, enable: bool):
-        """
-        Enable or disable ripple limit test.
+            """
+            self.instrument.write(f":CALC{self.channel}:MST:DOM:STAR {value}")
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+        def get_statistics_range_start(self) -> float:
+            """
+            Get marker specifying start of frequency range for statistics.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:RLIM {1 if enable else 0}")
+            :return: Start value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MST:DOM:STAR?"))
 
-    def is_ripple_limit_test_enabled(self) -> bool:
-        """
-        Query if ripple limit test is enabled.
+        # CALC:MST:DOM:STOP - Marker specifying stop of frequency range
+        def set_statistics_range_stop(self, value: float):
+            """
+            Set marker specifying stop of frequency range for statistics.
 
-        Parameter:
-            None
+            :param value: Stop value
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM?")))
 
-    # CALC:RLIM:DATA - Ripple limit line table
-    def set_ripple_limit_line_table(self, table: str):
-        """
-        Set the ripple limit line table.
+            """
+            self.instrument.write(f":CALC{self.channel}:MST:DOM:STOP {value}")
 
-        Parameter:
-            table (str): Ripple limit line table string
+        def get_statistics_range_stop(self) -> float:
+            """
+            Get marker specifying stop of frequency range for statistics.
 
-        Return:
-            None
+            :return: Stop value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:MST:DOM:STOP?"))
+    # CALC:PAR:DEF - Define a new trace
+    def define_trace(self, trace_name: str, parameter: str):
         """
-        self.instrument.write(f":CALC{self.channel}:RLIM:DATA {table}")
+        Define a new trace with the given name and parameter.
 
-    def get_ripple_limit_line_table(self) -> str:
-        """
-        Get the ripple limit line table.
+        :param trace_name: Name of the trace
+        parameter: S-parameter (e.g., 'S11', 'S21', etc.)
 
-        Parameter:
-            None
 
-        Return:
-            str: Ripple limit line table string
         """
-        data = self.instrument.query(f":CALC{self.channel}:RLIM:DATA?").strip()
-        if self.data_handler.is_auto_saving_data_enabled():
-            self.data_handler.write_to_file(self, "RIPPLE_LIMIT_LINE", data, file_type = EFileType.CSV)
-        return data
-
-    # CALC:RLIM:DISP:LINE - Ripple Limit line display ON/OFF
-    def enable_ripple_limit_line_display(self, enable: bool):
+        self.instrument.write(f":CALC{self.channel}:PAR:DEF '{trace_name}',{parameter}")
+
+    # CALC:PAR:SPOR - Select trace by name
+    def select_trace_by_name(self, trace_name: str):
         """
-        Enable or disable ripple limit line display.
+        Select the trace by its name.
+
+        :param trace_name: Name of the trace
 
-        Parameter:
-            enable (bool): True to enable, False to disable
 
-        Return:
-            None
         """
-        self.instrument.write(f":CALC{self.channel}:RLIM:DISP:LINE {1 if enable else 0}")
+        self.instrument.write(f":CALC{self.channel}:PAR:SPOR '{trace_name}'")
 
-    def is_ripple_limit_line_display_enabled(self) -> bool:
+    class Calc_RLIM:
         """
-        Query if ripple limit line display is enabled.
+        Ripple Limit Test commands.
+        """
+        def __init__(self, instrument, data_handler, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
+        # CALC:RLIM - Ripple limit test ON/OFF
+        def enable_ripple_limit_test(self, enable: bool):
+            """
+            Enable or disable ripple limit test.
 
-        Parameter:
-            None
+            :param enable: True to enable, False to disable
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM:DISP:LINE?")))
 
-    # CALC:RLIM:DISP:SEL - Number of band for ripple value display
-    def set_ripple_band_display(self, band: int):
-        """
-        Set the number of band for ripple value display.
+            """
+            self.instrument.write(f":CALC{self.channel}:RLIM {1 if enable else 0}")
 
-        Parameter:
-            band (int): Band number
+        def is_ripple_limit_test_enabled(self) -> bool:
+            """
+            Query if ripple limit test is enabled.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:RLIM:DISP:SEL {band}")
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM?")))
 
-    def get_ripple_band_display(self) -> int:
-        """
-        Get the number of band for ripple value display.
+        # CALC:RLIM:DATA - Ripple limit line table
+        def set_ripple_limit_line_table(self, table: str):
+            """
+            Set the ripple limit line table.
 
-        Parameter:
-            None
+            :param table: Ripple limit line table string
 
-        Return:
-            int: Band number
-        """
-        return int(self.instrument.query(f":CALC{self.channel}:RLIM:DISP:SEL?"))
 
-    # CALC:RLIM:DISP:VAL - Display type of ripple value
-    def set_ripple_value_display_type(self, dtype: str):
-        """
-        Set the display type of ripple value.
+            """
+            self.instrument.write(f":CALC{self.channel}:RLIM:DATA {table}")
 
-        Parameter:
-            dtype (str): Display type, e.g., 'MAX', 'MIN', 'AVG'
+        def get_ripple_limit_line_table(self) -> str:
+            """
+            Get the ripple limit line table.
 
-        Return:
-            None
-        """
-        allowed = ['MAX', 'MIN', 'AVG']
-        if dtype not in allowed:
-            raise ValueError(f"dtype must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:RLIM:DISP:VAL {dtype}")
-
-    def get_ripple_value_display_type(self) -> str:
-        """
-        Get the display type of ripple value.
+            :return: Ripple limit line table string
+            """
+            data = self.instrument.query(f":CALC{self.channel}:RLIM:DATA?").strip()
+            if self.data_handler.is_auto_saving_data_enabled():
+                self.data_handler.write_to_file(self, "RIPPLE_LIMIT_LINE", data, file_type = EFileType.CSV)
+            return data
 
-        Parameter:
-            None
+        # CALC:RLIM:DISP:LINE - Ripple Limit line display ON/OFF
+        def enable_ripple_limit_line_display(self, enable: bool):
+            """
+            Enable or disable ripple limit line display.
 
-        Return:
-            str: Display type
-        """
-        return self.instrument.query(f":CALC{self.channel}:RLIM:DISP:VAL?").strip()
+            :param enable: True to enable, False to disable
 
-    # CALC:RLIM:FAIL? - Ripple limit test result
-    def get_ripple_limit_test_result(self) -> bool:
-        """
-        Get the ripple limit test result.
 
-        Parameter:
-            None
+            """
+            self.instrument.write(f":CALC{self.channel}:RLIM:DISP:LINE {1 if enable else 0}")
 
-        Return:
-            bool: True if test failed, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM:FAIL?")))
+        def is_ripple_limit_line_display_enabled(self) -> bool:
+            """
+            Query if ripple limit line display is enabled.
 
-    # CALC:RLIM:REP? - Ripple limit test result report
-    def get_ripple_limit_test_result_report(self) -> str:
-        """
-        Get the ripple limit test result report.
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM:DISP:LINE?")))
 
-        Parameter:
-            None
+        # CALC:RLIM:DISP:SEL - Number of band for ripple value display
+        def set_ripple_band_display(self, band: int):
+            """
+            Set the number of band for ripple value display.
 
-        Return:
-            str: Ripple limit test result report
-        """
-        return self.instrument.query(f":CALC{self.channel}:RLIM:REP?").strip()
-
-class Calc_SMO:
-    """
-    Smoothing commands.
-    """
-    def __init__(self, instrument, data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-    # CALC:SMO - Trace smoothing ON/OFF
-    def enable_smoothing(self, enable: bool):
-        """
-        Enable or disable trace smoothing.
+            :param band: Band number
 
-        Parameter:
-            enable (bool): True to enable, False to disable
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:SMO {1 if enable else 0}")
+            """
+            self.instrument.write(f":CALC{self.channel}:RLIM:DISP:SEL {band}")
 
-    def is_smoothing_enabled(self) -> bool:
-        """
-        Query if trace smoothing is enabled.
+        def get_ripple_band_display(self) -> int:
+            """
+            Get the number of band for ripple value display.
 
-        Parameter:
-            None
+            :return: Band number
+            """
+            return int(self.instrument.query(f":CALC{self.channel}:RLIM:DISP:SEL?"))
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:SMO?")))
+        # CALC:RLIM:DISP:VAL - Display type of ripple value
+        def set_ripple_value_display_type(self, dtype: str):
+            """
+            Set the display type of ripple value.
 
-    # CALC:SMO:APER - Smoothing aperture
-    def set_smoothing_aperture(self, value: float):
-        """
-        Set the smoothing aperture.
+            :param dtype: Display type, e.g., 'MAX', 'MIN', 'AVG'
 
-        Parameter:
-            value (float): Aperture value
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:SMO:APER {value}")
+            """
+            allowed = ['MAX', 'MIN', 'AVG']
+            if dtype not in allowed:
+                raise ValueError(f"dtype must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:RLIM:DISP:VAL {dtype}")
 
-    def get_smoothing_aperture(self) -> float:
-        """
-        Get the smoothing aperture.
+        def get_ripple_value_display_type(self) -> str:
+            """
+            Get the display type of ripple value.
+
+            :return: Display type
+            """
+            return self.instrument.query(f":CALC{self.channel}:RLIM:DISP:VAL?").strip()
 
-        Parameter:
-            None
+        # CALC:RLIM:FAIL? - Ripple limit test result
+        def get_ripple_limit_test_result(self) -> bool:
+            """
+            Get the ripple limit test result.
 
-        Return:
-            float: Aperture value
+            :return: True if test failed, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:RLIM:FAIL?")))
+
+        # CALC:RLIM:REP? - Ripple limit test result report
+        def get_ripple_limit_test_result_report(self) -> str:
+            """
+            Get the ripple limit test result report.
+
+            :return: Ripple limit test result report
+            """
+            return self.instrument.query(f":CALC{self.channel}:RLIM:REP?").strip()
+
+    class Calc_SMO:
         """
-        return float(self.instrument.query(f":CALC{self.channel}:SMO:APER?"))
-
-class Calc_TRAN:
-    """
-    Time Domain related commands.
-    """
-    def __init__(self, instrument, data_handler, channel):
-        self.instrument = instrument
-        self.data_handler = data_handler
-        self.channel = channel
-    # CALC:TRAN:TIME - Setting Time Domain Parameters (Band-pass/Low-pass)
-    def set_time_domain_type(self, td_type: str):
+        Smoothing commands.
         """
-        Set the time domain type (Band-pass/Low-pass).
+        def __init__(self, instrument, data_handler, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
+        # CALC:SMO - Trace smoothing ON/OFF
+        def enable_smoothing(self, enable: bool):
+            """
+            Enable or disable trace smoothing.
+
+            :param enable: True to enable, False to disable
+
 
-        Parameter:
-            td_type (str): 'BPAS' for Band-pass, 'LPAS' for Low-pass
+            """
+            self.instrument.write(f":CALC{self.channel}:SMO {1 if enable else 0}")
 
-        Return:
-            None
+        def is_smoothing_enabled(self) -> bool:
+            """
+            Query if trace smoothing is enabled.
+
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:SMO?")))
+
+        # CALC:SMO:APER - Smoothing aperture
+        def set_smoothing_aperture(self, value: float):
+            """
+            Set the smoothing aperture.
+
+            :param value: Aperture value
+
+
+            """
+            self.instrument.write(f":CALC{self.channel}:SMO:APER {value}")
+
+        def get_smoothing_aperture(self) -> float:
+            """
+            Get the smoothing aperture.
+
+            :return: Aperture value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:SMO:APER?"))
+
+    class Calc_TRAN:
         """
-        allowed = ['BPAS', 'LPAS']
-        if td_type not in allowed:
-            raise ValueError(f"td_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME {td_type}")
-
-    def get_time_domain_type(self) -> str:
+        Time Domain related commands.
         """
-        Get the time domain type.
+        def __init__(self, instrument, data_handler, channel):
+            self.instrument = instrument
+            self.data_handler = data_handler
+            self.channel = channel
+        # CALC:TRAN:TIME - Setting Time Domain Parameters (Band-pass/Low-pass)
+        def set_time_domain_type(self, td_type: str):
+            """
+            Set the time domain type (Band-pass/Low-pass).
 
-        Parameter:
-            None
+            :param td_type: 'BPAS' for Band-pass, 'LPAS' for Low-pass
 
-        Return:
-            str: Time domain type
-        """
-        return self.instrument.query(f":CALC{self.channel}:TRAN:TIME?").strip()
 
-    # CALC:TRAN:TIME:CENT - Time domain center
-    def set_time_domain_center(self, value: float):
-        """
-        Set the time domain center.
+            """
+            allowed = ['BPAS', 'LPAS']
+            if td_type not in allowed:
+                raise ValueError(f"td_type must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME {td_type}")
 
-        Parameter:
-            value (float): Center value
+        def get_time_domain_type(self) -> str:
+            """
+            Get the time domain type.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:CENT {value}")
+            :return: Time domain type
+            """
+            return self.instrument.query(f":CALC{self.channel}:TRAN:TIME?").strip()
 
-    def get_time_domain_center(self) -> float:
-        """
-        Get the time domain center.
+        # CALC:TRAN:TIME:CENT - Time domain center
+        def set_time_domain_center(self, value: float):
+            """
+            Set the time domain center.
 
-        Parameter:
-            None
+            :param value: Center value
 
-        Return:
-            float: Center value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:CENT?"))
 
-    # CALC:TRAN:TIME:DC:VAL - DC value
-    def set_time_domain_dc_value(self, value: float):
-        """
-        Set the DC value for time domain.
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:CENT {value}")
 
-        Parameter:
-            value (float): DC value
+        def get_time_domain_center(self) -> float:
+            """
+            Get the time domain center.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:DC:VAL {value}")
+            :return: Center value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:CENT?"))
 
-    def get_time_domain_dc_value(self) -> float:
-        """
-        Get the DC value for time domain.
+        # CALC:TRAN:TIME:DC:VAL - DC value
+        def set_time_domain_dc_value(self, value: float):
+            """
+            Set the DC value for time domain.
 
-        Parameter:
-            None
+            :param value: DC value
 
-        Return:
-            float: DC value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:DC:VAL?"))
 
-    # CALC:TRAN:TIME:EXTR:DC - DC extrapolation ON/OFF
-    def enable_time_domain_dc_extrapolation(self, enable: bool):
-        """
-        Enable or disable DC extrapolation in time domain.
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:DC:VAL {value}")
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+        def get_time_domain_dc_value(self) -> float:
+            """
+            Get the DC value for time domain.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:EXTR:DC {1 if enable else 0}")
+            :return: DC value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:DC:VAL?"))
 
-    def is_time_domain_dc_extrapolation_enabled(self) -> bool:
-        """
-        Query if DC extrapolation in time domain is enabled.
+        # CALC:TRAN:TIME:EXTR:DC - DC extrapolation ON/OFF
+        def enable_time_domain_dc_extrapolation(self, enable: bool):
+            """
+            Enable or disable DC extrapolation in time domain.
 
-        Parameter:
-            None
+            :param enable: True to enable, False to disable
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:EXTR:DC?")))
 
-    # CALC:TRAN:TIME:IMP:WIDT - Impulse Width
-    def set_time_domain_impulse_width(self, value: float):
-        """
-        Set the impulse width for time domain.
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:EXTR:DC {1 if enable else 0}")
 
-        Parameter:
-            value (float): Impulse width
+        def is_time_domain_dc_extrapolation_enabled(self) -> bool:
+            """
+            Query if DC extrapolation in time domain is enabled.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:IMP:WIDT {value}")
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:EXTR:DC?")))
 
-    def get_time_domain_impulse_width(self) -> float:
-        """
-        Get the impulse width for time domain.
+        # CALC:TRAN:TIME:IMP:WIDT - Impulse Width
+        def set_time_domain_impulse_width(self, value: float):
+            """
+            Set the impulse width for time domain.
 
-        Parameter:
-            None
+            :param value: Impulse width
 
-        Return:
-            float: Impulse width
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:IMP:WIDT?"))
 
-    # CALC:TRAN:TIME:KBES - Kaiser-Bessel β
-    def set_time_domain_kaiser_bessel_beta(self, value: float):
-        """
-        Set the Kaiser-Bessel β for time domain.
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:IMP:WIDT {value}")
 
-        Parameter:
-            value (float): Beta value
+        def get_time_domain_impulse_width(self) -> float:
+            """
+            Get the impulse width for time domain.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:KBES {value}")
+            :return: Impulse width
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:IMP:WIDT?"))
 
-    def get_time_domain_kaiser_bessel_beta(self) -> float:
-        """
-        Get the Kaiser-Bessel β for time domain.
+        # CALC:TRAN:TIME:KBES - Kaiser-Bessel β
+        def set_time_domain_kaiser_bessel_beta(self, value: float):
+            """
+            Set the Kaiser-Bessel β for time domain.
 
-        Parameter:
-            None
+            :param value: Beta value
 
-        Return:
-            float: Beta value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:KBES?"))
 
-    # CALC:TRAN:TIME:LPFR - Sets frequency Low-Pass
-    def set_time_domain_lowpass_frequency(self, value: float):
-        """
-        Set the frequency for a Low-Pass in time domain.
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:KBES {value}")
 
-        Parameter:
-            value (float): Frequency value
+        def get_time_domain_kaiser_bessel_beta(self) -> float:
+            """
+            Get the Kaiser-Bessel β for time domain.
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:LPFR {value}")
+            :return: Beta value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:KBES?"))
 
-    def get_time_domain_lowpass_frequency(self) -> float:
-        """
-        Get the frequency for Low-Pass in time domain.
+        # CALC:TRAN:TIME:LPFR - Sets frequency Low-Pass
+        def set_time_domain_lowpass_frequency(self, value: float):
+            """
+            Set the frequency for a Low-Pass in time domain.
 
-        Parameter:
-            None
+            :param value: Frequency value
 
-        Return:
-            float: Frequency value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:LPFR?"))
 
-    # CALC:TRAN:TIME:REFL:TYPE - Selects One way/Round trip
-    def set_time_domain_reflection_type(self, refl_type: str):
-        """
-        Set the reflection type for time domain.
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:LPFR {value}")
 
-        Parameter:
-            refl_type (str): 'ONEW' for One way, 'ROUN' for Round trip
+        def get_time_domain_lowpass_frequency(self) -> float:
+            """
+            Get the frequency for Low-Pass in time domain.
 
-        Return:
-            None
-        """
-        allowed = ['ONEW', 'ROUN']
-        if refl_type not in allowed:
-            raise ValueError(f"refl_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:REFL:TYPE {refl_type}")
-
-    def get_time_domain_reflection_type(self) -> str:
-        """
-        Get the reflection type for time domain.
+            :return: Frequency value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:LPFR?"))
 
-        Parameter:
-            None
+        # CALC:TRAN:TIME:REFL:TYPE - Selects One way/Round trip
+        def set_time_domain_reflection_type(self, refl_type: str):
+            """
+            Set the reflection type for time domain.
 
-        Return:
-            str: Reflection type
-        """
-        return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:REFL:TYPE?").strip()
+            :param refl_type: 'ONEW' for One way, 'ROUN' for Round trip
 
-    # CALC:TRAN:TIME:SPAN - Time domain Span
-    def set_time_domain_span(self, value: float):
-        """
-        Set the time domain span.
 
-        Parameter:
-            value (float): Span value
+            """
+            allowed = ['ONEW', 'ROUN']
+            if refl_type not in allowed:
+                raise ValueError(f"refl_type must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:REFL:TYPE {refl_type}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:SPAN {value}")
+        def get_time_domain_reflection_type(self) -> str:
+            """
+            Get the reflection type for time domain.
 
-    def get_time_domain_span(self) -> float:
-        """
-        Get the time domain span.
+            :return: Reflection type
+            """
+            return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:REFL:TYPE?").strip()
 
-        Parameter:
-            None
+        # CALC:TRAN:TIME:SPAN - Time domain Span
+        def set_time_domain_span(self, value: float):
+            """
+            Set the time domain span.
 
-        Return:
-            float: Span value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:SPAN?"))
+            :param value: Span value
 
-    # CALC:TRAN:TIME:STAR - Time domain Start
-    def set_time_domain_start(self, value: float):
-        """
-        Set the time domain start.
 
-        Parameter:
-            value (float): Start value
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:SPAN {value}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STAR {value}")
+        def get_time_domain_span(self) -> float:
+            """
+            Get the time domain span.
 
-    def get_time_domain_start(self) -> float:
-        """
-        Get the time domain start.
+            :return: Span value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:SPAN?"))
 
-        Parameter:
-            None
+        # CALC:TRAN:TIME:STAR - Time domain Start
+        def set_time_domain_start(self, value: float):
+            """
+            Set the time domain start.
 
-        Return:
-            float: Start value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STAR?"))
+            :param value: Start value
 
-    # CALC:TRAN:TIME:STOP - Time domain Stop
-    def set_time_domain_stop(self, value: float):
-        """
-        Set the time domain stop.
 
-        Parameter:
-            value (float): Stop value
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STAR {value}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STOP {value}")
+        def get_time_domain_start(self) -> float:
+            """
+            Get the time domain start.
 
-    def get_time_domain_stop(self) -> float:
-        """
-        Get the time domain stop.
+            :return: Start value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STAR?"))
 
-        Parameter:
-            None
+        # CALC:TRAN:TIME:STOP - Time domain Stop
+        def set_time_domain_stop(self, value: float):
+            """
+            Set the time domain stop.
 
-        Return:
-            float: Stop value
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STOP?"))
+            :param value: Stop value
 
-    # CALC:TRAN:TIME:STAT - Time domain transformation ON/OFF
-    def enable_time_domain_transformation(self, enable: bool):
-        """
-        Enable or disable time domain transformation.
 
-        Parameter:
-            enable (bool): True to enable, False to disable
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STOP {value}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STAT {1 if enable else 0}")
+        def get_time_domain_stop(self) -> float:
+            """
+            Get the time domain stop.
 
-    def is_time_domain_transformation_enabled(self) -> bool:
-        """
-        Query if time domain transformation is enabled.
+            :return: Stop value
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STOP?"))
 
-        Parameter:
-            None
+        # CALC:TRAN:TIME:STAT - Time domain transformation ON/OFF
+        def enable_time_domain_transformation(self, enable: bool):
+            """
+            Enable or disable time domain transformation.
 
-        Return:
-            bool: True if enabled, False otherwise
-        """
-        return bool(int(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STAT?")))
+            :param enable: True to enable, False to disable
 
-    # CALC:TRAN:TIME:STEP:RTIM - Step rise time
-    def set_time_domain_step_rise_time(self, value: float):
-        """
-        Set the step rise time for time domain.
 
-        Parameter:
-            value (float): Rise time
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STAT {1 if enable else 0}")
 
-        Return:
-            None
-        """
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STEP:RTIM {value}")
+        def is_time_domain_transformation_enabled(self) -> bool:
+            """
+            Query if time domain transformation is enabled.
 
-    def get_time_domain_step_rise_time(self) -> float:
-        """
-        Get the step rise time for time domain.
+            :return: True if enabled, False otherwise
+            """
+            return bool(int(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STAT?")))
 
-        Parameter:
-            None
+        # CALC:TRAN:TIME:STEP:RTIM - Step rise time
+        def set_time_domain_step_rise_time(self, value: float):
+            """
+            Set the step rise time for time domain.
 
-        Return:
-            float: Rise time
-        """
-        return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STEP:RTIM?"))
+            :param value: Rise time
 
-    # CALC:TRAN:TIME:STIM - Selects Impulse/Step type
-    def set_time_domain_stimulus_type(self, stim_type: str):
-        """
-        Set the stimulus type for time domain.
 
-        Parameter:
-            stim_type (str): 'IMP' for Impulse, 'STEP' for Step
+            """
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STEP:RTIM {value}")
 
-        Return:
-            None
-        """
-        allowed = ['IMP', 'STEP']
-        if stim_type not in allowed:
-            raise ValueError(f"stim_type must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STIM {stim_type}")
-
-    def get_time_domain_stimulus_type(self) -> str:
-        """
-        Get the stimulus type for time domain.
+        def get_time_domain_step_rise_time(self) -> float:
+            """
+            Get the step rise time for time domain.
 
-        Parameter:
-            None
+            :return: Rise time
+            """
+            return float(self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STEP:RTIM?"))
 
-        Return:
-            str: Stimulus type
-        """
-        return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STIM?").strip()
+        # CALC:TRAN:TIME:STIM - Selects Impulse/Step type
+        def set_time_domain_stimulus_type(self, stim_type: str):
+            """
+            Set the stimulus type for time domain.
 
-    # CALC:TRAN:TIME:UNIT - Time domain Unit
-    def set_time_domain_unit(self, unit: str):
-        """
-        Set the time domain unit.
+            :param stim_type: 'IMP' for Impulse, 'STEP' for Step
 
-        Parameter:
-            unit (str): 'SEC' for seconds, 'M' for meters
 
-        Return:
-            None
-        """
-        allowed = ['SEC', 'M']
-        if unit not in allowed:
-            raise ValueError(f"unit must be one of {allowed}")
-        self.instrument.write(f":CALC{self.channel}:TRAN:TIME:UNIT {unit}")
-
-    def get_time_domain_unit(self) -> str:
-        """
-        Get the time domain unit.
+            """
+            allowed = ['IMP', 'STEP']
+            if stim_type not in allowed:
+                raise ValueError(f"stim_type must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:STIM {stim_type}")
 
-        Parameter:
-            None
+        def get_time_domain_stimulus_type(self) -> str:
+            """
+            Get the stimulus type for time domain.
 
-        Return:
-            str: Unit
-        """
-        return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:UNIT?").strip()
+            :return: Stimulus type
+            """
+            return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:STIM?").strip()
+
+        # CALC:TRAN:TIME:UNIT - Time domain Unit
+        def set_time_domain_unit(self, unit: str):
+            """
+            Set the time domain unit.
+
+            :param unit: 'SEC' for seconds, 'M' for meters
+
+
+            """
+            allowed = ['SEC', 'M']
+            if unit not in allowed:
+                raise ValueError(f"unit must be one of {allowed}")
+            self.instrument.write(f":CALC{self.channel}:TRAN:TIME:UNIT {unit}")
+
+        def get_time_domain_unit(self) -> str:
+            """
+            Get the time domain unit.
+
+            :return: Unit
+            """
+            return self.instrument.query(f":CALC{self.channel}:TRAN:TIME:UNIT?").strip()
 class Display:
     """
         Command display settings.
@@ -3690,13 +3032,11 @@ class Display:
             """
             Set the background color for trace display.
 
-            Parameter:
-            r (int): Red value (0-255)
-            g (int): Green value (0-255)
-            b (int): Blue value (0-255)
+            :param r: Red value (0-255)
+            :param g: Green value (0-255)
+            :param b: Blue value (0-255)
 
-            Return:
-            None
+    
             """
             r = max(0, min(255, r))
             g = max(0, min(255, g))
@@ -3707,11 +3047,7 @@ class Display:
             """
             Get the background color for trace display.
 
-            Parameter:
-            None
-
-            Return:
-            tuple: (r, g, b)
+            :return: (r, g, b)
             """
             data = self.instrument.query(":DISP:COL:BACK?").strip()
             return tuple(map(int, data.split(',')))
@@ -3721,13 +3057,11 @@ class Display:
             """
             Set the grid and graticule label color.
 
-            Parameter:
-            r (int): Red value (0-255)
-            g (int): Green value (0-255)
-            b (int): Blue value (0-255)
+            :param r: Red value (0-255)
+            :param g: Green value (0-255)
+            :param b: Blue value (0-255)
 
-            Return:
-            None
+    
             """
             r = max(0, min(255, r))
             g = max(0, min(255, g))
@@ -3738,11 +3072,7 @@ class Display:
             """
             Get the grid and graticule label color.
 
-            Parameter:
-            None
-
-            Return:
-            tuple: (r, g, b)
+            :return: (r, g, b)
             """
             data = self.instrument.query(":DISP:COL:GRAT?").strip()
             return tuple(map(int, data.split(',')))
@@ -3752,14 +3082,12 @@ class Display:
             """
             Set the data trace color for a specific trace.
 
-            Parameter:
-            trace (int): Trace number (1-16)
-            r (int): Red value (0-255)
-            g (int): Green value (0-255)
-            b (int): Blue value (0-255)
+            :param trace: Trace number (1-16)
+            :param r: Red value (0-255)
+            :param g: Green value (0-255)
+            :param b: Blue value (0-255)
 
-            Return:
-            None
+    
             """
             r = max(0, min(255, r))
             g = max(0, min(255, g))
@@ -3770,11 +3098,9 @@ class Display:
             """
             Get the data trace color for a specific trace.
 
-            Parameter:
-            trace (int): Trace number (1-16)
+            :param trace: Trace number (1-16)
 
-            Return:
-            tuple: (r, g, b)
+            :return: (r, g, b)
             """
             data = self.instrument.query(f":DISP:COL:TRAC{trace}:DATA?").strip()
             return tuple(map(int, data.split(',')))
@@ -3784,14 +3110,12 @@ class Display:
             """
             Set the memory trace color for a specific trace.
 
-            Parameter:
-            trace (int): Trace number (1-16)
-            r (int): Red value (0-255)
-            g (int): Green value (0-255)
-            b (int): Blue value (0-255)
+            :param trace: Trace number (1-16)
+            :param r: Red value (0-255)
+            :param g: Green value (0-255)
+            :param b: Blue value (0-255)
 
-            Return:
-            None
+    
             """
             r = max(0, min(255, r))
             g = max(0, min(255, g))
@@ -3802,11 +3126,9 @@ class Display:
             """
             Get the memory trace color for a specific trace.
 
-            Parameter:
-            trace (int): Trace number (1-16)
+            :param trace: Trace number (1-16)
 
-            Return:
-            tuple: (r, g, b)
+            :return: (r, g, b)
             """
             data = self.instrument.query(f":DISP:COL:TRAC{trace}:MEM?").strip()
             return tuple(map(int, data.split(',')))
@@ -3815,12 +3137,7 @@ class Display:
         def restore_defaults(self):
             """
             Restore the display settings to the default values.
-
-            Parameter:
-            None
-
-            Return:
-            None
+    
             """
             self.instrument.write(":DISP:COL:RES")
 
@@ -3836,11 +3153,9 @@ class Display:
             """
             Set the font size for all displayed elements.
 
-            Parameter:
-            size (int): Font size (10-22)
+            :param size: Font size (10-22)
 
-            Return:
-            None
+    
             """
             size = max(10, min(22, size))
             self.instrument.write(f":DISP:FONT:SIZE {size}")
@@ -3848,12 +3163,8 @@ class Display:
         def get_font_size(self) -> int:
             """
             Get the font size for all displayed elements.
-
-            Parameter:
-            None
-
-            Return:
-            int: Font size
+            
+            :return: Font size
             """
             return int(self.instrument.query(":DISP:FONT:SIZE?"))
 
@@ -3862,12 +3173,10 @@ class Display:
             """
             Set the font size of the specified display item.
 
-            Parameter:
-            item (str): Display item ('BUTT', 'MENU', 'CST', 'AST', 'CHAN')
-            size (int): Font size (10-22)
+            :param item: Display item ('BUTT', 'MENU', 'CST', 'AST', 'CHAN')
+            :param size: Font size (10-22)
 
-            Return:
-            None
+    
             """
             allowed = ['BUTT', 'MENU', 'CST', 'AST', 'CHAN']
             if item not in allowed:
@@ -3879,11 +3188,9 @@ class Display:
             """
             Get the font size of the specified display item.
 
-            Parameter:
-            item (str): Display item ('BUTT', 'MENU', 'CST', 'AST', 'CHAN')
+            :param item: Display item ('BUTT', 'MENU', 'CST', 'AST', 'CHAN')
 
-            Return:
-            int: Font size
+            :return: Font size
             """
             allowed = ['BUTT', 'MENU', 'CST', 'AST', 'CHAN']
             if item not in allowed:
@@ -3895,11 +3202,9 @@ class Display:
             """
             Enable or disable individual font sizes for elements.
 
-            Parameter:
-            enable (bool): True for individual, False for same size
+            :param enable: True for individual, False for same size
 
-            Return:
-            None
+    
             """
             self.instrument.write(f":DISP:PART:FONT:SIZE:STAT {1 if enable else 0}")
 
@@ -3907,11 +3212,7 @@ class Display:
             """
             Query if individual font sizes for elements are enabled.
 
-            Parameter:
-            None
-
-            Return:
-            bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":DISP:PART:FONT:SIZE:STAT?")))
 
@@ -3920,12 +3221,10 @@ class Display:
             """
             Show or hide the specified display partition.
 
-            Parameter:
-            partition (str): Display partition ('BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA')
-            enable (bool): True to show, False to hide
+            :param partition: Display partition ('BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA')
+            :param enable: True to show, False to hide
 
-            Return:
-            None
+    
             """
             allowed = ['BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA']
             if partition not in allowed:
@@ -3936,11 +3235,9 @@ class Display:
             """
             Query if the specified display partition is visible.
 
-            Parameter:
-            partition (str): Display partition ('BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA')
+            :param partition: Display partition ('BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA')
 
-            Return:
-            bool: True if visible, False otherwise
+            :return: True if visible, False otherwise
             """
             allowed = ['BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA']
             if partition not in allowed:
@@ -3959,11 +3256,9 @@ class Display:
             """
             Enable or disable the marker table.
 
-            Parameter:
-            enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-            Return:
-            None
+    
             """
             self.instrument.write(f":DISP:MARK:TABL {1 if enable else 0}")
 
@@ -3971,11 +3266,7 @@ class Display:
             """
             Query if the marker table is enabled.
 
-            Parameter:
-            None
-
-            Return:
-            bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":DISP:MARK:TABL?")))
 
@@ -3984,12 +3275,10 @@ class Display:
             """
             Set the alignment of the marker annotation.
 
-            Parameter:
-            channel (int): Channel number (1-16)
-            alignment (str): 'NONE', 'VERT', or 'HOR'
+            :param channel: Channel number (1-16)
+            :param alignment: 'NONE', 'VERT', or 'HOR'
 
-            Return:
-            None
+    
             """
             allowed = ['NONE', 'VERT', 'HOR']
             if alignment not in allowed:
@@ -4000,11 +3289,9 @@ class Display:
             """
             Get the alignment of the marker annotation.
 
-            Parameter:
-            channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-            str: Alignment
+            :return: Alignment
             """
             return self.instrument.query(f":DISP:WIND{self.channel}:ANN:MARK:ALIG?").strip()
 
@@ -4013,12 +3300,10 @@ class Display:
             """
             Enable or disable display of only the active trace markers.
 
-            Parameter:
-            channel (int): Channel number (1-16)
-            enable (bool): True for active only, False for all
+            :param channel: Channel number (1-16)
+            :param enable: True for active only, False for all
 
-            Return:
-            None
+    
             """
             self.instrument.write(f":DISP:WIND{self.channel}:ANN:MARK:SING {1 if enable else 0}")
 
@@ -4026,11 +3311,9 @@ class Display:
             """
             Query if only the active trace markers are displayed.
 
-            Parameter:
-            channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-            bool: True if active only, False otherwise
+            :return: True if active only, False otherwise
             """
             return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:ANN:MARK:SING?")))
 
@@ -4039,13 +3322,11 @@ class Display:
             """
             Set the X position of marker annotation (percent of display width).
 
-            Parameter:
-            channel (int): Channel number (1-16)
-            trace (int): Trace number (1-16)
-            value (float): Position (0-100)
+            :param channel: Channel number (1-16)
+            :param trace: Trace number (1-16)
+            :param value: Position (0-100)
 
-            Return:
-            None
+    
             """
             value = max(0, min(100, value))
             self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:X {value}")
@@ -4054,12 +3335,10 @@ class Display:
             """
             Get the X position of marker annotation.
 
-            Parameter:
-            channel (int): Channel number (1-16)
-            trace (int): Trace number (1-16)
+            :param channel: Channel number (1-16)
+            :param trace: Trace number (1-16)
 
-            Return:
-            float: Position (0-100)
+            :return: Position (0-100)
             """
             return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:X?"))
 
@@ -4068,13 +3347,11 @@ class Display:
             """
             Set the Y position of marker annotation (percent of display height).
 
-            Parameter:
-            channel (int): Channel number (1-16)
-            trace (int): Trace number (1-16)
-            value (float): Position (0-100)
+            :param channel: Channel number (1-16)
+            :param trace: Trace number (1-16)
+            :param value: Position (0-100)
 
-            Return:
-            None
+    
             """
             value = max(0, min(100, value))
             self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:Y {value}")
@@ -4083,25 +3360,21 @@ class Display:
             """
             Get the Y position of marker annotation.
 
-            Parameter:
-            channel (int): Channel number (1-16)
-            trace (int): Trace number (1-16)
+            :param channel: Channel number (1-16)
+            :param trace: Trace number (1-16)
 
-            Return:
-            float: Position (0-100)
+            :return: Position (0-100)
             """
             return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:Y?"))
     def set_background_color(self, r: int, g: int, b: int):
         """
         Set the background color for trace display.
 
-        Parameter:
-        r (int): Red value (0-255)
-        g (int): Green value (0-255)
-        b (int): Blue value (0-255)
+        :param r: Red value (0-255)
+        :param g: Green value (0-255)
+        :param b: Blue value (0-255)
 
-        Return:
-        None
+
         """
         r = max(0, min(255, r))
         g = max(0, min(255, g))
@@ -4112,11 +3385,9 @@ class Display:
         """
         Get the background color for trace display.
 
-        Parameter:
-        None
+        
 
-        Return:
-        tuple: (r, g, b)
+        :return: (r, g, b)
         """
         data = self.instrument.query(":DISP:COL:BACK?").strip()
         return tuple(map(int, data.split(',')))
@@ -4126,13 +3397,11 @@ class Display:
         """
         Set the grid and graticule label color.
 
-        Parameter:
-        r (int): Red value (0-255)
-        g (int): Green value (0-255)
-        b (int): Blue value (0-255)
+        :param r: Red value (0-255)
+        :param g: Green value (0-255)
+        :param b: Blue value (0-255)
 
-        Return:
-        None
+
         """
         r = max(0, min(255, r))
         g = max(0, min(255, g))
@@ -4143,11 +3412,9 @@ class Display:
         """
         Get the grid and graticule label color.
 
-        Parameter:
-        None
+        
 
-        Return:
-        tuple: (r, g, b)
+        :return: (r, g, b)
         """
         data = self.instrument.query(":DISP:COL:GRAT?").strip()
         return tuple(map(int, data.split(',')))
@@ -4157,11 +3424,9 @@ class Display:
         """
         Restore the display settings to the default values.
 
-        Parameter:
-        None
+        
 
-        Return:
-        None
+
         """
         self.instrument.write(":DISP:COL:RES")
 
@@ -4170,14 +3435,12 @@ class Display:
         """
         Set the data trace color for a specific trace.
 
-        Parameter:
-        trace (int): Trace number (1-16)
-        r (int): Red value (0-255)
-        g (int): Green value (0-255)
-        b (int): Blue value (0-255)
+        :param trace: Trace number (1-16)
+        :param r: Red value (0-255)
+        :param g: Green value (0-255)
+        :param b: Blue value (0-255)
 
-        Return:
-        None
+
         """
         r = max(0, min(255, r))
         g = max(0, min(255, g))
@@ -4188,11 +3451,9 @@ class Display:
         """
         Get the data trace color for a specific trace.
 
-        Parameter:
-        trace (int): Trace number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        tuple: (r, g, b)
+        :return: (r, g, b)
         """
         data = self.instrument.query(f":DISP:COL:TRAC{trace}:DATA?").strip()
         return tuple(map(int, data.split(',')))
@@ -4202,14 +3463,12 @@ class Display:
         """
         Set the memory trace color for a specific trace.
 
-        Parameter:
-        trace (int): Trace number (1-16)
-        r (int): Red value (0-255)
-        g (int): Green value (0-255)
-        b (int): Blue value (0-255)
+        :param trace: Trace number (1-16)
+        :param r: Red value (0-255)
+        :param g: Green value (0-255)
+        :param b: Blue value (0-255)
 
-        Return:
-        None
+
         """
         r = max(0, min(255, r))
         g = max(0, min(255, g))
@@ -4220,11 +3479,9 @@ class Display:
         """
         Get the memory trace color for a specific trace.
 
-        Parameter:
-        trace (int): Trace number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        tuple: (r, g, b)
+        :return: (r, g, b)
         """
         data = self.instrument.query(f":DISP:COL:TRAC{trace}:MEM?").strip()
         return tuple(map(int, data.split(',')))
@@ -4234,11 +3491,9 @@ class Display:
         """
         Enable or disable display update.
 
-        Parameter:
-        enable (bool): True to enable, False to disable
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:ENAB {1 if enable else 0}")
 
@@ -4246,11 +3501,9 @@ class Display:
         """
         Query if display update is enabled.
 
-        Parameter:
-        None
+        
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(":DISP:ENAB?")))
 
@@ -4259,11 +3512,9 @@ class Display:
         """
         Set the font size for all displayed elements.
 
-        Parameter:
-        size (int): Font size (10-22)
+        :param size: Font size (10-22)
 
-        Return:
-        None
+
         """
         size = max(10, min(22, size))
         self.instrument.write(f":DISP:FONT:SIZE {size}")
@@ -4272,11 +3523,9 @@ class Display:
         """
         Get the font size for all displayed elements.
 
-        Parameter:
-        None
+        
 
-        Return:
-        int: Font size
+        :return: Font size
         """
         return int(self.instrument.query(":DISP:FONT:SIZE?"))
 
@@ -4285,11 +3534,9 @@ class Display:
         """
         Enable or disable the "Fail" sign display.
 
-        Parameter:
-        enable (bool): True to enable, False to disable
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:FSIG {1 if enable else 0}")
 
@@ -4297,11 +3544,9 @@ class Display:
         """
         Query if the "Fail" sign display is enabled.
 
-        Parameter:
-        None
+        
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(":DISP:FSIG?")))
 
@@ -4310,11 +3555,9 @@ class Display:
         """
         Set the Graticule Label state.
 
-        Parameter:
-        state (str): 'OFF', 'ACT', or 'ALL'
+        :param state: 'OFF', 'ACT', or 'ALL'
 
-        Return:
-        None
+
         """
         allowed = ['OFF', 'ACT', 'ALL']
         if state not in allowed:
@@ -4325,11 +3568,9 @@ class Display:
         """
         Get the Graticule Label state.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Graticule Label state
+        :return: Graticule Label state
         """
         return self.instrument.query(":DISP:GLAB?").strip()
 
@@ -4338,11 +3579,9 @@ class Display:
         """
         Set the inversion of display colors of the trace area.
 
-        Parameter:
-        mode (str): 'NORM' for normal, 'INV' for inverted
+        :param mode: 'NORM' for normal, 'INV' for inverted
 
-        Return:
-        None
+
         """
         allowed = ['NORM', 'INV']
         if mode not in allowed:
@@ -4353,11 +3592,9 @@ class Display:
         """
         Get the inversion mode of display colors.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Inversion mode
+        :return: Inversion mode
         """
         return self.instrument.query(":DISP:IMAG?").strip()
 
@@ -4366,11 +3603,9 @@ class Display:
         """
         Hide the Analyzer window (shows "Remote Control" label).
 
-        Parameter:
-        None
+        
 
-        Return:
-        None
+
         """
         self.instrument.write(":DISP:HIDE")
 
@@ -4379,11 +3614,9 @@ class Display:
         """
         Enable or disable the marker table.
 
-        Parameter:
-        enable (bool): True to enable, False to disable
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:MARK:TABL {1 if enable else 0}")
 
@@ -4391,11 +3624,9 @@ class Display:
         """
         Query if the marker table is enabled.
 
-        Parameter:
-        None
+        
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(":DISP:MARK:TABL?")))
 
@@ -4404,11 +3635,9 @@ class Display:
         """
         Enable or disable maximization of the active channel window.
 
-        Parameter:
-        enable (bool): True to enable, False to disable
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:MAX {1 if enable else 0}")
 
@@ -4416,11 +3645,9 @@ class Display:
         """
         Query if maximization of the active channel window is enabled.
 
-        Parameter:
-        None
+        
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(":DISP:MAX?")))
 
@@ -4429,12 +3656,10 @@ class Display:
         """
         Set the font size of the specified display item.
 
-        Parameter:
-        item (str): Display item ('BUTT', 'MENU', 'CST', 'AST', 'CHAN')
-        size (int): Font size (10-22)
+        :param item: Display item ('BUTT', 'MENU', 'CST', 'AST', 'CHAN')
+        :param size: Font size (10-22)
 
-        Return:
-        None
+
         """
         allowed = ['BUTT', 'MENU', 'CST', 'AST', 'CHAN']
         if item not in allowed:
@@ -4446,11 +3671,9 @@ class Display:
         """
         Get the font size of the specified display item.
 
-        Parameter:
-        item (str): Display item ('BUTT', 'MENU', 'CST', 'AST', 'CHAN')
+        :param item: Display item ('BUTT', 'MENU', 'CST', 'AST', 'CHAN')
 
-        Return:
-        int: Font size
+        :return: Font size
         """
         allowed = ['BUTT', 'MENU', 'CST', 'AST', 'CHAN']
         if item not in allowed:
@@ -4462,11 +3685,9 @@ class Display:
         """
         Enable or disable individual font sizes for elements.
 
-        Parameter:
-        enable (bool): True for individual, False for same size
+        :param enable: True for individual, False for same size
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:PART:FONT:SIZE:STAT {1 if enable else 0}")
 
@@ -4474,11 +3695,9 @@ class Display:
         """
         Query if individual font sizes for elements are enabled.
 
-        Parameter:
-        None
+        
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(":DISP:PART:FONT:SIZE:STAT?")))
 
@@ -4487,12 +3706,10 @@ class Display:
         """
         Show or hide the specified display partition.
 
-        Parameter:
-        partition (str): Display partition ('BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA')
-        enable (bool): True to show, False to hide
+        :param partition: Display partition ('BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA')
+        :param enable: True to show, False to hide
 
-        Return:
-        None
+
         """
         allowed = ['BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA']
         if partition not in allowed:
@@ -4503,11 +3720,9 @@ class Display:
         """
         Query if the specified display partition is visible.
 
-        Parameter:
-        partition (str): Display partition ('BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA')
+        :param partition: Display partition ('BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA')
 
-        Return:
-        bool: True if visible, False otherwise
+        :return: True if visible, False otherwise
         """
         allowed = ['BUTT', 'MENU', 'CST', 'AST', 'TIT', 'FLA', 'MTA']
         if partition not in allowed:
@@ -4519,14 +3734,12 @@ class Display:
         """
         Set the Analyzer window position and size.
 
-        Parameter:
-        left (int): Left coordinate
-        top (int): Top coordinate
-        width (int): Window width
-        height (int): Window height
+        :param left: Left coordinate
+        :param top: Top coordinate
+        :param width: Window width
+        :param height: Window height
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:POS {left},{top},{width},{height}")
 
@@ -4534,11 +3747,9 @@ class Display:
         """
         Get the Analyzer window position and size.
 
-        Parameter:
-        None
+        
 
-        Return:
-        tuple: (left, top, width, height)
+        :return: (left, top, width, height)
         """
         data = self.instrument.query(":DISP:POS?").strip()
         return tuple(map(int, data.split(',')))
@@ -4548,11 +3759,9 @@ class Display:
         """
         Show the Analyzer window hidden by DISP:HIDE.
 
-        Parameter:
-        None
+        
 
-        Return:
-        None
+
         """
         self.instrument.write(":DISP:SHOW")
 
@@ -4561,11 +3770,7 @@ class Display:
         """
         Set the number and layout of channels on the screen.
 
-        Parameter:
-        layout_code (int): Layout code (1-16)
-
-        Return:
-        None
+        :param layout_code: Layout code (1-16)
         """
         layout_code = max(1, min(16, layout_code))
         self.instrument.write(f":DISP:SPL {layout_code}")
@@ -4574,11 +3779,9 @@ class Display:
         """
         Get the number and layout of channels on the screen.
 
-        Parameter:
-        None
+        
 
-        Return:
-        int: Layout code
+        :return: Layout code
         """
         return int(self.instrument.query(":DISP:SPL?"))
 
@@ -4587,11 +3790,9 @@ class Display:
         """
         Update the display once when display update is OFF.
 
-        Parameter:
-        None
+        
 
-        Return:
-        None
+
         """
         self.instrument.write(":DISP:UPD")
 
@@ -4600,11 +3801,9 @@ class Display:
         """
         Set the active channel.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:ACT")
 
@@ -4613,12 +3812,9 @@ class Display:
         """
         Set the alignment of the marker annotation.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        alignment (str): 'NONE', 'VERT', or 'HOR'
-
-        Return:
-        None
+        :param channel: Channel number (1-16)
+        :param alignment: 'NONE', 'VERT', or 'HOR'
+\
         """
         allowed = ['NONE', 'VERT', 'HOR']
         if alignment not in allowed:
@@ -4629,11 +3825,9 @@ class Display:
         """
         Get the alignment of the marker annotation.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        str: Alignment
+        :return: Alignment
         """
         return self.instrument.query(f":DISP:WIND{self.channel}:ANN:MARK:ALIG?").strip()
 
@@ -4642,12 +3836,10 @@ class Display:
         """
         Enable or disable display of only the active trace markers.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        enable (bool): True for active only, False for all
+        :param channel: Channel number (1-16)
+        :param enable: True for active only, False for all
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:ANN:MARK:SING {1 if enable else 0}")
 
@@ -4655,11 +3847,9 @@ class Display:
         """
         Query if only the active trace markers are displayed.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        bool: True if active only, False otherwise
+        :return: True if active only, False otherwise
         """
         return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:ANN:MARK:SING?")))
 
@@ -4668,12 +3858,10 @@ class Display:
         """
         Enable or disable maximization of the active trace in the specified channel.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        enable (bool): True to enable, False to disable
+        :param channel: Channel number (1-16)
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:MAX {1 if enable else 0}")
 
@@ -4681,25 +3869,19 @@ class Display:
         """
         Query if maximization of the active trace in the specified channel is enabled.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:MAX?")))
 
     # DISP:WIND:SPL - Graph layout in channel window
     def set_channel_graph_layout(self,  layout: int):
-        """
-        Set the graph layout in the channel window.
+        """ Set the graph layout in the channel window.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        layout (int): Layout code (1-16)
+        :param channel: Channel number (1-16)
+        :param layout: Layout code (1-16)
 
-        Return:
-        None
         """
         layout = max(1, min(16, layout))
         self.instrument.write(f":DISP:WIND{self.channel}:SPL {layout}")
@@ -4708,11 +3890,9 @@ class Display:
         """
         Get the graph layout in the channel window.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        int: Layout code
+        :return: Layout code
         """
         return int(self.instrument.query(f":DISP:WIND{self.channel}:SPL?"))
 
@@ -4721,12 +3901,10 @@ class Display:
         """
         Enable or disable the channel title display.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        enable (bool): True to enable, False to disable
+        :param channel: Channel number (1-16)
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:TITL {1 if enable else 0}")
 
@@ -4734,11 +3912,9 @@ class Display:
         """
         Query if the channel title display is enabled.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:TITL?")))
 
@@ -4747,12 +3923,10 @@ class Display:
         """
         Set the channel title label.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        label (str): Title label (up to 256 characters)
+        :param channel: Channel number (1-16)
+        :param label: Title label (up to 256 characters)
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:TITL:DATA \"{label}\"")
 
@@ -4760,11 +3934,9 @@ class Display:
         """
         Get the channel title label.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        str: Title label
+        :return: Title label
         """
         return self.instrument.query(f":DISP:WIND{self.channel}:TITL:DATA?").strip()
 
@@ -4773,13 +3945,11 @@ class Display:
         """
         Set the X position of marker annotation (percent of display width).
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
-        value (float): Position (0-100)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
+        :param value: Position (0-100)
 
-        Return:
-        None
+
         """
         value = max(0, min(100, value))
         self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:X {value}")
@@ -4788,12 +3958,10 @@ class Display:
         """
         Get the X position of marker annotation.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        float: Position (0-100)
+        :return: Position (0-100)
         """
         return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:X?"))
 
@@ -4802,13 +3970,11 @@ class Display:
         """
         Set the Y position of marker annotation (percent of display height).
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
-        value (float): Position (0-100)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
+        :param value: Position (0-100)
 
-        Return:
-        None
+
         """
         value = max(0, min(100, value))
         self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:Y {value}")
@@ -4817,12 +3983,10 @@ class Display:
         """
         Get the Y position of marker annotation.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        float: Position (0-100)
+        :return: Position (0-100)
         """
         return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:ANN:MARK:POS:Y?"))
     # DISP:SPL - Number and layout of channels
@@ -4830,11 +3994,9 @@ class Display:
         """
         Set the number and layout of channels on the screen.
 
-        Parameter:
-        layout_code (int): Layout code (1-16)
+        :param layout_code: Layout code (1-16)
 
-        Return:
-        None
+
         """
         layout_code = max(1, min(16, layout_code))
         self.instrument.write(f":DISP:SPL {layout_code}")
@@ -4843,11 +4005,9 @@ class Display:
         """
         Get the number and layout of channels on the screen.
 
-        Parameter:
-        None
+        
 
-        Return:
-        int: Layout code
+        :return: Layout code
         """
         return int(self.instrument.query(":DISP:SPL?"))
 
@@ -4856,13 +4016,11 @@ class Display:
         """
         Enable or disable the memory trace display for a trace.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
-        enable (bool): True to enable, False to disable
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:MEM:STAT {1 if enable else 0}")
 
@@ -4870,12 +4028,10 @@ class Display:
         """
         Query if the memory trace display is enabled for a trace.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:MEM:STAT?")))
 
@@ -4884,13 +4040,11 @@ class Display:
         """
         Enable or disable the data trace display for a trace.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
-        enable (bool): True to enable, False to disable
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:STAT {1 if enable else 0}")
 
@@ -4898,12 +4052,10 @@ class Display:
         """
         Query if the data trace display is enabled for a trace.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:STAT?")))
 
@@ -4912,12 +4064,10 @@ class Display:
         """
         Execute the auto scale function for the trace.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:AUTO")
 
@@ -4926,13 +4076,11 @@ class Display:
         """
         Set the trace scale per division.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
-        value (float): Scale value (10e-18 to 1e18)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
+        :param value: Scale value (10e-18 to 1e18)
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{trace}:TRAC{trace}:Y:SCAL:PDIV {value}")
 
@@ -4940,12 +4088,10 @@ class Display:
         """
         Get the trace scale per division.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        float: Scale value
+        :return: Scale value
         """
         return float(self.instrument.query(f":DISP:WIND{trace}:TRAC{trace}:Y:SCAL:PDIV?"))
 
@@ -4954,13 +4100,11 @@ class Display:
         """
         Set the value of the reference line.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
-        value (float): Reference line value (10e-18 to 1e18)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
+        :param value: Reference line value (10e-18 to 1e18)
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{trace}:TRAC{trace}:Y:SCAL:RLEV {value}")
 
@@ -4968,12 +4112,10 @@ class Display:
         """
         Get the value of the reference line.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        float: Reference line value
+        :return: Reference line value
         """
         return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:RLEV?"))
 
@@ -4982,12 +4124,10 @@ class Display:
         """
         Execute the auto reference function for the trace.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:RLEV:AUTO")
 
@@ -4996,13 +4136,11 @@ class Display:
         """
         Set the position of the reference line.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
-        value (float): Reference line position (0 to number of scale divisions)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
+        :param value: Reference line position (0 to number of scale divisions)
 
-        Return:
-        None
+
         """
         self.instrument.write(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:RPOS {value}")
 
@@ -5010,12 +4148,10 @@ class Display:
         """
         Get the position of the reference line.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-        float: Reference line position
+        :return: Reference line position
         """
         return float(self.instrument.query(f":DISP:WIND{self.channel}:TRAC{trace}:Y:SCAL:RPOS?"))
 
@@ -5024,12 +4160,10 @@ class Display:
         """
         Set the display method of the graph horizontal axis for the segment sweep.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        spacing (str): 'LIN' or 'OBAS'
+        :param channel: Channel number (1-16)
+        :param spacing: 'LIN' or 'OBAS'
 
-        Return:
-        None
+
         """
         allowed = ['LIN', 'OBAS']
         if spacing not in allowed:
@@ -5040,11 +4174,9 @@ class Display:
         """
         Get the display method of the graph horizontal axis for the segment sweep.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        str: Spacing method
+        :return: Spacing method
         """
         return self.instrument.query(f":DISP:WIND{self.channel}:X:SPAC?").strip()
 
@@ -5053,12 +4185,10 @@ class Display:
         """
         Set the number of the vertical scale divisions.
 
-        Parameter:
-        channel (int): Channel number (1-16)
-        value (int): Number of divisions (4-30)
+        :param channel: Channel number (1-16)
+        :param value: Number of divisions (4-30)
 
-        Return:
-        None
+
         """
         value = max(4, min(30, value))
         self.instrument.write(f":DISP:WIND{self.channel}:Y:SCAL:DIV {value}")
@@ -5067,11 +4197,9 @@ class Display:
         """
         Get the number of the vertical scale divisions.
 
-        Parameter:
-        channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-        int: Number of divisions
+        :return: Number of divisions
         """
         return int(self.instrument.query(f":DISP:WIND{self.channel}:Y:SCAL:DIV?"))
 
@@ -5088,11 +4216,9 @@ class Format:
         """
         Set the transfer order of each byte in binary data transfer format.
 
-        Parameter:
-            order (str): Byte order, one of ['NORM', 'SWAP']
+        :param order: Byte order, one of ['NORM', 'SWAP']
 
-        Return:
-            None
+
         """
         allowed = ['NORM', 'SWAP']
         if order not in allowed:
@@ -5103,11 +4229,9 @@ class Format:
         """
         Get the transfer order of each byte in binary data transfer format.
 
-        Parameter:
-            None
+        
 
-        Return:
-            str: Byte order ('NORM' or 'SWAP')
+        :return: Byte order ('NORM' or 'SWAP')
         """
         return self.instrument.query(":FORM:BORD?").strip()
 
@@ -5116,11 +4240,9 @@ class Format:
         """
         Set the data transfer format for binary or ASCII data.
 
-        Parameter:
-            fmt (str): Data format, one of ['ASC', 'REAL', 'REAL32']
+        :param fmt: Data format, one of ['ASC', 'REAL', 'REAL32']
 
-        Return:
-            None
+
         """
         allowed = ['ASC', 'REAL', 'REAL32']
         if fmt not in allowed:
@@ -5131,11 +4253,9 @@ class Format:
         """
         Get the data transfer format for binary or ASCII data.
 
-        Parameter:
-            None
+        
 
-        Return:
-            str: Data format ('ASC', 'REAL', or 'REAL32')
+        :return: Data format ('ASC', 'REAL', or 'REAL32')
         """
         return self.instrument.query(":FORM:DATA?").strip()
 
@@ -5144,12 +4264,10 @@ class Format:
         """
         Save current settings and set new values for data transfer format and byte order.
 
-        Parameter:
-            fmt (str): Data format, one of ['ASC', 'REAL', 'REAL32']
-            border (str): Byte order, one of ['NORM', 'SWAP']
+        :param fmt: Data format, one of ['ASC', 'REAL', 'REAL32']
+        :param border: Byte order, one of ['NORM', 'SWAP']
 
-        Return:
-            None
+
         """
         allowed_fmt = ['ASC', 'REAL', 'REAL32']
         allowed_border = ['NORM', 'SWAP']
@@ -5164,11 +4282,9 @@ class Format:
         """
         Restore the settings for the data transfer format and byte order saved by the preceding FORM:PUSH command.
 
-        Parameter:
-            None
+        
 
-        Return:
-            None
+
         """
         self.instrument.write(":FORM:POP")
 
@@ -5182,11 +4298,9 @@ class HCopy:
         """
         Print out the image displayed on the screen without previewing.
 
-        Parameter:
-        None
+        
 
-        Return:
-        None
+
         """
         self.instrument.write(":HCOPy:IMMediate")
 
@@ -5195,11 +4309,9 @@ class HCopy:
         """
         Abort the printout.
 
-        Parameter:
-        None
+        
 
-        Return:
-        None
+
         """
         self.instrument.write(":HCOPy:ABORt")
 
@@ -5208,11 +4320,9 @@ class HCopy:
         """
         Enable or disable the date and time printout in the upper right corner of the image.
 
-        Parameter:
-        enable (bool): True to enable, False to disable
+         :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":HCOPy:DATE:STAMp {1 if enable else 0}")
 
@@ -5220,11 +4330,9 @@ class HCopy:
         """
         Query if the date and time printout is enabled.
 
-        Parameter:
-        None
+        
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(":HCOPy:DATE:STAMp?")))
 
@@ -5233,8 +4341,7 @@ class HCopy:
         """
         Set the inverted color image printout.
 
-        Parameter:
-        mode (str): 'NORM' for normal, 'INV' for inverted
+        :param mode: 'NORM' for normal, 'INV' for inverted
 
         """
         allowed = ['NORM', 'INV']
@@ -5246,11 +4353,9 @@ class HCopy:
         """
         Get the inverted color image printout mode.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: 'NORM' or 'INV'
+        :return: 'NORM' or 'INV'
         """
         return self.instrument.query(":HCOPy:IMAGe?").strip()
 
@@ -5259,11 +4364,9 @@ class HCopy:
         """
         Set the color chart for the image printout.
 
-        Parameter:
-        mode (str): 'COL' for color, 'GRAY' for grayscale, 'BW' for black & white
+        :param mode: 'COL' for color, 'GRAY' for grayscale, 'BW' for black & white
 
-        Return:
-        None
+
         """
         allowed = ['COL', 'GRAY', 'BW']
         if mode not in allowed:
@@ -5274,11 +4377,9 @@ class HCopy:
         """
         Get the color chart mode for the image printout.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: 'COL', 'GRAY', or 'BW'
+        :return: 'COL', 'GRAY', or 'BW'
         """
         return self.instrument.query(":HCOPy:PAINt?").strip()
 class Initate:
@@ -5293,11 +4394,9 @@ class Initate:
         """
         Put the channel into the Trigger Waiting state for one trigger event.
 
-        Parameter:
-        None
+        
 
-        Return:
-        None
+
         """
         self.instrument.write(f":INITiate{self.channel}:IMMediate")
 
@@ -5306,11 +4405,9 @@ class Initate:
         """
         Enable or disable continuous trigger initiation mode for the channel.
 
-        Parameter:
-        enable (bool): True to enable, False to disable
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":INITiate{self.channel}:CONTinuous {1 if enable else 0}")
 
@@ -5318,11 +4415,9 @@ class Initate:
         """
         Query if continuous trigger initiation mode is enabled for the channel.
 
-        Parameter:
-        None
+        
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(f":INITiate{self.channel}:CONTinuous?")))
 
@@ -5332,12 +4427,10 @@ class Initate:
         """
         Enable or disable continuous trigger initiation mode for all channels.
 
-        Parameter:
-        instrument: Instrument instance
-        enable (bool): True to enable, False to disable
+        :param instrument: Instrument instance
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         instrument.write(f":INITiate:CONTinuous:ALL {1 if enable else 0}")
 class MMemory:
@@ -5367,11 +4460,9 @@ class MMemory:
             """
             Read out information about the hard drive and files in the specified directory.
 
-            Parameter:
-                directory (str): Directory name (default: "\\.")
+            :param directory: Directory name (default: "\\.")
 
-            Return:
-                str: Catalog information string
+            :return: Catalog information string
             """
             return self.instrument.query(f":MMEMory:CATalog? \"{directory}\"").strip()
 
@@ -5387,12 +4478,10 @@ class MMemory:
             """
             Copy a file from source to destination.
 
-            Parameter:
-                src (str): Source file name
-                dst (str): Destination file name
+            :param src: Source file name
+            :param dst: Destination file name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:COPY \"{src}\",\"{dst}\"")
 
@@ -5408,11 +4497,9 @@ class MMemory:
             """
             Delete a file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:DELete \"{filename}\"")
 
@@ -5428,11 +4515,7 @@ class MMemory:
             """
             Create a new directory.
 
-            Parameter:
-                path (str): Directory full name
-
-            Return:
-                None
+            :param path: Directory full name
             """
             self.instrument.write(f":MMEMory:MDIRectory \"{path}\"")
 
@@ -5448,11 +4531,9 @@ class MMemory:
             """
             Recall the specified Analyzer state file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:LOAD:STATe \"{filename}\"")
 
@@ -5461,11 +4542,9 @@ class MMemory:
             """
             Recall the channel state from memory register.
 
-            Parameter:
-                register (str): Register ('A', 'B', 'C', 'D')
+            :param register: Register ('A', 'B', 'C', 'D')
 
-            Return:
-                None
+
             """
             allowed = ['A', 'B', 'C', 'D']
             if register not in allowed:
@@ -5477,12 +4556,10 @@ class MMemory:
             """
             Recall the calibration for the specified channel from the file.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                filename (str): File name
+            :param channel: Channel number (1-16)
+            :param filename: File name
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -5493,12 +4570,10 @@ class MMemory:
             """
             Recall the definition file for the calibration kit.
 
-            Parameter:
-                kit (int): Calibration kit number (1-50)
-                filename (str): File name
+            :param kit: Calibration kit number (1-50)
+            :param filename: File name
 
-            Return:
-                None
+
             """
             if not (1 <= kit <= 50):
                 raise ValueError("kit must be 1-50")
@@ -5509,11 +4584,9 @@ class MMemory:
             """
             Recall the limit table file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:LOAD:LIMit \"{filename}\"")
 
@@ -5522,12 +4595,10 @@ class MMemory:
             """
             Recall the loss compensation file for the specified port.
 
-            Parameter:
-                port (int): Port number (1-4)
-                filename (str): File name
+            :param port: Port number (1-4)
+            :param filename: File name
 
-            Return:
-                None
+
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
@@ -5538,11 +4609,9 @@ class MMemory:
             """
             Recall the ripple limit table file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:LOAD:RLIMit \"{filename}\"")
 
@@ -5551,11 +4620,9 @@ class MMemory:
             """
             Recall the segment table file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:LOAD:SEGMent \"{filename}\"")
 
@@ -5564,11 +4631,9 @@ class MMemory:
             """
             Load the touchstone file to the measured S-parameters of the active channel.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:LOAD:SNP:DATA \"{filename}\"")
 
@@ -5577,11 +4642,9 @@ class MMemory:
             """
             Enable or disable setting frequency from touchstone file when loading.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:LOAD:SNP:FREQuency:STATe {1 if enable else 0}")
 
@@ -5589,11 +4652,9 @@ class MMemory:
             """
             Query if frequency is set from touchstone file when loading.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":MMEMory:LOAD:SNP:FREQuency:STATe?")))
 
@@ -5602,12 +4663,10 @@ class MMemory:
             """
             Load the Touchstone file to the memory trace.
 
-            Parameter:
-                trace (int): Trace number (1-16)
-                filename (str): File name
+            :param trace: Trace number (1-16)
+            :param filename: File name
 
-            Return:
-                None
+
             """
             if not (1 <= trace <= 16):
                 raise ValueError("trace must be 1-16")
@@ -5627,11 +4686,9 @@ class MMemory:
             """
             Save the Analyzer state into a file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:STORe:STATe \"{filename}\"")
 
@@ -5640,11 +4697,9 @@ class MMemory:
             """
             Store the state of the active channel in a memory register.
 
-            Parameter:
-                register (str): Register ('A', 'B', 'C', 'D')
+            :param register: Register ('A', 'B', 'C', 'D')
 
-            Return:
-                None
+
             """
             allowed = ['A', 'B', 'C', 'D']
             if register not in allowed:
@@ -5656,12 +4711,10 @@ class MMemory:
             """
             Store the calibration of the specified channel to the file.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                filename (str): File name
+            :param channel: Channel number (1-16)
+            :param filename: File name
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -5672,11 +4725,9 @@ class MMemory:
             """
             Clear the memory of the channel state saved using the store channel command.
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(":MMEMory:STORe:CHANnel:CLEar")
 
@@ -5685,12 +4736,10 @@ class MMemory:
             """
             Save the definition file for the calibration kit.
 
-            Parameter:
-                kit (int): Calibration kit number (1-50)
-                filename (str): File name
+            :param kit: Calibration kit number (1-50)
+            :param filename: File name
 
-            Return:
-                None
+
             """
             if not (1 <= kit <= 50):
                 raise ValueError("kit must be 1-50")
@@ -5701,11 +4750,9 @@ class MMemory:
             """
             Save the data of one or several traces to a CSV file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:STORe:FDATa \"{filename}\"")
 
@@ -5714,11 +4761,9 @@ class MMemory:
             """
             Save the display image in BMP or PNG format into a file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:STORe:IMAGe \"{filename}\"")
 
@@ -5727,11 +4772,9 @@ class MMemory:
             """
             Save the limit table into a file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:STORe:LIMit \"{filename}\"")
 
@@ -5740,12 +4783,10 @@ class MMemory:
             """
             Save the loss compensation file.
 
-            Parameter:
-                port (int): Port number (1-4)
-                filename (str): File name
+            :param port: Port number (1-4)
+            :param filename: File name
 
-            Return:
-                None
+
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
@@ -5756,11 +4797,9 @@ class MMemory:
             """
             Save the ripple limit table into a file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:STORe:RLIMit \"{filename}\"")
 
@@ -5769,11 +4808,9 @@ class MMemory:
             """
             Save the segment table into a file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:STORe:SEGMent \"{filename}\"")
 
@@ -5782,11 +4819,9 @@ class MMemory:
             """
             Save the measured S-parameters of the active channel into a Touchstone file.
 
-            Parameter:
-                filename (str): File name
+            :param filename: File name
 
-            Return:
-                None
+
             """
             self.instrument.write(f":MMEMory:STORe:SNP:DATA \"{filename}\"")
 
@@ -5802,11 +4837,9 @@ class MMemory:
                 """
                 Set whether the active trace or all traces of the active channel will be saved.
 
-                Parameter:
-                    scope (str): 'ACTive' or 'ALL'
+                :param scope: 'ACTive' or 'ALL'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['ACTive', 'ALL']
                 if scope not in allowed:
@@ -5817,11 +4850,9 @@ class MMemory:
                 """
                 Get the scope for saving trace data.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'ACT' or 'ALL'
+                :return: 'ACT' or 'ALL'
                 """
                 return self.instrument.query(":MMEMory:STORe:FDAT:SCOPe?").strip()
 
@@ -5830,11 +4861,9 @@ class MMemory:
                 """
                 Set the data format when the CSV file is saved.
 
-                Parameter:
-                    fmt (str): 'DB', 'RI', or 'DISPlayed'
+                :param fmt: 'DB', 'RI', or 'DISPlayed'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['DB', 'RI', 'DISPlayed']
                 if fmt not in allowed:
@@ -5845,11 +4874,9 @@ class MMemory:
                 """
                 Get the data format for saving CSV.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'DB', 'RI', or 'DISP'
+                :return: 'DB', 'RI', or 'DISP'
                 """
                 return self.instrument.query(":MMEMory:STORe:FDAT:FORMat?").strip()
 
@@ -5858,11 +4885,9 @@ class MMemory:
                 """
                 Enable or disable comment strings at the beginning of the CSV file.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":MMEMory:STORe:FDAT:COMMent:STATe {1 if enable else 0}")
 
@@ -5870,11 +4895,9 @@ class MMemory:
                 """
                 Query if comment strings are enabled in the CSV file.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(":MMEMory:STORe:FDAT:COMMent:STATe?")))
 
@@ -5883,11 +4906,9 @@ class MMemory:
                 """
                 Enable or disable the stimulus column in the CSV file.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":MMEMory:STORe:FDAT:STIMulus:STATe {1 if enable else 0}")
 
@@ -5895,11 +4916,9 @@ class MMemory:
                 """
                 Query if the stimulus column is enabled in the CSV file.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(":MMEMory:STORe:FDAT:STIMulus:STATe?")))
 
@@ -5908,11 +4927,9 @@ class MMemory:
                 """
                 Set the separators used when the CSV file is saved.
 
-                Parameter:
-                    sep (str): 'POINt' or 'LOCal'
+                :param sep: 'POINt' or 'LOCal'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['POINt', 'LOCal']
                 if sep not in allowed:
@@ -5923,11 +4940,9 @@ class MMemory:
                 """
                 Get the separator used for saving CSV.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'POIN' or 'LOC'
+                :return: 'POIN' or 'LOC'
                 """
                 return self.instrument.query(":MMEMory:STORe:FDAT:SEParator?").strip()
 
@@ -5943,11 +4958,9 @@ class MMemory:
                 """
                 Set the data format for the S-parameter saved.
 
-                Parameter:
-                    fmt (str): 'DB', 'MA', or 'RI'
+                :param fmt: 'DB', 'MA', or 'RI'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['DB', 'MA', 'RI']
                 if fmt not in allowed:
@@ -5958,11 +4971,9 @@ class MMemory:
                 """
                 Get the data format for the S-parameter saved.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'RI', 'DB', or 'MA'
+                :return: 'RI', 'DB', or 'MA'
                 """
                 return self.instrument.query(":MMEMory:STORe:SNP:FORMat?").strip()
 
@@ -5971,11 +4982,9 @@ class MMemory:
                 """
                 Set the Touchstone file separator symbol.
 
-                Parameter:
-                    sep (str): 'TAB' or 'SPACe'
+                :param sep: 'TAB' or 'SPACe'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['TAB', 'SPACe']
                 if sep not in allowed:
@@ -5986,11 +4995,9 @@ class MMemory:
                 """
                 Get the Touchstone file separator symbol.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'TAB' or 'SPAC'
+                :return: 'TAB' or 'SPAC'
                 """
                 return self.instrument.query(":MMEMory:STORe:SNP:SEParator?").strip()
 
@@ -5999,11 +5006,9 @@ class MMemory:
                 """
                 Enable or disable including trace transform in the Touchstone file.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":MMEMory:STORe:SNP:TRACe:TRANsform:STATe {1 if enable else 0}")
 
@@ -6011,11 +5016,9 @@ class MMemory:
                 """
                 Query if including trace transform is enabled in the Touchstone file.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(":MMEMory:STORe:SNP:TRACe:TRANsform:STATe?")))
             # MMEMory:STORe:SNP:TYPE?
@@ -6023,11 +5026,9 @@ class MMemory:
                 """
                 Reads out the type of Touchstone file (S1P, S2P, S3P or S4P) to be used when saving S–parameters.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Touchstone file type ('S1P', 'S2P', 'S3P', or 'S4P')
+                :return: Touchstone file type ('S1P', 'S2P', 'S3P', or 'S4P')
                 """
                 return self.instrument.query(":MMEMory:STORe:SNP:TYPE?").strip()
 
@@ -6037,11 +5038,9 @@ class MMemory:
                 """
                 Sets the 1-port Touchstone file type (*.S1P) and the port number.
 
-                Parameter:
-                    port (int): Port number from 1 to 4
+                :param port: Port number from 1 to 4
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -6051,11 +5050,9 @@ class MMemory:
                 """
                 Reads out the port number for the 1-port Touchstone file type.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Port number
+                :return: Port number
                 """
                 return int(self.instrument.query(":MMEMory:STORe:SNP:TYPE:S1P?"))
 
@@ -6065,12 +5062,10 @@ class MMemory:
                 """
                 Sets the 2-port Touchstone file type (*.S2P) and the port numbers.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                     raise ValueError("port1 and port2 must be 1-4")
@@ -6080,11 +5075,9 @@ class MMemory:
                 """
                 Reads out the port numbers for the 2-port Touchstone file type.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    tuple: (port1, port2)
+                :return: (port1, port2)
                 """
                 resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S2P?").strip()
                 return tuple(map(int, resp.split(',')))
@@ -6095,13 +5088,11 @@ class MMemory:
                 """
                 Sets the 3-port Touchstone file type (*.S3P) and the port numbers.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
+                :param port3: Third port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port1 <= 4 and 1 <= port2 <= 4 and 1 <= port3 <= 4):
                     raise ValueError("port1, port2, and port3 must be 1-4")
@@ -6111,11 +5102,9 @@ class MMemory:
                 """
                 Reads out the port numbers for the 3-port Touchstone file type.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    tuple: (port1, port2, port3)
+                :return: (port1, port2, port3)
                 """
                 resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S3P?").strip()
                 return tuple(map(int, resp.split(',')))
@@ -6126,14 +5115,12 @@ class MMemory:
                 """
                 Sets the 4-port Touchstone file type (*.S4P) and the port numbers.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
-                    port4 (int): Fourth port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
+                :param port3: Third port number (1-4)
+                :param port4: Fourth port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port1 <= 4 and 1 <= port2 <= 4 and 1 <= port3 <= 4 and 1 <= port4 <= 4):
                     raise ValueError("port1, port2, port3, and port4 must be 1-4")
@@ -6143,11 +5130,9 @@ class MMemory:
                 """
                 Reads out the port numbers for the 4-port Touchstone file type.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    tuple: (port1, port2, port3, port4)
+                :return: (port1, port2, port3, port4)
                 """
                 resp = self.instrument.query(":MMEMory:STORe:SNP:TYPE:S4P?").strip()
                 return tuple(map(int, resp.split(',')))
@@ -6158,11 +5143,9 @@ class MMemory:
                 """
                 Selects the type of the Analyzer or channel state saving.
 
-                Parameter:
-                    save_type (str): One of ['STATe', 'CSTate', 'DSTate', 'CDSTate', 'CMSTate']
+                :param save_type: One of ['STATe', 'CSTate', 'DSTate', 'CDSTate', 'CMSTate']
 
-                Return:
-                    None
+                
                 """
                 allowed = ['STATe', 'CSTate', 'DSTate', 'CDSTate', 'CMSTate']
                 if save_type not in allowed:
@@ -6173,11 +5156,9 @@ class MMemory:
                 """
                 Reads out the type of the Analyzer or channel state saving.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Save type ('STAT', 'CST', 'DST', 'CDST', 'CMST')
+                :return: Save type ('STAT', 'CST', 'DST', 'CDST', 'CMST')
                 """
                 return self.instrument.query(":MMEMory:STORe:STYPe?").strip()
             # MMEMory:TRANsfer? <string>
@@ -6185,11 +5166,9 @@ class MMemory:
                 """
                 Transfer the contents of a specified file from the Analyzer to the external PC.
 
-                Parameter:
-                filename (str): The file name with the full path
+                :param filename: The file name with the full path
 
-                Return:
-                bytes: The file contents as bytes
+                :return: The file contents as bytes
                 """
                 response = self.instrument.query_binary_values(
                 f":MMEMory:TRANsfer? \"{filename}\"", datatype='B', is_big_endian=True
@@ -6209,11 +5188,9 @@ class Output:
         """
         Enable or disable the RF signal output.
 
-        Parameter:
-        enable (bool): True to enable, False to disable
+        :param enable: True to enable, False to disable
 
-        Return:
-        None
+
         """
         self.instrument.write(f":OUTPut:STATe {1 if enable else 0}")
 
@@ -6221,11 +5198,9 @@ class Output:
         """
         Query if the RF signal output is enabled.
 
-        Parameter:
-        None
+        
 
-        Return:
-        bool: True if enabled, False otherwise
+        :return: True if enabled, False otherwise
         """
         return bool(int(self.instrument.query(":OUTPut:STATe?")))
 
@@ -6256,77 +5231,6 @@ frequency offset, channel data transfer."""
         self.frequency = self.Frequency(instrument, data_handler, channel)
         self.reference_oscillator = self.ReferenceOscillator(instrument, data_handler, channel)
     
-    class Average:
-        """
-        Averaging related commands.
-        """
-        def __init__(self, instrument, data_handler, channel):
-            self.instrument = instrument
-            self.data_handler = data_handler
-            self.channel = channel
-
-        # SENS:AVER - Averaging ON/OFF
-        def enable_averaging(self, enable: bool):
-            """
-            Enable or disable averaging.
-
-            Parameter:
-                enable (bool): True to enable, False to disable
-
-            Return:
-                None
-            """
-            self.instrument.write(f":SENS{self.channel}:AVER {1 if enable else 0}")
-
-        def is_averaging_enabled(self) -> bool:
-            """
-            Query if averaging is enabled.
-
-            Parameter:
-                None
-
-            Return:
-                bool: True if enabled, False otherwise
-            """
-            return bool(int(self.instrument.query(f":SENS{self.channel}:AVER?")))
-
-        # SENS:AVER:CLE - Restart averaging
-        def restart_averaging(self):
-            """
-            Restart averaging.
-
-            Parameter:
-                None
-
-            Return:
-                None
-            """
-            self.instrument.write(f":SENS{self.channel}:AVER:CLE")
-
-        # SENS:AVER:COUN - Averaging factor
-        def set_averaging_factor(self, value: int):
-            """
-            Set the averaging factor.
-
-            Parameter:
-                value (int): Averaging factor
-
-            Return:
-                None
-            """
-            self.instrument.write(f":SENS{self.channel}:AVER:COUN {value}")
-
-        def get_averaging_factor(self) -> int:
-            """
-            Get the averaging factor.
-
-            Parameter:
-                None
-
-            Return:
-                int: Averaging factor
-            """
-            return int(self.instrument.query(f":SENS{self.channel}:AVER:COUN?"))
 
     class Bandwidth:
         """
@@ -6336,13 +5240,10 @@ frequency offset, channel data transfer."""
             self.instrument = instrument
             self.data_handler = data_handler
             self.channel = channel
-            self.resolution = self.Resolution(instrument, data_handler, channel)
+            self.resolution = self.Resolution(instrument, data_handler, channel)        
             
-
         class Resolution:
-            """
-            IF bandwidth resolution related commands.
-            """
+            
             def __init__(self, instrument, data_handler, channel):
                 self.instrument = instrument
                 self.data_handler = data_handler
@@ -6353,11 +5254,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the IF bandwidth resolution.
 
-                Parameter:
-                    value (float): IF bandwidth value in Hz
+                :param value: IF bandwidth value in Hz
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:BAND:RES {value}")
 
@@ -6365,11 +5264,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the IF bandwidth resolution.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: IF bandwidth value in Hz
+                :return: IF bandwidth value in Hz
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:BAND:RES?"))
         # SENS:BAND - IF bandwidth
@@ -6377,11 +5274,9 @@ frequency offset, channel data transfer."""
             """
             Set the IF bandwidth.
 
-            Parameter:
-                value (float): IF bandwidth in Hz
+            :param value: IF bandwidth in Hz
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:BAND {value}")
 
@@ -6389,11 +5284,9 @@ frequency offset, channel data transfer."""
             """
             Get the IF bandwidth.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: IF bandwidth in Hz
+            :return: IF bandwidth in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:BAND?"))
 
@@ -6402,11 +5295,9 @@ frequency offset, channel data transfer."""
             """
             Set the IF bandwidth (alias command).
 
-            Parameter:
-                value (float): IF bandwidth in Hz
+            :param value: IF bandwidth in Hz
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:BWID {value}")
 
@@ -6414,11 +5305,9 @@ frequency offset, channel data transfer."""
             """
             Get the IF bandwidth (alias command).
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: IF bandwidth in Hz
+            :return: IF bandwidth in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:BWID?"))
 
@@ -6441,11 +5330,9 @@ frequency offset, channel data transfer."""
             """
             Set the system impedance Z0.
 
-            Parameter:
-                value (float): System impedance
+            :param value: System impedance
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:CORR:IMP {value}")
 
@@ -6453,11 +5340,9 @@ frequency offset, channel data transfer."""
             """
             Get the system impedance Z0.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: System impedance
+            :return: System impedance
             """
             return float(self.instrument.query(f":SENS{self.channel}:CORR:IMP?"))
 
@@ -6466,11 +5351,9 @@ frequency offset, channel data transfer."""
             """
             Enable or disable auto-select Z0.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:CORR:IMP:SEL:AUTO {1 if enable else 0}")
 
@@ -6478,11 +5361,9 @@ frequency offset, channel data transfer."""
             """
             Query if auto-select Z0 is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:IMP:SEL:AUTO?")))
 
@@ -6500,12 +5381,10 @@ frequency offset, channel data transfer."""
                 """
                 Set the system Z0 for the specified port.
 
-                Parameter:
-                    port (int): Port number
-                    value (float): Impedance value
+                :param port: Port number
+                :param value: Impedance value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:PORT{port}:IMP {value}")
 
@@ -6513,11 +5392,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the system Z0 for the specified port.
 
-                Parameter:
-                    port (int): Port number
+                :param port: Port number
 
-                Return:
-                    float: Impedance value
+                :return: Impedance value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:PORT{port}:IMP?"))
 
@@ -6536,11 +5413,9 @@ frequency offset, channel data transfer."""
             """
             Enable or disable receiver correction.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:CORR:REC {1 if enable else 0}")
 
@@ -6548,11 +5423,9 @@ frequency offset, channel data transfer."""
             """
             Query if receiver correction is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:REC?")))
     class Data:
@@ -6569,11 +5442,9 @@ frequency offset, channel data transfer."""
             """
             Get corrected S-parameter data or corrected receiver data.
 
-            Parameter:
-                None
+            
 
-            Return:
-                list: Corrected data array
+            :return: Corrected data array
             """
             data = self.instrument.query(f":SENS{self.channel}:DATA:CORR?")
             if self.data_handler.is_auto_saving_data_enabled():
@@ -6581,11 +5452,10 @@ frequency offset, channel data transfer."""
             return data
         
         def get_raw_data_array_of_parameter(self, param: str):
-                """param (str): S-parameter (e.g., 'S11', 'S21', ...) 
+                """param: S-parameter (e.g., 'S11', 'S21', ...) 
                 or receiver ('T11', 'R11', ...)
 
-                Return:
-                list: Corrected data array (real/imag pairs)
+                :return: Corrected data array (real/imag pairs)
                 """
                 allowed_prefixes = ['S', 'T', 'R', 'A', 'B', 'C', 'D']
                 if not any(param.startswith(p) for p in allowed_prefixes):
@@ -6600,11 +5470,9 @@ frequency offset, channel data transfer."""
             """
             Get raw S-parameter data or raw receiver data.
 
-            Parameter:
-                None
+            
 
-            Return:
-                list: Raw data array
+            :return: Raw data array
             """
             data = self.instrument.query(f":SENS{self.channel}:DATA:RAWD?")
             if self.data_handler.is_auto_saving_data_enabled():
@@ -6616,11 +5484,9 @@ frequency offset, channel data transfer."""
             """
             Get stimulus data.
 
-            Parameter:
-                None
+            
 
-            Return:
-                list: Stimulus data array
+            :return: Stimulus data array
             """
             data = self.instrument.query(f":SENS{self.channel}:FREQ:DATA?")
             if self.data_handler.is_auto_saving_data_enabled():
@@ -6652,11 +5518,9 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable frequency offset adjust.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:ADJ {1 if enable else 0}")
 
@@ -6664,11 +5528,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if frequency offset adjust is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ?")))
 
@@ -6677,11 +5539,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the period for frequency offset adjustment.
 
-                Parameter:
-                    value (float): Period value
+                :param value: Period value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:CONT:PER {value}")
 
@@ -6689,11 +5549,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the period for frequency offset adjustment.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Period value
+                :return: Period value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:CONT:PER?"))
 
@@ -6702,11 +5560,9 @@ frequency offset, channel data transfer."""
                 """
                 Execute frequency offset adjustment once.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:EXEC")
 
@@ -6715,11 +5571,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the adjustment path.
 
-                Parameter:
-                    path (str): Adjustment path string
+                :param path: Adjustment path string
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:PATH {path}")
 
@@ -6727,11 +5581,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the adjustment path.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Adjustment path
+                :return: Adjustment path
                 """
                 return self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:PATH?").strip()
 
@@ -6740,11 +5592,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the adjusted ports.
 
-                Parameter:
-                    ports (str): Adjusted ports string
+                :param ports: Adjusted ports string
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:PORT {ports}")
 
@@ -6752,11 +5602,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the adjusted ports.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Adjusted ports
+                :return: Adjusted ports
                 """
                 return self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:PORT?").strip()
 
@@ -6765,11 +5613,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the adjust value.
 
-                Parameter:
-                    value (float): Adjust value
+                :param value: Adjust value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:VAL {value}")
 
@@ -6777,11 +5623,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the adjust value.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Adjust value
+                :return: Adjust value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:VAL?"))
 
@@ -6799,11 +5643,9 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable frequency offset.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS {1 if enable else 0}")
 
@@ -6811,11 +5653,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if frequency offset is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:OFFS?")))
 
@@ -6824,11 +5664,9 @@ frequency offset, channel data transfer."""
                 """
                 Get port offset data.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    list: Port offset data array
+                :return: Port offset data array
                 """
                 data = self.instrument.query(f":SENS{self.channel}:OFFS:PORT:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
@@ -6840,11 +5678,9 @@ frequency offset, channel data transfer."""
                 """
                 Set port offset divisor.
 
-                Parameter:
-                    value (float): Divisor value
+                :param value: Divisor value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:PORT:DIV {value}")
 
@@ -6852,11 +5688,9 @@ frequency offset, channel data transfer."""
                 """
                 Get port offset divisor.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Divisor value
+                :return: Divisor value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:DIV?"))
 
@@ -6865,11 +5699,9 @@ frequency offset, channel data transfer."""
                 """
                 Set port offset multiplier.
 
-                Parameter:
-                    value (float): Multiplier value
+                :param value: Multiplier value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:PORT:MULT {value}")
 
@@ -6877,11 +5709,9 @@ frequency offset, channel data transfer."""
                 """
                 Get port offset multiplier.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Multiplier value
+                :return: Multiplier value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:MULT?"))
 
@@ -6890,11 +5720,9 @@ frequency offset, channel data transfer."""
                 """
                 Set port offset.
 
-                Parameter:
-                    value (float): Offset value
+                :param value: Offset value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:PORT:OFFS {value}")
 
@@ -6902,11 +5730,9 @@ frequency offset, channel data transfer."""
                 """
                 Get port offset.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Offset value
+                :return: Offset value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:OFFS?"))
 
@@ -6915,11 +5741,9 @@ frequency offset, channel data transfer."""
                 """
                 Set port offset start.
 
-                Parameter:
-                    value (float): Start value
+                :param value: Start value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:PORT:STAR {value}")
 
@@ -6927,11 +5751,9 @@ frequency offset, channel data transfer."""
                 """
                 Get port offset start.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Start value
+                :return: Start value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:STAR?"))
 
@@ -6940,11 +5762,9 @@ frequency offset, channel data transfer."""
                 """
                 Set port offset stop.
 
-                Parameter:
-                    value (float): Stop value
+                :param value: Stop value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:PORT:STOP {value}")
 
@@ -6952,11 +5772,9 @@ frequency offset, channel data transfer."""
                 """
                 Get port offset stop.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Stop value
+                :return: Stop value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT:STOP?"))
 
@@ -6965,11 +5783,9 @@ frequency offset, channel data transfer."""
                 """
                 Get receiver offset data.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    list: Receiver offset data array
+                :return: Receiver offset data array
                 """
                 data = self.instrument.query(f":SENS{self.channel}:OFFS:REC:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
@@ -6981,11 +5797,9 @@ frequency offset, channel data transfer."""
                 """
                 Set receiver offset divisor.
 
-                Parameter:
-                    value (float): Divisor value
+                :param value: Divisor value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:REC:DIV {value}")
 
@@ -6993,11 +5807,9 @@ frequency offset, channel data transfer."""
                 """
                 Get receiver offset divisor.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Divisor value
+                :return: Divisor value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:DIV?"))
 
@@ -7006,11 +5818,9 @@ frequency offset, channel data transfer."""
                 """
                 Set receiver offset multiplier.
 
-                Parameter:
-                    value (float): Multiplier value
+                :param value: Multiplier value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:REC:MULT {value}")
 
@@ -7018,11 +5828,9 @@ frequency offset, channel data transfer."""
                 """
                 Get receiver offset multiplier.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Multiplier value
+                :return: Multiplier value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:MULT?"))
 
@@ -7031,11 +5839,9 @@ frequency offset, channel data transfer."""
                 """
                 Set receiver offset.
 
-                Parameter:
-                    value (float): Offset value
+                :param value: Offset value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:REC:OFFS {value}")
 
@@ -7043,11 +5849,9 @@ frequency offset, channel data transfer."""
                 """
                 Get receiver offset.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Offset value
+                :return: Offset value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:OFFS?"))
 
@@ -7056,11 +5860,9 @@ frequency offset, channel data transfer."""
                 """
                 Set receiver offset start.
 
-                Parameter:
-                    value (float): Start value
+                :param value: Start value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:REC:STAR {value}")
 
@@ -7068,11 +5870,9 @@ frequency offset, channel data transfer."""
                 """
                 Get receiver offset start.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Start value
+                :return: Start value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:STAR?"))
 
@@ -7081,11 +5881,9 @@ frequency offset, channel data transfer."""
                 """
                 Set receiver offset stop.
 
-                Parameter:
-                    value (float): Stop value
+                :param value: Stop value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:REC:STOP {value}")
 
@@ -7093,11 +5891,9 @@ frequency offset, channel data transfer."""
                 """
                 Get receiver offset stop.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Stop value
+                :return: Stop value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:STOP?"))
 
@@ -7106,11 +5902,9 @@ frequency offset, channel data transfer."""
                 """
                 Get source offset data.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    list: Source offset data array
+                :return: Source offset data array
                 """
                 data = self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
@@ -7122,11 +5916,9 @@ frequency offset, channel data transfer."""
                 """
                 Set source offset divisor.
 
-                Parameter:
-                    value (float): Divisor value
+                :param value: Divisor value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:DIV {value}")
 
@@ -7134,11 +5926,9 @@ frequency offset, channel data transfer."""
                 """
                 Get source offset divisor.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Divisor value
+                :return: Divisor value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DIV?"))
 
@@ -7147,11 +5937,9 @@ frequency offset, channel data transfer."""
                 """
                 Set source offset multiplier.
 
-                Parameter:
-                    value (float): Multiplier value
+                :param value: Multiplier value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:MULT {value}")
 
@@ -7159,11 +5947,9 @@ frequency offset, channel data transfer."""
                 """
                 Get source offset multiplier.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Multiplier value
+                :return: Multiplier value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:MULT?"))
 
@@ -7172,11 +5958,9 @@ frequency offset, channel data transfer."""
                 """
                 Set source offset.
 
-                Parameter:
-                    value (float): Offset value
+                :param value: Offset value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:OFFS {value}")
 
@@ -7184,11 +5968,9 @@ frequency offset, channel data transfer."""
                 """
                 Get source offset.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Offset value
+                :return: Offset value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:OFFS?"))
 
@@ -7197,11 +5979,9 @@ frequency offset, channel data transfer."""
                 """
                 Set source offset start.
 
-                Parameter:
-                    value (float): Start value
+                :param value: Start value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:STAR {value}")
 
@@ -7209,11 +5989,9 @@ frequency offset, channel data transfer."""
                 """
                 Get source offset start.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Start value
+                :return: Start value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:STAR?"))
 
@@ -7222,11 +6000,9 @@ frequency offset, channel data transfer."""
                 """
                 Set source offset stop.
 
-                Parameter:
-                    value (float): Stop value
+                :param value: Stop value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:STOP {value}")
 
@@ -7234,11 +6010,9 @@ frequency offset, channel data transfer."""
                 """
                 Get source offset stop.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Stop value
+                :return: Stop value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:STOP?"))
 
@@ -7247,11 +6021,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the offset type.
 
-                Parameter:
-                    offset_type (str): Offset type string
+                :param offset_type: Offset type string
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:TYPE {offset_type}")
 
@@ -7259,11 +6031,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the offset type.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Offset type
+                :return: Offset type
                 """
                 return self.instrument.query(f":SENS{self.channel}:OFFS:TYPE?").strip()
 
@@ -7281,11 +6051,9 @@ frequency offset, channel data transfer."""
             """
             Set the analyzer reference source.
 
-            Parameter:
-                source (str): Reference source string
+            :param source: Reference source string
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:ROSC:SOUR {source}")
 
@@ -7293,11 +6061,9 @@ frequency offset, channel data transfer."""
             """
             Get the analyzer reference source.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: Reference source
+            :return: Reference source
             """
             return self.instrument.query(f":SENS{self.channel}:ROSC:SOUR?").strip()
 
@@ -7315,11 +6081,9 @@ frequency offset, channel data transfer."""
             """
             Set the DC voltage range.
 
-            Parameter:
-                value (float): DC voltage range
+            :param value: DC voltage range
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:VOLT:DC:RANG:UPP {value}")
 
@@ -7327,11 +6091,9 @@ frequency offset, channel data transfer."""
             """
             Get the DC voltage range.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: DC voltage range
+            :return: DC voltage range
             """
             return float(self.instrument.query(f":SENS{self.channel}:VOLT:DC:RANG:UPP?"))
     class Average:
@@ -7346,11 +6108,9 @@ frequency offset, channel data transfer."""
             """
             Enable or disable the measurement averaging function.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:AVER:STAT {1 if enable else 0}")
 
@@ -7358,11 +6118,9 @@ frequency offset, channel data transfer."""
             """
             Query if the measurement averaging function is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":SENS{self.channel}:AVER:STAT?")))
 
@@ -7373,11 +6131,9 @@ frequency offset, channel data transfer."""
             """
             Restarts the averaging process when the averaging function is turned on.
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:AVER:CLE")
 
@@ -7389,11 +6145,9 @@ frequency offset, channel data transfer."""
             """
             Set the averaging factor when the averaging function is turned on.
 
-            Parameter:
-                value (int): Averaging factor (1 to 999)
+            :param value: Averaging factor (1 to 999)
 
-            Return:
-                None
+
             """
             value = max(1, min(999, value))
             self.instrument.write(f":SENS{self.channel}:AVER:COUN {value}")
@@ -7402,11 +6156,9 @@ frequency offset, channel data transfer."""
             """
             Get the averaging factor when the averaging function is turned on.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Averaging factor
+            :return: Averaging factor
             """
             return int(self.instrument.query(f":SENS{self.channel}:AVER:COUN?"))
 
@@ -7428,11 +6180,9 @@ frequency offset, channel data transfer."""
             """
             Set the approximate delay value of an adapter for removal/insertion.
 
-            Parameter:
-                value (float): Delay value in seconds (negative for removal, positive for insertion)
+            :param value: Delay value in seconds (negative for removal, positive for insertion)
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:DEL {value}")
 
@@ -7441,11 +6191,9 @@ frequency offset, channel data transfer."""
             """
             Get the approximate delay value of an adapter for removal/insertion.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Delay value in seconds
+            :return: Delay value in seconds
             """
             return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:DEL?"))
 
@@ -7454,11 +6202,9 @@ frequency offset, channel data transfer."""
             """
             Set the approximate mechanical length of an adapter for removal/insertion.
 
-            Parameter:
-                value (float): Length value in meters (negative for removal, positive for insertion)
+            :param value: Length value in meters (negative for removal, positive for insertion)
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:LENG {value}")
 
@@ -7467,11 +6213,9 @@ frequency offset, channel data transfer."""
             """
             Get the approximate mechanical length of an adapter for removal/insertion.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Length value in meters
+            :return: Length value in meters
             """
             return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:LENG?"))
     
@@ -7481,11 +6225,9 @@ frequency offset, channel data transfer."""
             """
             Set the display units of the adapter delay (length) in the adapter removal/insertion function.
 
-            Parameter:
-                unit (str): 'SEConds' or 'METers'
+            :param unit: 'SEConds' or 'METers'
 
-            Return:
-                None
+
             """
             allowed = ['SEConds', 'METers']
             if unit not in allowed:
@@ -7497,11 +6239,9 @@ frequency offset, channel data transfer."""
             """
             Get the display units of the adapter delay (length) in the adapter removal/insertion function.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: 'SEC' or 'MET'
+            :return: 'SEC' or 'MET'
             """
             return self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:UNIT?").strip()
 
@@ -7510,11 +6250,9 @@ frequency offset, channel data transfer."""
             """
             Specify the adapter media in the adapter removal/insertion function.
 
-            Parameter:
-                media (str): 'COAXial' or 'WAVeguide'
+            :param media: 'COAXial' or 'WAVeguide'
 
-            Return:
-                None
+
             """
             allowed = ['COAXial', 'WAVeguide']
             if media not in allowed:
@@ -7526,11 +6264,9 @@ frequency offset, channel data transfer."""
             """
             Get the adapter media in the adapter removal/insertion function.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: 'COAX' or 'WAV'
+            :return: 'COAX' or 'WAV'
             """
             return self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:MED?").strip()
 
@@ -7539,11 +6275,9 @@ frequency offset, channel data transfer."""
             """
             Set the value of the permittivity of an adapter media in the adapter removal/insertion function.
 
-            Parameter:
-                value (float): Permittivity value
+            :param value: Permittivity value
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:PERM {value}")
 
@@ -7552,11 +6286,9 @@ frequency offset, channel data transfer."""
             """
             Get the value of the permittivity of an adapter media in the adapter removal/insertion function.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Permittivity value
+            :return: Permittivity value
             """
             return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:PERM?"))
 
@@ -7565,11 +6297,9 @@ frequency offset, channel data transfer."""
             """
             Set the value of the cutoff frequency of the waveguide adapter.
 
-            Parameter:
-                value (float): Cutoff frequency in Hz
+            :param value: Cutoff frequency in Hz
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:CORR:COLL:ADAP:WAV:CUT {value}")
 
@@ -7578,11 +6308,9 @@ frequency offset, channel data transfer."""
             """
             Get the value of the cutoff frequency of the waveguide adapter.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Cutoff frequency in Hz
+            :return: Cutoff frequency in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ADAP:WAV:CUT?"))
 
@@ -7591,11 +6319,9 @@ frequency offset, channel data transfer."""
             """
             Select the port number and set the adapter removal/insertion function for calibration coefficient calculation.
 
-            Parameter:
-                port (int): Port number (1-4)
+            :param port: Port number (1-4)
 
-            Return:
-                None
+
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
@@ -7632,20 +6358,15 @@ frequency offset, channel data transfer."""
             self.short = self.Short(instrument, data_handler, channel)
             self.thru = self.Thru(instrument, data_handler, channel)
             
-            self.subclass = self.SubClass(instrument, data_handler, channel)
-            
-
-        # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse = Ports
+            self.subclass = self.SubClass(instrument, data_handler, channel)        # SENSe<Ch>:CORRection:COEFficient:METHod:ERESponse = Ports
         def set_eresponse(self, rcvport: int, srcport: int):
             """
             Set the response calibration (ERESponse) type for written calibration coefficients.
 
-            Parameter:
-                rcvport (int): Receiver port number (1-4)
-                srcport (int): Source port number (1-4)
+            :param rcvport: Receiver port number (1-4)
+            :param srcport: Source port number (1-4)
 
-            Return:
-                None
+
             """
             if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                 raise ValueError("rcvport and srcport must be 1-4")
@@ -7658,11 +6379,9 @@ frequency offset, channel data transfer."""
             """
             Set the response calibration (Open) type for written calibration coefficients.
 
-            Parameter:
-                port (int): Port number (1-4)
+            :param port: Port number (1-4)
 
-            Return:
-                None
+
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
@@ -7673,11 +6392,9 @@ frequency offset, channel data transfer."""
             """
             Set the response calibration (Short) type for written calibration coefficients.
 
-            Parameter:
-                port (int): Port number (1-4)
+            :param port: Port number (1-4)
 
-            Return:
-                None
+
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
@@ -7688,11 +6405,9 @@ frequency offset, channel data transfer."""
             """
             Set the full one-port calibration type for written calibration coefficients.
 
-            Parameter:
-                port (int): Port number (1-4)
+            :param port: Port number (1-4)
 
-            Return:
-                None
+
             """
             if not (1 <= port <= 4):
                 raise ValueError("port must be 1-4")
@@ -7703,12 +6418,10 @@ frequency offset, channel data transfer."""
             """
             Set the full two-port calibration type for written calibration coefficients.
 
-            Parameter:
-                port1 (int): First port number (1-4)
-                port2 (int): Second port number (1-4)
+            :param port1: First port number (1-4)
+            :param port2: Second port number (1-4)
 
-            Return:
-                None
+
             """
             if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                 raise ValueError("port1 and port2 must be 1-4")
@@ -7721,13 +6434,11 @@ frequency offset, channel data transfer."""
             """
             Set the full three-port calibration type for written calibration coefficients.
 
-            Parameter:
-                port1 (int): First port number (1-4)
-                port2 (int): Second port number (1-4)
-                port3 (int): Third port number (1-4)
+            :param port1: First port number (1-4)
+            :param port2: Second port number (1-4)
+            :param port3: Third port number (1-4)
 
-            Return:
-                None
+
             """
             ports = [port1, port2, port3]
             if any(not (1 <= p <= 4) for p in ports):
@@ -7740,14 +6451,12 @@ frequency offset, channel data transfer."""
             """
             Set the full four-port calibration type for written calibration coefficients.
 
-            Parameter:
-                port1 (int): First port number (1-4)
-                port2 (int): Second port number (1-4)
-                port3 (int): Third port number (1-4)
-                port4 (int): Fourth port number (1-4)
+            :param port1: First port number (1-4)
+            :param port2: Second port number (1-4)
+            :param port3: Third port number (1-4)
+            :param port4: Fourth port number (1-4)
 
-            Return:
-                None
+
             """
             ports = [port1, port2, port3, port4]
             if any(not (1 <= p <= 4) for p in ports):
@@ -7761,12 +6470,10 @@ frequency offset, channel data transfer."""
             """
             Set the response calibration (Thru) type for written calibration coefficients.
 
-            Parameter:
-                rcvport (int): Receiver port number (1-4)
-                srcport (int): Source port number (1-4)
+            :param rcvport: Receiver port number (1-4)
+            :param srcport: Source port number (1-4)
 
-            Return:
-                None
+
             """
             if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                 raise ValueError("rcvport and srcport must be 1-4")
@@ -7779,11 +6486,9 @@ frequency offset, channel data transfer."""
             """
             Enable the written calibration coefficients depending on the selected calibration type.
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:CORR:COEF:SAVE")
 
@@ -7814,11 +6519,9 @@ frequency offset, channel data transfer."""
                     """
                     Clear the calibration coefficient table.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:CLE")
 
@@ -7827,11 +6530,9 @@ frequency offset, channel data transfer."""
                     """
                     Clear the calibration data for offset correction.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:CLE")
 
@@ -7840,11 +6541,9 @@ frequency offset, channel data transfer."""
                     """
                     Set the calibration direction for offset correction.
 
-                    Parameter:
-                        direction (str): Calibration direction, one of ['FORW', 'REV']
+                    :param direction: Calibration direction, one of ['FORW', 'REV']
 
-                    Return:
-                        None
+
                     """
                     allowed = ['FORW', 'REV']
                     if direction not in allowed:
@@ -7855,11 +6554,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the calibration direction for offset correction.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        str: Calibration direction
+                    :return: Calibration direction
                     """
                     return self.instrument.query(f":SENS{self.channel}:CORR:OFFS:COLL:DIR?").strip()
 
@@ -7868,11 +6565,9 @@ frequency offset, channel data transfer."""
                     """
                     Measure all standards using the Automatic Calibration Module (ACM).
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:ECAL")
 
@@ -7881,11 +6576,9 @@ frequency offset, channel data transfer."""
                     """
                     Measure the Load standard for offset correction.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:LOAD")
 
@@ -7894,11 +6587,9 @@ frequency offset, channel data transfer."""
                     """
                     Set the calibration port for scalar mixer calibration.
 
-                    Parameter:
-                        port (int): Port number
+                    :param port: Port number
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:METH:SMIX2 {port}")
 
@@ -7906,11 +6597,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the calibration port for scalar mixer calibration.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        int: Port number
+                    :return: Port number
                     """
                     return int(self.instrument.query(f":SENS{self.channel}:CORR:OFFS:COLL:METH:SMIX2?"))
 
@@ -7919,11 +6608,9 @@ frequency offset, channel data transfer."""
                     """
                     Measure the Open standard for offset correction.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:OPEN")
 
@@ -7932,11 +6619,9 @@ frequency offset, channel data transfer."""
                     """
                     Measure power for offset correction.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:PMET")
 
@@ -7945,11 +6630,9 @@ frequency offset, channel data transfer."""
                     """
                     Measure the Short standard for offset correction.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:SHOR")
 
@@ -7958,11 +6641,9 @@ frequency offset, channel data transfer."""
                     """
                     Measure the Thru standard for offset correction.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:THRU")
 
@@ -7971,11 +6652,9 @@ frequency offset, channel data transfer."""
                     """
                     Complete the offset calibration.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:SAVE")
 
@@ -7993,11 +6672,9 @@ frequency offset, channel data transfer."""
                     """
                     Clear the calibration coefficient table.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:CLE")
 
@@ -8006,14 +6683,12 @@ frequency offset, channel data transfer."""
                     """
                     Write the calibration coefficient data array.
 
-                    Parameter:
-                        term (str): Error term, one of ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
-                        rcvport (int): Receiver port number (1-4)
-                        srcport (int): Source port number (1-4)
-                        coeffs (list): Calibration coefficient array (2N values)
+                    :param term: Error term, one of ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
+                    :param rcvport: Receiver port number (1-4)
+                    :param srcport: Source port number (1-4)
+                    :param coeffs: Calibration coefficient array (2N values)
 
-                    Return:
-                        None
+
                     """
                     allowed_terms = ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
                     if term not in allowed_terms:
@@ -8028,13 +6703,11 @@ frequency offset, channel data transfer."""
                     """
                     Read out the calibration coefficient data array.
 
-                    Parameter:
-                        term (str): Error term, one of ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
-                        rcvport (int): Receiver port number (1-4)
-                        srcport (int): Source port number (1-4)
+                    :param term: Error term, one of ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
+                    :param rcvport: Receiver port number (1-4)
+                    :param srcport: Source port number (1-4)
 
-                    Return:
-                        list: Calibration coefficient array (2N values)
+                    :return: Calibration coefficient array (2N values)
                     """
                     allowed_terms = ['ER', 'ED', 'ES', 'ET', 'EX', 'EL']
                     if term not in allowed_terms:
@@ -8051,12 +6724,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the 1-path 2-port calibration type for written calibration coefficients.
 
-                    Parameter:
-                        rcvport (int): Receiver port number (1-4)
-                        srcport (int): Source port number (1-4)
+                    :param rcvport: Receiver port number (1-4)
+                    :param srcport: Source port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
@@ -8077,18 +6748,15 @@ frequency offset, channel data transfer."""
                     """
                     Enable or disable port extension.
 
-                    Parameter:
-                        enable (bool): True to enable, False to disable"""
+                    :param enable: True to enable, False to disable"""
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT {1 if enable else 0}")
                 def is_port_extension_enabled(self) -> bool:
                     """
                     Query if port extension is enabled.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT?")))
 
@@ -8097,11 +6765,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the values of Frequency1 and Frequency2 for port extension.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        tuple: (Frequency1, Frequency2)
+                    :return: (Frequency1, Frequency2)
                     """
                     data = self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:FREQ?").strip()
                     return tuple(map(float, data.split(',')))
@@ -8111,11 +6777,9 @@ frequency offset, channel data transfer."""
                     """
                     Enable or disable loss compensation for port extension.
 
-                    Parameter:
-                        enable (bool): True to enable, False to disable
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT:INCL {1 if enable else 0}")
 
@@ -8123,11 +6787,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if loss compensation for port extension is enabled.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:INCL?")))
 
@@ -8136,11 +6798,9 @@ frequency offset, channel data transfer."""
                     """
                     Set the value of "Loss at DC" for port extension.
 
-                    Parameter:
-                        value (float): Loss at DC
+                    :param value: Loss at DC
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT:LDC {value}")
 
@@ -8148,11 +6808,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the value of "Loss at DC" for port extension.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Loss at DC
+                    :return: Loss at DC
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:LDC?"))
 
@@ -8161,12 +6819,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the values of "Loss 1" and "Loss 2" for port extension.
 
-                    Parameter:
-                        loss1 (float): Loss 1
-                        loss2 (float): Loss 2
+                    :param loss1: Loss 1
+                    :param loss2: Loss 2
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT:LOSS {loss1},{loss2}")
 
@@ -8174,11 +6830,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the values of "Loss 1" and "Loss 2" for port extension.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        tuple: (Loss 1, Loss 2)
+                    :return: (Loss 1, Loss 2)
                     """
                     data = self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:LOSS?").strip()
                     return tuple(map(float, data.split(',')))
@@ -8188,11 +6842,9 @@ frequency offset, channel data transfer."""
                     """
                     Set the extension time for port extension.
 
-                    Parameter:
-                        value (float): Extension time
+                    :param value: Extension time
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT:TIME {value}")
 
@@ -8200,11 +6852,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the extension time for port extension.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Extension time
+                    :return: Extension time
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT:TIME?"))
 
@@ -8222,11 +6872,9 @@ frequency offset, channel data transfer."""
                     """
                     Turn S-parameter error correction ON/OFF.
 
-                    Parameter:
-                        enable (bool): True to enable, False to disable
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:STAT {1 if enable else 0}")
 
@@ -8235,11 +6883,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if S-parameter error correction is enabled.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:STAT?")))
 
@@ -8248,11 +6894,9 @@ frequency offset, channel data transfer."""
                 """
                 Clear the table of calibration factors.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:CLE")
 
@@ -8261,11 +6905,9 @@ frequency offset, channel data transfer."""
                 """
                 Clear data of calibration standards.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:CLE")
 
@@ -8274,11 +6916,9 @@ frequency offset, channel data transfer."""
                 """
                 Get information string of calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Calibration information
+                :return: Calibration information
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:INF?").strip()
 
@@ -8287,11 +6927,9 @@ frequency offset, channel data transfer."""
                 """
                 Set S-parameter error correction state.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:STAT {1 if enable else 0}")
 
@@ -8299,11 +6937,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if S-parameter error correction is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:STAT?")))
 
@@ -8312,11 +6948,9 @@ frequency offset, channel data transfer."""
                 """
                 Set calibration trigger source.
 
-                Parameter:
-                    source (str): Trigger source, one of ['FREE', 'EXT']
+                :param source: Trigger source, one of ['FREE', 'EXT']
 
-                Return:
-                    None
+                
                 """
                 allowed = ['FREE', 'EXT']
                 if source not in allowed:
@@ -8327,11 +6961,9 @@ frequency offset, channel data transfer."""
                 """
                 Get calibration trigger source.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Trigger source
+                :return: Trigger source
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:TRIG:FREE?").strip()
 
@@ -8340,11 +6972,9 @@ frequency offset, channel data transfer."""
                 """
                 Get information about trace (calibration type, number of ports).
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Calibration type info
+                :return: Calibration type info
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:TYPE?").strip()
         
@@ -8362,12 +6992,10 @@ frequency offset, channel data transfer."""
                 """
                 Write the array of the load calibration standard measurement for the port.
 
-                Parameter:
-                    port (int): Port number (1-4)
-                    data_list (list): Array of real/imaginary pairs
+                :param port: Port number (1-4)
+                :param data_list: Array of real/imaginary pairs
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -8379,11 +7007,9 @@ frequency offset, channel data transfer."""
                 """
                 Read out the array of the load calibration standard measurement for the port.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    list: Array of real/imaginary pairs
+                :return: Array of real/imaginary pairs
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -8397,12 +7023,10 @@ frequency offset, channel data transfer."""
                 """
                 Write the array of the open calibration standard measurement for the port.
 
-                Parameter:
-                    port (int): Port number (1-2)
-                    data_list (list): Array of real/imaginary pairs
+                :param port: Port number (1-2)
+                :param data_list: Array of real/imaginary pairs
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 2):
                     raise ValueError("port must be 1-2")
@@ -8414,11 +7038,9 @@ frequency offset, channel data transfer."""
                 """
                 Read out the array of the open calibration standard measurement for the port.
 
-                Parameter:
-                    port (int): Port number (1-2)
+                :param port: Port number (1-2)
 
-                Return:
-                    list: Array of real/imaginary pairs
+                :return: Array of real/imaginary pairs
                 """
                 if not (1 <= port <= 2):
                     raise ValueError("port must be 1-2")
@@ -8432,12 +7054,10 @@ frequency offset, channel data transfer."""
                 """
                 Write the array of the short calibration standard measurement for the port.
 
-                Parameter:
-                    port (int): Port number (1-4)
-                    data_list (list): Array of real/imaginary pairs
+                :param port: Port number (1-4)
+                :param data_list: Array of real/imaginary pairs
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -8449,11 +7069,9 @@ frequency offset, channel data transfer."""
                 """
                 Read out the array of the short calibration standard measurement for the port.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    list: Array of real/imaginary pairs
+                :return: Array of real/imaginary pairs
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -8467,13 +7085,11 @@ frequency offset, channel data transfer."""
                 """
                 Write the array of the reflection measurement of the thru standard.
 
-                Parameter:
-                    rcvport (int): Receiver port (1-4)
-                    srcport (int): Source port (1-4)
-                    data_list (list): Array of real/imaginary pairs
+                :param rcvport: Receiver port (1-4)
+                :param srcport: Source port (1-4)
+                :param data_list: Array of real/imaginary pairs
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
@@ -8485,12 +7101,10 @@ frequency offset, channel data transfer."""
                 """
                 Read out the array of the reflection measurement of the thru standard.
 
-                Parameter:
-                    rcvport (int): Receiver port (1-4)
-                    srcport (int): Source port (1-4)
+                :param rcvport: Receiver port (1-4)
+                :param srcport: Source port (1-4)
 
-                Return:
-                    list: Array of real/imaginary pairs
+                :return: Array of real/imaginary pairs
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
@@ -8504,13 +7118,11 @@ frequency offset, channel data transfer."""
                 """
                 Write the array of the transmission measurement using the thru standard.
 
-                Parameter:
-                    rcvport (int): Receiver port (1-4)
-                    srcport (int): Source port (1-4)
-                    data_list (list): Array of real/imaginary pairs
+                :param rcvport: Receiver port (1-4)
+                :param srcport: Source port (1-4)
+                :param data_list: Array of real/imaginary pairs
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
@@ -8522,12 +7134,10 @@ frequency offset, channel data transfer."""
                 """
                 Read out the array of the transmission measurement using the thru standard.
 
-                Parameter:
-                    rcvport (int): Receiver port (1-4)
-                    srcport (int): Source port (1-4)
+                :param rcvport: Receiver port (1-4)
+                :param srcport: Source port (1-4)
 
-                Return:
-                    list: Array of real/imaginary pairs
+                :return: Array of real/imaginary pairs
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
@@ -8551,12 +7161,10 @@ frequency offset, channel data transfer."""
                 """
                 Selects the ports and sets the one path 2–port calibration type for the calculation of the calibration coefficients.
 
-                Parameter:
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
+                :param rcvport: Receiver port number (1-4)
+                :param srcport: Source port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
@@ -8569,11 +7177,9 @@ frequency offset, channel data transfer."""
                 """
                 Selects the port and sets the response calibration (Open) type for the calculation of the calibration coefficients.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -8584,11 +7190,9 @@ frequency offset, channel data transfer."""
                 """
                 Selects the port and sets the response calibration (Short) type for the calculation of the calibration coefficients.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -8599,11 +7203,9 @@ frequency offset, channel data transfer."""
                 """
                 Selects the port and sets the full one-port (SOL) calibration type for the calculation of the calibration coefficients.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -8614,12 +7216,10 @@ frequency offset, channel data transfer."""
                 """
                 Selects the ports and sets the full two-port (SOLT) calibration type for the calculation of the calibration coefficients.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                     raise ValueError("port1 and port2 must be 1-4")
@@ -8634,13 +7234,11 @@ frequency offset, channel data transfer."""
                 """
                 Selects the ports and sets the full three-port calibration type for the calculation of the calibration coefficients.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
+                :param port3: Third port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 ports = [port1, port2, port3]
                 if any(not (1 <= p <= 4) for p in ports):
@@ -8654,14 +7252,12 @@ frequency offset, channel data transfer."""
                 """
                 Selects the ports and sets the full four-port calibration type for the calculation of the calibration coefficients.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
-                    port4 (int): Fourth port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
+                :param port3: Third port number (1-4)
+                :param port4: Fourth port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 ports = [port1, port2, port3, port4]
                 if any(not (1 <= p <= 4) for p in ports):
@@ -8675,21 +7271,16 @@ frequency offset, channel data transfer."""
                 """
                 Selects the ports and sets the response calibration (Thru) type for the calculation of the calibration coefficients.
 
-                Parameter:
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
+                :param rcvport: Receiver port number (1-4)
+                :param srcport: Source port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
                 if rcvport == srcport:
                     raise ValueError("rcvport and srcport must be different for THRU")
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:THRU {rcvport},{srcport}")
-
-            
-
 
             class TRL:
                 """
@@ -8704,11 +7295,9 @@ frequency offset, channel data transfer."""
                     """
                     Turns the multi-line TRL option ON/OFF for calibration coefficient calculation.
 
-                    Parameter:
-                        enable (bool): True to enable, False to disable
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:METH:TRL:MULT:STAT {1 if enable else 0}")
 
@@ -8716,11 +7305,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if the multi-line TRL option is enabled for calibration coefficient calculation.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:METH:TRL:MULT:STAT?")))
                 
@@ -8729,12 +7316,10 @@ frequency offset, channel data transfer."""
                     """
                     Select the ports and set the two-port TRL calibration type for the calculation of the calibration coefficients.
 
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
+                    :param port1: First port number (1-4)
+                    :param port2: Second port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                         raise ValueError("port1 and port2 must be 1-4")
@@ -8747,13 +7332,11 @@ frequency offset, channel data transfer."""
                     """
                     Select the ports and set the three-port TRL calibration type for the calculation of the calibration coefficients.
 
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-                        port3 (int): Third port number (1-4)
+                    :param port1: First port number (1-4)
+                    :param port2: Second port number (1-4)
+                    :param port3: Third port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     ports = [port1, port2, port3]
                     if any(not (1 <= p <= 4) for p in ports):
@@ -8767,14 +7350,12 @@ frequency offset, channel data transfer."""
                     """
                     Select the ports and set the four-port TRL calibration type for the calculation of the calibration coefficients.
 
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-                        port3 (int): Third port number (1-4)
-                        port4 (int): Fourth port number (1-4)
+                    :param port1: First port number (1-4)
+                    :param port2: Second port number (1-4)
+                    :param port3: Third port number (1-4)
+                    :param port4: Fourth port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     ports = [port1, port2, port3, port4]
                     if any(not (1 <= p <= 4) for p in ports):
@@ -8788,11 +7369,9 @@ frequency offset, channel data transfer."""
                     """
                     Read out the calibration method selected for the calculation of the calibration coefficients.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        str: Calibration method type (e.g., 'RESPO', 'RESPS', 'RESPT', 'SOLT1', 'SOLT2', '1PATH', 'NONE')
+                    :return: Calibration method type (e.g., 'RESPO', 'RESPS', 'RESPT', 'SOLT1', 'SOLT2', '1PATH', 'NONE')
                     """
                     return self.instrument.query(f":SENS{self.channel}:CORR:COLL:METH:TYPE?").strip()
 
@@ -8810,11 +7389,9 @@ frequency offset, channel data transfer."""
                 """
                 Calculate the calibration coefficients from the calibration standards measurements depending on the selected calibration type.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:SAVE")
 
@@ -8832,11 +7409,9 @@ frequency offset, channel data transfer."""
                     """
                     Calculate the calibration coefficients for the simplified three- or four-port calibration from the calibration standards measurements.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:SIMP:SAVE")
 
@@ -8858,12 +7433,10 @@ frequency offset, channel data transfer."""
                 """
                 Measures the calibration data of the thru standard between the receiver port and the source port.
 
-                Parameter:
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
+                :param rcvport: Receiver port number (1-4)
+                :param srcport: Source port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
@@ -8876,11 +7449,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the approximate delay value of an unknown thru in the thru addition function.
 
-                Parameter:
-                    value (float): Delay value in seconds
+                :param value: Delay value in seconds
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:DEL {value}")
 
@@ -8889,11 +7460,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the approximate delay value of an unknown thru in the thru addition function.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Delay value in seconds
+                :return: Delay value in seconds
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:DEL?"))
 
@@ -8902,11 +7471,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the approximate mechanical length of an unknown thru in the thru addition function.
 
-                Parameter:
-                    value (float): Length value in meters
+                :param value: Length value in meters
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:LENG {value}")
 
@@ -8915,11 +7482,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the approximate mechanical length of an unknown thru in the thru addition function.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Length value in meters
+                :return: Length value in meters
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:LENG?"))
 
@@ -8928,11 +7493,9 @@ frequency offset, channel data transfer."""
                 """
                 Select the display units of the thru delay (length) in the thru addition function.
 
-                Parameter:
-                    unit (str): 'SEConds' or 'METers'
+                :param unit: 'SEConds' or 'METers'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['SEConds', 'METers']
                 if unit not in allowed:
@@ -8944,11 +7507,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the display units of the thru delay (length) in the thru addition function.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'SEC' or 'MET'
+                :return: 'SEC' or 'MET'
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:UNIT?").strip()
 
@@ -8957,11 +7518,9 @@ frequency offset, channel data transfer."""
                 """
                 Specify the media of the thru in the thru addition function.
 
-                Parameter:
-                    media (str): 'COAXial' or 'WAVeguide'
+                :param media: 'COAXial' or 'WAVeguide'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['COAXial', 'WAVeguide']
                 if media not in allowed:
@@ -8973,11 +7532,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the media of the thru in the thru addition function.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'COAX' or 'WAV'
+                :return: 'COAX' or 'WAV'
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:MED?").strip()
 
@@ -8986,11 +7543,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the value of the permittivity of the thru media in the thru addition function.
 
-                Parameter:
-                    value (float): Permittivity value
+                :param value: Permittivity value
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:PERM {value}")
 
@@ -8999,11 +7554,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the value of the permittivity of the thru media in the thru addition function.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Permittivity value
+                :return: Permittivity value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:PERM?"))
             class Waveguide:
@@ -9020,11 +7573,9 @@ frequency offset, channel data transfer."""
                     """
                     Set the cutoff frequency of the waveguide thru in the thru addition function.
 
-                    Parameter:
-                        value (float): Cutoff frequency in Hz
+                    :param value: Cutoff frequency in Hz
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:WAV:CUT {value}")
 
@@ -9033,11 +7584,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the cutoff frequency of the waveguide thru in the thru addition function.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Cutoff frequency in Hz
+                    :return: Cutoff frequency in Hz
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:WAV:CUT?"))
 
@@ -9055,12 +7604,10 @@ frequency offset, channel data transfer."""
                     """
                     Complete the full two-port calibration between the specified ports.
 
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
+                    :param port1: First port number (1-4)
+                    :param port2: Second port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                         raise ValueError("port1 and port2 must be 1-4")
@@ -9080,13 +7627,11 @@ frequency offset, channel data transfer."""
                     """
                     Select the ports to complete the three-port calibration in the thru addition function.
 
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
-                        port3 (int): Third port number (1-4)
+                    :param port1: First port number (1-4)
+                    :param port2: Second port number (1-4)
+                    :param port3: Third port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     ports = [port1, port2, port3]
                     if any(not (1 <= p <= 4) for p in ports):
@@ -9098,11 +7643,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the ports selected for three-port calibration in the thru addition function.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        tuple: (port1, port2, port3)
+                    :return: (port1, port2, port3)
                     """
                     resp = self.instrument.query(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL3:PORT?").strip()
                     return tuple(map(int, resp.split(',')))
@@ -9112,12 +7655,10 @@ frequency offset, channel data transfer."""
                     """
                     Measure an unknown thru between the specified ports for three-port calibration.
 
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
+                    :param port1: First port number (1-4)
+                    :param port2: Second port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                         raise ValueError("port1 and port2 must be 1-4")
@@ -9128,11 +7669,9 @@ frequency offset, channel data transfer."""
                     """
                     Complete the full three-port calibration between the selected ports.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL3:COMP")
 
@@ -9150,12 +7689,10 @@ frequency offset, channel data transfer."""
                     """
                     Measure an unknown thru between the specified ports for four-port calibration.
 
-                    Parameter:
-                        port1 (int): First port number (1-4)
-                        port2 (int): Second port number (1-4)
+                    :param port1: First port number (1-4)
+                    :param port2: Second port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                         raise ValueError("port1 and port2 must be 1-4")
@@ -9166,11 +7703,9 @@ frequency offset, channel data transfer."""
                     """
                     Complete the full four-port calibration.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:THRU:ADD:FULL4:COMP")
 
@@ -9191,11 +7726,9 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable port extension.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:EXT:STAT {1 if enable else 0}")
 
@@ -9204,11 +7737,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if port extension is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:STAT?")))
 
@@ -9226,11 +7757,9 @@ frequency offset, channel data transfer."""
                     """
                     Set the frequency range used for auto port extension calculation.
 
-                    Parameter:
-                        config (str): 'CSPN', 'AMKR', or 'USPN'
+                    :param config: 'CSPN', 'AMKR', or 'USPN'
 
-                    Return:
-                        None
+
                     """
                     allowed = ['CSPN', 'AMKR', 'USPN']
                     if config not in allowed:
@@ -9242,11 +7771,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the frequency range used for auto port extension calculation.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        str: 'CSPN', 'AMKR', or 'USPN'
+                    :return: 'CSPN', 'AMKR', or 'USPN'
                     """
                     return self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:CONF?").strip()
 
@@ -9255,11 +7782,9 @@ frequency offset, channel data transfer."""
                     """
                     Enable or disable usage of "Loss at DC" value for auto port extension.
 
-                    Parameter:
-                        enable (bool): True to enable, False to disable
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:DCOF {1 if enable else 0}")
 
@@ -9268,11 +7793,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if usage of "Loss at DC" value for auto port extension is enabled.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:DCOF?")))
 
@@ -9281,11 +7804,9 @@ frequency offset, channel data transfer."""
                     """
                     Enable or disable usage of "Loss1" and "Loss2" values for auto port extension.
 
-                    Parameter:
-                        enable (bool): True to enable, False to disable
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:LOSS {1 if enable else 0}")
 
@@ -9294,11 +7815,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if usage of "Loss1" and "Loss2" values for auto port extension is enabled.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:LOSS?")))
 
@@ -9307,11 +7826,9 @@ frequency offset, channel data transfer."""
                     """
                     Perform measurement of the standard "SHORT" or "OPEN" for auto port extension.
 
-                    Parameter:
-                        standard (str): 'SHORt' or 'OPEN'
+                    :param standard: 'SHORt' or 'OPEN'
 
-                    Return:
-                        None
+
                     """
                     allowed = ['SHORt', 'OPEN']
                     if standard not in allowed:
@@ -9323,12 +7840,10 @@ frequency offset, channel data transfer."""
                     """
                     Enable or disable auto port extension for the specified port.
 
-                    Parameter:
-                        port (int): Port number (1-4)
-                        enable (bool): True to enable, False to disable
+                    :param port: Port number (1-4)
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
@@ -9339,11 +7854,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if auto port extension is enabled for the specified port.
 
-                    Parameter:
-                        port (int): Port number (1-4)
+                    :param port: Port number (1-4)
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
@@ -9353,11 +7866,9 @@ frequency offset, channel data transfer."""
                     """
                     Deletes the finished measurement data of the OPEN and SHORT standards of the auto port extension function.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:RES")
 
@@ -9366,11 +7877,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the start value of the user span for auto port extension.
 
-                    Parameter:
-                        frequency (float): Start frequency in Hz
+                    :param frequency: Start frequency in Hz
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:STAR {frequency}")
 
@@ -9378,11 +7887,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the start value of the user span for auto port extension.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Start frequency in Hz
+                    :return: Start frequency in Hz
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:STAR?"))
 
@@ -9391,11 +7898,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the stop value of the user span for auto port extension.
 
-                    Parameter:
-                        frequency (float): Stop frequency in Hz
+                    :param frequency: Stop frequency in Hz
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:AUTO:STOP {frequency}")
 
@@ -9403,11 +7908,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the stop value of the user span for auto port extension.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Stop frequency in Hz
+                    :return: Stop frequency in Hz
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:AUTO:STOP?"))
 
@@ -9426,12 +7929,10 @@ frequency offset, channel data transfer."""
                     """
                     Sets the value of frequency 1 or 2 for port extension loss calculation.
 
-                    Parameter:
-                        freq_num (int): Frequency number (1 or 2)
-                        frequency (float): Frequency value in Hz
+                    :param freq_num: Frequency number (1 or 2)
+                    :param frequency: Frequency value in Hz
 
-                    Return:
-                        None
+
                     """
                     if freq_num not in [1, 2]:
                         raise ValueError("freq_num must be 1 or 2")
@@ -9441,11 +7942,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the value of frequency 1 or 2 for port extension loss calculation.
 
-                    Parameter:
-                        freq_num (int): Frequency number (1 or 2)
+                    :param freq_num: Frequency number (1 or 2)
 
-                    Return:
-                        float: Frequency value in Hz
+                    :return: Frequency value in Hz
                     """
                     if freq_num not in [1, 2]:
                         raise ValueError("freq_num must be 1 or 2")
@@ -9456,12 +7955,10 @@ frequency offset, channel data transfer."""
                     """
                     Turns the loss compensation of loss 1 or loss 2 ON/OFF for port extension.
 
-                    Parameter:
-                        loss_num (int): Loss number (1 or 2)
-                        enable (bool): True to enable, False to disable
+                    :param loss_num: Loss number (1 or 2)
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     if loss_num not in [1, 2]:
                         raise ValueError("loss_num must be 1 or 2")
@@ -9471,11 +7968,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if loss compensation of loss 1 or loss 2 is enabled for port extension.
 
-                    Parameter:
-                        loss_num (int): Loss number (1 or 2)
+                    :param loss_num: Loss number (1 or 2)
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     if loss_num not in [1, 2]:
                         raise ValueError("loss_num must be 1 or 2")
@@ -9486,11 +7981,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the loss value at DC for the port extension.
 
-                    Parameter:
-                        value (float): Loss value at DC in dB (-200 to 200)
+                    :param value: Loss value at DC in dB (-200 to 200)
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:LDC {value}")
 
@@ -9498,11 +7991,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the loss value at DC for the port extension.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Loss value at DC in dB
+                    :return: Loss value at DC in dB
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:LDC?"))
 
@@ -9511,12 +8002,10 @@ frequency offset, channel data transfer."""
                     """
                     Sets the value of loss 1 or loss 2 for the port extension.
 
-                    Parameter:
-                        loss_num (int): Loss number (1 or 2)
-                        value (float): Loss value in dB (-200 to 200)
+                    :param loss_num: Loss number (1 or 2)
+                    :param value: Loss value in dB (-200 to 200)
 
-                    Return:
-                        None
+
                     """
                     if loss_num not in [1, 2]:
                         raise ValueError("loss_num must be 1 or 2")
@@ -9526,11 +8015,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the value of loss 1 or loss 2 for the port extension.
 
-                    Parameter:
-                        loss_num (int): Loss number (1 or 2)
+                    :param loss_num: Loss number (1 or 2)
 
-                    Return:
-                        float: Loss value in dB
+                    :return: Loss value in dB
                     """
                     if loss_num not in [1, 2]:
                         raise ValueError("loss_num must be 1 or 2")
@@ -9541,11 +8028,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the electrical delay value for the port extension.
 
-                    Parameter:
-                        value (float): Electrical delay value in seconds (-10 to 10)
+                    :param value: Electrical delay value in seconds (-10 to 10)
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:TIME {value}")
 
@@ -9553,11 +8038,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the electrical delay value for the port extension.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Electrical delay value in seconds
+                    :return: Electrical delay value in seconds
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:EXT:PORT{self.p}:TIME?"))
                 # SENS:CORR:INF? <rcvport>,<srcport>
@@ -9565,12 +8048,10 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the information string of the calibration applied to the pair of ports.
 
-                    Parameter:
-                        rcvport (int): Receiver port number (1-4)
-                        srcport (int): Source port number (1-4)
+                    :param rcvport: Receiver port number (1-4)
+                    :param srcport: Source port number (1-4)
 
-                    Return:
-                        str: Information string
+                    :return: Information string
                     """
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
@@ -9581,11 +8062,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the system impedance Z0 of all Analyzer ports.
 
-                    Parameter:
-                        value (float): Z0 value (0.001 to 1000)
+                    :param value: Z0 value (0.001 to 1000)
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:IMP:INP:MAGN {value}")
 
@@ -9593,11 +8072,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the system impedance Z0 of all Analyzer ports.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Z0 value
+                    :return: Z0 value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:IMP:INP:MAGN?"))
 
@@ -9606,11 +8083,9 @@ frequency offset, channel data transfer."""
                     """
                     Turns the auto select Z0 function ON/OFF.
 
-                    Parameter:
-                        enable (bool): True to enable, False to disable
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:IMP:INP:SEL:AUTO {1 if enable else 0}")
 
@@ -9618,11 +8093,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if auto select Z0 function is enabled.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:IMP:INP:SEL:AUTO?")))
         class AutoImpedance:
@@ -9639,11 +8112,9 @@ frequency offset, channel data transfer."""
                 """
                 Turns the auto select Z0 function ON/OFF.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:IMP:SEL:AUTO {1 if enable else 0}")
 
@@ -9652,11 +8123,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if auto select Z0 function is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:IMP:SEL:AUTO?")))
 
@@ -9674,11 +8143,9 @@ frequency offset, channel data transfer."""
                 """
                 Clears the scalar mixer calibration coefficient table.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:OFFS:CLE")
 
@@ -9687,11 +8154,9 @@ frequency offset, channel data transfer."""
                 """
                 Clears the calibration measurement data of scalar mixer calibration when the frequency offset feature is ON.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:CLE")
 
@@ -9700,11 +8165,9 @@ frequency offset, channel data transfer."""
                 """
                 Specifies the direction of the scalar mixer calibration: forward, reverse or both.
 
-                Parameter:
-                    direction (str): 'FORW', 'REV', or 'BOTH'
+                :param direction: 'FORW', 'REV', or 'BOTH'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['FORW', 'REV', 'BOTH']
                 if direction not in allowed:
@@ -9717,11 +8180,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the direction of the scalar mixer calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'FORW', 'REV', or 'BOTH'
+                :return: 'FORW', 'REV', or 'BOTH'
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:OFFS:COLL:DIR?").strip()
 
@@ -9730,12 +8191,10 @@ frequency offset, channel data transfer."""
                 """
                 Measures the calibration data of all reflection standards of the ACM on the specified port when the frequency offset feature is on.
 
-                Parameter:
-                    port1 (int): Measurement port number
-                    port2 (int): Number of the second port of the SMC port pair
+                :param port1: Measurement port number
+                :param port2: Number of the second port of the SMC port pair
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:ECAL {port1},{port2}")
 
@@ -9744,12 +8203,10 @@ frequency offset, channel data transfer."""
                 """
                 Measures the calibration data of the load standard of the specified port when the frequency offset feature is on.
 
-                Parameter:
-                    port1 (int): Measurement port number
-                    port2 (int): Number of the second port of the SMC port pair
+                :param port1: Measurement port number
+                :param port2: Number of the second port of the SMC port pair
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:LOAD {port1},{port2}")
 
@@ -9758,12 +8215,10 @@ frequency offset, channel data transfer."""
                 """
                 Selects the ports and sets the scalar mixer calibration type when the frequency offset feature is on.
 
-                Parameter:
-                    port1 (int): First port
-                    port2 (int): Second port
+                :param port1: First port
+                :param port2: Second port
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:METH:SMIX2 {port1},{port2}")
 
@@ -9782,9 +8237,8 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable receiver correction for the specified port.
 
-                Parameter:
-                    port (int): Port number (1-4)
-                    enable (bool): True to enable, False to disable
+                :param port: Port number (1-4)
+                :param enable: True to enable, False to disable
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
                 self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:STATe {1 if enable else 0}")
@@ -9798,12 +8252,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if receiver correction is enabled for the specified port.
 
-                Parameter:
-                if not (1 <= port <= 4):
+                :param: if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
-                return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:REC:RECeiver{port}:STATe?")))
-
-                    bool: True if enabled, False otherwise
+                :return: bool(int(self.instrument.query(f":SENS{self.channel}:CORR:REC:RECeiver{port}:STATe?"))) bool: True if enabled, False otherwise
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -9814,13 +8265,11 @@ frequency offset, channel data transfer."""
                 """
                 Execute receiver calibration of both the test receiver and the reference receiver of the specified port.
 
-                Parameter:
-                if not (1 <= port <= 4 and 1 <= srcport <= 4):
+                :param: if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
                 self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:ACQuire {srcport}")
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
@@ -9836,8 +8285,7 @@ frequency offset, channel data transfer."""
                 self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:RCHannel:ACQuire {srcport}")
 
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
@@ -9851,10 +8299,9 @@ frequency offset, channel data transfer."""
                     raise ValueError("port and srcport must be 1-4")
                 self.instrument.write(f":SENS{self.channel}:CORR:REC:RECeiver{port}:COLLect:TCHannel:ACQuire {srcport}")
 
-                    srcport (int): Source port number (1-4)
+                :param srcport: Source port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4 and 1 <= srcport <= 4):
                     raise ValueError("port and srcport must be 1-4")
@@ -9873,12 +8320,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the power offset value for receiver calibration.
 
-                    Parameter:
-                        port (int): Port number (1-4)
-                        value (float): Power offset value (-100 to 100 dBm)
+                    :param port: Port number (1-4)
+                    :param value: Power offset value (-100 to 100 dBm)
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
@@ -9890,11 +8335,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the power offset value for receiver calibration.
 
-                    Parameter:
-                        port (int): Port number (1-4)
+                    :param port: Port number (1-4)
 
-                    Return:
-                        float: Power offset value in dBm
+                    :return: Power offset value in dBm
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
@@ -9915,11 +8358,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the frequency value for cable loss specification.
 
-                Parameter:
-                    value (float): Frequency value in Hz
+                :param value: Frequency value in Hz
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:FREQ {value}")
 
@@ -9928,11 +8369,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the frequency value for cable loss specification.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Frequency value in Hz
+                :return: Frequency value in Hz
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:FREQ?"))
 
@@ -9941,11 +8380,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the cable loss value for cable correction.
 
-                Parameter:
-                    value (float): Cable loss value in dB/m
+                :param value: Cable loss value in dB/m
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:LOSS {value}")
 
@@ -9954,11 +8391,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the cable loss value for cable correction.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Cable loss value in dB/m
+                :return: Cable loss value in dB/m
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:LOSS?"))
 
@@ -9967,11 +8402,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the cable relative wave speed velocity factor.
 
-                Parameter:
-                    value (float): Velocity factor
+                :param value: Velocity factor
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:RVEL {value}")
 
@@ -9980,11 +8413,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the cable relative wave speed velocity factor.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Velocity factor
+                :return: Velocity factor
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:RVEL?"))
 
@@ -9994,11 +8425,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the cable relative wave speed velocity factor.
 
-                Parameter:
-                    value (float): Velocity factor
+                :param value: Velocity factor
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:RVEL {value}")
 
@@ -10006,11 +8435,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the cable relative wave speed velocity factor.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Velocity factor
+                :return: Velocity factor
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:RVEL?"))
 
@@ -10019,11 +8446,9 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable cable correction when time domain transformation is ON.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:TRAN:TIME:STAT {1 if enable else 0}")
 
@@ -10031,11 +8456,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if cable correction is enabled when time domain transformation is ON.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:TRAN:TIME:STAT?")))
 
@@ -10053,11 +8476,9 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable the internal trigger source for calibration.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:TRIG:FREE:STAT {1 if enable else 0}")
 
@@ -10065,11 +8486,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if the internal trigger source for calibration is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:TRIG:FREE:STAT?")))
 
@@ -10087,11 +8506,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads the calibration type and port numbers for the specified trace.
 
-                Parameter:
-                    trace (int): Trace number (1-16)
+                :param trace: Trace number (1-16)
 
-                Return:
-                    tuple: (type, port1, ..., portN)
+                :return: (type, port1, ..., portN)
                 """
                 resp = self.instrument.query(f":SENS{self.channel}:CORR:TYPE{trace}?").strip()
                 parts = resp.split(',')
@@ -10111,11 +8528,9 @@ frequency offset, channel data transfer."""
                 """
                 Measures ACM, completes vector mixer calibration, and saves S-parameters to a touchstone file.
 
-                Parameter:
-                    filename (str): Destination file name (optional, default 'vmctemp.S2P')
+                :param filename: Destination file name (optional, default 'vmctemp.S2P')
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLL:ECAL:SAVE \"{filename}\"")
 
@@ -10124,11 +8539,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the port number used in vector mixer calibration.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -10138,11 +8551,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the port number used in vector mixer calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Port number
+                :return: Port number
                 """
                 return int(self.instrument.query(f":SENS{self.channel}:CORR:VMC:COLL:PORT?"))
 
@@ -10151,11 +8562,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the LO frequency value used in vector mixer calibration.
 
-                Parameter:
-                    value (float): LO frequency in Hz (0 to 1e15)
+                :param value: LO frequency in Hz (0 to 1e15)
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:LO:FREQ {value}")
 
@@ -10164,26 +8573,19 @@ frequency offset, channel data transfer."""
                 """
                 Get the LO frequency value used in vector mixer calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: LO frequency in Hz
+                :return: LO frequency in Hz
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:CORR:VMC:COLL:LO:FREQ?"))
-    
-            
-
-            # SENS:CORR:VMC:COLL:IF:SEL
+                # SENS:CORR:VMC:COLL:IF:SEL
             def set_if_frequency(self, freq_type: str):
                 """
                 Select the IF frequency for vector mixer calibration.
 
-                Parameter:
-                    freq_type (str): One of ['RFPLO', 'RFMLO', 'LOMRF']
+                :param freq_type: One of ['RFPLO', 'RFMLO', 'LOMRF']
 
-                Return:
-                    None
+                
                 """
                 allowed = ['RFPLO', 'RFMLO', 'LOMRF']
                 if freq_type not in allowed:
@@ -10194,11 +8596,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the selected IF frequency for vector mixer calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: IF frequency type
+                :return: IF frequency type
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:VMC:COLL:IF:SEL?").strip()
 
@@ -10207,11 +8607,9 @@ frequency offset, channel data transfer."""
                 """
                 Measure the load standard for vector mixer calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:LOAD")
 
@@ -10220,11 +8618,9 @@ frequency offset, channel data transfer."""
                 """
                 Measure the open standard for vector mixer calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:OPEN")
 
@@ -10233,11 +8629,9 @@ frequency offset, channel data transfer."""
                 """
                 Measure the short standard for vector mixer calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:SHOR")
 
@@ -10246,11 +8640,9 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable the setup option for vector mixer calibration.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:VMC:COLL:SETup:OPTion {1 if enable else 0}")
 
@@ -10258,11 +8650,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if the setup option for vector mixer calibration is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:VMC:COLL:SETup:OPTion?")))
 
@@ -10271,11 +8661,9 @@ frequency offset, channel data transfer."""
                 """
                 Complete vector mixer calibration and save S-parameters to a touchstone file.
 
-                Parameter:
-                    filename (str): Destination file name (optional). If omitted, 'vmctemp.S2P' is used.
+                :param filename: Destination file name (optional). If omitted, 'vmctemp.S2P' is used.
 
-                Return:
-                    None
+                
                 """
                 if filename:
                     self.instrument.write(f":SENS{self.channel}:CORR:OFFS:COLLect:SAVE \"{filename}\"")
@@ -10321,12 +8709,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the offset loss value for the calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Offset loss value (-1E18 to 1E18)
+                    :param std: Standard number (1..N)
+                    :param value: Offset loss value (-1E18 to 1E18)
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:LOSS {value}")
 
@@ -10334,11 +8720,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the offset loss value for the calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        float: Offset loss value
+                    :return: Offset loss value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:LOSS?"))
 
@@ -10347,11 +8731,9 @@ frequency offset, channel data transfer."""
                     """
                     Delete the calibration standard from the selected calibration kit.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:REM")
 
@@ -10360,12 +8742,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the type of calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        std_type (str): Type, one of ['OPEN', 'SHOR', 'LOAD', 'THRU', 'UTHR', 'SLID', 'DATA', 'NONE']
+                    :param std: Standard number (1..N)
+                    :param std_type: Type, one of ['OPEN', 'SHOR', 'LOAD', 'THRU', 'UTHR', 'SLID', 'DATA', 'NONE']
 
-                    Return:
-                        None
+
                     """
                     allowed = ['OPEN', 'SHOR', 'LOAD', 'THRU', 'UTHR', 'SLID', 'DATA', 'NONE']
                     if std_type not in allowed:
@@ -10376,11 +8756,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the type of calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        str: Standard type
+                    :return: Standard type
                     """
                     return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:TYPE?").strip()
 
@@ -10389,12 +8767,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the offset Z0 value for the calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Offset Z0 value (-1E18 to 1E18)
+                    :param std: Standard number (1..N)
+                    :param value: Offset Z0 value (-1E18 to 1E18)
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:Z0 {value}")
 
@@ -10402,11 +8778,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the offset Z0 value for the calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        float: Offset Z0 value
+                    :return: Offset Z0 value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:Z0?"))
                 # SENS:CORR:COLL:CKIT:STAN:LAB - Standard label
@@ -10414,11 +8788,9 @@ frequency offset, channel data transfer."""
                     """
                     Set standard label.
 
-                    Parameter:
-                        label (str): Standard label
+                    :param label: Standard label
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:LAB \"{label}\"")
 
@@ -10426,11 +8798,9 @@ frequency offset, channel data transfer."""
                     """
                     Get standard label.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        str: Standard label
+                    :return: Standard label
                     """
                     return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:LAB?").strip()
 
@@ -10439,11 +8809,9 @@ frequency offset, channel data transfer."""
                     """
                     Set offset loss for standard.
 
-                    Parameter:
-                        value (float): Offset loss
+                    :param value: Offset loss
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:LOSS {value}")
 
@@ -10451,11 +8819,9 @@ frequency offset, channel data transfer."""
                     """
                     Get offset loss for standard.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Offset loss
+                    :return: Offset loss
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:LOSS?"))
 
@@ -10464,11 +8830,9 @@ frequency offset, channel data transfer."""
                     """
                     Set standard type.
 
-                    Parameter:
-                        std_type (str): Standard type, e.g., 'LOAD', 'OPEN', 'SHORT', 'THRU', etc.
+                    :param std_type: Standard type, e.g., 'LOAD', 'OPEN', 'SHORT', 'THRU', etc.
 
-                    Return:
-                        None
+
                     """
                     allowed = ['LOAD', 'OPEN', 'SHORT', 'THRU', 'ARB', 'C0', 'C1', 'C2', 'C3', 'L0', 'L1', 'L2', 'L3']
                     if std_type not in allowed:
@@ -10479,11 +8843,9 @@ frequency offset, channel data transfer."""
                     """
                     Get standard type.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        str: Standard type
+                    :return: Standard type
                     """
                     return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:TYPE?").strip()
 
@@ -10492,11 +8854,9 @@ frequency offset, channel data transfer."""
                     """
                     Set offset Z0 for standard.
 
-                    Parameter:
-                        value (float): Offset Z0
+                    :param value: Offset Z0
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:Z0 {value}")
 
@@ -10504,11 +8864,9 @@ frequency offset, channel data transfer."""
                     """
                     Get offset Z0 for standard.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Offset Z0
+                    :return: Offset Z0
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:Z0?"))
                 class Count:
@@ -10525,11 +8883,9 @@ frequency offset, channel data transfer."""
                         """
                         Reads out the count of standards in the selected calibration kit.
 
-                        Parameter:
-                            None
+                        
 
-                        Return:
-                            int: Number of standards in the calibration kit
+                        :return: Number of standards in the calibration kit
                         """
                         return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN:COUN?"))
 
@@ -10547,12 +8903,10 @@ frequency offset, channel data transfer."""
                         """
                         Writes the data array of the data-based calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            data_list (list): Data array as per documentation
+                        :param std: Standard number (1..N)
+                        :param data_list: Data array as per documentation
 
-                        Return:
-                            None
+
                         """
                         data_str = ",".join(str(float(x)) for x in data_list)
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DATA {data_str}")
@@ -10562,11 +8916,9 @@ frequency offset, channel data transfer."""
                         """
                         Reads out the data array of the data-based calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            list: Data array
+                        :return: Data array
                         """
                         data = self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DATA?")
                         if self.data_handler.is_auto_saving_data_enabled():
@@ -10587,12 +8939,10 @@ frequency offset, channel data transfer."""
                         """
                         Sets the offset delay value for the calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            value (float): Offset delay value (–1E18 to 1E18), in seconds
+                        :param std: Standard number (1..N)
+                        :param value: Offset delay value (–1E18 to 1E18), in seconds
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DEL {value}")
 
@@ -10601,11 +8951,9 @@ frequency offset, channel data transfer."""
                         """
                         Reads out the offset delay value for the calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            float: Offset delay value in seconds
+                        :return: Offset delay value in seconds
                         """
                         return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:DEL?"))
 
@@ -10623,12 +8971,10 @@ frequency offset, channel data transfer."""
                         """
                         Sets the maximum frequency limit of the calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            value (float): Maximum frequency limit (0 to 1E14), in Hz
+                        :param std: Standard number (1..N)
+                        :param value: Maximum frequency limit (0 to 1E14), in Hz
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:FMAX {value}")
 
@@ -10637,11 +8983,9 @@ frequency offset, channel data transfer."""
                         """
                         Reads out the maximum frequency limit of the calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            float: Maximum frequency limit in Hz
+                        :return: Maximum frequency limit in Hz
                         """
                         return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:FMAX?"))
 
@@ -10659,12 +9003,10 @@ frequency offset, channel data transfer."""
                         """
                         Sets the minimum frequency limit of the calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            value (float): Minimum frequency limit (0 to 1E14), in Hz
+                        :param std: Standard number (1..N)
+                        :param value: Minimum frequency limit (0 to 1E14), in Hz
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:FMIN {value}")
 
@@ -10673,11 +9015,9 @@ frequency offset, channel data transfer."""
                         """
                         Reads out the minimum frequency limit of the calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            float: Minimum frequency limit in Hz
+                        :return: Minimum frequency limit in Hz
                         """
                         return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:FMIN?"))
 
@@ -10695,11 +9035,9 @@ frequency offset, channel data transfer."""
                         """
                         Inserts the calibration standard into the selected calibration kit.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:INS")
 
@@ -10717,12 +9055,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the L0 value for the short calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            value (float): L0 value (–1E18 to 1E18), units 1E–12 H
+                        :param std: Standard number (1..N)
+                        :param value: L0 value (–1E18 to 1E18), units 1E–12 H
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L0 {value}")
 
@@ -10731,11 +9067,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the L0 value for the short calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            float: L0 value
+                        :return: L0 value
                         """
                         return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L0?"))
 
@@ -10753,12 +9087,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the L1 value for the short calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            value (float): L1 value (–1E18 to 1E18), units 1E–24 H/Hz
+                        :param std: Standard number (1..N)
+                        :param value: L1 value (–1E18 to 1E18), units 1E–24 H/Hz
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L1 {value}")
 
@@ -10767,11 +9099,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the L1 value for the short calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            float: L1 value
+                        :return: L1 value
                         """
                         return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L1?"))
 
@@ -10789,12 +9119,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the L2 value for the short calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            value (float): L2 value (–1E18 to 1E18), units 1E–33 H/Hz^2
+                        :param std: Standard number (1..N)
+                        :param value: L2 value (–1E18 to 1E18), units 1E–33 H/Hz^2
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L2 {value}")
 
@@ -10803,11 +9131,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the L2 value for the short calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            float: L2 value
+                        :return: L2 value
                         """
                         return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L2?"))
 
@@ -10825,12 +9151,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the L3 value for the short calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            value (float): L3 value (–1E18 to 1E18), units 1E–42 H/Hz^3
+                        :param std: Standard number (1..N)
+                        :param value: L3 value (–1E18 to 1E18), units 1E–42 H/Hz^3
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L3 {value}")
 
@@ -10839,11 +9163,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the L3 value for the short calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            float: L3 value
+                        :return: L3 value
                         """
                         return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:L3?"))
 
@@ -10861,12 +9183,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the label for the calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
-                            label (str): Label string (up to 254 characters)
+                        :param std: Standard number (1..N)
+                        :param label: Label string (up to 254 characters)
 
-                        Return:
-                            None
+
                         """
                         if len(label) > 254:
                             raise ValueError("label must be up to 254 characters")
@@ -10877,11 +9197,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the label for the calibration standard.
 
-                        Parameter:
-                            std (int): Standard number (1..N)
+                        :param std: Standard number (1..N)
 
-                        Return:
-                            str: Label string
+                        :return: Label string
                         """
                         return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:LAB?").strip()
                 
@@ -10890,11 +9208,9 @@ frequency offset, channel data transfer."""
                         """
                         Select calibration kit.
 
-                        Parameter:
-                            kit (int): Calibration kit number
+                        :param kit: Calibration kit number
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT {kit}")
 
@@ -10903,11 +9219,9 @@ frequency offset, channel data transfer."""
                         """
                         Set calibration kit label.
 
-                        Parameter:
-                            label (str): Calibration kit label
+                        :param label: Calibration kit label
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:LAB \"{label}\"")
 
@@ -10915,11 +9229,9 @@ frequency offset, channel data transfer."""
                         """
                         Get calibration kit label.
 
-                        Parameter:
-                            None
+                        
 
-                        Return:
-                            str: Calibration kit label
+                        :return: Calibration kit label
                         """
                         return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:LAB?").strip()
 
@@ -10928,11 +9240,9 @@ frequency offset, channel data transfer."""
                         """
                         Remove a calibration kit.
 
-                        Parameter:
-                            None
+                        
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:RES")
 
@@ -10954,11 +9264,9 @@ frequency offset, channel data transfer."""
                     """
                     Set the number of the selected calibration kit in the table of calibration kits.
 
-                    Parameter:
-                        kit (int): Calibration kit number (1-64)
+                    :param kit: Calibration kit number (1-64)
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= kit <= 64):
                         raise ValueError("kit must be 1-64")
@@ -10969,14 +9277,12 @@ frequency offset, channel data transfer."""
                     """
                     Get the number of the selected calibration kit in the table of calibration kits.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        int: Calibration kit number
+                    :return: Calibration kit number
                     """
                     return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:SEL?"))
-                class Description:
+                class Calib_Kit:
                     """
                     Calibration kit description string commands.
                     """
@@ -10990,11 +9296,9 @@ frequency offset, channel data transfer."""
                         """
                         Set the calibration kit description string.
 
-                        Parameter:
-                            description (str): Description string (up to 254 characters)
+                        :param description: Description string (up to 254 characters)
 
-                        Return:
-                            None
+
                         """
                         if len(description) > 254:
                             raise ValueError("description must be up to 254 characters")
@@ -11005,11 +9309,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the calibration kit description string.
 
-                        Parameter:
-                            None
+                        
 
-                        Return:
-                            str: Description string
+                        :return: Description string
                         """
                         return self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:DESC?").strip()
 
@@ -11027,12 +9329,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the number of the calibration standard assigned to the LOAD class for the specified port.
 
-                        Parameter:
-                            port (int): Port number (1-4)
-                            standard_num (int): Standard number
+                        :param port: Port number (1-4)
+                        :param standard_num: Standard number
 
-                        Return:
-                            None
+
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
@@ -11043,11 +9343,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the number of the calibration standard assigned to the LOAD class for the specified port.
 
-                        Parameter:
-                            port (int): Port number (1-4)
+                        :param port: Port number (1-4)
 
-                        Return:
-                            int: Standard number
+                        :return: Standard number
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
@@ -11058,12 +9356,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the number of the calibration standard assigned to the OPEN class for the specified port.
 
-                        Parameter:
-                            port (int): Port number (1-4)
-                            standard_num (int): Standard number
+                        :param port: Port number (1-4)
+                        :param standard_num: Standard number
 
-                        Return:
-                            None
+
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
@@ -11074,11 +9370,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the number of the calibration standard assigned to the OPEN class for the specified port.
 
-                        Parameter:
-                            port (int): Port number (1-4)
+                        :param port: Port number (1-4)
 
-                        Return:
-                            int: Standard number
+                        :return: Standard number
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
@@ -11089,11 +9383,9 @@ frequency offset, channel data transfer."""
                         """
                         Set the subclass number for calibration standard class assignment.
 
-                        Parameter:
-                            subclass_num (int): Subclass number (1-8)
+                        :param subclass_num: Subclass number (1-8)
 
-                        Return:
-                            None
+
                         """
                         if not (1 <= subclass_num <= 8):
                             raise ValueError("subclass_num must be 1-8")
@@ -11104,11 +9396,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the subclass number for calibration standard class assignment.
 
-                        Parameter:
-                            None
+                        
 
-                        Return:
-                            int: Subclass number
+                        :return: Subclass number
                         """
                         return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:ORD:SEL?"))
 
@@ -11117,12 +9407,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the number of the calibration standard assigned to the SHORT class for the specified port.
 
-                        Parameter:
-                            port (int): Port number (1-4)
-                            standard_num (int): Standard number
+                        :param port: Port number (1-4)
+                        :param standard_num: Standard number
 
-                        Return:
-                            None
+
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
@@ -11133,11 +9421,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the number of the calibration standard assigned to the SHORT class for the specified port.
 
-                        Parameter:
-                            port (int): Port number (1-4)
+                        :param port: Port number (1-4)
 
-                        Return:
-                            int: Standard number
+                        :return: Standard number
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
@@ -11147,13 +9433,11 @@ frequency offset, channel data transfer."""
                         """
                         Set the number of the calibration standard assigned to the THRU class for the measurement between the specified ports.
 
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-                            standard_num (int): Standard number
+                        :param port1: Receiver port number (1-4)
+                        :param port2: Source port number (1-4)
+                        :param standard_num: Standard number
 
-                        Return:
-                            None
+
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
@@ -11164,12 +9448,10 @@ frequency offset, channel data transfer."""
                         """
                         Get the number of the calibration standard assigned to the THRU class for the measurement between the specified ports.
 
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
+                        :param port1: Receiver port number (1-4)
+                        :param port2: Source port number (1-4)
 
-                        Return:
-                            int: Standard number
+                        :return: Standard number
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
@@ -11180,13 +9462,11 @@ frequency offset, channel data transfer."""
                         """
                         Set the number of the calibration standard assigned to the TRL LINE class for the measurement between the specified ports.
 
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-                            standard_num (int): Standard number
+                        :param port1: Receiver port number (1-4)
+                        :param port2: Source port number (1-4)
+                        :param standard_num: Standard number
 
-                        Return:
-                            None
+
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
@@ -11197,12 +9477,10 @@ frequency offset, channel data transfer."""
                         """
                         Get the number of the calibration standard assigned to the TRL LINE class for the measurement between the specified ports.
 
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
+                        :param port1: Receiver port number (1-4)
+                        :param port2: Source port number (1-4)
 
-                        Return:
-                            int: Standard number
+                        :return: Standard number
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
@@ -11213,13 +9491,11 @@ frequency offset, channel data transfer."""
                         """
                         Set the number of the calibration standard assigned to the TRL THRU class for the measurement between the specified ports.
 
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
-                            standard_num (int): Standard number
+                        :param port1: Receiver port number (1-4)
+                        :param port2: Source port number (1-4)
+                        :param standard_num: Standard number
 
-                        Return:
-                            None
+
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
@@ -11230,12 +9506,10 @@ frequency offset, channel data transfer."""
                         """
                         Get the number of the calibration standard assigned to the TRL THRU class for the measurement between the specified ports.
 
-                        Parameter:
-                            port1 (int): Receiver port number (1-4)
-                            port2 (int): Source port number (1-4)
+                        :param port1: Receiver port number (1-4)
+                        :param port2: Source port number (1-4)
 
-                        Return:
-                            int: Standard number
+                        :return: Standard number
                         """
                         if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                             raise ValueError("port1 and port2 must be 1-4")
@@ -11246,12 +9520,10 @@ frequency offset, channel data transfer."""
                         """
                         Set the number of the calibration standard assigned to the TRL REFLECT class for the specified port.
 
-                        Parameter:
-                            port (int): Port number (1-4)
-                            standard_num (int): Standard number
+                        :param port: Port number (1-4)
+                        :param standard_num: Standard number
 
-                        Return:
-                            None
+
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
@@ -11262,11 +9534,9 @@ frequency offset, channel data transfer."""
                         """
                         Get the number of the calibration standard assigned to the TRL REFLECT class for the specified port.
 
-                        Parameter:
-                            port (int): Port number (1-4)
+                        :param port: Port number (1-4)
 
-                        Return:
-                            int: Standard number
+                        :return: Standard number
                         """
                         if not (1 <= port <= 4):
                             raise ValueError("port must be 1-4")
@@ -11277,11 +9547,9 @@ frequency offset, channel data transfer."""
                         """
                         Reset the calibration kit to the factory settings.
 
-                        Parameter:
-                            None
+                        
 
-                        Return:
-                            None
+
                         """
                         self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:RES")
             class Arbitrary:
@@ -11298,12 +9566,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the arbitrary impedance value for the load standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): Impedance value (-1E18 to 1E18)
+                    :param std: Standard number (1..N)
+                    :param value: Impedance value (-1E18 to 1E18)
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:ARB {value}")
 
@@ -11312,11 +9578,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the arbitrary impedance value for the load standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        float: Impedance value
+                    :return: Impedance value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:ARB?"))
 
@@ -11334,12 +9598,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the C0 value for the open calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): C0 value (-1E18 to 1E18), units 1E-15 F
+                    :param std: Standard number (1..N)
+                    :param value: C0 value (-1E18 to 1E18), units 1E-15 F
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C0 {value}")
 
@@ -11348,11 +9610,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the C0 value for the open calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        float: C0 value
+                    :return: C0 value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C0?"))
 
@@ -11361,12 +9621,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the C1 value for the open calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): C1 value (-1E18 to 1E18), units 1E-27 F/Hz
+                    :param std: Standard number (1..N)
+                    :param value: C1 value (-1E18 to 1E18), units 1E-27 F/Hz
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C1 {value}")
 
@@ -11375,11 +9633,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the C1 value for the open calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        float: C1 value
+                    :return: C1 value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C1?"))
 
@@ -11388,12 +9644,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the C2 value for the open calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): C2 value (-1E18 to 1E18), units 1E-36 F/Hz^2
+                    :param std: Standard number (1..N)
+                    :param value: C2 value (-1E18 to 1E18), units 1E-36 F/Hz^2
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C2 {value}")
 
@@ -11402,11 +9656,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the C2 value for the open calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        float: C2 value
+                    :return: C2 value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C2?"))
 
@@ -11415,12 +9667,10 @@ frequency offset, channel data transfer."""
                     """
                     Set the C3 value for the open calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
-                        value (float): C3 value (-1E18 to 1E18), units 1E-45 F/Hz^3
+                    :param std: Standard number (1..N)
+                    :param value: C3 value (-1E18 to 1E18), units 1E-45 F/Hz^3
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C3 {value}")
 
@@ -11429,11 +9679,9 @@ frequency offset, channel data transfer."""
                     """
                     Get the C3 value for the open calibration standard.
 
-                    Parameter:
-                        std (int): Standard number (1..N)
+                    :param std: Standard number (1..N)
 
-                    Return:
-                        float: C3 value
+                    :return: C3 value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:CORR:COLL:CKIT:STAN{std}:C3?"))
             
@@ -11453,11 +9701,9 @@ frequency offset, channel data transfer."""
                 """
                 Clear the measurement data of the calibration standards.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:CLE")
 
@@ -11475,13 +9721,11 @@ frequency offset, channel data transfer."""
                     """
                     Write the array of the isolation calibration measurement.
 
-                    Parameter:
-                        rcvport (int): Receiver port (1-4)
-                        srcport (int): Source port (1-4)
-                        data_list (list): Array of real/imaginary pairs
+                    :param rcvport: Receiver port (1-4)
+                    :param srcport: Source port (1-4)
+                    :param data_list: Array of real/imaginary pairs
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
@@ -11493,12 +9737,10 @@ frequency offset, channel data transfer."""
                     """
                     Read out the array of the isolation calibration measurement.
 
-                    Parameter:
-                        rcvport (int): Receiver port (1-4)
-                        srcport (int): Source port (1-4)
+                    :param rcvport: Receiver port (1-4)
+                    :param srcport: Source port (1-4)
 
-                    Return:
-                        list: Array of real/imaginary pairs
+                    :return: Array of real/imaginary pairs
                     """
                     if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                         raise ValueError("rcvport and srcport must be 1-4")
@@ -11523,11 +9765,9 @@ frequency offset, channel data transfer."""
                 """
                 Executes the confidence check of the calibration coefficients using the AutoCal module.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:CCH:ACQuire")
 
@@ -11536,12 +9776,10 @@ frequency offset, channel data transfer."""
                 """
                 Executes one path two-port calibration between the specified ports using the AutoCal module.
 
-                Parameter:
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
+                :param rcvport: Receiver port number (1-4)
+                :param srcport: Source port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
@@ -11552,11 +9790,9 @@ frequency offset, channel data transfer."""
                 """
                 Gets information on the AutoCal Module connected to the Network Analyzer.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Information string (comma separated fields)
+                :return: Information string (comma separated fields)
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:INFormation?").strip()
 
@@ -11565,11 +9801,9 @@ frequency offset, channel data transfer."""
                 """
                 Executes the Auto-Orientation procedure of the AutoCal Module.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:ORIentation:EXECute")
 
@@ -11578,11 +9812,9 @@ frequency offset, channel data transfer."""
                 """
                 Turns the Auto-Orientation function ON/OFF for AutoCal calibration.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:ORIentation:STATe {1 if enable else 0}")
 
@@ -11590,11 +9822,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if the Auto-Orientation function is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:ORIentation:STATe?")))
 
@@ -11603,12 +9833,10 @@ frequency offset, channel data transfer."""
                 """
                 Sets the AutoCal module port number connected to a specified port of the Network Analyzer.
 
-                Parameter:
-                    analyzer_port (int): Network Analyzer Port Number (1-4)
-                    autocal_port (int): AutoCal Module Port Number (1-4)
+                :param analyzer_port: Network Analyzer Port Number (1-4)
+                :param autocal_port: AutoCal Module Port Number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= analyzer_port <= 4):
                     raise ValueError("analyzer_port must be 1-4")
@@ -11621,11 +9849,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the AutoCal module port number connected to a specified port of the Network Analyzer.
 
-                Parameter:
-                    analyzer_port (int): Network Analyzer Port Number (1-4)
+                :param analyzer_port: Network Analyzer Port Number (1-4)
 
-                Return:
-                    int: AutoCal Module Port Number (1-4)
+                :return: AutoCal Module Port Number (1-4)
                 """
                 if not (1 <= analyzer_port <= 4):
                     raise ValueError("analyzer_port must be 1-4")
@@ -11635,11 +9861,9 @@ frequency offset, channel data transfer."""
                 """
                 Executes one-port calibration of the specified port using the AutoCal module.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -11650,12 +9874,10 @@ frequency offset, channel data transfer."""
                 """
                 Executes full two-port calibration between the specified ports using the AutoCal module.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                     raise ValueError("port1 and port2 must be 1-4")
@@ -11668,13 +9890,11 @@ frequency offset, channel data transfer."""
                 """
                 Executes full three-port calibration between the specified ports using the AutoCal module.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
+                :param port3: Third port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 ports = [port1, port2, port3]
                 if any(not (1 <= p <= 4) for p in ports):
@@ -11688,14 +9908,12 @@ frequency offset, channel data transfer."""
                 """
                 Executes full four-port calibration between the specified ports using the AutoCal module.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
-                    port4 (int): Fourth port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
+                :param port3: Third port number (1-4)
+                :param port4: Fourth port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 ports = [port1, port2, port3, port4]
                 if any(not (1 <= p <= 4) for p in ports):
@@ -11709,11 +9927,9 @@ frequency offset, channel data transfer."""
                 """
                 Turns the thermo compensation function ON/OFF for AutoCal calibration.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:THERmo:COMPensation:STATe {1 if enable else 0}")
 
@@ -11721,11 +9937,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if the thermo compensation function is enabled for AutoCal calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:THERmo:COMPensation:STATe?")))
 
@@ -11734,11 +9948,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the characterization number used when executing AutoCal.
 
-                Parameter:
-                    char (str): Characterization, one of ['CHAR0', 'CHAR1', 'CHAR2', 'CHAR3']
+                :param char: Characterization, one of ['CHAR0', 'CHAR1', 'CHAR2', 'CHAR3']
 
-                Return:
-                    None
+                
                 """
                 allowed = ['CHAR0', 'CHAR1', 'CHAR2', 'CHAR3']
                 if char not in allowed:
@@ -11749,11 +9961,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the characterization number used when executing AutoCal.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Characterization ('CHAR0', 'CHAR1', 'CHAR2', 'CHAR3')
+                :return: Characterization ('CHAR0', 'CHAR1', 'CHAR2', 'CHAR3')
                 """
                 return self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:UCHar?").strip()
             class UnknownThru:
@@ -11770,11 +9980,9 @@ frequency offset, channel data transfer."""
                     """
                     Turns the Unknown Thru feature ON/OFF for AutoCal calibration.
 
-                    Parameter:
-                        enable (bool): True to enable, False to disable
+                    :param enable: True to enable, False to disable
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:ECAL:UTHRu:STATe {1 if enable else 0}")
 
@@ -11782,11 +9990,9 @@ frequency offset, channel data transfer."""
                     """
                     Query if the Unknown Thru feature is enabled for AutoCal calibration.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        bool: True if enabled, False otherwise
+                    :return: True if enabled, False otherwise
                     """
                     return bool(int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:ECAL:UTHRu:STATe?")))
         class AutoCal2:
@@ -11803,12 +10009,10 @@ frequency offset, channel data transfer."""
                 """
                 Executes a calibration step using a two-port ACM connecting port1 and port2.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                     raise ValueError("port1 and port2 must be 1-4")
@@ -11821,13 +10025,11 @@ frequency offset, channel data transfer."""
                 """
                 Selects ports and sets the type to full 3-port for calibration with the 2-port AutoCal module.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    port3 (int): Third port number (1-4)
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
+                :param port3: Third port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 ports = [port1, port2, port3]
                 if any(not (1 <= p <= 4) for p in ports):
@@ -11841,14 +10043,12 @@ frequency offset, channel data transfer."""
                 """
                 Selects ports and sets the type to full 4-port for calibration with the 2-port AutoCal module.
 
-                Parameter:
-                    port1 (int): First port number (must be 1)
-                    port2 (int): Second port number (must be 2)
-                    port3 (int): Third port number (must be 3)
-                    port4 (int): Fourth port number (must be 4)
+                :param port1: First port number (must be 1)
+                :param port2: Second port number (must be 2)
+                :param port3: Third port number (must be 3)
+                :param port4: Fourth port number (must be 4)
 
-                Return:
-                    None
+                
                 """
                 ports = [port1, port2, port3, port4]
                 if ports != [1, 2, 3, 4]:
@@ -11862,13 +10062,11 @@ frequency offset, channel data transfer."""
                 """
                 Measures a THRU between port1 and port2 for 3-port/4-port calibration with 2-port ACM.
 
-                Parameter:
-                    port1 (int): First port number (1-4)
-                    port2 (int): Second port number (1-4)
-                    thru_type (str): 'UNKNown' (default) or 'FLUSh'
+                :param port1: First port number (1-4)
+                :param port2: Second port number (1-4)
+                :param thru_type: 'UNKNown' (default) or 'FLUSh'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['UNKNown', 'FLUSh']
                 if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
@@ -11895,12 +10093,10 @@ frequency offset, channel data transfer."""
                 """
                 Measures the isolation calibration data between the receiver port and the source port.
 
-                Parameter:
-                    rcvport (int): Receiver port number (1-4)
-                    srcport (int): Source port number (1-4)
+                :param rcvport: Receiver port number (1-4)
+                :param srcport: Source port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= rcvport <= 4 and 1 <= srcport <= 4):
                     raise ValueError("rcvport and srcport must be 1-4")
@@ -11922,11 +10118,9 @@ frequency offset, channel data transfer."""
                 """
                 Measures the calibration data of the load standard for the specified port.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -11946,11 +10140,9 @@ frequency offset, channel data transfer."""
                 """
                 Measures the calibration data of the open standard for the specified port.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -11970,11 +10162,9 @@ frequency offset, channel data transfer."""
                 """
                 Measures the calibration data of the short standard for the specified port.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -12002,32 +10192,25 @@ frequency offset, channel data transfer."""
                     """
                     Measures the calibration data of the TRL line standard between port1 and port2.
 
-                    Parameter:
-                        port1 (int): Port number (1-4)
-                        port2 (int): Port number (1-4)
+                    :param port1: Port number (1-4)
+                    :param port2: Port number (1-4)
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                         raise ValueError("port1 and port2 must be 1-4")
                     if port1 == port2:
                         raise ValueError("port1 and port2 must be different")
                     self.instrument.write(f":SENS{self.channel}:CORR:COLL:TRLL {port1},{port2}")
-
-            
-
             # SENS:CORR:COLL:TRLThru <port1>,<port2>
             def measure_trl_thru(self, port1: int, port2: int):
                 """
                 Measures the calibration data of the TRL thru standard between port1 and port2.
 
-                Parameter:
-                    port1 (int): Port number (1-4)
-                    port2 (int): Port number (1-4)
+                :param port1: Port number (1-4)
+                :param port2: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port1 <= 4 and 1 <= port2 <= 4):
                     raise ValueError("port1 and port2 must be 1-4")
@@ -12041,11 +10224,9 @@ frequency offset, channel data transfer."""
                 """
                 Measures the calibration data of the TRL reflect standard for the specified port.
 
-                Parameter:
-                    port (int): Port number (1-4)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= port <= 4):
                     raise ValueError("port must be 1-4")
@@ -12066,11 +10247,9 @@ frequency offset, channel data transfer."""
                 """
                 Selects the subclass number of calibration standard used for measurement.
 
-                Parameter:
-                    subclass_num (int): Subclass number (1-8)
+                :param subclass_num: Subclass number (1-8)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= subclass_num <= 8):
                     raise ValueError("subclass_num must be 1-8")
@@ -12081,11 +10260,9 @@ frequency offset, channel data transfer."""
                 """
                 Gets the subclass number of calibration standard used for measurement.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Subclass number
+                :return: Subclass number
                 """
                 return int(self.instrument.query(f":SENS{self.channel}:CORR:COLL:SUBC?"))
             # SENSe<Ch>:CORRection:COLLect:SUBClass = <numeric>
@@ -12093,11 +10270,9 @@ frequency offset, channel data transfer."""
                 """
                 Selects the subclass number of calibration standard used for measurement.
 
-                Parameter:
-                    subclass_num (int): Subclass number (1-8)
+                :param subclass_num: Subclass number (1-8)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= subclass_num <= 8):
                     raise ValueError("subclass_num must be 1-8")
@@ -12121,11 +10296,9 @@ frequency offset, channel data transfer."""
             """
             Set fixed frequency for a power sweep.
 
-            Parameters:
-                value (float): Frequency in Hz
+            :param value: Frequency in Hz
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:FREQ {value}")
 
@@ -12133,8 +10306,7 @@ frequency offset, channel data transfer."""
             """
             Get fixed frequency for a power sweep.
 
-            Returns:
-                float: Frequency in Hz
+            :return: Frequency in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:FREQ?"))
 
@@ -12143,11 +10315,9 @@ frequency offset, channel data transfer."""
             """
             Set center frequency.
 
-            Parameters:
-                value (float): Center frequency in Hz
+            :param value: Center frequency in Hz
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:FREQ:CENT {value}")
 
@@ -12155,8 +10325,7 @@ frequency offset, channel data transfer."""
             """
             Get center frequency.
 
-            Returns:
-                float: Center frequency in Hz
+            :return: Center frequency in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:FREQ:CENT?"))
 
@@ -12165,11 +10334,9 @@ frequency offset, channel data transfer."""
             """
             Set span frequency.
 
-            Parameters:
-                value (float): Span frequency in Hz
+            :param value: Span frequency in Hz
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:FREQ:SPAN {value}")
 
@@ -12179,11 +10346,9 @@ frequency offset, channel data transfer."""
             """
             Set start frequency.
 
-            Parameters:
-                value (float): Start frequency in Hz
+            :param value: Start frequency in Hz
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:FREQ:STAR {value}")
 
@@ -12191,8 +10356,7 @@ frequency offset, channel data transfer."""
             """
             Get start frequency.
 
-            Returns:
-                float: Start frequency in Hz
+            :return: Start frequency in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:FREQ:STAR?"))
 
@@ -12201,11 +10365,9 @@ frequency offset, channel data transfer."""
             """
             Set stop frequency.
 
-            Parameters:
-                value (float): Stop frequency in Hz
+            :param value: Stop frequency in Hz
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:FREQ:STOP {value}")
 
@@ -12213,8 +10375,7 @@ frequency offset, channel data transfer."""
             """
             Get stop frequency.
 
-            Returns:
-                float: Stop frequency in Hz
+            :return: Stop frequency in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:FREQ:STOP?"))
 
@@ -12223,8 +10384,7 @@ frequency offset, channel data transfer."""
             """
             Reads out the frequency array of the measurement points.
 
-            Returns:
-                list: Frequency values at each measurement point
+            :return: Frequency values at each measurement point
             """
             data = self.instrument.query(f":SENS{self.channel}:FREQ:DATA?")
             if self.data_handler.is_auto_saving_data_enabled():
@@ -12236,11 +10396,9 @@ frequency offset, channel data transfer."""
             """
             Set the fixed frequency value for power sweep.
 
-            Parameters:
-                value (float): Frequency in Hz
+            :param value: Frequency in Hz
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:FREQ:CW {value}")
 
@@ -12249,8 +10407,7 @@ frequency offset, channel data transfer."""
             """
             Get the fixed frequency value for power sweep.
 
-            Returns:
-                float: Frequency in Hz
+            :return: Frequency in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:FREQ:CW?"))
 
@@ -12259,11 +10416,9 @@ frequency offset, channel data transfer."""
             """
             Set the fixed frequency value.
 
-            Parameters:
-                value (float): Frequency in Hz
+            :param value: Frequency in Hz
 
-            Returns:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:FREQ:FIX {value}")
 
@@ -12272,8 +10427,7 @@ frequency offset, channel data transfer."""
             """
             Get the fixed frequency value.
 
-            Returns:
-                float: Frequency in Hz
+            :return: Frequency in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:FREQ:FIX?"))
 
@@ -12284,8 +10438,7 @@ frequency offset, channel data transfer."""
             """
             Get the stimulus span value of the sweep range.
 
-            Returns:
-                float: Span frequency in Hz
+            :return: Span frequency in Hz
             """
             return float(self.instrument.query(f":SENS{self.channel}:FREQ:SPAN?"))
         class Offset:
@@ -12304,11 +10457,9 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable the frequency offset feature.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:STAT {1 if enable else 0}")
 
@@ -12316,11 +10467,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if the frequency offset feature is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:OFFS:STAT?")))
 
@@ -12329,11 +10478,9 @@ frequency offset, channel data transfer."""
                 """
                 Enable or disable the frequency offset adjust function.
 
-                Parameter:
-                    enable (bool): True to enable, False to disable
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:STAT {1 if enable else 0}")
 
@@ -12341,11 +10488,9 @@ frequency offset, channel data transfer."""
                 """
                 Query if the frequency offset adjust function is enabled.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 return bool(int(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:STAT?")))
 
@@ -12354,11 +10499,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the adjust period in seconds for frequency offset adjust.
 
-                Parameter:
-                    value (float): Period in seconds (0 disables, 5-10000 enables)
+                :param value: Period in seconds (0 disables, 5-10000 enables)
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:ADJ:CONT:PER {value}")
 
@@ -12366,11 +10509,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the adjust period in seconds for frequency offset adjust.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Period in seconds
+                :return: Period in seconds
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:ADJ:CONT:PER?"))
 
@@ -12389,11 +10530,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the basic frequency range multiplier of port <Pt> when frequency offset is ON and type is "PORT".
 
-                    Parameter:
-                        value (float): Multiplier value (-1000 to 1000)
+                    :param value: Multiplier value (-1000 to 1000)
 
-                    Return:
-                        None
+
                     """
                     value = max(-1000, min(1000, value))
                     self.instrument.write(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:MULT {value}")
@@ -12403,11 +10542,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the basic frequency range multiplier of port <Pt>.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Multiplier value
+                    :return: Multiplier value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:MULT?"))
 
@@ -12416,11 +10553,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the basic frequency range offset of port <Pt> when frequency offset is ON and type is "PORT".
 
-                    Parameter:
-                        value (float): Offset value (-1e12 to 1e12 Hz)
+                    :param value: Offset value (-1e12 to 1e12 Hz)
 
-                    Return:
-                        None
+
                     """
                     value = max(-1e12, min(1e12, value))
                     self.instrument.write(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:OFFS {value}")
@@ -12430,11 +10565,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the basic frequency range offset of port <Pt>.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Offset value
+                    :return: Offset value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:OFFS?"))
 
@@ -12443,11 +10576,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the frequency sweep start of port <Pt> when frequency offset is ON and type is "PORT".
 
-                    Parameter:
-                        value (float): Start frequency in Hz
+                    :param value: Start frequency in Hz
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:STAR {value}")
 
@@ -12456,11 +10587,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the frequency sweep start of port <Pt>.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Start frequency in Hz
+                    :return: Start frequency in Hz
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:STAR?"))
 
@@ -12469,11 +10598,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the frequency sweep stop of port <Pt> when frequency offset is ON and type is "PORT".
 
-                    Parameter:
-                        value (float): Stop frequency in Hz
+                    :param value: Stop frequency in Hz
 
-                    Return:
-                        None
+
                     """
                     self.instrument.write(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:STOP {value}")
 
@@ -12482,11 +10609,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the frequency sweep stop of port <Pt>.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Stop frequency in Hz
+                    :return: Stop frequency in Hz
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:OFFS:PORT{self.p}:FREQ:STOP?"))
 
@@ -12504,11 +10629,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the array of the receiver frequency points when frequency offset is ON and type is "SRCRcv".
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        list: Frequency values at each measurement point
+                    :return: Frequency values at each measurement point
                     """
                     data = self.instrument.query(f":SENS{self.channel}:OFFS:REC:FREQ:DATA?")
                     if self.data_handler.is_auto_saving_data_enabled():
@@ -12520,11 +10643,9 @@ frequency offset, channel data transfer."""
                     """
                     Sets the basic frequency range divisor to get the receiver frequency when frequency offset is ON and type is "SRCRcv".
 
-                    Parameter:
-                        value (float): Divisor value (1 to 1000)
+                    :param value: Divisor value (1 to 1000)
 
-                    Return:
-                        None
+
                     """
                     value = max(1, min(1000, value))
                     self.instrument.write(f":SENS{self.channel}:OFFS:REC:FREQ:DIV {value}")
@@ -12534,11 +10655,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the basic frequency range divisor for receiver frequency.
 
-                    Parameter:
-                        None
+                    
 
-                    Return:
-                        float: Divisor value
+                    :return: Divisor value
                     """
                     return float(self.instrument.query(f":SENS{self.channel}:OFFS:REC:FREQ:DIV?"))
         class Receiver:
@@ -12555,11 +10674,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the basic frequency range multiplier to get the receiver frequency when frequency offset is ON and type is "SRCRcv".
 
-                Parameter:
-                    value (float): Multiplier value (-1000 to 1000)
+                :param value: Multiplier value (-1000 to 1000)
 
-                Return:
-                    None
+                
                 """
                 value = max(-1000, min(1000, value))
                 self.instrument.write(f":SENS{self.channel}:OFFS:REC:FREQ:MULT {value}")
@@ -12577,11 +10694,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the array of the frequency points of the source when frequency offset is ON and offset type is "SRCRcv".
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    list: Frequency values at each measurement point
+                :return: Frequency values at each measurement point
                 """
                 data = self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
@@ -12593,11 +10708,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the basic frequency range divisor to get the source frequency when frequency offset is ON and offset type is "SRCRcv".
 
-                Parameter:
-                    value (float): Divisor value (1 to 1000)
+                :param value: Divisor value (1 to 1000)
 
-                Return:
-                    None
+                
                 """
                 value = max(1, min(1000, value))
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:DIV {value}")
@@ -12607,11 +10720,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the basic frequency range divisor for source frequency.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Divisor value
+                :return: Divisor value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:DIV?"))
 
@@ -12620,11 +10731,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the basic frequency range multiplier to get the source frequency when frequency offset is ON and offset type is "SRCRcv".
 
-                Parameter:
-                    value (float): Multiplier value (-1000 to 1000)
+                :param value: Multiplier value (-1000 to 1000)
 
-                Return:
-                    None
+                
                 """
                 value = max(-1000, min(1000, value))
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:MULT {value}")
@@ -12634,11 +10743,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the basic frequency range multiplier for source frequency.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Multiplier value
+                :return: Multiplier value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:MULT?"))
 
@@ -12647,11 +10754,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the basic frequency range offset to get the source frequency when frequency offset is ON and offset type is "SRCRcv".
 
-                Parameter:
-                    value (float): Offset value (-1e12 to 1e12 Hz)
+                :param value: Offset value (-1e12 to 1e12 Hz)
 
-                Return:
-                    None
+                
                 """
                 value = max(-1e12, min(1e12, value))
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:OFFS {value}")
@@ -12661,11 +10766,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the basic frequency range offset for source frequency.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Offset value
+                :return: Offset value
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:OFFS?"))
 
@@ -12674,11 +10777,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the frequency sweep start of the source when frequency offset is ON and offset type is "SRCRcv".
 
-                Parameter:
-                    value (float): Start frequency in Hz
+                :param value: Start frequency in Hz
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:STAR {value}")
 
@@ -12687,11 +10788,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the frequency sweep start of the source.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Start frequency in Hz
+                :return: Start frequency in Hz
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:STAR?"))
 
@@ -12700,11 +10799,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the frequency sweep stop of the source when frequency offset is ON and offset type is "SRCRcv".
 
-                Parameter:
-                    value (float): Stop frequency in Hz
+                :param value: Stop frequency in Hz
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:OFFS:SOUR:STOP {value}")
 
@@ -12713,11 +10810,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the frequency sweep stop of the source.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Stop frequency in Hz
+                :return: Stop frequency in Hz
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:OFFS:SOUR:STOP?"))
     
@@ -12727,11 +10822,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the frequency offset type when the frequency offset feature is ON.
 
-                Parameter:
-                    offset_type (str): Offset type, one of ['PORT', 'SRCRcv']
+                :param offset_type: Offset type, one of ['PORT', 'SRCRcv']
 
-                Return:
-                    None
+                
                 """
                 allowed = ['PORT', 'SRCRcv']
                 if offset_type not in allowed:
@@ -12743,11 +10836,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the frequency offset type when the frequency offset feature is ON.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Offset type ('PORT' or 'SRCRcv')
+                :return: Offset type ('PORT' or 'SRCRcv')
                 """
                 return self.instrument.query(f":SENS{self.channel}:OFFS:TYPE?").strip()
         class Extender:
@@ -12762,11 +10853,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the RF Port Power when the Analyzer is configured to work with a frequency extender.
 
-                Parameter:
-                    value (float): Power value in dBm
+                :param value: Power value in dBm
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SYST:FREQ:EXT:RFR:POW {value}")
 
@@ -12775,11 +10864,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the RF Port Power when the Analyzer is configured to work with a frequency extender.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Power value in dBm
+                :return: Power value in dBm
                 """
                 return float(self.instrument.query(":SYST:FREQ:EXT:RFR:POW?"))
 
@@ -12788,11 +10875,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the RF Port Power Slope when the Analyzer is configured to work with a frequency extender.
 
-                Parameter:
-                    value (float): Slope value in dB/GHz
+                :param value: Slope value in dB/GHz
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SYST:FREQ:EXT:RFP:PSL {value}")
 
@@ -12801,11 +10886,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the RF Port Power Slope when the Analyzer is configured to work with a frequency extender.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Slope value in dB/GHz
+                :return: Slope value in dB/GHz
                 """
                 return float(self.instrument.query(":SYST:FREQ:EXT:RFP:PSL?"))
 
@@ -12814,11 +10897,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the LO Port Power when the Analyzer is configured to work with a frequency extender.
 
-                Parameter:
-                    value (float): Power value in dBm
+                :param value: Power value in dBm
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SYST:FREQ:EXT:LOP:POW {value}")
 
@@ -12827,11 +10908,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the LO Port Power when the Analyzer is configured to work with a frequency extender.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Power value in dBm
+                :return: Power value in dBm
                 """
                 return float(self.instrument.query(":SYST:FREQ:EXT:LOP:POW?"))
 
@@ -12840,11 +10919,9 @@ frequency offset, channel data transfer."""
                 """
                 Sets the LO Port Power Slope when the Analyzer is configured to work with a frequency extender.
 
-                Parameter:
-                    value (float): Slope value in dB/GHz
+                :param value: Slope value in dB/GHz
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SYST:FREQ:EXT:LOP:PSL {value}")
 
@@ -12853,11 +10930,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the LO Port Power Slope when the Analyzer is configured to work with a frequency extender.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Slope value in dB/GHz
+                :return: Slope value in dB/GHz
                 """
                 return float(self.instrument.query(":SYST:FREQ:EXT:LOP:PSL?"))
 
@@ -12866,11 +10941,9 @@ frequency offset, channel data transfer."""
                 """
                 Selects the frequency extender type.
 
-                Parameter:
-                    extender_type (str): One of ['NONE', 'FEV15', 'FEV12', 'FEV10', 'FET1854', 'CUST']
+                :param extender_type: One of ['NONE', 'FEV15', 'FEV12', 'FEV10', 'FET1854', 'CUST']
 
-                Return:
-                    None
+                
                 """
                 allowed = ['NONE', 'FEV15', 'FEV12', 'FEV10', 'FET1854', 'CUST']
                 if extender_type not in allowed:
@@ -12882,11 +10955,9 @@ frequency offset, channel data transfer."""
                 """
                 Reads out the frequency extender type.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Extender type
+                :return: Extender type
                 """
                 return self.instrument.query(":SYST:FREQ:EXT:TYPE?").strip()
             class Port:
@@ -12901,11 +10972,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out whether the frequency extender is connected to the port number <Pt>.
 
-                    Parameter:
-                        port (int): Port number (1-4)
+                    :param port: Port number (1-4)
 
-                    Return:
-                        bool: True if connected, False otherwise
+                    :return: True if connected, False otherwise
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
@@ -12916,11 +10985,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the serial number of the frequency extender connected to the port number <Pt>.
 
-                    Parameter:
-                        port (int): Port number (1-4)
+                    :param port: Port number (1-4)
 
-                    Return:
-                        str: Serial number (8 symbols)
+                    :return: Serial number (8 symbols)
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
@@ -12931,11 +10998,9 @@ frequency offset, channel data transfer."""
                     """
                     Reads out the temperature of the frequency extender connected to the port number <Pt>.
 
-                    Parameter:
-                        port (int): Port number (1-4)
+                    :param port: Port number (1-4)
 
-                    Return:
-                        float: Temperature in degrees Celsius
+                    :return: Temperature in degrees Celsius
                     """
                     if not (1 <= port <= 4):
                         raise ValueError("port must be 1-4")
@@ -12955,11 +11020,9 @@ frequency offset, channel data transfer."""
             """
             Set the internal or external source of the 10 MHz reference frequency.
 
-            Parameter:
-                source (str): Reference source, one of ['INTernal', 'EXTernal']
+            :param source: Reference source, one of ['INTernal', 'EXTernal']
 
-            Return:
-                None
+
             """
             allowed = ['INTernal', 'EXTernal']
             if source not in allowed:
@@ -12971,11 +11034,9 @@ frequency offset, channel data transfer."""
             """
             Get the internal or external source of the 10 MHz reference frequency.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: Reference source ('INTernal' or 'EXTernal')
+            :return: Reference source ('INTernal' or 'EXTernal')
             """
             return self.instrument.query(f":SENS{self.channel}:ROSC:SOUR?").strip()
         
@@ -12992,11 +11053,9 @@ frequency offset, channel data transfer."""
             """
             Set the sweep type for the specified channel.
 
-            Parameter:
-            sweep_type (str): Sweep type, one of ['LIN', 'LOG', 'SEGM', 'POW']
+            :param sweep_type: Sweep type, one of ['LIN', 'LOG', 'SEGM', 'POW']
 
-            Return:
-            None
+    
             """
             allowed = ['LIN', 'LOG', 'SEGM', 'POW']
             if sweep_type not in allowed:
@@ -13008,8 +11067,7 @@ frequency offset, channel data transfer."""
             """
             Get the sweep type for the specified channel.
 
-            Return:
-            str: Sweep type ('LIN', 'LOG', 'SEGM', or 'POW')
+            :return: Sweep type ('LIN', 'LOG', 'SEGM', or 'POW')
             """
             return self.instrument.query(f":SENS{self.channel}:SWE:TYPE?").strip()
         class SegmentTableData:
@@ -13026,11 +11084,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the array of the segment sweep table.
 
-                Parameter:
-                    data_list (list): Segment sweep table data as per documentation
+                :param data_list: Segment sweep table data as per documentation
 
-                Return:
-                    None
+                
                 """
                 data_str = ",".join(str(float(x)) for x in data_list)
                 self.instrument.write(f":SENS{self.channel}:SEGM:DATA {data_str}")
@@ -13040,11 +11096,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the array of the segment sweep table.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    list: Segment sweep table data
+                :return: Segment sweep table data
                 """
                 data = self.instrument.query(f":SENS{self.channel}:SEGM:DATA?")
                 if self.data_handler.is_auto_saving_data_enabled():
@@ -13055,11 +11109,9 @@ frequency offset, channel data transfer."""
             """
             Enable or disable reverse sweep.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+            :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SENS{self.channel}:SWE:REV {1 if enable else 0}")
 
@@ -13067,11 +11119,9 @@ frequency offset, channel data transfer."""
             """
             Query if reverse sweep is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(f":SENS{self.channel}:SWE:REV?")))
         
@@ -13089,11 +11139,9 @@ frequency offset, channel data transfer."""
                 """
                 Set the sweep time value when the CW time mode is ON.
 
-                Parameter:
-                    value (float): Sweep time value in seconds
+                :param value: Sweep time value in seconds
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SENS{self.channel}:SWE:CW:TIME {value}")
 
@@ -13102,11 +11150,9 @@ frequency offset, channel data transfer."""
                 """
                 Get the sweep time value when the CW time mode is ON.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Sweep time value in seconds
+                :return: Sweep time value in seconds
                 """
                 return float(self.instrument.query(f":SENS{self.channel}:SWE:CW:TIME?"))
 
@@ -13128,11 +11174,9 @@ class Service:
         """
         Reads out the active channel number.
 
-        Parameter:
-            None
+        
 
-        Return:
-            int: Active channel number (1-16)
+        :return: Active channel number (1-16)
         """
         return int(self.instrument.query(":SERV:CHAN:ACT?"))
 
@@ -13141,11 +11185,9 @@ class Service:
         """
         Reads out the active trace number of the specified channel.
 
-        Parameter:
-            channel (int): Channel number (1-16)
+        :param channel: Channel number (1-16)
 
-        Return:
-            int: Active trace number (1-16)
+        :return: Active trace number (1-16)
         """
         if not (1 <= channel <= 16):
             raise ValueError("channel must be 1-16")
@@ -13156,11 +11198,9 @@ class Service:
         """
         Reads out the maximum number of analyzer channels.
 
-        Parameter:
-            None
+        
 
-        Return:
-            int: Maximum number of channels
+        :return: Maximum number of channels
         """
         return int(self.instrument.query(":SERV:CHAN:COUN?"))
 
@@ -13169,11 +11209,9 @@ class Service:
         """
         Reads out the maximum number of traces in the channel.
 
-        Parameter:
-            None
+        
 
-        Return:
-            int: Maximum number of traces
+        :return: Maximum number of traces
         """
         return int(self.instrument.query(":SERV:CHAN:TRAC:COUN?"))
 
@@ -13182,11 +11220,9 @@ class Service:
         """
         Reads out the number of ports.
 
-        Parameter:
-            None
+        
 
-        Return:
-            int: Number of ports
+        :return: Number of ports
         """
         return int(self.instrument.query(":SERV:PORT:COUN?"))
 
@@ -13195,11 +11231,9 @@ class Service:
         """
         Reads out the upper limit of frequency.
 
-        Parameter:
-            None
+        
 
-        Return:
-            float: Upper frequency limit
+        :return: Upper frequency limit
         """
         return float(self.instrument.query(":SERV:SWE:FREQ:MAX?"))
 
@@ -13208,11 +11242,9 @@ class Service:
         """
         Reads out the lower limit of frequency.
 
-        Parameter:
-            None
+        
 
-        Return:
-            float: Lower frequency limit
+        :return: Lower frequency limit
         """
         return float(self.instrument.query(":SERV:SWE:FREQ:MIN?"))
 
@@ -13221,11 +11253,9 @@ class Service:
         """
         Reads out the maximum number of points.
 
-        Parameter:
-            None
+        
 
-        Return:
-            int: Maximum number of points
+        :return: Maximum number of points
         """
         return int(self.instrument.query(":SERV:SWE:POIN?"))
 
@@ -13234,11 +11264,9 @@ class Service:
         """
         Reads out the upper limit of source power.
 
-        Parameter:
-            None
+        
 
-        Return:
-            float: Upper limit of source power
+        :return: Upper limit of source power
         """
         return float(self.instrument.query(":SERV:SWE:POW:MAX?"))
 
@@ -13247,11 +11275,9 @@ class Service:
         """
         Reads out the lower limit of source power.
 
-        Parameter:
-            None
+        
 
-        Return:
-            float: Lower limit of source power
+        :return: Lower limit of source power
         """
         return float(self.instrument.query(":SERV:SWE:POW:MIN?"))
 
@@ -13260,12 +11286,10 @@ class Service:
         """
         Gets the active marker number of the specified trace of the specified channel.
 
-        Parameter:
-            channel (int): Channel number (1-16)
-            trace (int): Trace number (1-16)
+        :param channel: Channel number (1-16)
+        :param trace: Trace number (1-16)
 
-        Return:
-            int: Active marker number
+        :return: Active marker number
         """
         if not (1 <= channel <= 16):
             raise ValueError("channel must be 1-16")
@@ -13285,12 +11309,10 @@ class Service:
             """
             Gets the active marker number of the specified trace of the specified channel.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                trace (int): Trace number (1-16)
+            :param channel: Channel number (1-16)
+            :param trace: Trace number (1-16)
 
-            Return:
-                int: Active marker number
+            :return: Active marker number
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13311,11 +11333,9 @@ class Service:
             """
             Reads out the number of analyzer ports.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Number of analyzer ports
+            :return: Number of analyzer ports
             """
             return int(self.instrument.query(":SERV:PORT:COUN?"))
 
@@ -13331,11 +11351,9 @@ class Service:
             """
             Reads out the upper limit of the analyzer measurement frequency.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Upper frequency limit in Hz
+            :return: Upper frequency limit in Hz
             """
             return float(self.instrument.query(":SERV:SWE:FREQ:MAX?"))
 
@@ -13344,11 +11362,9 @@ class Service:
             """
             Reads out the lower limit of the analyzer measurement frequency.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Lower frequency limit in Hz
+            :return: Lower frequency limit in Hz
             """
             return float(self.instrument.query(":SERV:SWE:FREQ:MIN?"))
 
@@ -13357,11 +11373,9 @@ class Service:
             """
             Reads the maximum number of analyzer measurement points.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Maximum number of measurement points
+            :return: Maximum number of measurement points
             """
             return int(self.instrument.query(":SERV:SWE:POIN?"))
 
@@ -13370,11 +11384,9 @@ class Service:
             """
             Reads out the upper limit of the source power.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Upper limit of source power in dBm
+            :return: Upper limit of source power in dBm
             """
             return float(self.instrument.query(":SERV:SWE:POW:MAX?"))
 
@@ -13383,11 +11395,9 @@ class Service:
             """
             Reads out the lower limit of the source power.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Lower limit of source power in dBm
+            :return: Lower limit of source power in dBm
             """
             return float(self.instrument.query(":SERV:SWE:POW:MIN?"))
 class Source:
@@ -13412,12 +11422,10 @@ class Source:
             """
             Turns an auxiliary RF source ON/OFF.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                state (str): 'ON', 'OFF', '1', or '0'
+            :param channel: Channel number (1-16)
+            :param state: 'ON', 'OFF', '1', or '0'
 
-            Return:
-                None
+
             """
             allowed = ['ON', 'OFF', '1', '0']
             if state not in allowed:
@@ -13431,11 +11439,9 @@ class Source:
             """
             Query if auxiliary RF source is ON/OFF.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                bool: True if ON, False if OFF
+            :return: True if ON, False if OFF
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13445,12 +11451,10 @@ class Source:
             """
             Set the basic frequency range divisor to derive the frequency of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                divisor (int): Integer divisor (1-1000)
+            :param channel: Channel number (1-16)
+            :param divisor: Integer divisor (1-1000)
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13462,11 +11466,9 @@ class Source:
             """
             Get the basic frequency range divisor for the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                int: Integer divisor (1-1000)
+            :return: Integer divisor (1-1000)
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13477,12 +11479,10 @@ class Source:
             """
             Set the basic frequency range multiplier to derive the frequency of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                multiplier (float): Multiplier (-1000 to 1000)
+            :param channel: Channel number (1-16)
+            :param multiplier: Multiplier (-1000 to 1000)
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13494,11 +11494,9 @@ class Source:
             """
             Get the basic frequency range multiplier for the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Multiplier (-1000 to 1000)
+            :return: Multiplier (-1000 to 1000)
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13509,12 +11507,10 @@ class Source:
             """
             Set the basic frequency range offset to derive the frequency of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                offset (float): Frequency offset (-1e12 to 1e12 Hz)
+            :param channel: Channel number (1-16)
+            :param offset: Frequency offset (-1e12 to 1e12 Hz)
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13526,11 +11522,9 @@ class Source:
             """
             Get the basic frequency range offset for the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Frequency offset (-1e12 to 1e12 Hz)
+            :return: Frequency offset (-1e12 to 1e12 Hz)
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13541,12 +11535,10 @@ class Source:
             """
             Set the start of the frequency range of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                start (float): Start frequency in Hz
+            :param channel: Channel number (1-16)
+            :param start: Start frequency in Hz
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13557,11 +11549,9 @@ class Source:
             """
             Get the start of the frequency range of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Start frequency in Hz
+            :return: Start frequency in Hz
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13572,12 +11562,10 @@ class Source:
             """
             Set the stop of the frequency range of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                stop (float): Stop frequency in Hz
+            :param channel: Channel number (1-16)
+            :param stop: Stop frequency in Hz
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13588,11 +11576,9 @@ class Source:
             """
             Get the stop of the frequency range of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Stop frequency in Hz
+            :return: Stop frequency in Hz
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13602,12 +11588,10 @@ class Source:
             """
             Set the port number assigned to the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                port (int): Port number (1-4)
+            :param channel: Channel number (1-16)
+            :param port: Port number (1-4)
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13620,11 +11604,9 @@ class Source:
             """
             Get the port number assigned to the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                int: Port number (1-4)
+            :return: Port number (1-4)
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13635,12 +11617,10 @@ class Source:
             """
             Set the power level of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                power (float): Power level in dBm
+            :param channel: Channel number (1-16)
+            :param power: Power level in dBm
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13651,11 +11631,9 @@ class Source:
             """
             Get the power level of the auxiliary RF source.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Power level in dBm
+            :return: Power level in dBm
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13674,12 +11652,10 @@ class Source:
             """
             Set the power level for the frequency sweep type.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                power (float): Power level in dBm
+            :param channel: Channel number (1-16)
+            :param power: Power level in dBm
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13690,11 +11666,9 @@ class Source:
             """
             Get the power level for the frequency sweep type.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Power level in dBm
+            :return: Power level in dBm
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13705,12 +11679,10 @@ class Source:
             """
             Set the center value of the power sweep type.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                power (float): Center power level in dBm
+            :param channel: Channel number (1-16)
+            :param power: Center power level in dBm
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13721,11 +11693,9 @@ class Source:
             """
             Get the center value of the power sweep type.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Center power level in dBm
+            :return: Center power level in dBm
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13736,13 +11706,11 @@ class Source:
             """
             Set the power level of each port for the frequency sweep type.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                port (int): Port number (1-4)
-                power (float): Power level in dBm
+            :param channel: Channel number (1-16)
+            :param port: Port number (1-4)
+            :param power: Power level in dBm
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13755,12 +11723,10 @@ class Source:
             """
             Get the power level of each port for the frequency sweep type.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                port (int): Port number (1-4)
+            :param channel: Channel number (1-16)
+            :param port: Port number (1-4)
 
-            Return:
-                float: Power level in dBm
+            :return: Power level in dBm
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -13780,13 +11746,11 @@ class Source:
                 """
                 Enable or disable the power correction for the specified port.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
-                    enable (bool): True to enable, False to disable
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13798,12 +11762,10 @@ class Source:
                 """
                 Query if power correction is enabled for the specified port.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13816,12 +11778,10 @@ class Source:
                 """
                 Reads out the interpolation/extrapolation status of the port power correction.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
 
-                Return:
-                    str: Status ('NONE', 'PC', 'PC?', 'PC!')
+                :return: Status ('NONE', 'PC', 'PC?', 'PC!')
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13834,12 +11794,10 @@ class Source:
                 """
                 Measures the power calibration data for the port using the power meter.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13852,13 +11810,11 @@ class Source:
                 """
                 Sets the loss compensation table used for power calibration.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
-                    data_list (list): Array size 1+2N, [N, freq1, loss1, freq2, loss2, ...]
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
+                :param data_list: Array size 1+2N, [N, freq1, loss1, freq2, loss2, ...]
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13871,12 +11827,10 @@ class Source:
                 """
                 Gets the loss compensation table used for power calibration.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
 
-                Return:
-                    list: Array size 1+2N, [N, freq1, loss1, freq2, loss2, ...]
+                :return: Array size 1+2N, [N, freq1, loss1, freq2, loss2, ...]
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13892,13 +11846,11 @@ class Source:
                 """
                 Turns the state of the loss compensation used for power calibration ON/OFF.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                                port (int): Port number (1-4)
-                                enable (bool): True to enable, False to disable
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13910,12 +11862,10 @@ class Source:
                 """
                 Query if loss compensation is enabled for power calibration.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13929,13 +11879,11 @@ class Source:
                 """
                 Turns the state of the loss compensation used for power calibration ON/OFF.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
-                    enable (bool): True to enable, False to disable
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
+                :param enable: True to enable, False to disable
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13947,12 +11895,10 @@ class Source:
                 """
                 Query if loss compensation is enabled for power calibration.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
 
-                Return:
-                    bool: True if enabled, False otherwise
+                :return: True if enabled, False otherwise
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13965,13 +11911,11 @@ class Source:
                 """
                 Sets the loss compensation table used for power calibration.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
-                    data_list (list): Array size 1+2N, [N, freq1, loss1, freq2, loss2, ...]
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
+                :param data_list: Array size 1+2N, [N, freq1, loss1, freq2, loss2, ...]
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -13984,12 +11928,10 @@ class Source:
                 """
                 Gets the loss compensation table used for power calibration.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
 
-                Return:
-                    list: Array size 1+2N, [N, freq1, loss1, freq2, loss2, ...]
+                :return: Array size 1+2N, [N, freq1, loss1, freq2, loss2, ...]
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -14005,13 +11947,11 @@ class Source:
                 """
                 Sets the power correction array for the port.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
-                    data_list (list): Correction values (array size NOP)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
+                :param data_list: Correction values (array size NOP)
 
-                Return:
-                    None
+                
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -14024,12 +11964,10 @@ class Source:
                 """
                 Gets the power correction array for the port.
 
-                Parameter:
-                    channel (int): Channel number (1-16)
-                    port (int): Port number (1-4)
+                :param channel: Channel number (1-16)
+                :param port: Port number (1-4)
 
-                Return:
-                    list: Correction values (array size NOP)
+                :return: Correction values (array size NOP)
                 """
                 if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -14045,12 +11983,10 @@ class Source:
             """
             Turns the port power couple ON/OFF.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                enable (bool): True to enable, False to disable
+            :param channel: Channel number (1-16)
+            :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14060,11 +11996,9 @@ class Source:
             """
             Query if port power couple is enabled.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14075,12 +12009,10 @@ class Source:
             """
             Sets the power slope value for the frequency sweep type.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                value (float): Power slope value (-2 to +2 dB/GHz)
+            :param channel: Channel number (1-16)
+            :param value: Power slope value (-2 to +2 dB/GHz)
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14091,11 +12023,9 @@ class Source:
             """
             Gets the power slope value for the frequency sweep type.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Power slope value (-2 to +2 dB/GHz)
+            :return: Power slope value (-2 to +2 dB/GHz)
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14106,12 +12036,10 @@ class Source:
             """
             Turns the power slope ON/OFF.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                enable (bool): True to enable, False to disable
+            :param channel: Channel number (1-16)
+            :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14121,11 +12049,9 @@ class Source:
             """
             Query if power slope is enabled.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14136,12 +12062,10 @@ class Source:
             """
             Sets the power span when the power sweep type is active.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                value (float): Power sweep span value (0 to analyzer max)
+            :param channel: Channel number (1-16)
+            :param value: Power sweep span value (0 to analyzer max)
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14151,11 +12075,9 @@ class Source:
             """
             Gets the power span when the power sweep type is active.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Power sweep span value
+            :return: Power sweep span value
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14166,12 +12088,10 @@ class Source:
             """
             Sets the power sweep start value when the power sweep type is active.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                value (float): Power sweep start value (within analyzer limits)
+            :param channel: Channel number (1-16)
+            :param value: Power sweep start value (within analyzer limits)
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14182,11 +12102,9 @@ class Source:
             """
             Gets the power sweep start value when the power sweep type is active.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Power sweep start value
+            :return: Power sweep start value
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14197,12 +12115,10 @@ class Source:
             """
             Sets the power sweep stop value when the power sweep type is active.
 
-            Parameter:
-                channel (int): Channel number (1-16)
-                value (float): Power sweep stop value (within analyzer limits)
+            :param channel: Channel number (1-16)
+            :param value: Power sweep stop value (within analyzer limits)
 
-            Return:
-                None
+
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14213,11 +12129,9 @@ class Source:
             """
             Gets the power sweep stop value when the power sweep type is active.
 
-            Parameter:
-                channel (int): Channel number (1-16)
+            :param channel: Channel number (1-16)
 
-            Return:
-                float: Power sweep stop value
+            :return: Power sweep stop value
             """
             if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14238,11 +12152,9 @@ class Status:
         """
         Reads out the value of the Operation Status Event Register.
 
-        Parameter:
-            None
+        
 
-        Return:
-            int: Operation Status Event Register value
+        :return: Operation Status Event Register value
         """
         return int(self.instrument.query(":STAT:OPER?"))
     class Operation:
@@ -14257,11 +12169,9 @@ class Status:
             """
             Reads out the value of the Operation Status Event Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Operation Status Event Register value
+            :return: Operation Status Event Register value
             """
             return int(self.instrument.query(":STAT:OPER:EVEN?"))
 
@@ -14270,11 +12180,9 @@ class Status:
             """
             Reads out the value of the Operation Status Condition Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Operation Status Condition Register value
+            :return: Operation Status Condition Register value
             """
             return int(self.instrument.query(":STAT:OPER:COND?"))
 
@@ -14283,11 +12191,9 @@ class Status:
             """
             Sets the value of the Operation Status Enable Register.
 
-            Parameter:
-                value (int): Value from 0 to 65535
+            :param value: Value from 0 to 65535
 
-            Return:
-                None
+
             """
             value = max(0, min(65535, value))
             self.instrument.write(f":STAT:OPER:ENAB {value}")
@@ -14297,11 +12203,9 @@ class Status:
             """
             Reads out the value of the Operation Status Enable Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Operation Status Enable Register value
+            :return: Operation Status Enable Register value
             """
             return int(self.instrument.query(":STAT:OPER:ENAB?"))
 
@@ -14310,11 +12214,9 @@ class Status:
             """
             Sets the value of the Negative transition filter of the Operation Status Register.
 
-            Parameter:
-                value (int): Value from 0 to 65535
+            :param value: Value from 0 to 65535
 
-            Return:
-                None
+
             """
             value = max(0, min(65535, value))
             self.instrument.write(f":STAT:OPER:NTR {value}")
@@ -14324,11 +12226,9 @@ class Status:
             """
             Reads out the value of the Negative transition filter of the Operation Status Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Negative transition filter value
+            :return: Negative transition filter value
             """
             return int(self.instrument.query(":STAT:OPER:NTR?"))
 
@@ -14337,11 +12237,9 @@ class Status:
             """
             Sets the value of the Positive transition filter of the Operation Status Register.
 
-            Parameter:
-                value (int): Value from 0 to 65535
+            :param value: Value from 0 to 65535
 
-            Return:
-                None
+
             """
             value = max(0, min(65535, value))
             self.instrument.write(f":STAT:OPER:PTR {value}")
@@ -14351,11 +12249,9 @@ class Status:
             """
             Reads out the value of the Positive transition filter of the Operation Status Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Positive transition filter value
+            :return: Positive transition filter value
             """
             return int(self.instrument.query(":STAT:OPER:PTR?"))
 
@@ -14366,11 +12262,9 @@ class Status:
         """
         Resets all the status registers to the factory settings.
 
-        Parameter:
-            None
+        
 
-        Return:
-            None
+
         """
         self.instrument.write(":STAT:PRES")
 
@@ -14388,11 +12282,9 @@ class Status:
             """
             Sets the value of the Positive transition filter of the Questionable Status Register.
 
-            Parameter:
-            value (int): Value from 0 to 65535
+            :param value: Value from 0 to 65535
 
-            Return:
-            None
+    
             """
             value = max(0, min(65535, value))
             self.instrument.write(f":STAT:QUES:PTR {value}")
@@ -14401,12 +12293,8 @@ class Status:
         def get_positive_transition(self) -> int:
             """
             Reads out the value of the Positive transition filter of the Questionable Status Register.
-
-            Parameter:
-            None
-
-            Return:
-            int: Positive transition filter value
+            
+            :return: Positive transition filter value
             """
             return int(self.instrument.query(":STAT:QUES:PTR?"))
         # STATus:QUEStionable:CONDition?
@@ -14414,11 +12302,9 @@ class Status:
             """
             Reads out the value of the Questionable Status Condition Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Questionable Status Condition Register value
+            :return: Questionable Status Condition Register value
             """
             return int(self.instrument.query(":STAT:QUES:COND?"))
 
@@ -14427,11 +12313,9 @@ class Status:
             """
             Sets the value of the Questionable Status Enable Register.
 
-            Parameter:
-                value (int): Value from 0 to 65535
+            :param value: Value from 0 to 65535
 
-            Return:
-                None
+
             """
             value = max(0, min(65535, value))
             self.instrument.write(f":STAT:QUES:ENAB {value}")
@@ -14441,11 +12325,9 @@ class Status:
             """
             Reads out the value of the Questionable Status Enable Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Questionable Status Enable Register value
+            :return: Questionable Status Enable Register value
             """
             return int(self.instrument.query(":STAT:QUES:ENAB?"))
         
@@ -14456,11 +12338,9 @@ class Status:
             """
             Sets the value of the Negative transition filter of the Questionable Status Register.
 
-            Parameter:
-                value (int): Value from 0 to 65535
+            :param value: Value from 0 to 65535
 
-            Return:
-                None
+
             """
             value = max(0, min(65535, value))
             self.instrument.write(f":STAT:QUES:NTR {value}")
@@ -14470,11 +12350,9 @@ class Status:
             """
             Reads out the value of the Negative transition filter of the Questionable Status Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Negative transition filter value
+            :return: Negative transition filter value
             """
             return int(self.instrument.query(":STAT:QUES:NTR?"))
 
@@ -14483,11 +12361,9 @@ class Status:
             """
             Sets the value of the Positive transition filter of the Questionable Status Register.
 
-            Parameter:
-                value (int): Value from 0 to 65535
+            :param value: Value from 0 to 65535
 
-            Return:
-                None
+
             """
             value = max(0, min(65535, value))
             self.instrument.write(f":STAT:QUES:PTR {value}")
@@ -14497,11 +12373,9 @@ class Status:
             """
             Reads out the value of the Positive transition filter of the Questionable Status Register.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Positive transition filter value
+            :return: Positive transition filter value
             """
             return int(self.instrument.query(":STAT:QUES:PTR?"))
 
@@ -14519,11 +12393,9 @@ class Status:
                 """
                 Reads out the value of the Questionable Limit Status Condition Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Questionable Limit Status Condition Register value
+                :return: Questionable Limit Status Condition Register value
                 """
                 return int(self.instrument.query(":STAT:QUES:LIM:COND?"))
 
@@ -14539,11 +12411,9 @@ class Status:
                     """
                     Reads out the value of the Questionable Limit Channel Status Condition Register.
 
-                    Parameter:
-                        channel (int): Channel number (1-16)
+                    :param channel: Channel number (1-16)
 
-                    Return:
-                        int: Channel Status Condition Register value
+                    :return: Channel Status Condition Register value
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14554,12 +12424,10 @@ class Status:
                     """
                     Sets the value of the Questionable Limit Channel Status Enable Register.
 
-                    Parameter:
-                        channel (int): Channel number (1-16)
-                        value (int): Value from 0 to 65535
+                    :param channel: Channel number (1-16)
+                    :param value: Value from 0 to 65535
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14571,11 +12439,9 @@ class Status:
                     """
                     Reads out the value of the Questionable Limit Channel Status Enable Register.
 
-                    Parameter:
-                        channel (int): Channel number (1-16)
+                    :param channel: Channel number (1-16)
 
-                    Return:
-                        int: Channel Status Enable Register value
+                    :return: Channel Status Enable Register value
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14586,12 +12452,10 @@ class Status:
                     """
                     Sets the value of the Negative transition filter of the Questionable Limit Channel Status Register.
 
-                    Parameter:
-                        channel (int): Channel number (1-16)
-                        value (int): Value from 0 to 65535
+                    :param channel: Channel number (1-16)
+                    :param value: Value from 0 to 65535
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14603,11 +12467,9 @@ class Status:
                     """
                     Reads out the value of the Negative transition filter of the Questionable Limit Channel Status Register.
 
-                    Parameter:
-                        channel (int): Channel number (1-16)
+                    :param channel: Channel number (1-16)
 
-                    Return:
-                        int: Negative transition filter value
+                    :return: Negative transition filter value
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14618,12 +12480,10 @@ class Status:
                     """
                     Sets the value of the Positive transition filter of the Questionable Limit Channel Status Register.
 
-                    Parameter:
-                        channel (int): Channel number (1-16)
-                        value (int): Value from 0 to 65535
+                    :param channel: Channel number (1-16)
+                    :param value: Value from 0 to 65535
 
-                    Return:
-                        None
+
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14635,11 +12495,9 @@ class Status:
                     """
                     Reads out the value of the Positive transition filter of the Questionable Limit Channel Status Register.
 
-                    Parameter:
-                        channel (int): Channel number (1-16)
+                    :param channel: Channel number (1-16)
 
-                    Return:
-                        int: Positive transition filter value
+                    :return: Positive transition filter value
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14650,11 +12508,9 @@ class Status:
                     """
                     Reads out the value of the Questionable Limit Channel Status Condition Register (Event).
 
-                    Parameter:
-                        channel (int): Channel number (1-16)
+                    :param channel: Channel number (1-16)
 
-                    Return:
-                        int: Channel Status Condition Register value (Event)
+                    :return: Channel Status Condition Register value (Event)
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14664,11 +12520,9 @@ class Status:
                 """
                 Sets the value of the Questionable Limit Status Enable Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:QUES:LIM:ENAB {value}")
@@ -14678,11 +12532,9 @@ class Status:
                 """
                 Reads out the value of the Questionable Limit Status Enable Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Questionable Limit Status Enable Register value
+                :return: Questionable Limit Status Enable Register value
                 """
                 return int(self.instrument.query(":STAT:QUES:LIM:ENAB?"))
 
@@ -14691,11 +12543,9 @@ class Status:
                 """
                 Sets the value of the Negative transition filter of the Questionable Limit Status Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:QUES:LIM:NTR {value}")
@@ -14705,11 +12555,9 @@ class Status:
                 """
                 Reads out the value of the Negative transition filter of the Questionable Limit Status Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Negative transition filter value
+                :return: Negative transition filter value
                 """
                 return int(self.instrument.query(":STAT:QUES:LIM:NTR?"))
 
@@ -14718,11 +12566,9 @@ class Status:
                 """
                 Sets the value of the Positive transition filter of the Questionable Limit Status Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:QUES:LIM:PTR {value}")
@@ -14732,11 +12578,9 @@ class Status:
                 """
                 Reads out the value of the Positive transition filter of the Questionable Limit Status Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Positive transition filter value
+                :return: Positive transition filter value
                 """
                 return int(self.instrument.query(":STAT:QUES:LIM:PTR?"))
 
@@ -14745,11 +12589,9 @@ class Status:
                 """
                 Reads out the value of the Questionable Limit Status Event Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Questionable Limit Status Event Register value
+                :return: Questionable Limit Status Event Register value
                 """
                 return int(self.instrument.query(":STAT:QUES:LIM:EVEN?"))
 
@@ -14758,11 +12600,9 @@ class Status:
                 """
                 Reads out the value of the Status Limit Condition Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Status Limit Condition Register value
+                :return: Status Limit Condition Register value
                 """
                 return int(self.instrument.query(":STAT:LIM:COND?"))
 
@@ -14771,11 +12611,9 @@ class Status:
                 """
                 Sets the value of the Status Limit Enable Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:LIM:ENAB {value}")
@@ -14785,11 +12623,9 @@ class Status:
                 """
                 Reads out the value of the Status Limit Enable Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Status Limit Enable Register value
+                :return: Status Limit Enable Register value
                 """
                 return int(self.instrument.query(":STAT:LIM:ENAB?"))
 
@@ -14798,11 +12634,9 @@ class Status:
                 """
                 Sets the value of the Negative transition filter of the Status Limit Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:LIM:NTR {value}")
@@ -14812,11 +12646,9 @@ class Status:
                 """
                 Reads out the value of the Negative transition filter of the Status Limit Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Negative transition filter value
+                :return: Negative transition filter value
                 """
                 return int(self.instrument.query(":STAT:LIM:NTR?"))
 
@@ -14825,11 +12657,9 @@ class Status:
                 """
                 Sets the value of the Positive transition filter of the Status Limit Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:LIM:PTR {value}")
@@ -14839,11 +12669,9 @@ class Status:
                 """
                 Reads out the value of the Positive transition filter of the Status Limit Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Positive transition filter value
+                :return: Positive transition filter value
                 """
                 return int(self.instrument.query(":STAT:LIM:PTR?"))
 
@@ -14852,11 +12680,9 @@ class Status:
                 """
                 Reads out the value of the Status Limit Event Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Status Limit Event Register value
+                :return: Status Limit Event Register value
                 """
                 return int(self.instrument.query(":STAT:LIM:EVEN?"))
 
@@ -14873,11 +12699,9 @@ class Status:
                 """
                 Reads out the value of the Questionable Ripple Limit Status Condition Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Ripple Limit Status Condition Register value
+                :return: Ripple Limit Status Condition Register value
                 """
                 return int(self.instrument.query(":STAT:QUES:RLIM:COND?"))
 
@@ -14893,11 +12717,9 @@ class Status:
                     """
                     Reads out the value of the Questionable Ripple Limit Channel Status Condition Register.
 
-                    Parameter:
-                    channel (int): Channel number (1-16)
+                    :param channel: Channel number (1-16)
 
-                    Return:
-                    int: Channel Status Condition Register value
+                    :return: Channel Status Condition Register value
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14908,12 +12730,10 @@ class Status:
                     """
                     Sets the value of the Questionable Ripple Limit Channel Status Enable Register.
 
-                    Parameter:
-                    channel (int): Channel number (1-16)
-                    value (int): Value from 0 to 65535
+                    :param channel: Channel number (1-16)
+                    :param value: Value from 0 to 65535
 
-                    Return:
-                    None
+                    
                     """
                     if not (1 <= channel <= 16):
                                     raise ValueError("channel must be 1-16")
@@ -14925,11 +12745,9 @@ class Status:
                     """
                     Reads out the value of the Questionable Ripple Limit Channel Status Enable Register.
 
-                    Parameter:
-                    channel (int): Channel number (1-16)
+                    :param channel: Channel number (1-16)
 
-                    Return:
-                    int: Channel Status Enable Register value
+                    :return: Channel Status Enable Register value
                     """
                     if not (1 <= channel <= 16):
                                         raise ValueError("channel must be 1-16")
@@ -14940,12 +12758,10 @@ class Status:
                 """
                 Sets the value of the Negative transition filter of the Questionable Ripple Limit Channel Status Register.
 
-                Parameter:
-                channel (int): Channel number (1-16)
-                value (int): Value from 0 to 65535
+                :param channel: Channel number (1-16)
+                :param value: Value from 0 to 65535
 
-                Return:
-                None
+    
                 """
                 if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14957,11 +12773,9 @@ class Status:
                 """
                 Reads out the value of the Negative transition filter of the Questionable Ripple Limit Channel Status Register.
 
-                Parameter:
-                channel (int): Channel number (1-16)
+                :param channel: Channel number (1-16)
 
-                Return:
-                int: Negative transition filter value
+                :return: Negative transition filter value
                 """
                 if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14972,12 +12786,10 @@ class Status:
                 """
                 Sets the value of the Positive transition filter of the Questionable Ripple Limit Channel Status Register.
 
-                Parameter:
-                channel (int): Channel number (1-16)
-                value (int): Value from 0 to 65535
+                :param channel: Channel number (1-16)
+                :param value: Value from 0 to 65535
 
-                Return:
-                None
+    
                 """
                 if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -14989,11 +12801,9 @@ class Status:
                 """
                 Reads out the value of the Positive transition filter of the Questionable Ripple Limit Channel Status Register.
 
-                Parameter:
-                channel (int): Channel number (1-16)
+                :param channel: Channel number (1-16)
 
-                Return:
-                int: Positive transition filter value
+                :return: Positive transition filter value
                 """
                 if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -15004,11 +12814,9 @@ class Status:
                 """
                 Reads out the value of the Questionable Ripple Limit Channel Status Event Register.
 
-                Parameter:
-                channel (int): Channel number (1-16)
+                :param channel: Channel number (1-16)
 
-                Return:
-                int: Channel Status Event Register value
+                :return: Channel Status Event Register value
                 """
                 if not (1 <= channel <= 16):
                         raise ValueError("channel must be 1-16")
@@ -15019,11 +12827,9 @@ class Status:
                 """
                 Sets the value of the Questionable Ripple Limit Status Enable Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:QUES:RLIM:ENAB {value}")
@@ -15033,11 +12839,9 @@ class Status:
                 """
                 Reads out the value of the Questionable Ripple Limit Status Enable Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Ripple Limit Status Enable Register value
+                :return: Ripple Limit Status Enable Register value
                 """
                 return int(self.instrument.query(":STAT:QUES:RLIM:ENAB?"))
 
@@ -15046,11 +12850,9 @@ class Status:
                 """
                 Sets the value of the Negative transition filter of the Questionable Ripple Limit Status Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:QUES:RLIM:NTR {value}")
@@ -15060,11 +12862,9 @@ class Status:
                 """
                 Reads out the value of the Negative transition filter of the Questionable Ripple Limit Status Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Negative transition filter value
+                :return: Negative transition filter value
                 """
                 return int(self.instrument.query(":STAT:QUES:RLIM:NTR?"))
 
@@ -15073,11 +12873,9 @@ class Status:
                 """
                 Sets the value of the Positive transition filter of the Questionable Ripple Limit Status Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:QUES:RLIM:PTR {value}")
@@ -15087,11 +12885,9 @@ class Status:
                 """
                 Reads out the value of the Positive transition filter of the Questionable Ripple Limit Status Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Positive transition filter value
+                :return: Positive transition filter value
                 """
                 return int(self.instrument.query(":STAT:QUES:RLIM:PTR?"))
 
@@ -15100,11 +12896,9 @@ class Status:
                 """
                 Reads out the value of the Questionable Ripple Limit Status Event Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Ripple Limit Status Event Register value
+                :return: Ripple Limit Status Event Register value
                 """
                 return int(self.instrument.query(":STAT:QUES:RLIM:EVEN?"))
             # STATus:RLIMit:CONDition?
@@ -15112,11 +12906,9 @@ class Status:
                 """
                 Reads out the value of the Status Ripple Limit Condition Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Ripple Limit Condition Register value
+                :return: Ripple Limit Condition Register value
                 """
                 return int(self.instrument.query(":STAT:RLIM:COND?"))
 
@@ -15125,11 +12917,9 @@ class Status:
                 """
                 Sets the value of the Status Ripple Limit Enable Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:RLIM:ENAB {value}")
@@ -15139,11 +12929,9 @@ class Status:
                 """
                 Reads out the value of the Status Ripple Limit Enable Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Ripple Limit Enable Register value
+                :return: Ripple Limit Enable Register value
                 """
                 return int(self.instrument.query(":STAT:RLIM:ENAB?"))
 
@@ -15152,11 +12940,9 @@ class Status:
                 """
                 Sets the value of the Negative transition filter of the Status Ripple Limit Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:RLIM:NTR {value}")
@@ -15166,11 +12952,9 @@ class Status:
                 """
                 Reads out the value of the Negative transition filter of the Status Ripple Limit Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Negative transition filter value
+                :return: Negative transition filter value
                 """
                 return int(self.instrument.query(":STAT:RLIM:NTR?"))
 
@@ -15179,11 +12963,9 @@ class Status:
                 """
                 Sets the value of the Positive transition filter of the Status Ripple Limit Register.
 
-                Parameter:
-                    value (int): Value from 0 to 65535
+                :param value: Value from 0 to 65535
 
-                Return:
-                    None
+                
                 """
                 value = max(0, min(65535, value))
                 self.instrument.write(f":STAT:RLIM:PTR {value}")
@@ -15193,11 +12975,9 @@ class Status:
                 """
                 Reads out the value of the Positive transition filter of the Status Ripple Limit Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Positive transition filter value
+                :return: Positive transition filter value
                 """
                 return int(self.instrument.query(":STAT:RLIM:PTR?"))
 
@@ -15206,11 +12986,9 @@ class Status:
                 """
                 Reads out the value of the Status Ripple Limit Event Register.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    int: Ripple Limit Event Register value
+                :return: Ripple Limit Event Register value
                 """
                 return int(self.instrument.query(":STAT:RLIM:EVEN?"))
 
@@ -15239,11 +13017,9 @@ class System:
         """
         Reads out the next error in the error queue.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Error string
+        :return: Error string
         """
         return self.instrument.query(":SYST:ERR?").strip()
 
@@ -15252,11 +13028,9 @@ class System:
         """
         Reads out the version of the instrument firmware.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Firmware version
+        :return: Firmware version
         """
         return self.instrument.query(":SYST:VERS?").strip()
 
@@ -15265,11 +13039,9 @@ class System:
         """
         Reads out the current date from the instrument.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Date string
+        :return: Date string
         """
         return self.instrument.query(":SYST:DATE?").strip()
 
@@ -15278,11 +13050,9 @@ class System:
         """
         Reads out the current time from the instrument.
 
-        Parameter:
-        None
+        
 
-        Return:
-        str: Time string
+        :return: Time string
         """
         return self.instrument.query(":SYST:TIME?").strip()
 
@@ -15291,11 +13061,9 @@ class System:
         """
         Resets the instrument to its preset state.
 
-        Parameter:
-        None
+        
 
-        Return:
-        None
+
         """
         self.instrument.write(":SYST:PRESet")
 
@@ -15311,11 +13079,9 @@ class System:
             """
             Sets the display brightness.
 
-            Parameter:
-                value (int): Brightness value (0-100)
+            :param value: Brightness value (0-100)
 
-            Return:
-                None
+
             """
             value = max(0, min(100, value))
             self.instrument.write(f":SYST:DISP:BRIG {value}")
@@ -15325,11 +13091,9 @@ class System:
             """
             Reads out the display brightness.
 
-            Parameter:
-                None
+            
 
-            Return:
-                int: Brightness value (0-100)
+            :return: Brightness value (0-100)
             """
             return int(self.instrument.query(":SYST:DISP:BRIG?"))
 
@@ -15345,11 +13109,9 @@ class System:
             """
             Sets the system date.
 
-            Parameter:
-                date_str (str): Date string in format 'YYYY-MM-DD'
+            :param date_str: Date string in format 'YYYY-MM-DD'
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SYST:DATE \"{date_str}\"")
 
@@ -15358,11 +13120,9 @@ class System:
             """
             Sets the system time.
 
-            Parameter:
-                time_str (str): Time string in format 'HH:MM:SS'
+            :param time_str: Time string in format 'HH:MM:SS'
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SYST:TIME \"{time_str}\"")
     class Beeper:
@@ -15377,11 +13137,9 @@ class System:
             """
             Generates a beep to notify of the completion of the operation.
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(":SYST:BEEP:COMP:IMM")
 
@@ -15390,11 +13148,9 @@ class System:
             """
             Turns the beeper denoting completion of the operation ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SYST:BEEP:COMP:STAT {1 if enable else 0}")
 
@@ -15403,11 +13159,9 @@ class System:
             """
             Query if the beeper denoting completion of the operation is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":SYST:BEEP:COMP:STAT?")))
 
@@ -15416,11 +13170,9 @@ class System:
             """
             Generates a beep to signify a warning.
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(":SYST:BEEP:WARN:IMM")
 
@@ -15429,11 +13181,9 @@ class System:
             """
             Turns the beeper signifying a warning ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SYST:BEEP:WARN:STAT {1 if enable else 0}")
 
@@ -15442,11 +13192,9 @@ class System:
             """
             Query if the beeper signifying a warning is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":SYST:BEEP:WARN:STAT?")))
 
@@ -15462,11 +13210,9 @@ class System:
             """
             Reads out the upper limit of the IFBW.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Upper limit of IFBW in Hz
+            :return: Upper limit of IFBW in Hz
             """
             return float(self.instrument.query(":SYST:CAP:IFBW:MAX?"))
 
@@ -15475,11 +13221,9 @@ class System:
             """
             Reads out the lower limit of the IFBW.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Lower limit of IFBW in Hz
+            :return: Lower limit of IFBW in Hz
             """
             return float(self.instrument.query(":SYST:CAP:IFBW:MIN?"))
         # SYSTem:CAPability:CURRent:CONSumption?
@@ -15487,11 +13231,9 @@ class System:
             """
             Returns whether or not the Analyzer has its current consumption measurement.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if measurement exists, False otherwise
+            :return: True if measurement exists, False otherwise
             """
             return bool(int(self.instrument.query(":SYST:CAP:CURR:CONS?")))
 
@@ -15500,11 +13242,9 @@ class System:
             """
             Reads out the current consumption of the Analyzer.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Current consumption in Amperes
+            :return: Current consumption in Amperes
             """
             return float(self.instrument.query(":SYST:CURR:CONS?"))
 
@@ -15528,11 +13268,9 @@ class System:
                 """
                 Sets the CHECK state of the AutoCal module (attenuator state).
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(":SYST:COMM:ECAL:CHEC")
 
@@ -15541,13 +13279,11 @@ class System:
                 """
                 Reads out the AutoCal module characterization data.
 
-                Parameter:
-                    path (str): Port number, port pair, or check state ('A','B','C','D','AB','AC','AD','BC','BD','CD','CHECk')
-                    impedance (str): Impedance state or S-parameter
+                :param path: Port number, port pair, or check state ('A','B','C','D','AB','AC','AD','BC','BD','CD','CHECk')
+                    impedance: Impedance state or S-parameter
                     characterization (str, optional): Characterization name ('FACTory','USER1','USER2','USER3')
 
-                Return:
-                    list: S-parameter array (real/imag pairs)
+                :return: S-parameter array (real/imag pairs)
                 """
                 allowed_paths = ['A','B','C','D','AB','AC','AD','BC','BD','CD','CHECk']
                 allowed_impedances = [
@@ -15575,11 +13311,9 @@ class System:
                 """
                 Reads out the AutoCal module characterization frequency array.
 
-                Parameter:
-                    characterization (str, optional): Characterization name ('FACTory','USER1','USER2','USER3')
+                :param characterization (str, optional): Characterization name ('FACTory','USER1','USER2','USER3')
 
-                Return:
-                    list: Frequency values at each characterization point
+                :return: Frequency values at each characterization point
                 """
                 allowed_characterizations = ['FACTory','USER1','USER2','USER3']
                 if characterization and characterization not in allowed_characterizations:
@@ -15598,11 +13332,9 @@ class System:
                 """
                 Reads out the AutoCal module characterization point number.
 
-                Parameter:
-                    characterization (str, optional): Characterization name ('FACTory','USER1','USER2','USER3')
+                :param characterization (str, optional): Characterization name ('FACTory','USER1','USER2','USER3')
 
-                Return:
-                    int: Number of points (0 if characterization does not exist)
+                :return: Number of points (0 if characterization does not exist)
                 """
                 allowed_characterizations = ['FACTory','USER1','USER2','USER3']
                 if characterization and characterization not in allowed_characterizations:
@@ -15617,12 +13349,10 @@ class System:
                 """
                 Sets the impedance state of the specified port of the AutoCal module.
 
-                Parameter:
-                    port (str): Port number ('A','B','C','D')
-                    state (str): Impedance state ('OPEN','SHORt','LOAD','LOAD2','OPEN2')
+                :param port: Port number ('A','B','C','D')
+                    state: Impedance state ('OPEN','SHORt','LOAD','LOAD2','OPEN2')
 
-                Return:
-                    None
+                
                 """
                 allowed_ports = ['A','B','C','D']
                 allowed_states = ['OPEN','SHORt','LOAD','LOAD2','OPEN2']
@@ -15637,11 +13367,9 @@ class System:
                 """
                 Reads out the impedance state of the specified port of the AutoCal module.
 
-                Parameter:
-                    port (str): Port number ('A','B','C','D')
+                :param port: Port number ('A','B','C','D')
 
-                Return:
-                    str: Impedance state ('OPEN','SHOR','LOAD','THRU','LOAD2','OPEN2')
+                :return: Impedance state ('OPEN','SHOR','LOAD','THRU','LOAD2','OPEN2')
                 """
                 allowed_ports = ['A','B','C','D']
                 if port not in allowed_ports:
@@ -15652,11 +13380,9 @@ class System:
                 """
                 Reads out the readiness status of the AutoCal Module.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if the AutoCal Module is ready, False otherwise
+                :return: True if the AutoCal Module is ready, False otherwise
                 """
                 return bool(int(self.instrument.query(":SYST:COMM:ECAL:READ?")))
 
@@ -15665,11 +13391,9 @@ class System:
                 """
                 Reads out the temperature of the AutoCal module connected to the Analyzer.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Temperature in degrees Celsius
+                :return: Temperature in degrees Celsius
                 """
                 return float(self.instrument.query(":SYST:COMM:ECAL:TEMP:SENS?"))
 
@@ -15678,12 +13402,10 @@ class System:
                 """
                 Sets the THRU state between the specified 2 ports of the AutoCal module.
 
-                Parameter:
-                    port1 (int): The first port number of the AutoCal module
-                    port2 (int): The second port number of the AutoCal module
+                :param port1: The first port number of the AutoCal module
+                :param port2: The second port number of the AutoCal module
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SYST:COMM:ECAL:THRU {port1},{port2}")
 
@@ -15699,11 +13421,9 @@ class System:
                 """
                 Sets the NI568x power sensor resource name to be used in a source power calibration.
 
-                Parameter:
-                    name (str): Resource name
+                :param name: Resource name
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(f":SYST:COMM:PSEN:NI568x:RES:NAME \"{name}\"")
 
@@ -15712,11 +13432,9 @@ class System:
                 """
                 Reads out the NI568x power sensor resource name used in a source power calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Resource name
+                :return: Resource name
                 """
                 return self.instrument.query(":SYST:COMM:PSEN:RES:NAME?").strip()
 
@@ -15725,11 +13443,9 @@ class System:
                 """
                 Reads out the readiness status of the Power Sensor.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    bool: True if the Power Sensor is ready, False otherwise
+                :return: True if the Power Sensor is ready, False otherwise
                 """
                 return bool(int(self.instrument.query(":SYST:COMM:PSEN:READ?")))
 
@@ -15738,11 +13454,9 @@ class System:
                 """
                 Selects the power sensor type to be used in a source power calibration.
 
-                Parameter:
-                    sensor_type (str): Sensor type, one of ['NRPZ', 'NRPxT', 'NRVS', 'U848x', 'U20xx', 'LB59xx', 'LBxxx', 'NI568x']
+                :param sensor_type: Sensor type, one of ['NRPZ', 'NRPxT', 'NRVS', 'U848x', 'U20xx', 'LB59xx', 'LBxxx', 'NI568x']
 
-                Return:
-                    None
+                
                 """
                 allowed = ['NRPZ', 'NRPxT', 'NRVS', 'U848x', 'U20xx', 'LB59xx', 'LBxxx', 'NI568x']
                 if sensor_type not in allowed:
@@ -15754,11 +13468,9 @@ class System:
                 """
                 Reads out the power sensor type used in a source power calibration.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: Sensor type
+                :return: Sensor type
                 """
                 return self.instrument.query(":SYST:COMM:PSEN:TYPE?").strip()
 
@@ -15767,11 +13479,9 @@ class System:
                 """
                 Executes the zeroing procedure of the power sensor.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(":SYST:COMM:PSEN:ZERO")
 
@@ -15787,11 +13497,9 @@ class System:
             """
             Connects the current program instance to the analyzer with specified serial number.
 
-            Parameter:
-                serial (str): Serial number of 8 digits, or '0' for auto-detect
+            :param serial: Serial number of 8 digits, or '0' for auto-detect
 
-            Return:
-                None
+
             """
             if serial != "0" and (not serial.isdigit() or len(serial) != 8):
                 raise ValueError("serial must be 8 digits or '0'")
@@ -15802,11 +13510,9 @@ class System:
             """
             Returns the serial number of the connected analyzer.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: Serial number of 8 digits, or '0'
+            :return: Serial number of 8 digits, or '0'
             """
             return self.instrument.query(":SYST:CONN:SER:NUMB?").strip()
 
@@ -15822,11 +13528,9 @@ class System:
             """
             Turns the system correction ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SYST:CORR:STAT {1 if enable else 0}")
 
@@ -15835,11 +13539,9 @@ class System:
             """
             Query if system correction is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":SYST:CORR:STAT?")))
         
@@ -15862,11 +13564,9 @@ class System:
                 """
                 Reads out the measured cycle time (interval between sweeps).
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    float: Measured cycle time in seconds
+                :return: Measured cycle time in seconds
                 """
                 return float(self.instrument.query(":SYST:CYC:TIME:MEAS?"))
 
@@ -15875,11 +13575,9 @@ class System:
                 """
                 Selects the cycle time measurement method.
 
-                Parameter:
-                    method (str): 'AVERaging' or 'MAXHold'
+                :param method: 'AVERaging' or 'MAXHold'
 
-                Return:
-                    None
+                
                 """
                 allowed = ['AVERaging', 'MAXHold']
                 if method not in allowed:
@@ -15891,11 +13589,9 @@ class System:
                 """
                 Reads out the selected cycle time measurement method.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    str: 'AVER' or 'MAXH'
+                :return: 'AVER' or 'MAXH'
                 """
                 return self.instrument.query(":SYST:CYC:TIME:METH?").strip()
 
@@ -15904,11 +13600,9 @@ class System:
                 """
                 Restarts the averaging or maximum hold of the cycle time measurement.
 
-                Parameter:
-                    None
+                
 
-                Return:
-                    None
+                
                 """
                 self.instrument.write(":SYST:CYC:TIME:REST")
 
@@ -15924,13 +13618,11 @@ class System:
             """
             Sets the current date.
 
-            Parameter:
-                year (int): Year (1900-2100)
-                month (int): Month (1-12)
-                day (int): Day (1-31)
+            :param year: Year (1900-2100)
+                month: Month (1-12)
+                day: Day (1-31)
 
-            Return:
-                None
+
             """
             if not (1900 <= year <= 2100):
                 raise ValueError("year must be between 1900 and 2100")
@@ -15945,8 +13637,7 @@ class System:
             """
             Reads out the current date.
 
-            Parameter:
-                None
+            
 
             Return:
                 tuple: (year, month, day)
@@ -15967,11 +13658,9 @@ class System:
             """
             Turns the dynamic range extension function ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SYST:DYN:RANG:EXT:STAT {1 if enable else 0}")
 
@@ -15980,11 +13669,9 @@ class System:
             """
             Query if dynamic range extension function is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":SYST:DYN:RANG:EXT?")))
     
@@ -16001,11 +13688,9 @@ class System:
             """
             Turns the direct access to the receiver function ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SYST:REC:DIR:ACC {1 if enable else 0}")
 
@@ -16014,11 +13699,9 @@ class System:
             """
             Query if direct access to the receiver function is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":SYST:REC:DIR:ACC?")))
 
@@ -16027,11 +13710,9 @@ class System:
             """
             Turns the Power Trip at Overload function ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":SYST:REC:OVER:POW {1 if enable else 0}")
 
@@ -16040,11 +13721,9 @@ class System:
             """
             Query if Power Trip at Overload function is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":SYST:REC:OVER:POW?")))
 
@@ -16052,11 +13731,9 @@ class System:
             """
             Hides the Analyzer main window, removing it from the desktop.
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(":SYST:HIDE")
 
@@ -16064,11 +13741,9 @@ class System:
             """
             Sets the Analyzer to the local operation mode, when all the keys on the front panel, mouse, and touch screen are active.
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(":SYST:LOC")
 
@@ -16076,11 +13751,9 @@ class System:
             """
             Resets the Analyzer to default settings. Differs from *RST: trigger is set to Continuous mode.
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(":SYST:PRES")
 
@@ -16088,11 +13761,9 @@ class System:
             """
             Reads out the Analyzer readiness status.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if Analyzer is ready, False otherwise
+            :return: True if Analyzer is ready, False otherwise
             """
             return bool(int(self.instrument.query(":SYST:READ?")))
 
@@ -16100,11 +13771,9 @@ class System:
             """
             Sets the Analyzer to the remote operation mode, disabling all keys except "Return to Local".
 
-            Parameter:
-                None
+            
 
-            Return:
-                None
+
             """
             self.instrument.write(":SYST:REM")
     class Time:
@@ -16119,13 +13788,11 @@ class System:
             """
             Sets the current time.
 
-            Parameter:
-                hour (int): Hours from 0 to 23
-                minute (int): Minutes from 0 to 59
-                second (int): Seconds from 0 to 59
+            :param hour: Hours from 0 to 23
+                minute: Minutes from 0 to 59
+                second: Seconds from 0 to 59
 
-            Return:
-                None
+
             """
             if not (0 <= hour <= 23):
                 raise ValueError("hour must be between 0 and 23")
@@ -16140,8 +13807,7 @@ class System:
             """
             Reads out the current time.
 
-            Parameter:
-                None
+            
 
             Return:
                 tuple: (hour, minute, second)
@@ -16165,11 +13831,9 @@ class Trigger:
         """
         Generates a trigger signal and initiates a sweep if conditions are met.
 
-        Parameter:
-            None
+        
 
-        Return:
-            None
+
         """
         self.instrument.write(":TRIG:SEQ:IMM")
 
@@ -16185,11 +13849,9 @@ class Trigger:
             """
             Turns the averaging trigger function ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":TRIG:SEQ:AVER {1 if enable else 0}")
 
@@ -16198,11 +13860,9 @@ class Trigger:
             """
             Query if averaging trigger function is enabled.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if enabled, False otherwise
+            :return: True if enabled, False otherwise
             """
             return bool(int(self.instrument.query(":TRIG:SEQ:AVER?")))
 
@@ -16218,11 +13878,9 @@ class Trigger:
             """
             Sets the response delay to the external trigger.
 
-            Parameter:
-                delay (float): Delay value from 0 to 100 sec.
+            :param delay: Delay value from 0 to 100 sec.
 
-            Return:
-                None
+
             """
             delay = max(0, min(100, delay))
             self.instrument.write(f":TRIG:SEQ:EXT:DEL {delay}")
@@ -16232,11 +13890,9 @@ class Trigger:
             """
             Reads out the response delay to the external trigger.
 
-            Parameter:
-                None
+            
 
-            Return:
-                float: Delay value in seconds
+            :return: Delay value in seconds
             """
             return float(self.instrument.query(":TRIG:SEQ:EXT:DEL?"))
 
@@ -16245,11 +13901,9 @@ class Trigger:
             """
             Sets the polarity of the external trigger.
 
-            Parameter:
-                slope (str): 'POSitive' or 'NEGative'
+            :param slope: 'POSitive' or 'NEGative'
 
-            Return:
-                None
+
             """
             allowed = ['POSitive', 'NEGative']
             if slope not in allowed:
@@ -16261,11 +13915,9 @@ class Trigger:
             """
             Reads out the polarity of the external trigger.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: 'POS' or 'NEG'
+            :return: 'POS' or 'NEG'
             """
             return self.instrument.query(":TRIG:SEQ:EXT:SLOP?").strip()
         # TRIGger[:SEQuence]:EXTernal:POSition <char>
@@ -16273,11 +13925,9 @@ class Trigger:
             """
             Sets the position of the external trigger.
 
-            Parameter:
-                position (str): 'BSAM' (Before sampling) or 'BSET' (Before frequency setup)
+            :param position: 'BSAM' (Before sampling) or 'BSET' (Before frequency setup)
 
-            Return:
-                None
+
             """
             allowed = ['BSAM', 'BSET']
             if position not in allowed:
@@ -16289,11 +13939,9 @@ class Trigger:
             """
             Reads out the position of the external trigger.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: 'BSAM' or 'BSET'
+            :return: 'BSAM' or 'BSET'
             """
             return self.instrument.query(":TRIG:SEQ:EXT:POS?").strip()
 
@@ -16309,11 +13957,9 @@ class Trigger:
             """
             Sets the trigger output function.
 
-            Parameter:
-                function (str): One of ['BSET', 'BSAM', 'ASAM', 'RTRG', 'ESWP', 'MEAS']
+            :param function: One of ['BSET', 'BSAM', 'ASAM', 'RTRG', 'ESWP', 'MEAS']
 
-            Return:
-                None
+
             """
             allowed = ['BSET', 'BSAM', 'ASAM', 'RTRG', 'ESWP', 'MEAS']
             if function not in allowed:
@@ -16325,11 +13971,9 @@ class Trigger:
             """
             Reads out the trigger output function.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: Output function ('BSET', 'BSAM', 'ASAM', 'RTRG', 'ESWP', 'MEAS')
+            :return: Output function ('BSET', 'BSAM', 'ASAM', 'RTRG', 'ESWP', 'MEAS')
             """
             return self.instrument.query(":TRIG:OUTP:FUNC?").strip()
 
@@ -16338,11 +13982,9 @@ class Trigger:
             """
             Sets the polarity of the trigger output.
 
-            Parameter:
-                polarity (str): 'POSitive' or 'NEGative'
+            :param polarity: 'POSitive' or 'NEGative'
 
-            Return:
-                None
+
             """
             allowed = ['POSitive', 'NEGative']
             if polarity not in allowed:
@@ -16354,11 +13996,9 @@ class Trigger:
             """
             Reads out the polarity of the trigger output.
 
-            Parameter:
-                None
+            
 
-            Return:
-                str: 'POS' or 'NEG'
+            :return: 'POS' or 'NEG'
             """
             return self.instrument.query(":TRIG:OUTP:POL?").strip()
 
@@ -16367,11 +14007,9 @@ class Trigger:
             """
             Turns the trigger output ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":TRIG:OUTP:STAT {1 if enable else 0}")
 
@@ -16380,11 +14018,9 @@ class Trigger:
             """
             Query if the trigger output is ON/OFF.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if ON, False if OFF
+            :return: True if ON, False if OFF
             """
             return bool(int(self.instrument.query(":TRIG:OUTP:STAT?")))
 
@@ -16400,11 +14036,9 @@ class Trigger:
             """
             Turns the point trigger feature ON/OFF.
 
-            Parameter:
-                enable (bool): True to enable, False to disable
+          :param enable: True to enable, False to disable
 
-            Return:
-                None
+
             """
             self.instrument.write(f":TRIG:SEQ:POIN {1 if enable else 0}")
 
@@ -16413,11 +14047,9 @@ class Trigger:
             """
             Query if the point trigger feature is ON/OFF.
 
-            Parameter:
-                None
+            
 
-            Return:
-                bool: True if ON, False if OFF
+            :return: True if ON, False if OFF
             """
             return bool(int(self.instrument.query(":TRIG:SEQ:POIN?")))
     # TRIGger[:SEQuence]:SINGle
@@ -16425,11 +14057,9 @@ class Trigger:
         """
         Generates a trigger signal and initiates a sweep if the trigger source is set to BUS and analyzer is in trigger waiting state.
 
-        Parameter:
-            None
+        
 
-        Return:
-            None
+
         """
         self.instrument.write(":TRIG:SEQ:SING")
 
@@ -16438,11 +14068,9 @@ class Trigger:
         """
         Sets the trigger scope.
 
-        Parameter:
-            scope (str): 'ALL' or 'ACTive'
+        :param scope: 'ALL' or 'ACTive'
 
-        Return:
-            None
+
         """
         allowed = ['ALL', 'ACTive']
         if scope not in allowed:
@@ -16454,11 +14082,9 @@ class Trigger:
         """
         Reads out the trigger scope.
 
-        Parameter:
-            None
+        
 
-        Return:
-            str: 'ALL' or 'ACT'
+        :return: 'ALL' or 'ACT'
         """
         return self.instrument.query(":TRIG:SEQ:SCOP?").strip()
 
@@ -16467,11 +14093,9 @@ class Trigger:
         """
         Selects the trigger source.
 
-        Parameter:
-            source (str): 'INT', 'EXT', 'MAN', or 'BUS'
+        :param source: 'INT', 'EXT', 'MAN', or 'BUS'
 
-        Return:
-            None
+
         """
         allowed = ['INT', 'EXT', 'MAN', 'BUS']
         if source not in allowed:
@@ -16483,11 +14107,9 @@ class Trigger:
         """
         Reads out the trigger source.
 
-        Parameter:
-            None
+        
 
-        Return:
-            str: 'INT', 'EXT', 'MAN', or 'BUS'
+        :return: 'INT', 'EXT', 'MAN', or 'BUS'
         """
         return self.instrument.query(":TRIG:SEQ:SOUR?").strip()
 
@@ -16496,11 +14118,9 @@ class Trigger:
         """
         Reads out the current state of the Analyzer trigger system.
 
-        Parameter:
-            None
+        
 
-        Return:
-            str: 'HOLD', 'MEAS', 'WAIT'
+        :return: 'HOLD', 'MEAS', 'WAIT'
         """
         return self.instrument.query(":TRIG:SEQ:STAT?").strip()
 
@@ -16509,11 +14129,9 @@ class Trigger:
         """
         Delays execution until the specified state of the analyzer trigger system is reached.
 
-        Parameter:
-            state (str): 'HOLD', 'MEASure', 'WTRG', or 'ENDM'
+        :param state: 'HOLD', 'MEASure', 'WTRG', or 'ENDM'
 
-        Return:
-            None
+
         """
         allowed = ['HOLD', 'MEASure', 'WTRG', 'ENDM']
         if state not in allowed:

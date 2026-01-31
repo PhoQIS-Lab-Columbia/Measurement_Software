@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.spectrum_analyzer_signal_hound.Record Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.spectrum_analyzer_signal_hound.Record Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -40,6 +40,642 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.spectrum_analyzer_signal_hound.</span></span><span class="sig-name descname"><span class="pre">Record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Record commands control the Sweep Recording control panel in Swept Analysis mode.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Record_Sweep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Record_Sweep_Channelizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.get_center">
+<span class="sig-name descname"><span class="pre">get_center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.get_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.get_center" title="Link to this definition">¶</a></dt>
+<dd><p>Query the center frequency of the channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The center frequency (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.get_spacing">
+<span class="sig-name descname"><span class="pre">get_spacing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.get_spacing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.get_spacing" title="Link to this definition">¶</a></dt>
+<dd><p>Query the channel width.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The channel spacing (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.get_units">
+<span class="sig-name descname"><span class="pre">get_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.get_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.get_units" title="Link to this definition">¶</a></dt>
+<dd><p>Query the output units of the channel power measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The output units.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.is_enabled">
+<span class="sig-name descname"><span class="pre">is_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.is_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.is_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if channelizer decimation is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if channelizer is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.set_center">
+<span class="sig-name descname"><span class="pre">set_center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.set_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.set_center" title="Link to this definition">¶</a></dt>
+<dd><p>Specifies the center frequency of the channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> – Center frequency (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.set_spacing">
+<span class="sig-name descname"><span class="pre">set_spacing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.set_spacing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.set_spacing" title="Link to this definition">¶</a></dt>
+<dd><p>Specifies the channel width.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> – Channel spacing (Hz).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.set_state">
+<span class="sig-name descname"><span class="pre">set_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.set_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.set_state" title="Link to this definition">¶</a></dt>
+<dd><p>Toggles decimation in frequency with the channelizer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to enable/disable channelizer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.set_units">
+<span class="sig-name descname"><span class="pre">set_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">units</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Channelizer.set_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Channelizer.set_units" title="Link to this definition">¶</a></dt>
+<dd><p>Selects the output units of the channel power measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>units</strong> – ‘DBM’ or ‘DBMHZ’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Record_Sweep_Decimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.get_count">
+<span class="sig-name descname"><span class="pre">get_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.get_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.get_count" title="Link to this definition">¶</a></dt>
+<dd><p>Queries the decimation count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The decimation count.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.get_detector">
+<span class="sig-name descname"><span class="pre">get_detector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.get_detector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.get_detector" title="Link to this definition">¶</a></dt>
+<dd><p>Queries the decimation detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The decimation detector.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.get_time">
+<span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.get_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.get_time" title="Link to this definition">¶</a></dt>
+<dd><p>Queries the decimation time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The decimation time.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.get_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.get_type" title="Link to this definition">¶</a></dt>
+<dd><p>Queries the current decimation type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current decimation type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.set_count">
+<span class="sig-name descname"><span class="pre">set_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.set_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.set_count" title="Link to this definition">¶</a></dt>
+<dd><p>Specifies the number of sweeps by which to decimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Number of sweeps by which to decimate.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.set_detector">
+<span class="sig-name descname"><span class="pre">set_detector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">det</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.set_detector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.set_detector" title="Link to this definition">¶</a></dt>
+<dd><p>Selects the decimation detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>det</strong> – ‘AVERAGE’ or ‘MAX’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.set_time">
+<span class="sig-name descname"><span class="pre">set_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.set_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.set_time" title="Link to this definition">¶</a></dt>
+<dd><p>Specifies the amount of time by which to decimate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Decimation time.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.set_type">
+<span class="sig-name descname"><span class="pre">set_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_Decimate.set_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_Decimate.set_type" title="Link to this definition">¶</a></dt>
+<dd><p>Selects the decimation type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>typ</strong> – ‘TIME’ or ‘COUNT’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Record_Sweep_ZeroSpan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The ZeroSpan commands control the receiver configuration in zero-span mode.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Capture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_center">
+<span class="sig-name descname"><span class="pre">get_center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_center" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current center frequency for the capture.
+Returned as Hz. By passing the MIN or MAX arguments, the user can query the upper and lower frequency limits for a capture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bound</strong> – ‘MIN’ or ‘MAX’ to query frequency limits, or None for current center.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The center frequency in Hz, or the min/max limit.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_center_step">
+<span class="sig-name descname"><span class="pre">get_center_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_center_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_center_step" title="Link to this definition">¶</a></dt>
+<dd><p>Query the center frequency step size in Hz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The center frequency step size in Hz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_ifbwidth">
+<span class="sig-name descname"><span class="pre">get_ifbwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_ifbwidth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_ifbwidth" title="Link to this definition">¶</a></dt>
+<dd><p>Query the IF bandwidth for the capture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The IF bandwidth in Hz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_rlevel">
+<span class="sig-name descname"><span class="pre">get_rlevel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_rlevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_rlevel" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current reference level for the capture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current reference level as dBm.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_srate">
+<span class="sig-name descname"><span class="pre">get_srate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_srate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_srate" title="Link to this definition">¶</a></dt>
+<dd><p>Query the sample rate of the capture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The sample rate in Hz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_sweep_time">
+<span class="sig-name descname"><span class="pre">get_sweep_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_sweep_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.get_sweep_time" title="Link to this definition">¶</a></dt>
+<dd><p>Query the overall acquisition length of the capture in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The sweep time in seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.is_ifbwidth_auto">
+<span class="sig-name descname"><span class="pre">is_ifbwidth_auto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.is_ifbwidth_auto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.is_ifbwidth_auto" title="Link to this definition">¶</a></dt>
+<dd><p>Query if automatic IF bandwidth selection is enabled for the capture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if auto IF bandwidth is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_center">
+<span class="sig-name descname"><span class="pre">set_center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_center" title="Link to this definition">¶</a></dt>
+<dd><p>Set the measurement center frequency for the capture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> – Center frequency in Hz, or ‘UP’, or ‘DOWN’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_center_step">
+<span class="sig-name descname"><span class="pre">set_center_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_center_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_center_step" title="Link to this definition">¶</a></dt>
+<dd><p>Set the step amount the center frequency changes by when using the UP or DOWN parameters on the CENTer command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> – Step amount for center frequency changes in Hz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_ifbwidth">
+<span class="sig-name descname"><span class="pre">set_ifbwidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_ifbwidth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_ifbwidth" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the IF bandwidth for the capture. Only active when AUTO is set to false.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> – IF bandwidth in Hz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_ifbwidth_auto">
+<span class="sig-name descname"><span class="pre">set_ifbwidth_auto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_ifbwidth_auto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_ifbwidth_auto" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable automatic IF bandwidth selection for the capture.
+When enabled, the Spike software will automatically choose an appropriate IF bandwidth for the measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to enable/disable auto IF bandwidth.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_rlevel">
+<span class="sig-name descname"><span class="pre">set_rlevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amplitude</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_rlevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_rlevel" title="Link to this definition">¶</a></dt>
+<dd><p>Set the reference level for the capture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>amplitude</strong> – Reference level in dBm.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_srate">
+<span class="sig-name descname"><span class="pre">set_srate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_srate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_srate" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the sample rate of the capture. This determines how much decimation will be applied to the full signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>freq</strong> – Sample rate in Hz.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_sweep_time">
+<span class="sig-name descname"><span class="pre">set_sweep_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_sweep_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.Capture.set_sweep_time" title="Link to this definition">¶</a></dt>
+<dd><p>Set the overall acquisition length of the capture in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Sweep time in seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.Record_Sweep_ZeroSpan.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.Record_Sweep_ZeroSpan.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_count">
+<span class="sig-name descname"><span class="pre">get_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.get_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_count" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the integer number of sweeps saved so far.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The number of sweeps saved so far.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_directory">
+<span class="sig-name descname"><span class="pre">get_directory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.get_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_directory" title="Link to this definition">¶</a></dt>
+<dd><p>Queries the directory in which recordings are saved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The directory path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_file_prefix">
+<span class="sig-name descname"><span class="pre">get_file_prefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.get_file_prefix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_file_prefix" title="Link to this definition">¶</a></dt>
+<dd><p>Queries the file prefix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The file prefix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_file_size">
+<span class="sig-name descname"><span class="pre">get_file_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.get_file_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_file_size" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the size of the file in bytes as a floating point number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The size of the file in bytes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_progress">
+<span class="sig-name descname"><span class="pre">get_progress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.get_progress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.get_progress" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the progress of the current decimation in time as a floating
+point percentage between 0 and 100.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The progress of the current decimation in percent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.is_recording">
+<span class="sig-name descname"><span class="pre">is_recording</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.is_recording"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.is_recording" title="Link to this definition">¶</a></dt>
+<dd><p>Returns true if actively recording.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if actively recording, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.set_directory">
+<span class="sig-name descname"><span class="pre">set_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.set_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.set_directory" title="Link to this definition">¶</a></dt>
+<dd><p>Specifies the directory in which to save recordings. If the
+specified directory does not exist, then no change is made.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>directory</strong> – Directory path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.set_file_prefix">
+<span class="sig-name descname"><span class="pre">set_file_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.set_file_prefix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.set_file_prefix" title="Link to this definition">¶</a></dt>
+<dd><p>Specifies the file prefix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prefix</strong> – File prefix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.start" title="Link to this definition">¶</a></dt>
+<dd><p>Start recording.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Sweep.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Sweep.stop" title="Link to this definition">¶</a></dt>
+<dd><p>Stop recording.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Record_Trigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ZS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The ZS commands control the trigger configuration in zero-span mode.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.ZS_Fetch">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ZS_Fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.ZS_Fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.ZS_Fetch" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The Fetch commands are used to retrieve measurement results in zero-span mode.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.ZS_Fetch.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.ZS_Fetch.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.ZS_Fetch.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.ZS_Fetch.get_zs">
+<span class="sig-name descname"><span class="pre">get_zs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.ZS_Fetch.get_zs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.ZS_Fetch.get_zs" title="Link to this definition">¶</a></dt>
+<dd><p>Fetch I/Q data and other measurement parameters. The integer parameter
+specifies which to retrieve.
+1. I/Q data in ASCII or binary format (see “I/Q Data” section above)
+2. Length of I/Q data. This is the number of complex I/Q data points (eg. (I1, Q1) is a
+single point).
+10. Average power as reported on the AM vs Time plot. Returned as dBm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>param</strong> – 1 for I/Q data, 2 for length, 10 for average power.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>I/Q data (str), length (int), or average power (float).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.get_if_level">
+<span class="sig-name descname"><span class="pre">get_if_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.get_if_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.get_if_level" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trigger level of the IF trigger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trigger level of the IF trigger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.get_position">
+<span class="sig-name descname"><span class="pre">get_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.get_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.get_position" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trigger delay as percent of samples before trigger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trigger delay as percent of samples before trigger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.get_slope">
+<span class="sig-name descname"><span class="pre">get_slope</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.get_slope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.get_slope" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trigger edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trigger edge.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.get_source">
+<span class="sig-name descname"><span class="pre">get_source</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.get_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.get_source" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trigger type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trigger type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.set_if_level">
+<span class="sig-name descname"><span class="pre">set_if_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amplitude</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.set_if_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.set_if_level" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the trigger level of the IF trigger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>amplitude</strong> – Trigger level of the IF trigger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.set_position">
+<span class="sig-name descname"><span class="pre">set_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.set_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.set_position" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the trigger delay of the IF or ext trigger, the percentage of
+samples of the capture displayed before the trigger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Trigger delay as percent of samples before trigger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.set_slope">
+<span class="sig-name descname"><span class="pre">set_slope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slope</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.set_slope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.set_slope" title="Link to this definition">¶</a></dt>
+<dd><p>Specify rising edge (positive) or falling edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>slope</strong> – ‘POSITIVE’ or ‘NEGATIVE’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.set_source">
+<span class="sig-name descname"><span class="pre">set_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.ZS.set_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.ZS.set_source" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the trigger type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> – ‘IMMEDIATE’, ‘IF’, ‘EXTERNAL’, or ‘FMT’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.Record_Trigger.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.Record_Trigger.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Record.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Record.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Record.__init__" title="Link to this definition">¶</a></dt>

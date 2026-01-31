@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.spectrum_analyzer_signal_hound.Trace Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.spectrum_analyzer_signal_hound.Trace Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -40,6 +40,277 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Instruments.spectrum_analyzer_signal_hound.</span></span><span class="sig-name descname"><span class="pre">Trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Trace commands control the user configurable traces for sweep mode.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Trace_PNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The PNoise commands control the user configurable traces for phase noise measurements.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Clear the current average accumulation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_average_count">
+<span class="sig-name descname"><span class="pre">get_average_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.get_average_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_average_count" title="Link to this definition">¶</a></dt>
+<dd><p>Query the number of sweeps that will be averaged together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The number of traces averaged together.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_data_x">
+<span class="sig-name descname"><span class="pre">get_data_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.get_data_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_data_x" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the trace data frequencies. The number of values returned is the number of decades in the sweep times 100.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trace data frequencies as comma separated values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_data_y">
+<span class="sig-name descname"><span class="pre">get_data_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.get_data_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_data_y" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the trace data amplitudes. The number of values returned is the number of decades in the sweep times 100.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trace data amplitudes as comma separated values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_offset">
+<span class="sig-name descname"><span class="pre">get_offset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.get_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_offset" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current offset in dB applied to the trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current offset in dB applied to the trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_selected">
+<span class="sig-name descname"><span class="pre">get_selected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.get_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_selected" title="Link to this definition">¶</a></dt>
+<dd><p>Query the currently selected trace index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The currently selected trace index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_smoothing_aperture">
+<span class="sig-name descname"><span class="pre">get_smoothing_aperture</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.get_smoothing_aperture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_smoothing_aperture" title="Link to this definition">¶</a></dt>
+<dd><p>Query the trace smoothing aperture as a percentage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The smoothing aperture value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_spur_reject_threshold">
+<span class="sig-name descname"><span class="pre">get_spur_reject_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.get_spur_reject_threshold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_spur_reject_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current spur reject threshold in dB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current spur reject threshold in dB.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_type">
+<span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.get_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.get_type" title="Link to this definition">¶</a></dt>
+<dd><p>Query the current trace type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current trace type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.is_hidden">
+<span class="sig-name descname"><span class="pre">is_hidden</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.is_hidden"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.is_hidden" title="Link to this definition">¶</a></dt>
+<dd><p>Query if trace is hidden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if trace is hidden, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.is_smoothing_enabled">
+<span class="sig-name descname"><span class="pre">is_smoothing_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.is_smoothing_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.is_smoothing_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if smoothing is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if trace smoothing is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.is_spur_reject_enabled">
+<span class="sig-name descname"><span class="pre">is_spur_reject_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.is_spur_reject_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.is_spur_reject_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if trace spur rejection is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if spur reject is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.is_update_enabled">
+<span class="sig-name descname"><span class="pre">is_update_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.is_update_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.is_update_enabled" title="Link to this definition">¶</a></dt>
+<dd><p>Query if trace update is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if trace update is enabled, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.select" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the active trace index. All future operations will occur on this trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> – Trace index [1,6].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_average_count">
+<span class="sig-name descname"><span class="pre">set_average_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_average_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_average_count" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the number of sweeps that will be averaged together when trace is set to average type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>count</strong> – Number of traces to average together.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_hide_state">
+<span class="sig-name descname"><span class="pre">set_hide_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_hide_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_hide_state" title="Link to this definition">¶</a></dt>
+<dd><p>Hide or show the trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to show/hide the trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_offset">
+<span class="sig-name descname"><span class="pre">set_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_offset" title="Link to this definition">¶</a></dt>
+<dd><p>Specify an offset in dB. Immediately applies to the trace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Offset in dB to immediately apply to the trace.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_smoothing_aperture">
+<span class="sig-name descname"><span class="pre">set_smoothing_aperture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aperture</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_smoothing_aperture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_smoothing_aperture" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the trace smoothing aperture as a percentage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>aperture</strong> – Smoothing aperture value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_smoothing_state">
+<span class="sig-name descname"><span class="pre">set_smoothing_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_smoothing_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_smoothing_state" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable smoothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to enable/disable trace smoothing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_spur_reject_state">
+<span class="sig-name descname"><span class="pre">set_spur_reject_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_spur_reject_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_spur_reject_state" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable trace spur rejection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to enable/disable spur reject.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_spur_reject_threshold">
+<span class="sig-name descname"><span class="pre">set_spur_reject_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_spur_reject_threshold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_spur_reject_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the spur reject threshold in dB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Spur reject threshold in dB.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_type">
+<span class="sig-name descname"><span class="pre">set_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_type" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the trace type. AVERage:COUNt sweeps and REFerence stops the trace from updating (effectively holding the current values).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>typ</strong> – ‘OFF’, ‘NORMal’, ‘AVERage’, ‘REFerence’, ‘MINHold’, or ‘MAXHold’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_update_state">
+<span class="sig-name descname"><span class="pre">set_update_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.set_update_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.set_update_state" title="Link to this definition">¶</a></dt>
+<dd><p>Specify if the trace updates when a new sweep is acquired from the device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to enable/disable trace update.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.Trace_PNoise.to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.Trace_PNoise.to" title="Link to this definition">¶</a></dt>
+<dd><p>Move the current trace to the selected trace. The selected trace type will be set to reference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> – Trace index [1,6] to move the current trace to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.__init__" title="Link to this definition">¶</a></dt>
@@ -49,24 +320,12 @@
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.clear">
 <span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.clear" title="Link to this definition">¶</a></dt>
 <dd><p>Clear the selected trace. For example, if the current sweep is a max hold sweep and is cleared, the trace will be replaced with the next sweep from the device.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.clear_all">
 <span class="sig-name descname"><span class="pre">clear_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.clear_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.clear_all" title="Link to this definition">¶</a></dt>
 <dd><p>Clear all the traces.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -75,10 +334,9 @@
 <dd><p>Copy the currently selected trace to the trace specified by the supplied parameter.
 The supplied parameter should be between [1,6] and not equal to the currently selected trace.
 If the destination trace type is off, the trace type is set to clear and write. Update is set to off and display is set to on for the destination trace.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>dest_trace_num (int): Destination trace index [1,6], not equal to current.</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dest_trace_num</strong> – Destination trace index [1,6], not equal to current.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -87,10 +345,9 @@ If the destination trace type is off, the trace type is set to clear and write. 
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.get_average_count">
 <span class="sig-name descname"><span class="pre">get_average_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.get_average_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.get_average_count" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve the number of traces averaged together.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>int: The number of traces averaged together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The number of traces averaged together.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -99,10 +356,9 @@ If the destination trace type is off, the trace type is set to clear and write. 
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.get_average_current">
 <span class="sig-name descname"><span class="pre">get_average_current</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.get_average_current"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.get_average_current" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve the current number of traces that have been averaged together to create the final sweep.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>int: The current number of traces averaged together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current number of traces averaged together.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -111,10 +367,9 @@ If the destination trace type is off, the trace type is set to clear and write. 
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.get_data">
 <span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.get_data" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the trace data.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>str: The trace data as comma separated ascii floating point values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trace data as comma separated ascii floating point values.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -123,10 +378,9 @@ If the destination trace type is off, the trace type is set to clear and write. 
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.get_points_count">
 <span class="sig-name descname"><span class="pre">get_points_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.get_points_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.get_points_count" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of points in the trace data.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>int: Number of points in the trace data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of points in the trace data.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -135,10 +389,9 @@ If the destination trace type is off, the trace type is set to clear and write. 
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.get_selected">
 <span class="sig-name descname"><span class="pre">get_selected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.get_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.get_selected" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve the currently selected trace index.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>int: The currently selected trace index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The currently selected trace index.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -147,10 +400,9 @@ If the destination trace type is off, the trace type is set to clear and write. 
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.get_type">
 <span class="sig-name descname"><span class="pre">get_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.get_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.get_type" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve the current trace type.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>str: The current trace type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current trace type.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -160,10 +412,9 @@ If the destination trace type is off, the trace type is set to clear and write. 
 <span class="sig-name descname"><span class="pre">get_xincrement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.get_xincrement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.get_xincrement" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve the frequency step between two points in the trace data as Hz.
 Useful for calculating the frequency of each point in the trace data.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>float: Frequency step between two points in the trace data (Hz).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Frequency step between two points in the trace data (Hz).</p>
 </dd>
 </dl>
 </dd></dl>
@@ -173,10 +424,9 @@ Useful for calculating the frequency of each point in the trace data.</p>
 <span class="sig-name descname"><span class="pre">get_xstart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.get_xstart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.get_xstart" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve the frequency of the first point in the sweep as Hz.
 Useful for calculating the frequency of each point in the trace data returned from the :TRACe:DATA? command.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>float: Frequency of the first point in the sweep (Hz).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Frequency of the first point in the sweep (Hz).</p>
 </dd>
 </dl>
 </dd></dl>
@@ -185,10 +435,9 @@ Useful for calculating the frequency of each point in the trace data returned fr
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.is_displayed">
 <span class="sig-name descname"><span class="pre">is_displayed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.is_displayed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.is_displayed" title="Link to this definition">¶</a></dt>
 <dd><p>Query if trace is displayed.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>bool: True if trace is displayed, False otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if trace is displayed, False otherwise.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -197,10 +446,9 @@ Useful for calculating the frequency of each point in the trace data returned fr
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.is_update_enabled">
 <span class="sig-name descname"><span class="pre">is_update_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.is_update_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.is_update_enabled" title="Link to this definition">¶</a></dt>
 <dd><p>Query if trace update is enabled.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>None</p>
-</dd>
-<dt>Return:</dt><dd><p>bool: True if trace update is enabled, False otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if trace update is enabled, False otherwise.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -209,10 +457,9 @@ Useful for calculating the frequency of each point in the trace data returned fr
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.select">
 <span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.select" title="Link to this definition">¶</a></dt>
 <dd><p>Specify a trace index [1,6]. All future operations occur on this trace.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>trace_num (int): Trace index [1,6].</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_num</strong> – Trace index [1,6].</p>
 </dd>
 </dl>
 </dd></dl>
@@ -221,10 +468,9 @@ Useful for calculating the frequency of each point in the trace data returned fr
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.set_average_count">
 <span class="sig-name descname"><span class="pre">set_average_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.set_average_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.set_average_count" title="Link to this definition">¶</a></dt>
 <dd><p>Specify the number of traces that are averaged together to create the final sweep.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>count (int): Number of traces to average together.</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>count</strong> – Number of traces to average together.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -233,10 +479,9 @@ Useful for calculating the frequency of each point in the trace data returned fr
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.set_display_state">
 <span class="sig-name descname"><span class="pre">set_display_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.set_display_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.set_display_state" title="Link to this definition">¶</a></dt>
 <dd><p>Specify if the trace is hidden.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>state (int or str): 1/0 or ‘ON’/’OFF’ to show/hide the trace.</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to show/hide the trace.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -245,10 +490,9 @@ Useful for calculating the frequency of each point in the trace data returned fr
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.set_type">
 <span class="sig-name descname"><span class="pre">set_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.set_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.set_type" title="Link to this definition">¶</a></dt>
 <dd><p>Specify the behavior of the trace.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>typ (str): ‘OFF’, ‘WRITE’, ‘AVERAGE’, ‘MAXHOLD’, ‘MINHOLD’, or ‘MINMAX’.</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>typ</strong> – ‘OFF’, ‘WRITE’, ‘AVERAGE’, ‘MAXHOLD’, ‘MINHOLD’, or ‘MINMAX’.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -257,10 +501,9 @@ Useful for calculating the frequency of each point in the trace data returned fr
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Trace.set_update_state">
 <span class="sig-name descname"><span class="pre">set_update_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Trace.set_update_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Trace.set_update_state" title="Link to this definition">¶</a></dt>
 <dd><p>Specify if the trace updates when a new sweep is acquired from the device.</p>
-<dl class="simple">
-<dt>Parameter:</dt><dd><p>state (int or str): 1/0 or ‘ON’/’OFF’ to enable/disable trace update.</p>
-</dd>
-<dt>Return:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to enable/disable trace update.</p>
 </dd>
 </dl>
 </dd></dl>

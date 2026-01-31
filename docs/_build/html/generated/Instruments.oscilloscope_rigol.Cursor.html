@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Instruments.oscilloscope_rigol.Cursor Class &#8212; Instruments 0.0.1 documentation</title>
+    <title>Instruments.oscilloscope_rigol.Cursor Class &#8212; Instruments 0.0.9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -43,163 +43,257 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.__init__" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Initalize the Cursor class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instrument</strong> (<em>pyvisa.Resource</em>) – The instrument to control.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_manual">
 <span class="sig-name descname"><span class="pre">get_manual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_manual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_manual" title="Link to this definition">¶</a></dt>
-<dd><p>Query the horizontal position of cursor A or B in the manual cursor measurement mode. 
-Parameters:
-cursor (str): Cursor identifier, either “A” or “B”.
-Returns:
-str: The x and y coordinates of the cursor in the format “x;y”.</p>
+<dd><p>Query the horizontal position of cursor A or B in the manual cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cursor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cursor identifier, either “A” or “B”.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The x and y coordinates of the cursor in the format “x;y”.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_manual_ixdelta">
 <span class="sig-name descname"><span class="pre">get_manual_ixdelta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_manual_ixdelta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_manual_ixdelta" title="Link to this definition">¶</a></dt>
-<dd><p>Query the reciprocal of the absolute value of the difference between the X values of cursor A and cursor B (1/<a href="#id1"><span class="problematic" id="id2">|dX|</span></a>). 
-Returns:
-float: The reciprocal of the difference in X values (1/<a href="#id3"><span class="problematic" id="id4">|dX|</span></a>) in scientific notation.</p>
+<dd><p>Query the reciprocal of the absolute value of the difference between the X values of cursor A and cursor B (1/dX).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reciprocal of the difference in X values (1/dX) in scientific notation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_manual_source">
 <span class="sig-name descname"><span class="pre">get_manual_source</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_manual_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_manual_source" title="Link to this definition">¶</a></dt>
 <dd><p>Query the current source for manual cursor measurement.</p>
-<p>Returns:
-str: Current source, such as “CHAN1”, “CHAN2”, “MATH”, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current source, such as “CHAN1”, “CHAN2”, “MATH”, etc.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_manual_tunit">
 <span class="sig-name descname"><span class="pre">get_manual_tunit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_manual_tunit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_manual_tunit" title="Link to this definition">¶</a></dt>
-<dd><p>Query the current horizontal unit in the manual cursor measurement mode. 
-Returns:
-str: The current horizontal unit, such as “S”, “HZ”, “DEGREE”, “PERCENT”.</p>
+<dd><p>Query the current horizontal unit in the manual cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current horizontal unit, such as “S”, “HZ”, “DEGREE”, “PERCENT”.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_manual_type">
 <span class="sig-name descname"><span class="pre">get_manual_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_manual_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_manual_type" title="Link to this definition">¶</a></dt>
 <dd><p>Query the current manual cursor type.</p>
-<p>Returns:
-str: “X” or “Y”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>“X” or “Y”</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_manual_vunit">
 <span class="sig-name descname"><span class="pre">get_manual_vunit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_manual_vunit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_manual_vunit" title="Link to this definition">¶</a></dt>
-<dd><p>Query the current vertical unit in the manual cursor measurement mode. 
-Returns:
-str: The current vertical unit, such as “PERCENT”, “SOURCE”.</p>
+<dd><p>Query the current vertical unit in the manual cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current vertical unit, such as “PERCENT”, “SOURCE”.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_manual_xdelta">
 <span class="sig-name descname"><span class="pre">get_manual_xdelta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_manual_xdelta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_manual_xdelta" title="Link to this definition">¶</a></dt>
-<dd><p>Query the difference between the X values of cursor A and cursor B (BX - AX) in the manual cursor measurement mode. 
-Returns:
-float: The difference in X values (BX - AX) in scientific notation.</p>
+<dd><p>Query the difference between the X values of cursor A and cursor B (BX - AX) in the manual cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The difference in X values (BX - AX) in scientific notation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_manual_ydelta">
 <span class="sig-name descname"><span class="pre">get_manual_ydelta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_manual_ydelta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_manual_ydelta" title="Link to this definition">¶</a></dt>
-<dd><p>Query the difference between the Y values of cursor A and cursor B (BY - AY) in the manual cursor measurement mode. 
-Returns:
-float: The difference in Y values (BY - AY) in scientific notation.</p>
+<dd><p>Query the difference between the Y values of cursor A and cursor B (BY - AY) in the manual cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The difference in Y values (BY - AY) in scientific notation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_mode">
 <span class="sig-name descname"><span class="pre">get_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_mode" title="Link to this definition">¶</a></dt>
 <dd><p>Query the current cursor measurement mode.</p>
-<p>Returns:
-str: One of {“OFF”, “MAN”, “TRAC”, “AUTO”, “XY”}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>One of {“OFF”, “MAN”, “TRAC”, “AUTO”, “XY”}</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_track_source">
 <span class="sig-name descname"><span class="pre">get_track_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_track_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_track_source" title="Link to this definition">¶</a></dt>
-<dd><p>Query the channel source of cursor A or B in the track cursor measurement mode. 
-Parameters: 
-cursor (str): Cursor identifier, either “A” or “B”.
-Returns:
-int: The channel source of cursor A or B, such as “CHAN1”, “CHAN2”, “MATH”, etc.</p>
+<dd><p>Query the channel source of cursor A or B in the track cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cursor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cursor identifier, either “A” or “B”.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The channel source of cursor A or B, such as “CHAN1”, “CHAN2”, “MATH”, etc.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.get_xy">
 <span class="sig-name descname"><span class="pre">get_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.get_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.get_xy" title="Link to this definition">¶</a></dt>
-<dd><p>Query the horizontal position of cursor A in the XY cursor measurement mode. 
-Parameters:
-cursor (str): Cursor identifier, either “A” or “B”.
-Returns:
-str: The x and y coordinates of the cursor in the format “x;y”.</p>
+<dd><p>Query the horizontal position of cursor A in the XY cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cursor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cursor identifier, either “A” or “B”.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The x and y coordinates of the cursor in the format “x;y”.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.set_manual">
 <span class="sig-name descname"><span class="pre">set_manual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.set_manual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.set_manual" title="Link to this definition">¶</a></dt>
-<dd><p>Set the horizontal position of cursor A or B in the manual cursor measurement mode. 
-Parameters:
-cursor (str): Cursor identifier, either “A” or “B”.</p>
+<dd><p>Set the horizontal position of cursor A or B in the manual cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cursor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cursor identifier, either “A” or “B”.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Horizontal position, must be between 5 and 594.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Vertical position, must be between 5 and 394.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.set_manual_source">
 <span class="sig-name descname"><span class="pre">set_manual_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.set_manual_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.set_manual_source" title="Link to this definition">¶</a></dt>
 <dd><p>Set the source for manual cursor measurement.</p>
-<p>Parameters:
-source (str): Channel or source name. Valid options include:</p>
-<blockquote>
-<div><p>“CHAN1”, “CHAN2”, “MATH”, “REF1”, “REF2”, “REF3”, “REF4”</p>
-</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Channel or source name. Valid options include: “CHAN1”, “CHAN2”, “MATH”, “REF1”, “REF2”, “REF3”, “REF4”</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.set_manual_tunit">
 <span class="sig-name descname"><span class="pre">set_manual_tunit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.set_manual_tunit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.set_manual_tunit" title="Link to this definition">¶</a></dt>
-<dd><p>Set the horizontal unit for manual cursor measurement. 
-Parameters:
-unit (str): The unit to set, such as “S”, “HZ”, “DEGREE”, “PERCENT”.</p>
+<dd><p>Set the horizontal unit for manual cursor measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The unit to set, such as “S”, “HZ”, “DEGREE”, “PERCENT”.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.set_manual_type">
 <span class="sig-name descname"><span class="pre">set_manual_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.set_manual_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.set_manual_type" title="Link to this definition">¶</a></dt>
 <dd><p>Set the type of manual cursor.</p>
-<p>Parameters:
-cursor_type (str): Either “X” for vertical cursors (time) or “Y” for horizontal cursors (voltage).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cursor_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Either “X” for vertical cursors (time) or “Y” for horizontal cursors (voltage).</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.set_manual_vunit">
 <span class="sig-name descname"><span class="pre">set_manual_vunit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.set_manual_vunit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.set_manual_vunit" title="Link to this definition">¶</a></dt>
-<dd><p>Set the vertical unit for manual cursor measurement. 
-Parameters:
-unit (str): The unit to set, such as “PERCENT”, “SOURCE”.</p>
+<dd><p>Set the vertical unit for manual cursor measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The unit to set, such as “PERCENT”, “SOURCE”.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.set_mode">
 <span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.set_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.set_mode" title="Link to this definition">¶</a></dt>
 <dd><p>Set cursor measurement mode.</p>
-<p>Parameters:
-mode (str): One of {“OFF”, “MANual”, “TRACk”, “AUTO”, “XY”}
-Note: XY mode only valid when timebase mode is also XY.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – One of {“OFF”, “MANual”, “TRACk”, “AUTO”, “XY”} Note: XY mode only valid when timebase mode is also XY.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.set_track_source">
 <span class="sig-name descname"><span class="pre">set_track_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.set_track_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.set_track_source" title="Link to this definition">¶</a></dt>
 <dd><p>Set the channel source of cursor A in the track cursor measurement mode.</p>
-<dl class="simple">
-<dt>Parameters:</dt><dd><p>source (str): The source to set for the cursor. Must be one of “OFF”, “CHANNEL1”, “CHANNEL2”, or “MATH”.
-n (str): The cursor A|B.</p>
-</dd>
-<dt>Returns:</dt><dd><p>None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The source to set for the cursor. Must be one of “OFF”, “CHANNEL1”, “CHANNEL2”, or “MATH”.</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The cursor A|B.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -207,11 +301,16 @@ n (str): The cursor A|B.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.oscilloscope_rigol.Cursor.set_xy">
 <span class="sig-name descname"><span class="pre">set_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cursor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/oscilloscope_rigol.html#Cursor.set_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.oscilloscope_rigol.Cursor.set_xy" title="Link to this definition">¶</a></dt>
-<dd><p>Set the horizontal position of cursor A or B in the XY cursor measurement mode. 
-Parameters:
-cursor (str): Cursor identifier, either “A” or “B”.
-x (int): Horizontal position, must be between 5 and 394.
-y (int): Vertical position, must be between 5 and 394.</p>
+<dd><p>Set the horizontal position of cursor A or B in the XY cursor measurement mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cursor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cursor identifier, either “A” or “B”.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Horizontal position, must be between 5 and 394.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Vertical position, must be between 5 and 394.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

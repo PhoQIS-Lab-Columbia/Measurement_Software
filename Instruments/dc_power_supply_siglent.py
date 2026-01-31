@@ -3,8 +3,15 @@ from Instruments.EInstrument import EInstrument
 import pyvisa
 from Instruments.data_handler import DataHandler
 class DCPowerSupply():
+    """Class for controlling the a DC Power Supply instrument."""
 
     def __init__(self, instrument, save_files_path=None):
+        """Initialize the DC Power Supply instrument.
+        
+        :param instrument: The pyvisa instrument instance.
+        :type instrument: pyvisa.resources.Resource
+        :param save_files_path: Optional path to save data files. If None, defaults to JSON format.
+        :type save_files_path: str or None"""
         self.instrument = instrument
         self.name = EInstrument.DC_POWER_SUPPLY
         
@@ -29,6 +36,7 @@ class DCPowerSupply():
     def save(self, name):
         """
         Save the current state in nonvolatile memory with the specified name.  
+        
         :param name: The name to save the state under.
         :type name: str
         """
@@ -57,6 +65,7 @@ class DCPowerSupply():
     def get_system_error(self) -> str:
         """
         Query the system error queue.   
+       
         :return: The error code and message in the format "<code>,<message>".
         :rtype: str
         """
@@ -211,7 +220,10 @@ class Voltage:
         return response
         
     def set(self, voltage):
-        """Set voltage value for the current channel"""
+        """Set voltage value for the current channel
+        
+        :param voltage: The voltage value to set (in Volts).
+        :type voltage: float"""
         self.instrument.write(f"INSTrument {self.channel}")
         self.instrument.write(self.channel+":VOLTage "+str(voltage))
     def set_over_voltage_protection(self, value):
@@ -255,6 +267,7 @@ class Power:
         
     def set(self, voltage):
         """Set power value for the current channel
+        
         :param voltage: The power value to set (in watt).
         :type voltage: float"""
         self.instrument.write(f"INSTrument {self.channel}")
