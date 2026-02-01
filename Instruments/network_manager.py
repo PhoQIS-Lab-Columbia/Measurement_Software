@@ -22,7 +22,7 @@ class NetworkManager:
     def __init__(self, non_default_program_path = None, non_default_instrument_ports=None,rm = pyvisa.ResourceManager()):
         """Initialize the NetworkManager to handle setting up instruments and establishing VISA connections.
             
-            :params non_default_program_path: path to a json file containing non-default program paths for instruments. If None, internal default will be used
+            :param non_default_program_path: path to a json file containing non-default program paths for instruments. If None, internal default will be used
             :type non_default_program_path: string
             :param non_default_instrument_ports: string - path to a json file containing non-default instrument ports. If None, internal default will be used
             :type non_default_instrument_ports: string

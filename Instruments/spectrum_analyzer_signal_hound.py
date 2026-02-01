@@ -346,12 +346,11 @@ class System:
             self.data_handler = data_handler
 
         def is_active(self):
-            """
-            Returns whether or not a device is currently connected and active in the software. You can use the *IDN? function to request information about the device.
+            """Returns whether or not a device is currently connected and active in the software. You can use the IDN? function to request information about the device.
 
             :return: True if a device is currently connected and active, False otherwise.
-            :rtype: bool
-            """
+            :rtype: bool"""
+            
             resp = self.instrument.query(":SYSTem:DEVice:ACTive?")
             return resp.strip() == '1'
 
@@ -1647,7 +1646,7 @@ class Calculate:
             Specify the points in the limit line, will override any existing points. Points are
             specified as freq/amplitude pairs where the amplitude is specified as dBm.
 
-            :param points (list of tuple): List of (freq, ampl) pairs.
+            :param points: List of (freq, ampl) pairs.
 
             """
             if not isinstance(points, list) or not all(isinstance(p, tuple) and len(p) == 2 for p in points):
@@ -2288,19 +2287,20 @@ class Sense:
 
                 AM? returns AM demodulation metrics. The integer parameter specifies the metric to retrieve.
                 Possible integer values:
-                    1. Carrier frequency in Hz
-                    2. Carrier power in dBm
-                    3. AM modulation rate in Hz
-                    4. AM Depth (RMS) as %
-                    5. AM Depth (Peak+) as %
-                    6. AM Depth (Peak-) as %
-                    7. AM SINAD as dB
-                    8. AM THD as %
+                1. Carrier frequency in Hz
+                2. Carrier power in dBm
+                3. AM modulation rate in Hz
+                4. AM Depth (RMS) as %
+                5. AM Depth (Peak+) as %
+                6. AM Depth (Peak-) as %
+                7. AM SINAD as dB
+                8. AM THD as %
                 Can specify a list of metrics to request as a comma separated list. The metrics will be returned as a comma separated list in the order they were requested.
 
-                :param metrics (int or list of int): Metric(s) to retrieve for AM demodulation.
-                Return:
-                str: Comma separated list of metric values in order requested.
+                :param metrics: Metric(s) to retrieve for AM demodulation.
+                :type metrics: int or list of int
+                :return: Comma separated list of metric values in order requested.
+                :rtype: str
                 """
                 if isinstance(metrics, int):
                     metrics_str = str(metrics)
@@ -2319,18 +2319,19 @@ class Sense:
 
                 FM? returns FM demodulation metrics. The integer parameter specifies the metric to retrieve.
                 Possible integer values:
-                    1. Carrier frequency in Hz
-                    2. Carrier power in dBm
-                    3. FM modulation rate in Hz
-                    4. FM Depth (RMS) in Hz
-                    5. FM Depth (Peak+) in Hz
-                    6. FM Depth (Peak-) in Hz
-                    7. FM SINAD as dB
+                1. Carrier frequency in Hz
+                2. Carrier power in dBm
+                3. FM modulation rate in Hz
+                4. FM Depth (RMS) in Hz
+                5. FM Depth (Peak+) in Hz
+                6. FM Depth (Peak-) in Hz
+                7. FM SINAD as dB
                 Can specify a list of metrics to request as a comma separated list. The metrics will be returned as a comma separated list in the order they were requested.
 
-                :param metrics (int or list of int): Metric(s) to retrieve for FM demodulation.
-                Return:
-                str: Comma separated list of metric values in order requested.
+                :param metrics: Metric(s) to retrieve for FM demodulation.
+                :type metrics: int or list of int
+                :return: Comma separated list of metric values in order requested.
+                :rtype: str
                 """
                 if isinstance(metrics, int):
                     metrics_str = str(metrics)
@@ -3183,10 +3184,11 @@ class Sense:
 
             def fetch(self, metrics):
                 """ Fetch digital demodulation metrics. The integer parameter specifies the
-            metric to retrieve. Possible integer values can be printed with function print_fetch_options(). Can specify a list of metrics to
-            request as comma separated list. The metrics will be returned as a comma
-            separated list in the order they were requested.
-                :param metrics (int or list/tuple of int): Metric(s) to retrieve.
+                metric to retrieve. Possible integer values can be printed with function print_fetch_options(). Can specify a list of metrics to
+                request as comma separated list. The metrics will be returned as a comma
+                separated list in the order they were requested.
+                
+                :param metrics: Metric(s) to retrieve.
                 :return: Comma separated list of metric values in order requested.
                 """
                 if isinstance(metrics, int):
@@ -3201,8 +3203,8 @@ class Sense:
                 return response
             def print_fetch_options(self):
                 """ Print available fetch options for digital demodulation metrics.
-                Return:
-                    table (list of tuples): List of (ID, Description) tuples for available metrics.
+                    
+                    :return table: List of (ID, Description) tuples for available metrics.
                     """
                 table = [
                     (1,  "RMS EVM average as %"),
@@ -4495,8 +4497,6 @@ class Sense:
                     Connects the second analyzer. Must be one of the names returned from the LIST? command.
 
                     :param device_index: The index of the device to connect.
-                    Return:
-                    None
                     """
                     if not isinstance(device_index, int) or device_index < 0:
                         raise ValueError("device_index must be a non-negative integer")
@@ -4507,8 +4507,7 @@ class Sense:
                     Disconnects the second analyzer.
 
                     
-                    Return:
-                    None
+                    
                     """
                     self.instrument.write(":SENSe:PNoise:XCORr:DEVice:DISConnect?")
 
@@ -4878,8 +4877,7 @@ class Sense:
             Queries which trace is used for channel power measurement.
 
             
-            Return:
-            int: The trace index used for channel power measurement.
+            :return: The trace index used for channel power measurement.
             """
             return int(self.instrument.query(":SENSe:CHPower:TRACe?"))
 
@@ -4906,7 +4904,7 @@ class Sense:
             Enables/disables the measurement of an adjacent channel.
 
             :param channel_num: Channel index.
-            state: 1/0 or 'ON'/'OFF' to enable/disable adjacent channel.
+            :param state: 1/0 or 'ON'/'OFF' to enable/disable adjacent channel.
 
             """
             if isinstance(state, str):
@@ -4933,7 +4931,7 @@ class Sense:
             Specifies the offset from center of an adjacent channel.
 
             :param channel_num: Channel index.
-            freq: Offset from center (Hz).
+            :param freq: Offset from center (Hz).
 
             """
             self.instrument.write(f":SENSe:CHPower:CHANnel:OFFSet {channel_num},{freq}")
@@ -4952,7 +4950,7 @@ class Sense:
             Specifies the width of an adjacent channel.
 
             :param channel_num: Channel index.
-            freq: Channel width (Hz).
+            :param freq: Channel width (Hz).
 
             """
             self.instrument.write(f":SENSe:CHPower:CHANnel:WIDth {channel_num},{freq}")
@@ -5079,7 +5077,7 @@ class Sense:
             Specify the points in the path loss table, will override any existing points.
             Points are specified as freq/offset pairs where the offset is specified as dB.
 
-            :param points (list of tuple): List of (freq, offset) pairs.
+            :param points: List of (freq, offset) pairs.
 
             """
             if not isinstance(points, list) or not all(isinstance(p, tuple) and len(p) == 2 for p in points):
@@ -5801,8 +5799,7 @@ class Sense:
                 Query the center frequency of the measurement.
 
                 
-                Return:
-                float: The center frequency in Hz.
+                :return: The center frequency in Hz.
                 """
                 return float(self.instrument.query(":SENSe:SEMask:FREQuency:CENTer?"))
 
@@ -5811,8 +5808,7 @@ class Sense:
                 Set the center frequency step amount.
 
                 :param value: Step amount for center frequency changes in Hz.
-                Return:
-                None
+                
                 """
                 self.instrument.write(f":SENSe:SEMask:FREQuency:CENTer:STEP {value}")
 
@@ -5821,8 +5817,7 @@ class Sense:
                 Query the center frequency step size in Hz.
 
                 
-                Return:
-                float: The center frequency step size in Hz.
+                :return: The center frequency step size in Hz.
                 """
                 return float(self.instrument.query(":SENSe:SEMask:FREQuency:CENTer:STEP?"))
 
@@ -5831,8 +5826,7 @@ class Sense:
                 Set the sweep span.
 
                 :param value: Span in Hz.
-                Return:
-                None
+                
                 """
                 self.instrument.write(f":SENSe:SEMask:FREQuency:SPAN {value}")
 
@@ -5841,8 +5835,7 @@ class Sense:
                 Query the sweep span in Hz.
 
                 
-                Return:
-                float: The span in Hz.
+                :return: The span in Hz.
                 """
                 return float(self.instrument.query(":SENSe:SEMask:FREQuency:SPAN?"))
 
@@ -6123,13 +6116,13 @@ class Sense:
                 self.data_handler = data_handler
             def set_offset_parameters(self, offsets):
                 """
-                :param offsets (list of tuple): List of tuples, each containing (enabled, startFreq, stopFreq, startLimit, stopLimit, mode).
-                        enabled: 'ON', 'OFF', 1, or 0
-                        startFreq: float (Hz)
-                        stopFreq: float (Hz)
-                        startLimit: float
-                        stopLimit: float
-                        mode: 'RELATIVE' or 'ABSOLUTE'
+                :param offsets: List of tuples, each containing (enabled, startFreq, stopFreq, startLimit, stopLimit, mode).
+                :param enabled: 'ON', 'OFF', 1, or 0
+                :param startFreq: float (Hz)
+                :param stopFreq: float (Hz)
+                :param startLimit: float
+                :param stopLimit: float
+                :param mode: 'RELATIVE' or 'ABSOLUTE'
 
                 """
                 allowed_enabled = {"ON", "OFF", 1, 0}
@@ -6210,11 +6203,10 @@ class Sense:
 
             def get_margin(self, offset_num):
                 """
-                peak) of specified offset.
+                Around peak of specified offset.
 
                 :param offset_num: Offset index [1-16].
-                Return:
-                peak) of specified offset.
+                :return: of specified offset.
                 """
                 if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
                     raise ValueError("offset_num must be an integer between 1 and 16")
@@ -6222,11 +6214,10 @@ class Sense:
 
             def get_margin_lower(self, offset_num):
                 """
-                peak) of lower range of specified offset.
+                Lower range of specified offset.
 
                 :param offset_num: Offset index [1-16].
-                Return:
-                peak) of lower range of specified offset.
+                :return: Lower range of specified offset.
                 """
                 if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
                     raise ValueError("offset_num must be an integer between 1 and 16")
@@ -6237,8 +6228,7 @@ class Sense:
                 peak) of upper range of specified offset.
 
                 :param offset_num: Offset index [1-16].
-                Return:
-                peak) of upper range of specified offset.
+                :return: upper range of specified offset.
                 """
                 if not isinstance(offset_num, int) or not (1 <= offset_num <= 16):
                     raise ValueError("offset_num must be an integer between 1 and 16")
@@ -6976,7 +6966,7 @@ class Sense:
                     """
                     Set the (frequency, enr) points in the loaded ENR table.
 
-                    :param points (list of tuple): List of (freq, enr) pairs.
+                    :param points: List of (freq, enr) pairs.
 
                     """
                     if not isinstance(points, list) or not all(isinstance(p, tuple) and len(p) == 2 for p in points):
@@ -7262,9 +7252,8 @@ class Sense:
 
                 def fetch(self, metrics):
                     """
-                    :param     metrics (int or list/tuple of int): Metric(s) to retrieve.
-                    Return:
-                    str: Comma separated list of metric values in order requested.
+                    :param metrics: Metric(s) to retrieve.
+                    :return: Comma separated list of metric values in order requested.
                     """
                     if isinstance(metrics, int):
                         metrics_str = str(metrics)
@@ -7592,33 +7581,29 @@ class Sense:
 
             def set_slength(self, value):
                 """
-                :param     value: Measurement capture length in seconds.
-                Return:
-                    None
+                :param value: Measurement capture length in seconds.
+                
                 """
                 self.instrument.write(f":TRIGger:LTE:SLENgth {value}")
 
             def get_slength(self):
                 """
-                :param     None
-                Return:
-                    float: Measurement capture length in seconds.
+                
+                :return: Measurement capture length in seconds.
                 """
                 return float(self.instrument.query(":TRIGger:LTE:SLENgth?"))
 
             def set_if_level(self, value):
                 """
-                :param     value: Trigger level in dBm.
-                Return:
-                    None
+                :param value: Trigger level in dBm.
+                
                 """
                 self.instrument.write(f":TRIGger:LTE:IF:LEVel {value}")
 
             def get_if_level(self):
                 """
-                :param     None
-                Return:
-                    float: Trigger level in dBm.
+                
+                :return: Trigger level in dBm.
                 """
                 return float(self.instrument.query(":TRIGger:LTE:IF:LEVel?"))
 
@@ -7632,9 +7617,8 @@ class Sense:
 
             def fetch(self, metrics):
                 """
-                :param     metrics (int or list/tuple of int): Metric(s) to retrieve.
-                Return:
-                    str: Comma separated list of metric values in order requested.
+                :param metrics: Metric(s) to retrieve.
+                :return: Comma separated list of metric values in order requested.
                 """
                 if isinstance(metrics, int):
                     metrics_str = str(metrics)
@@ -7898,7 +7882,7 @@ class WLAN:
             to request as comma separated list. The metrics will be returned as a comma
             separated list in the order they were requested.
 
-            :param metrics (int or list/tuple of int): Metric(s) to retrieve.
+            :param metrics: Metric(s) to retrieve.
             :return: Comma separated list of metric values in order requested.
             """
             if isinstance(metrics, int):

@@ -59,27 +59,27 @@
 <span class="sig-name descname"><span class="pre">am</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.ADEMod.Fetch_ADE.am"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.ADEMod.Fetch_ADE.am" title="Link to this definition">¶</a></dt>
 <dd><p>Fetch AM demodulation metrics.</p>
 <p>AM? returns AM demodulation metrics. The integer parameter specifies the metric to retrieve.
-Possible integer values:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Carrier frequency in Hz</p></li>
-<li><p>Carrier power in dBm</p></li>
-<li><p>AM modulation rate in Hz</p></li>
-<li><p>AM Depth (RMS) as %</p></li>
-<li><p>AM Depth (Peak+) as %</p></li>
-<li><p>AM Depth (Peak-) as %</p></li>
-<li><p>AM SINAD as dB</p></li>
-<li><p>AM THD as %</p></li>
-</ol>
-</div></blockquote>
-<p>Can specify a list of metrics to request as a comma separated list. The metrics will be returned as a comma separated list in the order they were requested.</p>
+Possible integer values:
+1. Carrier frequency in Hz
+2. Carrier power in dBm
+3. AM modulation rate in Hz
+4. AM Depth (RMS) as %
+5. AM Depth (Peak+) as %
+6. AM Depth (Peak-) as %
+7. AM SINAD as dB
+8. AM THD as %
+Can specify a list of metrics to request as a comma separated list. The metrics will be returned as a comma separated list in the order they were requested.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>int</strong><strong>)</strong> (<em>metrics</em><em> (</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>list of</em>) – Metric(s) to retrieve for AM demodulation.</p>
+<dd class="field-odd"><p><strong>metrics</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Metric(s) to retrieve for AM demodulation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Comma separated list of metric values in order requested.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
-<p>Return:
-str: Comma separated list of metric values in order requested.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -87,26 +87,26 @@ str: Comma separated list of metric values in order requested.</p>
 <span class="sig-name descname"><span class="pre">fm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.ADEMod.Fetch_ADE.fm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.ADEMod.Fetch_ADE.fm" title="Link to this definition">¶</a></dt>
 <dd><p>Fetch FM demodulation metrics.</p>
 <p>FM? returns FM demodulation metrics. The integer parameter specifies the metric to retrieve.
-Possible integer values:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Carrier frequency in Hz</p></li>
-<li><p>Carrier power in dBm</p></li>
-<li><p>FM modulation rate in Hz</p></li>
-<li><p>FM Depth (RMS) in Hz</p></li>
-<li><p>FM Depth (Peak+) in Hz</p></li>
-<li><p>FM Depth (Peak-) in Hz</p></li>
-<li><p>FM SINAD as dB</p></li>
-</ol>
-</div></blockquote>
-<p>Can specify a list of metrics to request as a comma separated list. The metrics will be returned as a comma separated list in the order they were requested.</p>
+Possible integer values:
+1. Carrier frequency in Hz
+2. Carrier power in dBm
+3. FM modulation rate in Hz
+4. FM Depth (RMS) in Hz
+5. FM Depth (Peak+) in Hz
+6. FM Depth (Peak-) in Hz
+7. FM SINAD as dB
+Can specify a list of metrics to request as a comma separated list. The metrics will be returned as a comma separated list in the order they were requested.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>int</strong><strong>)</strong> (<em>metrics</em><em> (</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>list of</em>) – Metric(s) to retrieve for FM demodulation.</p>
+<dd class="field-odd"><p><strong>metrics</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Metric(s) to retrieve for FM demodulation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Comma separated list of metric values in order requested.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
 </dd>
 </dl>
-<p>Return:
-str: Comma separated list of metric values in order requested.</p>
 </dd></dl>
 
 </dd></dl>
@@ -686,11 +686,12 @@ str: Comma separated list of metric values in order requested.</p>
 <span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.Bluetooth.Trigger.Fetch.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.Bluetooth.Trigger.Fetch.fetch" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>int</strong><strong>)</strong> (<em>metrics</em><em> (</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>list/tuple of</em>) – Metric(s) to retrieve.</p>
+<dd class="field-odd"><p><strong>metrics</strong> – Metric(s) to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Comma separated list of metric values in order requested.</p>
 </dd>
 </dl>
-<p>Return:
-str: Comma separated list of metric values in order requested.</p>
 </dd></dl>
 
 </dd></dl>
@@ -852,8 +853,11 @@ str: Comma separated list of metric values in order requested.</p>
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.ChPower.get_trace">
 <span class="sig-name descname"><span class="pre">get_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.ChPower.get_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.ChPower.get_trace" title="Link to this definition">¶</a></dt>
 <dd><p>Queries which trace is used for channel power measurement.</p>
-<p>Return:
-int: The trace index used for channel power measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The trace index used for channel power measurement.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -884,10 +888,12 @@ int: The trace index used for channel power measurement.</p>
 <dd><p>Specifies the offset from center of an adjacent channel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel_num</strong> – Channel index.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel_num</strong> – Channel index.</p></li>
+<li><p><strong>freq</strong> – Offset from center (Hz).</p></li>
+</ul>
 </dd>
 </dl>
-<p>freq: Offset from center (Hz).</p>
 </dd></dl>
 
 <dl class="py method">
@@ -896,10 +902,12 @@ int: The trace index used for channel power measurement.</p>
 <dd><p>Enables/disables the measurement of an adjacent channel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel_num</strong> – Channel index.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel_num</strong> – Channel index.</p></li>
+<li><p><strong>state</strong> – 1/0 or ‘ON’/’OFF’ to enable/disable adjacent channel.</p></li>
+</ul>
 </dd>
 </dl>
-<p>state: 1/0 or ‘ON’/’OFF’ to enable/disable adjacent channel.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -908,10 +916,12 @@ int: The trace index used for channel power measurement.</p>
 <dd><p>Specifies the width of an adjacent channel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel_num</strong> – Channel index.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel_num</strong> – Channel index.</p></li>
+<li><p><strong>freq</strong> – Channel width (Hz).</p></li>
+</ul>
 </dd>
 </dl>
-<p>freq: Channel width (Hz).</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1218,26 +1228,25 @@ int: The trace index used for channel power measurement.</p>
 metric to retrieve. Possible integer values can be printed with function print_fetch_options(). Can specify a list of metrics to
 request as comma separated list. The metrics will be returned as a comma
 separated list in the order they were requested.</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param metrics (int or list/tuple of int)<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Metric(s) to retrieve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metrics</strong> – Metric(s) to retrieve.</p>
 </dd>
-<dt class="field-even">return<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Comma separated list of metric values in order requested.</p>
 </dd>
 </dl>
-</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Fetch_DDE.print_fetch_options">
 <span class="sig-name descname"><span class="pre">print_fetch_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Fetch_DDE.print_fetch_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Fetch_DDE.print_fetch_options" title="Link to this definition">¶</a></dt>
-<dd><p>Print available fetch options for digital demodulation metrics.
-Return:</p>
-<blockquote>
-<div><p>table (list of tuples): List of (ID, Description) tuples for available metrics.</p>
-</div></blockquote>
+<dd><p>Print available fetch options for digital demodulation metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return table<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of (ID, Description) tuples for available metrics.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -2483,11 +2492,10 @@ This value should be greater than the expected input power to prevent IF/ADC ove
 <span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.LTE.Fetch.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Fetch.fetch" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>int</strong><strong>)</strong> (<em>metrics</em><em> (</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>list/tuple of</em>) – Metric(s) to retrieve.</p>
+<dd class="field-odd"><p><strong>metrics</strong> – Metric(s) to retrieve.</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: Comma separated list of metric values in order requested.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Comma separated list of metric values in order requested.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2829,21 +2837,21 @@ This value should be greater than the expected input power to prevent IF/ADC ove
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Trigger.get_if_level">
 <span class="sig-name descname"><span class="pre">get_if_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.LTE.Trigger.get_if_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Trigger.get_if_level" title="Link to this definition">¶</a></dt>
-<dd><p>:param     None
-Return:</p>
-<blockquote>
-<div><p>float: Trigger level in dBm.</p>
-</div></blockquote>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trigger level in dBm.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Trigger.get_slength">
 <span class="sig-name descname"><span class="pre">get_slength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.LTE.Trigger.get_slength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Trigger.get_slength" title="Link to this definition">¶</a></dt>
-<dd><p>:param     None
-Return:</p>
-<blockquote>
-<div><p>float: Measurement capture length in seconds.</p>
-</div></blockquote>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Measurement capture length in seconds.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2854,10 +2862,6 @@ Return:</p>
 <dd class="field-odd"><p><strong>value</strong> – Trigger level in dBm.</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2866,10 +2870,6 @@ Return:</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> – Measurement capture length in seconds.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3258,7 +3258,7 @@ Return:</p>
 <dd><p>Set the (frequency, enr) points in the loaded ENR table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tuple</strong><strong>)</strong> (<em>points</em><em> (</em><em>list of</em>) – List of (freq, enr) pairs.</p>
+<dd class="field-odd"><p><strong>points</strong> – List of (freq, enr) pairs.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4197,16 +4197,12 @@ already connected, then returns true immediately.</p>
 <dd class="field-odd"><p><strong>device_index</strong> – The index of the device to connect.</p>
 </dd>
 </dl>
-<p>Return:
-None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.PNoise_Sense.XCORr.Device.disconnect">
 <span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.PNoise_Sense.XCORr.Device.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.PNoise_Sense.XCORr.Device.disconnect" title="Link to this definition">¶</a></dt>
 <dd><p>Disconnects the second analyzer.</p>
-<p>Return:
-None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -4511,7 +4507,7 @@ pairs where the frequencies are specified as Hz and the offsets as dB.</p>
 Points are specified as freq/offset pairs where the offset is specified as dB.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tuple</strong><strong>)</strong> (<em>points</em><em> (</em><em>list of</em>) – List of (freq, offset) pairs.</p>
+<dd class="field-odd"><p><strong>points</strong> – List of (freq, offset) pairs.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -5180,24 +5176,33 @@ increased or decreased by the div amount (when reference level is a logarithmic 
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Frequency.get_center">
 <span class="sig-name descname"><span class="pre">get_center</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.SEMask.SEMask_Frequency.get_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Frequency.get_center" title="Link to this definition">¶</a></dt>
 <dd><p>Query the center frequency of the measurement.</p>
-<p>Return:
-float: The center frequency in Hz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The center frequency in Hz.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Frequency.get_center_step">
 <span class="sig-name descname"><span class="pre">get_center_step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.SEMask.SEMask_Frequency.get_center_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Frequency.get_center_step" title="Link to this definition">¶</a></dt>
 <dd><p>Query the center frequency step size in Hz.</p>
-<p>Return:
-float: The center frequency step size in Hz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The center frequency step size in Hz.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Frequency.get_span">
 <span class="sig-name descname"><span class="pre">get_span</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.SEMask.SEMask_Frequency.get_span"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Frequency.get_span" title="Link to this definition">¶</a></dt>
 <dd><p>Query the sweep span in Hz.</p>
-<p>Return:
-float: The span in Hz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The span in Hz.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -5219,8 +5224,6 @@ float: The span in Hz.</p>
 <dd class="field-odd"><p><strong>value</strong> – Step amount for center frequency changes in Hz.</p>
 </dd>
 </dl>
-<p>Return:
-None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -5232,8 +5235,6 @@ None</p>
 <dd class="field-odd"><p><strong>value</strong> – Span in Hz.</p>
 </dd>
 </dl>
-<p>Return:
-None</p>
 </dd></dl>
 
 </dd></dl>
@@ -5366,27 +5367,29 @@ the current marker position and the delta reference.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Offset.get_margin">
 <span class="sig-name descname"><span class="pre">get_margin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.SEMask.SEMask_Offset.get_margin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Offset.get_margin" title="Link to this definition">¶</a></dt>
-<dd><p>peak) of specified offset.</p>
+<dd><p>Around peak of specified offset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>offset_num</strong> – Offset index [1-16].</p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>of specified offset.</p>
+</dd>
 </dl>
-<p>Return:
-peak) of specified offset.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Offset.get_margin_lower">
 <span class="sig-name descname"><span class="pre">get_margin_lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.SEMask.SEMask_Offset.get_margin_lower"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Offset.get_margin_lower" title="Link to this definition">¶</a></dt>
-<dd><p>peak) of lower range of specified offset.</p>
+<dd><p>Lower range of specified offset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>offset_num</strong> – Offset index [1-16].</p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lower range of specified offset.</p>
+</dd>
 </dl>
-<p>Return:
-peak) of lower range of specified offset.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -5397,9 +5400,10 @@ peak) of lower range of specified offset.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>offset_num</strong> – Offset index [1-16].</p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>upper range of specified offset.</p>
+</dd>
 </dl>
-<p>Return:
-peak) of upper range of specified offset.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -5526,13 +5530,15 @@ peak) of upper range of specified offset.</p>
 <span class="sig-name descname"><span class="pre">set_offset_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offsets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.SEMask.SEMask_Offset.set_offset_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Offset.set_offset_parameters" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tuple</strong><strong>)</strong> (<em>offsets</em><em> (</em><em>list of</em>) – List of tuples, each containing (enabled, startFreq, stopFreq, startLimit, stopLimit, mode).
-enabled: ‘ON’, ‘OFF’, 1, or 0
-startFreq: float (Hz)
-stopFreq: float (Hz)
-startLimit: float
-stopLimit: float
-mode: ‘RELATIVE’ or ‘ABSOLUTE’</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>offsets</strong> – List of tuples, each containing (enabled, startFreq, stopFreq, startLimit, stopLimit, mode).</p></li>
+<li><p><strong>enabled</strong> – ‘ON’, ‘OFF’, 1, or 0</p></li>
+<li><p><strong>startFreq</strong> – float (Hz)</p></li>
+<li><p><strong>stopFreq</strong> – float (Hz)</p></li>
+<li><p><strong>startLimit</strong> – float</p></li>
+<li><p><strong>stopLimit</strong> – float</p></li>
+<li><p><strong>mode</strong> – ‘RELATIVE’ or ‘ABSOLUTE’</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

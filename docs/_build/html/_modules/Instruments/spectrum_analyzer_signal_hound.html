@@ -487,12 +487,11 @@
 <div class="viewcode-block" id="System.Device_System.is_active">
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.System.html#Instruments.spectrum_analyzer_signal_hound.System.Device_System.is_active">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Returns whether or not a device is currently connected and active in the software. You can use the *IDN? function to request information about the device.</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Returns whether or not a device is currently connected and active in the software. You can use the IDN? function to request information about the device.</span>
 
 <span class="sd">            :return: True if a device is currently connected and active, False otherwise.</span>
-<span class="sd">            :rtype: bool</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            :rtype: bool&quot;&quot;&quot;</span>
+            
             <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SYSTem:DEVice:ACTive?&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span></div>
 
@@ -2181,7 +2180,7 @@
 <span class="sd">            Specify the points in the limit line, will override any existing points. Points are</span>
 <span class="sd">            specified as freq/amplitude pairs where the amplitude is specified as dBm.</span>
 
-<span class="sd">            :param points (list of tuple): List of (freq, ampl) pairs.</span>
+<span class="sd">            :param points: List of (freq, ampl) pairs.</span>
 
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">):</span>
@@ -3037,19 +3036,20 @@
 
 <span class="sd">                AM? returns AM demodulation metrics. The integer parameter specifies the metric to retrieve.</span>
 <span class="sd">                Possible integer values:</span>
-<span class="sd">                    1. Carrier frequency in Hz</span>
-<span class="sd">                    2. Carrier power in dBm</span>
-<span class="sd">                    3. AM modulation rate in Hz</span>
-<span class="sd">                    4. AM Depth (RMS) as %</span>
-<span class="sd">                    5. AM Depth (Peak+) as %</span>
-<span class="sd">                    6. AM Depth (Peak-) as %</span>
-<span class="sd">                    7. AM SINAD as dB</span>
-<span class="sd">                    8. AM THD as %</span>
+<span class="sd">                1. Carrier frequency in Hz</span>
+<span class="sd">                2. Carrier power in dBm</span>
+<span class="sd">                3. AM modulation rate in Hz</span>
+<span class="sd">                4. AM Depth (RMS) as %</span>
+<span class="sd">                5. AM Depth (Peak+) as %</span>
+<span class="sd">                6. AM Depth (Peak-) as %</span>
+<span class="sd">                7. AM SINAD as dB</span>
+<span class="sd">                8. AM THD as %</span>
 <span class="sd">                Can specify a list of metrics to request as a comma separated list. The metrics will be returned as a comma separated list in the order they were requested.</span>
 
-<span class="sd">                :param metrics (int or list of int): Metric(s) to retrieve for AM demodulation.</span>
-<span class="sd">                Return:</span>
-<span class="sd">                str: Comma separated list of metric values in order requested.</span>
+<span class="sd">                :param metrics: Metric(s) to retrieve for AM demodulation.</span>
+<span class="sd">                :type metrics: int or list of int</span>
+<span class="sd">                :return: Comma separated list of metric values in order requested.</span>
+<span class="sd">                :rtype: str</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                     <span class="n">metrics_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
@@ -3071,18 +3071,19 @@
 
 <span class="sd">                FM? returns FM demodulation metrics. The integer parameter specifies the metric to retrieve.</span>
 <span class="sd">                Possible integer values:</span>
-<span class="sd">                    1. Carrier frequency in Hz</span>
-<span class="sd">                    2. Carrier power in dBm</span>
-<span class="sd">                    3. FM modulation rate in Hz</span>
-<span class="sd">                    4. FM Depth (RMS) in Hz</span>
-<span class="sd">                    5. FM Depth (Peak+) in Hz</span>
-<span class="sd">                    6. FM Depth (Peak-) in Hz</span>
-<span class="sd">                    7. FM SINAD as dB</span>
+<span class="sd">                1. Carrier frequency in Hz</span>
+<span class="sd">                2. Carrier power in dBm</span>
+<span class="sd">                3. FM modulation rate in Hz</span>
+<span class="sd">                4. FM Depth (RMS) in Hz</span>
+<span class="sd">                5. FM Depth (Peak+) in Hz</span>
+<span class="sd">                6. FM Depth (Peak-) in Hz</span>
+<span class="sd">                7. FM SINAD as dB</span>
 <span class="sd">                Can specify a list of metrics to request as a comma separated list. The metrics will be returned as a comma separated list in the order they were requested.</span>
 
-<span class="sd">                :param metrics (int or list of int): Metric(s) to retrieve for FM demodulation.</span>
-<span class="sd">                Return:</span>
-<span class="sd">                str: Comma separated list of metric values in order requested.</span>
+<span class="sd">                :param metrics: Metric(s) to retrieve for FM demodulation.</span>
+<span class="sd">                :type metrics: int or list of int</span>
+<span class="sd">                :return: Comma separated list of metric values in order requested.</span>
+<span class="sd">                :rtype: str</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                     <span class="n">metrics_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
@@ -4226,10 +4227,11 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Fetch_DDE.fetch">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metrics</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot; Fetch digital demodulation metrics. The integer parameter specifies the</span>
-<span class="sd">            metric to retrieve. Possible integer values can be printed with function print_fetch_options(). Can specify a list of metrics to</span>
-<span class="sd">            request as comma separated list. The metrics will be returned as a comma</span>
-<span class="sd">            separated list in the order they were requested.</span>
-<span class="sd">                :param metrics (int or list/tuple of int): Metric(s) to retrieve.</span>
+<span class="sd">                metric to retrieve. Possible integer values can be printed with function print_fetch_options(). Can specify a list of metrics to</span>
+<span class="sd">                request as comma separated list. The metrics will be returned as a comma</span>
+<span class="sd">                separated list in the order they were requested.</span>
+<span class="sd">                </span>
+<span class="sd">                :param metrics: Metric(s) to retrieve.</span>
 <span class="sd">                :return: Comma separated list of metric values in order requested.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -4247,8 +4249,8 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Fetch_DDE.print_fetch_options">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">print_fetch_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot; Print available fetch options for digital demodulation metrics.</span>
-<span class="sd">                Return:</span>
-<span class="sd">                    table (list of tuples): List of (ID, Description) tuples for available metrics.</span>
+<span class="sd">                    </span>
+<span class="sd">                    :return table: List of (ID, Description) tuples for available metrics.</span>
 <span class="sd">                    &quot;&quot;&quot;</span>
                 <span class="n">table</span> <span class="o">=</span> <span class="p">[</span>
                     <span class="p">(</span><span class="mi">1</span><span class="p">,</span>  <span class="s2">&quot;RMS EVM average as %&quot;</span><span class="p">),</span>
@@ -5966,8 +5968,6 @@
 <span class="sd">                    Connects the second analyzer. Must be one of the names returned from the LIST? command.</span>
 
 <span class="sd">                    :param device_index: The index of the device to connect.</span>
-<span class="sd">                    Return:</span>
-<span class="sd">                    None</span>
 <span class="sd">                    &quot;&quot;&quot;</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">device_index</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">device_index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;device_index must be a non-negative integer&quot;</span><span class="p">)</span>
@@ -5981,8 +5981,7 @@
 <span class="sd">                    Disconnects the second analyzer.</span>
 
 <span class="sd">                    </span>
-<span class="sd">                    Return:</span>
-<span class="sd">                    None</span>
+<span class="sd">                    </span>
 <span class="sd">                    &quot;&quot;&quot;</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SENSe:PNoise:XCORr:DEVice:DISConnect?&quot;</span><span class="p">)</span></div>
 </div>
@@ -6483,8 +6482,7 @@
 <span class="sd">            Queries which trace is used for channel power measurement.</span>
 
 <span class="sd">            </span>
-<span class="sd">            Return:</span>
-<span class="sd">            int: The trace index used for channel power measurement.</span>
+<span class="sd">            :return: The trace index used for channel power measurement.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:CHPower:TRACe?&quot;</span><span class="p">))</span></div>
 
@@ -6520,7 +6518,7 @@
 <span class="sd">            Enables/disables the measurement of an adjacent channel.</span>
 
 <span class="sd">            :param channel_num: Channel index.</span>
-<span class="sd">            state: 1/0 or &#39;ON&#39;/&#39;OFF&#39; to enable/disable adjacent channel.</span>
+<span class="sd">            :param state: 1/0 or &#39;ON&#39;/&#39;OFF&#39; to enable/disable adjacent channel.</span>
 
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -6553,7 +6551,7 @@
 <span class="sd">            Specifies the offset from center of an adjacent channel.</span>
 
 <span class="sd">            :param channel_num: Channel index.</span>
-<span class="sd">            freq: Offset from center (Hz).</span>
+<span class="sd">            :param freq: Offset from center (Hz).</span>
 
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:CHPower:CHANnel:OFFSet </span><span class="si">{</span><span class="n">channel_num</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -6578,7 +6576,7 @@
 <span class="sd">            Specifies the width of an adjacent channel.</span>
 
 <span class="sd">            :param channel_num: Channel index.</span>
-<span class="sd">            freq: Channel width (Hz).</span>
+<span class="sd">            :param freq: Channel width (Hz).</span>
 
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:CHPower:CHANnel:WIDth </span><span class="si">{</span><span class="n">channel_num</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">freq</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -6747,7 +6745,7 @@
 <span class="sd">            Specify the points in the path loss table, will override any existing points.</span>
 <span class="sd">            Points are specified as freq/offset pairs where the offset is specified as dB.</span>
 
-<span class="sd">            :param points (list of tuple): List of (freq, offset) pairs.</span>
+<span class="sd">            :param points: List of (freq, offset) pairs.</span>
 
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">):</span>
@@ -7681,8 +7679,7 @@
 <span class="sd">                Query the center frequency of the measurement.</span>
 
 <span class="sd">                </span>
-<span class="sd">                Return:</span>
-<span class="sd">                float: The center frequency in Hz.</span>
+<span class="sd">                :return: The center frequency in Hz.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:SEMask:FREQuency:CENTer?&quot;</span><span class="p">))</span></div>
 
@@ -7694,8 +7691,7 @@
 <span class="sd">                Set the center frequency step amount.</span>
 
 <span class="sd">                :param value: Step amount for center frequency changes in Hz.</span>
-<span class="sd">                Return:</span>
-<span class="sd">                None</span>
+<span class="sd">                </span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:SEMask:FREQuency:CENTer:STEP </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -7707,8 +7703,7 @@
 <span class="sd">                Query the center frequency step size in Hz.</span>
 
 <span class="sd">                </span>
-<span class="sd">                Return:</span>
-<span class="sd">                float: The center frequency step size in Hz.</span>
+<span class="sd">                :return: The center frequency step size in Hz.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:SEMask:FREQuency:CENTer:STEP?&quot;</span><span class="p">))</span></div>
 
@@ -7720,8 +7715,7 @@
 <span class="sd">                Set the sweep span.</span>
 
 <span class="sd">                :param value: Span in Hz.</span>
-<span class="sd">                Return:</span>
-<span class="sd">                None</span>
+<span class="sd">                </span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:SEMask:FREQuency:SPAN </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -7733,8 +7727,7 @@
 <span class="sd">                Query the sweep span in Hz.</span>
 
 <span class="sd">                </span>
-<span class="sd">                Return:</span>
-<span class="sd">                float: The span in Hz.</span>
+<span class="sd">                :return: The span in Hz.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:SEMask:FREQuency:SPAN?&quot;</span><span class="p">))</span></div>
 </div>
@@ -8111,13 +8104,13 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Offset.set_offset_parameters">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">set_offset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offsets</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                :param offsets (list of tuple): List of tuples, each containing (enabled, startFreq, stopFreq, startLimit, stopLimit, mode).</span>
-<span class="sd">                        enabled: &#39;ON&#39;, &#39;OFF&#39;, 1, or 0</span>
-<span class="sd">                        startFreq: float (Hz)</span>
-<span class="sd">                        stopFreq: float (Hz)</span>
-<span class="sd">                        startLimit: float</span>
-<span class="sd">                        stopLimit: float</span>
-<span class="sd">                        mode: &#39;RELATIVE&#39; or &#39;ABSOLUTE&#39;</span>
+<span class="sd">                :param offsets: List of tuples, each containing (enabled, startFreq, stopFreq, startLimit, stopLimit, mode).</span>
+<span class="sd">                :param enabled: &#39;ON&#39;, &#39;OFF&#39;, 1, or 0</span>
+<span class="sd">                :param startFreq: float (Hz)</span>
+<span class="sd">                :param stopFreq: float (Hz)</span>
+<span class="sd">                :param startLimit: float</span>
+<span class="sd">                :param stopLimit: float</span>
+<span class="sd">                :param mode: &#39;RELATIVE&#39; or &#39;ABSOLUTE&#39;</span>
 
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="n">allowed_enabled</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ON&quot;</span><span class="p">,</span> <span class="s2">&quot;OFF&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span>
@@ -8216,11 +8209,10 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Offset.get_margin">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">get_margin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset_num</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                peak) of specified offset.</span>
+<span class="sd">                Around peak of specified offset.</span>
 
 <span class="sd">                :param offset_num: Offset index [1-16].</span>
-<span class="sd">                Return:</span>
-<span class="sd">                peak) of specified offset.</span>
+<span class="sd">                :return: of specified offset.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offset_num</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">offset_num</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;offset_num must be an integer between 1 and 16&quot;</span><span class="p">)</span>
@@ -8231,11 +8223,10 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Offset.get_margin_lower">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">get_margin_lower</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset_num</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                peak) of lower range of specified offset.</span>
+<span class="sd">                Lower range of specified offset.</span>
 
 <span class="sd">                :param offset_num: Offset index [1-16].</span>
-<span class="sd">                Return:</span>
-<span class="sd">                peak) of lower range of specified offset.</span>
+<span class="sd">                :return: Lower range of specified offset.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offset_num</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">offset_num</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;offset_num must be an integer between 1 and 16&quot;</span><span class="p">)</span>
@@ -8249,8 +8240,7 @@
 <span class="sd">                peak) of upper range of specified offset.</span>
 
 <span class="sd">                :param offset_num: Offset index [1-16].</span>
-<span class="sd">                Return:</span>
-<span class="sd">                peak) of upper range of specified offset.</span>
+<span class="sd">                :return: upper range of specified offset.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offset_num</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">offset_num</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;offset_num must be an integer between 1 and 16&quot;</span><span class="p">)</span>
@@ -9218,7 +9208,7 @@
 <span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                    Set the (frequency, enr) points in the loaded ENR table.</span>
 
-<span class="sd">                    :param points (list of tuple): List of (freq, enr) pairs.</span>
+<span class="sd">                    :param points: List of (freq, enr) pairs.</span>
 
 <span class="sd">                    &quot;&quot;&quot;</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">):</span>
@@ -9606,9 +9596,8 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.Bluetooth.Trigger.Fetch.fetch">[docs]</a>
                 <span class="k">def</span><span class="w"> </span><span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metrics</span><span class="p">):</span>
 <span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                    :param     metrics (int or list/tuple of int): Metric(s) to retrieve.</span>
-<span class="sd">                    Return:</span>
-<span class="sd">                    str: Comma separated list of metric values in order requested.</span>
+<span class="sd">                    :param metrics: Metric(s) to retrieve.</span>
+<span class="sd">                    :return: Comma separated list of metric values in order requested.</span>
 <span class="sd">                    &quot;&quot;&quot;</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                         <span class="n">metrics_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
@@ -10045,9 +10034,8 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Trigger.set_slength">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">set_slength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                :param     value: Measurement capture length in seconds.</span>
-<span class="sd">                Return:</span>
-<span class="sd">                    None</span>
+<span class="sd">                :param value: Measurement capture length in seconds.</span>
+<span class="sd">                </span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIGger:LTE:SLENgth </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -10056,9 +10044,8 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Trigger.get_slength">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">get_slength</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                :param     None</span>
-<span class="sd">                Return:</span>
-<span class="sd">                    float: Measurement capture length in seconds.</span>
+<span class="sd">                </span>
+<span class="sd">                :return: Measurement capture length in seconds.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIGger:LTE:SLENgth?&quot;</span><span class="p">))</span></div>
 
@@ -10067,9 +10054,8 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Trigger.set_if_level">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">set_if_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                :param     value: Trigger level in dBm.</span>
-<span class="sd">                Return:</span>
-<span class="sd">                    None</span>
+<span class="sd">                :param value: Trigger level in dBm.</span>
+<span class="sd">                </span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:TRIGger:LTE:IF:LEVel </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -10078,9 +10064,8 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Trigger.get_if_level">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">get_if_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                :param     None</span>
-<span class="sd">                Return:</span>
-<span class="sd">                    float: Trigger level in dBm.</span>
+<span class="sd">                </span>
+<span class="sd">                :return: Trigger level in dBm.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:TRIGger:LTE:IF:LEVel?&quot;</span><span class="p">))</span></div>
 </div>
@@ -10103,9 +10088,8 @@
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.LTE.Fetch.fetch">[docs]</a>
             <span class="k">def</span><span class="w"> </span><span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metrics</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                :param     metrics (int or list/tuple of int): Metric(s) to retrieve.</span>
-<span class="sd">                Return:</span>
-<span class="sd">                    str: Comma separated list of metric values in order requested.</span>
+<span class="sd">                :param metrics: Metric(s) to retrieve.</span>
+<span class="sd">                :return: Comma separated list of metric values in order requested.</span>
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                     <span class="n">metrics_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
@@ -10463,7 +10447,7 @@
 <span class="sd">            to request as comma separated list. The metrics will be returned as a comma</span>
 <span class="sd">            separated list in the order they were requested.</span>
 
-<span class="sd">            :param metrics (int or list/tuple of int): Metric(s) to retrieve.</span>
+<span class="sd">            :param metrics: Metric(s) to retrieve.</span>
 <span class="sd">            :return: Comma separated list of metric values in order requested.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
