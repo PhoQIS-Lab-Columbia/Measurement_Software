@@ -44,11 +44,9 @@
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">non_default_program_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">non_default_instrument_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">pyvisa.ResourceManager</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/network_manager.html#NetworkManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.network_manager.NetworkManager.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize the NetworkManager to handle setting up instruments and establishing VISA connections.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Params non_default_program_path<span class="colon">:</span></dt>
-<dd class="field-odd"><p>path to a json file containing non-default program paths for instruments. If None, internal default will be used</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>non_default_program_path</strong> (<em>string</em>) – path to a json file containing non-default program paths for instruments. If None, internal default will be used</p></li>
 <li><p><strong>non_default_instrument_ports</strong> (<em>string</em>) – string - path to a json file containing non-default instrument ports. If None, internal default will be used</p></li>
 <li><p><strong>rm</strong> (<em>pyvisa.ResourceManager</em>) – pyvisa.ResourceManager - Resource manager to use for instrument connections. If None, a new resource manager will be created.</p></li>
 </ul>

@@ -168,8 +168,10 @@
 <dd><p>Set the basic frequency range divisor to derive the frequency of the auxiliary RF source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-divisor: Integer divisor (1-1000)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>divisor</strong> – Integer divisor (1-1000)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -180,8 +182,10 @@ divisor: Integer divisor (1-1000)</p>
 <dd><p>Set the basic frequency range multiplier to derive the frequency of the auxiliary RF source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-multiplier: Multiplier (-1000 to 1000)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>multiplier</strong> – Multiplier (-1000 to 1000)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -192,8 +196,10 @@ multiplier: Multiplier (-1000 to 1000)</p>
 <dd><p>Set the basic frequency range offset to derive the frequency of the auxiliary RF source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-offset: Frequency offset (-1e12 to 1e12 Hz)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>offset</strong> – Frequency offset (-1e12 to 1e12 Hz)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -204,8 +210,10 @@ offset: Frequency offset (-1e12 to 1e12 Hz)</p>
 <dd><p>Set the start of the frequency range of the auxiliary RF source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-start: Start frequency in Hz</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>start</strong> – Start frequency in Hz</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -216,8 +224,10 @@ start: Start frequency in Hz</p>
 <dd><p>Set the stop of the frequency range of the auxiliary RF source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-stop: Stop frequency in Hz</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>stop</strong> – Stop frequency in Hz</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -228,8 +238,10 @@ stop: Stop frequency in Hz</p>
 <dd><p>Set the port number assigned to the auxiliary RF source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -240,8 +252,10 @@ port: Port number (1-4)</p>
 <dd><p>Set the power level of the auxiliary RF source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-power: Power level in dBm</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>power</strong> – Power level in dBm</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -252,8 +266,10 @@ power: Power level in dBm</p>
 <dd><p>Turns an auxiliary RF source ON/OFF.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-state: ‘ON’, ‘OFF’, ‘1’, or ‘0’</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>state</strong> – ‘ON’, ‘OFF’, ‘1’, or ‘0’</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -281,12 +297,10 @@ state: ‘ON’, ‘OFF’, ‘1’, or ‘0’</p>
 <dd><p>Measures the power calibration data for the port using the power meter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -294,23 +308,14 @@ port: Port number (1-4)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Source.Power.Port.enable_loss_compensation">
 <span class="sig-name descname"><span class="pre">enable_loss_compensation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Source.Power.Port.enable_loss_compensation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Source.Power.Port.enable_loss_compensation" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Turns the state of the loss compensation used for power calibration ON/OFF.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param channel<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Channel number (1-16)
-port: Port number (1-4)</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Turns the state of the loss compensation used for power calibration ON/OFF.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – <p>True to enable, False to disable</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
-</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -318,23 +323,14 @@ port: Port number (1-4)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Source.Power.Port.enable_power_correction">
 <span class="sig-name descname"><span class="pre">enable_power_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Source.Power.Port.enable_power_correction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Source.Power.Port.enable_power_correction" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable the power correction for the specified port.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param channel<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Channel number (1-16)
-port: Port number (1-4)</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Enable or disable the power correction for the specified port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – <p>True to enable, False to disable</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
-</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -345,12 +341,13 @@ port: Port number (1-4)</p>
 <dd><p>Gets the loss compensation table used for power calibration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>list: Array size 1+2N, [N, freq1, loss1, freq2, loss2, …]</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array size 1+2N, [N, freq1, loss1, freq2, loss2, …]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -361,12 +358,13 @@ port: Port number (1-4)</p>
 <dd><p>Gets the power correction array for the port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>list: Correction values (array size NOP)</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Correction values (array size NOP)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -377,12 +375,13 @@ port: Port number (1-4)</p>
 <dd><p>Reads out the interpolation/extrapolation status of the port power correction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: Status (‘NONE’, ‘PC’, ‘PC?’, ‘PC!’)</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Status (‘NONE’, ‘PC’, ‘PC?’, ‘PC!’)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -393,12 +392,13 @@ port: Port number (1-4)</p>
 <dd><p>Query if loss compensation is enabled for power calibration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>bool: True if enabled, False otherwise</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if enabled, False otherwise</p>
 </dd>
 </dl>
 </dd></dl>
@@ -409,12 +409,13 @@ port: Port number (1-4)</p>
 <dd><p>Query if power correction is enabled for the specified port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>bool: True if enabled, False otherwise</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if enabled, False otherwise</p>
 </dd>
 </dl>
 </dd></dl>
@@ -425,13 +426,11 @@ port: Port number (1-4)</p>
 <dd><p>Sets the loss compensation table used for power calibration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)
-data_list (list): Array size 1+2N, [N, freq1, loss1, freq2, loss2, …]</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+<li><p><strong>data_list</strong> – Array size 1+2N, [N, freq1, loss1, freq2, loss2, …]</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -442,13 +441,11 @@ data_list (list): Array size 1+2N, [N, freq1, loss1, freq2, loss2, …]</p>
 <dd><p>Sets the power correction array for the port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)
-data_list (list): Correction values (array size NOP)</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+<li><p><strong>data_list</strong> – Correction values (array size NOP)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -463,17 +460,13 @@ data_list (list): Correction values (array size NOP)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Source.Power.enable_port_couple">
 <span class="sig-name descname"><span class="pre">enable_port_couple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Source.Power.enable_port_couple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Source.Power.enable_port_couple" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Turns the port power couple ON/OFF.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param channel<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Channel number (1-16)</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Turns the port power couple ON/OFF.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -481,17 +474,13 @@ data_list (list): Correction values (array size NOP)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Source.Power.enable_power_slope">
 <span class="sig-name descname"><span class="pre">enable_power_slope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Source.Power.enable_power_slope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Source.Power.enable_power_slope" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Turns the power slope ON/OFF.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param channel<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Channel number (1-16)</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Turns the power slope ON/OFF.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -502,8 +491,10 @@ data_list (list): Correction values (array size NOP)</p>
 <dd><p>Get the power level of each port for the frequency sweep type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Power level in dBm</p>
@@ -629,9 +620,11 @@ port: Port number (1-4)</p>
 <dd><p>Set the power level of each port for the frequency sweep type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-port: Port number (1-4)
-power: Power level in dBm</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+<li><p><strong>power</strong> – Power level in dBm</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -642,8 +635,10 @@ power: Power level in dBm</p>
 <dd><p>Set the center value of the power sweep type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-power: Center power level in dBm</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>power</strong> – Center power level in dBm</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -654,8 +649,10 @@ power: Center power level in dBm</p>
 <dd><p>Set the power level for the frequency sweep type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-power: Power level in dBm</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>power</strong> – Power level in dBm</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

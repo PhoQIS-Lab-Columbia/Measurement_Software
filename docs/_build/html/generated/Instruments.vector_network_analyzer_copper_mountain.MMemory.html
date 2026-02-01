@@ -82,8 +82,10 @@
 <dd><p>Copy a file from source to destination.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>src</strong> – Source file name
-dst: Destination file name</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> – Source file name</p></li>
+<li><p><strong>dst</strong> – Destination file name</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -149,9 +151,7 @@ dst: Destination file name</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Load.enable_snp_frequency_from_file">
 <span class="sig-name descname"><span class="pre">enable_snp_frequency_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Load.enable_snp_frequency_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Load.enable_snp_frequency_from_file" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable setting frequency from touchstone file when loading.</p>
-</div></blockquote>
+<dd><p>Enable or disable setting frequency from touchstone file when loading.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -163,7 +163,6 @@ dst: Destination file name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Load.is_snp_frequency_from_file_enabled">
 <span class="sig-name descname"><span class="pre">is_snp_frequency_from_file_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Load.is_snp_frequency_from_file_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Load.is_snp_frequency_from_file_enabled" title="Link to this definition">¶</a></dt>
 <dd><p>Query if frequency is set from touchstone file when loading.</p>
-<p>:param None</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if enabled, False otherwise</p>
@@ -177,8 +176,10 @@ dst: Destination file name</p>
 <dd><p>Recall the definition file for the calibration kit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kit</strong> – Calibration kit number (1-50)
-filename: File name</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kit</strong> – Calibration kit number (1-50)</p></li>
+<li><p><strong>filename</strong> – File name</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -189,8 +190,10 @@ filename: File name</p>
 <dd><p>Recall the calibration for the specified channel from the file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-filename: File name</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>filename</strong> – File name</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -223,8 +226,10 @@ filename: File name</p>
 <dd><p>Recall the loss compensation file for the specified port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>port</strong> – Port number (1-4)
-filename: File name</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+<li><p><strong>filename</strong> – File name</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -279,8 +284,10 @@ filename: File name</p>
 <dd><p>Load the Touchstone file to the memory trace.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>trace</strong> – Trace number (1-16)
-filename: File name</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trace</strong> – Trace number (1-16)</p></li>
+<li><p><strong>filename</strong> – File name</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -305,17 +312,10 @@ filename: File name</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.enable_comment">
 <span class="sig-name descname"><span class="pre">enable_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Fdat.enable_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.enable_comment" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable comment strings at the beginning of the CSV file.</p>
-</div></blockquote>
+<dd><p>Enable or disable comment strings at the beginning of the CSV file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – <p>True to enable, False to disable</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
-</p>
+<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
 </dd>
 </dl>
 </dd></dl>
@@ -323,17 +323,10 @@ filename: File name</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.enable_stimulus_column">
 <span class="sig-name descname"><span class="pre">enable_stimulus_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Fdat.enable_stimulus_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.enable_stimulus_column" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable the stimulus column in the CSV file.</p>
-</div></blockquote>
+<dd><p>Enable or disable the stimulus column in the CSV file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – <p>True to enable, False to disable</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
-</p>
+<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
 </dd>
 </dl>
 </dd></dl>
@@ -342,9 +335,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.get_format">
 <span class="sig-name descname"><span class="pre">get_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Fdat.get_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.get_format" title="Link to this definition">¶</a></dt>
 <dd><p>Get the data format for saving CSV.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: ‘DB’, ‘RI’, or ‘DISP’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘DB’, ‘RI’, or ‘DISP’</p>
 </dd>
 </dl>
 </dd></dl>
@@ -353,9 +346,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.get_scope">
 <span class="sig-name descname"><span class="pre">get_scope</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Fdat.get_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.get_scope" title="Link to this definition">¶</a></dt>
 <dd><p>Get the scope for saving trace data.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: ‘ACT’ or ‘ALL’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘ACT’ or ‘ALL’</p>
 </dd>
 </dl>
 </dd></dl>
@@ -364,9 +357,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.get_separator">
 <span class="sig-name descname"><span class="pre">get_separator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Fdat.get_separator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.get_separator" title="Link to this definition">¶</a></dt>
 <dd><p>Get the separator used for saving CSV.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: ‘POIN’ or ‘LOC’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘POIN’ or ‘LOC’</p>
 </dd>
 </dl>
 </dd></dl>
@@ -375,9 +368,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.is_comment_enabled">
 <span class="sig-name descname"><span class="pre">is_comment_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Fdat.is_comment_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.is_comment_enabled" title="Link to this definition">¶</a></dt>
 <dd><p>Query if comment strings are enabled in the CSV file.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>bool: True if enabled, False otherwise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if enabled, False otherwise</p>
 </dd>
 </dl>
 </dd></dl>
@@ -386,9 +379,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.is_stimulus_column_enabled">
 <span class="sig-name descname"><span class="pre">is_stimulus_column_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Fdat.is_stimulus_column_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Fdat.is_stimulus_column_enabled" title="Link to this definition">¶</a></dt>
 <dd><p>Query if the stimulus column is enabled in the CSV file.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>bool: True if enabled, False otherwise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if enabled, False otherwise</p>
 </dd>
 </dl>
 </dd></dl>
@@ -402,10 +395,6 @@ filename: File name</p>
 <dd class="field-odd"><p><strong>fmt</strong> – ‘DB’, ‘RI’, or ‘DISPlayed’</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -417,10 +406,6 @@ filename: File name</p>
 <dd class="field-odd"><p><strong>scope</strong> – ‘ACTive’ or ‘ALL’</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -430,10 +415,6 @@ filename: File name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>sep</strong> – ‘POINt’ or ‘LOCal’</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -453,17 +434,10 @@ filename: File name</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.enable_trace_transform">
 <span class="sig-name descname"><span class="pre">enable_trace_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.enable_trace_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.enable_trace_transform" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable including trace transform in the Touchstone file.</p>
-</div></blockquote>
+<dd><p>Enable or disable including trace transform in the Touchstone file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – <p>True to enable, False to disable</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
-</p>
+<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
 </dd>
 </dl>
 </dd></dl>
@@ -472,9 +446,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_format">
 <span class="sig-name descname"><span class="pre">get_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.get_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_format" title="Link to this definition">¶</a></dt>
 <dd><p>Get the data format for the S-parameter saved.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: ‘RI’, ‘DB’, or ‘MA’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘RI’, ‘DB’, or ‘MA’</p>
 </dd>
 </dl>
 </dd></dl>
@@ -483,9 +457,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_save_type">
 <span class="sig-name descname"><span class="pre">get_save_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.get_save_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_save_type" title="Link to this definition">¶</a></dt>
 <dd><p>Reads out the type of the Analyzer or channel state saving.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: Save type (‘STAT’, ‘CST’, ‘DST’, ‘CDST’, ‘CMST’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Save type (‘STAT’, ‘CST’, ‘DST’, ‘CDST’, ‘CMST’)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -494,9 +468,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_separator">
 <span class="sig-name descname"><span class="pre">get_separator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.get_separator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_separator" title="Link to this definition">¶</a></dt>
 <dd><p>Get the Touchstone file separator symbol.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: ‘TAB’ or ‘SPAC’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘TAB’ or ‘SPAC’</p>
 </dd>
 </dl>
 </dd></dl>
@@ -505,9 +479,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_file_type">
 <span class="sig-name descname"><span class="pre">get_touchstone_file_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.get_touchstone_file_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_file_type" title="Link to this definition">¶</a></dt>
 <dd><p>Reads out the type of Touchstone file (S1P, S2P, S3P or S4P) to be used when saving S–parameters.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>str: Touchstone file type (‘S1P’, ‘S2P’, ‘S3P’, or ‘S4P’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Touchstone file type (‘S1P’, ‘S2P’, ‘S3P’, or ‘S4P’)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -516,9 +490,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_type_s1p">
 <span class="sig-name descname"><span class="pre">get_touchstone_type_s1p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.get_touchstone_type_s1p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_type_s1p" title="Link to this definition">¶</a></dt>
 <dd><p>Reads out the port number for the 1-port Touchstone file type.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>int: Port number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Port number</p>
 </dd>
 </dl>
 </dd></dl>
@@ -527,9 +501,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_type_s2p">
 <span class="sig-name descname"><span class="pre">get_touchstone_type_s2p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.get_touchstone_type_s2p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_type_s2p" title="Link to this definition">¶</a></dt>
 <dd><p>Reads out the port numbers for the 2-port Touchstone file type.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>tuple: (port1, port2)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(port1, port2)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -538,9 +512,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_type_s3p">
 <span class="sig-name descname"><span class="pre">get_touchstone_type_s3p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.get_touchstone_type_s3p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_type_s3p" title="Link to this definition">¶</a></dt>
 <dd><p>Reads out the port numbers for the 3-port Touchstone file type.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>tuple: (port1, port2, port3)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(port1, port2, port3)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -549,9 +523,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_type_s4p">
 <span class="sig-name descname"><span class="pre">get_touchstone_type_s4p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.get_touchstone_type_s4p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.get_touchstone_type_s4p" title="Link to this definition">¶</a></dt>
 <dd><p>Reads out the port numbers for the 4-port Touchstone file type.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>tuple: (port1, port2, port3, port4)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(port1, port2, port3, port4)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -560,9 +534,9 @@ filename: File name</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.is_trace_transform_enabled">
 <span class="sig-name descname"><span class="pre">is_trace_transform_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.is_trace_transform_enabled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.is_trace_transform_enabled" title="Link to this definition">¶</a></dt>
 <dd><p>Query if including trace transform is enabled in the Touchstone file.</p>
-<p>:param None</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>bool: True if enabled, False otherwise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if enabled, False otherwise</p>
 </dd>
 </dl>
 </dd></dl>
@@ -576,10 +550,6 @@ filename: File name</p>
 <dd class="field-odd"><p><strong>fmt</strong> – ‘DB’, ‘MA’, or ‘RI’</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -589,10 +559,6 @@ filename: File name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>save_type</strong> – One of [‘STATe’, ‘CSTate’, ‘DSTate’, ‘CDSTate’, ‘CMSTate’]</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -606,23 +572,15 @@ filename: File name</p>
 <dd class="field-odd"><p><strong>sep</strong> – ‘TAB’ or ‘SPACe’</p>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.set_touchstone_type_s1p">
 <span class="sig-name descname"><span class="pre">set_touchstone_type_s1p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.set_touchstone_type_s1p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.set_touchstone_type_s1p" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the 1-port Touchstone file type (<a href="#id1"><span class="problematic" id="id2">*</span></a>.S1P) and the port number.</p>
+<dd><p>Sets the 1-port Touchstone file type (.S1P) and the port number.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>port</strong> – Port number from 1 to 4</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -630,7 +588,7 @@ filename: File name</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.set_touchstone_type_s2p">
 <span class="sig-name descname"><span class="pre">set_touchstone_type_s2p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.set_touchstone_type_s2p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.set_touchstone_type_s2p" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the 2-port Touchstone file type (<a href="#id3"><span class="problematic" id="id4">*</span></a>.S2P) and the port numbers.</p>
+<dd><p>Sets the 2-port Touchstone file type (.S2P) and the port numbers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -639,16 +597,12 @@ filename: File name</p>
 </ul>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.set_touchstone_type_s3p">
 <span class="sig-name descname"><span class="pre">set_touchstone_type_s3p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.set_touchstone_type_s3p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.set_touchstone_type_s3p" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the 3-port Touchstone file type (<a href="#id5"><span class="problematic" id="id6">*</span></a>.S3P) and the port numbers.</p>
+<dd><p>Sets the 3-port Touchstone file type (.S3P) and the port numbers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -658,16 +612,12 @@ filename: File name</p>
 </ul>
 </dd>
 </dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.set_touchstone_type_s4p">
 <span class="sig-name descname"><span class="pre">set_touchstone_type_s4p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port4</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.Snp.set_touchstone_type_s4p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.Snp.set_touchstone_type_s4p" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the 4-port Touchstone file type (<a href="#id7"><span class="problematic" id="id8">*</span></a>.S4P) and the port numbers.</p>
+<dd><p>Sets the 4-port Touchstone file type (.S4P) and the port numbers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -676,10 +626,6 @@ filename: File name</p>
 <li><p><strong>port3</strong> – Third port number (1-4)</p></li>
 <li><p><strong>port4</strong> – Fourth port number (1-4)</p></li>
 </ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Return:</dt><dd><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -692,9 +638,10 @@ filename: File name</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>filename</strong> – The file name with the full path</p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The file contents as bytes</p>
+</dd>
 </dl>
-<p>Return:
-bytes: The file contents as bytes</p>
 </dd></dl>
 
 </dd></dl>
@@ -708,7 +655,6 @@ bytes: The file contents as bytes</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.clear_channel_memory">
 <span class="sig-name descname"><span class="pre">clear_channel_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#MMemory.Store.clear_channel_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.MMemory.Store.clear_channel_memory" title="Link to this definition">¶</a></dt>
 <dd><p>Clear the memory of the channel state saved using the store channel command.</p>
-<p>:param None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -717,8 +663,10 @@ bytes: The file contents as bytes</p>
 <dd><p>Save the definition file for the calibration kit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kit</strong> – Calibration kit number (1-50)
-filename: File name</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kit</strong> – Calibration kit number (1-50)</p></li>
+<li><p><strong>filename</strong> – File name</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -729,8 +677,10 @@ filename: File name</p>
 <dd><p>Store the calibration of the specified channel to the file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>channel</strong> – Channel number (1-16)
-filename: File name</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Channel number (1-16)</p></li>
+<li><p><strong>filename</strong> – File name</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -774,8 +724,10 @@ filename: File name</p>
 <dd><p>Save the loss compensation file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>port</strong> – Port number (1-4)
-filename: File name</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – Port number (1-4)</p></li>
+<li><p><strong>filename</strong> – File name</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

@@ -125,10 +125,7 @@ class Calculate:
         """
         Set the S-parameter conversion function type.
 
-        :param conv_type: Conversion type, one of [
-            'ZREF', 'ZTR', 'YREF', 'YTR', 'INV', 'ZTSH', 'YTSH', 'CONJ',
-            'ZREFlection', 'ZTRansmit', 'YREFlection', 'YTRansmit', 'INVersion', 'ZTSHunt', 'YTSHunt', 'CONJugation'
-        ]
+        :param conv_type: Conversion type, one of ['ZREF', 'ZTR', 'YREF', 'YTR', 'INV', 'ZTSH', 'YTSH', 'CONJ','ZREFlection', 'ZTRansmit', 'YREFlection', 'YTRansmit', 'INVersion', 'ZTSHunt', 'YTSHunt', 'CONJugation']
 
 
         """
@@ -634,11 +631,7 @@ class Calculate:
             Set the measurement parameter of the fixture simulation function for SSBalanced device type.
 
             :param trace: Trace number (1-16)
-            :param param: Measurement parameter, one of [
-                    'SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23',
-                    'SCS31', 'SCS32', 'SSC13', 'SSC23', 'SDD33', 'SCD33', 'SDC33', 'SCC33',
-                    'IMB1', 'IMB2', 'IMB3', 'IMB4', 'CMRR1', 'CMRR2'
-                ]
+            :param param: Measurement parameter, one of ['SSS11', 'SSS21', 'SSS12', 'SSS22', 'SDS31', 'SDS32', 'SSD13', 'SSD23','SCS31', 'SCS32', 'SSC13', 'SSC23', 'SDD33', 'SCD33', 'SDC33', 'SCC33','IMB1', 'IMB2', 'IMB3', 'IMB4', 'CMRR1', 'CMRR2']
 
 
             """
@@ -908,7 +901,7 @@ class Calculate:
         # CALC:FSIM:EMB:NETW<Nk>:FIL - Set/read 4-port Touchstone file for embedding/de-embedding
         def set_embedded_network_file(self, network: int, filename: str):
             """
-            Set the name of the 4-port Touchstone file (*.s4p) for the embedding/de-embedding feature.
+            Set the name of the 4-port Touchstone file (.s4p) for the embedding/de-embedding feature.
 
             :param network: Network number (1 or 2)
             :param filename: Path to the .s4p Touchstone file
@@ -921,7 +914,7 @@ class Calculate:
 
         def get_embedded_network_file(self, network: int) -> str:
             """
-            Get the name of the 4-port Touchstone file (*.s4p) for the embedding/de-embedding feature.
+            Get the name of the 4-port Touchstone file (.s4p) for the embedding/de-embedding feature.
 
             :param network: Network number (1 or 2)
 
@@ -930,6 +923,7 @@ class Calculate:
             if network not in [1, 2]:
                 raise ValueError("network must be 1 or 2")
             return self.instrument.query(f":CALC{self.channel}:FSIM:EMB:NETW{network}:FIL?").strip()
+        
         # CALC:FSIM:EMB:NETW:TYPE - Select processing type for 4-port embedding/de-embedding
         def set_network_processing_type(self, network: int, proc_type: str):
             """
@@ -2515,7 +2509,7 @@ class Calculate:
         Define a new trace with the given name and parameter.
 
         :param trace_name: Name of the trace
-        parameter: S-parameter (e.g., 'S11', 'S21', etc.)
+        :param parameter: S-parameter (e.g., 'S11', 'S21', etc.)
 
 
         """
@@ -5036,7 +5030,7 @@ class MMemory:
             # MMEMory:STORe:SNP:TYPE:S1P?
             def set_touchstone_type_s1p(self, port: int):
                 """
-                Sets the 1-port Touchstone file type (*.S1P) and the port number.
+                Sets the 1-port Touchstone file type (.S1P) and the port number.
 
                 :param port: Port number from 1 to 4
 
@@ -5060,7 +5054,7 @@ class MMemory:
             # MMEMory:STORe:SNP:TYPE:S2P?
             def set_touchstone_type_s2p(self, port1: int, port2: int):
                 """
-                Sets the 2-port Touchstone file type (*.S2P) and the port numbers.
+                Sets the 2-port Touchstone file type (.S2P) and the port numbers.
 
                 :param port1: First port number (1-4)
                 :param port2: Second port number (1-4)
@@ -5086,7 +5080,7 @@ class MMemory:
             # MMEMory:STORe:SNP:TYPE:S3P?
             def set_touchstone_type_s3p(self, port1: int, port2: int, port3: int):
                 """
-                Sets the 3-port Touchstone file type (*.S3P) and the port numbers.
+                Sets the 3-port Touchstone file type (.S3P) and the port numbers.
 
                 :param port1: First port number (1-4)
                 :param port2: Second port number (1-4)
@@ -5113,7 +5107,7 @@ class MMemory:
             # MMEMory:STORe:SNP:TYPE:S4P?
             def set_touchstone_type_s4p(self, port1: int, port2: int, port3: int, port4: int):
                 """
-                Sets the 4-port Touchstone file type (*.S4P) and the port numbers.
+                Sets the 4-port Touchstone file type (.S4P) and the port numbers.
 
                 :param port1: First port number (1-4)
                 :param port2: Second port number (1-4)
@@ -12532,7 +12526,6 @@ class Status:
                 """
                 Reads out the value of the Questionable Limit Status Enable Register.
 
-                
 
                 :return: Questionable Limit Status Enable Register value
                 """
@@ -12567,7 +12560,6 @@ class Status:
                 Sets the value of the Positive transition filter of the Questionable Limit Status Register.
 
                 :param value: Value from 0 to 65535
-
                 
                 """
                 value = max(0, min(65535, value))
@@ -12578,7 +12570,6 @@ class Status:
                 """
                 Reads out the value of the Positive transition filter of the Questionable Limit Status Register.
 
-                
 
                 :return: Positive transition filter value
                 """
@@ -13148,7 +13139,7 @@ class System:
             """
             Turns the beeper denoting completion of the operation ON/OFF.
 
-          :param enable: True to enable, False to disable
+            :param enable: True to enable, False to disable
 
 
             """
@@ -13181,7 +13172,7 @@ class System:
             """
             Turns the beeper signifying a warning ON/OFF.
 
-          :param enable: True to enable, False to disable
+            :param enable: True to enable, False to disable
 
 
             """
@@ -13280,8 +13271,8 @@ class System:
                 Reads out the AutoCal module characterization data.
 
                 :param path: Port number, port pair, or check state ('A','B','C','D','AB','AC','AD','BC','BD','CD','CHECk')
-                    impedance: Impedance state or S-parameter
-                    characterization (str, optional): Characterization name ('FACTory','USER1','USER2','USER3')
+                :param impedance: Impedance state or S-parameter
+                :param characterization: Characterization name ('FACTory','USER1','USER2','USER3')
 
                 :return: S-parameter array (real/imag pairs)
                 """
@@ -13311,7 +13302,7 @@ class System:
                 """
                 Reads out the AutoCal module characterization frequency array.
 
-                :param characterization (str, optional): Characterization name ('FACTory','USER1','USER2','USER3')
+                :param characterization: Characterization name ('FACTory','USER1','USER2','USER3')
 
                 :return: Frequency values at each characterization point
                 """
@@ -13332,7 +13323,7 @@ class System:
                 """
                 Reads out the AutoCal module characterization point number.
 
-                :param characterization (str, optional): Characterization name ('FACTory','USER1','USER2','USER3')
+                :param characterization: Characterization name ('FACTory','USER1','USER2','USER3')
 
                 :return: Number of points (0 if characterization does not exist)
                 """
@@ -13350,7 +13341,7 @@ class System:
                 Sets the impedance state of the specified port of the AutoCal module.
 
                 :param port: Port number ('A','B','C','D')
-                    state: Impedance state ('OPEN','SHORt','LOAD','LOAD2','OPEN2')
+                :param state: Impedance state ('OPEN','SHORt','LOAD','LOAD2','OPEN2')
 
                 
                 """
@@ -13528,7 +13519,7 @@ class System:
             """
             Turns the system correction ON/OFF.
 
-          :param enable: True to enable, False to disable
+            :param enable: True to enable, False to disable
 
 
             """
@@ -13619,8 +13610,8 @@ class System:
             Sets the current date.
 
             :param year: Year (1900-2100)
-                month: Month (1-12)
-                day: Day (1-31)
+            :param month: Month (1-12)
+            :param day: Day (1-31)
 
 
             """
@@ -13639,8 +13630,7 @@ class System:
 
             
 
-            Return:
-                tuple: (year, month, day)
+            :return: (year, month, day)
             """
             resp = self.instrument.query(":SYST:DATE?").strip()
             parts = resp.split(',')
@@ -13658,7 +13648,7 @@ class System:
             """
             Turns the dynamic range extension function ON/OFF.
 
-          :param enable: True to enable, False to disable
+            :param enable: True to enable, False to disable
 
 
             """
@@ -13688,7 +13678,7 @@ class System:
             """
             Turns the direct access to the receiver function ON/OFF.
 
-          :param enable: True to enable, False to disable
+            :param enable: True to enable, False to disable
 
 
             """
@@ -13710,7 +13700,7 @@ class System:
             """
             Turns the Power Trip at Overload function ON/OFF.
 
-          :param enable: True to enable, False to disable
+            :param enable: True to enable, False to disable
 
 
             """
@@ -13749,19 +13739,13 @@ class System:
 
         def preset_analyzer(self):
             """
-            Resets the Analyzer to default settings. Differs from *RST: trigger is set to Continuous mode.
-
-            
-
-
+            Resets the Analyzer to default settings. Differs from RST: trigger is set to Continuous mode.
             """
             self.instrument.write(":SYST:PRES")
 
         def is_analyzer_ready(self) -> bool:
             """
             Reads out the Analyzer readiness status.
-
-            
 
             :return: True if Analyzer is ready, False otherwise
             """
@@ -13789,8 +13773,8 @@ class System:
             Sets the current time.
 
             :param hour: Hours from 0 to 23
-                minute: Minutes from 0 to 59
-                second: Seconds from 0 to 59
+            :param minute: Minutes from 0 to 59
+            :param second: Seconds from 0 to 59
 
 
             """
@@ -13809,8 +13793,7 @@ class System:
 
             
 
-            Return:
-                tuple: (hour, minute, second)
+            :return: (hour, minute, second)
             """
             resp = self.instrument.query(":SYST:TIME?").strip()
             parts = resp.split(',')
@@ -13849,7 +13832,7 @@ class Trigger:
             """
             Turns the averaging trigger function ON/OFF.
 
-          :param enable: True to enable, False to disable
+            :param enable: True to enable, False to disable
 
 
             """
@@ -14036,7 +14019,7 @@ class Trigger:
             """
             Turns the point trigger feature ON/OFF.
 
-          :param enable: True to enable, False to disable
+            :param enable: True to enable, False to disable
 
 
             """

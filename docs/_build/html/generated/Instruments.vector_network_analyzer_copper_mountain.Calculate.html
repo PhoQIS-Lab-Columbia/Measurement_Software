@@ -633,14 +633,7 @@ The default value is 25 Ohms.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>trace</strong> – Trace number (1-16)</p></li>
-<li><p><strong>param</strong> – <dl class="simple">
-<dt>Measurement parameter, one of [</dt><dd><p>‘SSS11’, ‘SSS21’, ‘SSS12’, ‘SSS22’, ‘SDS31’, ‘SDS32’, ‘SSD13’, ‘SSD23’,
-‘SCS31’, ‘SCS32’, ‘SSC13’, ‘SSC23’, ‘SDD33’, ‘SCD33’, ‘SDC33’, ‘SCC33’,
-‘IMB1’, ‘IMB2’, ‘IMB3’, ‘IMB4’, ‘CMRR1’, ‘CMRR2’</p>
-</dd>
-</dl>
-<p>]</p>
-</p></li>
+<li><p><strong>param</strong> – Measurement parameter, one of [‘SSS11’, ‘SSS21’, ‘SSS12’, ‘SSS22’, ‘SDS31’, ‘SDS32’, ‘SSD13’, ‘SSD23’,’SCS31’, ‘SCS32’, ‘SSC13’, ‘SSC23’, ‘SDD33’, ‘SCD33’, ‘SDC33’, ‘SCC33’,’IMB1’, ‘IMB2’, ‘IMB3’, ‘IMB4’, ‘CMRR1’, ‘CMRR2’]</p></li>
 </ul>
 </dd>
 </dl>
@@ -817,7 +810,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Embedded.get_embedded_network_file">
 <span class="sig-name descname"><span class="pre">get_embedded_network_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Embedded.get_embedded_network_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Embedded.get_embedded_network_file" title="Link to this definition">¶</a></dt>
-<dd><p>Get the name of the 4-port Touchstone file (<a href="#id1"><span class="problematic" id="id2">*</span></a>.s4p) for the embedding/de-embedding feature.</p>
+<dd><p>Get the name of the 4-port Touchstone file (.s4p) for the embedding/de-embedding feature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>network</strong> – Network number (1 or 2)</p>
@@ -900,7 +893,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Embedded.set_embedded_network_file">
 <span class="sig-name descname"><span class="pre">set_embedded_network_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Embedded.set_embedded_network_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Embedded.set_embedded_network_file" title="Link to this definition">¶</a></dt>
-<dd><p>Set the name of the 4-port Touchstone file (<a href="#id3"><span class="problematic" id="id4">*</span></a>.s4p) for the embedding/de-embedding feature.</p>
+<dd><p>Set the name of the 4-port Touchstone file (.s4p) for the embedding/de-embedding feature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1350,9 +1343,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_MST.enable_partial_frequency_range">
 <span class="sig-name descname"><span class="pre">enable_partial_frequency_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_MST.enable_partial_frequency_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_MST.enable_partial_frequency_range" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable partial frequency range for statistics.</p>
-</div></blockquote>
+<dd><p>Enable or disable partial frequency range for statistics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -1363,9 +1354,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_MST.enable_statistics">
 <span class="sig-name descname"><span class="pre">enable_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_MST.enable_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_MST.enable_statistics" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable math statistics.</p>
-</div></blockquote>
+<dd><p>Enable or disable math statistics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -1465,17 +1454,13 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_bandwidth_search">
 <span class="sig-name descname"><span class="pre">enable_bandwidth_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Marker.enable_bandwidth_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_bandwidth_search" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable bandwidth search for marker.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param marker<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Marker number</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Enable or disable bandwidth search for marker.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>marker</strong> – Marker number</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1508,9 +1493,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_discrete_mode">
 <span class="sig-name descname"><span class="pre">enable_marker_discrete_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Marker.enable_marker_discrete_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_discrete_mode" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable marker discrete mode.</p>
-</div></blockquote>
+<dd><p>Enable or disable marker discrete mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -1521,17 +1504,13 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_flatness">
 <span class="sig-name descname"><span class="pre">enable_marker_flatness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Marker.enable_marker_flatness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_flatness" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable marker flatness.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param marker<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Marker number</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Enable or disable marker flatness.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>marker</strong> – Marker number</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1539,17 +1518,13 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_search_arbitrary_range">
 <span class="sig-name descname"><span class="pre">enable_marker_search_arbitrary_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Marker.enable_marker_search_arbitrary_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_search_arbitrary_range" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable marker search arbitrary range.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param marker<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Marker number</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Enable or disable marker search arbitrary range.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>marker</strong> – Marker number</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1557,17 +1532,13 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_search_range_coupling">
 <span class="sig-name descname"><span class="pre">enable_marker_search_range_coupling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Marker.enable_marker_search_range_coupling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_search_range_coupling" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable coupling of marker search ranges.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param marker<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Marker number</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Enable or disable coupling of marker search ranges.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>marker</strong> – Marker number</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1575,17 +1546,13 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_search_tracking">
 <span class="sig-name descname"><span class="pre">enable_marker_search_tracking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Marker.enable_marker_search_tracking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_marker_search_tracking" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable marker search tracking.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param marker<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Marker number</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Enable or disable marker search tracking.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>marker</strong> – Marker number</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1593,17 +1560,13 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_reference_marker">
 <span class="sig-name descname"><span class="pre">enable_reference_marker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_Marker.enable_reference_marker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_Marker.enable_reference_marker" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable reference marker.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param marker<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Marker number</p>
-</dd>
-</dl>
-</div></blockquote>
+<dd><p>Enable or disable reference marker.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>marker</strong> – Marker number</p></li>
+<li><p><strong>enable</strong> – True to enable, False to disable</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -2266,9 +2229,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_RLIM.enable_ripple_limit_line_display">
 <span class="sig-name descname"><span class="pre">enable_ripple_limit_line_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_RLIM.enable_ripple_limit_line_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_RLIM.enable_ripple_limit_line_display" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable ripple limit line display.</p>
-</div></blockquote>
+<dd><p>Enable or disable ripple limit line display.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -2279,9 +2240,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_RLIM.enable_ripple_limit_test">
 <span class="sig-name descname"><span class="pre">enable_ripple_limit_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_RLIM.enable_ripple_limit_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_RLIM.enable_ripple_limit_test" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable ripple limit test.</p>
-</div></blockquote>
+<dd><p>Enable or disable ripple limit test.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -2414,9 +2373,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_SMO.enable_smoothing">
 <span class="sig-name descname"><span class="pre">enable_smoothing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_SMO.enable_smoothing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_SMO.enable_smoothing" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable trace smoothing.</p>
-</div></blockquote>
+<dd><p>Enable or disable trace smoothing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -2472,9 +2429,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_TRAN.enable_time_domain_dc_extrapolation">
 <span class="sig-name descname"><span class="pre">enable_time_domain_dc_extrapolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_TRAN.enable_time_domain_dc_extrapolation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_TRAN.enable_time_domain_dc_extrapolation" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable DC extrapolation in time domain.</p>
-</div></blockquote>
+<dd><p>Enable or disable DC extrapolation in time domain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -2485,9 +2440,7 @@ The default value is 25 Ohms.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_TRAN.enable_time_domain_transformation">
 <span class="sig-name descname"><span class="pre">enable_time_domain_transformation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.Calc_TRAN.enable_time_domain_transformation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.Calc_TRAN.enable_time_domain_transformation" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Enable or disable time domain transformation.</p>
-</div></blockquote>
+<dd><p>Enable or disable time domain transformation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> – True to enable, False to disable</p>
@@ -3092,11 +3045,14 @@ The default value is 25 Ohms.</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.define_trace">
 <span class="sig-name descname"><span class="pre">define_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.define_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.define_trace" title="Link to this definition">¶</a></dt>
 <dd><p>Define a new trace with the given name and parameter.</p>
-<p>Parameter:
-trace_name: Name of the trace
-parameter: S-parameter (e.g., ‘S11’, ‘S21’, etc.)</p>
-<p>Return:
-None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trace_name</strong> – Name of the trace</p></li>
+<li><p><strong>parameter</strong> – S-parameter (e.g., ‘S11’, ‘S21’, etc.)</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3298,10 +3254,11 @@ None</p>
 <dt class="sig sig-object py" id="Instruments.vector_network_analyzer_copper_mountain.Calculate.select_trace_by_name">
 <span class="sig-name descname"><span class="pre">select_trace_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/vector_network_analyzer_copper_mountain.html#Calculate.select_trace_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.vector_network_analyzer_copper_mountain.Calculate.select_trace_by_name" title="Link to this definition">¶</a></dt>
 <dd><p>Select the trace by its name.</p>
-<p>Parameter:
-trace_name: Name of the trace</p>
-<p>Return:
-None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trace_name</strong> – Name of the trace</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3321,12 +3278,9 @@ None</p>
 <dd><p>Set the S-parameter conversion function type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>conv_type</strong> – Conversion type, one of [
-‘ZREF’, ‘ZTR’, ‘YREF’, ‘YTR’, ‘INV’, ‘ZTSH’, ‘YTSH’, ‘CONJ’,
-‘ZREFlection’, ‘ZTRansmit’, ‘YREFlection’, ‘YTRansmit’, ‘INVersion’, ‘ZTSHunt’, ‘YTSHunt’, ‘CONJugation’</p>
+<dd class="field-odd"><p><strong>conv_type</strong> – Conversion type, one of [‘ZREF’, ‘ZTR’, ‘YREF’, ‘YTR’, ‘INV’, ‘ZTSH’, ‘YTSH’, ‘CONJ’,’ZREFlection’, ‘ZTRansmit’, ‘YREFlection’, ‘YTRansmit’, ‘INVersion’, ‘ZTSHunt’, ‘YTSHunt’, ‘CONJugation’]</p>
 </dd>
 </dl>
-<p>]</p>
 </dd></dl>
 
 <dl class="py method">
