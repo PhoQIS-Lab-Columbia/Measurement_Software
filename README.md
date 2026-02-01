@@ -1,8 +1,10 @@
 # Measurement Software
 
+By Mary Grace D'Avanzo
+
 ## Overview
 
-Measurement Software is a Python package for controlling and automating a variety of laboratory measurement instruments. It provides a unified interface for experiment setup, data acquisition, and instrument management, enabling users to streamline workflows and automate repetitive tasks. The package version can be downloaded by TODO
+Measurement Software is a Python package for controlling and automating a variety of laboratory measurement instruments. It provides a unified interface for experiment setup, data acquisition, and instrument management, enabling users to streamline workflows and automate repetitive tasks. The package version can be downloaded by running pip install -i https://test.pypi.org/simple/ measurement-instruments
 
 ## Features
 
@@ -20,7 +22,6 @@ Measurement Software is a Python package for controlling and automating a variet
 - RF Switch (Vasta)
 - DC Power Supply (Siglent)
 - Signal Generator (Signal Core)
-- Lock In Amplifier (SRS)
 - Digital Attenuator (Vanuix)
 - Flow Meter (Keyence)
 - Additional instruments can be added using provided jupyter notebook AddANewInstrument.ipynb
@@ -43,15 +44,15 @@ If you plan to just use the library and not modify it in any way, instead of clo
 
   If you are setting this up on a new computer, You will also need to install a VISA driver for the program to talk to. Download the appropriate visa for your system on the National Instrument website: [NI-VISA Download](https://www.ni.com/en/support/downloads/drivers/download.ni-visa.html?srsltid=AfmBOorVfmnA2doyRSh73r9AQEBtnI1TnYyEls5m_Z0yTSMRIdfTDlDy#570633)
 
-  If you plan to use the following instrumentsSignal Hound Specturm Analyzer you will also need to download the [Spike visualization Software](https://signalhound.com/spike/?srsltid=AfmBOoozG63C7yQ_YqGvtIc8od2RNExMac8wMt943VV0tb1fW7MqZ3x4)
+  If you plan to use the following instruments you'll need to download the corresponding software:
+  - Signal Hound Specturm Analyzer - [Spike visualization Software](https://signalhound.com/spike/?srsltid=AfmBOoozG63C7yQ_YqGvtIc8od2RNExMac8wMt943VV0tb1fW7MqZ3x4)
+  - Flowmeter -
+  - Vector Network Analyzer -
 
-3. **Run an experiment**  
-  Use the provided experiment template in the `Experiments/` directory to get started and view coding examples. 
-
-4. **Add a new instrument**  
+3. **Add a new instrument**  
   Follow the instructions in `Instruments/AddANewInstrument.ipynb` to integrate new hardware.
 
-5. **Updating public library instance**
+4. **Updating public library instance**
    
 ## Contributing
 
