@@ -57,7 +57,9 @@ class DigitalAttenuator(Instrument):
         print(f"Disconnected {self.get_model_name()} with serial number {self.get_serial_number()}")
     
     def set_channel(self, channel):
-        """Sets the channel to be controlled."""
+        """Sets the channel to be controlled.
+        
+        :param channel: Channel number (1 to 4)"""
         status = self.instrument.fnLDA_SetChannel(self.devid, int(channel))
         return status
 
