@@ -14040,9 +14040,6 @@ class Trigger:
         """
         Generates a trigger signal and initiates a sweep if the trigger source is set to BUS and analyzer is in trigger waiting state.
 
-        
-
-
         """
         self.instrument.write(":TRIG:SEQ:SING")
 
