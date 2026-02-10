@@ -7,7 +7,7 @@
 Instrument documentation
 ========================
 
-Measurement Software is a Python package for controlling and automating a variety of laboratory measurement instruments. It provides a unified interface for experiment setup, data acquisition, and instrument management, enabling users to streamline workflows and automate repetitive tasks. The package version can be downloaded through a pip install: pip install -i https://test.pypi.org/simple/ measurement-instruments
+Measurement Software is a Python package for controlling and automating a variety of laboratory measurement instruments. It provides a unified interface for experiment setup, data acquisition, and instrument management, enabling users to streamline workflows and automate repetitive tasks. The package version can be downloaded through a pip install: pip install phoqis-measurement-instruments
 
 .. toctree::
    :maxdepth: 3
