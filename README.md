@@ -34,14 +34,9 @@ Along with the instrument classes the api contains the classes NetworkHandler fo
 ## Getting Started
 If you plan to just use the library and not modify it in any way, instead of cloning the repository use the published version of the [library](https://pypi.org/project/phoqis-measurement-instruments/) and use the pip install at the link for latest version. See [ExperimentScripts](https://github.com/PhoQIS-Lab-Columbia/ExperimentScripts) for a template experiments on how to use this library. Full documentation can be found at [insert link].
 
-If this is a new PC, ensure NI0VISA is downloaded along with the following instrument specfic applications for all instruments you plan to use:
+If this is a new PC, ensure NI-VISA is downloaded along with the following instrument specfic applications for all instruments you plan to use:
 
- Download the appropriate visa for your system on the National Instrument website: [NI-VISA Download](https://www.ni.com/en/support/downloads/drivers/download.ni-visa.html?srsltid=AfmBOorVfmnA2doyRSh73r9AQEBtnI1TnYyEls5m_Z0yTSMRIdfTDlDy#570633)
 
-  If you plan to use the following instruments you'll need to download the corresponding software:
-  - Signal Hound Specturm Analyzer - [Spike visualization Software](https://signalhound.com/spike/?srsltid=AfmBOoozG63C7yQ_YqGvtIc8od2RNExMac8wMt943VV0tb1fW7MqZ3x4)
-  - Flowmeter - [NQ Sensor Monitor](https://www.keyence.com/support/user/sensor/network-communication/software/)
-  - Vector Network Analyzer - [S4 VNA Software](https://coppermountaintech.com/demo-the-software/)
 
 1. **Clone the repository**  
   `git clone <https://github.com/phoqis-lab/Measurement_Software>`
