@@ -23,10 +23,10 @@ Instruments/spectrum_analyzer_signal_hound.py
 Instruments/vector_network_analyzer_copper_mountain.py
 Instruments/vector_network_analyzer_helper.py
 Instruments/data/__init__.py
-measurement_instruments_Grace_Davanzo.egg-info/PKG-INFO
-measurement_instruments_Grace_Davanzo.egg-info/SOURCES.txt
-measurement_instruments_Grace_Davanzo.egg-info/dependency_links.txt
-measurement_instruments_Grace_Davanzo.egg-info/top_level.txt
+phoqis_measurement_instruments.egg-info/PKG-INFO
+phoqis_measurement_instruments.egg-info/SOURCES.txt
+phoqis_measurement_instruments.egg-info/dependency_links.txt
+phoqis_measurement_instruments.egg-info/top_level.txt
 tests/test_attenuator.py
 tests/test_data_handler.py
 tests/test_dc_power.py

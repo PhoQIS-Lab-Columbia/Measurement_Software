@@ -56,25 +56,13 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">NetworkManager</span><span class="p">:</span>
 <div class="viewcode-block" id="NetworkManager.__init__">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">non_default_program_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">non_default_instrument_ports</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">rm</span> <span class="o">=</span> <span class="n">pyvisa</span><span class="o">.</span><span class="n">ResourceManager</span><span class="p">()):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rm</span> <span class="o">=</span> <span class="n">pyvisa</span><span class="o">.</span><span class="n">ResourceManager</span><span class="p">()):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the NetworkManager to handle setting up instruments and establishing VISA connections.</span>
 <span class="sd">            </span>
-<span class="sd">            :param non_default_program_path: path to a json file containing non-default program paths for instruments. If None, internal default will be used</span>
-<span class="sd">            :type non_default_program_path: string</span>
-<span class="sd">            :param non_default_instrument_ports: string - path to a json file containing non-default instrument ports. If None, internal default will be used</span>
-<span class="sd">            :type non_default_instrument_ports: string</span>
 <span class="sd">            :param rm: pyvisa.ResourceManager - Resource manager to use for instrument connections. If None, a new resource manager will be created.</span>
 <span class="sd">            :type rm: pyvisa.ResourceManager&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rm</span> <span class="o">=</span> <span class="n">rm</span>
-        <span class="k">if</span> <span class="n">non_default_program_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">program_path</span> <span class="o">=</span> <span class="s1">&#39;program_paths.json&#39;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">program_path</span> <span class="o">=</span> <span class="n">non_default_program_path</span>
-
-        <span class="k">if</span> <span class="n">non_default_instrument_ports</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument_ports</span> <span class="o">=</span> <span class="s1">&#39;instrumentPorts.json&#39;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument_ports</span> <span class="o">=</span> <span class="n">non_default_instrument_ports</span></div>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">rm</span> <span class="o">=</span> <span class="n">rm</span></div>
 
         
 
@@ -87,6 +75,7 @@
 <span class="sd">        :type process_name: str</span>
 <span class="sd">        :return: True if the process is running, False otherwise.</span>
 <span class="sd">        :rtype: bool&quot;&quot;&quot;</span>
+        
         <span class="n">pieces</span> <span class="o">=</span> <span class="n">process_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
         <span class="n">process_name</span> <span class="o">=</span> <span class="n">pieces</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pieces</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">call</span> <span class="o">=</span> <span class="s1">&#39;TASKLIST&#39;</span><span class="p">,</span> <span class="s1">&#39;/FI&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;imagename eq </span><span class="si">{</span><span class="n">process_name</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -115,7 +104,7 @@
     
 <div class="viewcode-block" id="NetworkManager.create_instrument">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.create_instrument">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">create_instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">saved_files_path</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">saved_files_path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create new instrument object based on the name using the selected port.</span>
 <span class="sd">        </span>
 <span class="sd">        :param name: name of the instrument</span>
@@ -130,9 +119,9 @@
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">OSCILLOSCOPE</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="n">name</span> <span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">OSCILLOSCOPE</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Oscilloscope</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span><span class="n">saved_files_path</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">name</span><span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">SPECTRUM_ANALYZER</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="n">name</span><span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">SPECTRUM_ANALYZER</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_spectrum_analyzer</span><span class="p">(</span><span class="n">saved_files_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_spectrum_analyzer</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span><span class="n">saved_files_path</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">name</span><span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">VECTOR_NETWORK_ANALYZER</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="n">name</span><span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">VECTOR_NETWORK_ANALYZER</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_vector_network_analyzer</span><span class="p">(</span><span class="n">saved_files_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_vector_network_analyzer</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span><span class="n">saved_files_path</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">DIGITAL_ATTENUATOR</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="n">name</span> <span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">DIGITAL_ATTENUATOR</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_digital_attenuators</span><span class="p">(</span><span class="n">saved_files_path</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">RF_SWITCH</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="n">name</span> <span class="o">==</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">RF_SWITCH</span><span class="p">:</span>
@@ -166,17 +155,12 @@
         <span class="c1">#Remove ports that are known to not be instruments</span>
         <span class="n">unknown_resources</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">resources</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
         <span class="n">instruments</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">unknown_resources</span><span class="p">)</span>
 
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;with importlib.resources.open_text(&#39;Instruments.data&#39;,&#39;instrumentPorts.json&#39;) as f:</span>
-<span class="sd">            instrumentPorts = json.load(f) &#39;&#39;&#39;</span>
         <span class="n">instrumentPorts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;RIGOL TECHNOLOGIES,DS1202Z-E,DS1ZE264M00036,00.06.04&quot;</span><span class="p">:</span><span class="s2">&quot;oscilloscope&quot;</span><span class="p">,</span>
 <span class="s2">&quot;Siglent Technologies,SPD3303C,SPD3EGGD802587,1.02.01.02.02R3,V2.0&quot;</span><span class="p">:</span><span class="s2">&quot;dc power supply&quot;</span><span class="p">,</span>
 <span class="s2">&quot;spectrum analyzer&quot;</span><span class="p">:</span><span class="s2">&quot;TCPIP0::localhost::5026::SOCKET&quot;</span><span class="p">,</span>
 <span class="s2">&quot;vector network analyzer&quot;</span><span class="p">:</span><span class="s2">&quot;TCPIP0::localhost::5025::SOCKET&quot;</span><span class="p">,</span>
-<span class="s2">&quot;rf switch&quot;</span><span class="p">:</span><span class="s2">&quot;TCPIP0::192.168.0.8::8249::SOCKET&quot;</span>
-
-<span class="p">}</span>
+<span class="s2">&quot;rf switch&quot;</span><span class="p">:</span><span class="s2">&quot;TCPIP0::192.168.0.8::8249::SOCKET&quot;</span><span class="p">}</span>
         <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">unknown_resources</span><span class="p">:</span>
         <span class="c1">#for i in range(0,1):</span>
             <span class="c1">#port = unknown_resources[i]</span>
@@ -192,14 +176,15 @@
             <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">instrumentPorts</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">instrument_list</span> <span class="o">==</span> <span class="p">[]</span> <span class="ow">or</span> <span class="n">EInstrument</span><span class="p">(</span><span class="n">instrumentPorts</span><span class="p">[</span><span class="nb">id</span><span class="p">])</span> <span class="ow">in</span> <span class="n">instrument_list</span><span class="p">):</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;To create instrument: &quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instrumentPorts</span><span class="p">[</span><span class="nb">id</span><span class="p">]))</span>
                 <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_instrument</span><span class="p">(</span><span class="n">instrumentPorts</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span><span class="n">inst</span><span class="p">,</span><span class="n">saved_files_path</span><span class="p">))</span>
+        
         <span class="k">if</span> <span class="n">instrument_list</span> <span class="o">==</span> <span class="p">[]</span> <span class="ow">or</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">VECTOR_NETWORK_ANALYZER</span> <span class="ow">in</span> <span class="n">instrument_list</span><span class="p">:</span>
-            <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connect_vector_network_analyzer</span><span class="p">(</span><span class="n">saved_files_path</span><span class="p">))</span>
+            <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connect_vector_network_analyzer</span><span class="p">(</span><span class="n">instrumentPorts</span><span class="p">[</span><span class="s2">&quot;vector network analyzer&quot;</span><span class="p">],</span><span class="n">saved_files_path</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">instrument_list</span> <span class="o">==</span> <span class="p">[]</span> <span class="ow">or</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">SPECTRUM_ANALYZER</span> <span class="ow">in</span> <span class="n">instrument_list</span><span class="p">:</span>
-            <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connect_spectrum_analyzer</span><span class="p">(</span><span class="n">saved_files_path</span><span class="p">))</span>
+            <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connect_spectrum_analyzer</span><span class="p">(</span><span class="n">instrumentPorts</span><span class="p">[</span><span class="s2">&quot;spectrum analyzer&quot;</span><span class="p">],</span><span class="n">saved_files_path</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">instrument_list</span> <span class="o">==</span> <span class="p">[]</span> <span class="ow">or</span> <span class="n">EInstrument</span><span class="o">.</span><span class="n">DIGITAL_ATTENUATOR</span> <span class="ow">in</span> <span class="n">instrument_list</span><span class="p">:</span>
             <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connect_digital_attenuators</span><span class="p">(</span><span class="n">saved_files_path</span><span class="p">))</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Abount to leave connect instrument.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;About to leave connect instrument.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">instruments</span></div>
 
     
@@ -212,28 +197,31 @@
 <span class="sd">        :type saved_files: list of str</span>
 <span class="sd">        :return: Flowmeter object connected to the NQ Sensor Monitor software.</span>
 <span class="sd">        :rtype: Flowmeter&quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="n">Flowmeter</span><span class="p">(</span><span class="n">saved_files</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="NetworkManager.connect_oscilloscope">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.connect_oscilloscope">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">connect_oscilloscope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Oscilloscope</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect_oscilloscope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Oscilloscope</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to the Rigol Oscilloscope and return an Oscilloscope object.</span>
 <span class="sd">        </span>
 <span class="sd">        :param saved_files_path: Path to save files for the Oscilloscope.</span>
 <span class="sd">        :type saved_files_path: str</span>
 <span class="sd">        :return: Oscilloscope object connected to the Rigol Oscilloscope.</span>
 <span class="sd">        :rtype: Oscilloscope&quot;&quot;&quot;</span>
-        <span class="n">osc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_instruments</span><span class="p">([</span><span class="n">EInstrument</span><span class="o">.</span><span class="n">OSCILLOSCOPE</span><span class="p">],</span><span class="n">saved_files_path</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">osc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">port</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;RIGOL TECHNOLOGIES,DS1202Z-E,DS1ZE264M00036,00.06.04&quot;</span>
+        <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rm</span><span class="o">.</span><span class="n">open_resource</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">read_termination</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">osc</span> <span class="o">=</span> <span class="n">Oscilloscope</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span><span class="n">saved_files_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">osc</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Oscilloscope failed to connect.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">osc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">osc</span></div>
 
             
 <div class="viewcode-block" id="NetworkManager.connect_spectrum_analyzer">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.connect_spectrum_analyzer">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">connect_spectrum_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SpectrumAnalyzer</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect_spectrum_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">port</span><span class="p">,</span> <span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SpectrumAnalyzer</span><span class="p">:</span>
         <span class="c1">#try: </span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to the Signal Hound Spike software and return a SpectrumAnalyzer object.</span>
 
@@ -241,18 +229,16 @@
 <span class="sd">        :type saved_files_path: str</span>
 <span class="sd">        :return: SpectrumAnalyzer object connected to the Spike software.</span>
 <span class="sd">        :rtype: SpectrumAnalyzer&quot;&quot;&quot;</span>
-<span class="w">        </span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;with importlib.resources.open_text(&#39;Instruments.data&#39;,&#39;program_paths.json&#39;) as file:</span>
-<span class="sd">            p = json.load(file)&#39;&#39;&#39;</span>
+        
         <span class="n">program_path</span> <span class="o">=</span> <span class="s2">&quot;C:/Program Files/Signal Hound/Spike/Spike.exe&quot;</span><span class="c1">#p[EInstrument.SPECTRUM_ANALYZER.value]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_exists</span><span class="p">(</span><span class="n">program_path</span><span class="p">):</span>
             <span class="n">app</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_process_by_name</span><span class="p">(</span><span class="n">program_path</span><span class="p">)</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">program_path</span><span class="p">],</span> <span class="n">shell</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;with importlib.resources.open_text(&#39;Instruments.data&#39;,&#39;instrumentPorts.json&#39;) as file:</span>
-<span class="sd">            ip = json.load(file)&#39;&#39;&#39;</span>
+        
         <span class="c1"># Open a session to the Spike software, Spike must be running at this point</span>
-        <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;TCPIP0::localhost::5026::SOCKET&quot;</span><span class="c1">#ip[EInstrument.SPECTRUM_ANALYZER.value]</span>
+        <span class="k">if</span> <span class="n">port</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;TCPIP0::localhost::5026::SOCKET&quot;</span><span class="c1">#ip[EInstrument.SPECTRUM_ANALYZER.value]</span>
         <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rm</span><span class="o">.</span><span class="n">open_resource</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
 
         <span class="c1"># For SOCKET programming, we want to tell VISA to use a terminating character</span>
@@ -266,7 +252,7 @@
     
 <div class="viewcode-block" id="NetworkManager.connect_vector_network_analyzer">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.connect_vector_network_analyzer">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">connect_vector_network_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VNA</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect_vector_network_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">port</span><span class="p">,</span> <span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VNA</span><span class="p">:</span>
         <span class="c1">#try: </span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Connect to the Copper Mountain Technologies S4VNA software and return a VNA object.</span>
@@ -275,14 +261,13 @@
 <span class="sd">        :type saved_files_path: str</span>
 <span class="sd">        :return: VNA object connected to the S4VNA software.</span>
 <span class="sd">        :rtype: VNA&quot;&quot;&quot;</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;with importlib.resources.open_text(&#39;Instruments.data&#39;,&#39;program_paths.json&#39;) as file:</span>
-<span class="sd">            p = json.load(file)&#39;&#39;&#39;</span>
+        
         <span class="n">program_path</span> <span class="o">=</span> <span class="s2">&quot;C:/VNA/S4VNA/S4VNA.exe&quot;</span><span class="c1">#p[EInstrument.VECTOR_NETWORK_ANALYZER.value]</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="n">program_path</span><span class="p">],</span> <span class="n">shell</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;with importlib.resources.open_text(&#39;Instruments.data&#39;,&#39;instrumentPorts.json&#39;) as file:</span>
-<span class="sd">            ip = json.load(file)&#39;&#39;&#39;</span>
-        <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;TCPIP0::localhost::5025::SOCKET&quot;</span><span class="c1">#ip[EInstrument.VECTOR_NETWORK_ANALYZER.value]</span>
+    
+        <span class="k">if</span> <span class="n">port</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;TCPIP0::localhost::5025::SOCKET&quot;</span>
         
         <span class="c1"># Open a session to the S4VNA software, S4VNA must be running at this point</span>
         <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rm</span><span class="o">.</span><span class="n">open_resource</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
@@ -305,26 +290,32 @@
 <span class="sd">        :type saved_files: list of str</span>
 <span class="sd">        :return: Flowmeter object connected to the NQ Sensor Monitor software.</span>
 <span class="sd">        :rtype: Flowmeter&quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="n">Flowmeter</span><span class="p">(</span><span class="n">saved_files</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="NetworkManager.connect_dc_power_supply">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.connect_dc_power_supply">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">connect_dc_power_supply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DCPowerSupply</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect_dc_power_supply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DCPowerSupply</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to the DC Power Supply and return a DCPowerSupply object.</span>
 <span class="sd">        </span>
 <span class="sd">        :param saved_files_path: Path to save files for the DC Power Supply.</span>
 <span class="sd">        :type saved_files_path: str</span>
 <span class="sd">        :return: DCPowerSupply object connected to the DC Power Supply.</span>
 <span class="sd">        :rtype: DCPowerSupply&quot;&quot;&quot;</span>
-        <span class="n">dc_power</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_instruments</span><span class="p">([</span><span class="n">EInstrument</span><span class="o">.</span><span class="n">DC_POWER_SUPPLY</span><span class="p">],</span><span class="n">saved_files_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">port</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;Siglent Technologies,SPD3303C,SPD3EGGD802587,1.02.01.02.02R3,V2.0&quot;</span>
+        <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rm</span><span class="o">.</span><span class="n">open_resource</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">read_termination</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">dc_power</span> <span class="o">=</span> <span class="n">DCPowerSupply</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">saved_files_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dc_power</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;DC Power Supply failed to connect.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dc_power</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+        
+        <span class="k">return</span> <span class="n">dc_power</span></div>
 
+    
 <div class="viewcode-block" id="NetworkManager.connect_rf_switch">
 <a class="viewcode-back" href="../../generated/Instruments.network_manager.NetworkManager.html#Instruments.network_manager.NetworkManager.connect_rf_switch">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">connect_rf_switch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RF_Switch</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect_rf_switch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">saved_files_path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RF_Switch</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to the RF Switch and return a RF_Switch object.</span>
 <span class="sd">        </span>
 <span class="sd">        :param saved_files_path: Path to save files for the RF Switch.</span>
@@ -332,7 +323,9 @@
 <span class="sd">        :return: RF_Switch object connected to the RF Switch.</span>
 <span class="sd">        :rtype: RF_Switch&quot;&quot;&quot;</span>
 
-        <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;TCPIP0::192.168.0.8::8249::SOCKET&quot;</span><span class="c1">#ip[EInstrument.RF_SWITCH.value]</span>
+        <span class="k">if</span> <span class="n">port</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;TCPIP0::192.168.0.8::8249::SOCKET&quot;</span>
+        
         <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rm</span><span class="o">.</span><span class="n">open_resource</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
 
         <span class="c1"># For SOCKET programming, we want to tell VISA to use a terminating character</span>
@@ -351,6 +344,7 @@
 <span class="sd">        :type saved_files_path: str</span>
 <span class="sd">        :return: DigitalAttenuator object connected to the Vanuix Digital Attenuator.</span>
 <span class="sd">        :rtype: DigitalAttenuator&quot;&quot;&quot;</span>
+
         <span class="c1">#os.add_dll_directory(os.getcwd())</span>
         <span class="c1">#TODO Add an add digital attnuator and have it take device id as param, only return that one, call that function in here recursively</span>
         <span class="k">if</span> <span class="n">struct</span><span class="o">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">==</span> <span class="mi">32</span><span class="p">:</span>
@@ -406,6 +400,7 @@
 <span class="sd">        </span>
 <span class="sd">        :param instruments: Instrument object or list of Instrument objects to disconnect.</span>
 <span class="sd">        :type instruments: Instrument or list of Instrument&quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">instruments</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">instruments</span> <span class="o">=</span> <span class="p">[</span><span class="n">instruments</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">instruments</span><span class="p">:</span>

@@ -115,7 +115,9 @@
 <div class="viewcode-block" id="DigitalAttenuator.set_channel">
 <a class="viewcode-back" href="../../generated/Instruments.digital_attenuator_vanuix.DigitalAttenuator.html#Instruments.digital_attenuator_vanuix.DigitalAttenuator.set_channel">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the channel to be controlled.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the channel to be controlled.</span>
+<span class="sd">        </span>
+<span class="sd">        :param channel: Channel number (1 to 4)&quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">fnLDA_SetChannel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">devid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">channel</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">status</span></div>
 
