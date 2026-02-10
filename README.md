@@ -32,7 +32,7 @@ Each instrument contains two components: helper and a main. Helper consists of u
 Along with the instrument classes the api contains the classes NetworkHandler for connecting and managing instrument connections and DataHandler for saving and processing raw instrument data.
 
 ## Getting Started
-If you plan to just use the library and not modify it in any way, instead of cloning the repository use the published version of the [library](https://pypi.org/project/phoqis-measurement-instruments/) and use the pip install at the link for latest version. See [ExperimentScripts](https://github.com/PhoQIS-Lab-Columbia/ExperimentScripts) for a template experiments on how to use this library. Full documentation can be found at [insert link].
+If you plan to just use the library and not modify it in any way, instead of cloning the repository use the published version of the [library](https://pypi.org/project/phoqis-measurement-instruments/) and use the pip install at the link for latest version. See [ExperimentScripts](https://github.com/PhoQIS-Lab-Columbia/ExperimentScripts) for a template experiments on how to use this library. Full documentation can be found at [readthedocs](https://measurement-software.readthedocs.io/en/latest/).
 
 If this is a new PC, ensure NI-VISA is downloaded along with the following instrument specfic applications for all instruments you plan to use:
 
