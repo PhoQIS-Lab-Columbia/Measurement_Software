@@ -73,7 +73,7 @@ The updates should be reflected on the PhoQis PyPi account and the it will autom
 
 5. **Updating the public documentation**
 
-The current documentation is published on [ReadthDocs](https://measurement-software.readthedocs.io/en/latest/) It is connected to the PhoQis Quantum Developer github so it should automatically rebuild when changes are pushed to the main branch.
+The current documentation is published on [ReadtheDocs](https://measurement-software.readthedocs.io/en/latest/) It is connected to the PhoQis Quantum Developer github so it should automatically rebuild when changes are pushed to the main branch.
    
 ## Contributing
 
