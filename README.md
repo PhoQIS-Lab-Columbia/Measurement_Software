@@ -4,7 +4,7 @@ By Mary Grace D'Avanzo
 
 ## Overview
 
-Measurement Software is a Python package for controlling and automating a variety of laboratory measurement instruments. It provides a unified interface for experiment setup, data acquisition, and instrument management, enabling users to streamline workflows and automate repetitive tasks. The package version can be downloaded by running pip install -i https://test.pypi.org/simple/ measurement-instruments
+Measurement Software is a Python package for controlling and automating a variety of laboratory measurement instruments. It provides a unified interface for experiment setup, data acquisition, and instrument management, enabling users to streamline workflows and automate repetitive tasks. The package version can be downloaded by running pip install phoqis-measurement-instruments
 
 ## Features
 
@@ -32,7 +32,7 @@ Each instrument contains two components: helper and a main. Helper consists of u
 Along with the instrument classes the api contains the classes NetworkHandler for connecting and managing instrument connections and DataHandler for saving and processing raw instrument data.
 
 ## Getting Started
-If you plan to just use the library and not modify it in any way, instead of cloning the repository go the following address https://test.pypi.org/project/measurement-instruments/ and use the pip install at link. See [insert github link] for a template experiment on how to use this library. Full documentation can be found at [insert link].
+If you plan to just use the library and not modify it in any way, instead of cloning the repository use the published version of the [library](https://pypi.org/project/phoqis-measurement-instruments/) and use the pip install at the link for latest version. See [ExperimentScripts](https://github.com/PhoQIS-Lab-Columbia/ExperimentScripts) for a template experiments on how to use this library. Full documentation can be found at [insert link].
 
 If this is a new PC, ensure NI0VISA is downloaded along with the following instrument specfic applications for all instruments you plan to use:
 
@@ -73,7 +73,7 @@ The updates should be reflected on the PhoQis PyPi account and the it will autom
 
 5. **Updating the public documentation**
 
-
+The current documentation is published on [ReadthDocs](https://measurement-software.readthedocs.io/en/latest/) It is connected to the PhoQis Quantum Developer github so it should automatically rebuild when changes are pushed to the main branch.
    
 ## Contributing
 
