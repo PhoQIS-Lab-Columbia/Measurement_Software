@@ -56,13 +56,18 @@ If this is a new PC, ensure NI-VISA is downloaded along with the following instr
 
   First ensure setuptools and build is upgraded and then use it to build the python library:
   ```python3 -m pip install setuptools```
+
   ``` python3 -m pip install --upgrade build```
+
   ``` python3 -m build```
 
 This will package the library to prepare it for distribution. To then publish the update to PyPi, use twine and the following terminal commands.
 
 ```python3 -m pip install --upgrade twine```
+
 ```python3 -m twine upload dist/*  ```
+
+The second command will ask for an api token. The current api token can be found in the PhoQis Labs secure passwords repository. With a log in to PyPi, you may also generate a new api token.
 
 The updates should be reflected on the PhoQis PyPi account and the it will automatically update the pip install needed to downloaded. Ensure you run a pip --upgrade for the library in whatever python enviroment you are using for your experiments.
 
