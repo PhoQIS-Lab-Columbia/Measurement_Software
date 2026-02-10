@@ -6,7 +6,7 @@ with open(path.join(work_dir, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='phoqis_measurement_instruments',
-    version='1.0.0',
+    version='1.0.1',
     url='https://github.com/phoqis-lab/Measurement_Software',
     author='Mary Grace D Avanzo',
     author_email='mgdavanzo26@gmail.com',
