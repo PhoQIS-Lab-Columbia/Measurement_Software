@@ -3510,7 +3510,7 @@
             <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">iq</span> <span class="o">=</span> <span class="n">IQ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">IQ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
 </div>
 
 
@@ -4405,152 +4405,152 @@
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">View_NA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">correction</span> <span class="o">=</span> <span class="n">Correction_NA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">View_NA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">correction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Correction_NA</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
 
         
-<div class="viewcode-block" id="Sense.View_NA">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.View_NA">[docs]</a>
-    <span class="k">class</span><span class="w"> </span><span class="nc">View_NA</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;View commands control the view settings in scalar network analysis mode.&quot;&quot;&quot;</span>
-<div class="viewcode-block" id="Sense.View_NA.__init__">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.View_NA.__init__">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
+<div class="viewcode-block" id="Sense.NA.View_NA">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.View_NA">[docs]</a>
+        <span class="k">class</span><span class="w"> </span><span class="nc">View_NA</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;View commands control the view settings in scalar network analysis mode.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Sense.NA.View_NA.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.View_NA.__init__">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
 
 
-<div class="viewcode-block" id="Sense.View_NA.set_scale">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.View_NA.set_scale">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">set_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Specify whether the plot is in log or VSWR units. A unique reference</span>
-<span class="sd">            level and div are stored for both scale types.</span>
+<div class="viewcode-block" id="Sense.NA.View_NA.set_scale">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.View_NA.set_scale">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">set_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Specify whether the plot is in log or VSWR units. A unique reference</span>
+<span class="sd">                level and div are stored for both scale types.</span>
 
-<span class="sd">            :param scale: &#39;LOG&#39; or &#39;VSWR&#39;.</span>
+<span class="sd">                :param scale: &#39;LOG&#39; or &#39;VSWR&#39;.</span>
 
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;LOG&quot;</span><span class="p">,</span> <span class="s2">&quot;VSWR&quot;</span><span class="p">}</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">scale</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;scale must be &#39;LOG&#39; or &#39;VSWR&#39;&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:NA:VIEW:SCALe </span><span class="si">{</span><span class="n">scale</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Sense.View_NA.get_scale">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.View_NA.get_scale">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">get_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Query whether the plot is in log or VSWR units.</span>
-
-<span class="sd">            </span>
-<span class="sd">            :return: The plot scale.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:NA:VIEW:SCALe?&quot;</span><span class="p">)</span></div>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;LOG&quot;</span><span class="p">,</span> <span class="s2">&quot;VSWR&quot;</span><span class="p">}</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">scale</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;scale must be &#39;LOG&#39; or &#39;VSWR&#39;&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:NA:VIEW:SCALe </span><span class="si">{</span><span class="n">scale</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Sense.View_NA.set_rlevel">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.View_NA.set_rlevel">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">set_rlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Specify the reference level. When log scale is selected, the rlevel is</span>
-<span class="sd">            specified as dBm, when VSWR is selected, rlevel is specified as SWR directly.</span>
-<span class="sd">            Do not specify units.</span>
+<div class="viewcode-block" id="Sense.NA.View_NA.get_scale">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.View_NA.get_scale">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">get_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Query whether the plot is in log or VSWR units.</span>
 
-<span class="sd">            :param amplitude: Reference level in dBm (LOG) or SWR (VSWR).</span>
-
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:NA:VIEW:RLEVel </span><span class="si">{</span><span class="n">amplitude</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+<span class="sd">                </span>
+<span class="sd">                :return: The plot scale.</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:NA:VIEW:SCALe?&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Sense.View_NA.get_rlevel">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.View_NA.get_rlevel">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">get_rlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Query the reference level. When log scale is selected, the rlevel is</span>
-<span class="sd">            specified as dBm, when VSWR is selected, rlevel is specified as SWR directly.</span>
+<div class="viewcode-block" id="Sense.NA.View_NA.set_rlevel">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.View_NA.set_rlevel">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">set_rlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Specify the reference level. When log scale is selected, the rlevel is</span>
+<span class="sd">                specified as dBm, when VSWR is selected, rlevel is specified as SWR directly.</span>
+<span class="sd">                Do not specify units.</span>
 
-<span class="sd">            </span>
-<span class="sd">            :return: The reference level.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:NA:VIEW:RLEVel?&quot;</span><span class="p">))</span></div>
+<span class="sd">                :param amplitude: Reference level in dBm (LOG) or SWR (VSWR).</span>
 
-
-<div class="viewcode-block" id="Sense.View_NA.set_div">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.View_NA.set_div">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">set_div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">division</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Specify the plot vertical scale as either dB or SWR (depending on what</span>
-<span class="sd">            scale is currently selected). Do not specify units. In each case, the div is 1/10th the</span>
-<span class="sd">            vertical scale of the plot.</span>
-
-<span class="sd">            :param division: Plot vertical scale as dB (LOG) or SWR (VSWR).</span>
-
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:NA:VIEW:DIV </span><span class="si">{</span><span class="n">division</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:NA:VIEW:RLEVel </span><span class="si">{</span><span class="n">amplitude</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Sense.View_NA.get_div">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.View_NA.get_div">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">get_div</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Query the plot vertical scale as either dB or SWR (depending on what</span>
-<span class="sd">            scale is currently selected). In each case, the div is 1/10th the vertical scale of the plot.</span>
+<div class="viewcode-block" id="Sense.NA.View_NA.get_rlevel">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.View_NA.get_rlevel">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">get_rlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Query the reference level. When log scale is selected, the rlevel is</span>
+<span class="sd">                specified as dBm, when VSWR is selected, rlevel is specified as SWR directly.</span>
 
-<span class="sd">            </span>
-<span class="sd">            :return: The plot vertical scale.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:NA:VIEW:DIV?&quot;</span><span class="p">))</span></div>
+<span class="sd">                </span>
+<span class="sd">                :return: The reference level.</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:NA:VIEW:RLEVel?&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Sense.NA.View_NA.set_div">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.View_NA.set_div">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">set_div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">division</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Specify the plot vertical scale as either dB or SWR (depending on what</span>
+<span class="sd">                scale is currently selected). Do not specify units. In each case, the div is 1/10th the</span>
+<span class="sd">                vertical scale of the plot.</span>
+
+<span class="sd">                :param division: Plot vertical scale as dB (LOG) or SWR (VSWR).</span>
+
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:NA:VIEW:DIV </span><span class="si">{</span><span class="n">division</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Sense.NA.View_NA.get_div">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.View_NA.get_div">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">get_div</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Query the plot vertical scale as either dB or SWR (depending on what</span>
+<span class="sd">                scale is currently selected). In each case, the div is 1/10th the vertical scale of the plot.</span>
+
+<span class="sd">                </span>
+<span class="sd">                :return: The plot vertical scale.</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:NA:VIEW:DIV?&quot;</span><span class="p">))</span></div>
 </div>
 
-<div class="viewcode-block" id="Sense.Correction_NA">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.Correction_NA">[docs]</a>
-    <span class="k">class</span><span class="w"> </span><span class="nc">Correction_NA</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The Correction commands control the correction settings in scalar network analysis mode.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="Sense.Correction_NA.__init__">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.Correction_NA.__init__">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
-
-
-<div class="viewcode-block" id="Sense.Correction_NA.store_thru">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.Correction_NA.store_thru">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">store_thru</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Sense.NA.Correction_NA">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.Correction_NA">[docs]</a>
+        <span class="k">class</span><span class="w"> </span><span class="nc">Correction_NA</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Perform a store through calibration.</span>
-
-<span class="sd">            </span>
-
+<span class="sd">            The Correction commands control the correction settings in scalar network analysis mode.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SENSe:CORRection:NA:STORe:THRU&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Sense.NA.Correction_NA.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.Correction_NA.__init__">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
 
 
-<div class="viewcode-block" id="Sense.Correction_NA.store_thru_high">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.Correction_NA.store_thru_high">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">store_thru_high</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Perform a store through high range calibration.</span>
+<div class="viewcode-block" id="Sense.NA.Correction_NA.store_thru">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.Correction_NA.store_thru">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">store_thru</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Perform a store through calibration.</span>
 
-<span class="sd">            </span>
+<span class="sd">                </span>
 
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SENSe:CORRection:NA:STORe:THRU:HIGH&quot;</span><span class="p">)</span></div>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SENSe:CORRection:NA:STORe:THRU&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Sense.Correction_NA.is_thru_active">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.Correction_NA.is_thru_active">[docs]</a>
-        <span class="k">def</span><span class="w"> </span><span class="nf">is_thru_active</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Returns true when a calibration is active (the store through has been performed for the current sweep settings).</span>
+<div class="viewcode-block" id="Sense.NA.Correction_NA.store_thru_high">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.Correction_NA.store_thru_high">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">store_thru_high</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Perform a store through high range calibration.</span>
 
-<span class="sd">            </span>
-<span class="sd">            :return:  True if a calibration is active, False otherwise.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:CORRection:NA:STORe:THRU:ACTive?&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span></div>
+<span class="sd">                </span>
+
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;:SENSe:CORRection:NA:STORe:THRU:HIGH&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Sense.NA.Correction_NA.is_thru_active">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.NA.Correction_NA.is_thru_active">[docs]</a>
+            <span class="k">def</span><span class="w"> </span><span class="nf">is_thru_active</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Returns true when a calibration is active (the store through has been performed for the current sweep settings).</span>
+
+<span class="sd">                </span>
+<span class="sd">                :return:  True if a calibration is active, False otherwise.</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:CORRection:NA:STORe:THRU:ACTive?&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span></div>
+</div>
 </div>
 
 <div class="viewcode-block" id="Sense.VCO_Sense">
@@ -7882,7 +7882,7 @@
             <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">detector</span> <span class="o">=</span> <span class="n">SEMask</span><span class="o">.</span><span class="n">Sweep</span><span class="o">.</span><span class="n">Detector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">detector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Detector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Sense.SEMask.SEMask_Sweep.Detector">
 <a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.SEMask.SEMask_Sweep.Detector">[docs]</a>
