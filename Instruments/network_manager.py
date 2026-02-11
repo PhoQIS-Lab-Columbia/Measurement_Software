@@ -148,7 +148,7 @@ class NetworkManager:
 
         return Flowmeter(saved_files)
     
-    def connect_oscilloscope(self,port,saved_files_path = None) -> Oscilloscope:
+    def connect_oscilloscope(self,port = None,saved_files_path = None) -> Oscilloscope:
         """Connect to the Rigol Oscilloscope and return an Oscilloscope object.
         
         :param saved_files_path: Path to save files for the Oscilloscope.
@@ -163,7 +163,7 @@ class NetworkManager:
             raise ValueError("Oscilloscope failed to connect.")
         return osc
             
-    def connect_spectrum_analyzer(self,port, saved_files_path = None) -> SpectrumAnalyzer:
+    def connect_spectrum_analyzer(self,port = None, saved_files_path = None) -> SpectrumAnalyzer:
         #try: 
         """Connect to the Signal Hound Spike software and return a SpectrumAnalyzer object.
 
@@ -191,7 +191,7 @@ class NetworkManager:
             #raise ValueError("Spectrum Analyzer failed to connect.")
         return SpectrumAnalyzer(inst,app, program_path,saved_files_path)
     
-    def connect_vector_network_analyzer(self,port, saved_files_path = None) -> VNA:
+    def connect_vector_network_analyzer(self,port = None, saved_files_path = None) -> VNA:
         #try: 
         """
         Connect to the Copper Mountain Technologies S4VNA software and return a VNA object.
@@ -229,7 +229,7 @@ class NetworkManager:
 
         return Flowmeter(saved_files)
     
-    def connect_dc_power_supply(self,port,saved_files_path = None) -> DCPowerSupply:
+    def connect_dc_power_supply(self,port = None,saved_files_path = None) -> DCPowerSupply:
         """Connect to the DC Power Supply and return a DCPowerSupply object.
         
         :param saved_files_path: Path to save files for the DC Power Supply.

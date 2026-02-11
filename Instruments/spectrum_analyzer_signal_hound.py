@@ -2656,7 +2656,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.iq = IQ(self.instrument, self.data_handler)
+                self.iq = self.IQ(self.instrument, self.data_handler)
 
         class IQ:
             """
@@ -3328,113 +3328,113 @@ class Sense:
         def __init__(self, instrument,data_handler):
             self.instrument = instrument
             self.data_handler = data_handler
-            self.view = View_NA(self.instrument, self.data_handler)
-            self.correction = Correction_NA(self.instrument, self.data_handler)
+            self.view = self.View_NA(self.instrument, self.data_handler)
+            self.correction = self.Correction_NA(self.instrument, self.data_handler)
         
-    class View_NA:
-        """View commands control the view settings in scalar network analysis mode."""
-        def __init__(self, instrument,data_handler):
-            self.instrument = instrument
-            self.data_handler = data_handler
+        class View_NA:
+            """View commands control the view settings in scalar network analysis mode."""
+            def __init__(self, instrument,data_handler):
+                self.instrument = instrument
+                self.data_handler = data_handler
 
-        def set_scale(self, scale):
+            def set_scale(self, scale):
+                """
+                Specify whether the plot is in log or VSWR units. A unique reference
+                level and div are stored for both scale types.
+
+                :param scale: 'LOG' or 'VSWR'.
+
+                """
+                allowed = {"LOG", "VSWR"}
+                if not isinstance(scale, str) or scale.upper() not in allowed:
+                    raise ValueError("scale must be 'LOG' or 'VSWR'")
+                self.instrument.write(f":SENSe:NA:VIEW:SCALe {scale.upper()}")
+
+            def get_scale(self):
+                """
+                Query whether the plot is in log or VSWR units.
+
+                
+                :return: The plot scale.
+                """
+                return self.instrument.query(":SENSe:NA:VIEW:SCALe?")
+
+            def set_rlevel(self, amplitude):
+                """
+                Specify the reference level. When log scale is selected, the rlevel is
+                specified as dBm, when VSWR is selected, rlevel is specified as SWR directly.
+                Do not specify units.
+
+                :param amplitude: Reference level in dBm (LOG) or SWR (VSWR).
+
+                """
+                self.instrument.write(f":SENSe:NA:VIEW:RLEVel {amplitude}")
+
+            def get_rlevel(self):
+                """
+                Query the reference level. When log scale is selected, the rlevel is
+                specified as dBm, when VSWR is selected, rlevel is specified as SWR directly.
+
+                
+                :return: The reference level.
+                """
+                return float(self.instrument.query(":SENSe:NA:VIEW:RLEVel?"))
+
+            def set_div(self, division):
+                """
+                Specify the plot vertical scale as either dB or SWR (depending on what
+                scale is currently selected). Do not specify units. In each case, the div is 1/10th the
+                vertical scale of the plot.
+
+                :param division: Plot vertical scale as dB (LOG) or SWR (VSWR).
+
+                """
+                self.instrument.write(f":SENSe:NA:VIEW:DIV {division}")
+
+            def get_div(self):
+                """
+                Query the plot vertical scale as either dB or SWR (depending on what
+                scale is currently selected). In each case, the div is 1/10th the vertical scale of the plot.
+
+                
+                :return: The plot vertical scale.
+                """
+                return float(self.instrument.query(":SENSe:NA:VIEW:DIV?"))
+        class Correction_NA:
             """
-            Specify whether the plot is in log or VSWR units. A unique reference
-            level and div are stored for both scale types.
-
-            :param scale: 'LOG' or 'VSWR'.
-
+            The Correction commands control the correction settings in scalar network analysis mode.
             """
-            allowed = {"LOG", "VSWR"}
-            if not isinstance(scale, str) or scale.upper() not in allowed:
-                raise ValueError("scale must be 'LOG' or 'VSWR'")
-            self.instrument.write(f":SENSe:NA:VIEW:SCALe {scale.upper()}")
+            def __init__(self, instrument,data_handler):
+                self.instrument = instrument
+                self.data_handler = data_handler
 
-        def get_scale(self):
-            """
-            Query whether the plot is in log or VSWR units.
+            def store_thru(self):
+                """
+                Perform a store through calibration.
 
-            
-            :return: The plot scale.
-            """
-            return self.instrument.query(":SENSe:NA:VIEW:SCALe?")
+                
 
-        def set_rlevel(self, amplitude):
-            """
-            Specify the reference level. When log scale is selected, the rlevel is
-            specified as dBm, when VSWR is selected, rlevel is specified as SWR directly.
-            Do not specify units.
+                """
+                self.instrument.write(":SENSe:CORRection:NA:STORe:THRU")
 
-            :param amplitude: Reference level in dBm (LOG) or SWR (VSWR).
+            def store_thru_high(self):
+                """
+                Perform a store through high range calibration.
 
-            """
-            self.instrument.write(f":SENSe:NA:VIEW:RLEVel {amplitude}")
+                
 
-        def get_rlevel(self):
-            """
-            Query the reference level. When log scale is selected, the rlevel is
-            specified as dBm, when VSWR is selected, rlevel is specified as SWR directly.
+                """
+                self.instrument.write(":SENSe:CORRection:NA:STORe:THRU:HIGH")
 
-            
-            :return: The reference level.
-            """
-            return float(self.instrument.query(":SENSe:NA:VIEW:RLEVel?"))
+            def is_thru_active(self):
+                """
+                Returns true when a calibration is active (the store through has been performed for the current sweep settings).
 
-        def set_div(self, division):
-            """
-            Specify the plot vertical scale as either dB or SWR (depending on what
-            scale is currently selected). Do not specify units. In each case, the div is 1/10th the
-            vertical scale of the plot.
-
-            :param division: Plot vertical scale as dB (LOG) or SWR (VSWR).
-
-            """
-            self.instrument.write(f":SENSe:NA:VIEW:DIV {division}")
-
-        def get_div(self):
-            """
-            Query the plot vertical scale as either dB or SWR (depending on what
-            scale is currently selected). In each case, the div is 1/10th the vertical scale of the plot.
-
-            
-            :return: The plot vertical scale.
-            """
-            return float(self.instrument.query(":SENSe:NA:VIEW:DIV?"))
-    class Correction_NA:
-        """
-        The Correction commands control the correction settings in scalar network analysis mode.
-        """
-        def __init__(self, instrument,data_handler):
-            self.instrument = instrument
-            self.data_handler = data_handler
-
-        def store_thru(self):
-            """
-            Perform a store through calibration.
-
-            
-
-            """
-            self.instrument.write(":SENSe:CORRection:NA:STORe:THRU")
-
-        def store_thru_high(self):
-            """
-            Perform a store through high range calibration.
-
-            
-
-            """
-            self.instrument.write(":SENSe:CORRection:NA:STORe:THRU:HIGH")
-
-        def is_thru_active(self):
-            """
-            Returns true when a calibration is active (the store through has been performed for the current sweep settings).
-
-            
-            :return:  True if a calibration is active, False otherwise.
-            """
-            resp = self.instrument.query(":SENSe:CORRection:NA:STORe:THRU:ACTive?")
-            return resp.strip() == '1'
+                
+                :return:  True if a calibration is active, False otherwise.
+                """
+                resp = self.instrument.query(":SENSe:CORRection:NA:STORe:THRU:ACTive?")
+                return resp.strip() == '1'
     class VCO_Sense:
         """
         The VCO commands control the configuration of the measurement in VCO Characterization mode.
@@ -5954,7 +5954,7 @@ class Sense:
             def __init__(self, instrument,data_handler):
                 self.instrument = instrument
                 self.data_handler = data_handler
-                self.detector = SEMask.Sweep.Detector(self.instrument, self.data_handler)
+                self.detector = self.Detector(self.instrument, self.data_handler)
             class Detector:
                 """
                 The Detector commands control the detector function and units in SEM mode.

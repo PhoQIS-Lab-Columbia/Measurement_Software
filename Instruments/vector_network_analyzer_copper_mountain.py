@@ -9250,7 +9250,7 @@ frequency offset, channel data transfer."""
                     self.instrument = instrument
                     self.data_handler = data_handler
                     self.channel = channel
-                    self.description = self.Description(instrument, data_handler, channel)
+                    self.calib_kit = self.Calib_Kit(instrument, data_handler, channel)
                     self.order = self.Order(instrument, data_handler, channel)
 
                 # SENSe:CORRection:COLLect:CKIT[:SELect] <numeric>
