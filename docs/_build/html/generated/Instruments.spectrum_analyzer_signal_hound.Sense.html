@@ -1056,6 +1056,67 @@ Can specify a list of metrics to request as a comma separated list. The metrics 
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Custom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Custom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The Custom commands configure custom IQ constellations for digital demodulation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Custom.IQ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>The IQ commands configure and query custom IQ constellation data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Custom.IQ.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Custom.IQ.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.get_data" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the constellation symbols as a comma separated list of alternating
+IQ values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The constellation symbols as a comma separated list of alternating IQ values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.get_length">
+<span class="sig-name descname"><span class="pre">get_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Custom.IQ.get_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.get_length" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of symbols in the custom constellation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The number of symbols in the custom constellation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Custom.IQ.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.is_valid" title="Link to this definition">¶</a></dt>
+<dd><p>Returns 1 when the custom constellation is valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the custom constellation is valid, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.set_data">
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iq_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Custom.IQ.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.set_data" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the constellation symbols as IQ values. IQ values are specified as
+comma separated real numbers, alternating IQ values. If an odd number of real
+values are provided the last value is ignored. If any value is an invalid real number,
+the command fails and throws a system error. While not strictly necessary, it is
+suggested to scale the constellation so that the maximum symbol magnitude is 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tuple</strong><strong>)</strong> (<em>iq_values</em><em> (</em><em>list or</em>) – List of real numbers, alternating I/Q values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.Custom.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.__init__" title="Link to this definition">¶</a></dt>
@@ -1210,67 +1271,6 @@ separated list in the order they were requested.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return table<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of (ID, Description) tuples for available metrics.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.IQ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>The IQ commands configure and query custom IQ constellation data.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instrument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.IQ.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.__init__" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.get_data">
-<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.IQ.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.get_data" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the constellation symbols as a comma separated list of alternating
-IQ values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The constellation symbols as a comma separated list of alternating IQ values.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.get_length">
-<span class="sig-name descname"><span class="pre">get_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.IQ.get_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.get_length" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the number of symbols in the custom constellation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The number of symbols in the custom constellation.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.is_valid">
-<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.IQ.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.is_valid" title="Link to this definition">¶</a></dt>
-<dd><p>Returns 1 when the custom constellation is valid.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if the custom constellation is valid, False otherwise.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.set_data">
-<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iq_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/Instruments/spectrum_analyzer_signal_hound.html#Sense.DDEMod.IQ.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.set_data" title="Link to this definition">¶</a></dt>
-<dd><p>Specify the constellation symbols as IQ values. IQ values are specified as
-comma separated real numbers, alternating IQ values. If an odd number of real
-values are provided the last value is ignored. If any value is an invalid real number,
-the command fails and throws a system error. While not strictly necessary, it is
-suggested to scale the constellation so that the maximum symbol magnitude is 1.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tuple</strong><strong>)</strong> (<em>iq_values</em><em> (</em><em>list or</em>) – List of real numbers, alternating I/Q values.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -2658,61 +2658,61 @@ class Sense:
                 self.data_handler = data_handler
                 self.iq = self.IQ(self.instrument, self.data_handler)
 
-        class IQ:
-            """
-            The IQ commands configure and query custom IQ constellation data.
-            """
-            def __init__(self, instrument,data_handler):
-                self.instrument = instrument
-                self.data_handler = data_handler
-
-            def is_valid(self):
+            class IQ:
                 """
-                Returns 1 when the custom constellation is valid.
-
-                
-                :return:  True if the custom constellation is valid, False otherwise.
+                The IQ commands configure and query custom IQ constellation data.
                 """
-                resp = self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:VALid?")
-                return int(resp.strip()) == 1
+                def __init__(self, instrument,data_handler):
+                    self.instrument = instrument
+                    self.data_handler = data_handler
 
-            def get_length(self):
-                """
-                Returns the number of symbols in the custom constellation.
+                def is_valid(self):
+                    """
+                    Returns 1 when the custom constellation is valid.
 
-                
-                :return: The number of symbols in the custom constellation.
-                """
-                return int(self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:LENGth?"))
+                    
+                    :return:  True if the custom constellation is valid, False otherwise.
+                    """
+                    resp = self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:VALid?")
+                    return int(resp.strip()) == 1
 
-            def set_data(self, iq_values):
-                """
-                Specify the constellation symbols as IQ values. IQ values are specified as
-                comma separated real numbers, alternating IQ values. If an odd number of real
-                values are provided the last value is ignored. If any value is an invalid real number,
-                the command fails and throws a system error. While not strictly necessary, it is
-                suggested to scale the constellation so that the maximum symbol magnitude is 1.
+                def get_length(self):
+                    """
+                    Returns the number of symbols in the custom constellation.
 
-                :param iq_values (list or tuple): List of real numbers, alternating I/Q values.
+                    
+                    :return: The number of symbols in the custom constellation.
+                    """
+                    return int(self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:LENGth?"))
 
-                """
-                if not isinstance(iq_values, (list, tuple)) or not all(isinstance(x, (int, float)) for x in iq_values):
-                    raise ValueError("iq_values must be a list or tuple of real numbers")
-                data_str = ",".join(str(x) for x in iq_values)
-                self.instrument.write(f":SENSe:DDEMod:CUSTom:IQ:DATA {data_str}")
+                def set_data(self, iq_values):
+                    """
+                    Specify the constellation symbols as IQ values. IQ values are specified as
+                    comma separated real numbers, alternating IQ values. If an odd number of real
+                    values are provided the last value is ignored. If any value is an invalid real number,
+                    the command fails and throws a system error. While not strictly necessary, it is
+                    suggested to scale the constellation so that the maximum symbol magnitude is 1.
 
-            def get_data(self):
-                """
-                Returns the constellation symbols as a comma separated list of alternating
-                IQ values.
+                    :param iq_values (list or tuple): List of real numbers, alternating I/Q values.
 
-                
-                :return: The constellation symbols as a comma separated list of alternating IQ values.
-                """
-                response = self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:DATA?")
-                if self.data_handler.is_auto_saving_data_enabled():
-                    self.data_handler.write_to_file(self, "DDEMOD_IQ", response, file_type = EFileType.CSV, headers = None)
-                return response
+                    """
+                    if not isinstance(iq_values, (list, tuple)) or not all(isinstance(x, (int, float)) for x in iq_values):
+                        raise ValueError("iq_values must be a list or tuple of real numbers")
+                    data_str = ",".join(str(x) for x in iq_values)
+                    self.instrument.write(f":SENSe:DDEMod:CUSTom:IQ:DATA {data_str}")
+
+                def get_data(self):
+                    """
+                    Returns the constellation symbols as a comma separated list of alternating
+                    IQ values.
+
+                    
+                    :return: The constellation symbols as a comma separated list of alternating IQ values.
+                    """
+                    response = self.instrument.query(":SENSe:DDEMod:CUSTom:IQ:DATA?")
+                    if self.data_handler.is_auto_saving_data_enabled():
+                        self.data_handler.write_to_file(self, "DDEMOD_IQ", response, file_type = EFileType.CSV, headers = None)
+                    return response
         class Trigger_DDE:
             """
             The DDEMod:Trigger commands configure triggering for digital demodulation.

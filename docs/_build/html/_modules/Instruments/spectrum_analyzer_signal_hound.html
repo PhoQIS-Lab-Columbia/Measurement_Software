@@ -3511,80 +3511,80 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">iq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">IQ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Sense.DDEMod.Custom.IQ">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ">[docs]</a>
+            <span class="k">class</span><span class="w"> </span><span class="nc">IQ</span><span class="p">:</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                The IQ commands configure and query custom IQ constellation data.</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Sense.DDEMod.Custom.IQ.__init__">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.__init__">[docs]</a>
+                <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
+
+
+<div class="viewcode-block" id="Sense.DDEMod.Custom.IQ.is_valid">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.is_valid">[docs]</a>
+                <span class="k">def</span><span class="w"> </span><span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                    Returns 1 when the custom constellation is valid.</span>
+
+<span class="sd">                    </span>
+<span class="sd">                    :return:  True if the custom constellation is valid, False otherwise.</span>
+<span class="sd">                    &quot;&quot;&quot;</span>
+                    <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:DDEMod:CUSTom:IQ:VALid?&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="Sense.DDEMod.Custom.IQ.get_length">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.get_length">[docs]</a>
+                <span class="k">def</span><span class="w"> </span><span class="nf">get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                    Returns the number of symbols in the custom constellation.</span>
+
+<span class="sd">                    </span>
+<span class="sd">                    :return: The number of symbols in the custom constellation.</span>
+<span class="sd">                    &quot;&quot;&quot;</span>
+                    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:DDEMod:CUSTom:IQ:LENGth?&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Sense.DDEMod.Custom.IQ.set_data">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.set_data">[docs]</a>
+                <span class="k">def</span><span class="w"> </span><span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iq_values</span><span class="p">):</span>
+<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                    Specify the constellation symbols as IQ values. IQ values are specified as</span>
+<span class="sd">                    comma separated real numbers, alternating IQ values. If an odd number of real</span>
+<span class="sd">                    values are provided the last value is ignored. If any value is an invalid real number,</span>
+<span class="sd">                    the command fails and throws a system error. While not strictly necessary, it is</span>
+<span class="sd">                    suggested to scale the constellation so that the maximum symbol magnitude is 1.</span>
+
+<span class="sd">                    :param iq_values (list or tuple): List of real numbers, alternating I/Q values.</span>
+
+<span class="sd">                    &quot;&quot;&quot;</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">iq_values</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iq_values</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;iq_values must be a list or tuple of real numbers&quot;</span><span class="p">)</span>
+                    <span class="n">data_str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iq_values</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:DDEMod:CUSTom:IQ:DATA </span><span class="si">{</span><span class="n">data_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Sense.DDEMod.Custom.IQ.get_data">
+<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.Custom.IQ.get_data">[docs]</a>
+                <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">                    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                    Returns the constellation symbols as a comma separated list of alternating</span>
+<span class="sd">                    IQ values.</span>
+
+<span class="sd">                    </span>
+<span class="sd">                    :return: The constellation symbols as a comma separated list of alternating IQ values.</span>
+<span class="sd">                    &quot;&quot;&quot;</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:DDEMod:CUSTom:IQ:DATA?&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">is_auto_saving_data_enabled</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;DDEMOD_IQ&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">file_type</span> <span class="o">=</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">response</span></div>
 </div>
-
-
-<div class="viewcode-block" id="Sense.DDEMod.IQ">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ">[docs]</a>
-        <span class="k">class</span><span class="w"> </span><span class="nc">IQ</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            The IQ commands configure and query custom IQ constellation data.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="Sense.DDEMod.IQ.__init__">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.__init__">[docs]</a>
-            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span><span class="n">data_handler</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span> <span class="o">=</span> <span class="n">data_handler</span></div>
-
-
-<div class="viewcode-block" id="Sense.DDEMod.IQ.is_valid">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.is_valid">[docs]</a>
-            <span class="k">def</span><span class="w"> </span><span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Returns 1 when the custom constellation is valid.</span>
-
-<span class="sd">                </span>
-<span class="sd">                :return:  True if the custom constellation is valid, False otherwise.</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:DDEMod:CUSTom:IQ:VALid?&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span></div>
-
-
-<div class="viewcode-block" id="Sense.DDEMod.IQ.get_length">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.get_length">[docs]</a>
-            <span class="k">def</span><span class="w"> </span><span class="nf">get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Returns the number of symbols in the custom constellation.</span>
-
-<span class="sd">                </span>
-<span class="sd">                :return: The number of symbols in the custom constellation.</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:DDEMod:CUSTom:IQ:LENGth?&quot;</span><span class="p">))</span></div>
-
-
-<div class="viewcode-block" id="Sense.DDEMod.IQ.set_data">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.set_data">[docs]</a>
-            <span class="k">def</span><span class="w"> </span><span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iq_values</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Specify the constellation symbols as IQ values. IQ values are specified as</span>
-<span class="sd">                comma separated real numbers, alternating IQ values. If an odd number of real</span>
-<span class="sd">                values are provided the last value is ignored. If any value is an invalid real number,</span>
-<span class="sd">                the command fails and throws a system error. While not strictly necessary, it is</span>
-<span class="sd">                suggested to scale the constellation so that the maximum symbol magnitude is 1.</span>
-
-<span class="sd">                :param iq_values (list or tuple): List of real numbers, alternating I/Q values.</span>
-
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">iq_values</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iq_values</span><span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;iq_values must be a list or tuple of real numbers&quot;</span><span class="p">)</span>
-                <span class="n">data_str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iq_values</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;:SENSe:DDEMod:CUSTom:IQ:DATA </span><span class="si">{</span><span class="n">data_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Sense.DDEMod.IQ.get_data">
-<a class="viewcode-back" href="../../generated/Instruments.spectrum_analyzer_signal_hound.Sense.html#Instruments.spectrum_analyzer_signal_hound.Sense.DDEMod.IQ.get_data">[docs]</a>
-            <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Returns the constellation symbols as a comma separated list of alternating</span>
-<span class="sd">                IQ values.</span>
-
-<span class="sd">                </span>
-<span class="sd">                :return: The constellation symbols as a comma separated list of alternating IQ values.</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instrument</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;:SENSe:DDEMod:CUSTom:IQ:DATA?&quot;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">is_auto_saving_data_enabled</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">data_handler</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;DDEMOD_IQ&quot;</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">file_type</span> <span class="o">=</span> <span class="n">EFileType</span><span class="o">.</span><span class="n">CSV</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">response</span></div>
 </div>
 
 <div class="viewcode-block" id="Sense.DDEMod.Trigger_DDE">
